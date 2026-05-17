@@ -1,0 +1,18 @@
+services:
+  memgraph:
+    image: memgraph/memgraph:2.2.1
+    container_name: dongtan-memgraph
+    ports:
+      - "7687:7687"
+    volumes:
+      - ./mg_data:/var/lib/memgraph
+    restart: always
+
+  memgraph-lab:
+    image: memgraph/lab:latest
+    container_name: dongtan-memgraph-lab
+    ports:
+      - "3000:3000"
+    depends_on:
+      - memgraph
+    restart: always

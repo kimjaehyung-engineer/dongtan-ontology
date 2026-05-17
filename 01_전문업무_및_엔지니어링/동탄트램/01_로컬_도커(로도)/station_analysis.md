@@ -1,0 +1,225 @@
+# 정거장 설계 관련 기준 및 리스크 분석
+
+## ⚠️ 기술 제약 및 기준 (TECHNICAL_REQ & HUB_LINK)
+- 101역 (반월삼거리/기점) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 102역 (삼성1로) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 103역 (동탄원천로) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 104역 (동탄중심상가) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 105역 (동탄반석로) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 106역 (동탄중앙로) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 107/201 정거장 (동탄역) ➡️ [TECHNICAL_REQ] ➡️ 표준: 유치선 구배
+- 107/201 정거장 (동탄역) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최대 구배(본선)
+- 107/201 정거장 (동탄역) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(본선)
+- 107/201 정거장 (동탄역) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 107/201 정거장 (동탄역) ➡️ [TECHNICAL_REQ] ➡️ 표준: 플랫폼 폭
+- 107/201역 (동탄역 하부보강) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 107역 (동탄역/지하환승) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 108역 (오산천/지상) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 109역 (동탄순환대로) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 110역 (신리천) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 111역 (동탄호수공원) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 112역 (장지동/종점) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 201역 (병점역/환승) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 202역 (병점중심상가) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 209역 (동탄역 하부/중첩) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 219역 (오산역/환승) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- DC 750V 고효율 급전 시스템 설계 ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 견인변전소(T/S) 8개소 ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 광역상수도 공사 중첩 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 광역상수도 관로복선화 중첩 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 광역철도(망포/오산역) 환승 연계 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 급전전압 DC 750V (변동범위 500V~900V) ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 도심 밀집 정거장 (19개소 평면선형) ➡️ [TECHNICAL_REQ] ➡️ 표준: 유치선 구배
+- 도심 밀집 정거장 (19개소 평면선형) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최대 구배(본선)
+- 도심 밀집 정거장 (19개소 평면선형) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(본선)
+- 도심 밀집 정거장 (19개소 평면선형) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 도심 밀집 정거장 (19개소 평면선형) ➡️ [TECHNICAL_REQ] ➡️ 표준: 플랫폼 폭
+- 동탄역 상업지구 보행안전 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 오산역 (117역) 환승센터 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 오산역(117역) 환승센터 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 전력 부하 및 충전 인터페이스 해석 ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 정거장 구간 급속 충전(Quick Charging) 시스템 ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 정거장 구간 급속 충전(Quick Charging) 시스템 ➡️ [HUB_LINK] ➡️ 지하변전소 비상 발전기 (500kW)
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ Justification: 5모듈 관절식 차량 특성
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ Strategy: 회차 시간 단축을 통한 차량 대수 최적화
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 사고복구차량 및 장비 (Rescue Vehicle)
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 지하변전소 비상 발전기 (500kW)
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 차량 내 고화질 CCTV (200만 화소 이상)
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 차량 동적 한계(Dynamic Envelope) 시뮬레이션
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 차량 상부 전용 폴딩 플랫폼
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 차량 정원 250명 (6인/m² 기준)
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 차량-인프라 인터페이스 불일치 리스크
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 차량공급전압 DC 750V
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 차량기지 제로 에너지 빌딩(ZEB)
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 차량기지 종합 관리 시스템 (TMS)
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 차량등판능력 (Climbing Ability)
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 통합 차량기지 (38편성 전체 수용)
+- 정거장 내 전기차(EV) 및 트램 화재 대응 설비 ➡️ [HUB_LINK] ➡️ 트램-일반차량 공용 구간 일체형 배수 설계
+- 정거장 무인 키오스크 ➡️ [TECHNICAL_REQ] ➡️ 표준: 유치선 구배
+- 정거장 무인 키오스크 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최대 구배(본선)
+- 정거장 무인 키오스크 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(본선)
+- 정거장 무인 키오스크 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 정거장 무인 키오스크 ➡️ [TECHNICAL_REQ] ➡️ 표준: 플랫폼 폭
+- 정거장 미세먼지 저감 시스템 ➡️ [TECHNICAL_REQ] ➡️ 표준: 유치선 구배
+- 정거장 미세먼지 저감 시스템 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최대 구배(본선)
+- 정거장 미세먼지 저감 시스템 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(본선)
+- 정거장 미세먼지 저감 시스템 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 정거장 미세먼지 저감 시스템 ➡️ [TECHNICAL_REQ] ➡️ 표준: 플랫폼 폭
+- 정거장 및 기지 통합 에너지 관리(HEMS) ➡️ [HUB_LINK] ➡️ 디지털 트윈 통합 유지관리 플랫폼
+- 정거장 및 기지 통합 에너지 관리(HEMS) ➡️ [HUB_LINK] ➡️ 운영 유지관리(O&M) 신뢰도
+- 정거장 및 기지 통합 에너지 관리(HEMS) ➡️ [HUB_LINK] ➡️ 유지관리 계측 시스템
+- 정거장 및 기지 통합 에너지 관리(HEMS) ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 정거장 및 기지 통합 에너지 관리(HEMS) ➡️ [HUB_LINK] ➡️ 지하변전소 비상 발전기 (500kW)
+- 정거장 태양광 발전 BIPV ➡️ [TECHNICAL_REQ] ➡️ 표준: 유치선 구배
+- 정거장 태양광 발전 BIPV ➡️ [TECHNICAL_REQ] ➡️ 표준: 최대 구배(본선)
+- 정거장 태양광 발전 BIPV ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(본선)
+- 정거장 태양광 발전 BIPV ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 정거장 태양광 발전 BIPV ➡️ [TECHNICAL_REQ] ➡️ 표준: 플랫폼 폭
+- 주변전소(M/S) 2개소 ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 지역난방관 이설 (4.9km 집중/2.5배) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 지역사회 및 시민 신뢰 확보 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 지장물 이설: 광역상수도 1000mm 이상 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 지하변전소 비상 발전기 (500kW) ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 차량공급전압 DC 750V ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 차량기지 제로 에너지 빌딩(ZEB) ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 팬터그래프 상승 충전 ➡️ [HUB_LINK] ➡️ 정거장 내 전기차(EV) 및 트램 화재 대응 설비
+- 표준 모듈러 기반 원가 절감 정거장 ➡️ [TECHNICAL_REQ] ➡️ 표준: 유치선 구배
+- 표준 모듈러 기반 원가 절감 정거장 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최대 구배(본선)
+- 표준 모듈러 기반 원가 절감 정거장 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(본선)
+- 표준 모듈러 기반 원가 절감 정거장 ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 표준 모듈러 기반 원가 절감 정거장 ➡️ [TECHNICAL_REQ] ➡️ 표준: 플랫폼 폭
+- 표준: 최소 곡선반경(정거장) ➡️ [TECHNICAL_REQ] ➡️ 표준: 유치선 구배
+- 표준: 최소 곡선반경(정거장) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최대 구배(본선)
+- 표준: 최소 곡선반경(정거장) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(본선)
+- 표준: 최소 곡선반경(정거장) ➡️ [TECHNICAL_REQ] ➡️ 표준: 최소 곡선반경(정거장)
+- 표준: 최소 곡선반경(정거장) ➡️ [TECHNICAL_REQ] ➡️ 표준: 플랫폼 폭
+
+## 🚨 리스크 파급 (RISK_IMPACT)
+- 101 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 101 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 101 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 101 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 101 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 101 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 101 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 102 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 102 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 102 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 102 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 102 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 102 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 102 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 103 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 103 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 103 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 103 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 103 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 103 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 103 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 104 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 104 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 104 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 104 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 104 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 104 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 104 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 105 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 105 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 105 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 105 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 105 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 105 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 105 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 106 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 106 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 106 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 106 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 106 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 106 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 106 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 107 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 107 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 107 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 107 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 107 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 107 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 107 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 107/201 정거장 (동탄역) ➡️ [RISK_IMPACT] ➡️ Borehole BH-101/102
+- 107/201 정거장 (동탄역) ➡️ [RISK_IMPACT] ➡️ Borehole BH-205/208 (Soft Ground)
+- 107/201 정거장 (동탄역) ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 107/201 정거장 (동탄역) ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 107/201 정거장 (동탄역) ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 107/201 정거장 (동탄역) ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 107/201 정거장 (동탄역) ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 107/201 정거장 (동탄역) ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 107/201 정거장 (동탄역) ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 108 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 108 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 108 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 108 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 108 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 108 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 108 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 109 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 109 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 109 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 109 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 109 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 109 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 109 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 110 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 110 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 110 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 110 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 110 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 110 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 110 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 111 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 111 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 111 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 111 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 111 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 111 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 111 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 112 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 112 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 112 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 112 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 112 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 112 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 112 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 113 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 113 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 113 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 113 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 113 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 113 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 113 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 114 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 114 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 114 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 114 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 114 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 114 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 114 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 115 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 115 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 115 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 115 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 115 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 115 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 115 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 116 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 116 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 116 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 116 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 116 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 116 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 116 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)
+- 117 정거장 상세 ➡️ [RISK_IMPACT] ➡️ Zero-Risk 지장물/교통 통합 관리
+- 117 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 공사 중 교통 소통 대책 (TMP)
+- 117 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통신호 우선권 제어 연동 (TSC Interface)
+- 117 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 교통약자의 이동편의 증진법 (BF 인증)
+- 117 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 도로 점용 및 교통 전환 계획 (TMP)
+- 117 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 동절기 난방 중단 집단 민원
+- 117 정거장 상세 ➡️ [RISK_IMPACT] ➡️ 정류기용 차단기 (HSCB 2000A)

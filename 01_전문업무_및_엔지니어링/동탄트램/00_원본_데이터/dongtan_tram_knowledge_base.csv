@@ -1,0 +1,241 @@
+﻿Name,Category,Details/Properties
+LCC(생애주기 비용),"Component, TramNode","{'name': 'LCC(생애주기 비용)', 'system_check': 'active'}"
+철도안전 및 승객안전,"Component, TramNode","{'name': '철도안전 및 승객안전', 'system_check': 'active'}"
+3D BIM Level 2,"Component, TramNode","{'category': 'HighLevel', 'name': '3D BIM Level 2', 'system_check': 'active'}"
+입찰 행정 및 리스크 관리,"Component, TramNode","{'name': '입찰 행정 및 리스크 관리', 'system_check': 'active'}"
+107/201역 (동탄역 하부보강),"Component, TramNode","{'category': 'Station', 'name': '107/201역 (동탄역 하부보강)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+팬터그래프 상승 충전,"Component, TramNode","{'name': '팬터그래프 상승 충전', 'system_check': 'active'}"
+광역상수도 관로복선화 중첩,"Risk, TramNode","{'name': '광역상수도 관로복선화 중첩', 'system_check': 'active'}"
+야간 소음 기준(65dB),"Risk, TramNode","{'name': '야간 소음 기준(65dB)', 'system_check': 'active'}"
+오산역(117역) 환승센터,"Component, TramNode","{'name': '오산역(117역) 환승센터', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+2공구 하천 횡단 교량,"Component, TramNode","{'name': '2공구 하천 횡단 교량', 'system_check': 'active'}"
+상업지구 보행안전,"Component, TramNode","{'name': '상업지구 보행안전', 'system_check': 'active'}"
+안전무결성 SIL4,"Constraint, TramNode","{'name': '안전무결성 SIL4', 'system_check': 'active'}"
+차상 신호장치(ATP/ATO),"Component, TramNode","{'name': '차상 신호장치(ATP/ATO)', 'system_check': 'active'}"
+철도통합무선망(LTE-R),"Component, TramNode","{'name': '철도통합무선망(LTE-R)', 'system_check': 'active'}"
+안전무결성등급 SIL4,"System_Spec, TramNode","{'name': '안전무결성등급 SIL4', 'system_check': 'active'}"
+철도통합무선망 (LTE-R),"System_Spec, TramNode","{'name': '철도통합무선망 (LTE-R)', 'system_check': 'active'}"
+107/201 정거장 (동탄역),"Section_1, TramNode","{'category': 'Station', 'name': '107/201 정거장 (동탄역)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+팬터그래프 상승방식,"Tech_Spec, TramNode","{'name': '팬터그래프 상승방식', 'system_check': 'active'}"
+야간 소음 기준 (65dB),"Risk_Factor, TramNode","{'name': '야간 소음 기준 (65dB)', 'system_check': 'active'}"
+오산천 교량 횡단 (655m),"Risk_Factor, TramNode","{'name': '오산천 교량 횡단 (655m)', 'system_check': 'active'}"
+광역상수도 공사 중첩,"Risk_Factor, TramNode","{'name': '광역상수도 공사 중첩', 'system_check': 'active'}"
+GPR 지표투과 레이더탐사,"Risk_Control, TramNode","{'name': 'GPR 지표투과 레이더탐사', 'system_check': 'active'}"
+오산역 (117역) 환승센터,"Section_2, TramNode","{'name': '오산역 (117역) 환승센터', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+동탄역 상업지구 보행안전,"Section_2, TramNode","{'name': '동탄역 상업지구 보행안전', 'system_check': 'active'}"
+구조물 내구등급 1등급(100년),"Tech_Spec, TramNode","{'name': '구조물 내구등급 1등급(100년)', 'system_check': 'active'}"
+고압분사주입공법 (JSP/SCW),"Tech_Spec, TramNode","{'name': '고압분사주입공법 (JSP/SCW)', 'system_check': 'active'}"
+혼합 주입 공법 (Soil Cement Wall),"Tech_Spec, TramNode","{'name': '혼합 주입 공법 (Soil Cement Wall)', 'system_check': 'active'}"
+어스앵커공법 (Earth Anchor),"Tech_Spec, TramNode","{'name': '어스앵커공법 (Earth Anchor)', 'system_check': 'active'}"
+붕괴유발부재 (Fracture Critical Member) 배제,"Tech_Spec, TramNode","{'name': '붕괴유발부재 (Fracture Critical Member) 배제', 'system_check': 'active'}"
+동평판재하시험 (Dynamic PBT),"Tech_Spec, TramNode","{'name': '동평판재하시험 (Dynamic PBT)', 'system_check': 'active'}"
+콘크리트도상층(TCL) 및 수경결합층(HSB),"Tech_Spec, TramNode","{'name': '콘크리트도상층(TCL) 및 수경결합층(HSB)', 'system_check': 'active'}"
+차량공급전압 DC 750V,"System_Spec, TramNode","{'category': 'HighLevel', 'name': '차량공급전압 DC 750V', 'system_check': 'active'}"
+이중계 (Hot Standby) 구성,"System_Spec, TramNode","{'name': '이중계 (Hot Standby) 구성', 'system_check': 'active'}"
+폐쇄형 전자화 수배전반,"System_Spec, TramNode","{'name': '폐쇄형 전자화 수배전반', 'system_check': 'active'}"
+통합접지방식 (저항 2Ω 이하),"System_Spec, TramNode","{'name': '통합접지방식 (저항 2Ω 이하)', 'system_check': 'active'}"
+고효율 몰드형 변압기,"System_Spec, TramNode","{'name': '고효율 몰드형 변압기', 'system_check': 'active'}"
+서지보호장치 (SPD),"System_Spec, TramNode","{'name': '서지보호장치 (SPD)', 'system_check': 'active'}"
+무가선 저상 노면전차 (Catenary-free),"Tech_Spec, TramNode","{'name': '무가선 저상 노면전차 (Catenary-free)', 'system_check': 'active'}"
+차륜전삭기 (Wheel Lathe),"Tech_Spec, TramNode","{'name': '차륜전삭기 (Wheel Lathe)', 'system_check': 'active'}"
+대차승강장치 (Bogie Lifting Device),"Tech_Spec, TramNode","{'name': '대차승강장치 (Bogie Lifting Device)', 'system_check': 'active'}"
+차량등판능력 (Climbing Ability),"Tech_Spec, TramNode","{'name': '차량등판능력 (Climbing Ability)', 'system_check': 'active'}"
+사고복구차량 및 장비 (Rescue Vehicle),"Tech_Spec, TramNode","{'name': '사고복구차량 및 장비 (Rescue Vehicle)', 'system_check': 'active'}"
+유지관리 계측 시스템,"Tech_Spec, TramNode","{'name': '유지관리 계측 시스템', 'system_check': 'active'}"
+차체 자동세척설비,"Tech_Spec, TramNode","{'name': '차체 자동세척설비', 'system_check': 'active'}"
+기술제안 건수 50건 제한,"Admin_Constraint, TramNode","{'name': '기술제안 건수 50건 제한', 'system_check': 'active'}"
+가중치기준방식 낙찰자 결정,"Admin_Constraint, TramNode","{'name': '가중치기준방식 낙찰자 결정', 'system_check': 'active'}"
+우선시공분 (Fast-Track) 적격평가,"Admin_Constraint, TramNode","{'name': '우선시공분 (Fast-Track) 적격평가', 'system_check': 'active'}"
+지장물 사전조사 누락 책임,"Risk_Factor, TramNode","{'name': '지장물 사전조사 누락 책임', 'system_check': 'active'}"
+공사손해보험 (CAR) 가입,"Risk_Factor, TramNode","{'name': '공사손해보험 (CAR) 가입', 'system_check': 'active'}"
+스마트 안전장비 의무 도입,"Risk_Control, TramNode","{'name': '스마트 안전장비 의무 도입', 'system_check': 'active'}"
+지하안전영향평가 반영,"Risk_Control, TramNode","{'name': '지하안전영향평가 반영', 'system_check': 'active'}"
+대금지급확인시스템 (하도급지킴이),"Risk_Control, TramNode","{'name': '대금지급확인시스템 (하도급지킴이)', 'system_check': 'active'}"
+입찰 경쟁력 극대화 (기술점수 확보),"Admin_Goal, TramNode","{'name': '입찰 경쟁력 극대화 (기술점수 확보)', 'system_check': 'active'}"
+운영 유지관리(O&M) 신뢰도,"Tech_Spec, TramNode","{'name': '운영 유지관리(O&M) 신뢰도', 'system_check': 'active'}"
+지역사회 및 시민 신뢰 확보,"Social_Value, TramNode","{'name': '지역사회 및 시민 신뢰 확보', 'system_check': 'active'}"
+1공구 입찰안내서 (RFP),TramNode,"{'name': '1공구 입찰안내서 (RFP)', 'system_check': 'active'}"
+2공구 입찰안내서 (RFP),TramNode,"{'name': '2공구 입찰안내서 (RFP)', 'system_check': 'active'}"
+도시철도 건설/설계 기준,TramNode,"{'name': '도시철도 건설/설계 기준', 'system_check': 'active'}"
+플로팅 궤도 (Floating Slab Track),TramNode,"{'name': '플로팅 궤도 (Floating Slab Track)', 'system_check': 'active'}"
+매립형 궤도 전용 소음 저감재,TramNode,"{'name': '매립형 궤도 전용 소음 저감재', 'system_check': 'active'}"
+정거장 태양광 발전 BIPV,TramNode,"{'name': '정거장 태양광 발전 BIPV', 'system_check': 'active'}"
+도심 경관 통합 디자인 가이드,TramNode,"{'name': '도심 경관 통합 디자인 가이드', 'system_check': 'active'}"
+우선신호 제어기 (TSC),TramNode,"{'name': '우선신호 제어기 (TSC)', 'system_check': 'active'}"
+차상 신호장치 연동 폐색,TramNode,"{'name': '차상 신호장치 연동 폐색', 'system_check': 'active'}"
+무정전 전원장치 (UPS),TramNode,"{'name': '무정전 전원장치 (UPS)', 'system_check': 'active'}"
+CCTV 지능형 영상분석,TramNode,"{'name': 'CCTV 지능형 영상분석', 'system_check': 'active'}"
+다중화 광전송망 (MSTP),TramNode,"{'name': '다중화 광전송망 (MSTP)', 'system_check': 'active'}"
+반밀폐형 스크린도어 (PSD),TramNode,"{'name': '반밀폐형 스크린도어 (PSD)', 'system_check': 'active'}"
+자동 화재 탐지 및 속보 설비,TramNode,"{'name': '자동 화재 탐지 및 속보 설비', 'system_check': 'active'}"
+차량기지 종합 관리 시스템 (TMS),TramNode,"{'name': '차량기지 종합 관리 시스템 (TMS)', 'system_check': 'active'}"
+정거장 미세먼지 저감 시스템,TramNode,"{'name': '정거장 미세먼지 저감 시스템', 'system_check': 'active'}"
+도로 점용 및 교통 전환 계획 (TMP),TramNode,"{'name': '도로 점용 및 교통 전환 계획 (TMP)', 'system_check': 'active'}"
+상하수도 관로 이설 및 복구,TramNode,"{'name': '상하수도 관로 이설 및 복구', 'system_check': 'active'}"
+도시가스 및 한전 관로 근접 시공,TramNode,"{'name': '도시가스 및 한전 관로 근접 시공', 'system_check': 'active'}"
+공사 중 보행자 안전 통로 확보,TramNode,"{'name': '공사 중 보행자 안전 통로 확보', 'system_check': 'active'}"
+LOD 400 수준 시공 상세 BIM,TramNode,"{'category': 'HighLevel', 'name': 'LOD 400 수준 시공 상세 BIM', 'system_check': 'active'}"
+공통 데이터 환경 (CDE),TramNode,"{'name': '공통 데이터 환경 (CDE)', 'system_check': 'active'}"
+스마트 안전 헬멧 및 웨어러블,TramNode,"{'name': '스마트 안전 헬멧 및 웨어러블', 'system_check': 'active'}"
+드론 활용 토공량 분석,TramNode,"{'name': '드론 활용 토공량 분석', 'system_check': 'active'}"
+디지털 트윈 통합 유지관리 플랫폼,Strategy,{'name': '디지털 트윈 통합 유지관리 플랫폼'}
+Zero-Risk 지장물/교통 통합 관리,Strategy,{'name': 'Zero-Risk 지장물/교통 통합 관리'}
+AI 기반 스마트 세이프티 허브,Strategy,{'name': 'AI 기반 스마트 세이프티 허브'}
+101역 (반월삼거리/기점),TramNode,"{'category': 'Station', 'name': '101역 (반월삼거리/기점)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+102역 (삼성1로),TramNode,"{'category': 'Station', 'name': '102역 (삼성1로)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+103역 (동탄원천로),TramNode,"{'category': 'Station', 'name': '103역 (동탄원천로)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+104역 (동탄중심상가),TramNode,"{'category': 'Station', 'name': '104역 (동탄중심상가)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+105역 (동탄반석로),TramNode,"{'category': 'Station', 'name': '105역 (동탄반석로)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+106역 (동탄중앙로),TramNode,"{'category': 'Station', 'name': '106역 (동탄중앙로)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+107역 (동탄역/지하환승),TramNode,"{'category': 'Station', 'name': '107역 (동탄역/지하환승)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+108역 (오산천/지상),TramNode,"{'category': 'Station', 'name': '108역 (오산천/지상)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+109역 (동탄순환대로),TramNode,"{'category': 'Station', 'name': '109역 (동탄순환대로)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+110역 (신리천),TramNode,"{'category': 'Station', 'name': '110역 (신리천)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+111역 (동탄호수공원),TramNode,"{'category': 'Station', 'name': '111역 (동탄호수공원)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+112역 (장지동/종점),TramNode,"{'category': 'Station', 'name': '112역 (장지동/종점)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+201역 (병점역/환승),TramNode,"{'category': 'Station', 'name': '201역 (병점역/환승)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+202역 (병점중심상가),TramNode,"{'category': 'Station', 'name': '202역 (병점중심상가)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+209역 (동탄역 하부/중첩),TramNode,"{'category': 'Station', 'name': '209역 (동탄역 하부/중첩)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+219역 (오산역/환승),TramNode,"{'category': 'Station', 'name': '219역 (오산역/환승)', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+반밀폐형 스크린도어(PSD) 15m,TramNode,"{'name': '반밀폐형 스크린도어(PSD) 15m', 'system_check': 'active'}"
+정거장 무인 키오스크,TramNode,"{'name': '정거장 무인 키오스크', 'system_check': 'active'}"
+시각장애인 유도블록 및 음성안내,TramNode,"{'name': '시각장애인 유도블록 및 음성안내', 'system_check': 'active'}"
+Ri60N 매립형 레일,TramNode,"{'name': 'Ri60N 매립형 레일', 'system_check': 'active'}"
+최대 기울기(구배) 60‰,TramNode,"{'name': '최대 기울기(구배) 60‰', 'system_check': 'active'}"
+최소 곡선반경 25m (본선),TramNode,"{'name': '최소 곡선반경 25m (본선)', 'system_check': 'active'}"
+궤도 중심간격 3.5m,TramNode,"{'name': '궤도 중심간격 3.5m', 'system_check': 'active'}"
+콘크리트 직결 궤도,TramNode,"{'name': '콘크리트 직결 궤도', 'system_check': 'active'}"
+주변전소(M/S) 2개소,TramNode,"{'name': '주변전소(M/S) 2개소', 'system_check': 'active'}"
+견인변전소(T/S) 8개소,TramNode,"{'name': '견인변전소(T/S) 8개소', 'system_check': 'active'}"
+정류기 용량 1500kW,TramNode,"{'name': '정류기 용량 1500kW', 'system_check': 'active'}"
+급전전압 DC 750V (변동범위 500V~900V),TramNode,"{'category': 'HighLevel', 'name': '급전전압 DC 750V (변동범위 500V~900V)', 'system_check': 'active'}"
+통합접지 저항 2Ω 이하,TramNode,"{'name': '통합접지 저항 2Ω 이하', 'system_check': 'active'}"
+5모듈 1편성 (35m급),TramNode,"{'name': '5모듈 1편성 (35m급)', 'system_check': 'active'}"
+알루미늄 합금 압출재 차체,TramNode,"{'name': '알루미늄 합금 압출재 차체', 'system_check': 'active'}"
+최대 운행속도 70km/h,TramNode,"{'name': '최대 운행속도 70km/h', 'system_check': 'active'}"
+상시 제동 감속도 1.2m/s²,TramNode,"{'name': '상시 제동 감속도 1.2m/s²', 'system_check': 'active'}"
+비상 제동 감속도 2.8m/s²,TramNode,"{'name': '비상 제동 감속도 2.8m/s²', 'system_check': 'active'}"
+차량 정원 250명 (6인/m² 기준),TramNode,"{'name': '차량 정원 250명 (6인/m² 기준)', 'system_check': 'active'}"
+차상 신호장치(ATP/ATO) SIL4 등급,TramNode,"{'name': '차상 신호장치(ATP/ATO) SIL4 등급', 'system_check': 'active'}"
+교통신호 우선권 제어 연동 (TSC Interface),TramNode,"{'name': '교통신호 우선권 제어 연동 (TSC Interface)', 'system_check': 'active'}"
+LTE-R 700MHz 국가재난안전망 연계,TramNode,"{'name': 'LTE-R 700MHz 국가재난안전망 연계', 'system_check': 'active'}"
+차량 내 고화질 CCTV (200만 화소 이상),TramNode,"{'name': '차량 내 고화질 CCTV (200만 화소 이상)', 'system_check': 'active'}"
+관제센터 통합 사령 서버 (Hot Standby),TramNode,"{'name': '관제센터 통합 사령 서버 (Hot Standby)', 'system_check': 'active'}"
+철도안전법 및 철도건설법,TramNode,"{'name': '철도안전법 및 철도건설법', 'system_check': 'active'}"
+교통약자의 이동편의 증진법 (BF 인증),TramNode,"{'name': '교통약자의 이동편의 증진법 (BF 인증)', 'system_check': 'active'}"
+환경영향평가법 및 소음진동관리법,TramNode,"{'name': '환경영향평가법 및 소음진동관리법', 'system_check': 'active'}"
+건설기술진흥법 (설계의 안전성 검토),TramNode,"{'name': '건설기술진흥법 (설계의 안전성 검토)', 'system_check': 'active'}"
+소방시설 설치 및 관리에 관한 법률,TramNode,"{'name': '소방시설 설치 및 관리에 관한 법률', 'system_check': 'active'}"
+지장물 이설: 광역상수도 1000mm 이상,TramNode,"{'name': '지장물 이설: 광역상수도 1000mm 이상', 'risk_status': 'Critical_Settlement', 'system_check': 'active'}"
+공사 중 교통 소통 대책 (TMP),TramNode,"{'name': '공사 중 교통 소통 대책 (TMP)', 'system_check': 'active'}"
+복공판 및 가설 방음벽 설치,TramNode,"{'name': '복공판 및 가설 방음벽 설치', 'system_check': 'active'}"
+공사 전/중/후 균열 및 변위 계측,TramNode,"{'name': '공사 전/중/후 균열 및 변위 계측', 'system_check': 'active'}"
+스마트 안전 장비 (웨어러블/위치추적),TramNode,"{'name': '스마트 안전 장비 (웨어러블/위치추적)', 'system_check': 'active'}"
+오산천교 (655m 대형교량),TramNode,"{'name': '오산천교 (655m 대형교량)', 'system_check': 'active'}"
+능동지하차도 (919m 대규모지하),TramNode,"{'name': '능동지하차도 (919m 대규모지하)', 'system_check': 'active'}"
+통합 차량기지 (38편성 전체 수용),TramNode,"{'name': '통합 차량기지 (38편성 전체 수용)', 'system_check': 'active'}"
+가스/우수관 이설 (7.3km 집중),TramNode,"{'name': '가스/우수관 이설 (7.3km 집중)', 'system_check': 'active'}"
+지역난방관 이설 (4.9km 집중/2.5배),TramNode,"{'name': '지역난방관 이설 (4.9km 집중/2.5배)', 'system_check': 'active'}"
+광역철도(망포/오산역) 환승 연계,TramNode,"{'name': '광역철도(망포/오산역) 환승 연계', 'system_check': 'active'}"
+도심 밀집 정거장 (19개소 평면선형),TramNode,"{'name': '도심 밀집 정거장 (19개소 평면선형)', 'system_check': 'active'}"
+1공구 구조계산서 및 수량산출서,TramNode,"{'name': '1공구 구조계산서 및 수량산출서', 'system_check': 'active'}"
+2공구 지장물 종합도 및 환승계획서,TramNode,"{'name': '2공구 지장물 종합도 및 환승계획서', 'system_check': 'active'}"
+동탄트램 합사 통합관리센터,JV_Management,{'name': '동탄트램 합사 통합관리센터'}
+기술/공종별 인터페이스 통제,JV_Management,{'name': '기술/공종별 인터페이스 통제'}
+제안서 논리 일관성 검증,JV_Management,{'name': '제안서 논리 일관성 검증'}
+JV 리스크 통합 모니터링,JV_Management,{'name': 'JV 리스크 통합 모니터링'}
+토목/구조 설계팀,JV_Team,{'name': '토목/구조 설계팀'}
+궤도/시스템 설계팀,JV_Team,{'name': '궤도/시스템 설계팀'}
+행정/LCC/안전 전략팀,JV_Team,{'name': '행정/LCC/안전 전략팀'}
+Borehole BH-101/102,MicroData,"{'n_value': 10, 'name': 'Borehole BH-101/102', 'rock_depth': 15.5, 'soil_type': 'Silty Sand'}"
+Borehole BH-101/102,MicroData,"{'n_value': 10, 'name': 'Borehole BH-101/102', 'rock_depth': 15.5, 'soil_type': 'Silty Sand'}"
+Borehole BH-205/208 (Soft Ground),MicroData,"{'n_value': 5, 'name': 'Borehole BH-205/208 (Soft Ground)', 'rock_depth': 22.0, 'soil_type': 'Silty Clay'}"
+시추공별 N치 분포 (N>50 연암 도달),MicroData,{'name': '시추공별 N치 분포 (N>50 연암 도달)'}
+Pandrol e-Clip 레일체결장치,MicroData,{'name': 'Pandrol e-Clip 레일체결장치'}
+침목 배치 간격 600mm,MicroData,{'name': '침목 배치 간격 600mm'}
+자갈 도상 두께 250mm (일반구간),MicroData,{'name': '자갈 도상 두께 250mm (일반구간)'}
+궤도 절연 저항 50Ω·km 이상,MicroData,{'name': '궤도 절연 저항 50Ω·km 이상'}
+레일 온도 신축 이음매 (Expansion Joint),MicroData,{'name': '레일 온도 신축 이음매 (Expansion Joint)'}
+몰드형 변압기 (3000kVA),MicroData,{'name': '몰드형 변압기 (3000kVA)'}
+정류기용 차단기 (HSCB 2000A),MicroData,{'name': '정류기용 차단기 (HSCB 2000A)'}
+SCADA 제어 감시 포인트 (1000pt 이상),MicroData,{'name': 'SCADA 제어 감시 포인트 (1000pt 이상)'}
+지하변전소 비상 발전기 (500kW),MicroData,{'name': '지하변전소 비상 발전기 (500kW)'}
+광케이블 싱글모드 (24코어 주간선),MicroData,{'name': '광케이블 싱글모드 (24코어 주간선)'}
+LTE-R 무선국 커버리지 (SNR 20dB 이상),MicroData,{'name': 'LTE-R 무선국 커버리지 (SNR 20dB 이상)'}
+통합 지령실 대형 비디오 월 (DLP 70인치),MicroData,{'name': '통합 지령실 대형 비디오 월 (DLP 70인치)'}
+무선 폐쇄회로(CCTV) 4K 고해상도,MicroData,{'name': '무선 폐쇄회로(CCTV) 4K 고해상도'}
+터널 배연팬 풍량 (2000CMM),MicroData,{'name': '터널 배연팬 풍량 (2000CMM)'}
+승강장 제연 경계벽 (유리형 0.6m),MicroData,{'name': '승강장 제연 경계벽 (유리형 0.6m)'}
+스프링클러 습식 배관 (DN100),MicroData,{'name': '스프링클러 습식 배관 (DN100)'}
+PSD 도어 구동 모터 (BLDC 100W),MicroData,{'name': 'PSD 도어 구동 모터 (BLDC 100W)'}
+101 정거장 상세,MicroData,{'name': '101 정거장 상세'}
+102 정거장 상세,MicroData,{'name': '102 정거장 상세'}
+103 정거장 상세,MicroData,{'name': '103 정거장 상세'}
+104 정거장 상세,MicroData,{'name': '104 정거장 상세'}
+105 정거장 상세,MicroData,{'name': '105 정거장 상세'}
+106 정거장 상세,MicroData,{'name': '106 정거장 상세'}
+107 정거장 상세,MicroData,{'name': '107 정거장 상세'}
+108 정거장 상세,MicroData,{'name': '108 정거장 상세'}
+109 정거장 상세,MicroData,{'name': '109 정거장 상세'}
+110 정거장 상세,MicroData,{'name': '110 정거장 상세'}
+111 정거장 상세,MicroData,{'name': '111 정거장 상세'}
+112 정거장 상세,MicroData,{'name': '112 정거장 상세'}
+113 정거장 상세,MicroData,{'name': '113 정거장 상세'}
+114 정거장 상세,MicroData,{'name': '114 정거장 상세'}
+115 정거장 상세,MicroData,{'name': '115 정거장 상세'}
+116 정거장 상세,MicroData,{'name': '116 정거장 상세'}
+117 정거장 상세,MicroData,{'name': '117 정거장 상세'}
+201 정거장 상세,MicroData,{'name': '201 정거장 상세'}
+202 정거장 상세,MicroData,{'name': '202 정거장 상세'}
+203 정거장 상세,MicroData,{'name': '203 정거장 상세'}
+204 정거장 상세,MicroData,{'name': '204 정거장 상세'}
+205 정거장 상세,MicroData,{'name': '205 정거장 상세'}
+206 정거장 상세,MicroData,{'name': '206 정거장 상세'}
+207 정거장 상세,MicroData,{'name': '207 정거장 상세'}
+208 정거장 상세,MicroData,{'name': '208 정거장 상세'}
+209 정거장 상세,MicroData,{'name': '209 정거장 상세'}
+210 정거장 상세,MicroData,{'name': '210 정거장 상세'}
+211 정거장 상세,MicroData,{'name': '211 정거장 상세'}
+212 정거장 상세,MicroData,{'name': '212 정거장 상세'}
+213 정거장 상세,MicroData,{'name': '213 정거장 상세'}
+214 정거장 상세,MicroData,{'name': '214 정거장 상세'}
+215 정거장 상세,MicroData,{'name': '215 정거장 상세'}
+216 정거장 상세,MicroData,{'name': '216 정거장 상세'}
+217 정거장 상세,MicroData,{'name': '217 정거장 상세'}
+218 정거장 상세,MicroData,{'name': '218 정거장 상세'}
+219 정거장 상세,MicroData,{'name': '219 정거장 상세'}
+변압기 용량: 3000kVA (몰드형),MicroData,{'name': '변압기 용량: 3000kVA (몰드형)'}
+정류기: 1500V 2000kW (실리콘),MicroData,{'name': '정류기: 1500V 2000kW (실리콘)'}
+통신: 24코어 싱글모드 광케이블,MicroData,{'name': '통신: 24코어 싱글모드 광케이블'}
+기계: 승강장 제연 풍량 1200CMM,MicroData,{'name': '기계: 승강장 제연 풍량 1200CMM'}
+2공구 전체 공정 지연 (Critical Path),TramNode,"{'name': '2공구 전체 공정 지연 (Critical Path)', 'system_check': 'active'}"
+동절기 난방 중단 집단 민원,TramNode,"{'name': '동절기 난방 중단 집단 민원', 'system_check': 'active'}"
+환승 효율 극대화 (동선 최적화),TramNode,"{'name': '환승 효율 극대화 (동선 최적화)', 'system_check': 'active'}"
+생활 밀착형 안전/CPTED 시스템,TramNode,"{'name': '생활 밀착형 안전/CPTED 시스템', 'system_check': 'active'}"
+표준 모듈러 기반 원가 절감 정거장,TramNode,"{'name': '표준 모듈러 기반 원가 절감 정거장', 'system_check': 'active'}"
+지반조사보고서 (Geotechnical Report),TramNode,"{'label': '지반조사보고서', 'name': '지반조사보고서 (Geotechnical Report)', 'system_check': 'active'}"
+동시인양장치,TramNode,"{'category': 'Inspection', 'name': '동시인양장치', 'type': 'Lifting'}"
+차륜전삭기(CNC),TramNode,"{'category': 'Inspection', 'name': '차륜전삭기(CNC)', 'type': 'Machining'}"
+차체자동세척기,TramNode,"{'category': 'Inspection', 'name': '차체자동세척기', 'type': 'Cleaning'}"
+TCMS시험기,TramNode,"{'category': 'Inspection', 'name': 'TCMS시험기', 'type': 'Testing'}"
+폐수처리장,TramNode,"{'category': 'Infrastructure', 'name': '폐수처리장', 'type': 'Utility'}"
+일상검사(3일),TramNode,"{'category': 'Maintenance', 'cycle': 'Short', 'name': '일상검사(3일)'}"
+월상검사(3개월),TramNode,"{'category': 'Maintenance', 'cycle': 'Medium', 'name': '월상검사(3개월)'}"
+전반검사(6년),TramNode,"{'category': 'Maintenance', 'cycle': 'Long', 'name': '전반검사(6년)'}"
+표준: 최소 곡선반경(본선),TramNode,"{'category': 'Standard', 'name': '표준: 최소 곡선반경(본선)', 'source': '국토부_가이드라인', 'value': '25m'}"
+표준: 최소 곡선반경(정거장),TramNode,"{'category': 'Standard', 'name': '표준: 최소 곡선반경(정거장)', 'source': '국토부_가이드라인', 'value': '160m'}"
+표준: 최대 구배(본선),TramNode,"{'category': 'Standard', 'name': '표준: 최대 구배(본선)', 'source': '경기도_규정', 'value': '60permil'}"
+표준: 유치선 구배,TramNode,"{'category': 'Standard', 'name': '표준: 유치선 구배', 'source': '국토부_가이드라인', 'value': '3permil'}"
+표준: 플랫폼 폭,TramNode,"{'category': 'Standard', 'name': '표준: 플랫폼 폭', 'source': '국토부_가이드라인', 'value': '2.0m'}"
+Insight: 진동감응형 동적 차륜관리,TramNode,"{'category': 'Strategy', 'name': 'Insight: 진동감응형 동적 차륜관리', 'type': 'Innovation', 'value': 'LCC_Optimization'}"
+Conflict: 곡선부 캔트 미설치,TramNode,"{'category': 'Conflict', 'name': 'Conflict: 곡선부 캔트 미설치', 'subject': 'Track'}"
+Conflict: 초급곡선 R=25m 적용,TramNode,"{'category': 'Conflict', 'name': 'Conflict: 초급곡선 R=25m 적용', 'subject': 'Alignment'}"
+Decision: 강화노반 EV2=80MPa 적용,TramNode,"{'category': 'Decision', 'name': 'Decision: 강화노반 EV2=80MPa 적용', 'subject': 'Civil'}"
+Justification: 홈붙이레일 2점접촉 역학,TramNode,"{'category': 'Justification', 'name': 'Justification: 홈붙이레일 2점접촉 역학'}"
+Justification: 5모듈 관절식 차량 특성,TramNode,"{'category': 'Justification', 'name': 'Justification: 5모듈 관절식 차량 특성'}"
+Justification: KDS 일반철도 기준 역차용,TramNode,"{'category': 'Justification', 'name': 'Justification: KDS 일반철도 기준 역차용'}"
+Strategy: 회차 시간 단축을 통한 차량 대수 최적화,TramNode,"{'benefit': '약 100억원 원가절감', 'category': 'Strategy', 'method': '고성능 충전 및 AI 자동점검 도입', 'name': 'Strategy: 회차 시간 단축을 통한 차량 대수 최적화'}"
+Justification: RFP LCC 절감 의무 기반 정당성,TramNode,"{'category': 'Justification', 'legal_basis': '입찰안내서 제4장 기술사항', 'logic': '차량대수 축소는 초기비용 및 유지관리비(LCC) 최적화의 핵심', 'name': 'Justification: RFP LCC 절감 의무 기반 정당성'}"
+Global: 얕은 굴착(Shallow) 공법,TramNode,"{'benefit': '지장물 이설비용 획기적 절감', 'category': 'Global_Benchmark', 'name': 'Global: 얕은 굴착(Shallow) 공법', 'origin': 'France/Germany'}"
+Global: 보행자 빨림방지 전면부 설계,TramNode,"{'benefit': '보행자 사망사고 제로화', 'category': 'Global_Benchmark', 'name': 'Global: 보행자 빨림방지 전면부 설계', 'origin': 'Europe'}"
+Global: RAMS 기반 LCC 최적화,TramNode,"{'benefit': '유지관리비 20% 절감', 'category': 'Global_Benchmark', 'name': 'Global: RAMS 기반 LCC 최적화', 'origin': 'Australia'}"

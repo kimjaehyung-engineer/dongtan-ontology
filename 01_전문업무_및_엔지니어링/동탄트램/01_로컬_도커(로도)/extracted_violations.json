@@ -1,0 +1,66 @@
+[
+  {
+    "station": "107",
+    "metric": "정거장 캐노피 높이",
+    "actual_value": 3.2,
+    "unit": "m",
+    "standard_limit": 3.8,
+    "description": "기본설계상 캐노피 높이(3.2m)가 노면전차 건축한계 높이(3.8m) 미달. 팬터그래프 상승식 급속충전 방식으로 변경됨에 따라 건축한계 상충 및 상향 재설계 필수"
+  },
+  {
+    "station": "201",
+    "metric": "정거장 캐노피 높이",
+    "actual_value": 3.2,
+    "unit": "m",
+    "standard_limit": 3.8,
+    "description": "기본설계상 캐노피 높이(3.2m)가 노면전차 건축한계 높이(3.8m) 미달. 팬터그래프 상승식 급속충전 방식으로 변경됨에 따라 건축한계 상충 및 상향 재설계 필수"
+  },
+  {
+    "station": "306",
+    "metric": "토공-교량 접속부 단차",
+    "actual_value": 4.9,
+    "unit": "mm",
+    "standard_limit": 3.0,
+    "description": "오산천교 측면 진입 시 토공부와 교량 간 단차(처짐)가 궤도 유지관리 한계기준을 초과하여 열차 탈선 리스크 유발 (전단키 확대 및 Endsporn 보강 필요)"
+  },
+  {
+    "station": "201",
+    "metric": "예측소음도",
+    "actual_value": 73.8,
+    "unit": "dB(A)",
+    "standard_limit": 65.0,
+    "description": "동탄역 인근 롯데캐슬 102동과 23m 이격되어 운영 시 예측소음도가 환경목표기준을 크게 초과하며, 하부 기존 지하주차장 구조물 보강 리스크 동반"
+  },
+  {
+    "station": "206",
+    "metric": "예측소음도",
+    "actual_value": 72.1,
+    "unit": "dB(A)",
+    "standard_limit": 70.0,
+    "description": "우성스타시티 시설과 28m 근접하여 상업지역 소음목표기준 초과. -27.5‰ 급구배 및 터널 접속부로 인하여 53m 고장차량 대피선 확보 제약 존재"
+  },
+  {
+    "station": "208",
+    "metric": "예측소음도",
+    "actual_value": 67.6,
+    "unit": "dB(A)",
+    "standard_limit": 65.0,
+    "description": "R=340m 곡선정거장 특성상 발빠짐 안전사고 리스크가 존재하며, 부영아파트와 47m 이격되어 소음목표 초과 (높이 3m 가설방음판넬 필수 반영)"
+  },
+  {
+    "station": "209",
+    "metric": "분기기 간 이격거리",
+    "actual_value": 2.0,
+    "unit": "m",
+    "standard_limit": 2.0,
+    "description": "1, 2공구 평면교차 구간 및 차량기지 인입 특수분기기 다수 부설로 선로 최소 직선 이격거리(2.0m) 기준만 간신히 충족하여 선형/신호제어 크리티컬 리스크 발생"
+  },
+  {
+    "station": "112",
+    "metric": "분기기 간 이격거리",
+    "actual_value": 2.0,
+    "unit": "m",
+    "standard_limit": 2.0,
+    "description": "1, 2공구 평면교차 구간 및 차량기지 인입 특수분기기 다수 부설로 선로 최소 직선 이격거리(2.0m) 기준만 간신히 충족하여 선형/신호제어 크리티컬 리스크 발생"
+  }
+]

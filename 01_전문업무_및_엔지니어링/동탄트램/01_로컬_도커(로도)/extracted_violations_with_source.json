@@ -1,0 +1,9 @@
+[
+  { "station": "301", "metric": "정거장 캐노피 높이", "actual_value": 3.2, "unit": "m", "standard_limit": 3.8, "description": "기본설계상 캐노피 높이(3.2m)가 노면전차 건축한계 높이(3.8m)에 미달. 팬터그래프 상승식 급속충전 방식으로 변경됨에 따라 건축한계 상충 및 상향 재설계 필수", "source_file": "01. 설계보고서(건축).pdf", "page": 1 },
+  { "station": "306", "metric": "토공-교량 접속부 단차", "actual_value": 4.9, "unit": "mm", "standard_limit": 3.0, "description": "오산천교 측면 진입 시 토공부와 교량 간 단차(처짐)가 궤도 유지관리 한계기준(3.0mm)을 초과하여 열차 탈선 리스크 유발 (전단키 확대 등 대책방안 필요)", "source_file": "01. 종합요약보고서.pdf", "page": 45 },
+  { "station": "302", "metric": "예측소음도", "actual_value": 73.8, "unit": "dB(A)", "standard_limit": 65.0, "description": "능동 주거시설과 23m 근접하여 운영 시 예측소음도가 소음목표기준을 크게 초과 (높이 3m 가설방음판넬 등 물리적 저감방안 필수 반영)", "source_file": "01. 종합요약보고서.pdf", "page": 90 },
+  { "station": "304", "metric": "곡선부 승강장 연단 간격", "actual_value": 60, "unit": "mm", "standard_limit": 50, "description": "건축한계 상 차량 측면으로부터 50mm 이상(표준 60mm)의 간격을 두도록 설계되었으나, 해당 정거장들은 R=300m 곡선에 위치하여 승차 간격이 크게 벌어짐에 따른 발빠짐 안전사고 리스크 존재 (자동 발판 보완 필요)", "source_file": "01. 종합요약보고서.pdf", "page": 34 },
+  { "station": "305", "metric": "곡선부 승강장 연단 간격", "actual_value": 60, "unit": "mm", "standard_limit": 50, "description": "건축한계 상 차량 측면으로부터 50mm 이상(표준 60mm)의 간격을 두도록 설계되었으나, 해당 정거장들은 R=300m 곡선에 위치하여 승차 간격이 크게 벌어짐에 따른 발빠짐 안전사고 리스크 존재 (자동 발판 보완 필요)", "source_file": "01. 종합요약보고서.pdf", "page": 34 },
+  { "station": "201", "metric": "분기기 간 직선 이격거리", "actual_value": 2.0, "unit": "m", "standard_limit": 2.0, "description": "1, 2공구 평면교차(201역) 및 차량기지 인입(209역) 특수분기기 다수 부설로 선로 곡선 간 최소 직선 이격거리(2.0m) 기준만 간신히 충족하여 기하학적 선형 조건 및 신호제어상의 크리티컬 리스크 발생", "source_file": "01. 설계보고서_궤도.pdf", "page": 22 },
+  { "station": "209", "metric": "분기기 간 직선 이격거리", "actual_value": 2.0, "unit": "m", "standard_limit": 2.0, "description": "1, 2공구 평면교차(201역) 및 차량기지 인입(209역) 특수분기기 다수 부설로 선로 곡선 간 최소 직선 이격거리(2.0m) 기준만 간신히 충족하여 기하학적 선형 조건 및 신호제어상의 크리티컬 리스크 발생", "source_file": "01. 설계보고서_궤도.pdf", "page": 22 }
+]

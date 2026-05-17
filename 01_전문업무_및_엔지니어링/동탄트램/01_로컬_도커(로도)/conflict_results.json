@@ -1,0 +1,680 @@
+[
+  {
+    "source": "117 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "116 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "115 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "114 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "113 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "112 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "111 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "110 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "109 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "108 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "107 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "106 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "105 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "104 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "103 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "102 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "101 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "107/201 정거장 (동탄역)",
+    "rel": "RISK_IMPACT",
+    "target": "도로 점용 및 교통 전환 계획 (TMP)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "도로 점용 및 교통 전환 계획 (TMP)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "117 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "116 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "115 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "114 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "113 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "112 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "111 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "110 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "109 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "108 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "107 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "106 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "105 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "104 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "103 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "102 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "101 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "107/201 정거장 (동탄역)",
+    "rel": "RISK_IMPACT",
+    "target": "Zero-Risk 지장물/교통 통합 관리",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "name": "Zero-Risk 지장물/교통 통합 관리"
+    }
+  },
+  {
+    "source": "정거장 내 전기차(EV) 및 트램 화재 대응 설비",
+    "rel": "HUB_LINK",
+    "target": "차량 정원 250명 (6인/m² 기준)",
+    "r_props": {
+      "source": "RODO_HEURISTIC"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "차량 정원 250명 (6인/m² 기준)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "117 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "116 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "115 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "114 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "113 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "112 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "111 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "110 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "109 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "108 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "107 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "106 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  },
+  {
+    "source": "105 정거장 상세",
+    "rel": "RISK_IMPACT",
+    "target": "교통신호 우선권 제어 연동 (TSC Interface)",
+    "r_props": {
+      "evidence": "High_Density_Area"
+    },
+    "target_props": {
+      "impact": 3,
+      "name": "교통신호 우선권 제어 연동 (TSC Interface)",
+      "section": 2,
+      "source": "동탄트램 RFP (제4장 기술사항)",
+      "system_check": "active"
+    }
+  }
+]
