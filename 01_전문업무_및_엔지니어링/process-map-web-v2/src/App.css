@@ -1,0 +1,68 @@
+/* 사이드바 애니메이션 및 스크롤바 커스텀 */
+
+/* 스크롤바 현대적인 스타일 */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* React Flow 관련 스타일 보정 */
+.react-flow__edge-path {
+  stroke-width: 2.5;
+}
+
+.react-flow__controls {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.react-flow__controls-button {
+  background: #ffffff !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  border-right: none !important;
+}
+
+.react-flow__controls-button:hover {
+  background: #f8fafc !important;
+}
+
+/* 폼 요소 포커스 효과 */
+.fancy-input {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fancy-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+/* 선택 모드일 때 포인터(화살표) 커서 적용 */
+.react-flow.select-mode-active .react-flow__pane,
+.react-flow.select-mode-active .react-flow__pane.dragging,
+.react-flow.select-mode-active .react-flow__selection {
+  cursor: default !important;
+}
+
+/* 드래그 영역 선택 박스 스타일 및 z-index 강제 설정 (선이 또렷하게 보이도록 조치) */
+.react-flow__selection {
+  background: rgba(59, 130, 246, 0.12) !important;
+  border: 1.5px dashed #2563eb !important;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.2);
+  z-index: 10000 !important;
+  pointer-events: none;
+}
+
+
