@@ -18,7 +18,7 @@ import './App.css';
 // }
 
 function App() {
-  const { addNode, deleteNode, nodes, edges, updateNodeData, updateEdge, deleteEdge, setNodesAndEdges, undo, redo, takeSnapshot, past, future, isSelectMode, setSelectMode, copiedStyle, setCopiedStyle } = useStore();
+  const { addNode, deleteNode, nodes, edges, updateNodeData, updateEdge, deleteEdge, setNodesAndEdges, undo, redo, takeSnapshot, past, future, isSelectMode, setSelectMode, copiedStyle, setCopiedStyle, copiedNodes, copiedEdges, setCopiedNodesAndEdges } = useStore();
   const [startDate, setStartDate] = useState('2025-12-01');
   const [showSettings, setShowSettings] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -207,6 +207,96 @@ function App() {
     alert('서식이 적용되었습니다. (Ctrl+Shift+V)');
   }, [nodes, edges, copiedStyle, takeSnapshot, setNodesAndEdges]);
 
+  const handleCopyNodes = useCallback(() => {
+    let targetNodes = nodes.filter(n => n.selected);
+    let targetEdges: any[] = [];
+
+    // 만약 선택된 노드가 전혀 없다면, 전체 표(모든 노드와 모든 엣지)를 복사 대상으로 취급
+    if (targetNodes.length === 0) {
+      targetNodes = [...nodes];
+      targetEdges = [...edges];
+    } else {
+      // 선택된 노드들 간의 엣지만 추출
+      const selectedIds = new Set(targetNodes.map(n => n.id));
+      targetEdges = edges.filter(e => selectedIds.has(e.source) && selectedIds.has(e.target));
+    }
+
+    setCopiedNodesAndEdges(
+      JSON.parse(JSON.stringify(targetNodes)),
+      JSON.parse(JSON.stringify(targetEdges))
+    );
+    
+    alert(`${targetNodes.length}개의 객체(전체 또는 일부 표)가 복사되었습니다. (Ctrl+C)`);
+  }, [nodes, edges, setCopiedNodesAndEdges]);
+
+  const handlePasteNodes = useCallback(() => {
+    if (!copiedNodes || copiedNodes.length === 0) {
+      alert('복사된 표가 없습니다. 먼저 표를 복사(Ctrl+C)해주세요.');
+      return;
+    }
+
+    takeSnapshot();
+
+    // 1. 바운딩 박스를 계산하여 가로 오프셋 결정
+    let minX = Infinity;
+    let maxX = -Infinity;
+    copiedNodes.forEach(node => {
+      const x = node.position.x;
+      let w = 200; // 기본
+      if (node.type === 'swimlane') {
+        w = node.style?.width ? Number(node.style.width) : 2500;
+      } else if (node.type === 'verticalLine') {
+        w = 10;
+      } else if (node.type === 'rowDivider') {
+        w = node.style?.width ? Number(node.style.width) : 2500;
+      } else if (node.style?.width !== undefined) {
+        w = Number(node.style.width);
+      }
+
+      if (x < minX) minX = x;
+      if (x + w > maxX) maxX = x + w;
+    });
+
+    const boundsWidth = maxX - minX;
+    // 옆에다 갖다붙이기 위해 너비 + 100px 만큼 우측으로 쉬프트
+    const offsetX = (boundsWidth > 0 && boundsWidth < Infinity) ? boundsWidth + 100 : 300;
+
+    // 2. ID 매핑을 통한 복제 및 우측 쉬프트 적용
+    const idMap: Record<string, string> = {};
+    copiedNodes.forEach(node => {
+      idMap[node.id] = uuidv4();
+    });
+
+    // 기존 선택된 노드들 해제
+    const nextNodes = nodes.map(n => ({ ...n, selected: false }));
+
+    const newNodes = copiedNodes.map(node => {
+      const newId = idMap[node.id];
+      return {
+        ...node,
+        id: newId,
+        position: {
+          x: node.position.x + offsetX,
+          y: node.position.y
+        },
+        selected: true // 붙여넣은 요소를 즉시 선택 상태로 전환
+      };
+    });
+
+    const newEdges = (copiedEdges || []).map(edge => {
+      return {
+        ...edge,
+        id: uuidv4(),
+        source: idMap[edge.source] || edge.source,
+        target: idMap[edge.target] || edge.target,
+        selected: false
+      };
+    });
+
+    setNodesAndEdges([...nextNodes, ...newNodes], [...edges, ...newEdges]);
+    alert('복사한 표를 오른쪽에 붙여넣었습니다. (Ctrl+V)');
+  }, [nodes, edges, copiedNodes, copiedEdges, takeSnapshot, setNodesAndEdges]);
+
   // Ctrl+Z (Undo) 및 Ctrl+Y (Redo) 및 'T'/'K' 전역 단축키 핸들러
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -222,6 +312,18 @@ function App() {
         if (isInput) return;
         e.preventDefault();
         redo();
+      }
+      // Ctrl+C: 노드 및 표 복사
+      if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 'c') {
+        if (isInput) return;
+        e.preventDefault();
+        handleCopyNodes();
+      }
+      // Ctrl+V: 복사한 노드 및 표 붙여넣기
+      if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 'v') {
+        if (isInput) return;
+        e.preventDefault();
+        handlePasteNodes();
       }
       // Ctrl+Shift+C: 서식 복사
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'c') {
@@ -250,7 +352,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo, handleAddTextNode, handleAddChecklistItemNode, handleAddChecklistHeaderNode, handleCopyStyle, handlePasteStyle]);
+  }, [undo, redo, handleAddTextNode, handleAddChecklistItemNode, handleAddChecklistHeaderNode, handleCopyStyle, handlePasteStyle, handleCopyNodes, handlePasteNodes]);
 
   const handleDuplicateNode = () => {
     if (!selectedNode) return;

@@ -86,6 +86,9 @@ type RFState = {
     department?: string;
     style?: React.CSSProperties;
   } | null) => void;
+  copiedNodes: Node<NodeData>[] | null;
+  copiedEdges: Edge[] | null;
+  setCopiedNodesAndEdges: (nodes: Node<NodeData>[], edges: Edge[]) => void;
 };
 
 const useStore = create<RFState>()(
@@ -99,6 +102,9 @@ const useStore = create<RFState>()(
       setSelectMode: (val: boolean) => set({ isSelectMode: val }),
       copiedStyle: null,
       setCopiedStyle: (style) => set({ copiedStyle: style }),
+      copiedNodes: null,
+      copiedEdges: null,
+      setCopiedNodesAndEdges: (nodes, edges) => set({ copiedNodes: nodes, copiedEdges: edges }),
       takeSnapshot: () => {
         const { nodes, edges, past } = get();
         // JSON 직렬화를 통한 깔끔한 딥 카피 진행
