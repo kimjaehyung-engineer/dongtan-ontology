@@ -204,11 +204,23 @@ function FlowMapInner({ onNodeDoubleClick, onEdgeDoubleClick }: FlowMapProps) {
     ctrlDragOrigin.current.tempNodeIds = [];
   }, [deleteNode]);
 
+  const processedNodes = React.useMemo(() => {
+    return nodes.map(node => {
+      if (node.type === 'swimlane') {
+        return {
+          ...node,
+          draggable: isSelectMode,
+        };
+      }
+      return node;
+    });
+  }, [nodes, isSelectMode]);
+
   return (
     <div className="w-full h-full bg-slate-100" onMouseMove={handleMouseMove}>
       <ReactFlow
         className={isSelectMode ? 'select-mode-active' : ''}
-        nodes={nodes}
+        nodes={processedNodes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
