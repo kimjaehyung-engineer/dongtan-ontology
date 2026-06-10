@@ -1,21 +1,21 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import FlowMap from './components/FlowMap';
 import useStore, { lastCanvasMousePos } from './store/useStore';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import * as XLSX from 'xlsx';
+
 import { MarkerType } from 'reactflow';
-import { Download, Plus, Calendar, FileText, Type, Image, FileSpreadsheet, GripHorizontal, GripVertical, X, Copy, Check, ExternalLink, Trash2, Undo2, Redo2 } from 'lucide-react';
+import { Download, Plus, Calendar, FileText, Type, GripHorizontal, GripVertical, X, Copy, Check, ExternalLink, Trash2, Undo2, Redo2 } from 'lucide-react';
 import './App.css';
 
 // D-day 잔여일 기준 상태 자동 판정
-function calcStatus(daysRemaining: number): 'normal' | 'warning' | 'danger' {
-  if (daysRemaining <= 7) return 'danger';
-  if (daysRemaining <= 21) return 'warning';
-  return 'normal';
-}
+// function calcStatus(daysRemaining: number): 'normal' | 'warning' | 'danger' {
+//   if (daysRemaining <= 7) return 'danger';
+//   if (daysRemaining <= 21) return 'warning';
+//   return 'normal';
+// }
 
 function App() {
   const { addNode, deleteNode, nodes, edges, updateNodeData, updateEdge, deleteEdge, setNodesAndEdges, undo, redo, takeSnapshot, past, future, isSelectMode, setSelectMode } = useStore();
@@ -23,8 +23,8 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const flowRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const excelInputRef = useRef<HTMLInputElement>(null);
+  // const fileInputRef = useRef<HTMLInputElement>(null);
+  // const excelInputRef = useRef<HTMLInputElement>(null);
 
   const selectedNode = nodes.find(n => n.selected);
   const selectedEdge = edges.find(e => e.selected);
@@ -37,7 +37,7 @@ function App() {
     }
   }, [selectedNode, selectedEdge]);
 
-  const isSidebarOpen = showSidebar && ((!!selectedNode && ['action', 'milestone', 'text', 'image', 'checklistItem'].includes(selectedNode.type || '')) || !!selectedEdge);
+  const isSidebarOpen = showSidebar && ((!!selectedNode && ['action', 'milestone', 'text', 'image', 'checklistItem', 'checklistHeader'].includes(selectedNode.type || '')) || !!selectedEdge);
 
   const handleAddNode = () => {
     takeSnapshot();
@@ -82,6 +82,20 @@ function App() {
     });
   };
 
+  const handleAddChecklistHeaderNode = () => {
+    takeSnapshot();
+    addNode({
+      id: uuidv4(),
+      type: 'checklistHeader',
+      position: { x: lastCanvasMousePos.x - 80, y: lastCanvasMousePos.y - 20 },
+      data: {
+        label: '본공사수행',
+        status: 'normal',
+      },
+      style: { width: 140, height: 40 },
+    });
+  };
+
   // Ctrl+Z (Undo) 및 Ctrl+Y (Redo) 및 'T'/'K' 전역 단축키 핸들러
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -113,7 +127,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo, handleAddTextNode, handleAddChecklistItemNode]);
+  }, [undo, redo, handleAddTextNode, handleAddChecklistItemNode, handleAddChecklistHeaderNode]);
 
   const handleDuplicateNode = () => {
     if (!selectedNode) return;
@@ -206,316 +220,9 @@ function App() {
     }
   };
 
-  // 엑셀 파싱 및 프로세스 맵 자동 생성 함수
-  const handleExcelUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      try {
-        const data = evt.target?.result;
-        const workbook = XLSX.read(data, { type: 'array' });
-        
-        // 1. 'Body' 시트 우선 사용, 없으면 첫 시트
-        const sheetName = workbook.SheetNames.includes('Body') ? 'Body' : workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        
-        // 2. 2D 배열로 변환
-        const rows = XLSX.utils.sheet_to_json<any[]>(sheet, { header: 1 });
-        if (rows.length === 0) {
-          alert('엑셀에 데이터가 없습니다.');
-          return;
-        }
-
-        // 3. 헤더 매칭용 스코어 측정
-        let headerIndex = 0;
-        let maxScore = 0;
-        const keywords = ['번호', 'id', '순번', 'no', '업무', '태스크', 'task', 'process', '주관', '부서', '담당', '팀', '시기', '기한', '산출', '결과', '리스크', '협조', '협업', '공동'];
-        
-        for (let i = 0; i < Math.min(20, rows.length); i++) {
-          const row = rows[i];
-          if (!row || !Array.isArray(row)) continue;
-          let score = 0;
-          row.forEach(cell => {
-            const val = String(cell || '').toLowerCase();
-            keywords.forEach(kw => {
-              if (val.includes(kw)) score++;
-            });
-          });
-          if (score > maxScore) {
-            maxScore = score;
-            headerIndex = i;
-          }
-        }
-
-        const headers = rows[headerIndex] as any[];
-        const dataRows = rows.slice(headerIndex + 1);
-
-        // 4. 컬럼 인덱스 자동 감지
-        let idCol = -1;
-        let labelCol = -1;
-        let deptCol = -1;
-        let startCol = -1;
-        let endCol = -1;
-        let outputCol = -1;
-        let riskCol = -1;
-        let coopCol = -1;
-
-        headers.forEach((header, index) => {
-          const h = String(header || '').trim();
-          if (/^(번호|id|순번|no)$/i.test(h)) idCol = index;
-          else if (/^(프로세스명|업무명|태스크명|task|process|내용|활동명|프로세스)$/i.test(h)) labelCol = index;
-          else if (/^(주관부서|주관|부서|담당|팀|role|owner|주관 부서|주관부서명)$/i.test(h)) deptCol = index;
-          else if (/^(착수시기|시작|일정|시기|start|착수)$/i.test(h)) startCol = index;
-          else if (/^(완료시기|기한|완료|종료|end|due|완료 시기)$/i.test(h)) endCol = index;
-          else if (/^(산출물|산출문서|결과|deliverable|산출물)$/i.test(h)) outputCol = index;
-          else if (/^(리스크|대책|risk|특기사항)$/i.test(h)) riskCol = index;
-          else if (/^(협조부서|협조|협업|공동|cooperation|coop|협업부서)$/i.test(h)) coopCol = index;
-        });
-
-        // 매핑 실패 시 폴백
-        if (idCol === -1) idCol = 0;
-        if (labelCol === -1) labelCol = headers.length > 1 ? 1 : 0;
-        if (deptCol === -1) {
-          deptCol = headers.findIndex(h => /부서|담당|팀|역할|주관/i.test(String(h || '')));
-          if (deptCol === -1) deptCol = headers.length > 6 ? 6 : (headers.length > 2 ? 2 : 0);
-        }
-        if (startCol === -1) startCol = headers.findIndex(h => /시기|착수|시작|일정/i.test(String(h || '')));
-        if (endCol === -1) endCol = headers.findIndex(h => /기한|완료|종료/i.test(String(h || '')));
-        if (outputCol === -1) outputCol = headers.findIndex(h => /산출|결과|산출물/i.test(String(h || '')));
-        if (riskCol === -1) riskCol = headers.findIndex(h => /리스크|대책|위험/i.test(String(h || '')));
-
-        // 5. 로우 파싱
-        const parsedRows: any[] = [];
-        dataRows.forEach((r, idx) => {
-          if (!r || !r[labelCol]) return;
-          
-          const department = String(r[deptCol] || '미지정부서').trim();
-          const label = String(r[labelCol] || '').trim();
-          const id = String(r[idCol] || `p-${idx}`).trim();
-          const startDate = startCol >= 0 && r[startCol] ? String(r[startCol]).trim() : '';
-          const endDate = endCol >= 0 && r[endCol] ? String(r[endCol]).trim() : '';
-          const output = outputCol >= 0 && r[outputCol] ? String(r[outputCol]).trim() : '';
-          const risk = riskCol >= 0 && r[riskCol] ? String(r[riskCol]).trim() : '';
-          const cooperation = coopCol >= 0 && r[coopCol] ? String(r[coopCol]).trim() : '';
- 
-          parsedRows.push({ id, label, department, startDate, endDate, output, risk, cooperation });
-        });
-
-        if (parsedRows.length === 0) {
-          alert('유효한 프로세스 행 데이터를 찾지 못했습니다.');
-          return;
-        }
-
-        // 6. 스윔레인 생성
-        const depts = Array.from(new Set(parsedRows.map(r => r.department)));
-        const newNodes: any[] = [];
-        const newEdges: any[] = [];
-        
-        const swimlaneHeight = 320;
-        const startY = 350; // Shift dynamic lanes down to 350px
-        const swimlaneWidth = Math.max(2500, 500 + parsedRows.length * 280);
-
-        // A. 마일스톤 스윔레인 및 구분선
-        newNodes.push({
-          id: 'swimlane-마일스톤',
-          type: 'swimlane',
-          position: { x: 0, y: 0 },
-          data: { label: '마일스톤' },
-          style: { width: swimlaneWidth, height: 150, zIndex: -1 },
-          draggable: false,
-          selectable: false,
-        });
-        newNodes.push({
-          id: 'rdiv-milestone',
-          type: 'rowDivider',
-          position: { x: 0, y: 150 },
-          data: {},
-          draggable: true,
-          selectable: false,
-          style: { zIndex: 10 }
-        });
-
-        // B. 체크리스트 스윔레인 및 구분선
-        newNodes.push({
-          id: 'swimlane-체크리스트',
-          type: 'swimlane',
-          position: { x: 0, y: 150 },
-          data: { label: '체크리스트' },
-          style: { width: swimlaneWidth, height: 200, zIndex: -1 },
-          draggable: false,
-          selectable: false,
-        });
-        newNodes.push({
-          id: 'rdiv-checklist',
-          type: 'rowDivider',
-          position: { x: 0, y: 350 },
-          data: {},
-          draggable: true,
-          selectable: false,
-          style: { zIndex: 10 }
-        });
-
-        // C. 동적 주관부서 스윔레인
-        depts.forEach((dept, idx) => {
-          const y = startY + idx * swimlaneHeight;
-          newNodes.push({
-            id: `swimlane-${dept}`,
-            type: 'swimlane',
-            position: { x: 0, y },
-            data: { label: dept },
-            style: { width: swimlaneWidth, height: swimlaneHeight, zIndex: -1 },
-            draggable: false,
-            selectable: false,
-          });
-
-          if (idx < depts.length - 1) {
-            newNodes.push({
-              id: `rdiv-${idx}`,
-              type: 'rowDivider',
-              position: { x: 0, y: y + swimlaneHeight },
-              data: {},
-              draggable: true,
-              selectable: false,
-              style: { zIndex: 10 }
-            });
-          }
-        });
-
-        // 7. 마일스톤 날짜 분석 및 상단 배치
-        const getSortValue = (item: any) => {
-          const text = item.endDate || item.startDate || '';
-          if (text.includes('상시')) return 999;
-          const dMatch = text.match(/D-(\d+)/i);
-          if (dMatch) return -parseInt(dMatch[1]);
-          const plusMatch = text.match(/\+(\d+)/);
-          if (plusMatch) return parseInt(plusMatch[1]);
-          const minusMatch = text.match(/-(\d+)/);
-          if (minusMatch) return -parseInt(minusMatch[1]);
-          return 999;
-        };
-
-        // 데이터 정렬
-        parsedRows.sort((a, b) => getSortValue(a) - getSortValue(b));
-
-        const milestoneLabels = Array.from(new Set(
-          parsedRows
-            .map(r => r.endDate || r.startDate)
-            .filter(t => t && (t.includes('D-') || t.includes('+') || t.includes('-')))
-        )) as string[];
-
-        milestoneLabels.sort((a, b) => {
-          const getVal = (t: string) => {
-            const dMatch = t.match(/D-(\d+)/i);
-            if (dMatch) return -parseInt(dMatch[1]);
-            const plusMatch = t.match(/\+(\d+)/);
-            if (plusMatch) return parseInt(plusMatch[1]);
-            return 999;
-          };
-          return getVal(a) - getVal(b);
-        });
-
-        milestoneLabels.forEach((mLabel, idx) => {
-          const x = 300 + idx * 450;
-          newNodes.push({
-            id: `m-${idx}`,
-            type: 'milestone',
-            position: { x, y: 50 },
-            data: { label: mLabel },
-          });
-
-          // Add a default vertical line under this milestone spanning all swimlanes from y = 0
-          newNodes.push({
-            id: `vline-m-${idx}`,
-            type: 'verticalLine',
-            position: { x: x + 100, y: 0 },
-            data: { height: 350 + depts.length * swimlaneHeight },
-            draggable: true,
-            style: { zIndex: 10 }
-          });
-
-          if (idx > 0) {
-            newEdges.push({
-              id: `e-m-${idx-1}-${idx}`,
-              source: `m-${idx-1}`,
-              target: `m-${idx}`,
-              type: 'smoothstep',
-              markerEnd: { type: MarkerType.ArrowClosed, width: 30, height: 30 }
-            });
-          }
-        });
-
-        // 8. 액션 카드 노드 배치
-        const deptNodeCounts: Record<string, number> = {};
-        const createdNodeIds: string[] = [];
-
-        parsedRows.forEach((row, idx) => {
-          const dept = row.department;
-          const deptIdx = depts.indexOf(dept);
-          const yBase = startY + deptIdx * swimlaneHeight;
-          
-          if (!deptNodeCounts[dept]) deptNodeCounts[dept] = 0;
-          deptNodeCounts[dept]++;
-
-          let x = 200 + idx * 300;
-          
-          const dateText = row.endDate || row.startDate;
-          if (dateText) {
-            const mIdx = milestoneLabels.indexOf(dateText);
-            if (mIdx >= 0) {
-              x = 300 + mIdx * 450;
-            }
-          }
-
-          // 중복 X에 대비한 Y 오프셋
-          const dupCount = newNodes.filter(n => 
-            n.type === 'action' && 
-            Math.abs(n.position.x - x) < 50 && 
-            Math.abs(n.position.y - (yBase + 100)) < 150
-          ).length;
-          
-          const y = yBase + 70 + (dupCount * 110);
-
-          newNodes.push({
-            id: row.id,
-            type: 'action',
-            position: { x, y },
-            data: {
-              label: row.label,
-              department: row.department,
-              cooperation: row.cooperation || '',
-              purpose: `시기: ${row.startDate || '-'} ~ ${row.endDate || '-'}`,
-              method: `입력/조건: ${row.startDate || '-'}\n완료기준: ${row.endDate || '-'}\n\n[리스크 및 대책]\n${row.risk || '-'}`,
-              result: row.output || '-',
-              color: '#d1d5db',
-              status: 'normal',
-            }
-          });
-          createdNodeIds.push(row.id);
-        });
-
-        // 9. 순차적 흐름선(화살표) 자동 연결
-        for (let i = 0; i < createdNodeIds.length - 1; i++) {
-          newEdges.push({
-            id: `e-${createdNodeIds[i]}-${createdNodeIds[i+1]}`,
-            source: createdNodeIds[i],
-            target: createdNodeIds[i+1],
-            type: 'smoothstep',
-            markerEnd: { type: MarkerType.ArrowClosed, width: 30, height: 30 }
-          });
-        }
-
-        setNodesAndEdges(newNodes, newEdges);
-        alert(`엑셀 프로세스 맵 생성 완료!\n- 부서 스윔레인: ${depts.length}개\n- 프로세스 카드: ${parsedRows.length}개\n- 마일스톤: ${milestoneLabels.length}개`);
-      } catch (err: any) {
-        console.error(err);
-        alert(`엑셀 파싱 에러: ${err.message}`);
-      }
-    };
-    reader.readAsArrayBuffer(file);
-    e.target.value = '';
-  };
+  // const handleExcelUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (!e) return;
+  // };
 
   // 이미지를 캔버스 중앙에 노드로 추가하는 공통 함수
   const addImageNode = useCallback((dataUrl: string) => {
@@ -547,15 +254,10 @@ function App() {
     return () => window.removeEventListener('paste', onPaste);
   }, [addImageNode]);
 
-  // 파일 선택으로 이미지 추가
-  const handleImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = ev => addImageNode(ev.target?.result as string);
-    reader.readAsDataURL(file);
-    e.target.value = '';
-  };
+  // // 파일 선택으로 이미지 추가
+  // const handleImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (!e) return;
+  // };
 
   // D-day 자동 업데이트: 마일스톤 레이블에서 D-숫자 추출 후 계산
   const applyDday = () => {
@@ -816,6 +518,10 @@ function App() {
             <Check size={12} /> 체크 추가
           </button>
 
+          <button onClick={handleAddChecklistHeaderNode} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-slate-800 text-slate-100 font-semibold rounded border border-slate-700 hover:bg-slate-700 transition-colors text-[10px]" title="본공사 수행 스타일의 체크 글상자를 마우스 위치에 추가합니다">
+            <Type size={12} /> 체크 글박스
+          </button>
+
           <div className="w-px h-4 bg-gray-200 mx-0.5 flex-shrink-0" />
 
           <button onClick={handleExportPNG} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-emerald-50 text-emerald-700 font-semibold rounded border border-emerald-200 hover:bg-emerald-100 transition-colors text-[10px]">
@@ -867,6 +573,7 @@ function App() {
                       {selectedNode.type === 'text' && '✍️ 텍스트 편집'}
                       {selectedNode.type === 'image' && '🖼️ 이미지 편집'}
                       {selectedNode.type === 'checklistItem' && '✅ 체크리스트 상세 편집'}
+                      {selectedNode.type === 'checklistHeader' && '🔲 체크 글상자 편집'}
                     </h2>
                     <p className="text-[10px] text-gray-400 mt-0.5 font-mono">ID: {selectedNode.id.substring(0, 8)}...</p>
                   </div>
@@ -1151,6 +858,22 @@ function App() {
                     );
                   })()}
 
+                  {selectedNode.type === 'checklistHeader' && (
+                    <div className="flex flex-col space-y-4">
+                      <div className="flex flex-col">
+                        <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">글상자 내용</label>
+                        <input
+                          type="text"
+                          value={selectedNode.data.label || ''}
+                          onFocus={takeSnapshot}
+                          onChange={e => updateNodeData(selectedNode.id, { label: e.target.value })}
+                          className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs font-semibold text-gray-800 focus:bg-white"
+                          placeholder="예: 본공사수행"
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   {selectedNode.type === 'checklistItem' && (
                     <div className="flex flex-col space-y-3">
                       {/* 상태 조절 */}
@@ -1262,13 +985,13 @@ function App() {
 
                 {/* Sidebar Footer */}
                 <div className="p-4 border-t border-gray-100 bg-gray-50/50 flex gap-2">
-                  {(selectedNode.type === 'action' || selectedNode.type === 'checklistItem') && (
+                  {(selectedNode.type === 'action' || selectedNode.type === 'checklistItem' || selectedNode.type === 'checklistHeader') && (
                     <button
                       onClick={handleDuplicateNode}
                       className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-blue-200 hover:border-blue-300 text-blue-600 bg-blue-50/30 hover:bg-blue-50/60 font-semibold rounded-lg text-xs transition-colors"
                     >
                       <Copy size={13} />
-                      {selectedNode.type === 'action' ? '카드 복제' : '항목 복제'}
+                      {selectedNode.type === 'action' ? '카드 복제' : selectedNode.type === 'checklistItem' ? '항목 복제' : '글박스 복제'}
                     </button>
                   )}
                   <button
@@ -1276,7 +999,7 @@ function App() {
                     className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-red-200 hover:border-red-300 text-red-600 bg-red-50/30 hover:bg-red-50/60 font-semibold rounded-lg text-xs transition-colors"
                   >
                     <Trash2 size={13} />
-                    {selectedNode.type === 'action' ? '카드 삭제' : selectedNode.type === 'checklistItem' ? '항목 삭제' : '삭제하기'}
+                    {selectedNode.type === 'action' ? '카드 삭제' : selectedNode.type === 'checklistItem' ? '항목 삭제' : selectedNode.type === 'checklistHeader' ? '글박스 삭제' : '삭제하기'}
                   </button>
                 </div>
               </div>

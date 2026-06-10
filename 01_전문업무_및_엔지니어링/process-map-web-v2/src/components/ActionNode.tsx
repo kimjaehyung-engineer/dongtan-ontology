@@ -12,9 +12,12 @@ const statusConfig = {
   done:    { bg: 'bg-gray-100',   border: 'border-gray-400',   icon: CheckCircle,     label: '완료',   iconColor: 'text-gray-400' },
 };
 
-export default function ActionNode({ id, data, selected }: NodeProps<NodeData>) {
-  const status = data.status || 'normal';
-  const cfg = statusConfig[status];
+export default function ActionNode({ data, selected }: NodeProps<NodeData>) {
+  let status = data.status || 'normal';
+  if (status === 'todo' || status === 'inprogress' || status === 'na') {
+    status = 'normal';
+  }
+  const cfg = statusConfig[status as 'normal' | 'warning' | 'danger' | 'done'];
   const StatusIcon = cfg.icon;
   const headerColor = data.color || '#fca5a5';
 

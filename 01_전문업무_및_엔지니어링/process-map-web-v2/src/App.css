@@ -73,3 +73,14 @@
 .react-flow__node-swimlane .nodrag {
   pointer-events: auto !important;
 }
+
+/* 선택 모드가 활성화되었을 때, 스윔레인/구분선/수직선 노드 및 내부의 모든 요소에 대해 pointer-events를 none으로 설정하여
+   마우스 드래그 이벤트가 뒷배경(pane)으로 완전히 관통되도록 처리 */
+.react-flow.select-mode-active .react-flow__node-swimlane,
+.react-flow.select-mode-active .react-flow__node-swimlane *,
+.react-flow.select-mode-active .react-flow__node-rowDivider,
+.react-flow.select-mode-active .react-flow__node-rowDivider *,
+.react-flow.select-mode-active .react-flow__node-verticalLine,
+.react-flow.select-mode-active .react-flow__node-verticalLine * {
+  pointer-events: none !important;
+}

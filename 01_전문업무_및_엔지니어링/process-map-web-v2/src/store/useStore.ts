@@ -32,12 +32,20 @@ export type NodeData = {
   swimlane?: string;
   color?: string;
   // New fields
-  status?: 'normal' | 'warning' | 'danger' | 'done';  // 진행 상태
+  status?: 'normal' | 'warning' | 'danger' | 'done' | 'todo' | 'inprogress' | 'na';  // 진행 상태
   daysRemaining?: number;  // D-day 잔여일
   fileUrl?: string;  // 첨부 파일/링크
   note?: string;  // 메모
   cooperation?: string;  // 협조 부서 (쉼표 구분)
   date?: string;  // 마일스톤 기한/기간 정보
+  width?: number;
+  height?: number;
+  textStyle?: {
+    bgColor?: string;
+    borderStyle?: string;
+    fontSize?: number;
+    color?: string;
+  };
 };
 
 type RFState = {
@@ -410,7 +418,6 @@ const useStore = create<RFState>()(
 
         if (version < 4) {
           if (state && state.nodes) {
-            const textIds = ['txt-cl-1', 'txt-cl-2', 'txt-cl-3', 'txt-cl-4'];
             const existing = new Set(state.nodes.map((n: any) => n.id));
             const toAdd = [
               {

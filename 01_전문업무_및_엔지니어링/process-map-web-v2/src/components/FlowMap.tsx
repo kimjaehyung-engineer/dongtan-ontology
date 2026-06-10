@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import ReactFlow, { Background, Controls, MiniMap, ReactFlowProvider, SelectionMode, useReactFlow } from 'reactflow';
-import type { Node } from 'reactflow';
+import type { Node, Edge } from 'reactflow';
 import 'reactflow/dist/style.css';
 import useStore, { lastCanvasMousePos } from '../store/useStore';
 import ActionNode from './ActionNode';
@@ -14,6 +14,7 @@ import AdjustableEdge from './AdjustableEdge';
 import { v4 as uuidv4 } from 'uuid';
 
 import ChecklistItemNode from './ChecklistItemNode';
+import ChecklistHeaderNode from './ChecklistHeaderNode';
 
 const nodeTypes = {
   action: ActionNode,
@@ -24,6 +25,7 @@ const nodeTypes = {
   image: ImageNode,
   verticalLine: VerticalLineNode,
   checklistItem: ChecklistItemNode,
+  checklistHeader: ChecklistHeaderNode,
 };
 
 const edgeTypes = {
@@ -217,7 +219,7 @@ function FlowMapInner({ onNodeDoubleClick, onEdgeDoubleClick }: FlowMapProps) {
         edgeTypes={edgeTypes}
         panOnDrag={!isSelectMode}
         selectionOnDrag={isSelectMode}
-        selectionMode={SelectionMode.Partial}
+        selectionMode={SelectionMode.Full}
         selectionKeyCode={isSelectMode ? null : 'Shift'}
         onNodeDoubleClick={onNodeDoubleClick}
         onEdgeDoubleClick={onEdgeDoubleClick}

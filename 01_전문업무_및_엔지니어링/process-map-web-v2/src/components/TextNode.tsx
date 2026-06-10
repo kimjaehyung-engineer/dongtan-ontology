@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import type { NodeProps } from 'reactflow';
 import { NodeResizer } from '@reactflow/node-resizer';
 import '@reactflow/node-resizer/dist/style.css';
 import type { NodeData } from '../store/useStore';
 import useStore from '../store/useStore';
-import { Trash2, Bold, Italic, AlignLeft, AlignCenter, AlignRight, Paintbrush, Square } from 'lucide-react';
+import { Trash2, Bold, Italic, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
 
 type TextStyle = {
   bold?: boolean;
@@ -18,7 +17,6 @@ type TextStyle = {
 
 export default function TextNode({ id, data, selected }: NodeProps<NodeData & { textStyle?: TextStyle }>) {
   const { updateNodeData, deleteNode } = useStore();
-  const [editing, setEditing] = useState(false);
 
   const ts: TextStyle = (data as any).textStyle || {};
   const fontSize = ts.fontSize || 14;
@@ -148,8 +146,6 @@ export default function TextNode({ id, data, selected }: NodeProps<NodeData & { 
           value={data.label || ''}
           placeholder="텍스트 입력..."
           onChange={e => updateNodeData(id, { label: e.target.value })}
-          onFocus={() => setEditing(true)}
-          onBlur={() => setEditing(false)}
         />
       </div>
     </>
