@@ -234,6 +234,7 @@ const useStore = create<RFState>()(
         });
       },
     }),
+    {
       name: 'process-map-storage-v2',
       version: 2,
       migrate: (persistedState: any, version: number) => {
