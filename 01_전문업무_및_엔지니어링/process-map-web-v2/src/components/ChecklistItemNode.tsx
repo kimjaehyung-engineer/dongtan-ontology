@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { NodeProps } from 'reactflow';
 import type { NodeData } from '../store/useStore';
+import useStore from '../store/useStore';
 
 type CheckStatus = 'todo' | 'inprogress' | 'done' | 'na';
 
@@ -11,14 +12,17 @@ const STATUS_CONFIG: Record<CheckStatus, { label: string; color: string; bg: str
   na:         { label: 'N/A',   color: 'text-slate-300', bg: 'bg-slate-50',     dot: 'bg-slate-200' },
 };
 
-export default function ChecklistItemNode({ data }: NodeProps<NodeData>) {
-  const [status, setStatus] = useState<CheckStatus>((data.status as CheckStatus) ?? 'todo');
+export default function ChecklistItemNode({ id, data }: NodeProps<NodeData>) {
+  const { updateNodeData, takeSnapshot } = useStore();
+  const status = (data.status as CheckStatus) ?? 'todo';
 
   const cfg = STATUS_CONFIG[status];
-  const cycleStatus = () => {
+  const cycleStatus = (e: React.MouseEvent) => {
+    e.stopPropagation();
     const order: CheckStatus[] = ['todo', 'inprogress', 'done', 'na'];
     const next = order[(order.indexOf(status) + 1) % order.length];
-    setStatus(next);
+    takeSnapshot(); // 변경 전 스냅샷 저장
+    updateNodeData(id, { status: next });
   };
 
   return (
@@ -50,13 +54,13 @@ export default function ChecklistItemNode({ data }: NodeProps<NodeData>) {
       </div>
 
       {/* 제목 */}
-      <div className="text-xs font-semibold text-slate-700 leading-snug">
+      <div className="text-xs font-semibold text-slate-700 leading-snug break-all whitespace-pre-wrap">
         {data.label as string}
       </div>
 
       {/* 담당 */}
       {data.department && (
-        <div className="flex items-center gap-1 mt-auto">
+        <div className="flex items-center gap-1 mt-auto pt-1">
           <span className="text-[10px] text-slate-400">👤</span>
           <span className="text-[10px] text-slate-400 truncate">{data.department as string}</span>
         </div>

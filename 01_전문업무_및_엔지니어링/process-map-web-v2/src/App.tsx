@@ -37,7 +37,7 @@ function App() {
     }
   }, [selectedNode, selectedEdge]);
 
-  const isSidebarOpen = showSidebar && ((!!selectedNode && ['action', 'milestone', 'text', 'image'].includes(selectedNode.type || '')) || !!selectedEdge);
+  const isSidebarOpen = showSidebar && ((!!selectedNode && ['action', 'milestone', 'text', 'image', 'checklistItem'].includes(selectedNode.type || '')) || !!selectedEdge);
 
   const handleAddNode = () => {
     takeSnapshot();
@@ -68,7 +68,21 @@ function App() {
     });
   };
 
-  // Ctrl+Z (Undo) 및 Ctrl+Y (Redo) 및 'T' (텍스트 추가) 전역 단축키 핸들러
+  const handleAddChecklistItemNode = () => {
+    takeSnapshot();
+    addNode({
+      id: uuidv4(),
+      type: 'checklistItem',
+      position: { x: lastCanvasMousePos.x - 80, y: lastCanvasMousePos.y - 40 },
+      data: {
+        label: '새 체크리스트 항목',
+        status: 'todo',
+        department: '',
+      },
+    });
+  };
+
+  // Ctrl+Z (Undo) 및 Ctrl+Y (Redo) 및 'T'/'K' 전역 단축키 핸들러
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
@@ -90,10 +104,16 @@ function App() {
         e.preventDefault();
         handleAddTextNode();
       }
+      // 'K' 단축키로 현재 마우스 위치에 체크리스트 항목 즉시 추가
+      if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === 'k') {
+        if (isInput) return;
+        e.preventDefault();
+        handleAddChecklistItemNode();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo, handleAddTextNode]);
+  }, [undo, redo, handleAddTextNode, handleAddChecklistItemNode]);
 
   const handleDuplicateNode = () => {
     if (!selectedNode) return;
@@ -792,6 +812,10 @@ function App() {
             <Type size={12} /> 텍스트 추가
           </button>
 
+          <button onClick={handleAddChecklistItemNode} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-indigo-50 text-indigo-700 font-semibold rounded border border-indigo-200 hover:bg-indigo-100 transition-colors text-[10px]" title="체크리스트 항목을 마우스 위치에 추가합니다 (단축키: K)">
+            <Check size={12} /> 체크 추가
+          </button>
+
           <div className="w-px h-4 bg-gray-200 mx-0.5 flex-shrink-0" />
 
           <button onClick={handleExportPNG} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-emerald-50 text-emerald-700 font-semibold rounded border border-emerald-200 hover:bg-emerald-100 transition-colors text-[10px]">
@@ -842,6 +866,7 @@ function App() {
                       {selectedNode.type === 'milestone' && '🏁 마일스톤 편집'}
                       {selectedNode.type === 'text' && '✍️ 텍스트 편집'}
                       {selectedNode.type === 'image' && '🖼️ 이미지 편집'}
+                      {selectedNode.type === 'checklistItem' && '✅ 체크리스트 상세 편집'}
                     </h2>
                     <p className="text-[10px] text-gray-400 mt-0.5 font-mono">ID: {selectedNode.id.substring(0, 8)}...</p>
                   </div>
@@ -1126,6 +1151,77 @@ function App() {
                     );
                   })()}
 
+                  {selectedNode.type === 'checklistItem' && (
+                    <div className="flex flex-col space-y-3">
+                      {/* 상태 조절 */}
+                      <div className="flex flex-col">
+                        <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">상태</label>
+                        <select
+                          value={selectedNode.data.status || 'todo'}
+                          onFocus={takeSnapshot}
+                          onChange={(e) => updateNodeData(selectedNode.id, { status: e.target.value as any })}
+                          className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800 focus:bg-white cursor-pointer"
+                        >
+                          <option value="todo">미착수 (Slate)</option>
+                          <option value="inprogress">진행중 (Amber)</option>
+                          <option value="done">완료 (Emerald)</option>
+                          <option value="na">N/A (Light Slate)</option>
+                        </select>
+                      </div>
+
+                      {/* 내용 */}
+                      <div className="flex flex-col">
+                        <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">점검 항목명 (내용)</label>
+                        <textarea
+                          value={selectedNode.data.label || ''}
+                          onFocus={takeSnapshot}
+                          onChange={(e) => updateNodeData(selectedNode.id, { label: e.target.value })}
+                          className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800 focus:bg-white resize-y h-20"
+                          placeholder="점검 항목 내용을 입력하세요..."
+                        />
+                      </div>
+
+                      {/* 담당 부서 / 담당자 */}
+                      <div className="flex flex-col">
+                        <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">담당자/부서</label>
+                        <input
+                          type="text"
+                          value={selectedNode.data.department || ''}
+                          onFocus={takeSnapshot}
+                          onChange={(e) => updateNodeData(selectedNode.id, { department: e.target.value })}
+                          className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800 focus:bg-white"
+                          placeholder="담당자 또는 담당 부서..."
+                        />
+                      </div>
+
+                      {/* 협조 부서 */}
+                      <div className="flex flex-col">
+                        <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">협조 부서</label>
+                        <input
+                          type="text"
+                          value={selectedNode.data.cooperation || ''}
+                          onFocus={takeSnapshot}
+                          onChange={(e) => updateNodeData(selectedNode.id, { cooperation: e.target.value })}
+                          className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800 focus:bg-white"
+                          placeholder="협조 부서 입력 (쉼표 구분)..."
+                        />
+                      </div>
+
+                      {/* 메모 */}
+                      <div className="flex flex-col">
+                        <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">상세 내용/메모</label>
+                        <textarea
+                          value={selectedNode.data.note || ''}
+                          onFocus={takeSnapshot}
+                          onChange={(e) => updateNodeData(selectedNode.id, { note: e.target.value })}
+                          rows={4}
+                          className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800 focus:bg-white resize-y"
+                          placeholder="추가 설명 또는 조치 결과를 입력하세요..."
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   {selectedNode.type === 'text' && (
                     <div className="flex flex-col space-y-3">
                       <div className="flex flex-col">
@@ -1166,13 +1262,13 @@ function App() {
 
                 {/* Sidebar Footer */}
                 <div className="p-4 border-t border-gray-100 bg-gray-50/50 flex gap-2">
-                  {selectedNode.type === 'action' && (
+                  {(selectedNode.type === 'action' || selectedNode.type === 'checklistItem') && (
                     <button
                       onClick={handleDuplicateNode}
                       className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-blue-200 hover:border-blue-300 text-blue-600 bg-blue-50/30 hover:bg-blue-50/60 font-semibold rounded-lg text-xs transition-colors"
                     >
                       <Copy size={13} />
-                      카드 복제
+                      {selectedNode.type === 'action' ? '카드 복제' : '항목 복제'}
                     </button>
                   )}
                   <button
@@ -1180,7 +1276,7 @@ function App() {
                     className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-red-200 hover:border-red-300 text-red-600 bg-red-50/30 hover:bg-red-50/60 font-semibold rounded-lg text-xs transition-colors"
                   >
                     <Trash2 size={13} />
-                    {selectedNode.type === 'action' ? '카드 삭제' : '삭제하기'}
+                    {selectedNode.type === 'action' ? '카드 삭제' : selectedNode.type === 'checklistItem' ? '항목 삭제' : '삭제하기'}
                   </button>
                 </div>
               </div>
