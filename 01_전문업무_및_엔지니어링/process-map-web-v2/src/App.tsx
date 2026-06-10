@@ -538,7 +538,7 @@ function App() {
     addNode({
       id: uuidv4(),
       type: 'action',
-      position: { x: 400, y: 300 },
+      position: { x: 400 + Math.random() * 80, y: 300 + Math.random() * 80 },
       data: {
         label: '',
         department: '',
@@ -555,7 +555,7 @@ function App() {
     addNode({
       id: uuidv4(),
       type: 'text',
-      position: { x: 500, y: 350 },
+      position: { x: 500 + Math.random() * 80, y: 350 + Math.random() * 80 },
       data: { label: '' },
       style: { width: 200, height: 60 },
     });
@@ -768,6 +768,10 @@ function App() {
 
           <button onClick={handleAddNode} className="flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-600 font-semibold rounded border border-blue-200 hover:bg-blue-100 transition-colors text-xs">
             <Plus size={12} /> 카드 추가
+          </button>
+
+          <button onClick={handleAddTextNode} className="flex items-center gap-1 px-2 py-1 bg-amber-50 text-amber-700 font-semibold rounded border border-amber-200 hover:bg-amber-100 transition-colors text-xs">
+            <Type size={12} /> 텍스트 추가
           </button>
 
           <div className="w-px h-4 bg-gray-200 mx-0.5" />
