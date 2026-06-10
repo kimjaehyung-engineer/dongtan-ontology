@@ -250,9 +250,50 @@ function App() {
         const newEdges: any[] = [];
         
         const swimlaneHeight = 320;
-        const startY = 150;
+        const startY = 350; // Shift dynamic lanes down to 350px
         const swimlaneWidth = Math.max(2500, 500 + parsedRows.length * 280);
 
+        // A. 마일스톤 스윔레인 및 구분선
+        newNodes.push({
+          id: 'swimlane-마일스톤',
+          type: 'swimlane',
+          position: { x: 0, y: 0 },
+          data: { label: '마일스톤' },
+          style: { width: swimlaneWidth, height: 150, zIndex: -1 },
+          draggable: false,
+          selectable: false,
+        });
+        newNodes.push({
+          id: 'rdiv-milestone',
+          type: 'rowDivider',
+          position: { x: 0, y: 150 },
+          data: {},
+          draggable: true,
+          selectable: false,
+          style: { zIndex: 10 }
+        });
+
+        // B. 체크리스트 스윔레인 및 구분선
+        newNodes.push({
+          id: 'swimlane-체크리스트',
+          type: 'swimlane',
+          position: { x: 0, y: 150 },
+          data: { label: '체크리스트' },
+          style: { width: swimlaneWidth, height: 200, zIndex: -1 },
+          draggable: false,
+          selectable: false,
+        });
+        newNodes.push({
+          id: 'rdiv-checklist',
+          type: 'rowDivider',
+          position: { x: 0, y: 350 },
+          data: {},
+          draggable: true,
+          selectable: false,
+          style: { zIndex: 10 }
+        });
+
+        // C. 동적 주관부서 스윔레인
         depts.forEach((dept, idx) => {
           const y = startY + idx * swimlaneHeight;
           newNodes.push({
@@ -320,12 +361,12 @@ function App() {
             data: { label: mLabel },
           });
 
-          // Add a default vertical line under this milestone spanning the swimlane area
+          // Add a default vertical line under this milestone spanning all swimlanes from y = 0
           newNodes.push({
             id: `vline-m-${idx}`,
             type: 'verticalLine',
-            position: { x: x + 100, y: 150 },
-            data: { height: depts.length * swimlaneHeight },
+            position: { x: x + 100, y: 0 },
+            data: { height: 350 + depts.length * swimlaneHeight },
             draggable: true,
             style: { zIndex: 10 }
           });

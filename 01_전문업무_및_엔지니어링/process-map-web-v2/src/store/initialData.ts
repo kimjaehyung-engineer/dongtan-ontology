@@ -5,9 +5,27 @@ import type { NodeData } from './useStore';
 export const initialNodes: Node<NodeData>[] = [
   // --- Swimlanes (Background) ---
   {
-    id: 'swimlane-공무',
+    id: 'swimlane-마일스톤',
+    type: 'swimlane',
+    position: { x: 0, y: 0 },
+    data: { label: '마일스톤' },
+    style: { width: 2500, height: 150, zIndex: -1 },
+    draggable: false,
+    selectable: false,
+  },
+  {
+    id: 'swimlane-체크리스트',
     type: 'swimlane',
     position: { x: 0, y: 150 },
+    data: { label: '체크리스트' },
+    style: { width: 2500, height: 200, zIndex: -1 },
+    draggable: false,
+    selectable: false,
+  },
+  {
+    id: 'swimlane-공무',
+    type: 'swimlane',
+    position: { x: 0, y: 350 },
     data: { label: '공무' },
     style: { width: 2500, height: 400, zIndex: -1 },
     draggable: false,
@@ -16,7 +34,7 @@ export const initialNodes: Node<NodeData>[] = [
   {
     id: 'swimlane-공사',
     type: 'swimlane',
-    position: { x: 0, y: 550 },
+    position: { x: 0, y: 750 },
     data: { label: '공사' },
     style: { width: 2500, height: 400, zIndex: -1 },
     draggable: false,
@@ -25,7 +43,7 @@ export const initialNodes: Node<NodeData>[] = [
   {
     id: 'swimlane-품질',
     type: 'swimlane',
-    position: { x: 0, y: 950 },
+    position: { x: 0, y: 1150 },
     data: { label: '품질' },
     style: { width: 2500, height: 300, zIndex: -1 },
     draggable: false,
@@ -34,7 +52,7 @@ export const initialNodes: Node<NodeData>[] = [
   {
     id: 'swimlane-안전',
     type: 'swimlane',
-    position: { x: 0, y: 1250 },
+    position: { x: 0, y: 1450 },
     data: { label: '안전' },
     style: { width: 2500, height: 300, zIndex: -1 },
     draggable: false,
@@ -43,7 +61,7 @@ export const initialNodes: Node<NodeData>[] = [
   {
     id: 'swimlane-관리',
     type: 'swimlane',
-    position: { x: 0, y: 1550 },
+    position: { x: 0, y: 1750 },
     data: { label: '관리' },
     style: { width: 2500, height: 300, zIndex: -1 },
     draggable: false,
@@ -52,7 +70,7 @@ export const initialNodes: Node<NodeData>[] = [
   {
     id: 'swimlane-본사',
     type: 'swimlane',
-    position: { x: 0, y: 1850 },
+    position: { x: 0, y: 2050 },
     data: { label: '본사' },
     style: { width: 2500, height: 300, zIndex: -1 },
     draggable: false,
@@ -61,28 +79,30 @@ export const initialNodes: Node<NodeData>[] = [
   {
     id: 'swimlane-인허가',
     type: 'swimlane',
-    position: { x: 0, y: 2150 },
+    position: { x: 0, y: 2350 },
     data: { label: '인허가' },
     style: { width: 2500, height: 300, zIndex: -1 },
     draggable: false,
     selectable: false,
   },
 
-  // --- Row Dividers (draggable horizontal lines, same mechanism as vertical milestone lines) ---
-  { id: 'rdiv-1', type: 'rowDivider', position: { x: 0, y: 550 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
-  { id: 'rdiv-2', type: 'rowDivider', position: { x: 0, y: 950 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
-  { id: 'rdiv-3', type: 'rowDivider', position: { x: 0, y: 1250 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
-  { id: 'rdiv-4', type: 'rowDivider', position: { x: 0, y: 1550 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
-  { id: 'rdiv-5', type: 'rowDivider', position: { x: 0, y: 1850 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
-  { id: 'rdiv-6', type: 'rowDivider', position: { x: 0, y: 2150 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
+  // --- Row Dividers ---
+  { id: 'rdiv-milestone', type: 'rowDivider', position: { x: 0, y: 150 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
+  { id: 'rdiv-checklist', type: 'rowDivider', position: { x: 0, y: 350 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
+  { id: 'rdiv-1', type: 'rowDivider', position: { x: 0, y: 750 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
+  { id: 'rdiv-2', type: 'rowDivider', position: { x: 0, y: 1150 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
+  { id: 'rdiv-3', type: 'rowDivider', position: { x: 0, y: 1450 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
+  { id: 'rdiv-4', type: 'rowDivider', position: { x: 0, y: 1750 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
+  { id: 'rdiv-5', type: 'rowDivider', position: { x: 0, y: 2050 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
+  { id: 'rdiv-6', type: 'rowDivider', position: { x: 0, y: 2350 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
 
-  // --- Vertical Lines (under milestones, only in the swimlane areas) ---
-  { id: 'vline-1', type: 'verticalLine', position: { x: 500, y: 150 }, data: { height: 2300 }, draggable: true, style: { zIndex: 10 } },
-  { id: 'vline-2', type: 'verticalLine', position: { x: 900, y: 150 }, data: { height: 2300 }, draggable: true, style: { zIndex: 10 } },
-  { id: 'vline-3', type: 'verticalLine', position: { x: 1400, y: 150 }, data: { height: 2300 }, draggable: true, style: { zIndex: 10 } },
-  { id: 'vline-4', type: 'verticalLine', position: { x: 1900, y: 150 }, data: { height: 2300 }, draggable: true, style: { zIndex: 10 } },
+  // --- Vertical Lines ---
+  { id: 'vline-1', type: 'verticalLine', position: { x: 500, y: 0 }, data: { height: 2650 }, draggable: true, style: { zIndex: 10 } },
+  { id: 'vline-2', type: 'verticalLine', position: { x: 900, y: 0 }, data: { height: 2650 }, draggable: true, style: { zIndex: 10 } },
+  { id: 'vline-3', type: 'verticalLine', position: { x: 1400, y: 0 }, data: { height: 2650 }, draggable: true, style: { zIndex: 10 } },
+  { id: 'vline-4', type: 'verticalLine', position: { x: 1900, y: 0 }, data: { height: 2650 }, draggable: true, style: { zIndex: 10 } },
 
-  // --- Milestones (Top) ---
+  // --- Milestones ---
   {
     id: 'm-d210',
     type: 'milestone',
@@ -112,20 +132,20 @@ export const initialNodes: Node<NodeData>[] = [
   {
     id: 'a1',
     type: 'action',
-    position: { x: 200, y: 200 },
+    position: { x: 200, y: 400 },
     data: {
       label: '설계적정성 검토',
       department: '현장 공무팀',
       purpose: '설계적정성 및 시공성 검토',
       method: '- 입찰 요구사항에 대한 설계 반영여부 검토\n- 설계도서 및 물량산출 상세 검토\n- 타 시스템과의 인터페이스 가능 여부 확인',
       result: '회의록, 설계검토 보고서',
-      color: '#fca5a5' // red-300
+      color: '#fca5a5'
     },
   },
   {
     id: 'a2',
     type: 'action',
-    position: { x: 200, y: 600 },
+    position: { x: 200, y: 800 },
     data: {
       label: '발주전략 KOM',
       department: '현장 소장',
@@ -138,20 +158,20 @@ export const initialNodes: Node<NodeData>[] = [
   {
     id: 'a3',
     type: 'action',
-    position: { x: 800, y: 200 },
+    position: { x: 800, y: 400 },
     data: {
       label: '통신설비 제작사 인터페이스 협의',
       department: '현장 시스템팀',
       purpose: '통신설비 제작 연동방안 검토',
       method: '- 내부 인터페이스 및 인허가사항 확인',
       result: '인터페이스 회의록 및 관리대장',
-      color: '#d1d5db' // gray-300
+      color: '#d1d5db'
     },
   },
   {
     id: 'a4',
     type: 'action',
-    position: { x: 1300, y: 600 },
+    position: { x: 1300, y: 800 },
     data: {
       label: '착수 전 Big Room 회의',
       department: '현장소장',
@@ -159,7 +179,6 @@ export const initialNodes: Node<NodeData>[] = [
       method: '- 공정별 간섭사항 검토 (노반/궤도/전기/신호/PSD/차량)\n- 당사/타사 장비 반입계획/상호운영 연계 검토',
       result: 'Big Room 회의록(참석자 전원 서명)',
       color: '#fca5a5'
-    },
   },
 ];
 

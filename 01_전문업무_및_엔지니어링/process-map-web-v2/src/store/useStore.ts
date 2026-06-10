@@ -234,16 +234,14 @@ const useStore = create<RFState>()(
         });
       },
     }),
-    {
       name: 'process-map-storage-v2',
-      version: 1,
+      version: 2,
       migrate: (persistedState: any, version: number) => {
+        let state = persistedState;
+
         if (version < 1) {
-          const state = persistedState as RFState;
           if (state && state.nodes) {
             let updatedNodes = [...state.nodes];
-
-            // 'swimlane-본사'가 아직 저장되지 않은 기존 데이터인 경우
             const hasHeadOffice = updatedNodes.some(n => n.id === 'swimlane-본사');
             if (!hasHeadOffice) {
               // 1. 'swimlane-본사' 행 추가
@@ -259,15 +257,12 @@ const useStore = create<RFState>()(
 
               // 2. 'swimlane-인허가' 및 기존 노드 보정
               updatedNodes = updatedNodes.map(n => {
-                // 인허가 행 Y좌표를 2150으로 이동
                 if (n.id === 'swimlane-인허가') {
                   return { ...n, position: { ...n.position, y: 2150 } };
                 }
-                // 구분선 rdiv-5를 y=1850으로 조정
                 if (n.id === 'rdiv-5') {
                   return { ...n, position: { ...n.position, y: 1850 } };
                 }
-                // 마일스톤 수직 점선(verticalLine) 높이를 2300px로 연장
                 if (n.type === 'verticalLine') {
                   return { ...n, data: { ...n.data, height: 2300 } };
                 }
@@ -288,14 +283,114 @@ const useStore = create<RFState>()(
                 });
               }
             }
-
-            return {
-              ...state,
-              nodes: updatedNodes,
-            };
+            state = { ...state, nodes: updatedNodes };
           }
         }
-        return persistedState;
+
+        if (version < 2) {
+          if (state && state.nodes) {
+            let updatedNodes = [...state.nodes];
+
+            // 1. Shift positions of non-layout cards (action, text, image) in swimlanes down by 200px
+            updatedNodes = updatedNodes.map(n => {
+              if (n.type === 'action' || n.type === 'text' || n.type === 'image') {
+                if (n.position.y >= 150) {
+                  return { ...n, position: { ...n.position, y: n.position.y + 200 } };
+                }
+              }
+
+              // 2. Shift layout swimlanes down to make room for Checklist row
+              if (n.type === 'swimlane') {
+                if (n.id === 'swimlane-공무') return { ...n, position: { x: 0, y: 350 }, style: { ...n.style, height: 400 } };
+                if (n.id === 'swimlane-공사') return { ...n, position: { x: 0, y: 750 }, style: { ...n.style, height: 400 } };
+                if (n.id === 'swimlane-품질') return { ...n, position: { x: 0, y: 1150 }, style: { ...n.style, height: 300 } };
+                if (n.id === 'swimlane-안전') return { ...n, position: { x: 0, y: 1450 }, style: { ...n.style, height: 300 } };
+                if (n.id === 'swimlane-관리') return { ...n, position: { x: 0, y: 1750 }, style: { ...n.style, height: 300 } };
+                if (n.id === 'swimlane-본사') return { ...n, position: { x: 0, y: 2050 }, style: { ...n.style, height: 300 } };
+                if (n.id === 'swimlane-인허가') return { ...n, position: { x: 0, y: 2350 }, style: { ...n.style, height: 300 } };
+              }
+
+              // 3. Shift dividers down
+              if (n.type === 'rowDivider') {
+                if (n.id === 'rdiv-1') return { ...n, position: { ...n.position, y: 750 } };
+                if (n.id === 'rdiv-2') return { ...n, position: { ...n.position, y: 1150 } };
+                if (n.id === 'rdiv-3') return { ...n, position: { ...n.position, y: 1450 } };
+                if (n.id === 'rdiv-4') return { ...n, position: { ...n.position, y: 1750 } };
+                if (n.id === 'rdiv-5') return { ...n, position: { ...n.position, y: 2050 } };
+                if (n.id === 'rdiv-6') return { ...n, position: { ...n.position, y: 2350 } };
+              }
+
+              // 4. Update vertical lines height and start Y position
+              if (n.type === 'verticalLine') {
+                return {
+                  ...n,
+                  position: { ...n.position, y: 0 },
+                  data: { ...n.data, height: 2650 }
+                };
+              }
+
+              return n;
+            });
+
+            // 5. Add 'swimlane-마일스톤'
+            const hasMilestoneSwimlane = updatedNodes.some(n => n.id === 'swimlane-마일스톤');
+            if (!hasMilestoneSwimlane) {
+              updatedNodes.push({
+                id: 'swimlane-마일스톤',
+                type: 'swimlane',
+                position: { x: 0, y: 0 },
+                data: { label: '마일스톤' },
+                style: { width: 2500, height: 150, zIndex: -1 },
+                draggable: false,
+                selectable: false,
+              });
+            }
+
+            // 6. Add 'swimlane-체크리스트'
+            const hasChecklistSwimlane = updatedNodes.some(n => n.id === 'swimlane-체크리스트');
+            if (!hasChecklistSwimlane) {
+              updatedNodes.push({
+                id: 'swimlane-체크리스트',
+                type: 'swimlane',
+                position: { x: 0, y: 150 },
+                data: { label: '체크리스트' },
+                style: { width: 2500, height: 200, zIndex: -1 },
+                draggable: false,
+                selectable: false,
+              });
+            }
+
+            // 7. Add 'rdiv-milestone' and 'rdiv-checklist'
+            const hasRdivMilestone = updatedNodes.some(n => n.id === 'rdiv-milestone');
+            if (!hasRdivMilestone) {
+              updatedNodes.push({
+                id: 'rdiv-milestone',
+                type: 'rowDivider',
+                position: { x: 0, y: 150 },
+                data: {},
+                draggable: true,
+                selectable: false,
+                style: { zIndex: 10 }
+              });
+            }
+            const hasRdivChecklist = updatedNodes.some(n => n.id === 'rdiv-checklist');
+            if (!hasRdivChecklist) {
+              updatedNodes.push({
+                id: 'rdiv-checklist',
+                type: 'rowDivider',
+                position: { x: 0, y: 350 },
+                data: {},
+                draggable: true,
+                selectable: false,
+                style: { zIndex: 10 }
+              });
+            }
+
+            state = { ...state, nodes: updatedNodes };
+          }
+        }
+
+        return state;
       },
       partialize: (state) => ({
         nodes: state.nodes,
