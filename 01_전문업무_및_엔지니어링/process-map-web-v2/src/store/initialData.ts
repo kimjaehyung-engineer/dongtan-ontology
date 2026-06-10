@@ -96,6 +96,48 @@ export const initialNodes: Node<NodeData>[] = [
   { id: 'rdiv-5', type: 'rowDivider', position: { x: 0, y: 2050 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
   { id: 'rdiv-6', type: 'rowDivider', position: { x: 0, y: 2350 }, data: {}, draggable: true, selectable: false, style: { zIndex: 10 } },
 
+  // --- 체크리스트 행 텍스트 창 샘플 ---
+  {
+    id: 'txt-cl-1',
+    type: 'text',
+    position: { x: 100, y: 175 },
+    data: {
+      label: '✅ 설계도서 검토 완료\n✅ 관계기관 협의 완료\n⬜ 착공신고 접수\n⬜ 착수 전 Big Room',
+      textStyle: { bgColor: 'white', borderStyle: 'solid', fontSize: 12, color: '#1e293b' },
+    },
+    style: { width: 200, height: 130, zIndex: 5 },
+  },
+  {
+    id: 'txt-cl-2',
+    type: 'text',
+    position: { x: 550, y: 175 },
+    data: {
+      label: '📋 발주 전 점검사항\n⬜ 현장설명서 배포\n⬜ 입찰공고 게시\n✅ 예산 확보 확인',
+      textStyle: { bgColor: 'yellow', borderStyle: 'solid', fontSize: 12, color: '#92400e' },
+    },
+    style: { width: 200, height: 130, zIndex: 5 },
+  },
+  {
+    id: 'txt-cl-3',
+    type: 'text',
+    position: { x: 950, y: 175 },
+    data: {
+      label: '🔍 계약 전 확인사항\n✅ 계약서 검토\n⬜ 보증보험 징구\n⬜ 착공계 제출',
+      textStyle: { bgColor: 'blue', borderStyle: 'solid', fontSize: 12, color: '#1e3a5f' },
+    },
+    style: { width: 200, height: 130, zIndex: 5 },
+  },
+  {
+    id: 'txt-cl-4',
+    type: 'text',
+    position: { x: 1450, y: 175 },
+    data: {
+      label: '📌 착공 준비 체크\n⬜ 시공계획서 승인\n⬜ 안전관리계획 승인\n⬜ 시공상세도 승인',
+      textStyle: { bgColor: 'green', borderStyle: 'solid', fontSize: 12, color: '#14532d' },
+    },
+    style: { width: 200, height: 130, zIndex: 5 },
+  },
+
   // --- Vertical Lines ---
   { id: 'vline-1', type: 'verticalLine', position: { x: 500, y: 0 }, data: { height: 2650 }, draggable: true, style: { zIndex: 10 } },
   { id: 'vline-2', type: 'verticalLine', position: { x: 900, y: 0 }, data: { height: 2650 }, draggable: true, style: { zIndex: 10 } },
