@@ -21,6 +21,7 @@ function App() {
   const { addNode, deleteNode, nodes, edges, updateNodeData, updateEdge, deleteEdge, setNodesAndEdges, undo, redo, takeSnapshot, past, future, isSelectMode, setSelectMode } = useStore();
   const [startDate, setStartDate] = useState('2025-12-01');
   const [showSettings, setShowSettings] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
   const flowRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const excelInputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +29,15 @@ function App() {
   const selectedNode = nodes.find(n => n.selected);
   const selectedEdge = edges.find(e => e.selected);
   const selectedCount = nodes.filter(n => n.selected).length;
-  const isSidebarOpen = (!!selectedNode && ['action', 'milestone', 'text', 'image'].includes(selectedNode.type || '')) || !!selectedEdge;
+
+  // 선택이 완전히 해제되면 자동으로 사이드바도 닫음
+  useEffect(() => {
+    if (!selectedNode && !selectedEdge) {
+      setShowSidebar(false);
+    }
+  }, [selectedNode, selectedEdge]);
+
+  const isSidebarOpen = showSidebar && ((!!selectedNode && ['action', 'milestone', 'text', 'image'].includes(selectedNode.type || '')) || !!selectedEdge);
 
   // Ctrl+Z (Undo) 및 Ctrl+Y (Redo) 전역 단축키 핸들러
   useEffect(() => {
@@ -632,13 +641,13 @@ function App() {
 
   return (
     <div className="w-screen h-screen flex flex-col font-sans">
-      <header className="h-8 bg-white shadow-sm flex items-center px-4 justify-between z-10 border-b border-gray-200 flex-shrink-0">
-        <h1 className="text-sm font-bold text-gray-800 flex items-center gap-1">
-          <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <header className="h-11 bg-white shadow-sm flex items-center px-4 justify-between z-10 border-b border-gray-200 flex-shrink-0">
+        <h1 className="text-sm font-bold text-gray-800 flex items-center gap-1 whitespace-nowrap">
+          <svg className="w-4 h-4 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
-          프로세스 맵 – 동탄 트램
-          <span className="text-xs font-normal text-gray-400 ml-1">{today}</span>
+          <span className="whitespace-nowrap">프로세스 맵 – 동탄 트램</span>
+          <span className="text-xs font-normal text-gray-400 ml-1 whitespace-nowrap">{today}</span>
         </h1>
 
         <div className="flex items-center gap-1">
@@ -646,7 +655,7 @@ function App() {
           <div className="relative">
             <button
               onClick={() => setShowSettings(v => !v)}
-              className="flex items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-200 rounded text-gray-600 hover:bg-gray-100 text-xs"
+              className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-200 rounded text-gray-600 hover:bg-gray-100 text-xs"
             >
               <Calendar size={12} />
               착공일 설정
@@ -675,7 +684,7 @@ function App() {
           </div>
 
           {/* 범례 */}
-          <div className="flex items-center gap-2 px-2 py-1 bg-gray-50 border border-gray-200 rounded text-[10px]">
+          <div className="whitespace-nowrap flex items-center gap-2 px-2 py-1 bg-gray-50 border border-gray-200 rounded text-[10px]">
             <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>정상</span>
             <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-yellow-400 inline-block"></span>주의</span>
             <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-400 inline-block"></span>위험</span>
@@ -683,10 +692,10 @@ function App() {
           </div>
 
           {/* 모드 선택 (이동/선택) */}
-          <div className="flex items-center gap-0.5 border-r border-gray-200 pr-1.5 mr-1.5 bg-slate-50 p-0.5 rounded-md border border-slate-200">
+          <div className="flex items-center gap-0.5 border-r border-gray-200 pr-1.5 mr-1.5 bg-slate-50 p-0.5 rounded-md border border-slate-200 flex-shrink-0">
             <button
               onClick={() => setSelectMode(false)}
-              className={`flex items-center gap-1 px-2 py-1 rounded transition-all text-xs font-bold ${
+              className={`whitespace-nowrap flex items-center gap-1 px-2 py-1 rounded transition-all text-xs font-bold ${
                 !isSelectMode
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
@@ -697,7 +706,7 @@ function App() {
             </button>
             <button
               onClick={() => setSelectMode(true)}
-              className={`flex items-center gap-1 px-2 py-1 rounded transition-all text-xs font-bold ${
+              className={`whitespace-nowrap flex items-center gap-1 px-2 py-1 rounded transition-all text-xs font-bold ${
                 isSelectMode
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
@@ -709,7 +718,7 @@ function App() {
           </div>
 
           {/* 실행 취소 / 다시 실행 */}
-          <div className="flex items-center gap-0.5 border-r border-gray-200 pr-1.5 mr-1.5">
+          <div className="flex items-center gap-0.5 border-r border-gray-200 pr-1.5 mr-1.5 flex-shrink-0">
             <button
               onClick={undo}
               disabled={past.length === 0}
@@ -738,18 +747,18 @@ function App() {
 
           {/* 다중 선택 액션 */}
           {selectedCount > 0 && (
-            <div className="flex items-center gap-1 border-r border-gray-200 pr-1.5 mr-1.5 bg-blue-50/50 px-1.5 py-0.5 rounded border border-blue-100">
+            <div className="whitespace-nowrap flex items-center gap-1 border-r border-gray-200 pr-1.5 mr-1.5 bg-blue-50/50 px-1.5 py-0.5 rounded border border-blue-100 flex-shrink-0">
               <span className="text-[10px] text-blue-700 font-bold px-1">{selectedCount}개 선택됨</span>
               <button
                 onClick={handleDuplicateSelected}
-                className="flex items-center gap-1 px-2 py-0.5 bg-white hover:bg-blue-50 text-blue-600 font-semibold rounded border border-blue-200 transition-colors text-[10px]"
+                className="whitespace-nowrap flex items-center gap-1 px-2 py-0.5 bg-white hover:bg-blue-50 text-blue-600 font-semibold rounded border border-blue-200 transition-colors text-[10px]"
                 title="선택된 카드를 모두 복제합니다"
               >
                 <Copy size={10} /> 복제
               </button>
               <button
                 onClick={handleDeleteSelected}
-                className="flex items-center gap-1 px-2 py-0.5 bg-white hover:bg-red-50 text-red-600 font-semibold rounded border border-red-200 transition-colors text-[10px]"
+                className="whitespace-nowrap flex items-center gap-1 px-2 py-0.5 bg-white hover:bg-red-50 text-red-600 font-semibold rounded border border-red-200 transition-colors text-[10px]"
                 title="선택된 카드를 모두 삭제합니다"
               >
                 <Trash2 size={10} /> 삭제
@@ -757,34 +766,34 @@ function App() {
             </div>
           )}
 
-          <div className="flex items-center gap-1 border-r border-gray-200 pr-1 mr-1">
-            <button onClick={handleAlignHorizontal} className="flex items-center gap-1 px-2 py-1 bg-gray-50 text-gray-700 font-semibold rounded border border-gray-200 hover:bg-gray-100 transition-colors text-xs" title="선택된 노드들을 가로 일직선으로 맞춥니다">
+          <div className="flex items-center gap-1 border-r border-gray-200 pr-1 mr-1 flex-shrink-0">
+            <button onClick={handleAlignHorizontal} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-gray-50 text-gray-700 font-semibold rounded border border-gray-200 hover:bg-gray-100 transition-colors text-xs" title="선택된 노드들을 가로 일직선으로 맞춥니다">
               <GripHorizontal size={12} /> 가로 정렬
             </button>
-            <button onClick={handleAlignVertical} className="flex items-center gap-1 px-2 py-1 bg-gray-50 text-gray-700 font-semibold rounded border border-gray-200 hover:bg-gray-100 transition-colors text-xs" title="선택된 노드들을 세로 일직선으로 맞춥니다">
+            <button onClick={handleAlignVertical} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-gray-50 text-gray-700 font-semibold rounded border border-gray-200 hover:bg-gray-100 transition-colors text-xs" title="선택된 노드들을 세로 일직선으로 맞춥니다">
               <GripVertical size={12} /> 세로 정렬
             </button>
           </div>
 
-          <button onClick={handleAddNode} className="flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-600 font-semibold rounded border border-blue-200 hover:bg-blue-100 transition-colors text-xs">
+          <button onClick={handleAddNode} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-600 font-semibold rounded border border-blue-200 hover:bg-blue-100 transition-colors text-xs">
             <Plus size={12} /> 카드 추가
           </button>
 
-          <button onClick={handleAddTextNode} className="flex items-center gap-1 px-2 py-1 bg-amber-50 text-amber-700 font-semibold rounded border border-amber-200 hover:bg-amber-100 transition-colors text-xs">
+          <button onClick={handleAddTextNode} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-amber-50 text-amber-700 font-semibold rounded border border-amber-200 hover:bg-amber-100 transition-colors text-xs">
             <Type size={12} /> 텍스트 추가
           </button>
 
-          <div className="w-px h-4 bg-gray-200 mx-0.5" />
+          <div className="w-px h-4 bg-gray-200 mx-0.5 flex-shrink-0" />
 
-          <button onClick={handleExportPNG} className="flex items-center gap-1 px-2 py-1 bg-emerald-50 text-emerald-700 font-semibold rounded border border-emerald-200 hover:bg-emerald-100 transition-colors text-xs">
+          <button onClick={handleExportPNG} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-emerald-50 text-emerald-700 font-semibold rounded border border-emerald-200 hover:bg-emerald-100 transition-colors text-xs">
             <Download size={12} /> PNG
           </button>
 
-          <button onClick={handleExportPDF} className="flex items-center gap-1 px-2 py-1 bg-rose-50 text-rose-700 font-semibold rounded border border-rose-200 hover:bg-rose-100 transition-colors text-xs">
+          <button onClick={handleExportPDF} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-rose-50 text-rose-700 font-semibold rounded border border-rose-200 hover:bg-rose-100 transition-colors text-xs">
             <FileText size={12} /> PDF (A3)
           </button>
 
-          <button onClick={handleSave} className="flex items-center gap-1 px-2 py-1 bg-slate-800 text-white font-semibold rounded hover:bg-slate-700 transition-colors text-xs">
+          <button onClick={handleSave} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-slate-800 text-white font-semibold rounded hover:bg-slate-700 transition-colors text-xs">
             <Download size={12} /> JSON 저장
           </button>
 
@@ -795,7 +804,7 @@ function App() {
                 window.location.reload();
               }
             }} 
-            className="flex items-center gap-1 px-2 py-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 rounded transition-colors text-xs"
+            className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 rounded transition-colors text-xs"
             title="모든 저장된 데이터를 삭제하고 초기 샘플로 복원합니다"
           >
             기본값 복원
@@ -805,7 +814,10 @@ function App() {
 
       <div className="flex-1 w-full flex overflow-hidden">
         <main ref={flowRef} className="flex-1 h-full overflow-hidden relative">
-          <FlowMap />
+          <FlowMap
+            onNodeDoubleClick={() => setShowSidebar(true)}
+            onEdgeDoubleClick={() => setShowSidebar(true)}
+          />
         </main>
         
         {/* 우측 상세 편집 사이드바 */}

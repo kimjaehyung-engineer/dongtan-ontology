@@ -30,15 +30,20 @@ const edgeTypes = {
   smoothstep: AdjustableEdge,
 };
 
-export default function FlowMap() {
+interface FlowMapProps {
+  onNodeDoubleClick?: (event: React.MouseEvent, node: Node) => void;
+  onEdgeDoubleClick?: (event: React.MouseEvent, edge: any) => void;
+}
+
+export default function FlowMap({ onNodeDoubleClick, onEdgeDoubleClick }: FlowMapProps) {
   return (
     <ReactFlowProvider>
-      <FlowMapInner />
+      <FlowMapInner onNodeDoubleClick={onNodeDoubleClick} onEdgeDoubleClick={onEdgeDoubleClick} />
     </ReactFlowProvider>
   );
 }
 
-function FlowMapInner() {
+function FlowMapInner({ onNodeDoubleClick, onEdgeDoubleClick }: FlowMapProps) {
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect, addNode, deleteNode, onReconnect, isSelectMode } = useStore();
 
   // Ctrl+드래그 복사: 드래그 시작 시 Ctrl 눌려있으면 임시 더미 복사본을 생성해 원래 자리를 지킴 (다중 선택 대응)
@@ -203,6 +208,8 @@ function FlowMapInner() {
         selectionOnDrag={isSelectMode}
         selectionMode={SelectionMode.Partial}
         selectionKeyCode={isSelectMode ? null : 'Shift'}
+        onNodeDoubleClick={onNodeDoubleClick}
+        onEdgeDoubleClick={onEdgeDoubleClick}
         fitView
         fitViewOptions={{ padding: 0.2 }}
         minZoom={0.1}
