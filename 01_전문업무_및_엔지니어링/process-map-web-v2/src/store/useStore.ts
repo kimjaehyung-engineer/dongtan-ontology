@@ -129,12 +129,12 @@ const useStore = create<RFState>()(
             const node = get().nodes.find((n) => n.id === change.id);
             if (node) {
               if (node.type === 'verticalLine') {
-                // Lock Y position to 150 for horizontal-only movement
+                // Lock Y position to its current Y position for horizontal-only movement
                 return {
                   ...change,
                   position: {
                     ...change.position,
-                    y: 150,
+                    y: node.position.y,
                   },
                 };
               } else if (node.type === 'rowDivider') {
