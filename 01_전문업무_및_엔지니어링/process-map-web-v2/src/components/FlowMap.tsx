@@ -1,8 +1,8 @@
 import React, { useCallback, useRef } from 'react';
-import ReactFlow, { Background, Controls, MiniMap, ReactFlowProvider, SelectionMode } from 'reactflow';
+import ReactFlow, { Background, Controls, MiniMap, ReactFlowProvider, SelectionMode, useReactFlow } from 'reactflow';
 import type { Node } from 'reactflow';
 import 'reactflow/dist/style.css';
-import useStore from '../store/useStore';
+import useStore, { lastCanvasMousePos } from '../store/useStore';
 import ActionNode from './ActionNode';
 import MilestoneNode from './MilestoneNode';
 import SwimlaneNode from './SwimlaneNode';
@@ -45,6 +45,17 @@ export default function FlowMap({ onNodeDoubleClick, onEdgeDoubleClick }: FlowMa
 
 function FlowMapInner({ onNodeDoubleClick, onEdgeDoubleClick }: FlowMapProps) {
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect, addNode, deleteNode, onReconnect, isSelectMode } = useStore();
+  const { project } = useReactFlow();
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const projected = project({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+    lastCanvasMousePos.x = projected.x;
+    lastCanvasMousePos.y = projected.y;
+  }, [project]);
 
   // Ctrl+드래그 복사: 드래그 시작 시 Ctrl 눌려있으면 임시 더미 복사본을 생성해 원래 자리를 지킴 (다중 선택 대응)
   const ctrlDragOrigin = useRef<{
@@ -190,7 +201,7 @@ function FlowMapInner({ onNodeDoubleClick, onEdgeDoubleClick }: FlowMapProps) {
   }, [deleteNode]);
 
   return (
-    <div className="w-full h-full bg-slate-100">
+    <div className="w-full h-full bg-slate-100" onMouseMove={handleMouseMove}>
       <ReactFlow
         className={isSelectMode ? 'select-mode-active' : ''}
         nodes={nodes}

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import FlowMap from './components/FlowMap';
-import useStore from './store/useStore';
+import useStore, { lastCanvasMousePos } from './store/useStore';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import html2canvas from 'html2canvas';
@@ -39,7 +39,36 @@ function App() {
 
   const isSidebarOpen = showSidebar && ((!!selectedNode && ['action', 'milestone', 'text', 'image'].includes(selectedNode.type || '')) || !!selectedEdge);
 
-  // Ctrl+Z (Undo) 및 Ctrl+Y (Redo) 전역 단축키 핸들러
+  const handleAddNode = () => {
+    takeSnapshot();
+    addNode({
+      id: uuidv4(),
+      type: 'action',
+      position: { x: lastCanvasMousePos.x - 100, y: lastCanvasMousePos.y - 40 },
+      data: {
+        label: '',
+        department: '',
+        purpose: '',
+        method: '',
+        result: '',
+        color: '#fca5a5',
+        status: 'normal',
+      }
+    });
+  };
+
+  const handleAddTextNode = () => {
+    takeSnapshot();
+    addNode({
+      id: uuidv4(),
+      type: 'text',
+      position: { x: lastCanvasMousePos.x - 100, y: lastCanvasMousePos.y - 30 },
+      data: { label: '' },
+      style: { width: 200, height: 60 },
+    });
+  };
+
+  // Ctrl+Z (Undo) 및 Ctrl+Y (Redo) 및 'T' (텍스트 추가) 전역 단축키 핸들러
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
@@ -55,10 +84,16 @@ function App() {
         e.preventDefault();
         redo();
       }
+      // 'T' 단축키로 현재 마우스 위치에 텍스트 노드 즉시 추가
+      if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === 't') {
+        if (isInput) return;
+        e.preventDefault();
+        handleAddTextNode();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo]);
+  }, [undo, redo, handleAddTextNode]);
 
   const handleDuplicateNode = () => {
     if (!selectedNode) return;
@@ -543,32 +578,6 @@ function App() {
     );
   };
 
-  const handleAddNode = () => {
-    addNode({
-      id: uuidv4(),
-      type: 'action',
-      position: { x: 400 + Math.random() * 80, y: 300 + Math.random() * 80 },
-      data: {
-        label: '',
-        department: '',
-        purpose: '',
-        method: '',
-        result: '',
-        color: '#fca5a5',
-        status: 'normal',
-      }
-    });
-  };
-
-  const handleAddTextNode = () => {
-    addNode({
-      id: uuidv4(),
-      type: 'text',
-      position: { x: 500 + Math.random() * 80, y: 350 + Math.random() * 80 },
-      data: { label: '' },
-      style: { width: 200, height: 60 },
-    });
-  };
 
   const handleExportPNG = async () => {
     const el = document.querySelector('.react-flow') as HTMLElement;

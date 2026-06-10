@@ -20,6 +20,9 @@ import type {
 } from 'reactflow';
 import { initialNodes, initialEdges } from './initialData';
 
+// 마우스 움직임에 따른 캔버스상 좌표(비반응형) 추적용 전역 레퍼런스
+export const lastCanvasMousePos = { x: 500, y: 300 };
+
 export type NodeData = {
   label?: string;
   department?: string;
