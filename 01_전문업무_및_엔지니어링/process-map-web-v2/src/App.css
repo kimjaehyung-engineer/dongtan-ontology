@@ -48,10 +48,9 @@
   outline: none;
 }
 
-/* 선택 모드일 때 포인터(화살표) 커서 적용 */
-.react-flow.select-mode-active .react-flow__pane,
-.react-flow.select-mode-active .react-flow__pane.dragging,
-.react-flow.select-mode-active .react-flow__selection {
+/* 선택 모드일 때 포인터(화살표) 커서 적용 (모든 하위 요소 강제) */
+.react-flow.select-mode-active,
+.react-flow.select-mode-active * {
   cursor: default !important;
 }
 
