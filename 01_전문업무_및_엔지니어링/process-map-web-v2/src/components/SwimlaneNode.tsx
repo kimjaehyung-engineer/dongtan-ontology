@@ -45,20 +45,9 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
         const { edges, setNodesAndEdges } = useStore.getState();
 
         const next = snap.map(n => {
+          // 현재 스윔레인 크기만 변경 (다른 노드는 건드리지 않음)
           if (n.id === id) {
             return { ...n, style: { ...n.style, width: newW, height: newH } };
-          }
-          // 모든 스윔레인 가로폭 동기화
-          if (n.type === 'swimlane') {
-            return { ...n, style: { ...n.style, width: newW } };
-          }
-          // 아래 행 전체를 세로 델타만큼 밀기
-          if (dir !== 'right' && n.type !== 'verticalLine' && n.position.y >= origBottom - 2) {
-            return { ...n, position: { ...n.position, y: n.position.y + dy } };
-          }
-          // 수직선 높이 확장
-          if (dir !== 'right' && n.type === 'verticalLine') {
-            return { ...n, data: { ...n.data, height: ((n.data.height as number) ?? 2650) + dy } };
           }
           return n;
         });
@@ -103,7 +92,7 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
       {/* ── 오른쪽 리사이즈 핸들 (visible stripe) ── */}
       <div
         onMouseDown={e => startResize(e, 'right')}
-        className="absolute top-0 bottom-0 right-0 z-20 flex items-center justify-end"
+        className="nodrag absolute top-0 bottom-0 right-0 z-20 flex items-center justify-end"
         style={{ width: 16, cursor: 'ew-resize' }}
       >
         {/* 핸들 시각화: 세로 점 3개 */}
@@ -117,7 +106,7 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
       {/* ── 아래쪽 리사이즈 핸들 (visible stripe) ── */}
       <div
         onMouseDown={e => startResize(e, 'bottom')}
-        className="absolute left-0 right-0 bottom-0 z-20 flex flex-col items-center justify-end"
+        className="nodrag absolute left-0 right-0 bottom-0 z-20 flex flex-col items-center justify-end"
         style={{ height: 16, cursor: 'ns-resize' }}
       >
         {/* 핸들 시각화: 가로 점 3개 */}
@@ -131,7 +120,7 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
       {/* ── 우하단 코너 핸들 ── */}
       <div
         onMouseDown={e => startResize(e, 'corner')}
-        className="absolute bottom-0 right-0 z-30 flex items-center justify-center"
+        className="nodrag absolute bottom-0 right-0 z-30 flex items-center justify-center"
         style={{ width: 20, height: 20, cursor: 'nwse-resize' }}
       >
         <div className="w-3 h-3 rounded-full bg-blue-500 border-2 border-white shadow-md
