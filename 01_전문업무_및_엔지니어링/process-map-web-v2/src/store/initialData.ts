@@ -179,6 +179,7 @@ export const initialNodes: Node<NodeData>[] = [
       method: '- 공정별 간섭사항 검토 (노반/궤도/전기/신호/PSD/차량)\n- 당사/타사 장비 반입계획/상호운영 연계 검토',
       result: 'Big Room 회의록(참석자 전원 서명)',
       color: '#fca5a5'
+    },
   },
 ];
 
