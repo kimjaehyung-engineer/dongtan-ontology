@@ -858,21 +858,149 @@ function App() {
                     );
                   })()}
 
-                  {selectedNode.type === 'checklistHeader' && (
-                    <div className="flex flex-col space-y-4">
-                      <div className="flex flex-col">
-                        <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">글상자 내용</label>
-                        <input
-                          type="text"
-                          value={selectedNode.data.label || ''}
-                          onFocus={takeSnapshot}
-                          onChange={e => updateNodeData(selectedNode.id, { label: e.target.value })}
-                          className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs font-semibold text-gray-800 focus:bg-white"
-                          placeholder="예: 본공사수행"
-                        />
+                  {selectedNode.type === 'checklistHeader' && (() => {
+                    const ts = selectedNode.data.textStyle || {};
+                    const bgColor = ts.bgColor || '#1e293b';
+                    const textColor = ts.color || '#ffffff';
+                    const borderStyle = ts.borderStyle || 'solid';
+                    const borderWidth = ts.borderWidth !== undefined ? ts.borderWidth : 1;
+                    const fontSize = ts.fontSize || 12;
+
+                    const updateStyle = (patch: any) => {
+                      updateNodeData(selectedNode.id, {
+                        textStyle: { ...ts, ...patch }
+                      });
+                    };
+
+                    return (
+                      <div className="flex flex-col space-y-4">
+                        <div className="flex flex-col">
+                          <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">글상자 내용</label>
+                          <input
+                            type="text"
+                            value={selectedNode.data.label || ''}
+                            onFocus={takeSnapshot}
+                            onChange={e => updateNodeData(selectedNode.id, { label: e.target.value })}
+                            className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs font-semibold text-gray-800 focus:bg-white"
+                            placeholder="예: 본공사수행"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          {/* 채움색 */}
+                          <div className="flex flex-col">
+                            <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">채움색 (배경색)</label>
+                            <div className="flex items-center gap-1.5">
+                              <input
+                                type="color"
+                                value={bgColor.startsWith('#') ? bgColor : '#1e293b'}
+                                onFocus={takeSnapshot}
+                                onChange={e => updateStyle({ bgColor: e.target.value })}
+                                className="w-8 h-8 rounded border border-gray-200 cursor-pointer p-0"
+                              />
+                              <select
+                                value={bgColor}
+                                onChange={e => {
+                                  takeSnapshot();
+                                  updateStyle({ bgColor: e.target.value });
+                                }}
+                                className="fancy-input flex-1 bg-gray-50 border border-gray-200 rounded-lg p-1.5 text-xs text-gray-800"
+                              >
+                                <option value="#1e293b">짙은 남색 (기본)</option>
+                                <option value="#ffffff">하양</option>
+                                <option value="#f8fafc">밝은 회색</option>
+                                <option value="#fef08a">노랑</option>
+                                <option value="#bfdbfe">파랑</option>
+                                <option value="#bbf7d0">연두</option>
+                                <option value="#fbcfe8">분홍</option>
+                                <option value="transparent">투명</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          {/* 글자 색상 */}
+                          <div className="flex flex-col">
+                            <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">글자 색상</label>
+                            <div className="flex items-center gap-1.5">
+                              <input
+                                type="color"
+                                value={textColor.startsWith('#') ? textColor : '#ffffff'}
+                                onFocus={takeSnapshot}
+                                onChange={e => updateStyle({ color: e.target.value })}
+                                className="w-8 h-8 rounded border border-gray-200 cursor-pointer p-0"
+                              />
+                              <select
+                                value={textColor}
+                                onChange={e => {
+                                  takeSnapshot();
+                                  updateStyle({ color: e.target.value });
+                                }}
+                                className="fancy-input flex-1 bg-gray-50 border border-gray-200 rounded-lg p-1.5 text-xs text-gray-800"
+                              >
+                                <option value="#ffffff">하양 (기본)</option>
+                                <option value="#1e293b">짙은 남색</option>
+                                <option value="#ef4444">빨강</option>
+                                <option value="#3b82f6">파랑</option>
+                                <option value="#10b981">초록</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          {/* 테두리 선 종류 */}
+                          <div className="flex flex-col">
+                            <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">테두리 선 종류</label>
+                            <select
+                              value={borderStyle}
+                              onFocus={takeSnapshot}
+                              onChange={e => updateStyle({ borderStyle: e.target.value })}
+                              className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800"
+                            >
+                              <option value="solid">실선 (solid)</option>
+                              <option value="dashed">점선 (dashed)</option>
+                              <option value="dotted">점선 (dotted)</option>
+                              <option value="double">이중선 (double)</option>
+                              <option value="none">선 없음 (none)</option>
+                            </select>
+                          </div>
+
+                          {/* 테두리 선 굵기 */}
+                          <div className="flex flex-col">
+                            <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">테두리 선 굵기</label>
+                            <select
+                              value={borderWidth}
+                              onFocus={takeSnapshot}
+                              onChange={e => updateStyle({ borderWidth: Number(e.target.value) })}
+                              className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800"
+                              disabled={borderStyle === 'none'}
+                            >
+                              <option value={1}>1px</option>
+                              <option value={2}>2px</option>
+                              <option value={3}>3px</option>
+                              <option value={4}>4px</option>
+                              <option value={5}>5px</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        {/* 글자 크기 */}
+                        <div className="flex flex-col">
+                          <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">글자 크기</label>
+                          <select
+                            value={fontSize}
+                            onFocus={takeSnapshot}
+                            onChange={e => updateStyle({ fontSize: Number(e.target.value) })}
+                            className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800"
+                          >
+                            {[10, 11, 12, 13, 14, 16, 18, 20, 24, 28].map(sz => (
+                              <option key={sz} value={sz}>{sz}px</option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    );
+                  })()}
 
                   {selectedNode.type === 'checklistItem' && (
                     <div className="flex flex-col space-y-3">

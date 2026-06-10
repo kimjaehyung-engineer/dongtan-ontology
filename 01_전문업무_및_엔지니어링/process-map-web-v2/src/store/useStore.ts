@@ -43,6 +43,7 @@ export type NodeData = {
   textStyle?: {
     bgColor?: string;
     borderStyle?: string;
+    borderWidth?: number;
     fontSize?: number;
     color?: string;
   };
