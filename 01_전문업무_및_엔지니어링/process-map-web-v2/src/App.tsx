@@ -655,7 +655,7 @@ function App() {
           <div className="relative">
             <button
               onClick={() => setShowSettings(v => !v)}
-              className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-200 rounded text-gray-600 hover:bg-gray-100 text-xs"
+              className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-200 rounded text-gray-600 hover:bg-gray-100 text-[10px]"
             >
               <Calendar size={12} />
               착공일 설정
@@ -695,7 +695,7 @@ function App() {
           <div className="flex items-center gap-0.5 border-r border-gray-200 pr-1.5 mr-1.5 bg-slate-50 p-0.5 rounded-md border border-slate-200 flex-shrink-0">
             <button
               onClick={() => setSelectMode(false)}
-              className={`whitespace-nowrap flex items-center gap-1 px-2 py-1 rounded transition-all text-xs font-bold ${
+              className={`whitespace-nowrap flex items-center gap-1 px-2 py-1 rounded transition-all text-[10px] font-bold ${
                 !isSelectMode
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
@@ -706,7 +706,7 @@ function App() {
             </button>
             <button
               onClick={() => setSelectMode(true)}
-              className={`whitespace-nowrap flex items-center gap-1 px-2 py-1 rounded transition-all text-xs font-bold ${
+              className={`whitespace-nowrap flex items-center gap-1 px-2 py-1 rounded transition-all text-[10px] font-bold ${
                 isSelectMode
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'bg-white text-gray-600 hover:bg-gray-50'
@@ -767,33 +767,33 @@ function App() {
           )}
 
           <div className="flex items-center gap-1 border-r border-gray-200 pr-1 mr-1 flex-shrink-0">
-            <button onClick={handleAlignHorizontal} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-gray-50 text-gray-700 font-semibold rounded border border-gray-200 hover:bg-gray-100 transition-colors text-xs" title="선택된 노드들을 가로 일직선으로 맞춥니다">
+            <button onClick={handleAlignHorizontal} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-gray-50 text-gray-700 font-semibold rounded border border-gray-200 hover:bg-gray-100 transition-colors text-[10px]" title="선택된 노드들을 가로 일직선으로 맞춥니다">
               <GripHorizontal size={12} /> 가로 정렬
             </button>
-            <button onClick={handleAlignVertical} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-gray-50 text-gray-700 font-semibold rounded border border-gray-200 hover:bg-gray-100 transition-colors text-xs" title="선택된 노드들을 세로 일직선으로 맞춥니다">
+            <button onClick={handleAlignVertical} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-gray-50 text-gray-700 font-semibold rounded border border-gray-200 hover:bg-gray-100 transition-colors text-[10px]" title="선택된 노드들을 세로 일직선으로 맞춥니다">
               <GripVertical size={12} /> 세로 정렬
             </button>
           </div>
 
-          <button onClick={handleAddNode} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-600 font-semibold rounded border border-blue-200 hover:bg-blue-100 transition-colors text-xs">
+          <button onClick={handleAddNode} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-600 font-semibold rounded border border-blue-200 hover:bg-blue-100 transition-colors text-[10px]">
             <Plus size={12} /> 카드 추가
           </button>
 
-          <button onClick={handleAddTextNode} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-amber-50 text-amber-700 font-semibold rounded border border-amber-200 hover:bg-amber-100 transition-colors text-xs">
+          <button onClick={handleAddTextNode} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-amber-50 text-amber-700 font-semibold rounded border border-amber-200 hover:bg-amber-100 transition-colors text-[10px]">
             <Type size={12} /> 텍스트 추가
           </button>
 
           <div className="w-px h-4 bg-gray-200 mx-0.5 flex-shrink-0" />
 
-          <button onClick={handleExportPNG} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-emerald-50 text-emerald-700 font-semibold rounded border border-emerald-200 hover:bg-emerald-100 transition-colors text-xs">
+          <button onClick={handleExportPNG} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-emerald-50 text-emerald-700 font-semibold rounded border border-emerald-200 hover:bg-emerald-100 transition-colors text-[10px]">
             <Download size={12} /> PNG
           </button>
 
-          <button onClick={handleExportPDF} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-rose-50 text-rose-700 font-semibold rounded border border-rose-200 hover:bg-rose-100 transition-colors text-xs">
+          <button onClick={handleExportPDF} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-rose-50 text-rose-700 font-semibold rounded border border-rose-200 hover:bg-rose-100 transition-colors text-[10px]">
             <FileText size={12} /> PDF (A3)
           </button>
 
-          <button onClick={handleSave} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-slate-800 text-white font-semibold rounded hover:bg-slate-700 transition-colors text-xs">
+          <button onClick={handleSave} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-slate-800 text-white font-semibold rounded hover:bg-slate-700 transition-colors text-[10px]">
             <Download size={12} /> JSON 저장
           </button>
 
@@ -804,7 +804,7 @@ function App() {
                 window.location.reload();
               }
             }} 
-            className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 rounded transition-colors text-xs"
+            className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 rounded transition-colors text-[10px]"
             title="모든 저장된 데이터를 삭제하고 초기 샘플로 복원합니다"
           >
             기본값 복원
