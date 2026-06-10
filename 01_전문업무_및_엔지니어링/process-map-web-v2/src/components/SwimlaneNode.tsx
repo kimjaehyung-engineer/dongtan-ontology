@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import type { NodeProps } from 'reactflow';
 import { useReactFlow } from 'reactflow';
 import useStore from '../store/useStore';
@@ -6,49 +6,44 @@ import type { NodeData } from '../store/useStore';
 
 export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>) {
   const { getZoom } = useReactFlow();
+  const isResizing = useRef(false);
 
-  // ── 왼쪽 레이블 클릭 → 선택 ──────────────────────────
+  // ── 왼쪽 레이블 클릭 → 선택 ──────────────────────
   const handleLabelClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const { nodes, setNodesAndEdges, edges } = useStore.getState();
-    const updated = nodes.map(n => ({
-      ...n,
-      selected: n.id === id ? true : (e.ctrlKey || e.shiftKey ? n.selected : false),
-    }));
-    setNodesAndEdges(updated, edges);
   };
 
-  // ── 커스텀 리사이즈 핸들 ─────────────────────────────
+  // ── 커스텀 리사이즈 드래그 ────────────────────────
   const startResize = useCallback(
     (e: React.MouseEvent, dir: 'right' | 'bottom' | 'corner') => {
       e.preventDefault();
       e.stopPropagation();
 
+      if (isResizing.current) return;
+      isResizing.current = true;
+
       const zoom = getZoom();
       useStore.getState().takeSnapshot();
 
-      // 드래그 시작 시점의 상태를 모두 스냅샷
       const { nodes: snap } = useStore.getState();
       const node = snap.find(n => n.id === id);
-      if (!node) return;
+      if (!node) { isResizing.current = false; return; }
 
-      const origW = (node.style?.width  as number) ?? 2500;
-      const origH = (node.style?.height as number) ?? 300;
+      const origW      = (node.style?.width  as number) ?? 2500;
+      const origH      = (node.style?.height as number) ?? 300;
       const origBottom = node.position.y + origH;
-      const startX = e.clientX;
-      const startY = e.clientY;
+      const startX     = e.clientX;
+      const startY     = e.clientY;
 
       const onMove = (ev: MouseEvent) => {
-        // 스크린 픽셀 → 캔버스 단위 변환
         const dx = (ev.clientX - startX) / zoom;
         const dy = (ev.clientY - startY) / zoom;
 
-        const newW = Math.max(800,  origW + (dir !== 'bottom' ? dx : 0));
-        const newH = Math.max(80,   origH + (dir !== 'right'  ? dy : 0));
+        const newW = Math.max(800, origW + (dir !== 'bottom' ? dx : 0));
+        const newH = Math.max(80,  origH + (dir !== 'right'  ? dy : 0));
 
         const { edges, setNodesAndEdges } = useStore.getState();
 
-        // 드래그 시작 시점의 스냅샷(snap)을 기준으로 계산 → 누적 오차 없음
         const next = snap.map(n => {
           if (n.id === id) {
             return { ...n, style: { ...n.style, width: newW, height: newH } };
@@ -57,7 +52,7 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
           if (n.type === 'swimlane') {
             return { ...n, style: { ...n.style, width: newW } };
           }
-          // 세로 리사이즈: 현재 스윔레인 하단보다 아래에 있는 노드 밀기
+          // 아래 행 전체를 세로 델타만큼 밀기
           if (dir !== 'right' && n.type !== 'verticalLine' && n.position.y >= origBottom - 2) {
             return { ...n, position: { ...n.position, y: n.position.y + dy } };
           }
@@ -72,22 +67,23 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
       };
 
       const onUp = () => {
+        isResizing.current = false;
         window.removeEventListener('mousemove', onMove);
-        window.removeEventListener('mouseup',  onUp);
+        window.removeEventListener('mouseup',   onUp);
       };
 
       window.addEventListener('mousemove', onMove);
-      window.addEventListener('mouseup',  onUp);
+      window.addEventListener('mouseup',   onUp);
     },
     [id, getZoom]
   );
 
   return (
-    <div className="relative w-full h-full" style={{ pointerEvents: 'none' }}>
+    <div className="relative w-full h-full overflow-visible">
 
-      {/* 배경 */}
+      {/* ── 배경 (nodrag: 이 영역을 클릭해도 노드를 드래그하지 않음) ── */}
       <div
-        className={`absolute inset-0 bg-slate-50/60 ${
+        className={`nodrag absolute inset-0 bg-slate-50/60 ${
           selected ? 'ring-2 ring-inset ring-blue-400 bg-blue-50/20' : ''
         }`}
       />
@@ -95,47 +91,51 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
       {/* ── 왼쪽 레이블 바 ── */}
       <div
         onClick={handleLabelClick}
-        onMouseDown={e => e.stopPropagation()}
-        style={{ pointerEvents: 'auto' }}
-        className="absolute left-0 top-0 bottom-0 w-16 bg-slate-200 border-r border-slate-300
-                   flex items-center justify-center cursor-pointer
-                   hover:bg-slate-300/80 transition-colors z-10 select-none"
+        className="nodrag absolute left-0 top-0 bottom-0 w-16 bg-slate-200 border-r border-slate-300
+                   flex items-center justify-center cursor-pointer select-none
+                   hover:bg-slate-300/80 transition-colors z-10"
       >
         <span className="transform -rotate-90 text-lg font-bold text-slate-600 tracking-widest whitespace-nowrap">
           {data.label}
         </span>
       </div>
 
-      {/* ── 오른쪽 경계 (가로 리사이즈) ── */}
+      {/* ── 오른쪽 리사이즈 핸들 (visible stripe) ── */}
       <div
         onMouseDown={e => startResize(e, 'right')}
-        style={{ pointerEvents: 'auto' }}
-        title="드래그하여 너비 조절"
-        className="absolute top-0 bottom-0 right-0 w-2 z-20 cursor-ew-resize
-                   hover:bg-blue-500/40 transition-colors"
-      />
+        className="absolute top-0 bottom-0 right-0 z-20 flex items-center justify-end"
+        style={{ width: 16, cursor: 'ew-resize' }}
+      >
+        {/* 핸들 시각화: 세로 점 3개 */}
+        <div className="flex flex-col gap-1 mr-1 opacity-30 hover:opacity-90 transition-opacity pointer-events-none">
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+        </div>
+      </div>
 
-      {/* ── 아래쪽 경계 (세로 리사이즈) ── */}
+      {/* ── 아래쪽 리사이즈 핸들 (visible stripe) ── */}
       <div
         onMouseDown={e => startResize(e, 'bottom')}
-        style={{ pointerEvents: 'auto' }}
-        title="드래그하여 높이 조절"
-        className="absolute left-0 right-0 bottom-0 h-2 z-20 cursor-ns-resize
-                   hover:bg-blue-500/40 transition-colors"
-      />
+        className="absolute left-0 right-0 bottom-0 z-20 flex flex-col items-center justify-end"
+        style={{ height: 16, cursor: 'ns-resize' }}
+      >
+        {/* 핸들 시각화: 가로 점 3개 */}
+        <div className="flex flex-row gap-1 mb-1 opacity-30 hover:opacity-90 transition-opacity pointer-events-none">
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+        </div>
+      </div>
 
-      {/* ── 우하단 코너 ── */}
+      {/* ── 우하단 코너 핸들 ── */}
       <div
         onMouseDown={e => startResize(e, 'corner')}
-        style={{ pointerEvents: 'auto' }}
-        title="드래그하여 크기 조절"
-        className="absolute bottom-0 right-0 w-5 h-5 z-30 cursor-nwse-resize group"
+        className="absolute bottom-0 right-0 z-30 flex items-center justify-center"
+        style={{ width: 20, height: 20, cursor: 'nwse-resize' }}
       >
-        <div
-          className="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full
-                     bg-blue-500 border-2 border-white shadow-md
-                     opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-        />
+        <div className="w-3 h-3 rounded-full bg-blue-500 border-2 border-white shadow-md
+                        opacity-40 hover:opacity-100 transition-opacity duration-150" />
       </div>
 
     </div>
