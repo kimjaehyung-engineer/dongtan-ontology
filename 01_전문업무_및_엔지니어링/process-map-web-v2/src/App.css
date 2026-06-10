@@ -63,3 +63,13 @@
   z-index: 10000 !important;
   pointer-events: none;
 }
+
+/* 스윔레인 노드가 드래그 선택 및 캔버스 드래그를 차단하는 현상 방지 */
+.react-flow__node-swimlane {
+  pointer-events: none !important;
+}
+
+/* 스윔레인의 좌측 레이블 및 크기조절 그립은 클릭 가능하도록 복원 */
+.react-flow__node-swimlane .nodrag {
+  pointer-events: auto !important;
+}
