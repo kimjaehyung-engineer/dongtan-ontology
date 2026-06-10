@@ -77,11 +77,56 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
         const dy = (ev.clientY - startY) / zoom;
         const newW = Math.max(800, origW + (dir !== 'bottom' ? dx : 0));
         const newH = Math.max(80,  origH + (dir !== 'right'  ? dy : 0));
+        const deltaH = newH - origH;
 
         const { edges, setNodesAndEdges } = useStore.getState();
-        const next = snap.map(n =>
-          n.id === id ? { ...n, style: { ...n.style, width: newW, height: newH } } : n
-        );
+        const next = snap.map(n => {
+          // 1. 리사이즈 중인 대상 스윔레인 자체
+          if (n.id === id) {
+            return {
+              ...n,
+              style: { ...n.style, width: newW, height: newH }
+            };
+          }
+
+          // 2. 다른 스윔레인 노드: 가로 너비 동기화 및 하위 Y축 이동 연동
+          if (n.type === 'swimlane') {
+            const currentW = (n.style?.width as number) ?? 2500;
+            const targetW = dir !== 'bottom' ? newW : currentW;
+            const origY = n.position.y;
+            const targetY = (dir !== 'right' && origY >= node.position.y + origH - 5)
+              ? origY + deltaH
+              : origY;
+
+            return {
+              ...n,
+              position: { ...n.position, y: targetY },
+              style: { ...n.style, width: targetW }
+            };
+          }
+
+          // 3. 수직선(verticalLine) 노드: 높이(height) 연동
+          if (n.type === 'verticalLine') {
+            const currentHeight = (n.data?.height as number) ?? 1700;
+            const targetHeight = dir !== 'right' ? Math.max(500, currentHeight + deltaH) : currentHeight;
+            return {
+              ...n,
+              data: { ...n.data, height: targetHeight }
+            };
+          }
+
+          // 4. 그 외 아래쪽에 있는 모든 노드들 (액션 카드, 구분선, 텍스트 노드 등): Y축 이동 연동
+          const origY = n.position.y;
+          if (dir !== 'right' && origY >= node.position.y + origH - 5) {
+            return {
+              ...n,
+              position: { ...n.position, y: origY + deltaH }
+            };
+          }
+
+          return n;
+        });
+
         setNodesAndEdges(next, edges);
       };
 
