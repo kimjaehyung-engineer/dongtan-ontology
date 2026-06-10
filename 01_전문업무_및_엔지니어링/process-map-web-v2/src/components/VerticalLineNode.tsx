@@ -39,7 +39,7 @@ export default function VerticalLineNode({ id, data }: NodeProps<NodeData & { he
         .vertical-line-container .vertical-line-inner {
           width: 0px;
           height: 100%;
-          border-left: 2px solid transparent;
+          border-left: 2px dashed #94a3b8;
           transition: border-color 0.15s ease;
         }
         .vertical-line-container:hover .vertical-line-inner {

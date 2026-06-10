@@ -4,9 +4,47 @@ import { useReactFlow } from 'reactflow';
 import useStore from '../store/useStore';
 import type { NodeData } from '../store/useStore';
 
+// 행 유형별 스타일 설정
+const LANE_STYLES: Record<string, {
+  bgClass: string;
+  labelBg: string;
+  labelText: string;
+  border: string;
+  accentColor: string;
+  accent: boolean;
+}> = {
+  '마일스톤': {
+    bgClass: 'bg-amber-50',
+    labelBg: 'bg-amber-600',
+    labelText: 'text-white',
+    border: 'border-amber-300',
+    accentColor: 'bg-amber-400',
+    accent: true,
+  },
+  '체크리스트': {
+    bgClass: 'bg-indigo-50',
+    labelBg: 'bg-indigo-600',
+    labelText: 'text-white',
+    border: 'border-indigo-300',
+    accentColor: 'bg-indigo-400',
+    accent: true,
+  },
+};
+
+const DEFAULT_STYLE = {
+  bgClass: 'bg-slate-50/60',
+  labelBg: 'bg-slate-200',
+  labelText: 'text-slate-600',
+  border: 'border-slate-300',
+  accentColor: 'bg-slate-400',
+  accent: false,
+};
+
 export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>) {
   const { getZoom } = useReactFlow();
   const isResizing = useRef(false);
+  const label = data.label as string;
+  const style = LANE_STYLES[label] ?? DEFAULT_STYLE;
 
   // ── 왼쪽 레이블 클릭 → 선택 ──────────────────────
   const handleLabelClick = (e: React.MouseEvent) => {
@@ -29,29 +67,21 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
       const node = snap.find(n => n.id === id);
       if (!node) { isResizing.current = false; return; }
 
-      const origW      = (node.style?.width  as number) ?? 2500;
-      const origH      = (node.style?.height as number) ?? 300;
-      const origBottom = node.position.y + origH;
-      const startX     = e.clientX;
-      const startY     = e.clientY;
+      const origW  = (node.style?.width  as number) ?? 2500;
+      const origH  = (node.style?.height as number) ?? 300;
+      const startX = e.clientX;
+      const startY = e.clientY;
 
       const onMove = (ev: MouseEvent) => {
         const dx = (ev.clientX - startX) / zoom;
         const dy = (ev.clientY - startY) / zoom;
-
         const newW = Math.max(800, origW + (dir !== 'bottom' ? dx : 0));
         const newH = Math.max(80,  origH + (dir !== 'right'  ? dy : 0));
 
         const { edges, setNodesAndEdges } = useStore.getState();
-
-        const next = snap.map(n => {
-          // 현재 스윔레인 크기만 변경 (다른 노드는 건드리지 않음)
-          if (n.id === id) {
-            return { ...n, style: { ...n.style, width: newW, height: newH } };
-          }
-          return n;
-        });
-
+        const next = snap.map(n =>
+          n.id === id ? { ...n, style: { ...n.style, width: newW, height: newH } } : n
+        );
         setNodesAndEdges(next, edges);
       };
 
@@ -67,64 +97,72 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
     [id, getZoom]
   );
 
+  const accentRing = selected ? 'ring-2 ring-inset ring-blue-400' : '';
+
   return (
     <div className="relative w-full h-full overflow-visible">
 
-      {/* ── 배경 (nodrag: 이 영역을 클릭해도 노드를 드래그하지 않음) ── */}
+      {/* ── 배경 ── */}
       <div
-        className={`nodrag absolute inset-0 bg-slate-50/60 ${
-          selected ? 'ring-2 ring-inset ring-blue-400 bg-blue-50/20' : ''
-        }`}
+        className={`nodrag absolute inset-0 ${style.bgClass} ${accentRing}`}
       />
+
+      {/* 마일스톤/체크리스트 전용: 상단 강조 라인 */}
+      {style.accent && (
+        <div className={`absolute top-0 left-0 right-0 h-1 ${style.accentColor} opacity-60`} />
+      )}
 
       {/* ── 왼쪽 레이블 바 ── */}
       <div
         onClick={handleLabelClick}
-        className="nodrag absolute left-0 top-0 bottom-0 w-16 bg-slate-200 border-r border-slate-300
+        className={`nodrag absolute left-0 top-0 bottom-0 w-16 ${style.labelBg}
+                   border-r ${style.border}
                    flex items-center justify-center cursor-pointer select-none
-                   hover:bg-slate-300/80 transition-colors z-10"
+                   transition-colors z-10`}
       >
-        <span className="transform -rotate-90 text-lg font-bold text-slate-600 tracking-widest whitespace-nowrap">
-          {data.label}
+        {/* accent 행: 왼쪽 세로 강조선 */}
+        {style.accent && (
+          <div className={`absolute left-0 top-0 bottom-0 w-1 ${style.accentColor} opacity-80 rounded-r-sm`} />
+        )}
+        <span className={`transform -rotate-90 text-sm font-bold ${style.labelText} tracking-widest whitespace-nowrap uppercase`}>
+          {label}
         </span>
       </div>
 
-      {/* ── 오른쪽 리사이즈 핸들 (visible stripe) ── */}
+      {/* ── 오른쪽 리사이즈 핸들 ── */}
       <div
         onMouseDown={e => startResize(e, 'right')}
         className="nodrag absolute top-0 bottom-0 right-0 z-20 flex items-center justify-end"
         style={{ width: 16, cursor: 'ew-resize' }}
       >
-        {/* 핸들 시각화: 세로 점 3개 */}
-        <div className="flex flex-col gap-1 mr-1 opacity-30 hover:opacity-90 transition-opacity pointer-events-none">
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+        <div className="flex flex-col gap-1 mr-1 opacity-20 hover:opacity-70 transition-opacity pointer-events-none">
+          <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+          <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+          <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
         </div>
       </div>
 
-      {/* ── 아래쪽 리사이즈 핸들 (visible stripe) ── */}
+      {/* ── 아래쪽 리사이즈 핸들 ── */}
       <div
         onMouseDown={e => startResize(e, 'bottom')}
         className="nodrag absolute left-0 right-0 bottom-0 z-20 flex flex-col items-center justify-end"
         style={{ height: 16, cursor: 'ns-resize' }}
       >
-        {/* 핸들 시각화: 가로 점 3개 */}
-        <div className="flex flex-row gap-1 mb-1 opacity-30 hover:opacity-90 transition-opacity pointer-events-none">
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+        <div className="flex flex-row gap-1 mb-1 opacity-20 hover:opacity-70 transition-opacity pointer-events-none">
+          <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+          <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+          <div className="w-1.5 h-1.5 rounded-full bg-slate-400" />
         </div>
       </div>
 
       {/* ── 우하단 코너 핸들 ── */}
       <div
         onMouseDown={e => startResize(e, 'corner')}
-        className="nodrag absolute bottom-0 right-0 z-30 flex items-center justify-center"
+        className="nodrag absolute bottom-0 right-0 z-30 flex items-center justify-center group"
         style={{ width: 20, height: 20, cursor: 'nwse-resize' }}
       >
-        <div className="w-3 h-3 rounded-full bg-blue-500 border-2 border-white shadow-md
-                        opacity-40 hover:opacity-100 transition-opacity duration-150" />
+        <div className="w-3 h-3 rounded-full bg-slate-400 border-2 border-white shadow
+                        opacity-0 group-hover:opacity-80 transition-opacity duration-150" />
       </div>
 
     </div>

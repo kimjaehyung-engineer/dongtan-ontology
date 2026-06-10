@@ -13,6 +13,8 @@ import VerticalLineNode from './VerticalLineNode';
 import AdjustableEdge from './AdjustableEdge';
 import { v4 as uuidv4 } from 'uuid';
 
+import ChecklistItemNode from './ChecklistItemNode';
+
 const nodeTypes = {
   action: ActionNode,
   milestone: MilestoneNode,
@@ -21,6 +23,7 @@ const nodeTypes = {
   text: TextNode,
   image: ImageNode,
   verticalLine: VerticalLineNode,
+  checklistItem: ChecklistItemNode,
 };
 
 const edgeTypes = {
