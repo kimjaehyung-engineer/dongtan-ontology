@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 import { MarkerType } from 'reactflow';
-import { Download, Plus, Calendar, FileText, Type, GripHorizontal, GripVertical, X, Copy, Check, ExternalLink, Trash2, Undo2, Redo2 } from 'lucide-react';
+import { Download, Plus, Calendar, FileText, Type, GripHorizontal, GripVertical, X, Copy, Check, ExternalLink, Trash2, Undo2, Redo2, Paintbrush, Clipboard } from 'lucide-react';
 import './App.css';
 
 // D-day 잔여일 기준 상태 자동 판정
@@ -18,7 +18,7 @@ import './App.css';
 // }
 
 function App() {
-  const { addNode, deleteNode, nodes, edges, updateNodeData, updateEdge, deleteEdge, setNodesAndEdges, undo, redo, takeSnapshot, past, future, isSelectMode, setSelectMode } = useStore();
+  const { addNode, deleteNode, nodes, edges, updateNodeData, updateEdge, deleteEdge, setNodesAndEdges, undo, redo, takeSnapshot, past, future, isSelectMode, setSelectMode, copiedStyle, setCopiedStyle } = useStore();
   const [startDate, setStartDate] = useState('2025-12-01');
   const [showSettings, setShowSettings] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -96,6 +96,117 @@ function App() {
     });
   };
 
+  const handleCopyStyle = useCallback(() => {
+    const targetNode = nodes.find(n => n.selected);
+    if (!targetNode) {
+      alert('서식을 복사할 노드를 선택해주세요.');
+      return;
+    }
+
+    const stylePayload: any = {
+      type: targetNode.type,
+      color: targetNode.data?.color,
+      status: targetNode.data?.status,
+      department: targetNode.data?.department,
+      textStyle: targetNode.data?.textStyle ? { ...targetNode.data.textStyle } : undefined,
+    };
+
+    if (targetNode.style) {
+      stylePayload.style = {
+        width: targetNode.style.width,
+        height: targetNode.style.height,
+      };
+    }
+
+    setCopiedStyle(stylePayload);
+    alert('서식이 복사되었습니다. (Ctrl+Shift+C)');
+  }, [nodes, setCopiedStyle]);
+
+  const handlePasteStyle = useCallback(() => {
+    if (!copiedStyle) {
+      alert('복사된 서식이 없습니다. 먼저 서식을 복사(Ctrl+Shift+C)해주세요.');
+      return;
+    }
+
+    const selectedNodes = nodes.filter(n => n.selected);
+    if (selectedNodes.length === 0) {
+      alert('서식을 붙여넣을 노드를 선택해주세요.');
+      return;
+    }
+
+    takeSnapshot();
+
+    const updatedNodes = nodes.map(node => {
+      if (!node.selected) return node;
+
+      const newData = { ...node.data };
+      let newStyle = node.style ? { ...node.style } : {};
+
+      if (node.type === 'action') {
+        if (copiedStyle.type === 'action') {
+          if (copiedStyle.color !== undefined) newData.color = copiedStyle.color;
+          if (copiedStyle.status !== undefined) newData.status = copiedStyle.status;
+          if (copiedStyle.department !== undefined) newData.department = copiedStyle.department;
+        } else if (copiedStyle.type === 'checklistHeader' || copiedStyle.type === 'text') {
+          if (copiedStyle.textStyle?.bgColor) {
+            newData.color = copiedStyle.textStyle.bgColor;
+          }
+          if (copiedStyle.status !== undefined) newData.status = copiedStyle.status;
+        } else if (copiedStyle.type === 'checklistItem') {
+          if (copiedStyle.status !== undefined) newData.status = copiedStyle.status;
+          if (copiedStyle.department !== undefined) newData.department = copiedStyle.department;
+        }
+      } else if (node.type === 'text' || node.type === 'checklistHeader') {
+        const currentTextStyle = newData.textStyle ? { ...newData.textStyle } : {};
+        
+        if (copiedStyle.type === 'text' || copiedStyle.type === 'checklistHeader') {
+          if (copiedStyle.textStyle) {
+            newData.textStyle = { ...currentTextStyle, ...copiedStyle.textStyle };
+          }
+          if (copiedStyle.style?.width !== undefined) newStyle.width = copiedStyle.style.width;
+          if (copiedStyle.style?.height !== undefined) newStyle.height = copiedStyle.style.height;
+        } else if (copiedStyle.type === 'action') {
+          if (copiedStyle.color) {
+            newData.textStyle = {
+              ...currentTextStyle,
+              bgColor: copiedStyle.color,
+              borderStyle: currentTextStyle.borderStyle || 'solid',
+              borderWidth: currentTextStyle.borderWidth !== undefined ? currentTextStyle.borderWidth : 1,
+              color: currentTextStyle.color || '#1e293b',
+            };
+          }
+        }
+      } else if (node.type === 'checklistItem') {
+        if (copiedStyle.status !== undefined) {
+          const validStatuses = ['todo', 'inprogress', 'done', 'na'];
+          if (validStatuses.includes(copiedStyle.status)) {
+            newData.status = copiedStyle.status;
+          } else {
+            if (copiedStyle.status === 'done') {
+              newData.status = 'done';
+            } else if (copiedStyle.status === 'normal') {
+              newData.status = 'todo';
+            } else if (copiedStyle.status === 'warning' || copiedStyle.status === 'danger') {
+              newData.status = 'inprogress';
+            }
+          }
+        }
+        if (copiedStyle.department !== undefined) {
+          newData.department = copiedStyle.department;
+        }
+      }
+
+      return {
+        ...node,
+        data: newData,
+        style: Object.keys(newStyle).length > 0 ? newStyle : undefined,
+      };
+    });
+
+    setNodesAndEdges(updatedNodes, edges);
+    alert('서식이 적용되었습니다. (Ctrl+Shift+V)');
+  }, [nodes, edges, copiedStyle, takeSnapshot, setNodesAndEdges]);
+
   // Ctrl+Z (Undo) 및 Ctrl+Y (Redo) 및 'T'/'K' 전역 단축키 핸들러
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -112,6 +223,18 @@ function App() {
         e.preventDefault();
         redo();
       }
+      // Ctrl+Shift+C: 서식 복사
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'c') {
+        if (isInput) return;
+        e.preventDefault();
+        handleCopyStyle();
+      }
+      // Ctrl+Shift+V: 서식 붙여넣기
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'v') {
+        if (isInput) return;
+        e.preventDefault();
+        handlePasteStyle();
+      }
       // 'T' 단축키로 현재 마우스 위치에 텍스트 노드 즉시 추가
       if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === 't') {
         if (isInput) return;
@@ -127,7 +250,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo, handleAddTextNode, handleAddChecklistItemNode, handleAddChecklistHeaderNode]);
+  }, [undo, redo, handleAddTextNode, handleAddChecklistItemNode, handleAddChecklistHeaderNode, handleCopyStyle, handlePasteStyle]);
 
   const handleDuplicateNode = () => {
     if (!selectedNode) return;
@@ -473,6 +596,34 @@ function App() {
               title="다시 실행 (Ctrl+Y)"
             >
               <Redo2 size={11} />
+            </button>
+          </div>
+
+          {/* 서식 복사 / 붙여넣기 */}
+          <div className="flex items-center gap-0.5 border-r border-gray-200 pr-1.5 mr-1.5 flex-shrink-0">
+            <button
+              onClick={handleCopyStyle}
+              disabled={selectedCount === 0}
+              className={`flex items-center justify-center p-1.5 rounded border transition-all ${
+                selectedCount > 0
+                  ? 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50 cursor-pointer shadow-sm'
+                  : 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed'
+              }`}
+              title="서식 복사 (Ctrl+Shift+C)"
+            >
+              <Paintbrush size={11} />
+            </button>
+            <button
+              onClick={handlePasteStyle}
+              disabled={!copiedStyle || selectedCount === 0}
+              className={`flex items-center justify-center p-1.5 rounded border transition-all ${
+                copiedStyle && selectedCount > 0
+                  ? 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50 cursor-pointer shadow-sm'
+                  : 'bg-gray-50 border-gray-100 text-gray-300 cursor-not-allowed'
+              }`}
+              title="서식 붙여넣기 (Ctrl+Shift+V)"
+            >
+              <Clipboard size={11} />
             </button>
           </div>
 
@@ -1109,23 +1260,48 @@ function App() {
                 </div>
 
                 {/* Sidebar Footer */}
-                <div className="p-4 border-t border-gray-100 bg-gray-50/50 flex gap-2">
-                  {(selectedNode.type === 'action' || selectedNode.type === 'checklistItem' || selectedNode.type === 'checklistHeader') && (
+                <div className="p-4 border-t border-gray-100 bg-gray-50/50 flex flex-col gap-2">
+                  <div className="flex gap-2">
                     <button
-                      onClick={handleDuplicateNode}
-                      className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-blue-200 hover:border-blue-300 text-blue-600 bg-blue-50/30 hover:bg-blue-50/60 font-semibold rounded-lg text-xs transition-colors"
+                      onClick={handleCopyStyle}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-gray-200 hover:border-gray-300 text-gray-700 bg-white font-semibold rounded-lg text-xs transition-colors"
+                      title="이 노드의 스타일을 복사합니다. (Ctrl+Shift+C)"
                     >
-                      <Copy size={13} />
-                      {selectedNode.type === 'action' ? '카드 복제' : selectedNode.type === 'checklistItem' ? '항목 복제' : '글박스 복제'}
+                      <Paintbrush size={13} />
+                      서식 복사
                     </button>
-                  )}
-                  <button
-                    onClick={handleDeleteNode}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-red-200 hover:border-red-300 text-red-600 bg-red-50/30 hover:bg-red-50/60 font-semibold rounded-lg text-xs transition-colors"
-                  >
-                    <Trash2 size={13} />
-                    {selectedNode.type === 'action' ? '카드 삭제' : selectedNode.type === 'checklistItem' ? '항목 삭제' : selectedNode.type === 'checklistHeader' ? '글박스 삭제' : '삭제하기'}
-                  </button>
+                    <button
+                      onClick={handlePasteStyle}
+                      disabled={!copiedStyle}
+                      className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border font-semibold rounded-lg text-xs transition-colors ${
+                        copiedStyle
+                          ? 'border-indigo-200 hover:border-indigo-300 text-indigo-600 bg-indigo-50/30 hover:bg-indigo-50/60 cursor-pointer shadow-sm'
+                          : 'border-gray-100 text-gray-300 bg-gray-50 cursor-not-allowed'
+                      }`}
+                      title="복사된 서식을 이 노드에 붙여넣습니다. (Ctrl+Shift+V)"
+                    >
+                      <Clipboard size={13} />
+                      서식 붙여넣기
+                    </button>
+                  </div>
+                  <div className="flex gap-2">
+                    {(selectedNode.type === 'action' || selectedNode.type === 'checklistItem' || selectedNode.type === 'checklistHeader') && (
+                      <button
+                        onClick={handleDuplicateNode}
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-blue-200 hover:border-blue-300 text-blue-600 bg-blue-50/30 hover:bg-blue-50/60 font-semibold rounded-lg text-xs transition-colors"
+                      >
+                        <Copy size={13} />
+                        {selectedNode.type === 'action' ? '카드 복제' : selectedNode.type === 'checklistItem' ? '항목 복제' : '글박스 복제'}
+                      </button>
+                    )}
+                    <button
+                      onClick={handleDeleteNode}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 border border-red-200 hover:border-red-300 text-red-600 bg-red-50/30 hover:bg-red-50/60 font-semibold rounded-lg text-xs transition-colors"
+                    >
+                      <Trash2 size={13} />
+                      {selectedNode.type === 'action' ? '카드 삭제' : selectedNode.type === 'checklistItem' ? '항목 삭제' : selectedNode.type === 'checklistHeader' ? '글박스 삭제' : '삭제하기'}
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : selectedEdge ? (
