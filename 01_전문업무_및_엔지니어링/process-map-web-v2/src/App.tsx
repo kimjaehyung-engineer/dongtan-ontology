@@ -514,9 +514,6 @@ function App() {
             <Type size={12} /> 텍스트 추가
           </button>
 
-          <button onClick={handleAddChecklistItemNode} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-indigo-50 text-indigo-700 font-semibold rounded border border-indigo-200 hover:bg-indigo-100 transition-colors text-[10px]" title="체크리스트 항목을 마우스 위치에 추가합니다 (단축키: K)">
-            <Check size={12} /> 체크 추가
-          </button>
 
           <button onClick={handleAddChecklistHeaderNode} className="whitespace-nowrap flex items-center gap-1 px-2 py-1 bg-slate-800 text-slate-100 font-semibold rounded border border-slate-700 hover:bg-slate-700 transition-colors text-[10px]" title="본공사 수행 스타일의 체크 글상자를 마우스 위치에 추가합니다">
             <Type size={12} /> 체크 글박스
