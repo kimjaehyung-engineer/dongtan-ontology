@@ -236,7 +236,7 @@ const useStore = create<RFState>()(
     }),
     {
       name: 'process-map-storage-v2',
-      version: 2,
+      version: 3,
       migrate: (persistedState: any, version: number) => {
         let state = persistedState;
 
@@ -253,7 +253,7 @@ const useStore = create<RFState>()(
                 data: { label: '본사' },
                 style: { width: 2500, height: 300, zIndex: -1 },
                 draggable: false,
-                selectable: false,
+                selectable: true,
               });
 
               // 2. 'swimlane-인허가' 및 기존 노드 보정
@@ -343,7 +343,7 @@ const useStore = create<RFState>()(
                 data: { label: '마일스톤' },
                 style: { width: 2500, height: 150, zIndex: -1 },
                 draggable: false,
-                selectable: false,
+                selectable: true,
               });
             }
 
@@ -357,7 +357,7 @@ const useStore = create<RFState>()(
                 data: { label: '체크리스트' },
                 style: { width: 2500, height: 200, zIndex: -1 },
                 draggable: false,
-                selectable: false,
+                selectable: true,
               });
             }
 
@@ -388,6 +388,20 @@ const useStore = create<RFState>()(
             }
 
             state = { ...state, nodes: updatedNodes };
+          }
+        }
+
+        if (version < 3) {
+          if (state && state.nodes) {
+            state = {
+              ...state,
+              nodes: state.nodes.map((n: any) => {
+                if (n.type === 'swimlane') {
+                  return { ...n, selectable: true };
+                }
+                return n;
+              })
+            };
           }
         }
 

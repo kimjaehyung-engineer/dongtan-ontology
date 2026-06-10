@@ -11,7 +11,7 @@ export const initialNodes: Node<NodeData>[] = [
     data: { label: '마일스톤' },
     style: { width: 2500, height: 150, zIndex: -1 },
     draggable: false,
-    selectable: false,
+    selectable: true,
   },
   {
     id: 'swimlane-체크리스트',
@@ -20,7 +20,7 @@ export const initialNodes: Node<NodeData>[] = [
     data: { label: '체크리스트' },
     style: { width: 2500, height: 200, zIndex: -1 },
     draggable: false,
-    selectable: false,
+    selectable: true,
   },
   {
     id: 'swimlane-공무',
@@ -29,7 +29,7 @@ export const initialNodes: Node<NodeData>[] = [
     data: { label: '공무' },
     style: { width: 2500, height: 400, zIndex: -1 },
     draggable: false,
-    selectable: false,
+    selectable: true,
   },
   {
     id: 'swimlane-공사',
@@ -38,7 +38,7 @@ export const initialNodes: Node<NodeData>[] = [
     data: { label: '공사' },
     style: { width: 2500, height: 400, zIndex: -1 },
     draggable: false,
-    selectable: false,
+    selectable: true,
   },
   {
     id: 'swimlane-품질',
@@ -47,7 +47,7 @@ export const initialNodes: Node<NodeData>[] = [
     data: { label: '품질' },
     style: { width: 2500, height: 300, zIndex: -1 },
     draggable: false,
-    selectable: false,
+    selectable: true,
   },
   {
     id: 'swimlane-안전',
@@ -56,7 +56,7 @@ export const initialNodes: Node<NodeData>[] = [
     data: { label: '안전' },
     style: { width: 2500, height: 300, zIndex: -1 },
     draggable: false,
-    selectable: false,
+    selectable: true,
   },
   {
     id: 'swimlane-관리',
@@ -65,7 +65,7 @@ export const initialNodes: Node<NodeData>[] = [
     data: { label: '관리' },
     style: { width: 2500, height: 300, zIndex: -1 },
     draggable: false,
-    selectable: false,
+    selectable: true,
   },
   {
     id: 'swimlane-본사',
@@ -74,7 +74,7 @@ export const initialNodes: Node<NodeData>[] = [
     data: { label: '본사' },
     style: { width: 2500, height: 300, zIndex: -1 },
     draggable: false,
-    selectable: false,
+    selectable: true,
   },
   {
     id: 'swimlane-인허가',
@@ -83,7 +83,7 @@ export const initialNodes: Node<NodeData>[] = [
     data: { label: '인허가' },
     style: { width: 2500, height: 300, zIndex: -1 },
     draggable: false,
-    selectable: false,
+    selectable: true,
   },
 
   // --- Row Dividers ---

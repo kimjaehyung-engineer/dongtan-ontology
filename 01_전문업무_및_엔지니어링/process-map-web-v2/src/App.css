@@ -65,4 +65,65 @@
   pointer-events: none;
 }
 
+/* 스윔레인(swimlane) 노드 자체는 클릭 이벤트를 통과시켜 빈 영역에서 캔버스 드래그/선택이 가능하게 함 */
+.react-flow__node-swimlane {
+  pointer-events: none !important;
+}
+
+/* 왼쪽 레이블바 및 리사이즈 핸들 등 인터랙션 요소만 마우스 이벤트 수신 */
+.react-flow__node-swimlane .pointer-events-auto,
+.react-flow__node-swimlane .react-flow__resize-handle {
+  pointer-events: auto !important;
+}
+
+/* 상단, 좌측 및 좌상단/우상단/좌하단 핸들 비활성화 (오른쪽 및 아래쪽으로만 크기 조정 제한) */
+.react-flow__node-swimlane .react-flow__resize-handle-top,
+.react-flow__node-swimlane .react-flow__resize-handle-left,
+.react-flow__node-swimlane .react-flow__resize-handle-top-left,
+.react-flow__node-swimlane .react-flow__resize-handle-top-right,
+.react-flow__node-swimlane .react-flow__resize-handle-bottom-left {
+  display: none !important;
+}
+
+/* 프리미엄 리사이즈 핸들 커스텀 스타일 */
+.react-flow__node-swimlane .react-flow__resize-handle {
+  border: none !important;
+  background: transparent !important;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.react-flow__node-swimlane .react-flow__resize-handle-right {
+  width: 8px !important;
+  right: -4px !important;
+  cursor: ew-resize !important;
+}
+.react-flow__node-swimlane .react-flow__resize-handle-right:hover {
+  background-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+.react-flow__node-swimlane .react-flow__resize-handle-bottom {
+  height: 8px !important;
+  bottom: -4px !important;
+  cursor: ns-resize !important;
+}
+.react-flow__node-swimlane .react-flow__resize-handle-bottom:hover {
+  background-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+.react-flow__node-swimlane .react-flow__resize-handle-bottom-right {
+  width: 12px !important;
+  height: 12px !important;
+  bottom: -6px !important;
+  right: -6px !important;
+  border-radius: 50% !important;
+  background: #3b82f6 !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  cursor: nwse-resize !important;
+}
+.react-flow__node-swimlane .react-flow__resize-handle-bottom-right:hover {
+  transform: scale(1.25) !important;
+}
+
+
 
