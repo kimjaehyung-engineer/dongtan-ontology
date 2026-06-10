@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import ChecklistItemNode from './ChecklistItemNode';
 import ChecklistHeaderNode from './ChecklistHeaderNode';
+import TableTitleNode from './TableTitleNode';
 
 const nodeTypes = {
   action: ActionNode,
@@ -26,6 +27,7 @@ const nodeTypes = {
   verticalLine: VerticalLineNode,
   checklistItem: ChecklistItemNode,
   checklistHeader: ChecklistHeaderNode,
+  tableTitle: TableTitleNode,
 };
 
 const edgeTypes = {

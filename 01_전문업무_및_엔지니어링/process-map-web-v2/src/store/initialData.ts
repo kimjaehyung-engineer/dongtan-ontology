@@ -3,6 +3,14 @@ import type { Node, Edge } from 'reactflow';
 import type { NodeData } from './useStore';
 
 export const initialNodes: Node<NodeData>[] = [
+  // --- Table Title ---
+  {
+    id: 'table-title-1',
+    type: 'tableTitle',
+    position: { x: 10, y: -60 },
+    data: { label: '1. 동탄 트램 프로세스 맵' },
+    style: { width: 500, height: 40 },
+  },
   // --- Swimlanes (Background) ---
   {
     id: 'swimlane-마일스톤',

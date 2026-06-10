@@ -37,7 +37,7 @@ function App() {
     }
   }, [selectedNode, selectedEdge]);
 
-  const isSidebarOpen = showSidebar && ((!!selectedNode && ['action', 'milestone', 'text', 'image', 'checklistItem', 'checklistHeader'].includes(selectedNode.type || '')) || !!selectedEdge);
+  const isSidebarOpen = showSidebar && ((!!selectedNode && ['action', 'milestone', 'text', 'image', 'checklistItem', 'checklistHeader', 'tableTitle'].includes(selectedNode.type || '')) || !!selectedEdge);
 
   const handleAddNode = () => {
     takeSnapshot();
@@ -272,6 +272,20 @@ function App() {
 
     const newNodes = copiedNodes.map(node => {
       const newId = idMap[node.id];
+      let newData = { ...node.data };
+
+      // 제목 노드인 경우 번호 증가 처리
+      if (node.type === 'tableTitle') {
+        const currentLabel = node.data.label || '';
+        const match = currentLabel.match(/^(\d+)\.\s*(.*)$/);
+        if (match) {
+          const num = parseInt(match[1], 10);
+          newData.label = `${num + 1}. ${match[2]}`;
+        } else {
+          newData.label = `2. ${currentLabel}`;
+        }
+      }
+
       return {
         ...node,
         id: newId,
@@ -279,6 +293,7 @@ function App() {
           x: node.position.x + offsetX,
           y: node.position.y
         },
+        data: newData,
         selected: true // 붙여넣은 요소를 즉시 선택 상태로 전환
       };
     });
@@ -824,6 +839,7 @@ function App() {
                       {selectedNode.type === 'image' && '🖼️ 이미지 편집'}
                       {selectedNode.type === 'checklistItem' && '✅ 체크리스트 상세 편집'}
                       {selectedNode.type === 'checklistHeader' && '🔲 체크 글상자 편집'}
+                      {selectedNode.type === 'tableTitle' && '📌 표 제목 편집'}
                     </h2>
                     <p className="text-[10px] text-gray-400 mt-0.5 font-mono">ID: {selectedNode.id.substring(0, 8)}...</p>
                   </div>
@@ -1355,6 +1371,22 @@ function App() {
                           src={(selectedNode.data as any).imageDataUrl}
                           alt="미리보기"
                           className="max-h-full max-w-full object-contain rounded"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedNode.type === 'tableTitle' && (
+                    <div className="flex flex-col space-y-3">
+                      <div className="flex flex-col">
+                        <label className="font-semibold text-gray-500 text-[10px] uppercase mb-1">표 제목 내용</label>
+                        <input
+                          type="text"
+                          value={selectedNode.data.label || ''}
+                          onFocus={takeSnapshot}
+                          onChange={e => updateNodeData(selectedNode.id, { label: e.target.value })}
+                          className="fancy-input bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800 focus:bg-white"
+                          placeholder="표 제목을 입력하세요..."
                         />
                       </div>
                     </div>
