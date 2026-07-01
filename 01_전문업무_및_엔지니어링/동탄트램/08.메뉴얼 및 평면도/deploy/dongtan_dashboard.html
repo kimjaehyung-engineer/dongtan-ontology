@@ -1049,6 +1049,14 @@ let nodes = {
   "210":    { x: 740, y: 660 },
   "vehicle-depot": { x: 665, y: 770 }
 };
+// ── 그리드 좌표를 실제 픽셀 좌표로 안전하게 1회 자동 환산 ──
+for (let id in nodes) {
+  if (nodes[id] && typeof nodes[id].gridX === "number" && typeof nodes[id].gridY === "number") {
+    nodes[id].x = nodes[id].gridX * GRID_SCALE_X;
+    nodes[id].y = nodes[id].gridY * GRID_SCALE_Y;
+  }
+}
+
 
 let routeSequences = {
   pBN: ["S01", "S02", "W_BN_1", "101", "102", "103", "104", "105", "106", "107", "동탄역"],
@@ -1074,11 +1082,10 @@ let stations = [
   {path:"pBN",            id:"104",  label:"104",            dist:"903m",   color:BLUE,          side:"l"},
   {path:"pBN",            id:"105",  label:"105",            dist:"345m",   color:BLUE,          side:"l"},
   {path:"pBN",            id:"106",  label:"106",            dist:"1,401m", color:BLUE,  ug:true, side:"l"},
-  {path:"pBN",            id:"107",  label:"107",            dist:"898m",   color:BLUE,  ug:true, side:"l"},
   {path:"pBN",            id:"동탄역", label:"동탄역",         dist:"898m",   color:BLUE,isT:true, side:"r"},
   
   // ── 파랑 남 (pBS) ──
-  {path:"pBS",            id:"동탄역", label:"동탄역",         dist:"0m",     color:BLUE,isT:true, side:"r"},
+  {path:"pBS",            id:"201",  label:"201",            dist:"898m",   color:BLUE,  ug:true, side:"r"},
   {path:"pBS",            id:"108",  label:"108\n108역",      dist:"1,046m", color:BLUE,  ug:true, side:"r"},
   {path:"pBS",            id:"109",  label:"109",            dist:"973m",   color:BLUE,          side:"r"},
   {path:"pBS",            id:"110",  label:"110",            dist:"650m",   color:BLUE,          side:"r"},
@@ -1087,22 +1094,19 @@ let stations = [
   {path:"pBS",            id:"113",  label:"113",            dist:"1,110m", color:BLUE,          side:"l"},
   {path:"pBS",            id:"114",  label:"114",            dist:"1,027m", color:BLUE,          side:"l"},
   {path:"pBS",            id:"115",  label:"115\n오산경찰서",  dist:"851m",   color:BLUE,          side:"r"},
-  {path:"pBS",            id:"116",  label:"116\n대원교",     dist:"1,047m", color:BLUE,          side:"b"},
+  {path:"pBS",            id:"116",  label:"116\n대원로",     dist:"1,047m", color:BLUE,          side:"b"},
   {path:"pBS",            id:"117",  label:"117\n오산역",     dist:"",       color:BLUE,isT:true, side:"l"},
   
   // ── 빨강 서 (pRW) ──
   {path:"pRW",            id:"301",  label:"301\n병점역",     dist:"3,187m", color:RED, isT:true, side:"r"},
-  {path:"pRW",            id:"302",  label:"302\n10용사교",   dist:"495m",   color:RED,           side:"t"},
-  {path:"pRW",            id:"303",  label:"303\n방다리교",   dist:"958m",   color:RED,           side:"t"},
+  {path:"pRW",            id:"302",  label:"302\n10용사로",   dist:"495m",   color:RED,           side:"t"},
+  {path:"pRW",            id:"303",  label:"303\n벌말교",     dist:"958m",   color:RED,           side:"t"},
   {path:"pRW",            id:"304",  label:"304",            dist:"747m",   color:RED,           side:"t"},
-  {path:"pRW",            id:"305",  label:"305\n동탄중앙교", dist:"880m",   color:RED,           side:"l"},
-  {path:"pRW",            id:"306",  label:"306\n동탄성심교", dist:"1,125m", color:RED,           side:"b"},
+  {path:"pRW",            id:"305",  label:"305\n동탄중앙로", dist:"880m",   color:RED,           side:"l"},
+  {path:"pRW",            id:"306",  label:"306\n동탄청계로", dist:"1,125m", color:RED,           side:"b"},
   {path:"pRW",            id:"307",  label:"307",            dist:"1,250m", color:RED,  ug:true, side:"l"},
-  {path:"pRW",            id:"동탄역", label:"동탄역",         dist:"0m",     color:RED, isT:true, side:"l"},
   
   // ── 빨강 동 (pRE) ──
-  {path:"pRE",            id:"동탄역", label:"동탄역",         dist:"0m",     color:RED, isT:true, side:"l"},
-  {path:"pRE",            id:"201",  label:"201",            dist:"898m",   color:RED,  ug:true, side:"r"},
   {path:"pRE",            id:"202",  label:"202",            dist:"1,397m", color:RED,           side:"t"},
   {path:"pRE",            id:"203",  label:"203",            dist:"979m",   color:RED,           side:"t"},
   {path:"pRE",            id:"204",  label:"204",            dist:"1,204m", color:RED,           side:"r"},
@@ -1111,8 +1115,7 @@ let stations = [
   {path:"pRE",            id:"207",  label:"207",            dist:"847m",   color:RED,           side:"r"},
   {path:"pRE",            id:"208",  label:"208",            dist:"764m",   color:RED,           side:"r"},
   {path:"pRE",            id:"209",  label:"209",            dist:"656m",   color:RED,           side:"r"},
-  {path:"pRE",            id:"210",  label:"210",            dist:"500m",   color:RED,           side:"r"},
-  {path:"pRE",            id:"vehicle-depot", label:"차량기지", dist:"0m",    color:RED,           side:"r"}
+  {path:"pRE",            id:"210",  label:"210",            dist:"500m",   color:RED,           side:"r"}
 ];
 
 // ================================================================
