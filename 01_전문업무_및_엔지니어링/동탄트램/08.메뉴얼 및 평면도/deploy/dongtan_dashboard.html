@@ -603,7 +603,75 @@ footer{text-align:center;padding:1rem;font-size:.73rem;color:var(--muted);}
     errDiv.style.display = "block";
     msgSpan.innerHTML = `⚠️ [자바스크립트 오류] ${e.message} (파일: ${e.filename.split('/').pop()}, 행: ${e.lineno})`;
   });
-})();
+})();// 🌐 국토교통부 V월드 정밀 3D/2D GIS 위경도 좌표 데이터베이스 및 모드 전환 컨트롤러
+const vworldCoords = {
+  "동탄역": { lat: 37.1963, lng: 127.0982 },
+  "S01":    { lat: 37.2457, lng: 127.0302 },
+  "S02":    { lat: 37.2398, lng: 127.0385 },
+  "101":    { lat: 37.2312, lng: 127.0498 },
+  "102":    { lat: 37.2245, lng: 127.0582 },
+  "103":    { lat: 37.2185, lng: 127.0655 },
+  "104":    { lat: 37.2132, lng: 127.0721 },
+  "105":    { lat: 37.2085, lng: 127.0792 },
+  "106":    { lat: 37.2023, lng: 127.0864 },
+  "107":    { lat: 37.1989, lng: 127.0915 },
+  "108":    { lat: 37.1912, lng: 127.0991 },
+  "109":    { lat: 37.1852, lng: 127.1012 },
+  "110":    { lat: 37.1785, lng: 127.1023 },
+  "111":    { lat: 37.1712, lng: 127.1031 },
+  "112":    { lat: 37.1632, lng: 127.1042 },
+  "113":    { lat: 37.1554, lng: 127.0981 },
+  "114":    { lat: 37.1482, lng: 127.0892 },
+  "115":    { lat: 37.1423, lng: 127.0795 },
+  "116":    { lat: 37.1352, lng: 127.0712 },
+  "117":    { lat: 37.1302, lng: 127.0623 },
+  "301":    { lat: 37.2069, lng: 127.0336 },
+  "302":    { lat: 37.2089, lng: 127.0412 },
+  "303":    { lat: 37.2105, lng: 127.0505 },
+  "304":    { lat: 37.2115, lng: 127.0612 },
+  "305":    { lat: 37.2082, lng: 127.0702 },
+  "306":    { lat: 37.2031, lng: 127.0745 },
+  "307":    { lat: 37.1982, lng: 127.0872 },
+  "201":    { lat: 37.1952, lng: 127.1062 },
+  "202":    { lat: 37.1972, lng: 127.1121 },
+  "203":    { lat: 37.1989, lng: 127.1212 },
+  "204":    { lat: 37.1995, lng: 127.1322 },
+  "205":    { lat: 37.1912, lng: 127.1415 },
+  "206":    { lat: 37.1823, lng: 127.1402 },
+  "207":    { lat: 37.1725, lng: 127.1395 },
+  "208":    { lat: 37.1645, lng: 127.1312 },
+  "209":    { lat: 37.1589, lng: 127.1215 },
+  "210":    { lat: 37.1512, lng: 127.1105 },
+  "vehicle-depot": { lat: 37.1472, lng: 127.0985 },
+  "struct-1": { lat: 37.2425, lng: 127.0345 },
+  "struct-2": { lat: 37.2345, lng: 127.0452 },
+  "struct-3": { lat: 37.2272, lng: 127.0541 },
+  "struct-4": { lat: 37.2155, lng: 127.0692 },
+  "struct-5": { lat: 37.2052, lng: 127.0722 },
+  "struct-6": { lat: 37.2081, lng: 127.0372 },
+  "struct-7": { lat: 37.2098, lng: 127.0465 }
+};
+
+window.changeVWorldMode = function(id, mode, lat, lng) {
+  const isLeft = id.startsWith("struct-") || id === "vehicle-depot" || (stnDetail[id] && stnDetail[id].line.includes("빨강"));
+  const panelId = isLeft ? "left" : "right";
+  const iframe = document.getElementById("vworld-iframe-" + panelId);
+  const btn3d = document.getElementById("vworld-btn-3d");
+  const btn2d = document.getElementById("vworld-btn-2d");
+  
+  if (!iframe) return;
+  const stnName = stnDetail[id] ? stnDetail[id].name : id;
+  
+  if (mode === "3d") {
+    iframe.src = `https://map.vworld.kr/link.do?size=small&startMode=3d&basemap=graphic&lat=${lat}&lng=${lng}&level=18&title=${encodeURIComponent(stnName)}`;
+    if (btn3d) { btn3d.style.background = "#1e293b"; btn3d.style.color = "#fff"; }
+    if (btn2d) { btn2d.style.background = "#f1f5f9"; btn2d.style.color = "#475569"; }
+  } else {
+    iframe.src = `https://map.vworld.kr/link.do?size=small&startMode=2d&basemap=photo&lat=${lat}&lng=${lng}&level=18&title=${encodeURIComponent(stnName)}`;
+    if (btn3d) { btn3d.style.background = "#f1f5f9"; btn3d.style.color = "#475569"; }
+    if (btn2d) { btn2d.style.background = "#1e293b"; btn2d.style.color = "#fff"; }
+  }
+};
 
 
 // 점과 선분 사이의 최단 거리를 구하는 2D 기하 알고리즘 (선로 클릭 매칭용)
@@ -2184,7 +2252,30 @@ function renderPanelContent(id, panelId, badgeId, titleId, subId, bodyId) {
         🛤️ 9. 트램 궤도 형식 검토 매뉴얼
       </a>
     </div>
-  </div>`;
+  // ── 국토교통부 V월드 정밀 3D/2D 지도 연계 레이아웃 추가 ──
+  const coord = vworldCoords[id] || { lat: 37.1963, lng: 127.0982 };
+  const lat = coord.lat || 37.1963;
+  const lng = coord.lng || 127.0982;
+  const stnName = d.name || id;
+
+  html += `
+  <div class="sp-section" style="border-top:1px dashed #e2e8f0; padding-top:1.2rem; margin-top:1.2rem;">
+    <div class="sp-section-title" style="display:flex; align-items:center; gap:0.45rem; color:#0f172a;">
+      <span style="font-size:1.1rem;">🌐</span>
+      <span>국토교통부 V월드 정밀 지도 연계</span>
+    </div>
+    <div style="display:flex; gap:0.35rem; margin:0.6rem 0;">
+      <button id="vworld-btn-3d" style="font-family:inherit; font-size:0.72rem; font-weight:700; border:none; background:#1e293b; color:#fff; padding:0.25rem 0.65rem; border-radius:4px; cursor:pointer;" onclick="changeVWorldMode('${id}', '3d', ${lat}, ${lng})">3D 가상도시 뷰</button>
+      <button id="vworld-btn-2d" style="font-family:inherit; font-size:0.72rem; font-weight:700; border:none; background:#f1f5f9; color:#475569; padding:0.25rem 0.65rem; border-radius:4px; cursor:pointer;" onclick="changeVWorldMode('${id}', '2d', ${lat}, ${lng})">2D 위성지도 뷰</button>
+    </div>
+    <div style="position:relative; width:100%; height:260px; border-radius:8px; overflow:hidden; border:1px solid #cbd5e1; box-shadow:inset 0 2px 4px rgba(0,0,0,0.06);">
+      <iframe id="vworld-iframe-${panelId}" src="https://map.vworld.kr/link.do?size=small&startMode=3d&basemap=graphic&lat=${lat}&lng=${lng}&level=18&title=${encodeURIComponent(stnName)}" width="100%" height="100%" style="border:none;"></iframe>
+    </div>
+    <div style="font-size:0.68rem; color:#64748b; margin-top:0.4rem; line-height:1.45;">
+      * 국토교통부 V월드 WebGL 3D 지도와 실시간 동기화된 가상 모델링 뷰어입니다. 마우스 드래그로 각도 틸트(우클릭 드래그) 및 카메라 회전이 가능합니다.
+    </div>
+  </div>
+  `;
 
   body.innerHTML = html;
 }
