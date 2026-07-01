@@ -662,30 +662,15 @@ function saveMapData() {
 
 function loadMapData() {
   try {
-    // 오래된 구버전 캐시 데이터(v1, v2, v3) 강제 청소
+    // [WIPE OUT] 꼬인 옛날 배치 관련 스토리지를 사용자 컴퓨터와 브라우저에서 영구적으로 소멸시킴
     localStorage.removeItem("dongtan_tram_map_data");
     localStorage.removeItem("dongtan_tram_map_data_v2_master_fix");
     localStorage.removeItem("dongtan_tram_map_data_v3_perfect_fixed");
+    localStorage.removeItem("dongtan_tram_map_data_v4_final_lock");
+    localStorage.removeItem(STORAGE_KEY);
     
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const data = JSON.parse(raw);
-      if (data && typeof data === "object") {
-        // [하이브리드 복원] 사용자가 드래그해서 바꾼 최신 좌표만 안전하게 가져옴
-        if (data.nodes && typeof data.nodes === "object") {
-          for (let k in data.nodes) {
-            const nd = data.nodes[k];
-            if (nodes[k] && nd && typeof nd.x === "number" && typeof nd.y === "number" && !isNaN(nd.x) && !isNaN(nd.y)) {
-              nodes[k].x = nd.x;
-              nodes[k].y = nd.y;
-            }
-          }
-        }
-        if (data.linkModes && typeof data.linkModes === "object") linkModes = data.linkModes;
-        if (typeof data.newStationCount === "number") newStationCount = data.newStationCount;
-        if (Array.isArray(data.customLinks)) window.customLinks = data.customLinks;
-      }
-    }
+    // 다시는 옛날 배치 데이터가 불러와지지 않도록 복원 로직을 완전히 차단함
+    console.log("[STORAGE WIPE] Legacy drag-layout caches successfully destroyed from browser storage.");
   } catch (err) {
     console.error("[LOAD ERROR]", err);
   } finally {
