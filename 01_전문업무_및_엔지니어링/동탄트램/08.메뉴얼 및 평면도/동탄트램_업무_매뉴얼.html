@@ -4018,20 +4018,7 @@
 </div>
     </div>
 
-    <!-- Future Map Integration Area -->
-    <div id="sim-map-container" data-active-step="1" style="margin-top: 1.5rem; background-color: var(--bg-primary); border: 2px dashed var(--border-color); border-radius: 8px; padding: 2rem; min-height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-
-    <!-- ===== 트램 검수고 통합 디지털 관제 시스템 (iframe embed) ===== -->
-    <iframe
-      src="./동탄트램_노선평면도.html"
-      width="100%"
-      height="1200"
-      style="border: none; border-radius: 8px; display: block;"
-      title="동탄 도시철도 노선평면도"
-      loading="lazy">
-    </iframe>
-
-    </div>
+    
 </div>
 
 <script>
@@ -4450,22 +4437,1022 @@ document.addEventListener("DOMContentLoaded", function() {
 <li>시민들의 안전하고 쾌적한 이용을 뒷받침할 준비를 마칩니다.</li>
 </ul>
 </div>
+
+    <!-- ===== 트램 검수고 통합 디지털 관제 시스템 (Inlined via srcdoc) ===== -->
+    <div style="margin-top: 1.5rem; background-color: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; min-height: 1150px; position: relative; overflow: hidden;">
+        <iframe
+          srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;트램 검수고 통합 디지털 관제 시스템&lt;/title&gt;
+  &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://unpkg.com/lucide@latest&quot;&gt;&lt;/script&gt;
+  &lt;style&gt;
+    @import url(&#x27;https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap&#x27;);
+    body { font-family: &#x27;Noto Sans KR&#x27;, sans-serif; }
+    .mono { font-family: &#x27;JetBrains Mono&#x27;, monospace; }
+    .depot-zone { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    #animatedTram { transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+    .blueprint-grid-light {
+      background-size: 40px 40px;
+      background-image:
+        linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    }
+    .blueprint-grid-dark {
+      background-size: 40px 40px;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    }
+    /* Dark mode overrides */
+    body.dark { background-color: #0f172a; color: #e2e8f0; }
+    body.dark #appHeader { background-color: rgba(15,23,42,0.95); border-color: #1e293b; }
+    body.dark #stepperContainer, body.dark #mapFrame, body.dark #metricContainer,
+    body.dark #propertyPanel, body.dark #knowledgePanel, body.dark #tipsBox,
+    body.dark #appFooter { background-color: #1e293b; border-color: #334155; }
+    body.dark .text-slate-800 { color: #e2e8f0; }
+    body.dark .text-slate-700 { color: #cbd5e1; }
+    body.dark .text-slate-600 { color: #94a3b8; }
+    body.dark .text-slate-500 { color: #64748b; }
+    body.dark .text-slate-900 { color: #f1f5f9; }
+    body.dark #metricContainer { border-color: #334155; }
+    body.dark #svgGridBacking { fill: url(#gridDark); }
+    body.dark .bg-slate-50, body.dark .bg-slate-100 { background-color: #0f172a !important; }
+    body.dark .border-slate-200 { border-color: #334155 !important; }
+    body.dark .bg-white { background-color: #1e293b !important; }
+    body.dark #appFooter { background-color: #0f172a !important; border-color: #1e293b !important; }
+    body.dark #appBody { background-color: #0f172a; }
+    body.dark #specBox1, body.dark #specBox2 { background-color: #0f172a !important; border-color: #334155 !important; }
+    body.dark .bg-slate-50.rounded-lg { background-color: #0f172a !important; }
+  
+    /* SVG 텍스트 가독성 최상급 향상 */
+    svg text {
+      font-family: &#x27;Noto Sans KR&#x27;, &#x27;Pretendard&#x27;, sans-serif;
+      letter-spacing: -0.02em;
+    }
+    /* 라이트 모드 글자 대비 향상 */
+    body:not(.dark) svg text {
+      fill: #090d16 !important; /* 거의 검은색에 가까운 다크 네이비로 모든 글씨 강제 적용 */
+    }
+    body:not(.dark) svg text[fill=&quot;#ffffff&quot;] {
+      fill: #ffffff !important; /* 원래 흰색 배지 글씨는 흰색 유지 */
+    }
+    body:not(.dark) svg text[fill=&quot;white&quot;] {
+      fill: #ffffff !important;
+    }
+    /* 흰색 글자의 외곽선 그림자 추가하여 가독성 보장 */
+    svg text[fill=&quot;#ffffff&quot;], svg text[fill=&quot;white&quot;] {
+      text-shadow: 0px 1px 2px rgba(0,0,0,0.8);
+    }
+    /* 각 구역 테두리 진하게 */
+    .depot-zone rect {
+      stroke-width: 2px !important;
+      transition: all 0.3s ease;
+    }
+    /* 호버 시 구역 강조 효과 */
+    .depot-zone:hover rect {
+      fill-opacity: 0.25 !important;
+      stroke-width: 3px !important;
+      filter: drop-shadow(0 0 4px rgba(59,130,246,0.4));
+    }
+
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class=&quot;bg-slate-50 text-slate-800 min-h-screen flex flex-col overflow-x-hidden antialiased transition-colors duration-500&quot; id=&quot;appBody&quot;&gt;
+
+  &lt;!-- TOP HEADER --&gt;
+  &lt;header class=&quot;border-b border-slate-200 bg-white/95 backdrop-blur-md z-50 transition-colors duration-500 shadow-sm&quot; id=&quot;appHeader&quot;&gt;
+    &lt;div class=&quot;max-w-[1600px] mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4&quot;&gt;
+      &lt;div class=&quot;flex items-center gap-3&quot;&gt;
+        &lt;div class=&quot;p-2 bg-blue-600 rounded-lg text-white shadow-lg shadow-blue-500/20&quot;&gt;
+          &lt;i data-lucide=&quot;train&quot; class=&quot;w-6 h-6&quot;&gt;&lt;/i&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;h1 class=&quot;text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2&quot; id=&quot;headerTitle&quot;&gt;
+            트램 검수고 통합 디지털 관제 &lt;span class=&quot;text-xs bg-blue-500/10 text-blue-600 font-mono px-2 py-0.5 rounded border border-blue-500/20&quot;&gt;V3.0&lt;/span&gt;
+          &lt;/h1&gt;
+          &lt;p class=&quot;text-xs text-slate-500 transition-colors&quot; id=&quot;subtitleText&quot;&gt;스마트 트램 전주기 프로세스 경로 추적 및 자율 검수 모니터링 시스템&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;flex flex-wrap items-center gap-3 w-full md:w-auto&quot;&gt;
+        &lt;div class=&quot;relative flex-grow md:flex-grow-0 md:w-64&quot;&gt;
+          &lt;span class=&quot;absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400&quot;&gt;
+            &lt;i data-lucide=&quot;search&quot; class=&quot;w-4 h-4&quot;&gt;&lt;/i&gt;
+          &lt;/span&gt;
+          &lt;input type=&quot;text&quot; id=&quot;searchInput&quot; placeholder=&quot;구역 또는 장비 검색...&quot; class=&quot;w-full pl-9 pr-4 py-1.5 bg-slate-100 border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all&quot;&gt;
+        &lt;/div&gt;
+        &lt;button id=&quot;themeToggle&quot; class=&quot;p-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-slate-500 hover:text-slate-900 transition-all&quot; title=&quot;테마 변경&quot;&gt;
+          &lt;i data-lucide=&quot;palette&quot; class=&quot;w-4 h-4&quot;&gt;&lt;/i&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;!-- PROCESS STEPPER BAR --&gt;
+  &lt;section class=&quot;max-w-[1600px] w-full mx-auto px-4 pt-6 sm:px-6 lg:px-8&quot;&gt;
+    &lt;div class=&quot;bg-white border border-slate-200 rounded-xl p-5 shadow-sm transition-colors&quot; id=&quot;stepperContainer&quot;&gt;
+      &lt;div class=&quot;flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4&quot;&gt;
+        &lt;div&gt;
+          &lt;h2 class=&quot;text-sm font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5&quot; id=&quot;stepperTitle&quot;&gt;
+            &lt;i data-lucide=&quot;route&quot; class=&quot;w-4 h-4 text-blue-500 animate-pulse&quot;&gt;&lt;/i&gt; 실시간 정비 프로세스 추적기
+          &lt;/h2&gt;
+          &lt;p class=&quot;text-xs text-slate-400 mt-0.5&quot;&gt;선택하거나 자동 실행 버튼을 누르면 차량이 각 구역 궤도를 따라 자동 조차됩니다.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;flex items-center gap-2 flex-wrap&quot;&gt;
+          &lt;button id=&quot;prevBtn&quot; class=&quot;flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold border border-slate-200 transition-all disabled:opacity-40 disabled:pointer-events-none&quot;&gt;
+            &lt;i data-lucide=&quot;chevron-left&quot; class=&quot;w-3.5 h-3.5&quot;&gt;&lt;/i&gt; 이전
+          &lt;/button&gt;
+          &lt;button id=&quot;nextBtn&quot; class=&quot;flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold border border-slate-200 transition-all disabled:opacity-40 disabled:pointer-events-none&quot;&gt;
+            다음 &lt;i data-lucide=&quot;chevron-right&quot; class=&quot;w-3.5 h-3.5&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+          &lt;button id=&quot;autoPlayBtn&quot; class=&quot;flex items-center gap-1 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold shadow-md transition-all&quot;&gt;
+            &lt;i data-lucide=&quot;play&quot; class=&quot;w-3.5 h-3.5&quot; id=&quot;playIcon&quot;&gt;&lt;/i&gt; &lt;span id=&quot;playText&quot;&gt;자동 공정&lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button id=&quot;resetBtn&quot; class=&quot;p-1.5 text-slate-400 hover:text-slate-600 rounded-lg transition-all&quot; title=&quot;초기화&quot;&gt;
+            &lt;i data-lucide=&quot;rotate-ccw&quot; class=&quot;w-4 h-4&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!-- Stepper Nodes --&gt;
+      &lt;div class=&quot;relative flex flex-col md:flex-row justify-between items-stretch md:items-center gap-2 pt-2&quot;&gt;
+        &lt;div class=&quot;absolute top-1/2 left-4 right-4 h-0.5 bg-slate-200 -translate-y-1/2 hidden md:block z-0&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer&quot; data-step=&quot;0&quot;&gt;
+          &lt;span class=&quot;step-circle w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-md border-2 border-white transition-all ring-4 ring-blue-500/10&quot;&gt;1&lt;/span&gt;
+          &lt;div class=&quot;text-left md:text-center&quot;&gt;
+            &lt;p class=&quot;text-xs font-bold text-slate-800&quot;&gt;입고 대기&lt;/p&gt;
+            &lt;p class=&quot;text-[10px] text-slate-400&quot;&gt;대기실 진입&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer&quot; data-step=&quot;1&quot;&gt;
+          &lt;span class=&quot;step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all&quot;&gt;2&lt;/span&gt;
+          &lt;div class=&quot;text-left md:text-center&quot;&gt;
+            &lt;p class=&quot;text-xs font-semibold text-slate-500&quot;&gt;진입 및 세척&lt;/p&gt;
+            &lt;p class=&quot;text-[10px] text-slate-400&quot;&gt;부품 오염제거&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer&quot; data-step=&quot;2&quot;&gt;
+          &lt;span class=&quot;step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all&quot;&gt;3&lt;/span&gt;
+          &lt;div class=&quot;text-left md:text-center&quot;&gt;
+            &lt;p class=&quot;text-xs font-semibold text-slate-500&quot;&gt;일상/월상 검수&lt;/p&gt;
+            &lt;p class=&quot;text-[10px] text-slate-400&quot;&gt;하부 피트 점검&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer&quot; data-step=&quot;3&quot;&gt;
+          &lt;span class=&quot;step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all&quot;&gt;4&lt;/span&gt;
+          &lt;div class=&quot;text-left md:text-center&quot;&gt;
+            &lt;p class=&quot;text-xs font-semibold text-slate-500&quot;&gt;차륜 삭정&lt;/p&gt;
+            &lt;p class=&quot;text-[10px] text-slate-400&quot;&gt;마모 바퀴 복원&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer&quot; data-step=&quot;4&quot;&gt;
+          &lt;span class=&quot;step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all&quot;&gt;5&lt;/span&gt;
+          &lt;div class=&quot;text-left md:text-center&quot;&gt;
+            &lt;p class=&quot;text-xs font-semibold text-slate-500&quot;&gt;중정비 수선&lt;/p&gt;
+            &lt;p class=&quot;text-[10px] text-slate-400&quot;&gt;대차 기중 분해&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer&quot; data-step=&quot;5&quot;&gt;
+          &lt;span class=&quot;step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all&quot;&gt;6&lt;/span&gt;
+          &lt;div class=&quot;text-left md:text-center&quot;&gt;
+            &lt;p class=&quot;text-xs font-semibold text-slate-500&quot;&gt;출고 완료&lt;/p&gt;
+            &lt;p class=&quot;text-[10px] text-slate-400&quot;&gt;본선 시운전 복귀&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- MAIN LAYOUT --&gt;
+  &lt;main class=&quot;flex-grow max-w-[1600px] w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-6&quot;&gt;
+    &lt;section class=&quot;flex-grow lg:w-[74%] flex flex-col gap-4&quot;&gt;
+      &lt;!-- Metrics --&gt;
+      &lt;div class=&quot;grid grid-cols-2 sm:grid-cols-4 gap-4 bg-white border border-slate-200 p-4 rounded-xl transition-colors shadow-sm&quot; id=&quot;metricContainer&quot;&gt;
+        &lt;div class=&quot;border-r border-slate-200 pr-2&quot;&gt;
+          &lt;p class=&quot;text-xs text-slate-400 font-medium&quot;&gt;검수동 총 규격&lt;/p&gt;
+          &lt;p class=&quot;text-base font-bold text-slate-700 font-mono mt-0.5&quot;&gt;90m x 37m&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;border-r border-slate-200 px-2&quot;&gt;
+          &lt;p class=&quot;text-xs text-slate-400 font-medium&quot;&gt;관리동 규격&lt;/p&gt;
+          &lt;p class=&quot;text-base font-bold text-slate-700 font-mono mt-0.5&quot;&gt;90m x 10m&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;border-r border-slate-200 px-2&quot;&gt;
+          &lt;p class=&quot;text-xs text-slate-400 font-medium&quot;&gt;가상 차량 식별자&lt;/p&gt;
+          &lt;p class=&quot;text-base font-bold text-emerald-600 font-mono mt-0.5&quot;&gt;Active Tram-01&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;px-2&quot;&gt;
+          &lt;p class=&quot;text-xs text-slate-400 font-medium&quot;&gt;실시간 정비 모드&lt;/p&gt;
+          &lt;p class=&quot;text-base font-bold text-blue-600 font-mono mt-0.5&quot; id=&quot;currentOpCount&quot;&gt;입고 대기 상태&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- MAP FRAME --&gt;
+      &lt;div class=&quot;bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col relative blueprint-grid-light transition-all duration-500&quot; id=&quot;mapFrame&quot; style=&quot;padding: 0px !important;&quot;&gt;
+
+
+        &lt;!-- SVG MAP --&gt;
+        &lt;div class=&quot;w-full overflow-x-auto p-0&quot;&gt;
+          &lt;svg id=&quot;depotSvg&quot; viewBox=&quot;0 0 930 1030&quot; class=&quot;w-full h-auto select-none&quot; style=&quot;display:block;&quot;&gt;
+            &lt;defs&gt;
+              &lt;pattern id=&quot;smallGridLight&quot; width=&quot;10&quot; height=&quot;10&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;
+                &lt;path d=&quot;M 10 0 L 0 0 0 10&quot; fill=&quot;none&quot; stroke=&quot;rgba(15,23,42,0.03)&quot; stroke-width=&quot;0.5&quot;/&gt;
+              &lt;/pattern&gt;
+              &lt;pattern id=&quot;gridLight&quot; width=&quot;100&quot; height=&quot;100&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;
+                &lt;rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;url(#smallGridLight)&quot;/&gt;
+                &lt;path d=&quot;M 100 0 L 0 0 0 100&quot; fill=&quot;none&quot; stroke=&quot;rgba(15,23,42,0.08)&quot; stroke-width=&quot;1&quot;/&gt;
+              &lt;/pattern&gt;
+              &lt;pattern id=&quot;smallGridDark&quot; width=&quot;10&quot; height=&quot;10&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;
+                &lt;path d=&quot;M 10 0 L 0 0 0 10&quot; fill=&quot;none&quot; stroke=&quot;rgba(255,255,255,0.03)&quot; stroke-width=&quot;0.5&quot;/&gt;
+              &lt;/pattern&gt;
+              &lt;pattern id=&quot;gridDark&quot; width=&quot;100&quot; height=&quot;100&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;
+                &lt;rect width=&quot;100&quot; height=&quot;100&quot; fill=&quot;url(#smallGridDark)&quot;/&gt;
+                &lt;path d=&quot;M 100 0 L 0 0 0 100&quot; fill=&quot;none&quot; stroke=&quot;rgba(255,255,255,0.08)&quot; stroke-width=&quot;1&quot;/&gt;
+              &lt;/pattern&gt;
+            &lt;/defs&gt;
+            &lt;rect width=&quot;100%&quot; height=&quot;100%&quot; fill=&quot;url(#gridLight)&quot; id=&quot;svgGridBacking&quot;/&gt;
+
+            &lt;!-- 수직 눈금자 (X 좌표를 좌측으로 42px 밀착이동: 958 -&gt; 916) --&gt;
+            &lt;rect x=&quot;906&quot; y=&quot;10&quot; width=&quot;14&quot; height=&quot;1004&quot; fill=&quot;rgba(100,116,139,0.08)&quot; stroke=&quot;#475569&quot; stroke-width=&quot;1.5&quot;/&gt;
+            &lt;g font-size=&quot;9&quot; fill=&quot;#0f172a&quot; font-weight=&quot;bold&quot; font-family=&quot;monospace&quot;&gt;
+              &lt;line x1=&quot;906&quot; y1=&quot;10&quot;  x2=&quot;920&quot; y2=&quot;10&quot;  stroke=&quot;#000000&quot; stroke-width=&quot;2&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;14&quot;&gt;0m&lt;/text&gt;
+              &lt;line x1=&quot;906&quot; y1=&quot;110&quot; x2=&quot;920&quot; y2=&quot;110&quot; stroke=&quot;#475569&quot; stroke-width=&quot;1&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;114&quot;&gt;10m&lt;/text&gt;
+              &lt;line x1=&quot;906&quot; y1=&quot;210&quot; x2=&quot;920&quot; y2=&quot;210&quot; stroke=&quot;#475569&quot; stroke-width=&quot;1&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;214&quot;&gt;20m&lt;/text&gt;
+              &lt;line x1=&quot;906&quot; y1=&quot;310&quot; x2=&quot;920&quot; y2=&quot;310&quot; stroke=&quot;#475569&quot; stroke-width=&quot;1&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;314&quot;&gt;30m&lt;/text&gt;
+              &lt;line x1=&quot;902&quot; y1=&quot;380&quot; x2=&quot;923&quot; y2=&quot;380&quot; stroke=&quot;#000000&quot; stroke-width=&quot;3&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;384&quot; fill=&quot;#000000&quot; font-weight=&quot;extrabold&quot; font-size=&quot;9.5&quot;&gt;37m&lt;/text&gt;
+              &lt;line x1=&quot;906&quot; y1=&quot;480&quot; x2=&quot;920&quot; y2=&quot;480&quot; stroke=&quot;#475569&quot; stroke-width=&quot;1&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;484&quot;&gt;47m&lt;/text&gt;
+              &lt;line x1=&quot;906&quot; y1=&quot;580&quot; x2=&quot;920&quot; y2=&quot;580&quot; stroke=&quot;#475569&quot; stroke-width=&quot;1&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;584&quot;&gt;57m&lt;/text&gt;
+              &lt;line x1=&quot;906&quot; y1=&quot;680&quot; x2=&quot;920&quot; y2=&quot;680&quot; stroke=&quot;#475569&quot; stroke-width=&quot;1&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;684&quot;&gt;67m&lt;/text&gt;
+              &lt;line x1=&quot;906&quot; y1=&quot;780&quot; x2=&quot;920&quot; y2=&quot;780&quot; stroke=&quot;#475569&quot; stroke-width=&quot;1&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;784&quot;&gt;77m&lt;/text&gt;
+              &lt;line x1=&quot;902&quot; y1=&quot;910&quot; x2=&quot;923&quot; y2=&quot;910&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;3&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;914&quot; fill=&quot;#b91c1c&quot; font-weight=&quot;extrabold&quot; font-size=&quot;9.5&quot;&gt;90m&lt;/text&gt;
+              &lt;line x1=&quot;902&quot; y1=&quot;1010&quot; x2=&quot;923&quot; y2=&quot;1010&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot;/&gt;
+              &lt;text x=&quot;922&quot; y=&quot;1014&quot;&gt;100m&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 37m 브라켓 (X: 944 -&gt; 902) --&gt;
+            &lt;line x1=&quot;893&quot; y1=&quot;10&quot;  x2=&quot;902&quot; y2=&quot;10&quot;  stroke=&quot;#000000&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;893&quot; y1=&quot;380&quot; x2=&quot;902&quot; y2=&quot;380&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;897&quot; y1=&quot;10&quot;  x2=&quot;897&quot; y2=&quot;380&quot; stroke=&quot;#000000&quot; stroke-width=&quot;3&quot;/&gt;
+            &lt;text transform=&quot;rotate(90,894,195)&quot; x=&quot;894&quot; y=&quot;195&quot; font-size=&quot;13&quot; font-weight=&quot;black&quot; fill=&quot;#000000&quot; text-anchor=&quot;middle&quot;&gt;37m (경정비 구역)&lt;/text&gt;
+
+            &lt;!-- 53m 브라켓 (X: 944 -&gt; 902) --&gt;
+            &lt;line x1=&quot;893&quot; y1=&quot;382&quot; x2=&quot;902&quot; y2=&quot;382&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;893&quot; y1=&quot;912&quot; x2=&quot;902&quot; y2=&quot;912&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;897&quot; y1=&quot;382&quot; x2=&quot;897&quot; y2=&quot;912&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;3&quot;/&gt;
+            &lt;text transform=&quot;rotate(90,894,647)&quot; x=&quot;894&quot; y=&quot;647&quot; font-size=&quot;13&quot; font-weight=&quot;black&quot; fill=&quot;#b91c1c&quot; text-anchor=&quot;middle&quot;&gt;53m (중정비 구역)&lt;/text&gt;
+
+            &lt;!-- 10m 브라켓 (관리동) --&gt;
+            &lt;line x1=&quot;893&quot; y1=&quot;914&quot; x2=&quot;902&quot; y2=&quot;914&quot; stroke=&quot;#475569&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;893&quot; y1=&quot;1014&quot; x2=&quot;902&quot; y2=&quot;1014&quot; stroke=&quot;#475569&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;897&quot; y1=&quot;914&quot;  x2=&quot;897&quot; y2=&quot;1014&quot; stroke=&quot;#475569&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;text transform=&quot;rotate(90,894,964)&quot; x=&quot;894&quot; y=&quot;964&quot; font-size=&quot;11&quot; font-weight=&quot;bold&quot; fill=&quot;#475569&quot; text-anchor=&quot;middle&quot;&gt;10m&lt;/text&gt;
+
+            &lt;!-- 가로 90m 치수 (X 시작: 8, X 끝: 908) --&gt;
+            &lt;line x1=&quot;2&quot;   y1=&quot;1018&quot; x2=&quot;2&quot;   y2=&quot;1028&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;910&quot; y1=&quot;1018&quot; x2=&quot;910&quot; y2=&quot;1028&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;2&quot;   y1=&quot;1023&quot; x2=&quot;910&quot; y2=&quot;1023&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;6,4&quot;/&gt;
+            &lt;text x=&quot;458&quot; y=&quot;1028&quot; font-size=&quot;13&quot; font-weight=&quot;black&quot; fill=&quot;#000000&quot; text-anchor=&quot;middle&quot;&gt;가로 폭 90.0m&lt;/text&gt;
+
+            &lt;!-- ────────────────────────────────────────────────────────
+                 [경정비 구역] Y=10 ~ Y=380 (두꺼운 검정 테두리 확실하게 표기)
+                 시작 X=8, w=900으로 좌우 끝까지 꽉 차게 확장 (이전은 x=50, w=900)
+                 ──────────────────────────────────────────────────────── --&gt;
+            &lt;rect x=&quot;2&quot; y=&quot;10&quot; width=&quot;908&quot; height=&quot;370&quot; fill=&quot;rgba(16,185,129,0.03)&quot; stroke=&quot;#000000&quot; stroke-width=&quot;4.5&quot; rx=&quot;4&quot;/&gt;
+            
+            
+
+            &lt;!-- 필터세척실 (경정비) --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;filter_washing&quot;&gt;
+              &lt;rect x=&quot;6&quot; y=&quot;38&quot; width=&quot;130&quot; height=&quot;336&quot; fill=&quot;rgba(16,185,129,0.18)&quot;
+                    stroke=&quot;#047857&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-filter_washing&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;!-- 배지 --&gt;
+              &lt;rect x=&quot;12&quot; y=&quot;46&quot; width=&quot;56&quot; height=&quot;18&quot; fill=&quot;#047857&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;40&quot; y=&quot;58&quot; font-size=&quot;10&quot; font-weight=&quot;extrabold&quot; fill=&quot;#ffffff&quot; text-anchor=&quot;middle&quot;&gt;경정비&lt;/text&gt;
+              &lt;text x=&quot;68&quot; y=&quot;160&quot; font-size=&quot;15&quot; font-weight=&quot;black&quot; fill=&quot;#022c22&quot;
+                    text-anchor=&quot;middle&quot; transform=&quot;rotate(-90,74,210)&quot;&gt;필터 세척실&lt;/text&gt;
+              &lt;rect x=&quot;34&quot; y=&quot;260&quot; width=&quot;68&quot; height=&quot;5&quot; fill=&quot;#047857&quot; rx=&quot;2&quot;/&gt;
+              &lt;rect x=&quot;34&quot; y=&quot;270&quot; width=&quot;68&quot; height=&quot;5&quot; fill=&quot;#047857&quot; rx=&quot;2&quot;/&gt;
+              &lt;rect x=&quot;34&quot; y=&quot;280&quot; width=&quot;68&quot; height=&quot;5&quot; fill=&quot;#047857&quot; rx=&quot;2&quot;/&gt;
+              &lt;text x=&quot;68&quot; y=&quot;308&quot; font-size=&quot;11&quot; font-weight=&quot;bold&quot; fill=&quot;#064e3b&quot; text-anchor=&quot;middle&quot;&gt;집진 필터 세정&lt;/text&gt;
+              &lt;text x=&quot;68&quot; y=&quot;322&quot; font-size=&quot;11&quot; font-weight=&quot;bold&quot; fill=&quot;#064e3b&quot; text-anchor=&quot;middle&quot;&gt;고압 에어 세척&lt;/text&gt;
+              &lt;text x=&quot;68&quot; y=&quot;342&quot; font-size=&quot;9.5&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;(Filter Cleaning)&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 검수대기실 &amp; 충전 시스템 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;waiting_room&quot;&gt;
+              &lt;rect x=&quot;142&quot; y=&quot;38&quot; width=&quot;760&quot; height=&quot;92&quot; fill=&quot;rgba(14,165,233,0.12)&quot;
+                    stroke=&quot;#0284c7&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-waiting_room&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;rect x=&quot;150&quot; y=&quot;46&quot; width=&quot;80&quot; height=&quot;18&quot; fill=&quot;#0284c7&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;190&quot; y=&quot;58&quot; font-size=&quot;10&quot; font-weight=&quot;extrabold&quot; fill=&quot;#ffffff&quot; text-anchor=&quot;middle&quot;&gt;대기·급속충전&lt;/text&gt;
+              &lt;text x=&quot;498&quot; y=&quot;78&quot; font-size=&quot;17&quot; font-weight=&quot;black&quot; fill=&quot;#0f172a&quot; text-anchor=&quot;middle&quot;&gt;검수 대기실  &amp;amp;  이동식 충전 시스템&lt;/text&gt;
+              &lt;text x=&quot;498&quot; y=&quot;98&quot; font-size=&quot;11.5&quot; font-weight=&quot;bold&quot; fill=&quot;#334155&quot; text-anchor=&quot;middle&quot;&gt;DC 750V 급속충전장치 · RFID 트램 입고 식별&lt;/text&gt;
+              &lt;!-- 충전 아이콘 --&gt;
+              &lt;rect x=&quot;773&quot; y=&quot;48&quot; width=&quot;120&quot; height=&quot;72&quot; rx=&quot;4&quot; fill=&quot;rgba(14,165,233,0.25)&quot; stroke=&quot;#0284c7&quot; stroke-width=&quot;2&quot;/&gt;
+              &lt;text x=&quot;833&quot; y=&quot;80&quot; font-size=&quot;24&quot; text-anchor=&quot;middle&quot;&gt;⚡&lt;/text&gt;
+              &lt;text x=&quot;833&quot; y=&quot;106&quot; font-size=&quot;11.5&quot; fill=&quot;#0369a1&quot; font-weight=&quot;black&quot; text-anchor=&quot;middle&quot;&gt;충전 장치실&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 청소선 track --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;cleaning_track&quot;&gt;
+              &lt;rect x=&quot;142&quot; y=&quot;132&quot; width=&quot;760&quot; height=&quot;14&quot; fill=&quot;rgba(100,116,139,0.15)&quot; stroke=&quot;#475569&quot; stroke-width=&quot;1.5&quot; id=&quot;rect-cleaning_track&quot; class=&quot;transition-all&quot; rx=&quot;2&quot;/&gt;
+              &lt;line x1=&quot;142&quot; y1=&quot;136&quot; x2=&quot;902&quot; y2=&quot;136&quot; stroke=&quot;#0f172a&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;10,4&quot;/&gt;
+              &lt;line x1=&quot;142&quot; y1=&quot;142&quot; x2=&quot;902&quot; y2=&quot;142&quot; stroke=&quot;#0f172a&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;10,4&quot;/&gt;
+              &lt;rect x=&quot;438&quot; y=&quot;130&quot; width=&quot;120&quot; height=&quot;18&quot; fill=&quot;#475569&quot; rx=&quot;2&quot;/&gt;
+              &lt;text x=&quot;498&quot; y=&quot;143&quot; font-size=&quot;11.5&quot; fill=&quot;#ffffff&quot; font-weight=&quot;black&quot; text-anchor=&quot;middle&quot;&gt;★ 청 소 선 (차량 내외관 정밀 청소)&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 일상 및 월상 검사선 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;daily_monthly_inspection&quot;&gt;
+              &lt;rect x=&quot;142&quot; y=&quot;148&quot; width=&quot;760&quot; height=&quot;150&quot; fill=&quot;rgba(14,165,233,0.12)&quot;
+                    stroke=&quot;#0284c7&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-daily_monthly_inspection&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;rect x=&quot;150&quot; y=&quot;156&quot; width=&quot;94&quot; height=&quot;18&quot; fill=&quot;#0369a1&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;197&quot; y=&quot;168&quot; font-size=&quot;10&quot; font-weight=&quot;extrabold&quot; fill=&quot;#ffffff&quot; text-anchor=&quot;middle&quot;&gt;일상·월상 검사선&lt;/text&gt;
+              &lt;rect x=&quot;142&quot; y=&quot;186&quot; width=&quot;760&quot; height=&quot;22&quot; fill=&quot;rgba(14,165,233,0.08)&quot; stroke=&quot;rgba(14,165,233,0.5)&quot; stroke-width=&quot;1.5&quot;/&gt;
+              &lt;line x1=&quot;142&quot; y1=&quot;192&quot; x2=&quot;902&quot; y2=&quot;192&quot; stroke=&quot;#0f172a&quot; stroke-width=&quot;2.5&quot; stroke-dasharray=&quot;12,4&quot;/&gt;
+              &lt;line x1=&quot;142&quot; y1=&quot;202&quot; x2=&quot;902&quot; y2=&quot;202&quot; stroke=&quot;#0f172a&quot; stroke-width=&quot;2.5&quot; stroke-dasharray=&quot;12,4&quot;/&gt;
+              &lt;text x=&quot;498&quot; y=&quot;181&quot; font-size=&quot;17&quot; font-weight=&quot;black&quot; fill=&quot;#0f172a&quot; text-anchor=&quot;middle&quot;&gt;일상 및 월상 검사선&lt;/text&gt;
+              &lt;text x=&quot;498&quot; y=&quot;230&quot; font-size=&quot;12&quot; font-weight=&quot;bold&quot; fill=&quot;#334155&quot; text-anchor=&quot;middle&quot;&gt;하부 피트(Pit) 1.2m · 루프 상부 고정식 점검대 완비&lt;/text&gt;
+              &lt;text x=&quot;498&quot; y=&quot;248&quot; font-size=&quot;12&quot; font-weight=&quot;bold&quot; fill=&quot;#334155&quot; text-anchor=&quot;middle&quot;&gt;3개 편성 차량 동시 정밀 정비 · 무선 데이터 추출용 AP 탑재&lt;/text&gt;
+              &lt;rect x=&quot;318&quot; y=&quot;260&quot; width=&quot;360&quot; height=&quot;30&quot; rx=&quot;3&quot; fill=&quot;rgba(14,165,233,0.15)&quot; stroke=&quot;#0284c7&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;4,2&quot;/&gt;
+              &lt;text x=&quot;498&quot; y=&quot;279&quot; font-size=&quot;11.5&quot; fill=&quot;#0369a1&quot; font-weight=&quot;black&quot; text-anchor=&quot;middle&quot;&gt;▼ 하부 피트 점검 구역 (Under-floor Pit)&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 차륜전삭선 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;wheel_lathe&quot;&gt;
+              &lt;rect x=&quot;142&quot; y=&quot;302&quot; width=&quot;760&quot; height=&quot;74&quot; fill=&quot;rgba(234,179,8,0.13)&quot;
+                    stroke=&quot;#ca8a04&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-wheel_lathe&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;rect x=&quot;150&quot; y=&quot;309&quot; width=&quot;76&quot; height=&quot;18&quot; fill=&quot;#ca8a04&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;188&quot; y=&quot;321&quot; font-size=&quot;10&quot; font-weight=&quot;extrabold&quot; fill=&quot;#ffffff&quot; text-anchor=&quot;middle&quot;&gt;차륜전삭선&lt;/text&gt;
+              &lt;line x1=&quot;142&quot; y1=&quot;334&quot; x2=&quot;902&quot; y2=&quot;334&quot; stroke=&quot;#854d0e&quot; stroke-width=&quot;2.5&quot; stroke-dasharray=&quot;12,4&quot;/&gt;
+              &lt;line x1=&quot;142&quot; y1=&quot;342&quot; x2=&quot;902&quot; y2=&quot;342&quot; stroke=&quot;#854d0e&quot; stroke-width=&quot;2.5&quot; stroke-dasharray=&quot;12,4&quot;/&gt;
+              &lt;circle cx=&quot;498&quot; cy=&quot;338&quot; r=&quot;16&quot; fill=&quot;rgba(234,179,8,0.25)&quot; stroke=&quot;#ca8a04&quot; stroke-width=&quot;2.5&quot;/&gt;
+              &lt;path d=&quot;M 486,338 L 510,338 M 498,326 L 498,350&quot; stroke=&quot;#ca8a04&quot; stroke-width=&quot;3&quot;/&gt;
+              &lt;text x=&quot;498&quot; y=&quot;326&quot; font-size=&quot;14.5&quot; font-weight=&quot;black&quot; fill=&quot;#713f12&quot; text-anchor=&quot;middle&quot;&gt;차륜전삭선 (Under-floor CNC Wheel Lathe)&lt;/text&gt;
+              &lt;text x=&quot;498&quot; y=&quot;367&quot; font-size=&quot;11.5&quot; font-weight=&quot;bold&quot; fill=&quot;#713f12&quot; text-anchor=&quot;middle&quot;&gt;바퀴 분해 없는 CNC 정밀 플랜지 마모 연마 삭정 시스템&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 경정비 / 중정비 경계선 --&gt;
+            &lt;line x1=&quot;2&quot; y1=&quot;381&quot; x2=&quot;910&quot; y2=&quot;381&quot; stroke=&quot;#000000&quot; stroke-width=&quot;4.5&quot;/&gt;
+            
+            
+
+            &lt;!-- ────────────────────────────────────────────────────────
+                 [중정비 구역] Y=382 ~ Y=912 (530px = 53m)
+                 ──────────────────────────────────────────────────────── --&gt;
+            &lt;rect x=&quot;2&quot; y=&quot;382&quot; width=&quot;908&quot; height=&quot;530&quot; fill=&quot;rgba(239,68,68,0.03)&quot; stroke=&quot;#dc2626&quot; stroke-width=&quot;3&quot; rx=&quot;4&quot;/&gt;
+            
+            
+
+            &lt;!-- 부품세척실 (중정비) --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;parts_washing&quot;&gt;
+              &lt;rect x=&quot;6&quot; y=&quot;408&quot; width=&quot;130&quot; height=&quot;500&quot; fill=&quot;rgba(239,68,68,0.14)&quot;
+                    stroke=&quot;#dc2626&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-parts_washing&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;rect x=&quot;12&quot; y=&quot;416&quot; width=&quot;56&quot; height=&quot;18&quot; fill=&quot;#dc2626&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;40&quot; y=&quot;428&quot; font-size=&quot;10&quot; font-weight=&quot;extrabold&quot; fill=&quot;#ffffff&quot; text-anchor=&quot;middle&quot;&gt;중정비&lt;/text&gt;
+              &lt;text x=&quot;68&quot; y=&quot;480&quot; font-size=&quot;15&quot; font-weight=&quot;black&quot; fill=&quot;#7f1d1d&quot;
+                    text-anchor=&quot;middle&quot; transform=&quot;rotate(-90,74,560)&quot;&gt;부품 세척실&lt;/text&gt;
+              &lt;!-- 초음파 세정 --&gt;
+              &lt;circle cx=&quot;68&quot; cy=&quot;630&quot; r=&quot;22&quot; fill=&quot;none&quot; stroke=&quot;#dc2626&quot; stroke-width=&quot;2.5&quot;/&gt;
+              &lt;circle cx=&quot;68&quot; cy=&quot;630&quot; r=&quot;8&quot; fill=&quot;#dc2626&quot;/&gt;
+              &lt;text x=&quot;68&quot; y=&quot;668&quot; font-size=&quot;11.5&quot; font-weight=&quot;extrabold&quot; fill=&quot;#991b1b&quot; text-anchor=&quot;middle&quot;&gt;유압 초음파&lt;/text&gt;
+              &lt;!-- 대차 세척기 --&gt;
+              &lt;rect x=&quot;11&quot; y=&quot;710&quot; width=&quot;120&quot; height=&quot;74&quot; fill=&quot;rgba(239,68,68,0.10)&quot; stroke=&quot;#dc2626&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;4,2&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;68&quot; y=&quot;742&quot; font-size=&quot;11.5&quot; font-weight=&quot;black&quot; fill=&quot;#991b1b&quot; text-anchor=&quot;middle&quot;&gt;대차 세척기&lt;/text&gt;
+              &lt;text x=&quot;68&quot; y=&quot;760&quot; font-size=&quot;10&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;건조 챔버 완비&lt;/text&gt;
+              &lt;!-- 중정비 진입선 --&gt;
+              &lt;line x1=&quot;6&quot; y1=&quot;810&quot; x2=&quot;136&quot; y2=&quot;810&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;8,4&quot;/&gt;
+              &lt;line x1=&quot;6&quot; y1=&quot;818&quot; x2=&quot;136&quot; y2=&quot;818&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;8,4&quot;/&gt;
+              &lt;text x=&quot;68&quot; y=&quot;845&quot; font-size=&quot;11&quot; font-weight=&quot;bold&quot; fill=&quot;#7f1d1d&quot; text-anchor=&quot;middle&quot;&gt;중정비 진입선&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 전동차 중정비창 --&gt;
+            &lt;rect x=&quot;140&quot; y=&quot;408&quot; width=&quot;410&quot; height=&quot;500&quot; fill=&quot;rgba(239,68,68,0.03)&quot; stroke=&quot;#dc2626&quot; stroke-width=&quot;2&quot; rx=&quot;3&quot;/&gt;
+            &lt;!-- 천장 크레인 표현 --&gt;
+            &lt;line x1=&quot;144&quot; y1=&quot;448&quot; x2=&quot;546&quot; y2=&quot;448&quot; stroke=&quot;#991b1b&quot; stroke-width=&quot;3&quot;/&gt;
+            &lt;rect x=&quot;308&quot; y=&quot;440&quot; width=&quot;80&quot; height=&quot;15&quot; fill=&quot;#991b1b&quot; rx=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;348&quot; y1=&quot;455&quot; x2=&quot;348&quot; y2=&quot;475&quot; stroke=&quot;#991b1b&quot; stroke-width=&quot;2.5&quot;/&gt;
+            &lt;rect x=&quot;328&quot; y=&quot;475&quot; width=&quot;40&quot; height=&quot;16&quot; rx=&quot;3&quot; fill=&quot;#dc2626&quot; stroke=&quot;#991b1b&quot;/&gt;
+            &lt;text x=&quot;348&quot; y=&quot;487&quot; font-size=&quot;9.5&quot; fill=&quot;#ffffff&quot; font-weight=&quot;black&quot; text-anchor=&quot;middle&quot;&gt;15T&lt;/text&gt;
+            &lt;text x=&quot;403&quot; y=&quot;448&quot; font-size=&quot;10&quot; font-weight=&quot;bold&quot; fill=&quot;#991b1b&quot;&gt;OVERHEAD CRANE&lt;/text&gt;
+
+            &lt;!-- 대차수선장 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;bogie_repair&quot;&gt;
+              &lt;rect x=&quot;146&quot; y=&quot;508&quot; width=&quot;194&quot; height=&quot;392&quot; fill=&quot;rgba(239,68,68,0.12)&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-bogie_repair&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;243&quot; y=&quot;538&quot; font-size=&quot;14.5&quot; font-weight=&quot;black&quot; fill=&quot;#7f1d1d&quot; text-anchor=&quot;middle&quot;&gt;대차수선장&lt;/text&gt;
+              &lt;text x=&quot;243&quot; y=&quot;556&quot; font-size=&quot;10.5&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;Bogie Repair Bay&lt;/text&gt;
+              &lt;rect x=&quot;156&quot; y=&quot;574&quot; width=&quot;174&quot; height=&quot;52&quot; rx=&quot;3&quot; fill=&quot;rgba(220,38,38,0.22)&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;1.5&quot;/&gt;
+              &lt;text x=&quot;243&quot; y=&quot;597&quot; font-size=&quot;11.5&quot; font-weight=&quot;black&quot; fill=&quot;#7f1d1d&quot; text-anchor=&quot;middle&quot;&gt;유압 드롭 테이블&lt;/text&gt;
+              &lt;text x=&quot;243&quot; y=&quot;612&quot; font-size=&quot;9.5&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;(Bogie Drop Table)&lt;/text&gt;
+              &lt;rect x=&quot;156&quot; y=&quot;636&quot; width=&quot;174&quot; height=&quot;52&quot; rx=&quot;3&quot; fill=&quot;rgba(220,38,38,0.22)&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;1.5&quot;/&gt;
+              &lt;text x=&quot;243&quot; y=&quot;660&quot; font-size=&quot;11.5&quot; font-weight=&quot;black&quot; fill=&quot;#7f1d1d&quot; text-anchor=&quot;middle&quot;&gt;윤축 교체 베이&lt;/text&gt;
+              &lt;text x=&quot;243&quot; y=&quot;675&quot; font-size=&quot;9.5&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;(Wheelset Replace)&lt;/text&gt;
+              &lt;rect x=&quot;156&quot; y=&quot;698&quot; width=&quot;174&quot; height=&quot;82&quot; rx=&quot;3&quot; fill=&quot;rgba(220,38,38,0.18)&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;1.5&quot;/&gt;
+              &lt;text x=&quot;243&quot; y=&quot;726&quot; font-size=&quot;11.5&quot; font-weight=&quot;black&quot; fill=&quot;#7f1d1d&quot; text-anchor=&quot;middle&quot;&gt;차체 기중 리프팅 잭&lt;/text&gt;
+              &lt;text x=&quot;243&quot; y=&quot;744&quot; font-size=&quot;9.5&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;(Body Lifting Jack x8)&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 윤축수선장 &amp; HVAC / 차체분해조립장 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;wheelset_motor_repair&quot;&gt;
+              &lt;rect x=&quot;346&quot; y=&quot;508&quot; width=&quot;198&quot; height=&quot;236&quot; fill=&quot;rgba(239,68,68,0.12)&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-wheelset_motor_repair&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;445&quot; y=&quot;538&quot; font-size=&quot;14.5&quot; font-weight=&quot;black&quot; fill=&quot;#7f1d1d&quot; text-anchor=&quot;middle&quot;&gt;윤축수선장&lt;/text&gt;
+              &lt;text x=&quot;445&quot; y=&quot;556&quot; font-size=&quot;10.5&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;Wheelset &amp;amp; Motor&lt;/text&gt;
+              &lt;rect x=&quot;356&quot; y=&quot;574&quot; width=&quot;178&quot; height=&quot;52&quot; rx=&quot;3&quot; fill=&quot;rgba(220,38,38,0.22)&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;1.5&quot;/&gt;
+              &lt;text x=&quot;445&quot; y=&quot;597&quot; font-size=&quot;11.5&quot; font-weight=&quot;black&quot; fill=&quot;#7f1d1d&quot; text-anchor=&quot;middle&quot;&gt;레이저 마모도 측정&lt;/text&gt;
+              &lt;text x=&quot;445&quot; y=&quot;612&quot; font-size=&quot;9.5&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;(Bogie Flange Gauge)&lt;/text&gt;
+              &lt;rect x=&quot;356&quot; y=&quot;636&quot; width=&quot;178&quot; height=&quot;52&quot; rx=&quot;3&quot; fill=&quot;rgba(220,38,38,0.22)&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;1.5&quot;/&gt;
+              &lt;text x=&quot;445&quot; y=&quot;660&quot; font-size=&quot;11.5&quot; font-weight=&quot;black&quot; fill=&quot;#7f1d1d&quot; text-anchor=&quot;middle&quot;&gt;회전기 시험 벤치&lt;/text&gt;
+              &lt;text x=&quot;445&quot; y=&quot;675&quot; font-size=&quot;9.5&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;(Motor Dyno Bench)&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;hvac_repair&quot;&gt;
+              &lt;rect x=&quot;346&quot; y=&quot;750&quot; width=&quot;198&quot; height=&quot;72&quot; fill=&quot;rgba(239,68,68,0.16)&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-hvac_repair&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;445&quot; y=&quot;782&quot; font-size=&quot;13&quot; font-weight=&quot;black&quot; fill=&quot;#7f1d1d&quot; text-anchor=&quot;middle&quot;&gt;HVAC / 제어 정비장&lt;/text&gt;
+              &lt;text x=&quot;445&quot; y=&quot;800&quot; font-size=&quot;10&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;(HVAC &amp;amp; Power Control)&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;body_disassembly&quot;&gt;
+              &lt;rect x=&quot;346&quot; y=&quot;828&quot; width=&quot;198&quot; height=&quot;72&quot; fill=&quot;rgba(239,68,68,0.18)&quot; stroke=&quot;#b91c1c&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-body_disassembly&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;445&quot; y=&quot;860&quot; font-size=&quot;13&quot; font-weight=&quot;black&quot; fill=&quot;#7f1d1d&quot; text-anchor=&quot;middle&quot;&gt;차체 분해/조립장&lt;/text&gt;
+              &lt;text x=&quot;445&quot; y=&quot;878&quot; font-size=&quot;10&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;(Body Disassembly/Assembly)&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 공구 및 경정비 지원창 --&gt;
+            &lt;rect x=&quot;552&quot; y=&quot;408&quot; width=&quot;350&quot; height=&quot;500&quot; fill=&quot;none&quot; stroke=&quot;#9333ea&quot; stroke-width=&quot;2&quot; rx=&quot;3&quot;/&gt;
+
+            &lt;!-- 공구 &amp; 경정비고 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;tool_store&quot;&gt;
+              &lt;rect x=&quot;556&quot; y=&quot;440&quot; width=&quot;166&quot; height=&quot;232&quot; fill=&quot;rgba(168,85,247,0.15)&quot; stroke=&quot;#9333ea&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-tool_store&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;639&quot; y=&quot;470&quot; font-size=&quot;14&quot; font-weight=&quot;black&quot; fill=&quot;#4c1d95&quot; text-anchor=&quot;middle&quot;&gt;공구 &amp;amp; 경정비고&lt;/text&gt;
+              &lt;text x=&quot;639&quot; y=&quot;488&quot; font-size=&quot;10&quot; font-weight=&quot;bold&quot; fill=&quot;#6b21a8&quot; text-anchor=&quot;middle&quot;&gt;Spare Parts Store&lt;/text&gt;
+              &lt;rect x=&quot;566&quot; y=&quot;504&quot; width=&quot;146&quot; height=&quot;40&quot; rx=&quot;2&quot; fill=&quot;rgba(168,85,247,0.2)&quot; stroke=&quot;#9333ea&quot;/&gt;
+              &lt;text x=&quot;639&quot; y=&quot;528&quot; font-size=&quot;11&quot; font-weight=&quot;black&quot; fill=&quot;#581c87&quot; text-anchor=&quot;middle&quot;&gt;소모품 다단 수납 랙&lt;/text&gt;
+              &lt;rect x=&quot;566&quot; y=&quot;552&quot; width=&quot;146&quot; height=&quot;40&quot; rx=&quot;2&quot; fill=&quot;rgba(168,85,247,0.2)&quot; stroke=&quot;#9333ea&quot;/&gt;
+              &lt;text x=&quot;639&quot; y=&quot;576&quot; font-size=&quot;11&quot; font-weight=&quot;black&quot; fill=&quot;#581c87&quot; text-anchor=&quot;middle&quot;&gt;스마트 공구 수납함&lt;/text&gt;
+              &lt;text x=&quot;639&quot; y=&quot;625&quot; font-size=&quot;10&quot; font-weight=&quot;bold&quot; fill=&quot;#6b7280&quot; text-anchor=&quot;middle&quot;&gt;정밀 전자기구 수납&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 회전기 작업장 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;motor_workshop&quot;&gt;
+              &lt;rect x=&quot;728&quot; y=&quot;440&quot; width=&quot;170&quot; height=&quot;232&quot; fill=&quot;rgba(168,85,247,0.15)&quot; stroke=&quot;#9333ea&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-motor_workshop&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;813&quot; y=&quot;470&quot; font-size=&quot;14&quot; font-weight=&quot;black&quot; fill=&quot;#4c1d95&quot; text-anchor=&quot;middle&quot;&gt;회전기 작업장&lt;/text&gt;
+              &lt;text x=&quot;813&quot; y=&quot;488&quot; font-size=&quot;10&quot; font-weight=&quot;bold&quot; fill=&quot;#6b21a8&quot; text-anchor=&quot;middle&quot;&gt;Motor Workshop&lt;/text&gt;
+              &lt;circle cx=&quot;813&quot; cy=&quot;542&quot; r=&quot;34&quot; fill=&quot;none&quot; stroke=&quot;#9333ea&quot; stroke-width=&quot;2.5&quot;/&gt;
+              &lt;circle cx=&quot;813&quot; cy=&quot;542&quot; r=&quot;14&quot; fill=&quot;#9333ea&quot; fill-opacity=&quot;0.3&quot;/&gt;
+              &lt;line x1=&quot;783&quot; y1=&quot;542&quot; x2=&quot;843&quot; y2=&quot;542&quot; stroke=&quot;#9333ea&quot; stroke-width=&quot;2&quot;/&gt;
+              &lt;line x1=&quot;813&quot; y1=&quot;512&quot; x2=&quot;813&quot; y2=&quot;572&quot; stroke=&quot;#9333ea&quot; stroke-width=&quot;2&quot;/&gt;
+              &lt;text x=&quot;813&quot; y=&quot;602&quot; font-size=&quot;11&quot; font-weight=&quot;black&quot; fill=&quot;#581c87&quot; text-anchor=&quot;middle&quot;&gt;모터 정밀 분해세정&lt;/text&gt;
+              &lt;text x=&quot;813&quot; y=&quot;618&quot; font-size=&quot;11&quot; font-weight=&quot;black&quot; fill=&quot;#581c87&quot; text-anchor=&quot;middle&quot;&gt;동력 다이나모 벤치&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 경정비 창고 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;light_store&quot;&gt;
+              &lt;rect x=&quot;556&quot; y=&quot;680&quot; width=&quot;342&quot; height=&quot;222&quot; fill=&quot;rgba(168,85,247,0.12)&quot; stroke=&quot;#9333ea&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-light_store&quot; class=&quot;transition-all&quot; rx=&quot;3&quot;/&gt;
+              &lt;text x=&quot;727&quot; y=&quot;712&quot; font-size=&quot;15&quot; font-weight=&quot;black&quot; fill=&quot;#4c1d95&quot; text-anchor=&quot;middle&quot;&gt;경정비 창고&lt;/text&gt;
+              &lt;text x=&quot;727&quot; y=&quot;730&quot; font-size=&quot;10.5&quot; font-weight=&quot;bold&quot; fill=&quot;#6b21a8&quot; text-anchor=&quot;middle&quot;&gt;Light Maintenance Store&lt;/text&gt;
+              &lt;text x=&quot;727&quot; y=&quot;764&quot; font-size=&quot;12&quot; font-weight=&quot;extrabold&quot; fill=&quot;#3b0764&quot; text-anchor=&quot;middle&quot;&gt;• 오일류 / 가스켓 / 경량 유압 호스&lt;/text&gt;
+              &lt;text x=&quot;727&quot; y=&quot;784&quot; font-size=&quot;12&quot; font-weight=&quot;extrabold&quot; fill=&quot;#3b0764&quot; text-anchor=&quot;middle&quot;&gt;• 제동 라이닝 및 패드 소모품&lt;/text&gt;
+              &lt;text x=&quot;727&quot; y=&quot;804&quot; font-size=&quot;12&quot; font-weight=&quot;extrabold&quot; fill=&quot;#3b0764&quot; text-anchor=&quot;middle&quot;&gt;• 도어 구동 모터 및 전장 퓨즈&lt;/text&gt;
+              &lt;text x=&quot;727&quot; y=&quot;824&quot; font-size=&quot;12&quot; font-weight=&quot;extrabold&quot; fill=&quot;#3b0764&quot; text-anchor=&quot;middle&quot;&gt;• 운전실 인디케이터 패널 모듈&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- ────────────────────────────────────────────────────────
+                 [관리 지원동] Y=914 ~ Y=1014 (100px = 10m)
+                 ──────────────────────────────────────────────────────── --&gt;
+            &lt;rect x=&quot;2&quot; y=&quot;914&quot; width=&quot;908&quot; height=&quot;100&quot; fill=&quot;none&quot; stroke=&quot;#059669&quot; stroke-width=&quot;3&quot; rx=&quot;3&quot;/&gt;
+
+            &lt;!-- 소장실 &amp; 회의실 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;director_room&quot;&gt;
+              &lt;rect x=&quot;4&quot; y=&quot;916&quot; width=&quot;150&quot; height=&quot;96&quot; fill=&quot;rgba(52,211,153,0.12)&quot; stroke=&quot;#059669&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-director_room&quot; class=&quot;transition-all&quot; rx=&quot;2&quot;/&gt;
+              &lt;text x=&quot;76&quot; y=&quot;966&quot; font-size=&quot;13.5&quot; font-weight=&quot;black&quot; fill=&quot;#064e3b&quot; text-anchor=&quot;middle&quot;&gt;소장실 &amp;amp; 회의실&lt;/text&gt;
+              &lt;text x=&quot;76&quot; y=&quot;986&quot; font-size=&quot;9.5&quot; font-weight=&quot;bold&quot; fill=&quot;#0f766e&quot; text-anchor=&quot;middle&quot;&gt;(기지 총괄 본부)&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 통합 사무실 &amp; 대기실 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;office_room&quot;&gt;
+              &lt;rect x=&quot;156&quot; y=&quot;916&quot; width=&quot;226&quot; height=&quot;96&quot; fill=&quot;rgba(52,211,153,0.12)&quot; stroke=&quot;#059669&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-office_room&quot; class=&quot;transition-all&quot; rx=&quot;2&quot;/&gt;
+              &lt;text x=&quot;269&quot; y=&quot;960&quot; font-size=&quot;14&quot; font-weight=&quot;black&quot; fill=&quot;#064e3b&quot; text-anchor=&quot;middle&quot;&gt;통합 사무실 &amp;amp; 대기실&lt;/text&gt;
+              &lt;text x=&quot;269&quot; y=&quot;980&quot; font-size=&quot;10.5&quot; font-weight=&quot;bold&quot; fill=&quot;#047857&quot; text-anchor=&quot;middle&quot;&gt;(현장 정비원 대기실)&lt;/text&gt;
+              &lt;text x=&quot;269&quot; y=&quot;996&quot; font-size=&quot;10&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;ERP 스케줄 보드 가동&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 안전/자재 사무실 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;safety_store&quot;&gt;
+              &lt;rect x=&quot;384&quot; y=&quot;916&quot; width=&quot;120&quot; height=&quot;96&quot; fill=&quot;rgba(52,211,153,0.12)&quot; stroke=&quot;#059669&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-safety_store&quot; class=&quot;transition-all&quot; rx=&quot;2&quot;/&gt;
+              &lt;text x=&quot;444&quot; y=&quot;966&quot; font-size=&quot;13&quot; font-weight=&quot;black&quot; fill=&quot;#064e3b&quot; text-anchor=&quot;middle&quot;&gt;안전/자재 사무&lt;/text&gt;
+              &lt;text x=&quot;444&quot; y=&quot;986&quot; font-size=&quot;9.5&quot; font-weight=&quot;bold&quot; fill=&quot;#0f766e&quot; text-anchor=&quot;middle&quot;&gt;(작업 허가서 접수)&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 기술 자료실 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;tech_archive&quot;&gt;
+              &lt;rect x=&quot;506&quot; y=&quot;916&quot; width=&quot;180&quot; height=&quot;96&quot; fill=&quot;rgba(16,185,129,0.12)&quot; stroke=&quot;#059669&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-tech_archive&quot; class=&quot;transition-all&quot; rx=&quot;2&quot;/&gt;
+              &lt;text x=&quot;596&quot; y=&quot;960&quot; font-size=&quot;14&quot; font-weight=&quot;black&quot; fill=&quot;#064e3b&quot; text-anchor=&quot;middle&quot;&gt;기술 자료실&lt;/text&gt;
+              &lt;text x=&quot;596&quot; y=&quot;980&quot; font-size=&quot;10.5&quot; font-weight=&quot;bold&quot; fill=&quot;#047857&quot; text-anchor=&quot;middle&quot;&gt;(설계도면 보관함)&lt;/text&gt;
+              &lt;text x=&quot;596&quot; y=&quot;996&quot; font-size=&quot;9.5&quot; font-weight=&quot;bold&quot; fill=&quot;#4b5563&quot; text-anchor=&quot;middle&quot;&gt;항온항습 정밀 챔버&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 기계/통신실 --&gt;
+            &lt;g class=&quot;depot-zone cursor-pointer&quot; data-id=&quot;telecom_room&quot;&gt;
+              &lt;rect x=&quot;688&quot; y=&quot;916&quot; width=&quot;220&quot; height=&quot;96&quot; fill=&quot;rgba(16,185,129,0.12)&quot; stroke=&quot;#059669&quot; stroke-width=&quot;2.5&quot; id=&quot;rect-telecom_room&quot; class=&quot;transition-all&quot; rx=&quot;2&quot;/&gt;
+              &lt;text x=&quot;798&quot; y=&quot;960&quot; font-size=&quot;14&quot; font-weight=&quot;black&quot; fill=&quot;#064e3b&quot; text-anchor=&quot;middle&quot;&gt;기계/통신 제어실&lt;/text&gt;
+              &lt;text x=&quot;798&quot; y=&quot;980&quot; font-size=&quot;10.5&quot; font-weight=&quot;bold&quot; fill=&quot;#047857&quot; text-anchor=&quot;middle&quot;&gt;(신호제어 허브 랙)&lt;/text&gt;
+              &lt;text x=&quot;798&quot; y=&quot;996&quot; font-size=&quot;9.5&quot; font-weight=&quot;bold&quot; fill=&quot;#e11d48&quot; text-anchor=&quot;middle&quot;&gt;비상 UPS 백업 대기&lt;/text&gt;
+            &lt;/g&gt;
+
+            &lt;!-- 전체 수직 치수 라벨 --&gt;
+            &lt;line x1=&quot;936&quot; y1=&quot;10&quot;   x2=&quot;952&quot; y2=&quot;10&quot;   stroke=&quot;#000000&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;936&quot; y1=&quot;1010&quot; x2=&quot;952&quot; y2=&quot;1010&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;line x1=&quot;944&quot; y1=&quot;10&quot;   x2=&quot;944&quot; y2=&quot;1010&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;6,4&quot;/&gt;
+            &lt;text transform=&quot;rotate(90,954,510)&quot; x=&quot;954&quot; y=&quot;510&quot; font-size=&quot;14&quot; font-weight=&quot;black&quot; fill=&quot;#000000&quot; text-anchor=&quot;middle&quot;&gt;총 100m (경정비 37m + 중정비 53m + 관리동 10m)&lt;/text&gt;
+
+            &lt;!-- Animated Tram (X축 보정: 기존 182 -&gt; 142) --&gt;
+            &lt;g id=&quot;animatedTram&quot; transform=&quot;translate(-300, 0)&quot;&gt;
+              &lt;rect x=&quot;0&quot; y=&quot;123&quot; width=&quot;220&quot; height=&quot;28&quot; rx=&quot;6&quot; fill=&quot;#1d4ed8&quot; fill-opacity=&quot;0.95&quot; stroke=&quot;#1e40af&quot; stroke-width=&quot;2&quot;/&gt;
+              &lt;line x1=&quot;55&quot; y1=&quot;123&quot; x2=&quot;55&quot; y2=&quot;151&quot; stroke=&quot;#172554&quot; stroke-width=&quot;3&quot;/&gt;
+              &lt;line x1=&quot;110&quot; y1=&quot;123&quot; x2=&quot;110&quot; y2=&quot;151&quot; stroke=&quot;#172554&quot; stroke-width=&quot;3&quot;/&gt;
+              &lt;line x1=&quot;165&quot; y1=&quot;123&quot; x2=&quot;165&quot; y2=&quot;151&quot; stroke=&quot;#172554&quot; stroke-width=&quot;3&quot;/&gt;
+              &lt;rect x=&quot;204&quot; y=&quot;127&quot; width=&quot;12&quot; height=&quot;20&quot; rx=&quot;2&quot; fill=&quot;#93c5fd&quot;/&gt;
+              &lt;text x=&quot;110&quot; y=&quot;141&quot; fill=&quot;#ffffff&quot; font-size=&quot;11&quot; font-weight=&quot;black&quot; text-anchor=&quot;middle&quot;&gt;TRAM-01&lt;/text&gt;
+            &lt;/g&gt;
+          &lt;/svg&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Tips --&gt;
+      &lt;div class=&quot;bg-white border border-slate-200 p-4 rounded-xl text-xs text-slate-500 space-y-2 transition-colors&quot; id=&quot;tipsBox&quot;&gt;
+        &lt;h4 class=&quot;font-bold text-slate-700 flex items-center gap-1&quot; id=&quot;tipsTitle&quot;&gt;
+          &lt;i data-lucide=&quot;info&quot; class=&quot;w-3.5 h-3.5 text-blue-500&quot;&gt;&lt;/i&gt; 검수고 레이아웃 조작 안내
+        &lt;/h4&gt;
+        &lt;p&gt;1. 상기 &lt;strong&gt;정비 프로세스 추적기&lt;/strong&gt;를 조작하면 차량이 노선과 Y축 선로 높이를 전환하며 해당 궤도 영역에 자동 조차됩니다.&lt;/p&gt;
+        &lt;p&gt;2. 개별 구역을 클릭하면 우측 속성 창에서 설비 제원을 직접 열람할 수 있습니다.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;!-- RIGHT PANEL --&gt;
+    &lt;aside class=&quot;lg:w-[26%] flex flex-col gap-6&quot;&gt;
+      &lt;!-- Property Panel --&gt;
+      &lt;div class=&quot;bg-white border-2 border-blue-500 rounded-xl p-5 shadow-lg transition-all duration-300 relative overflow-hidden&quot; id=&quot;propertyPanel&quot;&gt;
+        &lt;div class=&quot;absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl pointer-events-none&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;flex items-start justify-between border-b border-slate-100 pb-4 mb-4&quot;&gt;
+          &lt;div&gt;
+            &lt;span class=&quot;text-[10px] bg-blue-500/10 text-blue-600 font-bold px-2 py-0.5 rounded uppercase tracking-wider&quot; id=&quot;zoneTag&quot;&gt;SELECTED ZONE&lt;/span&gt;
+            &lt;h2 class=&quot;text-xl font-bold text-slate-900 mt-1&quot; id=&quot;detailName&quot;&gt;전동차 중정비창&lt;/h2&gt;
+            &lt;p class=&quot;text-xs text-slate-400 mt-0.5&quot; id=&quot;detailSub&quot;&gt;Heavy Depot / Bogie Workshop&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;text-right&quot;&gt;
+            &lt;span class=&quot;inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-600 border border-rose-100&quot; id=&quot;detailStatus&quot;&gt;
+              &lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse&quot;&gt;&lt;/span&gt; 혼잡 (기중기 가동 중)
+            &lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;grid grid-cols-2 gap-4 mb-6&quot;&gt;
+          &lt;div class=&quot;bg-slate-50 p-3 rounded-lg border border-slate-100&quot; id=&quot;specBox1&quot;&gt;
+            &lt;p class=&quot;text-xs text-slate-400&quot;&gt;도면상 면적&lt;/p&gt;
+            &lt;p class=&quot;text-lg font-extrabold text-slate-800 mt-1 mono&quot; id=&quot;detailArea&quot;&gt;~ 1,480 m²&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;bg-slate-50 p-3 rounded-lg border border-slate-100&quot; id=&quot;specBox2&quot;&gt;
+            &lt;p class=&quot;text-xs text-slate-400&quot;&gt;배치 인력 한계&lt;/p&gt;
+            &lt;p class=&quot;text-lg font-extrabold text-slate-800 mt-1 mono&quot; id=&quot;detailCapacity&quot;&gt;정비조 최대 24명&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;mb-6&quot;&gt;
+          &lt;h3 class=&quot;text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5&quot;&gt;
+            &lt;i data-lucide=&quot;wrench&quot; class=&quot;w-3.5 h-3.5 text-blue-500&quot;&gt;&lt;/i&gt; 주요 보유 설비 및 장비
+          &lt;/h3&gt;
+          &lt;ul class=&quot;space-y-1.5 text-sm&quot; id=&quot;detailEquipment&quot;&gt;
+            &lt;li class=&quot;flex items-center gap-2 text-slate-600&quot;&gt;&lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-blue-500&quot;&gt;&lt;/span&gt;15톤/7.5톤 이중 가동 기중기&lt;/li&gt;
+            &lt;li class=&quot;flex items-center gap-2 text-slate-600&quot;&gt;&lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-blue-500&quot;&gt;&lt;/span&gt;트램 자체 리프팅 잭 (Body Lifters)&lt;/li&gt;
+            &lt;li class=&quot;flex items-center gap-2 text-slate-600&quot;&gt;&lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-blue-500&quot;&gt;&lt;/span&gt;대차 유압식 분리 베이 (Bogie Drop Table)&lt;/li&gt;
+            &lt;li class=&quot;flex items-center gap-2 text-slate-600&quot;&gt;&lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-blue-500&quot;&gt;&lt;/span&gt;차체 대차간 레이저 정밀 측정기&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;border-t border-slate-100 pt-4&quot;&gt;
+          &lt;h3 class=&quot;text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5&quot;&gt;
+            &lt;i data-lucide=&quot;file-text&quot; class=&quot;w-3.5 h-3.5 text-blue-500&quot;&gt;&lt;/i&gt; 구역 검수 업무 설명
+          &lt;/h3&gt;
+          &lt;p class=&quot;text-slate-600 text-sm leading-relaxed&quot; id=&quot;detailDesc&quot;&gt;트램의 최고 난이도 정비(중정비, 대정비, 중사고 부품 교체)를 전담하는 중심 구역입니다. 대형 기중기를 사용하여 구체(Body)와 구동 대차(Bogie)를 수직으로 탈거한 후 고장 모터 정밀 분해 세정 및 교체 작업이 진행됩니다.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Knowledge Panel --&gt;
+      &lt;div class=&quot;bg-white border border-slate-200 rounded-xl p-5 shadow-sm transition-all&quot; id=&quot;knowledgePanel&quot;&gt;
+        &lt;div class=&quot;flex border-b border-slate-100 pb-2 mb-4 gap-4&quot;&gt;
+          &lt;button id=&quot;tabBtn1&quot; class=&quot;text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1.5 transition-all&quot;&gt;검수 공학 규격&lt;/button&gt;
+          &lt;button id=&quot;tabBtn2&quot; class=&quot;text-sm font-bold text-slate-400 hover:text-slate-600 pb-1.5 transition-all&quot;&gt;정비 안전 수칙&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;tabContent1&quot; class=&quot;space-y-3.5 text-xs text-slate-600 leading-relaxed&quot;&gt;
+          &lt;div class=&quot;p-3 bg-slate-50 rounded-lg&quot;&gt;
+            &lt;p class=&quot;font-bold text-slate-800&quot;&gt;궤도 및 기하학적 형상 설계&lt;/p&gt;
+            &lt;p class=&quot;text-slate-500 mt-1&quot;&gt;본 기지는 1,435mm 표준궤를 기반으로 하며 차륜전삭선 등 고정밀 가공 삭정 궤도의 구배는 0.5‰ 미만으로 통제됩니다.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-3 bg-slate-50 rounded-lg&quot;&gt;
+            &lt;p class=&quot;font-bold text-slate-800&quot;&gt;더블 데크 유지보수 플랫폼&lt;/p&gt;
+            &lt;p class=&quot;text-slate-500 mt-1&quot;&gt;지하 피트 구조(깊이 약 1.0m~1.5m) 및 지붕 위 부품 점검을 위한 높이 3.5m의 고정식 플랫폼이 구축되어 상하부 전방위 검수가 가능합니다.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-3 bg-slate-50 rounded-lg&quot;&gt;
+            &lt;p class=&quot;font-bold text-slate-800&quot;&gt;하이브리드 무가선 충전 규격&lt;/p&gt;
+            &lt;p class=&quot;text-slate-500 mt-1&quot;&gt;검수고 내부 진입 시 안전을 위해 일반 가공 전선은 고압(DC 750V)과 모바일 임시 충전설비가 혼용되도록 방폭 설계되어 있습니다.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;tabContent2&quot; class=&quot;hidden space-y-3 text-xs text-slate-600&quot;&gt;
+          &lt;div class=&quot;flex gap-2 items-start p-2.5 bg-rose-50 border border-rose-100 rounded-lg&quot;&gt;
+            &lt;i data-lucide=&quot;alert-triangle&quot; class=&quot;w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5&quot;&gt;&lt;/i&gt;
+            &lt;div&gt;
+              &lt;p class=&quot;font-bold text-rose-700&quot;&gt;전차선 고압 잔류 전류 방전 절차&lt;/p&gt;
+              &lt;p class=&quot;text-slate-500 mt-1&quot;&gt;루프 상부 배터리 및 판토그래프 점검 개시 전, 반드시 주 회로 차단기를 내리고 완전 방전 확인 후 접지봉을 연결하십시오.&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;flex gap-2 items-start p-2.5 bg-amber-50 border border-amber-100 rounded-lg&quot;&gt;
+            &lt;i data-lucide=&quot;shield-alert&quot; class=&quot;w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5&quot;&gt;&lt;/i&gt;
+            &lt;div&gt;
+              &lt;p class=&quot;font-bold text-amber-700&quot;&gt;차륜 전삭기 작동 중 피트 진입 금지&lt;/p&gt;
+              &lt;p class=&quot;text-slate-500 mt-1&quot;&gt;지하 언더플로어 전삭기 가동 중에는 강력한 금속 칩과 절삭유 비산이 일어나므로 반경 3m 내 진입을 절대 불허합니다.&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;flex gap-2 items-start p-2.5 bg-slate-50 rounded-lg&quot;&gt;
+            &lt;i data-lucide=&quot;hard-hat&quot; class=&quot;w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5&quot;&gt;&lt;/i&gt;
+            &lt;div&gt;
+              &lt;p class=&quot;font-bold text-slate-800&quot;&gt;기중기 인양 시 하부 통행 차단&lt;/p&gt;
+              &lt;p class=&quot;text-slate-500 mt-1&quot;&gt;중정비 수선장에서 15T급 기중기로 트램 구체를 인양 시 경고음 수반 하에 통행로가 강제 통제됩니다.&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/aside&gt;
+  &lt;/main&gt;
+
+  &lt;!-- FOOTER --&gt;
+  &lt;footer class=&quot;border-t border-slate-200 bg-slate-100 text-slate-400 text-xs py-4 transition-colors&quot; id=&quot;appFooter&quot;&gt;
+    &lt;div class=&quot;max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3&quot;&gt;
+      &lt;p&gt;© 2026 트램 스마트 검수 기지 디지털 관제소. All Rights Reserved.&lt;/p&gt;
+      &lt;div class=&quot;flex gap-4&quot;&gt;
+        &lt;a href=&quot;#&quot; class=&quot;hover:text-slate-600 transition-colors&quot;&gt;시스템 매뉴얼&lt;/a&gt;
+        &lt;a href=&quot;#&quot; class=&quot;hover:text-slate-600 transition-colors&quot;&gt;비상 연락망&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/footer&gt;
+
+  &lt;script&gt;
+    lucide.createIcons();
+
+        const zoneData = {
+      waiting_room: {
+        tag: &quot;INSPECTION QUEUE&quot;, name: &quot;검수 대기실 &amp; 충전 시스템&quot;, sub: &quot;Inspection Queue &amp; Mobile Charging System&quot;,
+        status: &quot;정상 운영 중&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 430 m²&quot;, capacity: &quot;최대 2개 열차 대기&quot;,
+        equipment: [&quot;이동식 고속 충전장치 (DC 750V / 150kW)&quot;, &quot;충전 모니터링 제어반 및 안전 인터록 장치&quot;, &quot;입고 식별용 자동 RFID 스캐너&quot;, &quot;비상 전원 차단 연동 차단기 및 접지함&quot;],
+        desc: &quot;기지로 진입한 트램이 검수선으로 들어가기 전에 대기하며 배터리를 비상 고속 충전하는 안전 대기선입니다. RFID 태그를 통해 트램 차대 번호와 상태 로그가 무선으로 관제 허브 서버에 등록됩니다.&quot;
+      },
+      filter_washing: {
+        tag: &quot;경정비 세척 / LIGHT WASH&quot;, name: &quot;필터 세척실 (경정비)&quot;, sub: &quot;Air Filter &amp; Light Component Wash Bay&quot;,
+        status: &quot;정상 가동 중&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 120 m²&quot;, capacity: &quot;경정비 정비사 2인 상주&quot;,
+        equipment: [&quot;공조용 필터 집진 세정기&quot;, &quot;소형 전장 부품 초음파 클리너&quot;, &quot;고압 정밀 에어 블로잉 건&quot;, &quot;세척 후 필터용 급속 건조 챔버&quot;],
+        desc: &quot;트램 지붕의 공조장치(HVAC) 필터와 가벼운 분진성 부품을 세척 및 건조하는 친환경 워시베이입니다. 유압유 등 고농도 폐유를 세척하는 부품세척실과 분리 설계되어 교차 오염을 방지합니다.&quot;
+      },
+      cleaning_track: {
+        tag: &quot;VEHICLE CLEANING&quot;, name: &quot;청소선 (차량 내외관 청소)&quot;, sub: &quot;Tram Exterior &amp; Interior Cleaning Track&quot;,
+        status: &quot;대기 상태&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 500 m² (궤도 포함)&quot;, capacity: &quot;청소 작업자 최대 6명&quot;,
+        equipment: [&quot;고압수 물 분사 외부 세척 시스템&quot;, &quot;진공 진드기 살균 내부 흡입기&quot;, &quot;차체 하부 가설 물 세척 브러시&quot;, &quot;친환경 중성 세제 자동 희석 믹서&quot;],
+        desc: &quot;트램 운행 전후로 차량 외부의 먼지와 진흙을 고압수로 자동 살수 세척하고, 객실 내부 시트 살균 소독 및 먼지 제거를 주기적으로 가동하는 차량 청소 전문 트랙입니다.&quot;
+      },
+      daily_monthly_inspection: {
+        tag: &quot;PREVENTIVE MAINTENANCE&quot;, name: &quot;일상 및 월상 검사선 (하부 피트)&quot;, sub: &quot;Daily &amp; Monthly Routine Inspection Tracks&quot;,
+        status: &quot;차량 검수 중&quot;, statusColor: &quot;text-amber-600&quot;, statusBg: &quot;bg-amber-50&quot;, statusBorder: &quot;border-amber-200&quot;,
+        area: &quot;~ 1,260 m² (궤도 전체)&quot;, capacity: &quot;최대 3개 편성 동시 검수&quot;,
+        equipment: [&quot;지붕 상부 가동형 정비 플랫폼 (3.5m)&quot;, &quot;하부 피트 점검 조명 및 배수 장치 (1.2m)&quot;, &quot;판토그래프 압착력 및 높이 정밀 검사 유닛&quot;, &quot;무선 데이터 통신 게이트웨이 AP&quot;],
+        desc: &quot;매일 수행하는 출고 직전의 일상점검과 1~2개월 주기인 월상점검을 가동하는 핵심 궤도입니다. 지하 피트를 통해 하부 대차 제동기 및 구동축을 검사하고 상부 데크에서 배터리와 판토그래프를 동시 정비합니다.&quot;
+      },
+      wheel_lathe: {
+        tag: &quot;WHEEL PROFILE CONTOURING&quot;, name: &quot;차륜전삭선 (Underfloor Lathe)&quot;, sub: &quot;Underfloor CNC Wheel Re-profiling Track&quot;,
+        status: &quot;정상 대기&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 250 m²&quot;, capacity: &quot;전삭 마이스터 2인&quot;,
+        equipment: [&quot;Underfloor CNC 차륜전삭기&quot;, &quot;차륜 플랜지 레이저 프로파일 마모 측정 유닛&quot;, &quot;절삭 칩 강제 파쇄 및 외부 스크랩 컨베이어&quot;, &quot;전삭 오일 자동 순환 분사 장치&quot;],
+        desc: &quot;트램을 선로에서 떼어내거나 해체하지 않고, 선로 밑에 구축된 정밀 CNC 전삭기를 사용해 마모된 강철 바퀴 플랜지를 원형 곡률로 자동 깎아 복원하는 첨단 기계화 정비 시설입니다.&quot;
+      },
+      parts_washing: {
+        tag: &quot;중정비 세척 / HEAVY WASH&quot;, name: &quot;부품 세척실 (중정비)&quot;, sub: &quot;Heavy Component &amp; Bogie Washing Bay&quot;,
+        status: &quot;오수 정화 가동 중&quot;, statusColor: &quot;text-rose-600&quot;, statusBg: &quot;bg-rose-50&quot;, statusBorder: &quot;border-rose-200&quot;,
+        area: &quot;~ 200 m²&quot;, capacity: &quot;폐유 분리조 1조 가동&quot;,
+        equipment: [&quot;대형 대차 프레임 고압 회전 분사 세척기&quot;, &quot;유압 오일/그리스 초음파 고온 세척조&quot;, &quot;세척액 유수분리 정화 시스템&quot;, &quot;도장 분무 부스 및 적외선 가열 건조기&quot;],
+        desc: &quot;분해된 모터, 기어박스, 대차 프레임의 그리스와 굳은 기름때를 고온 화학 세척액과 고압 분사로 완전 박리하는 중정비 세척 영역입니다. 모든 세척수는 환경 정화 유수분리기로 즉시 배수 처리됩니다.&quot;
+      },
+      bogie_repair: {
+        tag: &quot;BOGIE MAINTENANCE&quot;, name: &quot;대차수선장 (대차 분해 수리)&quot;, sub: &quot;Bogie Disassembly &amp; Repair Workshop&quot;,
+        status: &quot;작업 준비 중&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 380 m²&quot;, capacity: &quot;중정비 기술자 6명&quot;,
+        equipment: [&quot;유압식 대차 착탈 유압 드롭 테이블&quot;, &quot;윤축 탈거 유압 프레스&quot;, &quot;차체 잭킹 지지 리프팅 시스템 (Body Jack x8)&quot;, &quot;대차 조립 게이지 정밀 얼라인먼트 측정기&quot;],
+        desc: &quot;트램의 바퀴와 현가장치가 포함된 핵심 &#x27;대차(Bogie)&#x27; 유닛을 잭 리프터로 띄운 차체 밑에서 유압식 드롭 테이블로 완전 탈거하여 세밀하게 오버홀 및 점검하는 중정비 메인 작업장입니다.&quot;
+      },
+      wheelset_motor_repair: {
+        tag: &quot;WHEELSET &amp; MOTOR REPAIR&quot;, name: &quot;윤축수선장 (모터 수선)&quot;, sub: &quot;Wheelset &amp; Traction Motor Overhaul Workshop&quot;,
+        status: &quot;가동 중&quot;, statusColor: &quot;text-rose-600&quot;, statusBg: &quot;bg-rose-50&quot;, statusBorder: &quot;border-rose-200&quot;,
+        area: &quot;~ 280 m²&quot;, capacity: &quot;전기 및 기계 기술자 4명&quot;,
+        equipment: [&quot;윤축 직경 레이저 측정 장치&quot;, &quot;구동축 압입 탈거용 100톤 유압 프레스&quot;, &quot;견인 모터 베어링 고주파 인덕션 히터&quot;, &quot;윤축 정밀 동적 밸런싱 머신&quot;],
+        desc: &quot;구동륜, 차축, 대기어, 견인전동기(Traction Motor)의 오버홀과 베어링 교체 작업을 정밀 수행합니다. 레이저 측정기를 이용해 휠셋의 좌우 불평형 밸런스를 측정하고 고무 댐퍼를 보정합니다.&quot;
+      },
+      hvac_repair: {
+        tag: &quot;HVAC &amp; ELECTRIC OVERHAUL&quot;, name: &quot;HVAC / 제어 정비장&quot;, sub: &quot;HVAC Unit &amp; Auxiliary Power Converter Testing&quot;,
+        status: &quot;정상 운영&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 120 m²&quot;, capacity: &quot;전장 검수원 3명&quot;,
+        equipment: [&quot;냉난방장치(HVAC) 고압 가스 충전/회수기&quot;, &quot;SIV 보조전원 장치 시험용 전력 부하 장치&quot;, &quot;루프 탑 전기 배선 절연 저항 테스터&quot;, &quot;HVAC 오일 누설 레이저 탐지기&quot;],
+        desc: &quot;트램 지붕에 장착되어 실내 쾌적성을 보장하는 HVAC 공조 모듈 및 보조 전원 장치(SIV), 배터리 매니지먼트 장치의 정밀 전장 오버홀과 절연성, 냉매 압력 테스트를 담당합니다.&quot;
+      },
+      body_disassembly: {
+        tag: &quot;CARBODY ASSEMBLY&quot;, name: &quot;차체 분해/조립장&quot;, sub: &quot;Carbody Structural Disassembly &amp; Assembly&quot;,
+        status: &quot;안전 검사 완료&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 150 m²&quot;, capacity: &quot;구조 엔지니어 4명&quot;,
+        equipment: [&quot;차체 변형 레이저 3D 스캐너&quot;, &quot;고장력 볼트 자동 토크 렌치 및 모니터링반&quot;, &quot;관절 연결부(Artic) 정밀 해체용 인장 툴&quot;, &quot;구체 용접부 균열 탐상용 비파괴 테스터 (NDT)&quot;],
+        desc: &quot;트램의 알루미늄 또는 스테인리스 차체(Carbody)와 객차 간 연결 부위인 관절 관절구의 영점을 스캔하고, 사고 및 장기 주행에 따른 차체 골조 변형 유무를 비파괴 장비로 점검 및 복원 조립하는 공간입니다.&quot;
+      },
+      tool_store: {
+        tag: &quot;TOOL STORE &amp; CALIBRATION&quot;, name: &quot;공구 &amp; 경정비고&quot;, sub: &quot;Special Tools &amp; Instrument Storehouse&quot;,
+        status: &quot;보안 가동 중&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 160 m²&quot;, capacity: &quot;도구 관리 소장 1인&quot;,
+        equipment: [&quot;스마트 RFID 계측공구 보관 캐비닛&quot;, &quot;수동식 토크 렌치 정밀 교정 교정 장치&quot;, &quot;공압 임팩트 공구 자동 오일 급유 벤치&quot;, &quot;정밀 디지털 멀티미터 교정반&quot;],
+        desc: &quot;각종 토크렌치, 계측기, 정밀 오실로스코프 등 오차가 발생하면 열차 안전에 치명적인 영향을 미치는 주요 공구들을 보관하고 주기적으로 영점 교정(Calibration)을 수행하는 통제형 공구 창고입니다.&quot;
+      },
+      motor_workshop: {
+        tag: &quot;MOTOR workshop&quot;, name: &quot;회전기 작업장 (전동기 검수)&quot;, sub: &quot;Traction Motor Dyno Test &amp; Winding Shop&quot;,
+        status: &quot;시험 분석 가동&quot;, statusColor: &quot;text-rose-600&quot;, statusBg: &quot;bg-rose-50&quot;, statusBorder: &quot;border-rose-200&quot;,
+        area: &quot;~ 170 m²&quot;, capacity: &quot;회전기 마이스터 2인&quot;,
+        equipment: [&quot;모터 무부하/전부하 다이나모 테스트 벤치&quot;, &quot;고전압 모터 권선 권선기 및 절연 도포 진공 조&quot;, &quot;모터 진동 가속도 주파수 주파수 분석기&quot;, &quot;모터 내부 베어링 고압 세정 챔버&quot;],
+        desc: &quot;견인 모터 권선의 절연 저항 성능 저하를 방지하기 위해 절연 바니시를 진공 코팅 및 베이킹 건조하고, 고온 운전 상태를 가상으로 재현하는 다이나모미터 시험 벤치를 통해 출고 가부를 승인합니다.&quot;
+      },
+      light_store: {
+        tag: &quot;LIGHT SPARE STORAGE&quot;, name: &quot;경정비 창고&quot;, sub: &quot;Light Spares, Consumables &amp; Electronics Store&quot;,
+        status: &quot;입출고 정상&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 340 m²&quot;, capacity: &quot;창고 자재 관리원 2인&quot;,
+        equipment: [&quot;바코드/QR 연동 자재 분류 자동 전산 컴퓨터&quot;, &quot;유도 방출성 배터리 보관함 (방폭 안전 설비)&quot;, &quot;기지 내 자재 운송용 소형 전동 카트&quot;, &quot;긴급 출고 제동 패드 수납 랙&quot;],
+        desc: &quot;오일 필터, 브레이크 패드, 와이퍼 블레이드, 스페어 퓨즈 및 각종 도어/외장 스몰 모듈 등 일상 경정비와 검수 시 소요되는 모든 보급 소모품이 바코드 관리하에 입출고되는 정식 물류 구역입니다.&quot;
+      },
+      director_room: {
+        tag: &quot;CONTROL HQ&quot;, name: &quot;소장실 &amp; 회의실&quot;, sub: &quot;Depot Director Office &amp; Conference Room&quot;,
+        status: &quot;통제 정상&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 144 m²&quot;, capacity: &quot;최대 15인 회의 가능&quot;,
+        equipment: [&quot;종합 정비 진척 모니터링 현황 월보드&quot;, &quot;종합 정보 안전 컨설팅용 화상 회의용 미디어 스크린&quot;, &quot;대관 청구 및 예비 부품 구매 심사 보안 단말기&quot;],
+        desc: &quot;동탄트램 기지의 총괄 의사 결정 권한을 갖는 소장실과 매일 오전 정비 계획을 공유하고 분석하는 기술 검토 회의실입니다.&quot;
+      },
+      office_room: {
+        tag: &quot;DEPOT OFFICE&quot;, name: &quot;통합 사무실 &amp; 대기실&quot;, sub: &quot;General Administrative Office &amp; Lounge&quot;,
+        status: &quot;상주 근무 중&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 226 m²&quot;, capacity: &quot;정비원 대기 최대 30인&quot;,
+        equipment: [&quot;통합 정비 오더(W.O) 수령 전산 키오스크&quot;, &quot;정비 이력 실시간 조율 ERP 업무 PC 세트&quot;, &quot;검수 간 작업자 안전 교대 시 인수인계 전용 단말&quot;],
+        desc: &quot;현장 사무직원들과 엔지니어들이 일일 업무 오더를 배출 및 확인하고, 교대 정비 작업 전 휴식 및 안정을 도모하는 통합 현장 사무소 및 휴게 라운지입니다.&quot;
+      },
+      safety_store: {
+        tag: &quot;SAFETY CONTROL OFFICE&quot;, name: &quot;안전/자재 사무실&quot;, sub: &quot;Safety Operations &amp; Spares Request Desk&quot;,
+        status: &quot;상주 가동 중&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 120 m²&quot;, capacity: &quot;안전 책임 보안관 2인&quot;,
+        equipment: [&quot;안전 장구류 보관 및 바코드 자동 인식 단말&quot;, &quot;기지 유해물질 유수 분리 정화 감시 모니터&quot;, &quot;비상 경보 스피커 연동 통제 콘솔반&quot;],
+        desc: &quot;작업 투입 전 보안 승인 절차를 관리하고, 개인별 보호구 상태를 교차 검증하며 긴급 자재 청구서 결재 라인을 담당하는 핵심 안전 데스크입니다.&quot;
+      },
+      tech_archive: {
+        tag: &quot;TECHNICAL LIBRARY&quot;, name: &quot;기술 자료실&quot;, sub: &quot;Technical Document Archives &amp; System Drawings&quot;,
+        status: &quot;항온항습 정상&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 180 m²&quot;, capacity: &quot;안전 등급 보안 통제&quot;,
+        equipment: [&quot;동탄트램 기계/전기 도면 도록 철&quot;, &quot;원격 소프트웨어 패치 및 펌웨어 아카이브 서버&quot;, &quot;열차 사고 이력 통합 백업용 방화 금고&quot;],
+        desc: &quot;트램 설계 도면, 정비 가이드 및 매뉴얼 책자 등 기밀 등급 문서들을 화재 및 습기로부터 보존하기 위해 이중 항온항습 가동을 유지하는 전용 도서 보관실입니다.&quot;
+      },
+      telecom_room: {
+        tag: &quot;TELECOM &amp; POWER ROOM&quot;, name: &quot;기계/통신실&quot;, sub: &quot;Power Substation &amp; Signaling Control Hub&quot;,
+        status: &quot;출입제한 통제&quot;, statusColor: &quot;text-emerald-600&quot;, statusBg: &quot;bg-emerald-50&quot;, statusBorder: &quot;border-emerald-200&quot;,
+        area: &quot;~ 220 m²&quot;, capacity: &quot;정밀 보안 설비 구역&quot;,
+        equipment: [&quot;안전 변전 장치 가설 단말기 랙&quot;, &quot;정전 대비용 비상 배터리 뱅크 (UPS 캐비닛)&quot;, &quot;기지 내 CCTV 및 로컬 네트워크 스위치 허브&quot;],
+        desc: &quot;트램의 신호 연동 장치, 보안 네트워크 통신 포트, 기지 내 변전소 설비 및 무선 통신망 안테나 분배반을 갖추고 정전을 대비해 상시 UPS 모니터링을 지속하는 보안 통제 기지입니다.&quot;
+      }
+    };
+
+    // 새 SVG 좌표계:
+    // - 트램 차체: rect y=117, height=28  →  트랙 중심 y~131
+    // - 경정비 구역 트랙들: y보정 0~190 (청소선y≈124, 검사선y≈183, 전삭선y≈340)
+    // - 중정비 구역: y보정 270~660 (중정비창y≈630)
+    // 트랙 기준: 트램 차체 y=123, h=28 → 중심 y=137 (청소선)
+    // 각 스텝의 translate y값 = 목표 트랙 y - 123
+    const trajectorySteps = [
+      { stepIndex: 0, id: &#x27;waiting_room&#x27;,             x: -280, y: 0,     metricStatus: &quot;입고 승인 대기 중&quot;,            metricColor: &quot;text-amber-500&quot;   },
+      { stepIndex: 1, id: &#x27;filter_washing&#x27;,           x: 30,   y: 0,     metricStatus: &quot;필터 세척실 진입 (경정비)&quot;,     metricColor: &quot;text-emerald-500&quot; },
+      { stepIndex: 2, id: &#x27;daily_monthly_inspection&#x27;, x: 182,  y: 72,    metricStatus: &quot;일상·월상 검사선 검수 중&quot;,      metricColor: &quot;text-sky-600&quot;     },
+      { stepIndex: 3, id: &#x27;wheel_lathe&#x27;,              x: 182,  y: 210,   metricStatus: &quot;언더플로어 차륜 삭정 중&quot;,       metricColor: &quot;text-yellow-600&quot;  },
+      { stepIndex: 4, id: &#x27;bogie_repair&#x27;,        x: 182,  y: 573,   metricStatus: &quot;중정비창 기중기 가동 중&quot;,       metricColor: &quot;text-rose-600&quot;    },
+      { stepIndex: 5, id: &#x27;waiting_room&#x27;,             x: 720,  y: 0,     metricStatus: &quot;출고 완료 – 본선 시운전 복귀&quot;,  metricColor: &quot;text-emerald-600&quot; }
+    ];
+
+    let currentStep = 0;
+    let autoPlayTimer = null;
+    let isAutoPlaying = false;
+
+    const tramEl = document.getElementById(&#x27;animatedTram&#x27;);
+    const stepNodes = document.querySelectorAll(&#x27;.step-node&#x27;);
+    const zones = document.querySelectorAll(&#x27;.depot-zone&#x27;);
+    const metricEl = document.getElementById(&#x27;currentOpCount&#x27;);
+    const prevBtn = document.getElementById(&#x27;prevBtn&#x27;);
+    const nextBtn = document.getElementById(&#x27;nextBtn&#x27;);
+    const autoPlayBtn = document.getElementById(&#x27;autoPlayBtn&#x27;);
+    const playIcon = document.getElementById(&#x27;playIcon&#x27;);
+    const playText = document.getElementById(&#x27;playText&#x27;);
+    const resetBtn = document.getElementById(&#x27;resetBtn&#x27;);
+
+    function goToStep(stepIdx) {
+      currentStep = Math.max(0, Math.min(stepIdx, trajectorySteps.length - 1));
+      const step = trajectorySteps[currentStep];
+
+      // Move tram
+      tramEl.style.transform = `translate(${step.x}px, ${step.y}px)`;
+
+      // Update metric
+      metricEl.textContent = step.metricStatus;
+      metricEl.className = `text-base font-bold font-mono mt-0.5 ${step.metricColor}`;
+
+      // Highlight stepper nodes
+      stepNodes.forEach((node, i) =&gt; {
+        const circle = node.querySelector(&#x27;.step-circle&#x27;);
+        if (i &lt; currentStep) {
+          circle.className = &#x27;step-circle w-8 h-8 rounded-full bg-blue-200 text-blue-700 flex items-center justify-center font-bold text-xs border-2 border-white transition-all&#x27;;
+        } else if (i === currentStep) {
+          circle.className = &#x27;step-circle w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-md border-2 border-white transition-all ring-4 ring-blue-500/20&#x27;;
+        } else {
+          circle.className = &#x27;step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all&#x27;;
+        }
+      });
+
+      // Highlight zones
+      zones.forEach(zone =&gt; {
+        const rect = zone.querySelector(&#x27;rect&#x27;);
+        if (!rect) return;
+        zone.style.filter = &#x27;&#x27;;
+        zone.style.opacity = &#x27;1&#x27;;
+      });
+
+      const activeZoneId = step.id;
+      zones.forEach(zone =&gt; {
+        const zoneId = zone.getAttribute(&#x27;data-id&#x27;);
+        const rects = zone.querySelectorAll(&#x27;rect&#x27;);
+        if (zoneId !== activeZoneId) {
+          zone.style.opacity = &#x27;0.4&#x27;;
+          rects.forEach(r =&gt; {
+            r.style.strokeWidth = &#x27;&#x27;;
+          });
+        } else {
+          zone.style.opacity = &#x27;1&#x27;;
+          zone.style.filter = &#x27;drop-shadow(0 0 10px rgba(59,130,246,0.75))&#x27;;
+          rects.forEach(r =&gt; {
+            r.style.strokeWidth = &#x27;3.5px&#x27;;
+          });
+        }
+      });
+
+      // Update property panel
+      updatePropertyPanel(activeZoneId);
+
+      // Btn states
+      prevBtn.disabled = currentStep === 0;
+      nextBtn.disabled = currentStep === trajectorySteps.length - 1;
+    }
+
+    function updatePropertyPanel(zoneId) {
+      const data = zoneData[zoneId];
+      if (!data) return;
+      document.getElementById(&#x27;zoneTag&#x27;).textContent = data.tag;
+      document.getElementById(&#x27;detailName&#x27;).textContent = data.name;
+      document.getElementById(&#x27;detailSub&#x27;).textContent = data.sub;
+      const statusEl = document.getElementById(&#x27;detailStatus&#x27;);
+      statusEl.textContent = data.status;
+      statusEl.className = `inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${data.statusBg} ${data.statusColor} ${data.statusBorder}`;
+      statusEl.insertAdjacentHTML(&#x27;afterbegin&#x27;, &#x27;&lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-current animate-pulse mr-1&quot;&gt;&lt;/span&gt;&#x27;);
+      document.getElementById(&#x27;detailArea&#x27;).textContent = data.area;
+      document.getElementById(&#x27;detailCapacity&#x27;).textContent = data.capacity;
+      const eqList = document.getElementById(&#x27;detailEquipment&#x27;);
+      eqList.innerHTML = data.equipment.map(e =&gt; `&lt;li class=&quot;flex items-center gap-2 text-slate-600&quot;&gt;&lt;span class=&quot;w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0&quot;&gt;&lt;/span&gt;${e}&lt;/li&gt;`).join(&#x27;&#x27;);
+      document.getElementById(&#x27;detailDesc&#x27;).textContent = data.desc;
+    }
+
+    function toggleAutoPlay() {
+      if (isAutoPlaying) {
+        clearInterval(autoPlayTimer);
+        isAutoPlaying = false;
+        playText.textContent = &#x27;자동 공정&#x27;;
+        playIcon.setAttribute(&#x27;data-lucide&#x27;, &#x27;play&#x27;);
+        lucide.createIcons();
+      } else {
+        isAutoPlaying = true;
+        playText.textContent = &#x27;정지&#x27;;
+        playIcon.setAttribute(&#x27;data-lucide&#x27;, &#x27;pause&#x27;);
+        lucide.createIcons();
+        autoPlayTimer = setInterval(() =&gt; {
+          if (currentStep &lt; trajectorySteps.length - 1) {
+            goToStep(currentStep + 1);
+          } else {
+            clearInterval(autoPlayTimer);
+            isAutoPlaying = false;
+            playText.textContent = &#x27;자동 공정&#x27;;
+            playIcon.setAttribute(&#x27;data-lucide&#x27;, &#x27;play&#x27;);
+            lucide.createIcons();
+          }
+        }, 2200);
+      }
+    }
+
+    // Event Listeners
+    prevBtn.addEventListener(&#x27;click&#x27;, () =&gt; goToStep(currentStep - 1));
+    nextBtn.addEventListener(&#x27;click&#x27;, () =&gt; goToStep(currentStep + 1));
+    autoPlayBtn.addEventListener(&#x27;click&#x27;, toggleAutoPlay);
+    resetBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+      if (isAutoPlaying) toggleAutoPlay();
+      goToStep(0);
+    });
+
+    stepNodes.forEach((node) =&gt; {
+      node.addEventListener(&#x27;click&#x27;, () =&gt; goToStep(parseInt(node.dataset.step)));
+    });
+
+    zones.forEach(zone =&gt; {
+      zone.addEventListener(&#x27;click&#x27;, () =&gt; {
+        const clickedZoneId = zone.getAttribute(&#x27;data-id&#x27;);
+        updatePropertyPanel(clickedZoneId);
+        
+        // 클릭한 구역 하이라이팅, 나머지는 반투명 처리
+        zones.forEach(z =&gt; {
+          const zId = z.getAttribute(&#x27;data-id&#x27;);
+          const rects = z.querySelectorAll(&#x27;rect&#x27;);
+          if (zId !== clickedZoneId) {
+            z.style.opacity = &#x27;0.4&#x27;;
+            z.style.filter = &#x27;&#x27;;
+            rects.forEach(r =&gt; r.style.strokeWidth = &#x27;&#x27;);
+          } else {
+            z.style.opacity = &#x27;1&#x27;;
+            z.style.filter = &#x27;drop-shadow(0 0 10px rgba(59,130,246,0.75))&#x27;;
+            rects.forEach(r =&gt; r.style.strokeWidth = &#x27;3.5px&#x27;);
+          }
+        });
+        
+        document.getElementById(&#x27;propertyPanel&#x27;).scrollIntoView({ behavior: &#x27;smooth&#x27;, block: &#x27;nearest&#x27; });
+      });
+    });
+
+    // Tab buttons
+    document.getElementById(&#x27;tabBtn1&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+      document.getElementById(&#x27;tabContent1&#x27;).classList.remove(&#x27;hidden&#x27;);
+      document.getElementById(&#x27;tabContent2&#x27;).classList.add(&#x27;hidden&#x27;);
+      document.getElementById(&#x27;tabBtn1&#x27;).className = &#x27;text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1.5 transition-all&#x27;;
+      document.getElementById(&#x27;tabBtn2&#x27;).className = &#x27;text-sm font-bold text-slate-400 hover:text-slate-600 pb-1.5 transition-all&#x27;;
+    });
+    document.getElementById(&#x27;tabBtn2&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+      document.getElementById(&#x27;tabContent2&#x27;).classList.remove(&#x27;hidden&#x27;);
+      document.getElementById(&#x27;tabContent1&#x27;).classList.add(&#x27;hidden&#x27;);
+      document.getElementById(&#x27;tabBtn2&#x27;).className = &#x27;text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1.5 transition-all&#x27;;
+      document.getElementById(&#x27;tabBtn1&#x27;).className = &#x27;text-sm font-bold text-slate-400 hover:text-slate-600 pb-1.5 transition-all&#x27;;
+    });
+
+    // Theme toggle
+    document.getElementById(&#x27;themeToggle&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+      document.getElementById(&#x27;appBody&#x27;).classList.toggle(&#x27;dark&#x27;);
+      const isDark = document.getElementById(&#x27;appBody&#x27;).classList.contains(&#x27;dark&#x27;);
+      document.getElementById(&#x27;svgGridBacking&#x27;).setAttribute(&#x27;fill&#x27;, isDark ? &#x27;url(#gridDark)&#x27; : &#x27;url(#gridLight)&#x27;);
+      document.getElementById(&#x27;mapFrame&#x27;).classList.toggle(&#x27;blueprint-grid-light&#x27;, !isDark);
+      document.getElementById(&#x27;mapFrame&#x27;).classList.toggle(&#x27;blueprint-grid-dark&#x27;, isDark);
+    });
+
+    // Search
+    document.getElementById(&#x27;searchInput&#x27;).addEventListener(&#x27;input&#x27;, (e) =&gt; {
+      const q = e.target.value.toLowerCase();
+      zones.forEach(zone =&gt; {
+        const zoneId = zone.getAttribute(&#x27;data-id&#x27;);
+        const data = zoneData[zoneId];
+        if (!data) return;
+        const match = data.name.toLowerCase().includes(q) || data.desc.toLowerCase().includes(q) || data.equipment.some(eq =&gt; eq.toLowerCase().includes(q));
+        zone.style.opacity = (q === &#x27;&#x27; || match) ? &#x27;1&#x27; : &#x27;0.25&#x27;;
+      });
+    });
+
+    // Init
+    goToStep(0);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"
+          width="100%"
+          height="1100"
+          style="border: none; border-radius: 8px; display: block;"
+          title="트램 검수고 통합 디지털 관제 시스템"
+          loading="lazy">
+        </iframe>
     </div>
 
-    <!-- Future Map Integration Area -->
-    <div id="sim-map-container" data-active-step="1" style="margin-top: 1.5rem; background-color: var(--bg-primary); border: 2px dashed var(--border-color); border-radius: 8px; padding: 2rem; min-height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-
-    <!-- ===== 트램 검수고 통합 디지털 관제 시스템 (iframe embed) ===== -->
-    <iframe
-      src="./동탄트램_노선평면도.html"
-      width="100%"
-      height="1200"
-      style="border: none; border-radius: 8px; display: block;"
-      title="동탄 도시철도 노선평면도"
-      loading="lazy">
-    </iframe>
-
     </div>
+
+    
 </div>
 
 <script>
@@ -8018,20 +9005,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
     </div>
 
-    <!-- Future Map Integration Area -->
-    <div id="sim-map-container" data-active-step="1" style="margin-top: 1.5rem; background-color: var(--bg-primary); border: 2px dashed var(--border-color); border-radius: 8px; padding: 2rem; min-height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-
-    <!-- ===== 트램 검수고 통합 디지털 관제 시스템 (iframe embed) ===== -->
-    <iframe
-      src="./동탄트램_노선평면도.html"
-      width="100%"
-      height="1200"
-      style="border: none; border-radius: 8px; display: block;"
-      title="동탄 도시철도 노선평면도"
-      loading="lazy">
-    </iframe>
-
-    </div>
+    
 </div>
 
 <script>
@@ -8116,20 +9090,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
     </div>
 
-    <!-- Future Map Integration Area -->
-    <div id="sim-map-container" data-active-step="1" style="margin-top: 1.5rem; background-color: var(--bg-primary); border: 2px dashed var(--border-color); border-radius: 8px; padding: 2rem; min-height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-
-    <!-- ===== 트램 검수고 통합 디지털 관제 시스템 (iframe embed) ===== -->
-    <iframe
-      src="./동탄트램_노선평면도.html"
-      width="100%"
-      height="1200"
-      style="border: none; border-radius: 8px; display: block;"
-      title="동탄 도시철도 노선평면도"
-      loading="lazy">
-    </iframe>
-
-    </div>
+    
 </div>
 
 <script>
