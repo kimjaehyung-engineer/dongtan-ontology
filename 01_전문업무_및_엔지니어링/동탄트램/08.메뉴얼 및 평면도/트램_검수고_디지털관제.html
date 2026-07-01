@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>트램 검수고 통합 디지털 관제 시스템</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+    body { font-family: 'Noto Sans KR', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .depot-zone { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    #animatedTram { transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1); }
+    .blueprint-grid-light {
+      background-size: 40px 40px;
+      background-image:
+        linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    }
+    .blueprint-grid-dark {
+      background-size: 40px 40px;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    }
+    /* Dark mode overrides */
+    body.dark { background-color: #0f172a; color: #e2e8f0; }
+    body.dark #appHeader { background-color: rgba(15,23,42,0.95); border-color: #1e293b; }
+    body.dark #stepperContainer, body.dark #mapFrame, body.dark #metricContainer,
+    body.dark #propertyPanel, body.dark #knowledgePanel, body.dark #tipsBox,
+    body.dark #appFooter { background-color: #1e293b; border-color: #334155; }
+    body.dark .text-slate-800 { color: #e2e8f0; }
+    body.dark .text-slate-700 { color: #cbd5e1; }
+    body.dark .text-slate-600 { color: #94a3b8; }
+    body.dark .text-slate-500 { color: #64748b; }
+    body.dark .text-slate-900 { color: #f1f5f9; }
+    body.dark #metricContainer { border-color: #334155; }
+    body.dark #svgGridBacking { fill: url(#gridDark); }
+    body.dark .bg-slate-50, body.dark .bg-slate-100 { background-color: #0f172a !important; }
+    body.dark .border-slate-200 { border-color: #334155 !important; }
+    body.dark .bg-white { background-color: #1e293b !important; }
+    body.dark #appFooter { background-color: #0f172a !important; border-color: #1e293b !important; }
+    body.dark #appBody { background-color: #0f172a; }
+    body.dark #specBox1, body.dark #specBox2 { background-color: #0f172a !important; border-color: #334155 !important; }
+    body.dark .bg-slate-50.rounded-lg { background-color: #0f172a !important; }
+  
+    /* SVG 텍스트 가독성 최상급 향상 */
+    svg text {
+      font-family: 'Noto Sans KR', 'Pretendard', sans-serif;
+      letter-spacing: -0.02em;
+    }
+    /* 라이트 모드 글자 대비 향상 */
+    body:not(.dark) svg text {
+      fill: #090d16 !important; /* 거의 검은색에 가까운 다크 네이비로 모든 글씨 강제 적용 */
+    }
+    body:not(.dark) svg text[fill="#ffffff"] {
+      fill: #ffffff !important; /* 원래 흰색 배지 글씨는 흰색 유지 */
+    }
+    body:not(.dark) svg text[fill="white"] {
+      fill: #ffffff !important;
+    }
+    /* 흰색 글자의 외곽선 그림자 추가하여 가독성 보장 */
+    svg text[fill="#ffffff"], svg text[fill="white"] {
+      text-shadow: 0px 1px 2px rgba(0,0,0,0.8);
+    }
+    /* 각 구역 테두리 진하게 */
+    .depot-zone rect {
+      stroke-width: 2px !important;
+      transition: all 0.3s ease;
+    }
+    /* 호버 시 구역 강조 효과 */
+    .depot-zone:hover rect {
+      fill-opacity: 0.25 !important;
+      stroke-width: 3px !important;
+      filter: drop-shadow(0 0 4px rgba(59,130,246,0.4));
+    }
+
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col overflow-x-hidden antialiased transition-colors duration-500" id="appBody">
+
+  <!-- TOP HEADER -->
+  <header class="border-b border-slate-200 bg-white/95 backdrop-blur-md z-50 transition-colors duration-500 shadow-sm" id="appHeader">
+    <div class="max-w-[1600px] mx-auto px-4 py-3 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-blue-600 rounded-lg text-white shadow-lg shadow-blue-500/20">
+          <i data-lucide="train" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2" id="headerTitle">
+            트램 검수고 통합 디지털 관제 <span class="text-xs bg-blue-500/10 text-blue-600 font-mono px-2 py-0.5 rounded border border-blue-500/20">V3.0</span>
+          </h1>
+          <p class="text-xs text-slate-500 transition-colors" id="subtitleText">스마트 트램 전주기 프로세스 경로 추적 및 자율 검수 모니터링 시스템</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+        <div class="relative flex-grow md:flex-grow-0 md:w-64">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+            <i data-lucide="search" class="w-4 h-4"></i>
+          </span>
+          <input type="text" id="searchInput" placeholder="구역 또는 장비 검색..." class="w-full pl-9 pr-4 py-1.5 bg-slate-100 border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+        </div>
+        <button id="themeToggle" class="p-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg text-slate-500 hover:text-slate-900 transition-all" title="테마 변경">
+          <i data-lucide="palette" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROCESS STEPPER BAR -->
+  <section class="max-w-[1600px] w-full mx-auto px-4 pt-6 sm:px-6 lg:px-8">
+    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm transition-colors" id="stepperContainer">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5" id="stepperTitle">
+            <i data-lucide="route" class="w-4 h-4 text-blue-500 animate-pulse"></i> 실시간 정비 프로세스 추적기
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">선택하거나 자동 실행 버튼을 누르면 차량이 각 구역 궤도를 따라 자동 조차됩니다.</p>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button id="prevBtn" class="flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold border border-slate-200 transition-all disabled:opacity-40 disabled:pointer-events-none">
+            <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i> 이전
+          </button>
+          <button id="nextBtn" class="flex items-center gap-1 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold border border-slate-200 transition-all disabled:opacity-40 disabled:pointer-events-none">
+            다음 <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          </button>
+          <button id="autoPlayBtn" class="flex items-center gap-1 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold shadow-md transition-all">
+            <i data-lucide="play" class="w-3.5 h-3.5" id="playIcon"></i> <span id="playText">자동 공정</span>
+          </button>
+          <button id="resetBtn" class="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg transition-all" title="초기화">
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Stepper Nodes -->
+      <div class="relative flex flex-col md:flex-row justify-between items-stretch md:items-center gap-2 pt-2">
+        <div class="absolute top-1/2 left-4 right-4 h-0.5 bg-slate-200 -translate-y-1/2 hidden md:block z-0"></div>
+        <div class="step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer" data-step="0">
+          <span class="step-circle w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-md border-2 border-white transition-all ring-4 ring-blue-500/10">1</span>
+          <div class="text-left md:text-center">
+            <p class="text-xs font-bold text-slate-800">입고 대기</p>
+            <p class="text-[10px] text-slate-400">대기실 진입</p>
+          </div>
+        </div>
+        <div class="step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer" data-step="1">
+          <span class="step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all">2</span>
+          <div class="text-left md:text-center">
+            <p class="text-xs font-semibold text-slate-500">진입 및 세척</p>
+            <p class="text-[10px] text-slate-400">부품 오염제거</p>
+          </div>
+        </div>
+        <div class="step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer" data-step="2">
+          <span class="step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all">3</span>
+          <div class="text-left md:text-center">
+            <p class="text-xs font-semibold text-slate-500">일상/월상 검수</p>
+            <p class="text-[10px] text-slate-400">하부 피트 점검</p>
+          </div>
+        </div>
+        <div class="step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer" data-step="3">
+          <span class="step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all">4</span>
+          <div class="text-left md:text-center">
+            <p class="text-xs font-semibold text-slate-500">차륜 삭정</p>
+            <p class="text-[10px] text-slate-400">마모 바퀴 복원</p>
+          </div>
+        </div>
+        <div class="step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer" data-step="4">
+          <span class="step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all">5</span>
+          <div class="text-left md:text-center">
+            <p class="text-xs font-semibold text-slate-500">중정비 수선</p>
+            <p class="text-[10px] text-slate-400">대차 기중 분해</p>
+          </div>
+        </div>
+        <div class="step-node flex-1 flex items-center md:flex-col gap-3 md:gap-2 z-10 cursor-pointer" data-step="5">
+          <span class="step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all">6</span>
+          <div class="text-left md:text-center">
+            <p class="text-xs font-semibold text-slate-500">출고 완료</p>
+            <p class="text-[10px] text-slate-400">본선 시운전 복귀</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN LAYOUT -->
+  <main class="flex-grow max-w-[1600px] w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-6">
+    <section class="flex-grow lg:w-[74%] flex flex-col gap-4">
+      <!-- Metrics -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-white border border-slate-200 p-4 rounded-xl transition-colors shadow-sm" id="metricContainer">
+        <div class="border-r border-slate-200 pr-2">
+          <p class="text-xs text-slate-400 font-medium">검수동 총 규격</p>
+          <p class="text-base font-bold text-slate-700 font-mono mt-0.5">90m x 37m</p>
+        </div>
+        <div class="border-r border-slate-200 px-2">
+          <p class="text-xs text-slate-400 font-medium">관리동 규격</p>
+          <p class="text-base font-bold text-slate-700 font-mono mt-0.5">90m x 10m</p>
+        </div>
+        <div class="border-r border-slate-200 px-2">
+          <p class="text-xs text-slate-400 font-medium">가상 차량 식별자</p>
+          <p class="text-base font-bold text-emerald-600 font-mono mt-0.5">Active Tram-01</p>
+        </div>
+        <div class="px-2">
+          <p class="text-xs text-slate-400 font-medium">실시간 정비 모드</p>
+          <p class="text-base font-bold text-blue-600 font-mono mt-0.5" id="currentOpCount">입고 대기 상태</p>
+        </div>
+      </div>
+
+      <!-- MAP FRAME -->
+      <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col relative blueprint-grid-light transition-all duration-500" id="mapFrame" style="padding: 0px !important;">
+
+
+        <!-- SVG MAP -->
+        <div class="w-full overflow-x-auto p-0">
+          <svg id="depotSvg" viewBox="0 0 930 1030" class="w-full h-auto select-none" style="display:block;">
+            <defs>
+              <pattern id="smallGridLight" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(15,23,42,0.03)" stroke-width="0.5"/>
+              </pattern>
+              <pattern id="gridLight" width="100" height="100" patternUnits="userSpaceOnUse">
+                <rect width="100" height="100" fill="url(#smallGridLight)"/>
+                <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(15,23,42,0.08)" stroke-width="1"/>
+              </pattern>
+              <pattern id="smallGridDark" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>
+              </pattern>
+              <pattern id="gridDark" width="100" height="100" patternUnits="userSpaceOnUse">
+                <rect width="100" height="100" fill="url(#smallGridDark)"/>
+                <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#gridLight)" id="svgGridBacking"/>
+
+            <!-- 수직 눈금자 (X 좌표를 좌측으로 42px 밀착이동: 958 -> 916) -->
+            <rect x="906" y="10" width="14" height="1004" fill="rgba(100,116,139,0.08)" stroke="#475569" stroke-width="1.5"/>
+            <g font-size="9" fill="#0f172a" font-weight="bold" font-family="monospace">
+              <line x1="906" y1="10"  x2="920" y2="10"  stroke="#000000" stroke-width="2"/>
+              <text x="922" y="14">0m</text>
+              <line x1="906" y1="110" x2="920" y2="110" stroke="#475569" stroke-width="1"/>
+              <text x="922" y="114">10m</text>
+              <line x1="906" y1="210" x2="920" y2="210" stroke="#475569" stroke-width="1"/>
+              <text x="922" y="214">20m</text>
+              <line x1="906" y1="310" x2="920" y2="310" stroke="#475569" stroke-width="1"/>
+              <text x="922" y="314">30m</text>
+              <line x1="902" y1="380" x2="923" y2="380" stroke="#000000" stroke-width="3"/>
+              <text x="922" y="384" fill="#000000" font-weight="extrabold" font-size="9.5">37m</text>
+              <line x1="906" y1="480" x2="920" y2="480" stroke="#475569" stroke-width="1"/>
+              <text x="922" y="484">47m</text>
+              <line x1="906" y1="580" x2="920" y2="580" stroke="#475569" stroke-width="1"/>
+              <text x="922" y="584">57m</text>
+              <line x1="906" y1="680" x2="920" y2="680" stroke="#475569" stroke-width="1"/>
+              <text x="922" y="684">67m</text>
+              <line x1="906" y1="780" x2="920" y2="780" stroke="#475569" stroke-width="1"/>
+              <text x="922" y="784">77m</text>
+              <line x1="902" y1="910" x2="923" y2="910" stroke="#b91c1c" stroke-width="3"/>
+              <text x="922" y="914" fill="#b91c1c" font-weight="extrabold" font-size="9.5">90m</text>
+              <line x1="902" y1="1010" x2="923" y2="1010" stroke="#000000" stroke-width="2"/>
+              <text x="922" y="1014">100m</text>
+            </g>
+
+            <!-- 37m 브라켓 (X: 944 -> 902) -->
+            <line x1="893" y1="10"  x2="902" y2="10"  stroke="#000000" stroke-width="2"/>
+            <line x1="893" y1="380" x2="902" y2="380" stroke="#000000" stroke-width="2"/>
+            <line x1="897" y1="10"  x2="897" y2="380" stroke="#000000" stroke-width="3"/>
+            <text transform="rotate(90,894,195)" x="894" y="195" font-size="13" font-weight="black" fill="#000000" text-anchor="middle">37m (경정비 구역)</text>
+
+            <!-- 53m 브라켓 (X: 944 -> 902) -->
+            <line x1="893" y1="382" x2="902" y2="382" stroke="#b91c1c" stroke-width="2"/>
+            <line x1="893" y1="912" x2="902" y2="912" stroke="#b91c1c" stroke-width="2"/>
+            <line x1="897" y1="382" x2="897" y2="912" stroke="#b91c1c" stroke-width="3"/>
+            <text transform="rotate(90,894,647)" x="894" y="647" font-size="13" font-weight="black" fill="#b91c1c" text-anchor="middle">53m (중정비 구역)</text>
+
+            <!-- 10m 브라켓 (관리동) -->
+            <line x1="893" y1="914" x2="902" y2="914" stroke="#475569" stroke-width="2"/>
+            <line x1="893" y1="1014" x2="902" y2="1014" stroke="#475569" stroke-width="2"/>
+            <line x1="897" y1="914"  x2="897" y2="1014" stroke="#475569" stroke-width="2"/>
+            <text transform="rotate(90,894,964)" x="894" y="964" font-size="11" font-weight="bold" fill="#475569" text-anchor="middle">10m</text>
+
+            <!-- 가로 90m 치수 (X 시작: 8, X 끝: 908) -->
+            <line x1="2"   y1="1018" x2="2"   y2="1028" stroke="#000000" stroke-width="2"/>
+            <line x1="910" y1="1018" x2="910" y2="1028" stroke="#000000" stroke-width="2"/>
+            <line x1="2"   y1="1023" x2="910" y2="1023" stroke="#000000" stroke-width="2" stroke-dasharray="6,4"/>
+            <text x="458" y="1028" font-size="13" font-weight="black" fill="#000000" text-anchor="middle">가로 폭 90.0m</text>
+
+            <!-- ────────────────────────────────────────────────────────
+                 [경정비 구역] Y=10 ~ Y=380 (두꺼운 검정 테두리 확실하게 표기)
+                 시작 X=8, w=900으로 좌우 끝까지 꽉 차게 확장 (이전은 x=50, w=900)
+                 ──────────────────────────────────────────────────────── -->
+            <rect x="2" y="10" width="908" height="370" fill="rgba(16,185,129,0.03)" stroke="#000000" stroke-width="4.5" rx="4"/>
+            
+            
+
+            <!-- 필터세척실 (경정비) -->
+            <g class="depot-zone cursor-pointer" data-id="filter_washing">
+              <rect x="6" y="38" width="130" height="336" fill="rgba(16,185,129,0.18)"
+                    stroke="#047857" stroke-width="2.5" id="rect-filter_washing" class="transition-all" rx="3"/>
+              <!-- 배지 -->
+              <rect x="12" y="46" width="56" height="18" fill="#047857" rx="3"/>
+              <text x="40" y="58" font-size="10" font-weight="extrabold" fill="#ffffff" text-anchor="middle">경정비</text>
+              <text x="68" y="160" font-size="15" font-weight="black" fill="#022c22"
+                    text-anchor="middle" transform="rotate(-90,74,210)">필터 세척실</text>
+              <rect x="34" y="260" width="68" height="5" fill="#047857" rx="2"/>
+              <rect x="34" y="270" width="68" height="5" fill="#047857" rx="2"/>
+              <rect x="34" y="280" width="68" height="5" fill="#047857" rx="2"/>
+              <text x="68" y="308" font-size="11" font-weight="bold" fill="#064e3b" text-anchor="middle">집진 필터 세정</text>
+              <text x="68" y="322" font-size="11" font-weight="bold" fill="#064e3b" text-anchor="middle">고압 에어 세척</text>
+              <text x="68" y="342" font-size="9.5" font-weight="bold" fill="#4b5563" text-anchor="middle">(Filter Cleaning)</text>
+            </g>
+
+            <!-- 검수대기실 & 충전 시스템 -->
+            <g class="depot-zone cursor-pointer" data-id="waiting_room">
+              <rect x="142" y="38" width="760" height="92" fill="rgba(14,165,233,0.12)"
+                    stroke="#0284c7" stroke-width="2.5" id="rect-waiting_room" class="transition-all" rx="3"/>
+              <rect x="150" y="46" width="80" height="18" fill="#0284c7" rx="3"/>
+              <text x="190" y="58" font-size="10" font-weight="extrabold" fill="#ffffff" text-anchor="middle">대기·급속충전</text>
+              <text x="498" y="78" font-size="17" font-weight="black" fill="#0f172a" text-anchor="middle">검수 대기실  &amp;  이동식 충전 시스템</text>
+              <text x="498" y="98" font-size="11.5" font-weight="bold" fill="#334155" text-anchor="middle">DC 750V 급속충전장치 · RFID 트램 입고 식별</text>
+              <!-- 충전 아이콘 -->
+              <rect x="773" y="48" width="120" height="72" rx="4" fill="rgba(14,165,233,0.25)" stroke="#0284c7" stroke-width="2"/>
+              <text x="833" y="80" font-size="24" text-anchor="middle">⚡</text>
+              <text x="833" y="106" font-size="11.5" fill="#0369a1" font-weight="black" text-anchor="middle">충전 장치실</text>
+            </g>
+
+            <!-- 청소선 track -->
+            <g class="depot-zone cursor-pointer" data-id="cleaning_track">
+              <rect x="142" y="132" width="760" height="14" fill="rgba(100,116,139,0.15)" stroke="#475569" stroke-width="1.5" id="rect-cleaning_track" class="transition-all" rx="2"/>
+              <line x1="142" y1="136" x2="902" y2="136" stroke="#0f172a" stroke-width="2" stroke-dasharray="10,4"/>
+              <line x1="142" y1="142" x2="902" y2="142" stroke="#0f172a" stroke-width="2" stroke-dasharray="10,4"/>
+              <rect x="438" y="130" width="120" height="18" fill="#475569" rx="2"/>
+              <text x="498" y="143" font-size="11.5" fill="#ffffff" font-weight="black" text-anchor="middle">★ 청 소 선 (차량 내외관 정밀 청소)</text>
+            </g>
+
+            <!-- 일상 및 월상 검사선 -->
+            <g class="depot-zone cursor-pointer" data-id="daily_monthly_inspection">
+              <rect x="142" y="148" width="760" height="150" fill="rgba(14,165,233,0.12)"
+                    stroke="#0284c7" stroke-width="2.5" id="rect-daily_monthly_inspection" class="transition-all" rx="3"/>
+              <rect x="150" y="156" width="94" height="18" fill="#0369a1" rx="3"/>
+              <text x="197" y="168" font-size="10" font-weight="extrabold" fill="#ffffff" text-anchor="middle">일상·월상 검사선</text>
+              <rect x="142" y="186" width="760" height="22" fill="rgba(14,165,233,0.08)" stroke="rgba(14,165,233,0.5)" stroke-width="1.5"/>
+              <line x1="142" y1="192" x2="902" y2="192" stroke="#0f172a" stroke-width="2.5" stroke-dasharray="12,4"/>
+              <line x1="142" y1="202" x2="902" y2="202" stroke="#0f172a" stroke-width="2.5" stroke-dasharray="12,4"/>
+              <text x="498" y="181" font-size="17" font-weight="black" fill="#0f172a" text-anchor="middle">일상 및 월상 검사선</text>
+              <text x="498" y="230" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">하부 피트(Pit) 1.2m · 루프 상부 고정식 점검대 완비</text>
+              <text x="498" y="248" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">3개 편성 차량 동시 정밀 정비 · 무선 데이터 추출용 AP 탑재</text>
+              <rect x="318" y="260" width="360" height="30" rx="3" fill="rgba(14,165,233,0.15)" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <text x="498" y="279" font-size="11.5" fill="#0369a1" font-weight="black" text-anchor="middle">▼ 하부 피트 점검 구역 (Under-floor Pit)</text>
+            </g>
+
+            <!-- 차륜전삭선 -->
+            <g class="depot-zone cursor-pointer" data-id="wheel_lathe">
+              <rect x="142" y="302" width="760" height="74" fill="rgba(234,179,8,0.13)"
+                    stroke="#ca8a04" stroke-width="2.5" id="rect-wheel_lathe" class="transition-all" rx="3"/>
+              <rect x="150" y="309" width="76" height="18" fill="#ca8a04" rx="3"/>
+              <text x="188" y="321" font-size="10" font-weight="extrabold" fill="#ffffff" text-anchor="middle">차륜전삭선</text>
+              <line x1="142" y1="334" x2="902" y2="334" stroke="#854d0e" stroke-width="2.5" stroke-dasharray="12,4"/>
+              <line x1="142" y1="342" x2="902" y2="342" stroke="#854d0e" stroke-width="2.5" stroke-dasharray="12,4"/>
+              <circle cx="498" cy="338" r="16" fill="rgba(234,179,8,0.25)" stroke="#ca8a04" stroke-width="2.5"/>
+              <path d="M 486,338 L 510,338 M 498,326 L 498,350" stroke="#ca8a04" stroke-width="3"/>
+              <text x="498" y="326" font-size="14.5" font-weight="black" fill="#713f12" text-anchor="middle">차륜전삭선 (Under-floor CNC Wheel Lathe)</text>
+              <text x="498" y="367" font-size="11.5" font-weight="bold" fill="#713f12" text-anchor="middle">바퀴 분해 없는 CNC 정밀 플랜지 마모 연마 삭정 시스템</text>
+            </g>
+
+            <!-- 경정비 / 중정비 경계선 -->
+            <line x1="2" y1="381" x2="910" y2="381" stroke="#000000" stroke-width="4.5"/>
+            
+            
+
+            <!-- ────────────────────────────────────────────────────────
+                 [중정비 구역] Y=382 ~ Y=912 (530px = 53m)
+                 ──────────────────────────────────────────────────────── -->
+            <rect x="2" y="382" width="908" height="530" fill="rgba(239,68,68,0.03)" stroke="#dc2626" stroke-width="3" rx="4"/>
+            
+            
+
+            <!-- 부품세척실 (중정비) -->
+            <g class="depot-zone cursor-pointer" data-id="parts_washing">
+              <rect x="6" y="408" width="130" height="500" fill="rgba(239,68,68,0.14)"
+                    stroke="#dc2626" stroke-width="2.5" id="rect-parts_washing" class="transition-all" rx="3"/>
+              <rect x="12" y="416" width="56" height="18" fill="#dc2626" rx="3"/>
+              <text x="40" y="428" font-size="10" font-weight="extrabold" fill="#ffffff" text-anchor="middle">중정비</text>
+              <text x="68" y="480" font-size="15" font-weight="black" fill="#7f1d1d"
+                    text-anchor="middle" transform="rotate(-90,74,560)">부품 세척실</text>
+              <!-- 초음파 세정 -->
+              <circle cx="68" cy="630" r="22" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+              <circle cx="68" cy="630" r="8" fill="#dc2626"/>
+              <text x="68" y="668" font-size="11.5" font-weight="extrabold" fill="#991b1b" text-anchor="middle">유압 초음파</text>
+              <!-- 대차 세척기 -->
+              <rect x="11" y="710" width="120" height="74" fill="rgba(239,68,68,0.10)" stroke="#dc2626" stroke-width="2" stroke-dasharray="4,2" rx="3"/>
+              <text x="68" y="742" font-size="11.5" font-weight="black" fill="#991b1b" text-anchor="middle">대차 세척기</text>
+              <text x="68" y="760" font-size="10" font-weight="bold" fill="#4b5563" text-anchor="middle">건조 챔버 완비</text>
+              <!-- 중정비 진입선 -->
+              <line x1="6" y1="810" x2="136" y2="810" stroke="#b91c1c" stroke-width="2" stroke-dasharray="8,4"/>
+              <line x1="6" y1="818" x2="136" y2="818" stroke="#b91c1c" stroke-width="2" stroke-dasharray="8,4"/>
+              <text x="68" y="845" font-size="11" font-weight="bold" fill="#7f1d1d" text-anchor="middle">중정비 진입선</text>
+            </g>
+
+            <!-- 전동차 중정비창 -->
+            <rect x="140" y="408" width="410" height="500" fill="rgba(239,68,68,0.03)" stroke="#dc2626" stroke-width="2" rx="3"/>
+            <!-- 천장 크레인 표현 -->
+            <line x1="144" y1="448" x2="546" y2="448" stroke="#991b1b" stroke-width="3"/>
+            <rect x="308" y="440" width="80" height="15" fill="#991b1b" rx="2"/>
+            <line x1="348" y1="455" x2="348" y2="475" stroke="#991b1b" stroke-width="2.5"/>
+            <rect x="328" y="475" width="40" height="16" rx="3" fill="#dc2626" stroke="#991b1b"/>
+            <text x="348" y="487" font-size="9.5" fill="#ffffff" font-weight="black" text-anchor="middle">15T</text>
+            <text x="403" y="448" font-size="10" font-weight="bold" fill="#991b1b">OVERHEAD CRANE</text>
+
+            <!-- 대차수선장 -->
+            <g class="depot-zone cursor-pointer" data-id="bogie_repair">
+              <rect x="146" y="508" width="194" height="392" fill="rgba(239,68,68,0.12)" stroke="#b91c1c" stroke-width="2.5" id="rect-bogie_repair" class="transition-all" rx="3"/>
+              <text x="243" y="538" font-size="14.5" font-weight="black" fill="#7f1d1d" text-anchor="middle">대차수선장</text>
+              <text x="243" y="556" font-size="10.5" font-weight="bold" fill="#4b5563" text-anchor="middle">Bogie Repair Bay</text>
+              <rect x="156" y="574" width="174" height="52" rx="3" fill="rgba(220,38,38,0.22)" stroke="#b91c1c" stroke-width="1.5"/>
+              <text x="243" y="597" font-size="11.5" font-weight="black" fill="#7f1d1d" text-anchor="middle">유압 드롭 테이블</text>
+              <text x="243" y="612" font-size="9.5" font-weight="bold" fill="#4b5563" text-anchor="middle">(Bogie Drop Table)</text>
+              <rect x="156" y="636" width="174" height="52" rx="3" fill="rgba(220,38,38,0.22)" stroke="#b91c1c" stroke-width="1.5"/>
+              <text x="243" y="660" font-size="11.5" font-weight="black" fill="#7f1d1d" text-anchor="middle">윤축 교체 베이</text>
+              <text x="243" y="675" font-size="9.5" font-weight="bold" fill="#4b5563" text-anchor="middle">(Wheelset Replace)</text>
+              <rect x="156" y="698" width="174" height="82" rx="3" fill="rgba(220,38,38,0.18)" stroke="#b91c1c" stroke-width="1.5"/>
+              <text x="243" y="726" font-size="11.5" font-weight="black" fill="#7f1d1d" text-anchor="middle">차체 기중 리프팅 잭</text>
+              <text x="243" y="744" font-size="9.5" font-weight="bold" fill="#4b5563" text-anchor="middle">(Body Lifting Jack x8)</text>
+            </g>
+
+            <!-- 윤축수선장 & HVAC / 차체분해조립장 -->
+            <g class="depot-zone cursor-pointer" data-id="wheelset_motor_repair">
+              <rect x="346" y="508" width="198" height="236" fill="rgba(239,68,68,0.12)" stroke="#b91c1c" stroke-width="2.5" id="rect-wheelset_motor_repair" class="transition-all" rx="3"/>
+              <text x="445" y="538" font-size="14.5" font-weight="black" fill="#7f1d1d" text-anchor="middle">윤축수선장</text>
+              <text x="445" y="556" font-size="10.5" font-weight="bold" fill="#4b5563" text-anchor="middle">Wheelset &amp; Motor</text>
+              <rect x="356" y="574" width="178" height="52" rx="3" fill="rgba(220,38,38,0.22)" stroke="#b91c1c" stroke-width="1.5"/>
+              <text x="445" y="597" font-size="11.5" font-weight="black" fill="#7f1d1d" text-anchor="middle">레이저 마모도 측정</text>
+              <text x="445" y="612" font-size="9.5" font-weight="bold" fill="#4b5563" text-anchor="middle">(Bogie Flange Gauge)</text>
+              <rect x="356" y="636" width="178" height="52" rx="3" fill="rgba(220,38,38,0.22)" stroke="#b91c1c" stroke-width="1.5"/>
+              <text x="445" y="660" font-size="11.5" font-weight="black" fill="#7f1d1d" text-anchor="middle">회전기 시험 벤치</text>
+              <text x="445" y="675" font-size="9.5" font-weight="bold" fill="#4b5563" text-anchor="middle">(Motor Dyno Bench)</text>
+            </g>
+
+            <g class="depot-zone cursor-pointer" data-id="hvac_repair">
+              <rect x="346" y="750" width="198" height="72" fill="rgba(239,68,68,0.16)" stroke="#b91c1c" stroke-width="2.5" id="rect-hvac_repair" class="transition-all" rx="3"/>
+              <text x="445" y="782" font-size="13" font-weight="black" fill="#7f1d1d" text-anchor="middle">HVAC / 제어 정비장</text>
+              <text x="445" y="800" font-size="10" font-weight="bold" fill="#4b5563" text-anchor="middle">(HVAC &amp; Power Control)</text>
+            </g>
+
+            <g class="depot-zone cursor-pointer" data-id="body_disassembly">
+              <rect x="346" y="828" width="198" height="72" fill="rgba(239,68,68,0.18)" stroke="#b91c1c" stroke-width="2.5" id="rect-body_disassembly" class="transition-all" rx="3"/>
+              <text x="445" y="860" font-size="13" font-weight="black" fill="#7f1d1d" text-anchor="middle">차체 분해/조립장</text>
+              <text x="445" y="878" font-size="10" font-weight="bold" fill="#4b5563" text-anchor="middle">(Body Disassembly/Assembly)</text>
+            </g>
+
+            <!-- 공구 및 경정비 지원창 -->
+            <rect x="552" y="408" width="350" height="500" fill="none" stroke="#9333ea" stroke-width="2" rx="3"/>
+
+            <!-- 공구 & 경정비고 -->
+            <g class="depot-zone cursor-pointer" data-id="tool_store">
+              <rect x="556" y="440" width="166" height="232" fill="rgba(168,85,247,0.15)" stroke="#9333ea" stroke-width="2.5" id="rect-tool_store" class="transition-all" rx="3"/>
+              <text x="639" y="470" font-size="14" font-weight="black" fill="#4c1d95" text-anchor="middle">공구 &amp; 경정비고</text>
+              <text x="639" y="488" font-size="10" font-weight="bold" fill="#6b21a8" text-anchor="middle">Spare Parts Store</text>
+              <rect x="566" y="504" width="146" height="40" rx="2" fill="rgba(168,85,247,0.2)" stroke="#9333ea"/>
+              <text x="639" y="528" font-size="11" font-weight="black" fill="#581c87" text-anchor="middle">소모품 다단 수납 랙</text>
+              <rect x="566" y="552" width="146" height="40" rx="2" fill="rgba(168,85,247,0.2)" stroke="#9333ea"/>
+              <text x="639" y="576" font-size="11" font-weight="black" fill="#581c87" text-anchor="middle">스마트 공구 수납함</text>
+              <text x="639" y="625" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">정밀 전자기구 수납</text>
+            </g>
+
+            <!-- 회전기 작업장 -->
+            <g class="depot-zone cursor-pointer" data-id="motor_workshop">
+              <rect x="728" y="440" width="170" height="232" fill="rgba(168,85,247,0.15)" stroke="#9333ea" stroke-width="2.5" id="rect-motor_workshop" class="transition-all" rx="3"/>
+              <text x="813" y="470" font-size="14" font-weight="black" fill="#4c1d95" text-anchor="middle">회전기 작업장</text>
+              <text x="813" y="488" font-size="10" font-weight="bold" fill="#6b21a8" text-anchor="middle">Motor Workshop</text>
+              <circle cx="813" cy="542" r="34" fill="none" stroke="#9333ea" stroke-width="2.5"/>
+              <circle cx="813" cy="542" r="14" fill="#9333ea" fill-opacity="0.3"/>
+              <line x1="783" y1="542" x2="843" y2="542" stroke="#9333ea" stroke-width="2"/>
+              <line x1="813" y1="512" x2="813" y2="572" stroke="#9333ea" stroke-width="2"/>
+              <text x="813" y="602" font-size="11" font-weight="black" fill="#581c87" text-anchor="middle">모터 정밀 분해세정</text>
+              <text x="813" y="618" font-size="11" font-weight="black" fill="#581c87" text-anchor="middle">동력 다이나모 벤치</text>
+            </g>
+
+            <!-- 경정비 창고 -->
+            <g class="depot-zone cursor-pointer" data-id="light_store">
+              <rect x="556" y="680" width="342" height="222" fill="rgba(168,85,247,0.12)" stroke="#9333ea" stroke-width="2.5" id="rect-light_store" class="transition-all" rx="3"/>
+              <text x="727" y="712" font-size="15" font-weight="black" fill="#4c1d95" text-anchor="middle">경정비 창고</text>
+              <text x="727" y="730" font-size="10.5" font-weight="bold" fill="#6b21a8" text-anchor="middle">Light Maintenance Store</text>
+              <text x="727" y="764" font-size="12" font-weight="extrabold" fill="#3b0764" text-anchor="middle">• 오일류 / 가스켓 / 경량 유압 호스</text>
+              <text x="727" y="784" font-size="12" font-weight="extrabold" fill="#3b0764" text-anchor="middle">• 제동 라이닝 및 패드 소모품</text>
+              <text x="727" y="804" font-size="12" font-weight="extrabold" fill="#3b0764" text-anchor="middle">• 도어 구동 모터 및 전장 퓨즈</text>
+              <text x="727" y="824" font-size="12" font-weight="extrabold" fill="#3b0764" text-anchor="middle">• 운전실 인디케이터 패널 모듈</text>
+            </g>
+
+            <!-- ────────────────────────────────────────────────────────
+                 [관리 지원동] Y=914 ~ Y=1014 (100px = 10m)
+                 ──────────────────────────────────────────────────────── -->
+            <rect x="2" y="914" width="908" height="100" fill="none" stroke="#059669" stroke-width="3" rx="3"/>
+
+            <!-- 소장실 & 회의실 -->
+            <g class="depot-zone cursor-pointer" data-id="director_room">
+              <rect x="4" y="916" width="150" height="96" fill="rgba(52,211,153,0.12)" stroke="#059669" stroke-width="2.5" id="rect-director_room" class="transition-all" rx="2"/>
+              <text x="76" y="966" font-size="13.5" font-weight="black" fill="#064e3b" text-anchor="middle">소장실 &amp; 회의실</text>
+              <text x="76" y="986" font-size="9.5" font-weight="bold" fill="#0f766e" text-anchor="middle">(기지 총괄 본부)</text>
+            </g>
+
+            <!-- 통합 사무실 & 대기실 -->
+            <g class="depot-zone cursor-pointer" data-id="office_room">
+              <rect x="156" y="916" width="226" height="96" fill="rgba(52,211,153,0.12)" stroke="#059669" stroke-width="2.5" id="rect-office_room" class="transition-all" rx="2"/>
+              <text x="269" y="960" font-size="14" font-weight="black" fill="#064e3b" text-anchor="middle">통합 사무실 &amp; 대기실</text>
+              <text x="269" y="980" font-size="10.5" font-weight="bold" fill="#047857" text-anchor="middle">(현장 정비원 대기실)</text>
+              <text x="269" y="996" font-size="10" font-weight="bold" fill="#4b5563" text-anchor="middle">ERP 스케줄 보드 가동</text>
+            </g>
+
+            <!-- 안전/자재 사무실 -->
+            <g class="depot-zone cursor-pointer" data-id="safety_store">
+              <rect x="384" y="916" width="120" height="96" fill="rgba(52,211,153,0.12)" stroke="#059669" stroke-width="2.5" id="rect-safety_store" class="transition-all" rx="2"/>
+              <text x="444" y="966" font-size="13" font-weight="black" fill="#064e3b" text-anchor="middle">안전/자재 사무</text>
+              <text x="444" y="986" font-size="9.5" font-weight="bold" fill="#0f766e" text-anchor="middle">(작업 허가서 접수)</text>
+            </g>
+
+            <!-- 기술 자료실 -->
+            <g class="depot-zone cursor-pointer" data-id="tech_archive">
+              <rect x="506" y="916" width="180" height="96" fill="rgba(16,185,129,0.12)" stroke="#059669" stroke-width="2.5" id="rect-tech_archive" class="transition-all" rx="2"/>
+              <text x="596" y="960" font-size="14" font-weight="black" fill="#064e3b" text-anchor="middle">기술 자료실</text>
+              <text x="596" y="980" font-size="10.5" font-weight="bold" fill="#047857" text-anchor="middle">(설계도면 보관함)</text>
+              <text x="596" y="996" font-size="9.5" font-weight="bold" fill="#4b5563" text-anchor="middle">항온항습 정밀 챔버</text>
+            </g>
+
+            <!-- 기계/통신실 -->
+            <g class="depot-zone cursor-pointer" data-id="telecom_room">
+              <rect x="688" y="916" width="220" height="96" fill="rgba(16,185,129,0.12)" stroke="#059669" stroke-width="2.5" id="rect-telecom_room" class="transition-all" rx="2"/>
+              <text x="798" y="960" font-size="14" font-weight="black" fill="#064e3b" text-anchor="middle">기계/통신 제어실</text>
+              <text x="798" y="980" font-size="10.5" font-weight="bold" fill="#047857" text-anchor="middle">(신호제어 허브 랙)</text>
+              <text x="798" y="996" font-size="9.5" font-weight="bold" fill="#e11d48" text-anchor="middle">비상 UPS 백업 대기</text>
+            </g>
+
+            <!-- 전체 수직 치수 라벨 -->
+            <line x1="936" y1="10"   x2="952" y2="10"   stroke="#000000" stroke-width="2"/>
+            <line x1="936" y1="1010" x2="952" y2="1010" stroke="#000000" stroke-width="2"/>
+            <line x1="944" y1="10"   x2="944" y2="1010" stroke="#000000" stroke-width="2" stroke-dasharray="6,4"/>
+            <text transform="rotate(90,954,510)" x="954" y="510" font-size="14" font-weight="black" fill="#000000" text-anchor="middle">총 100m (경정비 37m + 중정비 53m + 관리동 10m)</text>
+
+            <!-- Animated Tram (X축 보정: 기존 182 -> 142) -->
+            <g id="animatedTram" transform="translate(-300, 0)">
+              <rect x="0" y="123" width="220" height="28" rx="6" fill="#1d4ed8" fill-opacity="0.95" stroke="#1e40af" stroke-width="2"/>
+              <line x1="55" y1="123" x2="55" y2="151" stroke="#172554" stroke-width="3"/>
+              <line x1="110" y1="123" x2="110" y2="151" stroke="#172554" stroke-width="3"/>
+              <line x1="165" y1="123" x2="165" y2="151" stroke="#172554" stroke-width="3"/>
+              <rect x="204" y="127" width="12" height="20" rx="2" fill="#93c5fd"/>
+              <text x="110" y="141" fill="#ffffff" font-size="11" font-weight="black" text-anchor="middle">TRAM-01</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Tips -->
+      <div class="bg-white border border-slate-200 p-4 rounded-xl text-xs text-slate-500 space-y-2 transition-colors" id="tipsBox">
+        <h4 class="font-bold text-slate-700 flex items-center gap-1" id="tipsTitle">
+          <i data-lucide="info" class="w-3.5 h-3.5 text-blue-500"></i> 검수고 레이아웃 조작 안내
+        </h4>
+        <p>1. 상기 <strong>정비 프로세스 추적기</strong>를 조작하면 차량이 노선과 Y축 선로 높이를 전환하며 해당 궤도 영역에 자동 조차됩니다.</p>
+        <p>2. 개별 구역을 클릭하면 우측 속성 창에서 설비 제원을 직접 열람할 수 있습니다.</p>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL -->
+    <aside class="lg:w-[26%] flex flex-col gap-6">
+      <!-- Property Panel -->
+      <div class="bg-white border-2 border-blue-500 rounded-xl p-5 shadow-lg transition-all duration-300 relative overflow-hidden" id="propertyPanel">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="flex items-start justify-between border-b border-slate-100 pb-4 mb-4">
+          <div>
+            <span class="text-[10px] bg-blue-500/10 text-blue-600 font-bold px-2 py-0.5 rounded uppercase tracking-wider" id="zoneTag">SELECTED ZONE</span>
+            <h2 class="text-xl font-bold text-slate-900 mt-1" id="detailName">전동차 중정비창</h2>
+            <p class="text-xs text-slate-400 mt-0.5" id="detailSub">Heavy Depot / Bogie Workshop</p>
+          </div>
+          <div class="text-right">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-600 border border-rose-100" id="detailStatus">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span> 혼잡 (기중기 가동 중)
+            </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100" id="specBox1">
+            <p class="text-xs text-slate-400">도면상 면적</p>
+            <p class="text-lg font-extrabold text-slate-800 mt-1 mono" id="detailArea">~ 1,480 m²</p>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-100" id="specBox2">
+            <p class="text-xs text-slate-400">배치 인력 한계</p>
+            <p class="text-lg font-extrabold text-slate-800 mt-1 mono" id="detailCapacity">정비조 최대 24명</p>
+          </div>
+        </div>
+        <div class="mb-6">
+          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <i data-lucide="wrench" class="w-3.5 h-3.5 text-blue-500"></i> 주요 보유 설비 및 장비
+          </h3>
+          <ul class="space-y-1.5 text-sm" id="detailEquipment">
+            <li class="flex items-center gap-2 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>15톤/7.5톤 이중 가동 기중기</li>
+            <li class="flex items-center gap-2 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>트램 자체 리프팅 잭 (Body Lifters)</li>
+            <li class="flex items-center gap-2 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>대차 유압식 분리 베이 (Bogie Drop Table)</li>
+            <li class="flex items-center gap-2 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>차체 대차간 레이저 정밀 측정기</li>
+          </ul>
+        </div>
+        <div class="border-t border-slate-100 pt-4">
+          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-500"></i> 구역 검수 업무 설명
+          </h3>
+          <p class="text-slate-600 text-sm leading-relaxed" id="detailDesc">트램의 최고 난이도 정비(중정비, 대정비, 중사고 부품 교체)를 전담하는 중심 구역입니다. 대형 기중기를 사용하여 구체(Body)와 구동 대차(Bogie)를 수직으로 탈거한 후 고장 모터 정밀 분해 세정 및 교체 작업이 진행됩니다.</p>
+        </div>
+      </div>
+
+      <!-- Knowledge Panel -->
+      <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm transition-all" id="knowledgePanel">
+        <div class="flex border-b border-slate-100 pb-2 mb-4 gap-4">
+          <button id="tabBtn1" class="text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1.5 transition-all">검수 공학 규격</button>
+          <button id="tabBtn2" class="text-sm font-bold text-slate-400 hover:text-slate-600 pb-1.5 transition-all">정비 안전 수칙</button>
+        </div>
+        <div id="tabContent1" class="space-y-3.5 text-xs text-slate-600 leading-relaxed">
+          <div class="p-3 bg-slate-50 rounded-lg">
+            <p class="font-bold text-slate-800">궤도 및 기하학적 형상 설계</p>
+            <p class="text-slate-500 mt-1">본 기지는 1,435mm 표준궤를 기반으로 하며 차륜전삭선 등 고정밀 가공 삭정 궤도의 구배는 0.5‰ 미만으로 통제됩니다.</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg">
+            <p class="font-bold text-slate-800">더블 데크 유지보수 플랫폼</p>
+            <p class="text-slate-500 mt-1">지하 피트 구조(깊이 약 1.0m~1.5m) 및 지붕 위 부품 점검을 위한 높이 3.5m의 고정식 플랫폼이 구축되어 상하부 전방위 검수가 가능합니다.</p>
+          </div>
+          <div class="p-3 bg-slate-50 rounded-lg">
+            <p class="font-bold text-slate-800">하이브리드 무가선 충전 규격</p>
+            <p class="text-slate-500 mt-1">검수고 내부 진입 시 안전을 위해 일반 가공 전선은 고압(DC 750V)과 모바일 임시 충전설비가 혼용되도록 방폭 설계되어 있습니다.</p>
+          </div>
+        </div>
+        <div id="tabContent2" class="hidden space-y-3 text-xs text-slate-600">
+          <div class="flex gap-2 items-start p-2.5 bg-rose-50 border border-rose-100 rounded-lg">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5"></i>
+            <div>
+              <p class="font-bold text-rose-700">전차선 고압 잔류 전류 방전 절차</p>
+              <p class="text-slate-500 mt-1">루프 상부 배터리 및 판토그래프 점검 개시 전, 반드시 주 회로 차단기를 내리고 완전 방전 확인 후 접지봉을 연결하십시오.</p>
+            </div>
+          </div>
+          <div class="flex gap-2 items-start p-2.5 bg-amber-50 border border-amber-100 rounded-lg">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"></i>
+            <div>
+              <p class="font-bold text-amber-700">차륜 전삭기 작동 중 피트 진입 금지</p>
+              <p class="text-slate-500 mt-1">지하 언더플로어 전삭기 가동 중에는 강력한 금속 칩과 절삭유 비산이 일어나므로 반경 3m 내 진입을 절대 불허합니다.</p>
+            </div>
+          </div>
+          <div class="flex gap-2 items-start p-2.5 bg-slate-50 rounded-lg">
+            <i data-lucide="hard-hat" class="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5"></i>
+            <div>
+              <p class="font-bold text-slate-800">기중기 인양 시 하부 통행 차단</p>
+              <p class="text-slate-500 mt-1">중정비 수선장에서 15T급 기중기로 트램 구체를 인양 시 경고음 수반 하에 통행로가 강제 통제됩니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200 bg-slate-100 text-slate-400 text-xs py-4 transition-colors" id="appFooter">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 트램 스마트 검수 기지 디지털 관제소. All Rights Reserved.</p>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-slate-600 transition-colors">시스템 매뉴얼</a>
+        <a href="#" class="hover:text-slate-600 transition-colors">비상 연락망</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+        const zoneData = {
+      waiting_room: {
+        tag: "INSPECTION QUEUE", name: "검수 대기실 & 충전 시스템", sub: "Inspection Queue & Mobile Charging System",
+        status: "정상 운영 중", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 430 m²", capacity: "최대 2개 열차 대기",
+        equipment: ["이동식 고속 충전장치 (DC 750V / 150kW)", "충전 모니터링 제어반 및 안전 인터록 장치", "입고 식별용 자동 RFID 스캐너", "비상 전원 차단 연동 차단기 및 접지함"],
+        desc: "기지로 진입한 트램이 검수선으로 들어가기 전에 대기하며 배터리를 비상 고속 충전하는 안전 대기선입니다. RFID 태그를 통해 트램 차대 번호와 상태 로그가 무선으로 관제 허브 서버에 등록됩니다."
+      },
+      filter_washing: {
+        tag: "경정비 세척 / LIGHT WASH", name: "필터 세척실 (경정비)", sub: "Air Filter & Light Component Wash Bay",
+        status: "정상 가동 중", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 120 m²", capacity: "경정비 정비사 2인 상주",
+        equipment: ["공조용 필터 집진 세정기", "소형 전장 부품 초음파 클리너", "고압 정밀 에어 블로잉 건", "세척 후 필터용 급속 건조 챔버"],
+        desc: "트램 지붕의 공조장치(HVAC) 필터와 가벼운 분진성 부품을 세척 및 건조하는 친환경 워시베이입니다. 유압유 등 고농도 폐유를 세척하는 부품세척실과 분리 설계되어 교차 오염을 방지합니다."
+      },
+      cleaning_track: {
+        tag: "VEHICLE CLEANING", name: "청소선 (차량 내외관 청소)", sub: "Tram Exterior & Interior Cleaning Track",
+        status: "대기 상태", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 500 m² (궤도 포함)", capacity: "청소 작업자 최대 6명",
+        equipment: ["고압수 물 분사 외부 세척 시스템", "진공 진드기 살균 내부 흡입기", "차체 하부 가설 물 세척 브러시", "친환경 중성 세제 자동 희석 믹서"],
+        desc: "트램 운행 전후로 차량 외부의 먼지와 진흙을 고압수로 자동 살수 세척하고, 객실 내부 시트 살균 소독 및 먼지 제거를 주기적으로 가동하는 차량 청소 전문 트랙입니다."
+      },
+      daily_monthly_inspection: {
+        tag: "PREVENTIVE MAINTENANCE", name: "일상 및 월상 검사선 (하부 피트)", sub: "Daily & Monthly Routine Inspection Tracks",
+        status: "차량 검수 중", statusColor: "text-amber-600", statusBg: "bg-amber-50", statusBorder: "border-amber-200",
+        area: "~ 1,260 m² (궤도 전체)", capacity: "최대 3개 편성 동시 검수",
+        equipment: ["지붕 상부 가동형 정비 플랫폼 (3.5m)", "하부 피트 점검 조명 및 배수 장치 (1.2m)", "판토그래프 압착력 및 높이 정밀 검사 유닛", "무선 데이터 통신 게이트웨이 AP"],
+        desc: "매일 수행하는 출고 직전의 일상점검과 1~2개월 주기인 월상점검을 가동하는 핵심 궤도입니다. 지하 피트를 통해 하부 대차 제동기 및 구동축을 검사하고 상부 데크에서 배터리와 판토그래프를 동시 정비합니다."
+      },
+      wheel_lathe: {
+        tag: "WHEEL PROFILE CONTOURING", name: "차륜전삭선 (Underfloor Lathe)", sub: "Underfloor CNC Wheel Re-profiling Track",
+        status: "정상 대기", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 250 m²", capacity: "전삭 마이스터 2인",
+        equipment: ["Underfloor CNC 차륜전삭기", "차륜 플랜지 레이저 프로파일 마모 측정 유닛", "절삭 칩 강제 파쇄 및 외부 스크랩 컨베이어", "전삭 오일 자동 순환 분사 장치"],
+        desc: "트램을 선로에서 떼어내거나 해체하지 않고, 선로 밑에 구축된 정밀 CNC 전삭기를 사용해 마모된 강철 바퀴 플랜지를 원형 곡률로 자동 깎아 복원하는 첨단 기계화 정비 시설입니다."
+      },
+      parts_washing: {
+        tag: "중정비 세척 / HEAVY WASH", name: "부품 세척실 (중정비)", sub: "Heavy Component & Bogie Washing Bay",
+        status: "오수 정화 가동 중", statusColor: "text-rose-600", statusBg: "bg-rose-50", statusBorder: "border-rose-200",
+        area: "~ 200 m²", capacity: "폐유 분리조 1조 가동",
+        equipment: ["대형 대차 프레임 고압 회전 분사 세척기", "유압 오일/그리스 초음파 고온 세척조", "세척액 유수분리 정화 시스템", "도장 분무 부스 및 적외선 가열 건조기"],
+        desc: "분해된 모터, 기어박스, 대차 프레임의 그리스와 굳은 기름때를 고온 화학 세척액과 고압 분사로 완전 박리하는 중정비 세척 영역입니다. 모든 세척수는 환경 정화 유수분리기로 즉시 배수 처리됩니다."
+      },
+      bogie_repair: {
+        tag: "BOGIE MAINTENANCE", name: "대차수선장 (대차 분해 수리)", sub: "Bogie Disassembly & Repair Workshop",
+        status: "작업 준비 중", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 380 m²", capacity: "중정비 기술자 6명",
+        equipment: ["유압식 대차 착탈 유압 드롭 테이블", "윤축 탈거 유압 프레스", "차체 잭킹 지지 리프팅 시스템 (Body Jack x8)", "대차 조립 게이지 정밀 얼라인먼트 측정기"],
+        desc: "트램의 바퀴와 현가장치가 포함된 핵심 '대차(Bogie)' 유닛을 잭 리프터로 띄운 차체 밑에서 유압식 드롭 테이블로 완전 탈거하여 세밀하게 오버홀 및 점검하는 중정비 메인 작업장입니다."
+      },
+      wheelset_motor_repair: {
+        tag: "WHEELSET & MOTOR REPAIR", name: "윤축수선장 (모터 수선)", sub: "Wheelset & Traction Motor Overhaul Workshop",
+        status: "가동 중", statusColor: "text-rose-600", statusBg: "bg-rose-50", statusBorder: "border-rose-200",
+        area: "~ 280 m²", capacity: "전기 및 기계 기술자 4명",
+        equipment: ["윤축 직경 레이저 측정 장치", "구동축 압입 탈거용 100톤 유압 프레스", "견인 모터 베어링 고주파 인덕션 히터", "윤축 정밀 동적 밸런싱 머신"],
+        desc: "구동륜, 차축, 대기어, 견인전동기(Traction Motor)의 오버홀과 베어링 교체 작업을 정밀 수행합니다. 레이저 측정기를 이용해 휠셋의 좌우 불평형 밸런스를 측정하고 고무 댐퍼를 보정합니다."
+      },
+      hvac_repair: {
+        tag: "HVAC & ELECTRIC OVERHAUL", name: "HVAC / 제어 정비장", sub: "HVAC Unit & Auxiliary Power Converter Testing",
+        status: "정상 운영", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 120 m²", capacity: "전장 검수원 3명",
+        equipment: ["냉난방장치(HVAC) 고압 가스 충전/회수기", "SIV 보조전원 장치 시험용 전력 부하 장치", "루프 탑 전기 배선 절연 저항 테스터", "HVAC 오일 누설 레이저 탐지기"],
+        desc: "트램 지붕에 장착되어 실내 쾌적성을 보장하는 HVAC 공조 모듈 및 보조 전원 장치(SIV), 배터리 매니지먼트 장치의 정밀 전장 오버홀과 절연성, 냉매 압력 테스트를 담당합니다."
+      },
+      body_disassembly: {
+        tag: "CARBODY ASSEMBLY", name: "차체 분해/조립장", sub: "Carbody Structural Disassembly & Assembly",
+        status: "안전 검사 완료", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 150 m²", capacity: "구조 엔지니어 4명",
+        equipment: ["차체 변형 레이저 3D 스캐너", "고장력 볼트 자동 토크 렌치 및 모니터링반", "관절 연결부(Artic) 정밀 해체용 인장 툴", "구체 용접부 균열 탐상용 비파괴 테스터 (NDT)"],
+        desc: "트램의 알루미늄 또는 스테인리스 차체(Carbody)와 객차 간 연결 부위인 관절 관절구의 영점을 스캔하고, 사고 및 장기 주행에 따른 차체 골조 변형 유무를 비파괴 장비로 점검 및 복원 조립하는 공간입니다."
+      },
+      tool_store: {
+        tag: "TOOL STORE & CALIBRATION", name: "공구 & 경정비고", sub: "Special Tools & Instrument Storehouse",
+        status: "보안 가동 중", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 160 m²", capacity: "도구 관리 소장 1인",
+        equipment: ["스마트 RFID 계측공구 보관 캐비닛", "수동식 토크 렌치 정밀 교정 교정 장치", "공압 임팩트 공구 자동 오일 급유 벤치", "정밀 디지털 멀티미터 교정반"],
+        desc: "각종 토크렌치, 계측기, 정밀 오실로스코프 등 오차가 발생하면 열차 안전에 치명적인 영향을 미치는 주요 공구들을 보관하고 주기적으로 영점 교정(Calibration)을 수행하는 통제형 공구 창고입니다."
+      },
+      motor_workshop: {
+        tag: "MOTOR workshop", name: "회전기 작업장 (전동기 검수)", sub: "Traction Motor Dyno Test & Winding Shop",
+        status: "시험 분석 가동", statusColor: "text-rose-600", statusBg: "bg-rose-50", statusBorder: "border-rose-200",
+        area: "~ 170 m²", capacity: "회전기 마이스터 2인",
+        equipment: ["모터 무부하/전부하 다이나모 테스트 벤치", "고전압 모터 권선 권선기 및 절연 도포 진공 조", "모터 진동 가속도 주파수 주파수 분석기", "모터 내부 베어링 고압 세정 챔버"],
+        desc: "견인 모터 권선의 절연 저항 성능 저하를 방지하기 위해 절연 바니시를 진공 코팅 및 베이킹 건조하고, 고온 운전 상태를 가상으로 재현하는 다이나모미터 시험 벤치를 통해 출고 가부를 승인합니다."
+      },
+      light_store: {
+        tag: "LIGHT SPARE STORAGE", name: "경정비 창고", sub: "Light Spares, Consumables & Electronics Store",
+        status: "입출고 정상", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 340 m²", capacity: "창고 자재 관리원 2인",
+        equipment: ["바코드/QR 연동 자재 분류 자동 전산 컴퓨터", "유도 방출성 배터리 보관함 (방폭 안전 설비)", "기지 내 자재 운송용 소형 전동 카트", "긴급 출고 제동 패드 수납 랙"],
+        desc: "오일 필터, 브레이크 패드, 와이퍼 블레이드, 스페어 퓨즈 및 각종 도어/외장 스몰 모듈 등 일상 경정비와 검수 시 소요되는 모든 보급 소모품이 바코드 관리하에 입출고되는 정식 물류 구역입니다."
+      },
+      director_room: {
+        tag: "CONTROL HQ", name: "소장실 & 회의실", sub: "Depot Director Office & Conference Room",
+        status: "통제 정상", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 144 m²", capacity: "최대 15인 회의 가능",
+        equipment: ["종합 정비 진척 모니터링 현황 월보드", "종합 정보 안전 컨설팅용 화상 회의용 미디어 스크린", "대관 청구 및 예비 부품 구매 심사 보안 단말기"],
+        desc: "동탄트램 기지의 총괄 의사 결정 권한을 갖는 소장실과 매일 오전 정비 계획을 공유하고 분석하는 기술 검토 회의실입니다."
+      },
+      office_room: {
+        tag: "DEPOT OFFICE", name: "통합 사무실 & 대기실", sub: "General Administrative Office & Lounge",
+        status: "상주 근무 중", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 226 m²", capacity: "정비원 대기 최대 30인",
+        equipment: ["통합 정비 오더(W.O) 수령 전산 키오스크", "정비 이력 실시간 조율 ERP 업무 PC 세트", "검수 간 작업자 안전 교대 시 인수인계 전용 단말"],
+        desc: "현장 사무직원들과 엔지니어들이 일일 업무 오더를 배출 및 확인하고, 교대 정비 작업 전 휴식 및 안정을 도모하는 통합 현장 사무소 및 휴게 라운지입니다."
+      },
+      safety_store: {
+        tag: "SAFETY CONTROL OFFICE", name: "안전/자재 사무실", sub: "Safety Operations & Spares Request Desk",
+        status: "상주 가동 중", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 120 m²", capacity: "안전 책임 보안관 2인",
+        equipment: ["안전 장구류 보관 및 바코드 자동 인식 단말", "기지 유해물질 유수 분리 정화 감시 모니터", "비상 경보 스피커 연동 통제 콘솔반"],
+        desc: "작업 투입 전 보안 승인 절차를 관리하고, 개인별 보호구 상태를 교차 검증하며 긴급 자재 청구서 결재 라인을 담당하는 핵심 안전 데스크입니다."
+      },
+      tech_archive: {
+        tag: "TECHNICAL LIBRARY", name: "기술 자료실", sub: "Technical Document Archives & System Drawings",
+        status: "항온항습 정상", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 180 m²", capacity: "안전 등급 보안 통제",
+        equipment: ["동탄트램 기계/전기 도면 도록 철", "원격 소프트웨어 패치 및 펌웨어 아카이브 서버", "열차 사고 이력 통합 백업용 방화 금고"],
+        desc: "트램 설계 도면, 정비 가이드 및 매뉴얼 책자 등 기밀 등급 문서들을 화재 및 습기로부터 보존하기 위해 이중 항온항습 가동을 유지하는 전용 도서 보관실입니다."
+      },
+      telecom_room: {
+        tag: "TELECOM & POWER ROOM", name: "기계/통신실", sub: "Power Substation & Signaling Control Hub",
+        status: "출입제한 통제", statusColor: "text-emerald-600", statusBg: "bg-emerald-50", statusBorder: "border-emerald-200",
+        area: "~ 220 m²", capacity: "정밀 보안 설비 구역",
+        equipment: ["안전 변전 장치 가설 단말기 랙", "정전 대비용 비상 배터리 뱅크 (UPS 캐비닛)", "기지 내 CCTV 및 로컬 네트워크 스위치 허브"],
+        desc: "트램의 신호 연동 장치, 보안 네트워크 통신 포트, 기지 내 변전소 설비 및 무선 통신망 안테나 분배반을 갖추고 정전을 대비해 상시 UPS 모니터링을 지속하는 보안 통제 기지입니다."
+      }
+    };
+
+    // 새 SVG 좌표계:
+    // - 트램 차체: rect y=117, height=28  →  트랙 중심 y~131
+    // - 경정비 구역 트랙들: y보정 0~190 (청소선y≈124, 검사선y≈183, 전삭선y≈340)
+    // - 중정비 구역: y보정 270~660 (중정비창y≈630)
+    // 트랙 기준: 트램 차체 y=123, h=28 → 중심 y=137 (청소선)
+    // 각 스텝의 translate y값 = 목표 트랙 y - 123
+    const trajectorySteps = [
+      { stepIndex: 0, id: 'waiting_room',             x: -280, y: 0,     metricStatus: "입고 승인 대기 중",            metricColor: "text-amber-500"   },
+      { stepIndex: 1, id: 'filter_washing',           x: 30,   y: 0,     metricStatus: "필터 세척실 진입 (경정비)",     metricColor: "text-emerald-500" },
+      { stepIndex: 2, id: 'daily_monthly_inspection', x: 182,  y: 72,    metricStatus: "일상·월상 검사선 검수 중",      metricColor: "text-sky-600"     },
+      { stepIndex: 3, id: 'wheel_lathe',              x: 182,  y: 210,   metricStatus: "언더플로어 차륜 삭정 중",       metricColor: "text-yellow-600"  },
+      { stepIndex: 4, id: 'bogie_repair',        x: 182,  y: 573,   metricStatus: "중정비창 기중기 가동 중",       metricColor: "text-rose-600"    },
+      { stepIndex: 5, id: 'waiting_room',             x: 720,  y: 0,     metricStatus: "출고 완료 – 본선 시운전 복귀",  metricColor: "text-emerald-600" }
+    ];
+
+    let currentStep = 0;
+    let autoPlayTimer = null;
+    let isAutoPlaying = false;
+
+    const tramEl = document.getElementById('animatedTram');
+    const stepNodes = document.querySelectorAll('.step-node');
+    const zones = document.querySelectorAll('.depot-zone');
+    const metricEl = document.getElementById('currentOpCount');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const autoPlayBtn = document.getElementById('autoPlayBtn');
+    const playIcon = document.getElementById('playIcon');
+    const playText = document.getElementById('playText');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function goToStep(stepIdx) {
+      currentStep = Math.max(0, Math.min(stepIdx, trajectorySteps.length - 1));
+      const step = trajectorySteps[currentStep];
+
+      // Move tram
+      tramEl.style.transform = `translate(${step.x}px, ${step.y}px)`;
+
+      // Update metric
+      metricEl.textContent = step.metricStatus;
+      metricEl.className = `text-base font-bold font-mono mt-0.5 ${step.metricColor}`;
+
+      // Highlight stepper nodes
+      stepNodes.forEach((node, i) => {
+        const circle = node.querySelector('.step-circle');
+        if (i < currentStep) {
+          circle.className = 'step-circle w-8 h-8 rounded-full bg-blue-200 text-blue-700 flex items-center justify-center font-bold text-xs border-2 border-white transition-all';
+        } else if (i === currentStep) {
+          circle.className = 'step-circle w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-md border-2 border-white transition-all ring-4 ring-blue-500/20';
+        } else {
+          circle.className = 'step-circle w-8 h-8 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center font-bold text-xs border-2 border-white transition-all';
+        }
+      });
+
+      // Highlight zones
+      zones.forEach(zone => {
+        const rect = zone.querySelector('rect');
+        if (!rect) return;
+        zone.style.filter = '';
+        zone.style.opacity = '1';
+      });
+
+      const activeZoneId = step.id;
+      zones.forEach(zone => {
+        const zoneId = zone.getAttribute('data-id');
+        const rects = zone.querySelectorAll('rect');
+        if (zoneId !== activeZoneId) {
+          zone.style.opacity = '0.4';
+          rects.forEach(r => {
+            r.style.strokeWidth = '';
+          });
+        } else {
+          zone.style.opacity = '1';
+          zone.style.filter = 'drop-shadow(0 0 10px rgba(59,130,246,0.75))';
+          rects.forEach(r => {
+            r.style.strokeWidth = '3.5px';
+          });
+        }
+      });
+
+      // Update property panel
+      updatePropertyPanel(activeZoneId);
+
+      // Btn states
+      prevBtn.disabled = currentStep === 0;
+      nextBtn.disabled = currentStep === trajectorySteps.length - 1;
+    }
+
+    function updatePropertyPanel(zoneId) {
+      const data = zoneData[zoneId];
+      if (!data) return;
+      document.getElementById('zoneTag').textContent = data.tag;
+      document.getElementById('detailName').textContent = data.name;
+      document.getElementById('detailSub').textContent = data.sub;
+      const statusEl = document.getElementById('detailStatus');
+      statusEl.textContent = data.status;
+      statusEl.className = `inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${data.statusBg} ${data.statusColor} ${data.statusBorder}`;
+      statusEl.insertAdjacentHTML('afterbegin', '<span class="w-1.5 h-1.5 rounded-full bg-current animate-pulse mr-1"></span>');
+      document.getElementById('detailArea').textContent = data.area;
+      document.getElementById('detailCapacity').textContent = data.capacity;
+      const eqList = document.getElementById('detailEquipment');
+      eqList.innerHTML = data.equipment.map(e => `<li class="flex items-center gap-2 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0"></span>${e}</li>`).join('');
+      document.getElementById('detailDesc').textContent = data.desc;
+    }
+
+    function toggleAutoPlay() {
+      if (isAutoPlaying) {
+        clearInterval(autoPlayTimer);
+        isAutoPlaying = false;
+        playText.textContent = '자동 공정';
+        playIcon.setAttribute('data-lucide', 'play');
+        lucide.createIcons();
+      } else {
+        isAutoPlaying = true;
+        playText.textContent = '정지';
+        playIcon.setAttribute('data-lucide', 'pause');
+        lucide.createIcons();
+        autoPlayTimer = setInterval(() => {
+          if (currentStep < trajectorySteps.length - 1) {
+            goToStep(currentStep + 1);
+          } else {
+            clearInterval(autoPlayTimer);
+            isAutoPlaying = false;
+            playText.textContent = '자동 공정';
+            playIcon.setAttribute('data-lucide', 'play');
+            lucide.createIcons();
+          }
+        }, 2200);
+      }
+    }
+
+    // Event Listeners
+    prevBtn.addEventListener('click', () => goToStep(currentStep - 1));
+    nextBtn.addEventListener('click', () => goToStep(currentStep + 1));
+    autoPlayBtn.addEventListener('click', toggleAutoPlay);
+    resetBtn.addEventListener('click', () => {
+      if (isAutoPlaying) toggleAutoPlay();
+      goToStep(0);
+    });
+
+    stepNodes.forEach((node) => {
+      node.addEventListener('click', () => goToStep(parseInt(node.dataset.step)));
+    });
+
+    zones.forEach(zone => {
+      zone.addEventListener('click', () => {
+        const clickedZoneId = zone.getAttribute('data-id');
+        updatePropertyPanel(clickedZoneId);
+        
+        // 클릭한 구역 하이라이팅, 나머지는 반투명 처리
+        zones.forEach(z => {
+          const zId = z.getAttribute('data-id');
+          const rects = z.querySelectorAll('rect');
+          if (zId !== clickedZoneId) {
+            z.style.opacity = '0.4';
+            z.style.filter = '';
+            rects.forEach(r => r.style.strokeWidth = '');
+          } else {
+            z.style.opacity = '1';
+            z.style.filter = 'drop-shadow(0 0 10px rgba(59,130,246,0.75))';
+            rects.forEach(r => r.style.strokeWidth = '3.5px');
+          }
+        });
+        
+        document.getElementById('propertyPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    });
+
+    // Tab buttons
+    document.getElementById('tabBtn1').addEventListener('click', () => {
+      document.getElementById('tabContent1').classList.remove('hidden');
+      document.getElementById('tabContent2').classList.add('hidden');
+      document.getElementById('tabBtn1').className = 'text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1.5 transition-all';
+      document.getElementById('tabBtn2').className = 'text-sm font-bold text-slate-400 hover:text-slate-600 pb-1.5 transition-all';
+    });
+    document.getElementById('tabBtn2').addEventListener('click', () => {
+      document.getElementById('tabContent2').classList.remove('hidden');
+      document.getElementById('tabContent1').classList.add('hidden');
+      document.getElementById('tabBtn2').className = 'text-sm font-bold text-blue-600 border-b-2 border-blue-600 pb-1.5 transition-all';
+      document.getElementById('tabBtn1').className = 'text-sm font-bold text-slate-400 hover:text-slate-600 pb-1.5 transition-all';
+    });
+
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.getElementById('appBody').classList.toggle('dark');
+      const isDark = document.getElementById('appBody').classList.contains('dark');
+      document.getElementById('svgGridBacking').setAttribute('fill', isDark ? 'url(#gridDark)' : 'url(#gridLight)');
+      document.getElementById('mapFrame').classList.toggle('blueprint-grid-light', !isDark);
+      document.getElementById('mapFrame').classList.toggle('blueprint-grid-dark', isDark);
+    });
+
+    // Search
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      zones.forEach(zone => {
+        const zoneId = zone.getAttribute('data-id');
+        const data = zoneData[zoneId];
+        if (!data) return;
+        const match = data.name.toLowerCase().includes(q) || data.desc.toLowerCase().includes(q) || data.equipment.some(eq => eq.toLowerCase().includes(q));
+        zone.style.opacity = (q === '' || match) ? '1' : '0.25';
+      });
+    });
+
+    // Init
+    goToStep(0);
+  </script>
+</body>
+</html>

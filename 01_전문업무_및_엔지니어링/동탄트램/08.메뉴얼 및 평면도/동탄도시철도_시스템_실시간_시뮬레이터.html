@@ -1,0 +1,1587 @@
+ dignity.css
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄 도시철도 시스템 실시간 시뮬레이터</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts (Noto Sans KR) -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #050b14; /* Deep matte space */
+    }
+    /* 신호선 흐름 애니메이션 효과 */
+    @keyframes sys-signal-forward {
+      to {
+        stroke-dashoffset: -40;
+      }
+    }
+    /* 맥박이 뛰는 노드 효과 */
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 2px rgba(56, 189, 248, 0.4)); }
+      50% { filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.8)); }
+    }
+    .flow-active-blue {
+      stroke: #38bdf8;
+      stroke-dasharray: 8, 12;
+      animation: sys-signal-forward 1.5s linear infinite !important;
+    }
+    .flow-active-green {
+      stroke: #34d399;
+      stroke-dasharray: 8, 12;
+      animation: sys-signal-forward 1.2s linear infinite !important;
+    }
+    .flow-active-orange {
+      stroke: #fb923c;
+      stroke-dasharray: 8, 12;
+      animation: sys-signal-forward 1.8s linear infinite !important;
+    }
+    .flow-active-red {
+      stroke: #ef4444;
+      stroke-dasharray: 6, 8;
+      animation: sys-signal-forward 0.8s linear infinite !important;
+    }
+    .flow-active-gold {
+      stroke: #fbbf24;
+      stroke-dasharray: 10, 10;
+      animation: sys-signal-forward 2s linear infinite !important;
+    }
+    .flow-inactive {
+      stroke: #1e293b;
+      stroke-dasharray: none;
+      animation: none;
+      opacity: 0.15;
+    }
+    .glowing-node {
+      animation: pulse-glow 2s infinite;
+    }
+    /* Fade In Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+    /* 스크롤바 디자인 */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="text-slate-200 min-h-screen flex flex-col overflow-x-hidden">
+
+  <!-- 상단 내비게이션 바 -->
+  <header class="bg-slate-900/90 border-b border-slate-800/80 px-6 py-4 flex flex-wrap items-center justify-between gap-4 shadow-lg backdrop-blur">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-sky-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-sky-500/20">
+        🚊
+      </div>
+      <div>
+        <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+          동탄 도시철도 <span class="text-sky-400 font-medium text-sm px-2 py-0.5 bg-sky-500/10 rounded-full border border-sky-500/20">트램 시스템 종합 시뮬레이터</span>
+        </h1>
+        <p class="text-xs text-slate-400">전력·통신·신호·궤도 융합 인터랙티브 관제 보드</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-4">
+      <!-- 상태 인디케이터 -->
+      <div class="flex items-center gap-2 bg-slate-950/80 px-3 py-1.5 rounded-lg border border-slate-800 text-xs">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" id="status-dot"></span>
+        <span class="text-slate-300 font-bold" id="status-text">종합 관제 센터 동기화 완료</span>
+      </div>
+      <!-- 오디오 토글 -->
+      <button id="sound-btn" onclick="toggleMute()" class="p-2.5 bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition text-slate-300 flex items-center justify-center font-bold text-xs gap-1" title="효과음 켜기/끄기">
+        <span id="sound-icon">🔊</span> <span id="sound-txt">소리 켜기</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 메인 작업 영역 -->
+  <main class="flex-1 p-4 lg:p-6 grid grid-cols-1 xl:grid-cols-4 gap-6">
+    
+    <!-- 왼쪽: SVG 계통도 시각화 패널 (3개 열 차지) -->
+    <div class="xl:col-span-3 flex flex-col gap-4 bg-slate-900/40 p-4 lg:p-6 rounded-2xl border border-slate-800/80 backdrop-blur">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-sky-400">💡</span>
+          <h2 class="font-bold text-slate-300 text-sm lg:text-base">종합 구동 계통도 (노드를 클릭하면 어린이용/비전문가용 상세 해설이 우측에 나타납니다)</h2>
+        </div>
+        <div class="flex gap-4 text-xs font-bold text-slate-400">
+          <span class="flex items-center gap-1"><span class="w-3 h-1.5 bg-amber-400 rounded"></span> 전력 공급망</span>
+          <span class="flex items-center gap-1"><span class="w-3 h-1.5 bg-sky-400 rounded"></span> 통신 백본망</span>
+          <span class="flex items-center gap-1"><span class="w-3 h-1.5 bg-emerald-400 rounded"></span> 관제 명령선</span>
+          <span class="flex items-center gap-1"><span class="w-3 h-1.5 bg-orange-400 rounded"></span> 궤도 구동선</span>
+        </div>
+      </div>
+
+      <!-- 인터랙티브 SVG 계통도 컨테이너 (CAD Blueprint Style) -->
+      <div class="flex-1 bg-[#0b1426] rounded-xl border border-slate-800 p-2 overflow-auto flex items-center justify-center relative min-h-[460px]" id="svg-viewport">
+        <svg id="system-svg" viewBox="0 0 1000 650" class="w-full max-w-[1000px] h-auto text-slate-300 select-none">
+          <!-- 마커 정의 (신호 화살표) -->
+          <defs>
+            <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8"/>
+            </marker>
+            <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#34d399"/>
+            </marker>
+            <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#fb923c"/>
+            </marker>
+            <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444"/>
+            </marker>
+            <!-- CAD 블루프린트 눈금 격자 무늬 -->
+            <pattern id="blueprintGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.75" opacity="0.45"/>
+            </pattern>
+          </defs>
+
+          <!-- 그리드 격자 렌더링 -->
+          <rect width="1000" height="650" fill="url(#blueprintGrid)" rx="6" />
+
+          <!-- 연결 흐름선 (배경 비활성 가이드선) -->
+          <g opacity="0.25">
+            <path d="M 870 110 L 210 110 L 210 160" fill="none" stroke="#ffffff" stroke-width="3.5" /> <!-- 급전선 -->
+            <path d="M 210 260 L 210 320 L 440 320" fill="none" stroke="#38bdf8" stroke-width="2.5" /> <!-- 무선 링크 -->
+            <path d="M 440 320 L 520 230 L 730 230 L 730 350" fill="none" stroke="#38bdf8" stroke-width="2.5" /> <!-- 백본선 -->
+            <path d="M 730 460 L 460 460 L 460 490" fill="none" stroke="#34d399" stroke-width="2.5" /> <!-- 명령 전달선 -->
+            <path d="M 460 525 L 210 525 L 210 570" fill="none" stroke="#fb923c" stroke-width="2.5" /> <!-- 신호 작동선 -->
+          </g>
+
+          <!-- 연결 흐름선 (액티브 애니메이션선) -->
+          <path id="path-power" d="M 870 110 L 210 110 L 210 160" fill="none" class="sys-flow-active-gold" stroke-width="3.5" style="transition: opacity 0.3s, stroke 0.3s;" />
+          <path id="path-vehicle-wireless" d="M 210 260 L 210 320 L 440 320" fill="none" class="sys-flow-active-blue" stroke-width="2.5" style="transition: opacity 0.3s, stroke 0.3s;" />
+          <path id="path-backhaul" d="M 440 320 L 520 230 L 730 230 L 730 350" fill="none" class="sys-flow-active-blue" stroke-width="2.5" style="transition: opacity 0.3s, stroke 0.3s;" />
+          <path id="path-control-to-field" d="M 730 460 L 460 460 L 460 490" fill="none" class="sys-flow-active-green" stroke-width="2.5" style="transition: opacity 0.3s, stroke 0.3s;" />
+          <path id="path-field-action" d="M 460 525 L 210 525 L 210 570" fill="none" class="sys-flow-active-orange" stroke-width="2.5" style="transition: opacity 0.3s, stroke 0.3s;" />
+
+          <!-- ==================== 1. 변전 설비군 (Power Substation Grid) ==================== -->
+          <g id="node-substation" class="cursor-pointer" onclick="inspectComponent('substation')">
+            <rect x="730" y="20" width="240" height="120" rx="8" fill="rgba(15, 27, 49, 0.85)" stroke="#fbbf24" stroke-width="1.5" />
+            <rect x="730" y="20" width="240" height="28" rx="8" fill="rgba(251, 191, 36, 0.15)" />
+            <text x="850" y="38" fill="#fbbf24" font-size="12.5" font-weight="900" text-anchor="middle">⚡ 한전 변전계통 (Substation)</text>
+            
+            <!-- 한전 수전 154kV -->
+            <rect x="745" y="60" width="100" height="65" rx="5" fill="#0d1829" stroke="#fbbf24" stroke-width="0.75"/>
+            <text x="795" y="78" fill="#ffffff" font-size="11.5" font-weight="bold" text-anchor="middle">한전 수전</text>
+            <text x="795" y="93" fill="#fef08a" font-size="10.5" font-weight="900" text-anchor="middle">154,000 V</text>
+            <text x="795" y="108" fill="#cbd5e1" font-size="9.5" font-weight="bold" text-anchor="middle">송전선로 수신</text>
+
+            <!-- 변압기 TR 및 정류장치 -->
+            <rect x="855" y="60" width="100" height="65" rx="5" fill="#0d1829" stroke="#fbbf24" stroke-width="0.75"/>
+            <text x="905" y="78" fill="#ffffff" font-size="11.5" font-weight="bold" text-anchor="middle">변압 / 정류기</text>
+            <text x="905" y="93" fill="#fbbf24" font-size="10.5" font-weight="900" text-anchor="middle" id="text-power-kv">750V DC 급전</text>
+            <text x="905" y="108" fill="#cbd5e1" font-size="9.5" font-weight="bold" text-anchor="middle">차량선 직접 연결</text>
+          </g>
+
+          <!-- ==================== 2. 통신 인프라망 (Telecom Systems) ==================== -->
+          <!-- 지상 LTE-R 안테나 기지국 -->
+          <g id="node-lte-station" class="cursor-pointer" onclick="inspectComponent('lte-station')">
+            <line x1="440" y1="360" x2="440" y2="280" stroke="#475569" stroke-width="3" />
+            <polygon points="440,280 430,310 450,310" fill="#64748b" />
+            <polygon points="440,310 433,330 447,330" fill="#64748b" />
+            
+            <circle cx="440" cy="280" r="12" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3,3" />
+            <circle cx="440" cy="280" r="22" fill="none" stroke="#38bdf8" stroke-width="1" opacity="0.6" stroke-dasharray="4,4" />
+            <text x="440" y="380" fill="#38bdf8" font-size="12" font-weight="900" text-anchor="middle">🗼 LTE-R 무선 기지국</text>
+          </g>
+
+          <!-- IP-MPLS 광대역 백홀망 라우터 -->
+          <g id="node-ip-mpls" class="cursor-pointer" onclick="inspectComponent('ip-mpls')">
+            <rect x="520" y="185" width="130" height="90" rx="8" fill="rgba(15, 27, 49, 0.85)" stroke="#38bdf8" stroke-width="1.5" />
+            <rect x="520" y="185" width="130" height="25" rx="8" fill="rgba(56, 189, 248, 0.15)" />
+            <text x="585" y="201" fill="#38bdf8" font-size="11.5" font-weight="900" text-anchor="middle">🌐 IP-MPLS 광백본망</text>
+
+            <rect x="532" y="218" width="106" height="46" rx="4" fill="#0d1829" stroke="#38bdf8" stroke-width="0.75" />
+            <text x="585" y="233" fill="#ffffff" font-size="11.5" font-weight="bold" text-anchor="middle">초고속 이중화링</text>
+            <text x="585" y="248" fill="#e0f2fe" font-size="10" font-weight="bold" text-anchor="middle">10Gbps 광선로 우회</text>
+          </g>
+
+          <!-- ==================== 3. 달리는 트램 차량 노드 (Articulated Tram Vehicle) ==================== -->
+          <g id="node-tram" class="cursor-pointer" onclick="inspectComponent('tram')">
+            <!-- 3모듈 연절 트램 바디 테두리 박스 -->
+            <rect x="35" y="160" width="310" height="110" rx="12" fill="rgba(15, 27, 49, 0.85)" stroke="#38bdf8" stroke-width="2" id="sys-tram-shell" style="transition: stroke 0.3s;"/>
+            <rect x="35" y="160" width="310" height="25" rx="12" fill="rgba(56, 189, 248, 0.15)" />
+            <text x="190" y="177" fill="#38bdf8" font-size="11.5" font-weight="bold" text-anchor="middle">🚊 T01 관절식 친환경 트램 차량</text>
+            
+            <!-- 개별 차체 모듈 분할 시각선 -->
+            <line x1="125" y1="185" x2="125" y2="270" stroke="#1e293b" stroke-width="3" stroke-dasharray="3,3"/>
+            <line x1="225" y1="185" x2="225" y2="270" stroke="#1e293b" stroke-width="3" stroke-dasharray="3,3"/>
+
+            <!-- 차상 연동 기기들 (하단 탭 구조) -->
+            <!-- TCMS 두뇌컴퓨터 -->
+            <g id="node-tcms" onclick="event.stopPropagation(); inspectComponent('tcms')" style="cursor: pointer;">
+              <rect x="45" y="195" width="70" height="60" rx="4" fill="#0d1829" stroke="#38bdf8" stroke-width="0.75" class="hover:fill-slate-900"/>
+              <text x="80" y="218" fill="#ffffff" font-size="11.5" font-weight="bold" text-anchor="middle">TCMS</text>
+              <text x="80" y="233" fill="#ffffff" font-size="9.5" font-weight="bold" text-anchor="middle">열차두뇌</text>
+              <rect x="50" y="243" width="60" height="6" fill="#10b981" rx="2" id="sys-ind-tcms"/>
+            </g>
+
+            <!-- CCTV 및 저장장치 (NVR) -->
+            <g id="node-nvr" onclick="event.stopPropagation(); inspectComponent('nvr')" style="cursor: pointer;">
+              <rect x="135" y="195" width="80" height="60" rx="4" fill="#0d1829" stroke="#38bdf8" stroke-width="0.75" class="hover:fill-slate-900"/>
+              <text x="175" y="218" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">CCTV / NVR</text>
+              <text x="175" y="233" fill="#e0f2fe" font-size="9.5" font-weight="bold" text-anchor="middle">실시간녹화</text>
+              <circle cx="175" cy="246" r="3.5" fill="#10b981" id="sys-ind-nvr"/>
+            </g>
+
+            <!-- 차상 PIS / MMI 단말기 -->
+            <g id="node-pis" onclick="event.stopPropagation(); inspectComponent('pis')" style="cursor: pointer;">
+              <rect x="235" y="195" width="100" height="60" rx="4" fill="#0d1829" stroke="#38bdf8" stroke-width="0.75" class="hover:fill-slate-900"/>
+              <text x="285" y="218" fill="#ffffff" font-size="11.5" font-weight="bold" text-anchor="middle">PIS / MMI</text>
+              <text x="285" y="233" fill="#f8fafc" font-size="9.5" font-weight="bold" text-anchor="middle">제어/안내</text>
+              <circle cx="285" cy="246" r="3.5" fill="#10b981" id="sys-ind-mmi"/>
+            </g>
+
+            <!-- 천장 안테나 및 팬터그래프 -->
+            <line x1="80" y1="160" x2="80" y2="140" stroke="#38bdf8" stroke-width="2" />
+            <circle cx="80" cy="140" r="3" fill="#38bdf8" />
+            
+            <path d="M 210 160 L 195 135 L 225 125 L 210 110" fill="none" stroke="#fbbf24" stroke-width="2.5" id="panto-wire"/>
+          </g>
+
+          <!-- ==================== 4. 종합 관제실 (OCC Control Center) ==================== -->
+          <g id="node-occ" class="cursor-pointer" onclick="inspectComponent('occ')">
+            <rect x="660" y="340" width="310" height="135" rx="10" fill="rgba(15, 27, 49, 0.85)" stroke="#34d399" stroke-width="2" />
+            <rect x="660" y="340" width="310" height="28" rx="10" fill="rgba(52, 211, 153, 0.15)" />
+            <text x="815" y="358" fill="#34d399" font-size="13.5" font-weight="900" text-anchor="middle">🖥️ 종합 관제 센터 (OCC)</text>
+
+            <!-- CTC 중앙 서버 -->
+            <g id="node-ctc" onclick="event.stopPropagation(); inspectComponent('ctc')" style="cursor: pointer;">
+              <rect x="675" y="380" width="85" height="80" rx="5" fill="#0d1829" stroke="#34d399" stroke-width="0.75"/>
+              <text x="717" y="403" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">CTC</text>
+              <text x="717" y="418" fill="#34d399" font-size="8.5" font-weight="900" text-anchor="middle">열차집중제어</text>
+              <text x="717" y="433" fill="#e2e8f0" font-size="9.5" font-weight="bold" text-anchor="middle">신호/노선배정</text>
+              <circle cx="717" cy="448" r="3.5" fill="#10b981" id="sys-ind-ctc"/>
+            </g>
+
+            <!-- SCADA 전력감시 서버 -->
+            <g id="node-scada" onclick="event.stopPropagation(); inspectComponent('scada')" style="cursor: pointer;">
+              <rect x="772" y="380" width="85" height="80" rx="5" fill="#0d1829" stroke="#34d399" stroke-width="0.75"/>
+              <text x="814" y="403" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">SCADA</text>
+              <text x="814" y="418" fill="#fbbf24" font-size="8.5" font-weight="900" text-anchor="middle">원격전력감시</text>
+              <text x="814" y="433" fill="#e2e8f0" font-size="9.5" font-weight="bold" text-anchor="middle">차단 제어</text>
+              <circle cx="814" cy="448" r="3.5" fill="#10b981" id="sys-ind-scada"/>
+            </g>
+
+            <!-- PIS / 영상중앙 서버 -->
+            <g id="node-pis-server" onclick="event.stopPropagation(); inspectComponent('pis-server')" style="cursor: pointer;">
+              <rect x="870" y="380" width="85" height="80" rx="5" fill="#0d1829" stroke="#34d399" stroke-width="0.75"/>
+              <text x="912" y="403" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">PIS/안내</text>
+              <text x="912" y="418" fill="#38bdf8" font-size="8.5" font-weight="900" text-anchor="middle">승객안내정보</text>
+              <text x="912" y="433" fill="#e2e8f0" font-size="9.5" font-weight="bold" text-anchor="middle">안내/방송</text>
+              <circle cx="912" cy="448" r="3.5" fill="#10b981" id="sys-ind-pis"/>
+            </g>
+          </g>
+
+          <!-- ==================== 5. 현장 연동 제어설비 (Field Signal Interlocking) ==================== -->
+          <g id="node-field" class="cursor-pointer" onclick="inspectComponent('field')">
+            <rect x="360" y="480" width="200" height="85" rx="8" fill="rgba(15, 27, 49, 0.85)" stroke="#fb923c" stroke-width="1.5" />
+            <rect x="360" y="480" width="200" height="25" rx="8" fill="rgba(251, 146, 60, 0.15)" />
+            <text x="460" y="497" fill="#fb923c" font-size="12.5" font-weight="bold" text-anchor="middle">⚙️ 현장 연동 신호 장치</text>
+            
+            <!-- Axle Counter (바퀴축 검지기) -->
+            <rect x="372" y="512" width="82" height="42" rx="4" fill="#0d1829" stroke="#fb923c" stroke-width="0.75" />
+            <text x="413" y="527" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">Axle Counter</text>
+            <text x="413" y="540" fill="#fafaf9" font-size="9.5" font-weight="bold" text-anchor="middle">축세기 센서</text>
+
+            <!-- 전자연동장치 (길차단 방어용) -->
+            <rect x="466" y="512" width="82" height="42" rx="4" fill="#0d1829" stroke="#fb923c" stroke-width="0.75" />
+            <text x="507" y="527" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle">전자연동</text>
+            <text x="507" y="540" fill="#34d399" font-size="9.5" font-weight="bold" text-anchor="middle">진로잠금기</text>
+          </g>
+
+          <!-- 실제 선로 궤도 레이아웃 및 궤도 설비들 -->
+          <g>
+            <!-- 본선 메인 궤도 레일 -->
+            <line x1="30" y1="605" x2="620" y2="605" stroke="#4b5563" stroke-width="6" />
+            <line x1="30" y1="598" x2="620" y2="598" stroke="#1e293b" stroke-width="1" />
+            <line x1="30" y1="612" x2="620" y2="612" stroke="#1e293b" stroke-width="1" stroke-dasharray="5,6" />
+            <text x="45" y="585" fill="#cbd5e1" font-size="11" font-weight="bold">트램 전용 본선 레일</text>
+
+            <!-- 분기궤도선 (회차선/검수고선용 분기) -->
+            <path d="M 180 605 L 250 575 L 350 575" fill="none" stroke="#334155" stroke-width="4.5" opacity="0.6"/>
+
+            <!-- 선로전환기 (분기기 모터) -->
+            <g id="node-switch" class="cursor-pointer" onclick="inspectComponent('switch')">
+              <rect x="250" y="545" width="100" height="24" rx="4" fill="#0d1829" stroke="#fb923c" stroke-width="1" />
+              <text x="300" y="560" fill="#fb923c" font-size="8.5" font-weight="bold" text-anchor="middle">🔀 선로전환기</text>
+              <circle id="indicator-switch" cx="260" cy="557" r="3.5" fill="#10b981" />
+            </g>
+
+            <!-- 트램 전용 지상 신호기 -->
+            <g id="node-signal" class="cursor-pointer" onclick="inspectComponent('signal')">
+              <line x1="150" y1="605" x2="150" y2="540" stroke="#64748b" stroke-width="2.5" />
+              <rect x="140" y="505" width="20" height="35" rx="3" fill="#0d1829" stroke="#e2e8f0" stroke-width="1" />
+              <!-- 3현시 램프 (빨강, 황색, 초록) -->
+              <circle id="sig-red" cx="150" cy="512" r="3.5" fill="#ef4444" opacity="0.3" />
+              <circle id="sig-yellow" cx="150" cy="522" r="3.5" fill="#eab308" opacity="0.3" />
+              <circle id="sig-green" cx="150" cy="532" r="3.5" fill="#10b981" opacity="1" />
+              <text x="170" y="515" fill="#cbd5e1" font-size="10.5" font-weight="bold">트램 신호기</text>
+            </g>
+          </g>
+        </svg>
+
+        <!-- 정지/비상 시 플래싱 오버레이 -->
+        <div id="emergency-overlay" class="absolute inset-0 bg-red-500/10 pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center">
+          <div class="border border-red-500 bg-slate-950/90 text-red-400 px-6 py-3 rounded-xl flex items-center gap-3 animate-bounce shadow-2xl">
+            <span class="text-2xl animate-ping">🚨</span>
+            <div>
+              <p class="font-black text-sm">EMERGENCY SYSTEM HALT</p>
+              <p class="text-xs text-red-500">열차 승객 비상 통화 및 비상 제동 신호 발생!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단 범례 및 오퍼레이션 설명 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-400 pt-3 border-t border-slate-800">
+        <div>
+          <span class="text-white font-bold block mb-1">🕹️ 상호작용 안내</span>
+          도면 내부의 개별 기기(변전소, 기지국, CTC, SCADA 등)를 누르면 비전문가나 어린이가 읽어도 단번에 이해할 수 있는 쉬운 비유 설명이 우측에 나타납니다.
+        </div>
+        <div>
+          <span class="text-white font-bold block mb-1">📡 무선과 유선의 조화</span>
+          달리는 트램은 <strong class="text-sky-400">LTE-R 무선망</strong>으로 정보를 쏘고, 기지국과 관제실 간은 <strong class="text-sky-400">초고속 광대역 백본망 (IP-MPLS)</strong>으로 통신이 유기적으로 연계됩니다.
+        </div>
+        <div>
+          <span class="text-white font-bold block mb-1">🛡️ 이중 연동 안전 설계</span>
+          속도 제어 및 선로 변경은 시스템 연동장치와 바퀴축 세기 센서를 거쳐 충돌이나 탈선 사고가 원천 차단되도록 설계되어 있습니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- 오른쪽: 제어 대시보드 & 인스펙터 패널 (1개 열 차지) -->
+    <div class="flex flex-col gap-6">
+      
+      <!-- 1. 주행 시나리오 선택 (시뮬레이터 조종기) -->
+      <div class="bg-slate-900/40 p-4 rounded-2xl border border-slate-800 backdrop-blur">
+        <h3 class="font-bold text-slate-200 text-sm mb-3 flex items-center gap-1.5 text-sky-400">
+          🎮 모의 운행 시나리오 제어판
+        </h3>
+        
+        <div class="flex flex-col gap-2">
+          <!-- 정상 운행 모드 -->
+          <button id="btn-scenario-normal" onclick="runScenario('normal')" class="w-full text-left p-3 rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-300 font-semibold text-xs flex items-center justify-between gap-4 hover:bg-sky-500/25 transition">
+            <div style="flex-shrink: 0; min-width: 170px; max-width: 200px;">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🟢</span>
+                <div>
+                  <p>정상 상시 운행 모드</p>
+                  <p class="text-[9px] text-slate-400 font-normal mt-0.5">750V 상시 급전 전압 및 신호 녹색 연동</p>
+                </div>
+              </div>
+            </div>
+            <div style="flex-shrink: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.2rem; font-size: 0.65rem; font-weight: 700; max-width: 320px;">
+                <span id="flow-badge-normal-0" style="background: rgba(56, 189, 248, 0.05); color: #38bdf8; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(56, 189, 248, 0.15); white-space: nowrap; transition: all 0.25s;">전차선 급전(750V)</span>
+                <span id="flow-arrow-normal-0" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-normal-1" style="background: rgba(56, 189, 248, 0.05); color: #38bdf8; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(56, 189, 248, 0.15); white-space: nowrap; transition: all 0.25s;">LTE-R 무선송출</span>
+                <span id="flow-arrow-normal-1" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-normal-2" style="background: rgba(56, 189, 248, 0.05); color: #38bdf8; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(56, 189, 248, 0.15); white-space: nowrap; transition: all 0.25s;">광 MPLS 백본</span>
+                <span id="flow-arrow-normal-2" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-normal-3" style="background: rgba(56, 189, 248, 0.05); color: #38bdf8; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(56, 189, 248, 0.15); white-space: nowrap; transition: all 0.25s;">OCC 관제지령</span>
+                <span id="flow-arrow-normal-3" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-normal-4" style="background: rgba(56, 189, 248, 0.05); color: #38bdf8; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(56, 189, 248, 0.15); white-space: nowrap; transition: all 0.25s;">신호 진행(녹색)</span>
+            </div>
+            <!-- 쉬운 설명 영역 확보 -->
+            <div id="flow-desc-normal" style="flex-grow: 1; border-left: 1px dashed #334155; padding-left: 10px; margin-left: 10px; font-size: 11px; color: #64748b; line-height: 1.35; min-width: 200px; transition: all 0.25s;">
+                <span id="flow-step-normal-0" style="transition: all 0.25s;">⚡ 선로에 전기가 통하면 (급전)</span>
+                <span id="flow-step-normal-arrow-0" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-normal-1" style="transition: all 0.25s;">트램이 무선 전파를 쏘고 (LTE-R)</span>
+                <span id="flow-step-normal-arrow-1" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-normal-2" style="transition: all 0.25s;">광네트워크를 통해 관제소로 위치가 전달되어 (백본망)</span>
+                <span id="flow-step-normal-arrow-2" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-normal-3" style="transition: all 0.25s;">관제소의 출발 승인을 받아 (관제지령)</span>
+                <span id="flow-step-normal-arrow-3" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-normal-4" style="transition: all 0.25s;">신호등이 초록불로 바뀌며 안전하게 출발합니다.</span>
+            </div>
+            <span class="text-[10px] bg-sky-500/20 px-1.5 py-0.5 rounded border border-sky-400/30 font-mono" id="badge-normal">ON</span>
+          </button>
+
+          <!-- 비상정지 모드 -->
+          <button id="btn-scenario-emergency" onclick="runScenario('emergency')" class="w-full text-left p-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 font-semibold text-xs flex items-center justify-between gap-4 hover:bg-red-500/20 hover:border-red-500/40 hover:text-red-300 transition">
+            <div style="flex-shrink: 0; min-width: 170px; max-width: 200px;">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🚨</span>
+                <div>
+                  <p>승객 비상 통화 발생</p>
+                  <p class="text-[9px] text-slate-400 font-normal mt-0.5">객실 비상통화 및 TCC 무선 비상 제동 적용</p>
+                </div>
+              </div>
+            </div>
+            <div style="flex-shrink: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.2rem; font-size: 0.65rem; font-weight: 700; max-width: 320px;">
+                <span id="flow-badge-emergency-0" style="background: rgba(239, 68, 68, 0.05); color: #ef4444; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(239, 68, 68, 0.15); white-space: nowrap; transition: all 0.25s;">차량 비상벨 작동</span>
+                <span id="flow-arrow-emergency-0" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-emergency-1" style="background: rgba(239, 68, 68, 0.05); color: #ef4444; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(239, 68, 68, 0.15); white-space: nowrap; transition: all 0.25s;">LTE-R/백본 관제보고</span>
+                <span id="flow-arrow-emergency-1" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-emergency-2" style="background: rgba(239, 68, 68, 0.05); color: #ef4444; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(239, 68, 68, 0.15); white-space: nowrap; transition: all 0.25s;">SCADA 전력차단(0V)</span>
+                <span id="flow-arrow-emergency-2" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-emergency-3" style="background: rgba(239, 68, 68, 0.05); color: #ef4444; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(239, 68, 68, 0.15); white-space: nowrap; transition: all 0.25s;">현장 신호 정지(적색)</span>
+            </div>
+            <!-- 쉬운 설명 영역 확보 -->
+            <div id="flow-desc-emergency" style="flex-grow: 1; border-left: 1px dashed #334155; padding-left: 10px; margin-left: 10px; font-size: 11px; color: #64748b; line-height: 1.35; min-width: 200px; transition: all 0.25s;">
+                <span id="flow-step-emergency-0" style="transition: all 0.25s;">🚨 객실 비상 통화가 눌리면 (비상벨)</span>
+                <span id="flow-step-emergency-arrow-0" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-emergency-1" style="transition: all 0.25s;">무선망을 거쳐 관제실 화면에 비상 영상이 자동 팝업되고 (관제보고)</span>
+                <span id="flow-step-emergency-arrow-1" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-emergency-2" style="transition: all 0.25s;">감전 예방을 위해 선로 전기가 수 밀리초 만에 자동 오프되며 (SCADA차단)</span>
+                <span id="flow-step-emergency-arrow-2" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-emergency-3" style="transition: all 0.25s;">후속 트램 충돌을 막도록 신호등이 즉시 빨간불로 차단됩니다.</span>
+            </div>
+            <span class="text-[10px] bg-slate-950 px-1.5 py-0.5 rounded font-mono" id="badge-emergency">OFF</span>
+          </button>
+
+          <!-- 선로 전환 모드 -->
+          <button id="btn-scenario-switch" onclick="runScenario('switch')" class="w-full text-left p-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 font-semibold text-xs flex items-center justify-between gap-4 hover:bg-emerald-500/15 hover:border-emerald-500/30 hover:text-emerald-300 transition">
+            <div style="flex-shrink: 0; min-width: 170px; max-width: 200px;">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🔀</span>
+                <div>
+                  <p>분기선 경로 전환</p>
+                  <p class="text-[9px] text-slate-400 font-normal mt-0.5">CTC 전환 지령 전송 ➔ 선로전환기 구동</p>
+                </div>
+              </div>
+            </div>
+            <div style="flex-shrink: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.2rem; font-size: 0.65rem; font-weight: 700; max-width: 320px;">
+                <span id="flow-badge-switch-0" style="background: rgba(52, 211, 153, 0.05); color: #34d399; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(52, 211, 153, 0.15); white-space: nowrap; transition: all 0.25s;">CTC 분기지령</span>
+                <span id="flow-arrow-switch-0" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-switch-1" style="background: rgba(52, 211, 153, 0.05); color: #34d399; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(52, 211, 153, 0.15); white-space: nowrap; transition: all 0.25s;">연동장치 쇄정해제</span>
+                <span id="flow-arrow-switch-1" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-switch-2" style="background: rgba(52, 211, 153, 0.05); color: #34d399; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(52, 211, 153, 0.15); white-space: nowrap; transition: all 0.25s;">선로전환기 전환</span>
+                <span id="flow-arrow-switch-2" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-switch-3" style="background: rgba(52, 211, 153, 0.05); color: #34d399; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(52, 211, 153, 0.15); white-space: nowrap; transition: all 0.25s;">신호 주의(황색)</span>
+            </div>
+            <!-- 쉬운 설명 영역 확보 -->
+            <div id="flow-desc-switch" style="flex-grow: 1; border-left: 1px dashed #334155; padding-left: 10px; margin-left: 10px; font-size: 11px; color: #64748b; line-height: 1.35; min-width: 200px; transition: all 0.25s;">
+                <span id="flow-step-switch-0" style="transition: all 0.25s;">🔀 관제 컴퓨터가 레일 변경 명령을 보내면 (분기지령)</span>
+                <span id="flow-step-switch-arrow-0" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-switch-1" style="transition: all 0.25s;">충돌 위험 검증 후 궤도 락 장치를 풀고 (쇄정해제)</span>
+                <span id="flow-step-switch-arrow-1" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-switch-2" style="transition: all 0.25s;">모터 구동으로 레일을 대피선 방향으로 꺾어 물리적 밀착을 완료한 후 (선로전환)</span>
+                <span id="flow-step-switch-arrow-2" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-switch-3" style="transition: all 0.25s;">지상 신호등에 황색 주의등을 켜 서행 진입 권한을 인가합니다.</span>
+            </div>
+            <span class="text-[10px] bg-slate-950 px-1.5 py-0.5 rounded font-mono" id="badge-switch">ROUTE</span>
+          </button>
+
+          <!-- 전력 차단 모드 -->
+          <button id="btn-scenario-poweroff" onclick="runScenario('poweroff')" class="w-full text-left p-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 font-semibold text-xs flex items-center justify-between gap-4 hover:bg-yellow-500/15 hover:border-yellow-500/30 hover:text-yellow-300 transition">
+            <div style="flex-shrink: 0; min-width: 170px; max-width: 200px;">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">⚡</span>
+                <div>
+                  <p>변전소 전력 점검 차단</p>
+                  <p class="text-[9px] text-slate-400 font-normal mt-0.5">SCADA 차단기 차단 ➔ 배터리 무전원 운행</p>
+                </div>
+              </div>
+            </div>
+            <div style="flex-shrink: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.2rem; font-size: 0.65rem; font-weight: 700; max-width: 320px;">
+                <span id="flow-badge-poweroff-0" style="background: rgba(234, 179, 8, 0.05); color: #eab308; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(234, 179, 8, 0.15); white-space: nowrap; transition: all 0.25s;">SCADA 급전 차단</span>
+                <span id="flow-arrow-poweroff-0" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-poweroff-1" style="background: rgba(234, 179, 8, 0.05); color: #eab308; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(234, 179, 8, 0.15); white-space: nowrap; transition: all 0.25s;">차량 무전원 전환</span>
+                <span id="flow-arrow-poweroff-1" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-poweroff-2" style="background: rgba(234, 179, 8, 0.05); color: #eab308; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(234, 179, 8, 0.15); white-space: nowrap; transition: all 0.25s;">배터리 방전 개시</span>
+                <span id="flow-arrow-poweroff-2" style="color: #64748b; transition: all 0.25s;">➔</span>
+                <span id="flow-badge-poweroff-3" style="background: rgba(234, 179, 8, 0.05); color: #eab308; padding: 0.1rem 0.25rem; border-radius: 3px; border: 1px solid rgba(234, 179, 8, 0.15); white-space: nowrap; transition: all 0.25s;">다음역 자가대피</span>
+            </div>
+            <!-- 쉬운 설명 영역 확보 -->
+            <div id="flow-desc-poweroff" style="flex-grow: 1; border-left: 1px dashed #334155; padding-left: 10px; margin-left: 10px; font-size: 11px; color: #64748b; line-height: 1.35; min-width: 200px; transition: all 0.25s;">
+                <span id="flow-step-poweroff-0" style="transition: all 0.25s;">🔋 선로 정전으로 변전소 전력 공급이 중단되면 (급전차단)</span>
+                <span id="flow-step-poweroff-arrow-0" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-poweroff-1" style="transition: all 0.25s;">트램 스스로 단전을 즉각 검지하여 차량 비상 운전으로 절체되고 (무전원전환)</span>
+                <span id="flow-step-poweroff-arrow-1" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-poweroff-2" style="transition: all 0.25s;">지붕 위 대용량 차상 배터리가 전력을 방출하여 (배터리방전)</span>
+                <span id="flow-step-poweroff-arrow-2" style="color: #334155; font-size: 11px; transition: all 0.25s;"> ➔ </span>
+                <span id="flow-step-poweroff-3" style="transition: all 0.25s;">조명/냉난방을 최대로 유지하며 자력으로 다음 역사까지 대피합니다.</span>
+            </div>
+            <span class="text-[10px] bg-slate-950 px-1.5 py-0.5 rounded font-mono" id="badge-poweroff">POWER</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. 기기별 쉬운 설명서 (컴포넌트 인스펙터) -->
+      <div class="bg-slate-900/40 p-4 rounded-2xl border border-slate-800 flex-1 flex flex-col min-h-[260px]">
+        <h3 class="font-bold text-slate-200 text-sm mb-3 flex items-center gap-1.5 text-emerald-400">
+          🔍 비전문가 눈높이 시스템 백과사전
+        </h3>
+        
+        <div id="inspector-content" class="flex-1 flex flex-col justify-center">
+          <!-- 기본 대기 상태 내용 -->
+          <div class="text-xs text-slate-400 space-y-3 text-center">
+            <span class="text-2xl block">💡</span>
+            <p class="text-slate-300 font-bold text-sm">원하는 장치를 마우스로 클릭해 보세요!</p>
+            <p class="text-[11px] leading-relaxed">도면 상의 트램, 컴퓨터, 기지국 안테나, 변전소 장치를 터치하면 아주 흥미롭고 직관적인 비유 설명이 이곳에 표시됩니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 실시간 관제 센터 로깅 (실제 시스템 응답 콘솔) -->
+      <div class="bg-slate-900/40 p-4 rounded-2xl border border-slate-800">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-bold text-slate-200 text-sm flex items-center gap-1.5 text-amber-400">
+            📊 실시간 관제 센터 로깅 콘솔
+          </h3>
+          <span class="text-[9px] text-slate-500 font-mono">STREAM_ACTIVE</span>
+        </div>
+        
+        <!-- 콘솔 텍스트 출력창 -->
+        <div id="console-logs" class="h-32 overflow-y-auto bg-slate-950 p-2.5 rounded-lg border border-slate-800 font-mono text-[10px] text-emerald-400 space-y-1.5">
+          <div>[시스템] 종합 관제 모니터 초기화 완료...</div>
+          <div>[시스템] 10G IP-MPLS 광링 백본 연결 확립 완료.</div>
+          <div>[차량] 트램 T01 위성/LTE-R 상시 연동 패킷 송수신 시작.</div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- 하단 라이선스 및 간략한 설명 -->
+  <footer class="bg-slate-950 border-t border-slate-900/50 px-6 py-4 text-center text-xs text-slate-500 flex flex-wrap items-center justify-between gap-4">
+    <p>© 2026 동탄도시철도 시스템 운영 아키텍처. All rights reserved.</p>
+    <p>본 시뮬레이터는 한국 전력, 통신, 관제, 신호 궤도 시스템의 데이터 관계도를 알기 쉽게 재구성한 단독형 인터랙티브 자료입니다.</p>
+  </footer>
+
+  <!-- 오디오 합성 재생을 위한 스크립트 & 인터랙션 로직 -->
+  <script>
+    let audioCtx = null;
+    let isMuted = true; 
+
+    function toggleMute() {
+      isMuted = !isMuted;
+      const btn = document.getElementById('sound-btn');
+      const icon = document.getElementById('sound-icon');
+      const txt = document.getElementById('sound-txt');
+      if (isMuted) {
+        icon.textContent = '🔊';
+        txt.textContent = '소리 켜기';
+        btn.classList.remove('bg-sky-500/10', 'border-sky-500/30', 'text-sky-300');
+        writeLog("[시스템] 오디오 장치 사용 중단.");
+      } else {
+        icon.textContent = '🔇';
+        txt.textContent = '음소거 하기';
+        btn.classList.add('bg-sky-500/10', 'border-sky-500/30', 'text-sky-300');
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        playBeep(650, 0.1, 'sine');
+        writeLog("[시스템] 오디오 장치 정상 로드.");
+      }
+    }
+
+    function playBeep(freq, duration, type='sine') {
+      if (isMuted || !audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + duration);
+        
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        console.error("Audio Play Error:", e);
+      }
+    }
+
+    // 실시간 시스템 로그 등록기
+    function writeLog(text, isAlert = false) {
+      const consoleDiv = document.getElementById('console-logs');
+      if (!consoleDiv) return;
+      const timeStr = new Date().toTimeString().split(' ')[0];
+      const newLog = document.createElement('div');
+      if (isAlert) {
+        newLog.className = "text-red-400 font-semibold animate-pulse";
+      }
+      newLog.textContent = `[${timeStr}] ${text}`;
+      consoleDiv.appendChild(newLog);
+      consoleDiv.scrollTop = consoleDiv.scrollHeight;
+    }
+
+    // 시스템 설명 사전 데이터 (매우 알기 쉬운 아동/비전문가 설명 포함)
+    const componentsDb = {
+      substation: {
+        title: "⚡ 한전 및 트램 급전 변전소 (Substation)",
+        origin: "급전 전력망 / 154kV 수전 ➔ 750V DC 변환 배전",
+        easy: "한전에서 제공하는 아주 무시무시한 초고압 전기(154,000V)를 받아와, 트램이 힘차게 먹고 달릴 수 있도록 750볼트짜리 안전한 DC 직류 전기로 쪼개어 가판선에 흘려보내 주는 <strong>'전기 주방'</strong>입니다."
+      },
+      'lte-station': {
+        title: "🗼 LTE-R 무선 기지국 (LTE-Railway)",
+        origin: "철도 통신 / 700MHz 무선 통신 주파수 및 DU 모듈",
+        easy: "트램 철길 주변에 높이 솟아있는 <strong>'무선 전화국 안테나'</strong>예요. 달리는 트램이 1초도 안 쉬고 중앙 기지국 컴퓨터와 끊김 없이 실시간 고화질 영상과 속도 명령을 대화할 수 있도록 전파 방어벽을 쳐줍니다."
+      },
+      'ip-mpls': {
+        title: "🌐 IP-MPLS 초고속 광대역 백본망 (Backhaul)",
+        origin: "기간 통신망 / 광코어 10Gbps 광대역 이중화 링 네트워크",
+        easy: "변전소, 안테나 타워, 지하철역, 관제실까지 땅속 광 케이블로 동그랗게 연결한 <strong>'정보 고속도로'</strong>입니다. 중간에 케이블이 끊어져도 0.05초 만에 옆길로 우회하는 비상 우회 장치(이중화)가 되어 있어요."
+      },
+      tram: {
+        title: "🚊 친환경 3모듈 관절형 트램 (Tram Vehicle)",
+        origin: "차량 엔지니어링 / 대용량 배터리 + 회생제동 모터 탑재",
+        easy: "레일 위를 미끄러지듯 달리는 다세대 주차형 전기 전차예요. 배기가스가 나오지 않고, 하늘에 있는 전기선을 통해 충전하기도 하며 비상시에는 내장된 거대한 배터리(Super-Capacitor) 파워로 소음 없이 달릴 수 있는 착한 교통수단입니다."
+      },
+      tcms: {
+        title: "💻 TCMS (열차 종합 제어 장치 두뇌)",
+        origin: "차상 제어 / Train Control & Monitoring 컴퓨터",
+        easy: "트램의 가장 똑똑한 <strong>'머리(두뇌 컴퓨터)'</strong>입니다. 가속기와 브레이크 제어는 물론 차안 에어컨 온도 조절, 문 열고 닫기, 그리고 기차에 조그만 상처나 고장이 나도 관제사 컴퓨터에 실시간 고자질을 해주는 일등 파수꾼입니다."
+      },
+      nvr: {
+        title: "📹 차내 NVR 및 지능형 CCTV 녹화 장치",
+        origin: "차상 안전 / IP 카메라 8개소 데이터 레코딩 서버",
+        easy: "차량 안팎에 매달린 <strong>'눈'</strong>입니다. 문 앞에 유모차가 꼈거나 승객 안전사고가 일어났을 때 실시간 고화질 화면을 찍어 관제실 대형 스크린에 보내주는 장치로, 범죄나 안전사고를 실시간 차단해 줍니다."
+      },
+      pis: {
+        title: "📟 PIS 및 기관사 운전 화면 (MMI)",
+        origin: "차상 인터페이스 / Man-Machine Interface 및 승객안내 단말",
+        easy: "기관사님이 보는 <strong>'스마트 계기판 모니터'</strong>이자 정거장 알림창입니다. '이번 역은 동탄역입니다'라고 음성 방송을 내보내고, 기관사에게 앞선 열차와의 거리 및 신호 속도 준수 상태를 보기 쉽게 가이드해 줍니다."
+      },
+      occ: {
+        title: "🖥️ 종합 관제 센터 (OCC / Operations Center)",
+        origin: "통합 감시 / 철도·전력·신호 통합 콘솔 및 월 컨트롤러",
+        easy: "노선의 모든 트램과 전기를 지휘하는 <strong>'지상 사령실'</strong>입니다. 대형 화면을 보며 열차 간격이 너무 좁아지거나 전력이 떨어지면, 직접 통제실 컴퓨터를 눌러 강제로 차량을 세우거나 복귀 지시를 내립니다."
+      },
+      ctc: {
+        title: "🚦 CTC 열차 자동 집중 제어 장치",
+        origin: "신호 통제 / Centralized Traffic Control 중앙 관제 서버",
+        easy: "열차 경로를 짜주는 <strong>'인공지능 길도우미'</strong>입니다. 트램들이 시간에 딱 맞춰 오게 신호기 불빛을 자동으로 노란색/녹색으로 바꾸고 선로 레일을 구부리도록 자동 분기 제어 패킷을 쏘는 주역입니다."
+      },
+      scada: {
+        title: "🔌 SCADA 원격 전력 감시 제어 장치",
+        origin: "전력 통제 / Supervisory Control & Data Acquisition 시스템",
+        easy: "변전소 스위치를 끄고 켜는 <strong>'초강력 리모컨'</strong>입니다. 혹시 기찻길 전선에 비상 감전 사고나 단선이 생기면 관제실에서 버튼 하나로 0.1초 만에 전체 전원 공급을 끊어 인명 피해를 완벽히 막아냅니다."
+      },
+      'pis-server': {
+        title: "📟 PIS & CCTV 행선안내 중앙 서버",
+        origin: "통합 정보 / Passenger Information 중앙 연동 제어",
+        easy: "모든 정거장에 '트램 3분 후 도착 예정'이라고 친절하게 띄워주고 차내 모니터에 비상 속보나 미아 방지 안내 영상을 원격 배포해주는 <strong>'정보 방송국 컴퓨터'</strong>입니다."
+      },
+      field: {
+        title: "⚙️ 현장 연동 신호 연동 장치 (Interlocking)",
+        origin: "현장 안전 보증 / SIL4 등급 안전 고신뢰 제어 연동 장치",
+        easy: "선로 옆 작은 함체 속에 숨어 있는 <strong>'지상 보안관 컴퓨터'</strong>입니다. 관제소 컴퓨터에서 잘못된 조작 명령을 내리더라도 실제 선로 레일 상태를 체크하여 **'지금 가시면 충돌해요!'**하고 강제로 신호를 빨간불로 차단하는 최후의 2차 방어벽입니다."
+      },
+      switch: {
+        title: "🔀 선로전환기 (Point Machine)",
+        origin: "Point Machine / Switch System",
+        easy: "쳇바퀴 같은 철길을 옆으로 스르륵 밀어내어 **'갈림길을 뚫어주는 구동장치'**입니다. 트램 바퀴가 미끄러지지 않고 안전하게 회차선이나 차량기지 수리 창고로 굴러 들어가도록 길을 비켜줍니다."
+      },
+      signal: {
+        title: "🚥 지상 신호기 및 액슬 카운터 (Axle Counter)",
+        origin: "현장 검지 / 차축 수 계산 센서 및 3현시 광원 지시 장치",
+        easy: "선로 아래 장착된 휠 센서가 바퀴가 몇 개 밟고 지나갔는지 카운트해 **'이 구역엔 기차가 꽉 차 있어!'**하고 관제실에 위치를 전달하고, 이에 따라 지상 신호등에 초록/노랑 불빛을 내주는 눈동자입니다."
+      }
+    };
+
+    // 설명 카드 업데이트
+    function inspectComponent(key) {
+      const data = componentsDb[key];
+      if (!data) return;
+
+      playBeep(520, 0.08);
+
+      const container = document.getElementById('inspector-content');
+      container.innerHTML = `
+        <div class="space-y-3 animate-fadeIn text-left">
+          <div class="border-b border-slate-800 pb-2">
+            <span class="text-[10px] text-emerald-400 font-mono tracking-widest block uppercase">${data.origin}</span>
+            <h4 class="font-bold text-slate-100 text-sm mt-0.5">${data.title}</h4>
+          </div>
+          
+          <div class="space-y-2.5">
+            <div>
+              <span class="text-[9px] bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded font-semibold">🔍 실제 엔지니어링 규격</span>
+              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">본 노면전차 기본설계에 따라 가동 연동 검측을 통과한 신뢰성 부품입니다. 규격 가이드라인에 준수하는 관리를 요합니다.</p>
+            </div>
+
+            <div class="bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/20">
+              <span class="text-[10px] text-emerald-400 font-bold block mb-1">👶 어린이 눈높이 쉬운 설명</span>
+              <p class="text-xs text-slate-200 leading-relaxed font-normal">${data.easy}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 시나리오 변수 상태 및 타이머 관리
+    let activeScenario = '';
+    let sysTimers = [];
+
+    function clearTimers() {
+      sysTimers.forEach(t => clearTimeout(t));
+      sysTimers = [];
+    }
+
+    // 시뮬레이션 시나리오 작동기 (순차 전하 연쇄 애니메이션 적용!)
+    const sysTimelineDb = {
+      normal: [
+        { title: "1단계: 전차선 DC 750V 공급", desc: "한전 변전계통에서 DC 750V 고압 전류를 차상 집전기(팬터그래프)로 즉각 공급합니다.", theme: "#fbbf24" },
+        { title: "2단계: LTE-R 무선 링크 활성화", desc: "차상 무선 기기가 작동하여 운행 및 위치 상태 데이터를 지상 RSE 기지국으로 쏩니다.", theme: "#38bdf8" },
+        { title: "3단계: 광 MPLS 백본 관제 보고", desc: "지상 무선 수신 신호를 이중화 광대역 10G 백홀을 거쳐 OCC 사령실 CTC로 고속 보고합니다.", theme: "#0284c7" },
+        { title: "4단계: OCC 관제 진행지령 수립", desc: "사령실 CTC서버에서 안전 거리를 확인한 후 현장 연동 컴퓨터에 원격 승인 명령을 송출합니다.", theme: "#10b981" },
+        { title: "5단계: 현장 신호 진행(녹색) 연동", desc: "현장 전자연동장치가 경로 락을 보증하고, 본선 지상 신호기를 초록불로 점등합니다.", theme: "#10b981" }
+      ],
+      emergency: [
+        { title: "1단계: 차량 비상 인터콤 작동", desc: "객실 내 승객 비상 통화 호출이 입력되어 차상 두뇌(TCMS)가 무선 비상 방호를 발동합니다.", theme: "#ef4444" },
+        { title: "2단계: LTE-R / 광백본 관제 보고", desc: "무선망과 MPLS 백홀을 거쳐 OCC 관제소 화면에 비상 긴급 이벤트 및 영상이 자동 팝업됩니다.", theme: "#ef4444" },
+        { title: "3단계: SCADA 전력 공급 긴급 차단", desc: "관제 SCADA 연동 스위치가 작동하여 변전소 차단기를 개방, 가선 전압을 0V로 즉각 다운시킵니다.", theme: "#eab308" },
+        { title: "4단계: 현장 신호 정지(적색) 쇄정", desc: "현장 연동컴퓨터가 본선 궤도 진로를 폐쇄하고, 지상 신호등에 정지(적색) 불빛을 켜서 후속 열차를 차단합니다.", theme: "#ef4444" }
+      ],
+      switch: [
+        { title: "1단계: CTC 회차선 경로 설정", desc: "관제사 CTC 화면에서 가스충전소/검수고 회차선 방면 신설 분기 진로 명령을 하달합니다.", theme: "#0284c7" },
+        { title: "2단계: 전자연동 쇄정 조건 검증", desc: "현장 보안 신호장치와 축검지기 센서가 해당 궤도에 선행 열차가 없음을 파악하고 잠금을 풉니다.", theme: "#34d399" },
+        { title: "3단계: 선로전환기 분기 구동", desc: "분기부 선로전환기(Point Machine) 모터가 레일을 물리적으로 대피선 방향으로 꺾어 밀착시킵니다.", theme: "#fb923c" },
+        { title: "4단계: 지상 신호기 주의(황색) 연동", desc: "분기 진로 정렬 완료 피드백을 수집하여 지상 신호등에 서행 진행을 뜻하는 황색 주의 등을 켭니다.", theme: "#fbbf24" }
+      ],
+      poweroff: [
+        { title: "1단계: SCADA 급전 차단기 개방", desc: "SCADA 배전반 차단기가 강제 개방되어 가선 전력 공급선 전압이 0V로 정전됩니다.", theme: "#eab308" },
+        { title: "2단계: 차량 무전원 배터리 전환", desc: "트램 차량이 무가선 배터리 추진 모드로 원격 자동 절체되어 비상 공급을 개시합니다.", theme: "#eab308" },
+        { title: "3단계: 차상 배터리 방전 및 통신 유지", desc: "대용량 리튬이온 배터리/SC 잔류 파워를 가동해 열차 정보(TCMS) 및 LTE-R 무선 제어를 보존합니다.", theme: "#fb923c" },
+        { title: "4단계: 다음역 무가선 자가 대피", desc: "차상 에너지 저장 장치의 전원을 동력 삼아 승객들을 다음 정거장까지 안전하고 부드럽게 무가선으로 탈출 이동시킵니다.", theme: "#10b981" }
+      ]
+    };
+
+
+    function updateSysInlineFlow(mode, activeIdx) {
+      const defaultOverviews = {
+        normal: "⚡ 전력·무선통신·광백본망·관제센터·현장신호가 유기적으로 맞물려 무사고 열차 자동운행을 보증하는 표준 계통 루프입니다.",
+        emergency: "🚨 승객 비상벨 작동 시 LTE-R 무선을 거쳐 관제센터가 전선 전력을 끊고(0V) 신호등을 적색으로 즉각 쇄정하는 방호 루프입니다.",
+        switch: "🔀 CTC 회차 명령에 따라 충돌 위험 검증 후 선로전환기가 레일을 대피선으로 꺾고 황색 주의 신호를 켜는 경로 전환 루프입니다.",
+        poweroff: "🔋 전차선 급전이 중단되더라도 트램 지붕의 대용량 배터리를 방전하여 다음역까지 안전하게 대피(Coasting)하는 구동 루프입니다."
+      };
+      const easyDescs = {
+        normal: [
+          "⚡ 한전 변전소에서 DC 750V 고압 전기를 선로 전차선에 투입하여 전 노선을 활성화합니다.",
+          "📡 트램이 깨어나 지붕 안테나를 통해 LTE-R 철도 전용망으로 열차 위치 데이터를 전송합니다.",
+          "🗼 무선 신호가 화성시 전용 IP-MPLS 초고속 광케이블망을 타고 OCC 관제실로 보고됩니다.",
+          "💻 OCC CTC 관제서버가 앞차와의 안전거리를 대조하고 열차에 출발 승인 명령을 하달합니다.",
+          "🟢 현장 신호제어반이 궤도 안전을 보장받은 뒤 지상 신호기에 녹색(진행) 램프를 점등시킵니다."
+        ],
+        emergency: [
+          "🚨 승객이 인터폰 벨을 누르자마자 트램 무선 안테나가 LTE-R 채널로 비상 전파를 쏩니다.",
+          "🗼 무선 신호가 광백본망을 타고 관제센터로 날아가 관제사 화면에 이벤트와 객실 CCTV 영상을 자동 팝업합니다.",
+          "⚡ 2차 감전/화재 사고를 방지하고자 관제 SCADA 스위치가 작동하여 전차선 전압을 0V로 끕니다.",
+          "🔴 신호 컴퓨터가 궤도 진로를 잠그고(쇄정) 지상 신호등에 정지(빨간불)를 켜 후속 열차를 막습니다."
+        ],
+        switch: [
+          "💻 관제사가 대피선/기지선 진입을 위해 분기 경로 명령 패킷을 CTC 시스템에서 실행합니다.",
+          "🔒 신호기가 다른 기차와의 충돌 위험이 전혀 없음을 센서로 확인하고 레일 잠금을 해제합니다.",
+          "🔀 지상 선로전환기(Point Machine) 모터가 돌면서 철길 레일을 분기 방향으로 꺾어 부착합니다.",
+          "🟡 레일 정렬 완료를 수신한 뒤, 신호등에 서행 통과 지시를 뜻하는 노란색(주의) 불을 켭니다."
+        ],
+        poweroff: [
+          "⚡ SCADA 원격 스위치가 개방되어 전차선의 외부 고압 전압 공급이 0V로 긴급 차단됩니다.",
+          "🔋 가선 정전을 인식한 트램이 즉시 지붕 위 배터리 추진(무가선) 모드로 무정전 자동 절체합니다.",
+          "📡 정전 상태에서도 대용량 리튬 배터리를 동력 삼아 무선 및 차내 안전 제어 링크를 유지합니다.",
+          "🚉 남은 배터리 파워를 이용해 다음역 정거장까지 승객들을 안전하게 무가선 추진으로 대피시킵니다."
+        ]
+      };
+
+      const modes = ['normal', 'emergency', 'switch', 'poweroff'];
+      const stepCounts = { normal: 5, emergency: 4, switch: 4, poweroff: 4 };
+      const activeColor = {
+        normal: { bg: "#38bdf8", border: "#38bdf8", text: "#ffffff", glow: "rgba(56, 189, 248, 0.6)" },
+        emergency: { bg: "#ef4444", border: "#ef4444", text: "#ffffff", glow: "rgba(239, 68, 68, 0.6)" },
+        switch: { bg: "#34d399", border: "#34d399", text: "#ffffff", glow: "rgba(52, 211, 153, 0.6)" },
+        poweroff: { bg: "#eab308", border: "#eab308", text: "#000000", glow: "rgba(234, 179, 8, 0.6)" }
+      };
+      const completedColor = {
+        normal: { bg: "rgba(56, 189, 248, 0.15)", border: "rgba(56, 189, 248, 0.4)", text: "#38bdf8" },
+        emergency: { bg: "rgba(239, 68, 68, 0.15)", border: "rgba(239, 68, 68, 0.4)", text: "#ef4444" },
+        switch: { bg: "rgba(52, 211, 153, 0.15)", border: "rgba(52, 211, 153, 0.4)", text: "#34d399" },
+        poweroff: { bg: "rgba(234, 179, 8, 0.15)", border: "rgba(234, 179, 8, 0.4)", text: "#eab308" }
+      };
+
+      modes.forEach(m => {
+        const count = stepCounts[m];
+        const isActiveMode = (m === mode);
+        
+        for (let i = 0; i < count; i++) {
+          const badge = document.getElementById(`flow-badge-${m}-${i}`);
+          if (!badge) continue;
+          
+          if (!isActiveMode) {
+            badge.style.opacity = "1.0";
+            badge.style.backgroundColor = completedColor[m].bg;
+            badge.style.border = `1px solid ${completedColor[m].border}`;
+            badge.style.color = completedColor[m].text;
+            badge.style.boxShadow = "none";
+            badge.style.transform = "none";
+            
+            const arrow = document.getElementById(`flow-arrow-${m}-${i}`);
+            if (arrow) arrow.style.opacity = "1.0";
+            continue;
+          }
+
+          if (i < activeIdx) {
+            badge.style.opacity = "1.0";
+            badge.style.backgroundColor = completedColor[m].bg;
+            badge.style.border = `1px solid ${completedColor[m].border}`;
+            badge.style.color = completedColor[m].text;
+            badge.style.boxShadow = "none";
+            badge.style.transform = "none";
+            
+            const arrow = document.getElementById(`flow-arrow-${m}-${i}`);
+            if (arrow) arrow.style.opacity = "1.0";
+          } else if (i === activeIdx) {
+            badge.style.opacity = "1.0";
+            badge.style.backgroundColor = activeColor[m].bg;
+            badge.style.border = `1.5px solid ${activeColor[m].border}`;
+            badge.style.color = activeColor[m].text;
+            badge.style.boxShadow = `0 0 12px ${activeColor[m].glow}`;
+            badge.style.transform = "scale(1.06)";
+            
+            const arrow = document.getElementById(`flow-arrow-${m}-${i}`);
+            if (arrow) arrow.style.opacity = "0.2";
+          } else {
+            badge.style.opacity = "0.2";
+            badge.style.backgroundColor = "rgba(255, 255, 255, 0.02)";
+            badge.style.border = "1px solid #1e293b";
+            badge.style.color = "#475569";
+            badge.style.boxShadow = "none";
+            badge.style.transform = "none";
+            
+            const arrow = document.getElementById(`flow-arrow-${m}-${i}`);
+            if (arrow) arrow.style.opacity = "0.15";
+          }
+        }
+      });
+          // 실시간 쉬운 설명 연동 업데이트
+          const descBox = document.getElementById(`flow-desc-${m}`);
+          if (descBox) {
+            if (!isActiveMode) {
+              // 대기 중 대신 기본 장착된 핵심 시나리오 개요 설명 표시
+              descBox.innerHTML = defaultOverviews[m];
+              descBox.style.color = "#475569";
+              descBox.style.fontWeight = "normal";
+            } else {
+              descBox.innerHTML = easyDescs[m][activeIdx];
+              descBox.style.color = activeColor[m].bg;
+              descBox.style.fontWeight = "bold";
+            }
+          }
+
+    }
+
+    function updateSysTimeline(mode, activeIdx) {
+      const inner = document.getElementById('inspector-content');
+      if (!inner) return;
+
+      const steps = sysTimelineDb[mode];
+      if (!steps) return;
+
+      let htmlStr = `
+        <div class="space-y-2.5 animate-fadeIn text-left width-full">
+          <div class="border-b border-slate-800 pb-2">
+            <span class="text-[10px] text-emerald-400 font-mono tracking-widest block uppercase">REALTIME FLOW MONITOR</span>
+            <h4 class="font-bold text-slate-100 text-sm mt-0.5">⚡ 실시간 계통 전파 시퀀스 추적기</h4>
+          </div>
+          <div class="relative flex flex-col gap-2">
+            <div style="position: absolute; left: 9px; top: 8px; bottom: 8px; width: 2px; border-left: 2px dashed #1e293b; z-index: 0; opacity: 0.5;"></div>
+      `;
+
+      steps.forEach((step, idx) => {
+        const isCompleted = idx < activeIdx;
+        const isActive = idx === activeIdx;
+        
+        let dotColor = "#1e293b";
+        let titleColor = "#94a3b8";
+        let descStyle = "display: none;";
+        let itemBg = "transparent";
+        let itemBorder = "none";
+        let pulseClass = "";
+
+        if (isCompleted) {
+          dotColor = "#10b981";
+          titleColor = "#f1f5f9";
+        } else if (isActive) {
+          dotColor = step.theme;
+          titleColor = "#ffffff";
+          descStyle = "display: block; font-size: 11px; color: #cbd5e1; line-height: 1.4; margin-top: 4px; font-weight: normal;";
+          itemBg = "rgba(56, 189, 248, 0.03)";
+          itemBorder = "1px solid rgba(56, 189, 248, 0.12)";
+          pulseClass = "animation: pulse 1.5s infinite;";
+        }
+
+        htmlStr += `
+          <div style="display: flex; gap: 10px; align-items: flex-start; z-index: 1; padding: 6px; border-radius: 6px; background-color: ${itemBg}; border: ${itemBorder}; transition: all 0.25s;">
+            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #050b14; border: 3px solid ${dotColor}; display: flex; align-items: center; justify-content: center; flex-shrink: 0; ${pulseClass}">
+              ${isCompleted ? '<span style="font-size: 9px; color: #10b981; font-weight:bold;">✔</span>' : '<span style="width: 4px; height: 4px; border-radius: 50%; background-color: ' + dotColor + ';"></span>'}
+            </div>
+            <div style="flex-grow: 1;">
+              <span style="font-size: 12px; font-weight: bold; color: ${titleColor};">${step.title}</span>
+              <div style="${descStyle}">${step.desc}</div>
+            </div>
+          </div>
+        `;
+      });
+
+      htmlStr += `
+          </div>
+          <style>
+            @keyframes pulse {
+              0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
+              70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); }
+              100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+            }
+          </style>
+        </div>
+      `;
+
+      inner.innerHTML = htmlStr;
+      updateSysInlineFlow(mode, activeIdx);
+    }
+
+        const sysTimelineDb = {
+      normal: [
+        { title: "1단계: 전차선 DC 750V 공급", desc: "한전 변전계통에서 DC 750V 고압 전류를 차상 집전기(팬터그래프)로 즉각 공급합니다.", theme: "#fbbf24" },
+        { title: "2단계: LTE-R 무선 링크 활성화", desc: "차상 무선 기기가 작동하여 운행 및 위치 상태 데이터를 지상 RSE 기지국으로 쏩니다.", theme: "#38bdf8" },
+        { title: "3단계: 광 MPLS 백본 관제 보고", desc: "지상 무선 수신 신호를 이중화 광대역 10G 백홀을 거쳐 OCC 사령실 CTC로 고속 보고합니다.", theme: "#0284c7" },
+        { title: "4단계: OCC 관제 진행지령 수립", desc: "사령실 CTC서버에서 안전 거리를 확인한 후 현장 연동 컴퓨터에 원격 승인 명령을 송출합니다.", theme: "#10b981" },
+        { title: "5단계: 현장 신호 진행(녹색) 연동", desc: "현장 전자연동장치가 경로 락을 보증하고, 본선 지상 신호기를 초록불로 점등합니다.", theme: "#10b981" }
+      ],
+      emergency: [
+        { title: "1단계: 차량 비상 인터콤 작동", desc: "객실 내 승객 비상 통화 호출이 입력되어 차상 두뇌(TCMS)가 무선 비상 방호를 발동합니다.", theme: "#ef4444" },
+        { title: "2단계: LTE-R / 광백본 관제 보고", desc: "무선망과 MPLS 백홀을 거쳐 OCC 관제소 화면에 비상 긴급 이벤트 및 영상이 자동 팝업됩니다.", theme: "#ef4444" },
+        { title: "3단계: SCADA 전력 공급 긴급 차단", desc: "관제 SCADA 연동 스위치가 작동하여 변전소 차단기를 개방, 가선 전압을 0V로 즉각 다운시킵니다.", theme: "#eab308" },
+        { title: "4단계: 현장 신호 정지(적색) 쇄정", desc: "현장 연동컴퓨터가 본선 궤도 진로를 폐쇄하고, 지상 신호등에 정지(적색) 불빛을 켜서 후속 열차를 차단합니다.", theme: "#ef4444" }
+      ],
+      switch: [
+        { title: "1단계: CTC 회차선 경로 설정", desc: "관제사 CTC 화면에서 가스충전소/검수고 회차선 방면 신설 분기 진로 명령을 하달합니다.", theme: "#0284c7" },
+        { title: "2단계: 전자연동 쇄정 조건 검증", desc: "현장 보안 신호장치와 축검지기 센서가 해당 궤도에 선행 열차가 없음을 파악하고 잠금을 풉니다.", theme: "#34d399" },
+        { title: "3단계: 선로전환기 분기 구동", desc: "분기부 선로전환기(Point Machine) 모터가 레일을 물리적으로 대피선 방향으로 꺾어 밀착시킵니다.", theme: "#fb923c" },
+        { title: "4단계: 지상 신호기 주의(황색) 연동", desc: "분기 진로 정렬 완료 피드백을 수집하여 지상 신호등에 서행 진행을 뜻하는 황색 주의 등을 켭니다.", theme: "#fbbf24" }
+      ],
+      poweroff: [
+        { title: "1단계: SCADA 급전 차단기 개방", desc: "SCADA 배전반 차단기가 강제 개방되어 가선 전력 공급선 전압이 0V로 정전됩니다.", theme: "#eab308" },
+        { title: "2단계: 차량 무전원 배터리 전환", desc: "트램 차량이 무가선 배터리 추진 모드로 원격 자동 절체되어 비상 공급을 개시합니다.", theme: "#eab308" },
+        { title: "3단계: 차상 배터리 방전 및 통신 유지", desc: "대용량 리튬이온 배터리/SC 잔류 파워를 가동해 열차 정보(TCMS) 및 LTE-R 무선 제어를 보존합니다.", theme: "#fb923c" },
+        { title: "4단계: 다음역 무가선 자가 대피", desc: "차상 에너지 저장 장치의 전원을 동력 삼아 승객들을 다음 정거장까지 안전하고 부드럽게 무가선으로 탈출 이동시킵니다.", theme: "#10b981" }
+      ]
+    };
+
+
+    function updateSysInlineFlow(mode, activeIdx) {
+      const defaultOverviews = {
+        normal: "⚡ 전력·무선통신·광백본망·관제센터·현장신호가 유기적으로 맞물려 무사고 열차 자동운행을 보증하는 표준 계통 루프입니다.",
+        emergency: "🚨 승객 비상벨 작동 시 LTE-R 무선을 거쳐 관제센터가 전선 전력을 끊고(0V) 신호등을 적색으로 즉각 쇄정하는 방호 루프입니다.",
+        switch: "🔀 CTC 회차 명령에 따라 충돌 위험 검증 후 선로전환기가 레일을 대피선으로 꺾고 황색 주의 신호를 켜는 경로 전환 루프입니다.",
+        poweroff: "🔋 전차선 급전이 중단되더라도 트램 지붕의 대용량 배터리를 방전하여 다음역까지 안전하게 대피(Coasting)하는 구동 루프입니다."
+      };
+      const easyDescs = {
+        normal: [
+          "⚡ 한전 변전소에서 DC 750V 고압 전기를 선로 전차선에 투입하여 전 노선을 활성화합니다.",
+          "📡 트램이 깨어나 지붕 안테나를 통해 LTE-R 철도 전용망으로 열차 위치 데이터를 전송합니다.",
+          "🗼 무선 신호가 화성시 전용 IP-MPLS 초고속 광케이블망을 타고 OCC 관제실로 보고됩니다.",
+          "💻 OCC CTC 관제서버가 앞차와의 안전거리를 대조하고 열차에 출발 승인 명령을 하달합니다.",
+          "🟢 현장 신호제어반이 궤도 안전을 보장받은 뒤 지상 신호기에 녹색(진행) 램프를 점등시킵니다."
+        ],
+        emergency: [
+          "🚨 승객이 인터폰 벨을 누르자마자 트램 무선 안테나가 LTE-R 채널로 비상 전파를 쏩니다.",
+          "🗼 무선 신호가 광백본망을 타고 관제센터로 날아가 관제사 화면에 이벤트와 객실 CCTV 영상을 자동 팝업합니다.",
+          "⚡ 2차 감전/화재 사고를 방지하고자 관제 SCADA 스위치가 작동하여 전차선 전압을 0V로 끕니다.",
+          "🔴 신호 컴퓨터가 궤도 진로를 잠그고(쇄정) 지상 신호등에 정지(빨간불)를 켜 후속 열차를 막습니다."
+        ],
+        switch: [
+          "💻 관제사가 대피선/기지선 진입을 위해 분기 경로 명령 패킷을 CTC 시스템에서 실행합니다.",
+          "🔒 신호기가 다른 기차와의 충돌 위험이 전혀 없음을 센서로 확인하고 레일 잠금을 해제합니다.",
+          "🔀 지상 선로전환기(Point Machine) 모터가 돌면서 철길 레일을 분기 방향으로 꺾어 부착합니다.",
+          "🟡 레일 정렬 완료를 수신한 뒤, 신호등에 서행 통과 지시를 뜻하는 노란색(주의) 불을 켭니다."
+        ],
+        poweroff: [
+          "⚡ SCADA 원격 스위치가 개방되어 전차선의 외부 고압 전압 공급이 0V로 긴급 차단됩니다.",
+          "🔋 가선 정전을 인식한 트램이 즉시 지붕 위 배터리 추진(무가선) 모드로 무정전 자동 절체합니다.",
+          "📡 정전 상태에서도 대용량 리튬 배터리를 동력 삼아 무선 및 차내 안전 제어 링크를 유지합니다.",
+          "🚉 남은 배터리 파워를 이용해 다음역 정거장까지 승객들을 안전하게 무가선 추진으로 대피시킵니다."
+        ]
+      };
+
+      const modes = ['normal', 'emergency', 'switch', 'poweroff'];
+      const stepCounts = { normal: 5, emergency: 4, switch: 4, poweroff: 4 };
+      const activeColor = {
+        normal: { bg: "#38bdf8", border: "#38bdf8", text: "#ffffff", glow: "rgba(56, 189, 248, 0.6)" },
+        emergency: { bg: "#ef4444", border: "#ef4444", text: "#ffffff", glow: "rgba(239, 68, 68, 0.6)" },
+        switch: { bg: "#34d399", border: "#34d399", text: "#ffffff", glow: "rgba(52, 211, 153, 0.6)" },
+        poweroff: { bg: "#eab308", border: "#eab308", text: "#000000", glow: "rgba(234, 179, 8, 0.6)" }
+      };
+      const completedColor = {
+        normal: { bg: "rgba(56, 189, 248, 0.15)", border: "rgba(56, 189, 248, 0.4)", text: "#38bdf8" },
+        emergency: { bg: "rgba(239, 68, 68, 0.15)", border: "rgba(239, 68, 68, 0.4)", text: "#ef4444" },
+        switch: { bg: "rgba(52, 211, 153, 0.15)", border: "rgba(52, 211, 153, 0.4)", text: "#34d399" },
+        poweroff: { bg: "rgba(234, 179, 8, 0.15)", border: "rgba(234, 179, 8, 0.4)", text: "#eab308" }
+      };
+
+      modes.forEach(m => {
+        const count = stepCounts[m];
+        const isActiveMode = (m === mode);
+        
+        for (let i = 0; i < count; i++) {
+          const badge = document.getElementById(`flow-badge-${m}-${i}`);
+          if (!badge) continue;
+          
+          if (!isActiveMode) {
+            badge.style.opacity = "1.0";
+            badge.style.backgroundColor = completedColor[m].bg;
+            badge.style.border = `1px solid ${completedColor[m].border}`;
+            badge.style.color = completedColor[m].text;
+            badge.style.boxShadow = "none";
+            badge.style.transform = "none";
+            
+            const arrow = document.getElementById(`flow-arrow-${m}-${i}`);
+            if (arrow) arrow.style.opacity = "1.0";
+            continue;
+          }
+
+          if (i < activeIdx) {
+            badge.style.opacity = "1.0";
+            badge.style.backgroundColor = completedColor[m].bg;
+            badge.style.border = `1px solid ${completedColor[m].border}`;
+            badge.style.color = completedColor[m].text;
+            badge.style.boxShadow = "none";
+            badge.style.transform = "none";
+            
+            const arrow = document.getElementById(`flow-arrow-${m}-${i}`);
+            if (arrow) arrow.style.opacity = "1.0";
+          } else if (i === activeIdx) {
+            badge.style.opacity = "1.0";
+            badge.style.backgroundColor = activeColor[m].bg;
+            badge.style.border = `1.5px solid ${activeColor[m].border}`;
+            badge.style.color = activeColor[m].text;
+            badge.style.boxShadow = `0 0 12px ${activeColor[m].glow}`;
+            badge.style.transform = "scale(1.06)";
+            
+            const arrow = document.getElementById(`flow-arrow-${m}-${i}`);
+            if (arrow) arrow.style.opacity = "0.2";
+          } else {
+            badge.style.opacity = "0.2";
+            badge.style.backgroundColor = "rgba(255, 255, 255, 0.02)";
+            badge.style.border = "1px solid #1e293b";
+            badge.style.color = "#475569";
+            badge.style.boxShadow = "none";
+            badge.style.transform = "none";
+            
+            const arrow = document.getElementById(`flow-arrow-${m}-${i}`);
+            if (arrow) arrow.style.opacity = "0.15";
+          }
+        }
+      });
+          // 실시간 쉬운 설명 연동 업데이트
+          const descBox = document.getElementById(`flow-desc-${m}`);
+          if (descBox) {
+            if (!isActiveMode) {
+              // 대기 중 대신 기본 장착된 핵심 시나리오 개요 설명 표시
+              descBox.innerHTML = defaultOverviews[m];
+              descBox.style.color = "#475569";
+              descBox.style.fontWeight = "normal";
+            } else {
+              descBox.innerHTML = easyDescs[m][activeIdx];
+              descBox.style.color = activeColor[m].bg;
+              descBox.style.fontWeight = "bold";
+            }
+          }
+
+    }
+
+    function updateSysTimeline(mode, activeIdx) {
+      const inner = document.getElementById('inspector-content');
+      if (!inner) return;
+
+      const steps = sysTimelineDb[mode];
+      if (!steps) return;
+
+      let htmlStr = `
+        <div class="space-y-2.5 animate-fadeIn text-left w-full">
+          <div class="border-b border-slate-800 pb-2">
+            <span class="text-[10px] text-emerald-400 font-mono tracking-widest block uppercase">REALTIME FLOW MONITOR</span>
+            <h4 class="font-bold text-slate-100 text-sm mt-0.5">⚡ 실시간 계통 전파 시퀀스 추적기</h4>
+          </div>
+          <div class="relative flex flex-col gap-2">
+            <div style="position: absolute; left: 9px; top: 8px; bottom: 8px; width: 2px; border-left: 2px dashed #1e293b; z-index: 0; opacity: 0.5;"></div>
+      `;
+
+      steps.forEach((step, idx) => {
+        const isCompleted = idx < activeIdx;
+        const isActive = idx === activeIdx;
+        
+        let dotColor = "#1e293b";
+        let titleColor = "#94a3b8";
+        let descStyle = "display: none;";
+        let itemBg = "transparent";
+        let itemBorder = "none";
+        let pulseClass = "";
+
+        if (isCompleted) {
+          dotColor = "#10b981";
+          titleColor = "#f1f5f9";
+        } else if (isActive) {
+          dotColor = step.theme;
+          titleColor = "#ffffff";
+          descStyle = "display: block; font-size: 11px; color: #cbd5e1; line-height: 1.4; margin-top: 4px; font-weight: normal;";
+          itemBg = "rgba(56, 189, 248, 0.03)";
+          itemBorder = "1px solid rgba(56, 189, 248, 0.12)";
+          pulseClass = "animation: pulse 1.5s infinite;";
+        }
+
+        htmlStr += `
+          <div style="display: flex; gap: 10px; align-items: flex-start; z-index: 1; padding: 6px; border-radius: 6px; background-color: ${itemBg}; border: ${itemBorder}; transition: all 0.25s;">
+            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #050b14; border: 3px solid ${dotColor}; display: flex; align-items: center; justify-content: center; flex-shrink: 0; ${pulseClass}">
+              ${isCompleted ? '<span style="font-size: 9px; color: #10b981; font-weight:bold;">✔</span>' : '<span style="width: 4px; height: 4px; border-radius: 50%; background-color: ' + dotColor + ';"></span>'}
+            </div>
+            <div style="flex-grow: 1;">
+              <span style="font-size: 12px; font-weight: bold; color: ${titleColor};">${step.title}</span>
+              <div style="${descStyle}">${step.desc}</div>
+            </div>
+          </div>
+        `;
+      });
+
+      htmlStr += `
+          </div>
+          <style>
+            @keyframes pulse {
+              0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
+              70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); }
+              100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+            }
+          </style>
+        </div>
+      `;
+
+      inner.innerHTML = htmlStr;
+      updateSysInlineFlow(mode, activeIdx);
+    }
+
+    let activeScenario = 'normal';
+    let sysTimers = [];
+
+    function clearTimers() {
+      sysTimers.forEach(t => clearTimeout(t));
+      sysTimers = [];
+    }
+
+    function runScenario(mode) {
+      clearTimers();
+
+      const pPower = document.getElementById('path-power');
+      const pVehicle = document.getElementById('path-vehicle-wireless');
+      const pBackhaul = document.getElementById('path-backhaul');
+      const pField = document.getElementById('path-control-to-field');
+      const pAction = document.getElementById('path-field-action');
+
+      const sigRed = document.getElementById('sig-red');
+      const sigYellow = document.getElementById('sig-yellow');
+      const sigGreen = document.getElementById('sig-green');
+
+      const pantoWire = document.getElementById('panto-wire');
+      const overlay = document.getElementById('emergency-overlay');
+      const statusDot = document.getElementById('status-dot');
+      const statusTxt = document.getElementById('status-text');
+
+      const pkv = document.getElementById('text-power-kv');
+      const swInd = document.getElementById('indicator-switch');
+      const shell = document.getElementById('sys-tram-shell');
+
+      const indTcms = document.getElementById('sys-ind-tcms');
+      const indNvr = document.getElementById('sys-ind-nvr');
+      const indMmi = document.getElementById('sys-ind-mmi');
+      const indCtc = document.getElementById('sys-ind-ctc');
+      const indScada = document.getElementById('sys-ind-scada');
+      const indPis = document.getElementById('sys-ind-pis');
+
+      const inspectorInner = document.getElementById('inspector-content');
+
+      // 모든 시나리오 버튼 리셋
+      ['normal', 'emergency', 'switch', 'poweroff'].forEach(m => {
+        const btn = document.getElementById(`btn-scenario-${m}`);
+        if (btn) {
+          btn.className = "w-full text-left p-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 font-semibold text-xs flex items-center justify-between hover:bg-sky-500/15 hover:border-sky-500/30 hover:text-sky-300 transition";
+          const badge = btn.querySelector('span:last-child');
+          if (badge) {
+            badge.textContent = m === 'switch' ? 'ROUTE' : (m === 'poweroff' ? 'POWER' : 'OFF');
+            badge.className = "text-[10px] bg-slate-950 px-1.5 py-0.5 rounded font-mono";
+          }
+        }
+      });
+
+      // 액티브 버튼 스타일 입히기
+      const activeBtn = document.getElementById(`btn-scenario-${mode}`);
+      if (activeBtn) {
+        if (mode === 'normal') {
+          activeBtn.className = "w-full text-left p-3 rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-300 font-semibold text-xs flex items-center justify-between hover:bg-sky-500/25 transition";
+        } else if (mode === 'emergency') {
+          activeBtn.className = "w-full text-left p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 font-semibold text-xs flex items-center justify-between hover:bg-red-500/25 transition";
+        } else if (mode === 'switch') {
+          activeBtn.className = "w-full text-left p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-semibold text-xs flex items-center justify-between hover:bg-emerald-500/25 transition";
+        } else if (mode === 'poweroff') {
+          activeBtn.className = "w-full text-left p-3 rounded-xl bg-yellow-500/15 border border-yellow-500/30 text-yellow-300 font-semibold text-xs flex items-center justify-between hover:bg-yellow-500/25 transition";
+        }
+        const badge = activeBtn.querySelector('span:last-child');
+        if (badge) {
+          badge.textContent = "ACTIVE";
+          badge.className = "text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-400/30 font-mono";
+        }
+      }
+
+      activeScenario = mode;
+
+      // 모든 선로 비활성화 소등 초기화
+      [pPower, pVehicle, pBackhaul, pField, pAction].forEach(p => {
+        p.className.baseVal = "flow-inactive";
+        p.style.opacity = "0.08";
+        p.style.strokeDasharray = "none";
+        p.style.animation = "none";
+      });
+
+      // 모든 기기 지시등 회색 대기 상태 초기화
+      [indTcms, indNvr, indMmi, indCtc, indScada, indPis].forEach(el => {
+        if (el) el.style.fill = "#475569";
+      });
+
+      // ─────────────────────────────────────────────────────────────────
+      // 정상 운행 모드 (1단계 ➔ 5단계 순차 흐름 연쇄 전파)
+      // ─────────────────────────────────────────────────────────────────
+      if (mode === 'normal') {
+        playBeep(880, 0.12);
+        
+        // 1단계: 변전소 공급 개시
+        writeLog("[시나리오] 정상 주행 모드 가동 완료.");
+        pPower.style.opacity = "1";
+        pPower.style.stroke = "#fbbf24";
+        pPower.style.strokeDasharray = "8, 12";
+        pPower.style.animation = "sys-signal-forward 1.5s linear infinite";
+        pantoWire.setAttribute("stroke", "#fbbf24");
+        pkv.textContent = "750V DC 급전";
+        shell.setAttribute("stroke", "#38bdf8");
+        overlay.classList.add('opacity-0');
+        statusDot.className = "w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse";
+        statusTxt.textContent = "[1단계 전력] 변전소 ➔ 트램 차량 주전력 공급 중";
+        updateSysTimeline("normal", 0);
+
+        if (indTcms) indTcms.style.fill = "#10b981";
+
+        // 2단계: 차상 무선 전송 (1000ms 후)
+        sysTimers.push(setTimeout(() => {
+          playBeep(700, 0.08);
+          pVehicle.style.opacity = "1";
+          pVehicle.style.stroke = "#38bdf8";
+          pVehicle.style.strokeDasharray = "8, 12";
+          pVehicle.style.animation = "sys-signal-forward 1.2s linear infinite";
+          statusDot.className = "w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse";
+          statusTxt.textContent = "[2단계 통신] 트램 차량 ➔ LTE-R 기지국 데이터 연결";
+          writeLog("[단계 2] 트램 차량 ➔ LTE-R 무선 기지국 연결 성공.");
+          updateSysTimeline("normal", 1);
+          if (indNvr) indNvr.style.fill = "#10b981";
+        }, 1000));
+
+        // 3단계: 백본망 OCC 전송 (2000ms 후)
+        sysTimers.push(setTimeout(() => {
+          playBeep(800, 0.08);
+          pBackhaul.style.opacity = "1";
+          pBackhaul.style.stroke = "#38bdf8";
+          pBackhaul.style.strokeDasharray = "8, 12";
+          pBackhaul.style.animation = "sys-signal-forward 1.2s linear infinite";
+          statusDot.className = "w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse";
+          statusTxt.textContent = "[3단계 백본] 10G IP-MPLS 광대역 링 백홀 전송 중";
+          writeLog("[단계 3] 기지국 ➔ 초고속 IP-MPLS 광링 백본을 통해 종합 관제 센터(OCC) 패킷 유입.");
+          updateSysTimeline("normal", 2);
+          if (indMmi) indMmi.style.fill = "#10b981";
+        }, 2000));
+
+        // 4단계: CTC 지령 송출 (3000ms 후)
+        sysTimers.push(setTimeout(() => {
+          playBeep(900, 0.08);
+          pField.style.opacity = "1";
+          pField.style.stroke = "#34d399";
+          pField.style.strokeDasharray = "8, 12";
+          pField.style.animation = "sys-signal-forward 1.0s linear infinite";
+          statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
+          statusTxt.textContent = "[4단계 명령] 관제소 진행 지령 ➔ 현장 보안 컴퓨터 수신";
+          writeLog("[단계 4] CTC 종합 서버 ➔ 현장 연동 신호 장치로 열차 안전 운행 명령 하달.");
+          updateSysTimeline("normal", 3);
+          if (indCtc) indCtc.style.fill = "#10b981";
+          if (indScada) indScada.style.fill = "#10b981";
+        }, 3000));
+
+        // 5단계: 현장 신호등 진행 점등 (4000ms 후)
+        sysTimers.push(setTimeout(() => {
+          playBeep(1000, 0.1);
+          pAction.style.opacity = "1";
+          pAction.style.stroke = "#fb923c";
+          pAction.style.strokeDasharray = "8, 12";
+          pAction.style.animation = "sys-signal-forward 1.4s linear infinite";
+          statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
+          statusTxt.textContent = "종합 관제 센터 동기화 완료 (안전 운행 확보)";
+          updateSysTimeline("normal", 4);
+
+          sigRed.setAttribute("opacity", "0.3");
+          sigYellow.setAttribute("opacity", "0.3");
+          sigGreen.setAttribute("opacity", "1");
+          swInd.setAttribute("fill", "#4ade80");
+
+          if (indPis) indPis.style.fill = "#10b981";
+          writeLog("[단계 5] 현장 신호 및 궤도 기기 동작 연동 정상 수립 완료.");
+        }, 4000));
+      } 
+
+      // ─────────────────────────────────────────────────────────────────
+      // 비상 정지 모드 (순차 연출)
+      // ─────────────────────────────────────────────────────────────────
+      else if (mode === 'emergency') {
+        playBeep(380, 0.15, 'sawtooth');
+        setTimeout(() => playBeep(380, 0.15, 'sawtooth'), 180);
+
+        writeLog("[비상 모드 개시] 비상 연동 시퀀스를 가동합니다.");
+
+        // 1단계: 차량 비상벨 작동 ➔ 무선 송출 (즉시)
+        pVehicle.style.opacity = "1";
+        pVehicle.style.stroke = "#ef4444";
+        pVehicle.style.strokeDasharray = "6, 8";
+        pVehicle.style.animation = "sys-signal-forward 0.6s linear infinite";
+
+        overlay.classList.remove('opacity-0');
+        overlay.style.opacity = "0.3"; 
+        statusDot.className = "w-2.5 h-2.5 rounded-full bg-red-500 animate-ping";
+        statusTxt.textContent = "[비상 1단계] 차량 비상벨 작동 ➔ LTE-R 무선 송출 중";
+        shell.setAttribute("stroke", "#ef4444");
+        updateSysTimeline("emergency", 0);
+
+        if (indTcms) indTcms.style.fill = "#ef4444";
+        if (indNvr) indNvr.style.fill = "#ef4444";
+
+        writeLog("[비상 1단계] T01 차량 내 승객 비상벨(인터콤) 감지. 무선 방호 주파수 즉시 송신.");
+
+        // 2단계: LTE-R/백본망 관제보고 (1000ms 후)
+        sysTimers.push(setTimeout(() => {
+          playBeep(450, 0.1);
+          pBackhaul.style.opacity = "1";
+          pBackhaul.style.stroke = "#ef4444";
+          pBackhaul.style.strokeDasharray = "6, 8";
+          pBackhaul.style.animation = "sys-signal-forward 0.6s linear infinite";
+
+          statusTxt.textContent = "[비상 2단계] 무선기지국 ➔ MPLS 광대역 관제 수신 완료";
+          writeLog("[비상 2단계] 지상 안테나 수신 및 10G 광백본망을 경유해 종합관제 센터(OCC)로 비상 신호 도달.");
+          updateSysTimeline("emergency", 1);
+
+          if (indCtc) indCtc.style.fill = "#ef4444";
+          if (indPis) indPis.style.fill = "#ef4444";
+        }, 1000));
+
+        // 3단계: SCADA 전력 긴급 차단 (2000ms 후)
+        sysTimers.push(setTimeout(() => {
+          playBeep(500, 0.12, 'sawtooth');
+          pPower.style.opacity = "0.2";
+          pPower.style.stroke = "#475569"; 
+          pPower.style.animation = "none";
+          pantoWire.setAttribute("stroke", "#475569");
+
+          pkv.textContent = "전력 긴급 차단 (0V)";
+          statusTxt.textContent = "[비상 3단계] 관제 SCADA 스위치 개방 ➔ 급전 전압 차단(0V)";
+          writeLog("[비상 3단계] SCADA 원격 긴급 연동 즉각 작동. 해당 선로 주전차선 송전 긴급 차단(750V ➔ 0V).", true);
+          updateSysTimeline("emergency", 2);
+
+          if (indScada) indScada.style.fill = "#ef4444";
+        }, 2000));
+
+        // 4단계: 현장 신호 정지 적색 쇄정 (3000ms 후)
+        sysTimers.push(setTimeout(() => {
+          playBeep(350, 0.25, 'sawtooth');
+          pField.style.opacity = "1";
+          pField.style.stroke = "#ef4444";
+          pField.style.strokeDasharray = "6, 8";
+          pField.style.animation = "sys-signal-forward 0.6s linear infinite";
+
+          pAction.style.opacity = "1";
+          pAction.style.stroke = "#ef4444";
+          pAction.style.strokeDasharray = "6, 8";
+          pAction.style.animation = "sys-signal-forward 0.6s linear infinite";
+
+          overlay.style.opacity = "1"; 
+          statusTxt.textContent = "🚨 비상 제동 및 신호 쇄정 수립 완료";
+          writeLog("[비상 4단계] 현장 연동 컴퓨터에 의해 지상 신호기 적색(정지) 강제 전환 완료.", true);
+          writeLog("[종합] 차량-통신-전력-신호의 유기적 Fail-Safe 연동 락다운이 정상 완료되었습니다.", true);
+          updateSysTimeline("emergency", 3);
+
+          sigRed.setAttribute("opacity", "1.0");
+          sigYellow.setAttribute("opacity", "0.3");
+          sigGreen.setAttribute("opacity", "0.3");
+          swInd.setAttribute("fill", "#ef4444");
+        }, 3000));
+      } 
+
+      // ─────────────────────────────────────────────────────────────────
+      // 선로 전환 모드 (순차 연출)
+      // ─────────────────────────────────────────────────────────────────
+      else if (mode === 'switch') {
+        playBeep(650, 0.15);
+        writeLog("[선로전환 모드 개시] 분기선 경로 설정 시퀀스를 가동합니다.");
+
+        // 1단계: 변전소 공급 유지 및 정보 송출 (즉시)
+        pPower.style.opacity = "1";
+        pPower.style.stroke = "#fbbf24";
+        pPower.style.strokeDasharray = "8, 12";
+        pPower.style.animation = "sys-signal-forward 1.5s linear infinite";
+        pantoWire.setAttribute("stroke", "#fbbf24");
+        pkv.textContent = "750V DC 급전";
+        shell.setAttribute("stroke", "#0284c7");
+        overlay.classList.add('opacity-0');
+        statusDot.className = "w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse";
+        statusTxt.textContent = "[분기 1단계] CTC 분기 경로 지령 입력 대기";
+        updateSysTimeline("switch", 0);
+
+        if (indTcms) indTcms.style.fill = "#10b981";
+        if (indScada) indScada.style.fill = "#10b981";
+
+        // 2단계: CTC 경로 전환 지령 백본망 전송 (800ms)
+        sysTimers.push(setTimeout(() => {
+          playBeep(700, 0.08);
+          pBackhaul.style.opacity = "1";
+          pBackhaul.style.stroke = "#38bdf8";
+          pBackhaul.style.strokeDasharray = "8, 12";
+          pBackhaul.style.animation = "sys-signal-forward 1.2s linear infinite";
+          statusDot.className = "w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse";
+          statusTxt.textContent = "[분기 2단계] 백본망을 통한 선로 전환 지령 도달";
+          writeLog("[단계 2] CTC 중앙서버에서 선로전환 지령 패킷을 IP-MPLS 광백본망에 투입.");
+          updateSysTimeline("switch", 1);
+          if (indCtc) indCtc.style.fill = "#10b981";
+        }, 800));
+
+        // 3단계: 현장 신호제어반 쇄정 해제 승인 (1600ms)
+        sysTimers.push(setTimeout(() => {
+          playBeep(800, 0.08);
+          pField.style.opacity = "1";
+          pField.style.stroke = "#34d399";
+          pField.style.strokeDasharray = "8, 12";
+          pField.style.animation = "sys-signal-forward 1.0s linear infinite";
+          statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
+          statusTxt.textContent = "[분기 3단계] 현장 연동 컴퓨터 진로 쇄정 해제 확인";
+          writeLog("[단계 3] 현장 전자연동장치가 쇄정 해제 승인.");
+          updateSysTimeline("switch", 2);
+        }, 1600));
+
+        // 4단계: 선로전환기 구동 및 신호 주의(황색) 전환 완료 (2400ms)
+        sysTimers.push(setTimeout(() => {
+          playBeep(900, 0.1);
+          pAction.style.opacity = "1";
+          pAction.style.stroke = "#fb923c";
+          pAction.style.strokeDasharray = "8, 12";
+          pAction.style.animation = "sys-signal-forward 1.4s linear infinite";
+          statusDot.className = "w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse";
+          statusTxt.textContent = "선로전환기 분기 구동 완료 (황색 주의 신호 연동)";
+          updateSysTimeline("switch", 3);
+
+          sigRed.setAttribute("opacity", "0.3");
+          sigYellow.setAttribute("opacity", "1");
+          sigGreen.setAttribute("opacity", "0.3");
+          swInd.setAttribute("fill", "#fbbf24");
+
+          if (indPis) indPis.style.fill = "#10b981";
+          writeLog("[단계 4] 선로전환기 모터 구동 ➔ 회차선로 절체 및 신호기 황색 점등 완료.");
+        }, 2400));
+      } 
+
+      // ─────────────────────────────────────────────────────────────────
+      // 전력 차단 모드
+      // ─────────────────────────────────────────────────────────────────
+      else if (mode === 'poweroff') {
+        playBeep(450, 0.12);
+        setTimeout(() => playBeep(400, 0.12), 100);
+
+        writeLog("[점검 차단] SCADA 강제 배전 점검 차단 동작을 모의 개시합니다.");
+
+        // 1단계: 변전소 공급 차단 (즉시)
+        pPower.style.opacity = "0.1";
+        pPower.className.baseVal = "flow-inactive";
+        pantoWire.setAttribute("stroke", "#475569");
+        pkv.textContent = "0 V (점검 차단)";
+        shell.setAttribute("stroke", "#eab308"); // 배터리 운행 경고
+        overlay.classList.add('opacity-0');
+        statusDot.className = "w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
+        statusTxt.textContent = "[차단 1단계] 주전력 차단 ➔ 배터리 무전원 코스팅 적용";
+        updateSysTimeline("poweroff", 0);
+
+        if (indScada) indScada.style.fill = "#ef4444";
+
+        // 2단계: 무선망 전송 보고 (800ms)
+        sysTimers.push(setTimeout(() => {
+          playBeep(700, 0.08);
+          pVehicle.style.opacity = "1";
+          pVehicle.style.stroke = "#fb923c";
+          pVehicle.style.strokeDasharray = "8, 12";
+          pVehicle.style.animation = "sys-signal-forward 1.2s linear infinite";
+          pBackhaul.style.opacity = "1";
+          pBackhaul.style.stroke = "#fb923c";
+          pBackhaul.style.strokeDasharray = "8, 12";
+          pBackhaul.style.animation = "sys-signal-forward 1.2s linear infinite";
+          statusTxt.textContent = "[차단 2단계] 배터리 타행 현황 관제실 무선 송수신";
+          writeLog("[단계 2] 트램 차량이 배터리 타행 모드로 진입하였음을 CTC에 실시간 무선 보고.");
+          updateSysTimeline("poweroff", 1);
+
+          if (indTcms) indTcms.style.fill = "#eab308";
+          if (indNvr) indNvr.style.fill = "#eab308";
+        }, 800));
+
+        // 3단계: SCADA 원격 감시 가동 (1600ms)
+        sysTimers.push(setTimeout(() => {
+          playBeep(800, 0.08);
+          pField.style.opacity = "1";
+          pField.style.stroke = "#34d399";
+          pField.style.strokeDasharray = "8, 12";
+          pField.style.animation = "sys-signal-forward 1.0s linear infinite";
+          pAction.style.opacity = "1";
+          pAction.style.stroke = "#fb923c";
+          pAction.style.strokeDasharray = "8, 12";
+          pAction.style.animation = "sys-signal-forward 1.4s linear infinite";
+          
+          statusDot.className = "w-2.5 h-2.5 rounded-full bg-yellow-500 animate-pulse";
+          statusTxt.textContent = "전력 차단 상태 모니터링 가동 (통신 유지)";
+          updateSysTimeline("poweroff", 2);
+
+          sigRed.setAttribute("opacity", "0.3");
+          sigYellow.setAttribute("opacity", "0.3");
+          sigGreen.setAttribute("opacity", "1");
+          swInd.setAttribute("fill", "#10b981");
+
+          if (indCtc) indCtc.style.fill = "#10b981";
+          if (indPis) indPis.style.fill = "#10b981";
+        }, 1600));
+
+        // 4단계: 다음역 자가대피 코스팅 완료 (2400ms)
+        sysTimers.push(setTimeout(() => {
+          playBeep(900, 0.1);
+          writeLog("[종합] 주전원 차단 중에도 트램 차상 대용량 배터리를 통하여 무정전 타행이 정상 보증됩니다.");
+          updateSysTimeline("poweroff", 3);
+        }, 2400));
+      }
+    }
+
+    // 초기 페이지 로드 후 즉시 'normal' 시나리오 자동 구동하여 사용자 클릭 전에도 예시 흐름 활성화
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        window.runScenario('normal');
+      }, 500);
+    });
+  </script>
+
+</body>
+</html>

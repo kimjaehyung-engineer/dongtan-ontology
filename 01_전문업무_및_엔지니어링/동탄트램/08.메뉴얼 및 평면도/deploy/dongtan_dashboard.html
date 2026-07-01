@@ -1,0 +1,3038 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>동탄 도시철도(트램) 노선 평면도</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0f4f8;--card:#fff;--blue:#1d6fe8;--red:#e03131;--text:#1e293b;--muted:#64748b;}
+*{box-sizing:border-box;margin:0;padding:0;}
+.hidden{display:none!important;}
+#pBN, #pBS, #pRE { stroke: none !important; }
+#pRW {
+  stroke: #ef4444 !important;
+  stroke-width: 4.5px !important;
+  stroke-opacity: 0.85 !important;
+}
+#gDist, #vehicle-depot, #stDongt, [data-line="shared"], #vs1, #vs2, #vs3, #ug-zone, #struct-bridge, #gonggu-badges { display: none !important; }
+body{font-family:"Noto Sans KR",sans-serif;background:var(--bg);min-height:100vh;}
+
+/* ── 상단 네비게이션 컨테이너 (고정 메뉴 바) ── */
+.top-nav-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,.25);
+}
+
+/* ── 헤더 ── */
+header{background:linear-gradient(135deg,#0f172a,#1e3a5f);color:#fff;
+  padding:1.1rem 2rem;display:flex;align-items:center;gap:1.1rem;}
+.icon{font-size:2.2rem;}
+header h1{font-size:1.35rem;font-weight:900;letter-spacing:-.03em;}
+header p{font-size:.78rem;color:#94a3b8;margin-top:.1rem;}
+.badge{margin-left:auto;display:flex;gap:.5rem;flex-wrap:wrap;}
+.badge span{font-size:.76rem;font-weight:700;padding:.25rem .7rem;border-radius:50px;}
+.bb{background:rgba(29,111,232,.2);color:#93c5fd;border:1px solid #1d6fe8;}
+.br{background:rgba(224,49,49,.2);color:#fca5a5;border:1px solid #e03131;}
+
+/* ── 레이어 토글 바 ── */
+.layer-bar{
+  background:#1e293b;padding:.6rem 1.5rem;
+  display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;
+  border-bottom:2px solid #334155;}
+.layer-bar .lb-title{font-size:.78rem;font-weight:700;color:#64748b;margin-right:.3rem;}
+.layer-btn{
+  font-family:"Noto Sans KR",sans-serif;
+  font-size:.77rem;font-weight:600;
+  padding:.32rem .85rem;border-radius:50px;cursor:pointer;
+  border:1.5px solid transparent;
+  background:#334155;color:#94a3b8;
+  transition:all .18s;}
+.layer-btn:hover{background:#475569;color:#e2e8f0;}
+.layer-btn.active{color:#fff;border-color:currentColor;}
+.layer-btn[data-layer="all"].active{background:#4f46e5;border-color:#4f46e5;}
+.layer-btn[data-layer="ov"].active{background:#7c3aed;border-color:#7c3aed;}
+.layer-btn[data-layer="ug"].active{background:#0891b2;border-color:#0891b2;}
+.layer-btn[data-layer="vs"].active{background:#059669;border-color:#059669;}
+.layer-btn[data-layer="struct"].active{background:#dc2626;border-color:#dc2626;}
+.layer-sep{width:1px;height:24px;background:#334155;margin:0 .3rem;}
+
+/* ── 지도 영역 ── */
+.content-container {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  min-height: calc(100vh - 120px);
+}
+.map-wrap {
+  padding: 1.1rem 1.4rem .8rem;
+  overflow-x: auto;
+  transition: margin-right .3s;
+  flex: 1;
+  min-width: 0;
+}
+.map-box{position:relative;background:#fff;border-radius:16px;box-shadow:0 6px 28px rgba(0,0,0,.08);
+  padding:.9rem;min-width:900px;}
+svg{width:100%;height:auto;max-height:90vh;display:block;overflow:visible;user-select:none;preserveAspectRatio:"xMidYMid meet";}
+svg text, #gLbl text, #gDist text, #gOvLabel text { pointer-events: none; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+
+/* 줌 컨트롤 플로팅 UI */
+.zoom-ctrl{
+  position:absolute;bottom:25px;right:25px;
+  display:flex;flex-direction:column;gap:6px;z-index:100;}
+.zoom-btn{
+  width:36px;height:36px;border-radius:8px;
+  background:#ffffff;border:1px solid #cbd5e1;
+  box-shadow:0 4px 12px rgba(0,0,0,0.12);
+  font-size:1.15rem;font-weight:700;color:#475569;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;user-select:none;}
+.zoom-btn:hover{background:#f8fafc;color:#0f172a;border-color:#94a3b8;}
+.zoom-btn:active{transform:scale(0.92);}
+
+@media (max-width: 768px) {
+  .map-wrap { padding: 0.5rem; }
+  .zoom-ctrl { bottom: 15px; right: 15px; }
+  #map text { font-size: 80% !important; }
+}
+/* ── 사이드 패널 (고정/도킹식 패널 구성) ── */
+#sidePanel {
+  width: 0;
+  background: #fff;
+  border-left: 0px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width .28s cubic-bezier(.4,0,.2,1), border-left-width .28s cubic-bezier(.4,0,.2,1), box-shadow .28s cubic-bezier(.4,0,.2,1);
+}
+#sidePanel.open {
+  width: 360px;
+  border-left-width: 1.5px;
+  box-shadow: -6px 0 20px rgba(0,0,0,0.04);
+}
+
+.sp-header{
+  padding:1rem 1.2rem .8rem;
+  display:flex;align-items:flex-start;gap:.8rem;
+  border-bottom:1px solid #f1f5f9;}
+.sp-badge{
+  min-width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;font-weight:900;color:#fff;flex-shrink:0;}
+.sp-title{flex:1;}
+.sp-title h2{font-size:1.15rem;font-weight:900;color:#1e293b;line-height:1.25;}
+.sp-title p{font-size:.79rem;color:#64748b;margin-top:.15rem;}
+#closePanel{
+  background:none;border:none;font-size:1.4rem;cursor:pointer;
+  color:#94a3b8;padding:.2rem;line-height:1;
+  transition:color .15s;}
+#closePanel:hover{color:#1e293b;}
+
+.sp-body{flex:1;overflow-y:auto;padding:0 1.2rem 1.2rem;}
+
+/* 섹션 */
+.sp-section{margin-top:1rem;}
+.sp-section-title{
+  font-size:.7rem;font-weight:700;color:#94a3b8;
+  text-transform:uppercase;letter-spacing:.07em;
+  margin-bottom:.5rem;}
+.sp-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;}
+.sp-info-item{background:#f8fafc;border-radius:8px;padding:.5rem .7rem;}
+.sp-info-item .k{font-size:.7rem;color:#94a3b8;font-weight:600;}
+.sp-info-item .v{font-size:.82rem;font-weight:700;color:#1e293b;margin-top:.1rem;}
+
+/* 중첩구간 배지 */
+.ov-badge{
+  display:inline-flex;align-items:center;gap:.35rem;
+  padding:.28rem .6rem;border-radius:6px;
+  font-size:.76rem;font-weight:600;
+  margin:.18rem .18rem 0 0;}
+.ov-badge .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* 이슈 리스트 */
+.issue-list{list-style:none;}
+.issue-list li{
+  display:flex;gap:.5rem;align-items:flex-start;
+  padding:.38rem 0;border-bottom:1px solid #f1f5f9;
+  font-size:.82rem;color:#374151;}
+.issue-list li:last-child{border-bottom:none;}
+.issue-list .icon{font-size:.85rem;flex-shrink:0;margin-top:.05rem;}
+
+/* RFP 조항 */
+.rfp-list{list-style:none;}
+.rfp-list li{
+  padding:.38rem 0;border-bottom:1px solid #f1f5f9;font-size:.8rem;}
+.rfp-list li:last-child{border-bottom:none;}
+.rfp-no{
+  display:inline-block;background:#1e293b;color:#f8fafc;
+  font-size:.68rem;font-weight:700;padding:.1rem .4rem;
+  border-radius:4px;margin-right:.4rem;}
+
+/* 진행도 바 */
+.prog-row{display:flex;align-items:center;gap:.6rem;margin:.35rem 0;}
+.prog-label{font-size:.78rem;font-weight:600;color:#374151;width:48px;flex-shrink:0;}
+.prog-track{flex:1;height:7px;background:#f1f5f9;border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:4px;transition:width .6s ease;}
+.prog-pct{font-size:.75rem;font-weight:700;color:#64748b;width:30px;text-align:right;}
+
+/* 연계 업무 매뉴얼 링크 */
+.manual-link-sec{margin-top:0.8rem;display:flex;flex-direction:column;gap:0.45rem;}
+.manual-link{display:flex;align-items:center;gap:0.45rem;padding:0.55rem 0.75rem;border-radius:8px;font-size:0.78rem;font-weight:700;text-decoration:none;transition:all 0.18s ease;box-shadow:0 1px 3px rgba(0,0,0,0.05);}
+.manual-link:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.08);filter:brightness(0.97);}
+
+/* ── 요약 카드 ── */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
+  gap:.8rem;margin:.8rem 1.4rem 1.2rem;}
+.ic{background:#fff;border-radius:12px;padding:.9rem 1.2rem;border-left:4px solid;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.ic .lbl{font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:.28rem;}
+.ic .val{font-size:1.35rem;font-weight:900;}
+.ic .desc{font-size:.75rem;color:var(--muted);margin-top:.15rem;}
+
+footer{text-align:center;padding:1rem;font-size:.73rem;color:var(--muted);}
+#tip{position:fixed;background:#0f172a;color:#f8fafc;padding:.5rem .85rem;
+  border-radius:8px;font-size:.81rem;pointer-events:none;opacity:0;
+  transition:opacity .15s;z-index:999;max-width:230px;line-height:1.5;
+  box-shadow:0 6px 20px rgba(0,0,0,.3);}
+#tip.show{opacity:1;}
+.layer-feed {
+  transition: opacity 0.3s ease;
+  animation: feedGlow 1.8s infinite alternate ease-in-out;
+}
+@keyframes feedGlow {
+  0% { stroke-opacity: 0.25; }
+  100% { stroke-opacity: 0.55; }
+}
+
+/* 정거장/변전소/구조물 클릭 시 깜빡임 마커 효과 */
+@keyframes markerBlink {
+  0% { stroke-opacity: 0.6; fill-opacity: 0.3; }
+  50% { stroke-width: 12px; stroke-opacity: 1; stroke: #ff007f !important; fill: #ff007f !important; fill-opacity: 0.85; filter: drop-shadow(0 0 8px #ff007f); }
+  100% { stroke-opacity: 0.6; fill-opacity: 0.3; }
+}
+.marker-blink {
+  animation: markerBlink 0.4s 4 ease-in-out; /* 4회 깜빡임 */
+}
+
+/* ── 뷰 모드 토글 스위치 ── */
+.view-toggle-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: #334155;
+  padding: 0.2rem;
+  border-radius: 50px;
+}
+.view-toggle-btn {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.3rem 0.85rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ── 2분할 뷰 레이아웃 ── */
+.view-pane {
+  transition: opacity 0.2s ease;
+}
+#paneSplit {
+  display: none;
+  width: 100%;
+  gap: 1.2rem;
+  padding: 1.1rem 1.4rem;
+  min-height: calc(100vh - 120px);
+}
+.split-half {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 28px rgba(0,0,0,.08);
+  overflow: hidden;
+  position: relative;
+  min-width: 0;
+}
+.half-header {
+  background: #1f2937;
+  color: #fff;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #374151;
+}
+.half-content-wrap {
+  display: flex;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+.half-map-wrap {
+  flex: 1;
+  padding: 0.8rem;
+  overflow: hidden;
+  position: relative;
+  min-width: 0;
+}
+.half-side-panel {
+  width: 0;
+  background: #fff;
+  border-left: 0px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width .25s cubic-bezier(.4,0,.2,1), border-left-width .25s cubic-bezier(.4,0,.2,1);
+}
+.half-side-panel.open {
+  width: 280px;
+  border-left-width: 1.5px;
+  box-shadow: -6px 0 20px rgba(0,0,0,0.04);
+}
+
+/* ── 2분할 뷰 공구별 디밍 효과 (Dimming Effect) ── */
+.pane-left svg [data-line="blue"] {
+  opacity: 0.12 !important;
+  transition: opacity 0.25s ease;
+}
+.pane-right svg [data-line="red"] {
+  opacity: 0.12 !important;
+  transition: opacity 0.25s ease;
+}
+.pane-left svg [data-line="shared"],
+.pane-right svg [data-line="shared"] {
+  opacity: 1 !important;
+}
+</style>
+</head>
+<body>
+
+<div class="top-nav-container">
+  <!-- 헤더 -->
+  <header>
+    <div class="icon">🚊</div>
+    <div>
+      <h1>동탄 도시철도(트램) 노선 평면도</h1>
+      <p>기본설계 기반 · 레이어 분석 · 정거장 클릭 시 설계 이슈 확인 가능</p>
+    </div>
+    <div class="badge">
+      <span class="bb">● 2공구 망포↔오산 16,580m / 19개소</span>
+      <span class="br">● 1공구 병점↔동탄2 17,818m / 17개소</span>
+    </div>
+  </header>
+
+  <!-- 레이어 토글 -->
+  <div class="layer-bar">
+    <span class="lb-title">레이어</span>
+    <button class="layer-btn active" data-layer="all">전체</button>
+    <div class="layer-sep"></div>
+    <button class="layer-btn" data-layer="ug">🔵 지하개착 구간</button>
+    <button class="layer-btn" data-layer="vs">⚡ 변전소</button>
+    <div class="layer-sep"></div>
+    <button class="layer-btn" id="jangmulToggle" data-layer="jangmul" style="background:#fef9c3;color:#92400e;border-color:#fbbf24;">🚧 구간여건</button>
+    <div class="layer-sep"></div>
+    <button class="layer-btn" id="btnToggleEditTools" style="background:#0f172a; color:#38bdf8; border:1px solid #0ea5e9; font-weight:bold; cursor:pointer;">🛠️ 고급 편집 도구 ▾</button>
+    <span id="editToolsContainer" style="display:none; align-items:center; gap:0.35rem; background:#1e293b; padding:0.2rem 0.5rem; border-radius:8px; border:1px dashed #475569;">
+      <span class="lb-title" style="color:#f8fafc;">설계:</span>
+      <button class="layer-btn active" id="btnToolMove" style="font-weight:bold; background:#334155; color:#fff;">🖱️ 이동</button>
+      <button class="layer-btn" id="btnToolDraw" style="font-weight:bold;">✏️ 대각선</button>
+      <button class="layer-btn" id="btnToolOrtho" style="font-weight:bold;">📐 직각</button>
+      <button class="layer-btn" id="btnToolCurve" style="font-weight:bold;">〰️ 곡선</button>
+      <button class="layer-btn" id="btnToolDelete" style="font-weight:bold; color:#ef4444;">❌ 삭제</button>
+      <div class="layer-sep"></div>
+      <button class="layer-btn" id="btnAddStation" style="background:#4f46e5;color:#fff;font-weight:bold;">➕ 정거장 추가</button>
+      <button class="layer-btn" id="btnResetMap" style="background:#64748b; color:#fff; font-weight:bold;">🧹 초기화</button>
+    </span>
+    <div class="layer-sep"></div>
+    <span class="lb-title">📍 정거장/구조물 바로가기</span>
+    <select id="quickNavMenu" style="font-family:'Noto Sans KR',sans-serif; font-size:.76rem; font-weight:700; padding:.3rem .6rem; border-radius:8px; border:1px solid #475569; background:#1e293b; color:#fff; cursor:pointer; outline:none; transition:all 0.15s; max-width:200px;">
+      <option value="" disabled selected>선택하세요...</option>
+    <optgroup label="지하 특화역">
+      <option value="동탄역">🚊 동탄역 (환승역)</option>
+    </optgroup>
+    <optgroup label="1공구 (병점역 ↔ 동탄2)">
+      <option value="301">301역 (병점역)</option>
+      <option value="302">302역</option>
+      <option value="303">303역</option>
+      <option value="304">304역</option>
+      <option value="305">305역</option>
+      <option value="306">306역</option>
+      <option value="struct-bridge">🌉 오산천 횡단교량</option>
+      <option value="307">307역</option>
+      <option value="202">202역</option>
+      <option value="203">203역</option>
+      <option value="204">204역</option>
+      <option value="205">205역</option>
+      <option value="206">206역</option>
+      <option value="207">207역</option>
+      <option value="208">208역</option>
+      <option value="209">209역</option>
+      <option value="210">210역</option>
+      <option value="vehicle-depot">🏭 동탄 차량기지</option>
+    </optgroup>
+    <optgroup label="2공구 (망포역 ↔ 오산역)">
+      <option value="S01">S01역 (망포역)</option>
+      <option value="S02">S02역</option>
+      <option value="101">101역</option>
+      <option value="102">102역</option>
+      <option value="103">103역</option>
+      <option value="104">104역</option>
+      <option value="105">105역</option>
+      <option value="106">106역</option>
+      <option value="108">108역</option>
+      <option value="109">109역</option>
+      <option value="110">110역</option>
+      <option value="111">111역</option>
+      <option value="112">112역</option>
+      <option value="113">113역</option>
+      <option value="114">114역</option>
+      <option value="115">115역 (오산경찰서)</option>
+      <option value="116">116역 (대원로)</option>
+      <option value="117">117역 (오산역)</option>
+    </optgroup>
+    <optgroup label="급전 변전소">
+      <option value="vs1">급전변전소① (102 인근)</option>
+      <option value="vs2">급전변전소② (동탄역 지하)</option>
+      <option value="vs3">급전변전소③ (204~205 인근)</option>
+    </optgroup>
+  </select>
+
+  <!-- 뷰 토글 스위치 -->
+  <div class="view-toggle-container">
+    <button class="view-toggle-btn active" data-view="unified" style="background:#1e293b; color:#fff;">통합 뷰</button>
+    <button class="view-toggle-btn" data-view="split" style="background:transparent; color:#94a3b8;">공구별 2분할 뷰</button>
+  </div>
+</div>
+</div>
+
+<!-- 메인 콘텐츠 영역 (지도 + 사이드패널 도킹 구조) -->
+<div class="content-container" id="mainContainer">
+  <!-- 1) 통합 뷰 패널 -->
+  <div class="view-pane" id="paneUnified" style="display: flex; width: 100%;">
+    <div class="map-wrap">
+      <div class="map-box">
+        <div class="zoom-ctrl">
+          <button class="zoom-btn" id="zoomIn" title="확대">+</button>
+          <button class="zoom-btn" id="zoomOut" title="축소">-</button>
+          <button class="zoom-btn" id="zoomReset" title="초기화" style="font-size:0.72rem;font-weight:700;">초기화</button>
+        </div>
+        <svg id="map" viewBox="0 0 1060 1200" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="cursor:grab;">
+          <text x="970" y="773" text-anchor="middle" font-family="Noto Sans KR" font-size="24" fill="#334155">↑</text>
+          <text x="970" y="790" text-anchor="middle" font-family="Noto Sans KR" font-size="10" font-weight="700" fill="#334155">북(N)</text>
+          <path id="pBN" data-line="blue" d="M 350,66 L 425,66 L 485,135 L 520,185 L 572,225 L 572,312 L 625,312 L 625,377 L 678,377"
+            stroke="#1d6fe8" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path id="pBS" data-line="blue" d="M 678,381 L 678,430 L 740,480 L 740,660 L 540,660 L 540,700 L 480,760 L 410,760 L 350,760"
+            stroke="#1d6fe8" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path id="pRW" data-line="red" d="M 180,344 L 220,394 L 440,394 L 488,440 L 488,492 L 594,492 L 620,450 L 678,450 L 678,377"
+            stroke="#e03131" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path id="pRE" data-line="red" d="M 678,373 L 740,373 L 740,312 L 830,312 L 920,394 L 920,570 L 830,620 L 780,660 L 740,660 L 740,715 L 665,770"
+            stroke="#e03131" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path id="pCustomBlue" data-line="blue" d="M 0,0" stroke="#1d6fe8" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path id="pCustomRed" data-line="red" d="M 0,0" stroke="#e03131" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path id="pCustomBlack" data-line="custom" d="M 0,0" stroke="#1f2937" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          
+          <!-- 동탄역 환승 거점 -->
+          <circle cx="678" cy="377" r="20" fill="#7c3aed" stroke="white" stroke-width="4" id="stDongt"
+            style="cursor:pointer" data-id="동탄역" data-line="shared"/>
+          <text x="678" y="381" text-anchor="middle" font-family="Noto Sans KR" font-size="9" font-weight="900" fill="white" data-line="shared">동탄역</text>
+          
+          <!-- 동탄 차량기지 (남동 꺾임선 오프셋 반영 이동) -->
+          <g id="vehicle-depot" data-id="vehicle-depot" data-line="red" style="cursor:pointer" transform="translate(625, 770) rotate(142.4)">
+            <rect x="0" y="-17.5" width="70" height="35" rx="5" fill="#fee2e2" fill-opacity="0.3" stroke="#e03131" stroke-width="1.8" stroke-dasharray="6,4"/>
+            <line x1="5" y1="0" x2="65" y2="0" stroke="#e03131" stroke-width="2"/>
+            <text x="35" y="4" text-anchor="middle" font-family="Noto Sans KR" font-size="8.5" font-weight="900" fill="#e03131" transform="rotate(-142.4 35 4)">차량기지</text>
+          </g>
+
+          <!-- 1공구 / 2공구 영역 및 노선 요약 뱃지 (도면 100% 동일 재현) -->
+          <g id="gonggu-badges">
+            <!-- 1공구 (파란선 망포~오산) 뱃지 -->
+            <rect x="860" y="530" width="175" height="55" rx="6" fill="#1d6fe8" fill-opacity="0.9" stroke="white" stroke-width="2"/>
+            <text x="947" y="552" text-anchor="middle" font-family="Noto Sans KR" font-size="13" font-weight="900" fill="white">망포 ~ 오산 (1공구)</text>
+            <text x="947" y="572" text-anchor="middle" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#e0f2fe">L = 16.6 km</text>
+
+            <!-- 2공구 (빨간선 병점~동탄2) 뱃지 -->
+            <rect x="20" y="530" width="185" height="55" rx="6" fill="#e03131" fill-opacity="0.9" stroke="white" stroke-width="2"/>
+            <text x="112" y="552" text-anchor="middle" font-family="Noto Sans KR" font-size="13" font-weight="900" fill="white">병점 ~ 동탄2 (2공구)</text>
+            <text x="112" y="572" text-anchor="middle" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#fee2e2">L = 17.8 km</text>
+          </g>
+
+          <!-- JS 렌더링 그룹 -->
+          <g id="gJangmul"></g>
+          <g id="gOvLabel"></g>
+          <g id="gDist"></g>
+          <g id="gStn"></g>
+          <g id="gLbl"></g>
+        </svg>
+      </div>
+    </div>
+    
+    <!-- 사이드 패널 -->
+    <div id="sidePanel">
+      <div class="sp-header">
+        <div class="sp-badge" id="spBadge">?</div>
+        <div class="sp-title">
+          <h2 id="spTitle">-</h2>
+          <p id="spSubtitle">-</p>
+        </div>
+        <button id="closePanel">&#x2715;</button>
+      </div>
+      <div class="sp-body" id="spBody"></div>
+    </div>
+  </div>
+
+  <!-- 2) 공구별 2분할 뷰 패널 -->
+  <div class="view-pane" id="paneSplit" style="display: none; width: 100%; gap: 1.2rem; padding: 1.1rem 1.4rem;">
+    <!-- 왼쪽: 1공구 (병점~동탄2) -->
+    <div class="split-half pane-left">
+      <div class="half-header">
+        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #e03131; margin-right: 0.35rem;"></span>
+        1공구 (병점역 ↔ 동탄2)
+      </div>
+      <div class="half-content-wrap">
+        <div class="half-map-wrap" id="mapWrapLeft">
+          <!-- JS가 map-box를 복제하여 주입 -->
+        </div>
+        <div class="half-side-panel" id="sidePanelLeft">
+          <div class="sp-header">
+            <div class="sp-badge" id="spBadgeLeft">?</div>
+            <div class="sp-title">
+              <h2 id="spTitleLeft">-</h2>
+              <p id="spSubtitleLeft">-</p>
+            </div>
+            <button class="close-panel-btn" data-pane="left">&#x2715;</button>
+          </div>
+          <div class="sp-body" id="spBodyLeft"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 오른쪽: 2공구 (망포~오산) -->
+    <div class="split-half pane-right">
+      <div class="half-header">
+        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #1d6fe8; margin-right: 0.35rem;"></span>
+        2공구 (망포역 ↔ 오산역)
+      </div>
+      <div class="half-content-wrap">
+        <div class="half-map-wrap" id="mapWrapRight">
+          <!-- JS가 map-box를 복제하여 주입 -->
+        </div>
+        <div class="half-side-panel" id="sidePanelRight">
+          <div class="sp-header">
+            <div class="sp-badge" id="spBadgeRight">?</div>
+            <div class="sp-title">
+              <h2 id="spTitleRight">-</h2>
+              <p id="spSubtitleRight">-</p>
+            </div>
+            <button class="close-panel-btn" data-pane="right">&#x2715;</button>
+          </div>
+          <div class="sp-body" id="spBodyRight"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 요약 카드 -->
+<div class="info-grid">
+  <div class="ic" style="border-color:#1d6fe8"><div class="lbl">2공구 (망포~오산)</div><div class="val" style="color:#1d6fe8">16,580m</div><div class="desc">S01·S02·101~117 · 19개소</div></div>
+  <div class="ic" style="border-color:#e03131"><div class="lbl">1공구 (병점~동탄2)</div><div class="val" style="color:#e03131">17,818m</div><div class="desc">301~307·201~210 · 17개소</div></div>
+
+  <div class="ic" style="border-color:#6366f1"><div class="lbl">지하(개착) 구간</div><div class="val" style="color:#6366f1">4개소</div><div class="desc">106~107 / 307~201 / 304~305 / 301</div></div>
+  <div class="ic" style="border-color:#f59e0b"><div class="lbl">환승역</div><div class="val" style="color:#f59e0b">4개소</div><div class="desc">망포·병점·동탄·오산</div></div>
+  <div class="ic" style="border-color:#dc2626"><div class="lbl">최대 정거장 간격</div><div class="val" style="color:#dc2626">3,187m</div><div class="desc">병점역(301)→302 구간</div></div>
+</div>
+
+<div id="tip"></div>
+<footer>※ 기본설계 및 RFP 기반 · 정거장을 클릭하면 설계 이슈를 확인할 수 있습니다 · 동탄트램 기본설계 기술제안 팀 내부 참고용</footer>
+
+<script>
+
+// 글로벌 에러 캐쳐 UI 신설
+
+
+
+// 점과 선분 사이의 최단 거리를 구하는 2D 기하 알고리즘 (선로 클릭 매칭용)
+function getPointToSegmentDistance(px, py, x1, y1, x2, y2) {
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  if (dx === 0 && dy === 0) {
+    return Math.sqrt(Math.pow(px - x1, 2) + Math.pow(py - y1, 2));
+  }
+  
+  let t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy);
+  t = Math.max(0, Math.min(1, t)); // 선분 내부로 투영 제한
+  
+  const tx = x1 + t * dx;
+  const ty = y1 + t * dy;
+  return Math.sqrt(Math.pow(px - tx, 2) + Math.pow(py - ty, 2));
+}
+
+// 정거장은 보존하고, 두 정거장 사이를 잇는 궤도 선로(Edge)만 단절하는 캐드 지우개 기능
+function deleteLinkBetweenNodes(nodeA, nodeB) {
+  const key1 = nodeA + "_" + nodeB;
+  const key2 = nodeB + "_" + nodeA;
+  
+  linkModes[key1] = "none";
+  linkModes[key2] = "none";
+  
+  console.log(`[선로 구간 삭제 완료] ${nodeA} ✂️ ${nodeB} 사이 선로가 끊어졌습니다.`);
+  
+  calculateRouteMetrics();
+  renderStations();
+  syncSplitViews();
+  saveMapData();
+}
+
+
+
+// 각 노드 구간별 연결 방식(직선 vs 90도 직각)을 영구 기억하는 하이브리드 링크 모드 데이터베이스
+let linkModes = {};
+let jangmulVisible = false;
+
+// 맵 저작 데이터 로컬 스토리지 영구 저장 함수
+// [FINAL FIX 동결 조치] 과거 깨진 데이터를 완전히 차단하기 위해 STORAGE_KEY 버전을 v3로 업그레이드
+const STORAGE_KEY = "dongtan_tram_map_data_v3_perfect_fixed";
+
+function saveMapData() {
+  const data = {
+    nodes,
+    stations,
+    stnDetail,
+    routeSequences,
+    linkModes,
+    newStationCount,
+    customLinks: window.customLinks || []
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function loadMapData() {
+  try {
+    // 오래된 구버전 캐시 데이터만 청소
+    localStorage.removeItem("dongtan_tram_map_data");
+    localStorage.removeItem("dongtan_tram_map_data_v2_master_fix");
+    
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const data = JSON.parse(raw);
+      if (data && typeof data === "object") {
+        // [하이브리드 복원] 사용자가 드래그해서 바꾼 최신 좌표만 안전하게 가져옴
+        if (data.nodes && typeof data.nodes === "object") {
+          for (let k in data.nodes) {
+            const nd = data.nodes[k];
+            if (nodes[k] && nd && typeof nd.x === "number" && typeof nd.y === "number" && !isNaN(nd.x) && !isNaN(nd.y)) {
+              nodes[k].x = nd.x;
+              nodes[k].y = nd.y;
+            }
+          }
+        }
+        if (data.linkModes && typeof data.linkModes === "object") linkModes = data.linkModes;
+        if (typeof data.newStationCount === "number") newStationCount = data.newStationCount;
+        if (Array.isArray(data.customLinks)) window.customLinks = data.customLinks;
+      }
+    }
+  } catch (err) {
+    console.error("[LOAD ERROR]", err);
+  } finally {
+    if (typeof calculateRouteMetrics === "function") calculateRouteMetrics();
+    if (typeof renderStations === "function") renderStations();
+    if (typeof syncSplitViews === "function") syncSplitViews();
+  }
+}
+
+// 도면 리셋 기능
+function bindResetButton() {
+  const btn = document.getElementById("btnResetMap");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    if (confirm("도면을 완전히 초기화하고 최초 영구 고정(Master Fix) 상태로 복원하시겠습니까?")) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem("dongtan_tram_map_data");
+      localStorage.removeItem("dongtan_tram_map_data_v2_master_fix");
+      location.reload();
+    }
+  });
+}
+
+let activeTool = "move"; // "move" or "draw"
+let drawStartNode = null;
+
+function updateRubberband(e) {
+  // 현재 마우스 포인터가 올라가 있는 SVG 캔버스 식별 (분할 뷰 대응)
+  let svg = activeSvgElement || document.getElementById("map");
+  if (!svg) return;
+  
+  const pt = svg.createSVGPoint();
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  
+  try {
+    const svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+    const startNode = nodes[drawStartNode];
+    if (!startNode) return;
+    
+    const x1 = startNode.x;
+    const y1 = startNode.y;
+    const x2 = svgP.x;
+    const y2 = svgP.y;
+    
+    // 도구 모드에 따라 대각선 vs 90도 직각선 vs 부드러운 베지에 곡선 점선 가이드를 실시간 동적 분기 렌더링!
+    let d = `M ${x1},${y1}`;
+    if (activeTool === "ortho") {
+      const dx = Math.abs(x2 - x1);
+      const dy = Math.abs(y2 - y1);
+      if (dx > dy) {
+        d += ` L ${x2},${y1} L ${x2},${y2}`;
+      } else {
+        d += ` L ${x1},${y2} L ${x2},${y2}`;
+      }
+    } else if (activeTool === "curve") {
+      // 큐빅 베지에 스무스 S-곡선 가이드 실시간 둥글림 연산
+      const cp1x = (x1 + x2) / 2;
+      const cp1y = y1;
+      const cp2x = (x1 + x2) / 2;
+      const cp2y = y2;
+      d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${x2},${y2}`;
+    } else {
+      d += ` L ${x2},${y2}`;
+    }
+    
+    // 각 지도(#map, #mapLeft, #mapRight) 내의 임시 고무줄 가이드 라인 갱신
+    ["map", "mapLeft", "mapRight"].forEach(svgId => {
+      const s = document.getElementById(svgId);
+      if (!s) return;
+      let rb = s.querySelector("#rubberband-path");
+      if (!rb) {
+        rb = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        rb.id = "rubberband-path";
+        rb.setAttribute("stroke", "#ea580c");
+        rb.setAttribute("stroke-width", "3");
+        rb.setAttribute("stroke-dasharray", "6, 4");
+        rb.setAttribute("stroke-opacity", "0.65");
+        rb.setAttribute("fill", "none");
+        rb.style.pointerEvents = "none";
+        const gStn = s.querySelector("#gStn");
+        if (gStn) s.insertBefore(rb, gStn);
+      }
+      rb.setAttribute("d", d);
+    });
+  } catch(err) {
+    // 줌/팬 상태가 준비 안 되었을 때의 예외 방어
+  }
+}
+
+function clearRubberband() {
+  ["map", "mapLeft", "mapRight"].forEach(svgId => {
+    const s = document.getElementById(svgId);
+    if (!s) return;
+    const rb = s.querySelector("#rubberband-path");
+    if (rb) rb.remove();
+  });
+}
+
+function cancelDrawing() {
+  drawStartNode = null;
+  clearRubberband();
+  renderStations();
+}
+
+function bindToolButtons() {
+  const btnMove = document.getElementById("btnToolMove");
+  const btnDraw = document.getElementById("btnToolDraw");
+  const btnOrtho = document.getElementById("btnToolOrtho");
+  const btnCurve = document.getElementById("btnToolCurve");
+  const btnDelete = document.getElementById("btnToolDelete");
+  if (!btnMove || !btnDraw || !btnOrtho || !btnCurve || !btnDelete) {
+    console.warn("bindToolButtons: Some buttons are missing in HTML DOM!");
+    return;
+  }
+  
+  btnMove.addEventListener("click", () => {
+    activeTool = "move";
+    cancelDrawing();
+
+    btnMove.style.background = "#1e293b";
+    btnMove.style.color = "#fff";
+    btnDraw.style.background = "transparent";
+    btnDraw.style.color = "#94a3b8";
+    btnOrtho.style.background = "transparent";
+    btnOrtho.style.color = "#94a3b8";
+    btnCurve.style.background = "transparent";
+    btnCurve.style.color = "#94a3b8";
+    btnDelete.style.background = "transparent";
+    btnDelete.style.color = "#ef4444";
+    
+    // 이동 모드 시 마우스 포인터 grab/pointer 로 정상 복원
+    document.querySelectorAll("svg").forEach(el => el.style.cursor = "default");
+    document.querySelectorAll("circle").forEach(el => el.style.cursor = "grab");
+    document.querySelectorAll("text").forEach(el => el.style.cursor = "pointer");
+    console.log("[TOOL] Switched to Node Move Tool");
+  });
+  
+  btnDraw.addEventListener("click", () => {
+    activeTool = "draw";
+
+    btnDraw.style.background = "#1e293b";
+    btnDraw.style.color = "#fff";
+    btnMove.style.background = "transparent";
+    btnMove.style.color = "#94a3b8";
+    btnOrtho.style.background = "transparent";
+    btnOrtho.style.color = "#94a3b8";
+    btnCurve.style.background = "transparent";
+    btnCurve.style.color = "#94a3b8";
+    btnDelete.style.background = "transparent";
+    btnDelete.style.color = "#ef4444";
+    
+    // 그리기 모드 시 커서를 십자선(+)으로 강제 변경!
+    document.querySelectorAll("svg, circle, text").forEach(el => {
+      el.style.cursor = "crosshair";
+    });
+    console.log("[TOOL] Switched to Line Draw Tool");
+  });
+  
+  btnOrtho.addEventListener("click", () => {
+    activeTool = "ortho";
+
+    btnOrtho.style.background = "#1e293b";
+    btnOrtho.style.color = "#fff";
+    btnMove.style.background = "transparent";
+    btnMove.style.color = "#94a3b8";
+    btnDraw.style.background = "transparent";
+    btnDraw.style.color = "#94a3b8";
+    btnDelete.style.background = "transparent";
+    btnDelete.style.color = "#ef4444";
+    
+    // 직각선 모드 시 커서를 십자선(+)으로 강제 변경!
+    document.querySelectorAll("svg, circle, text").forEach(el => {
+      el.style.cursor = "crosshair";
+    });
+    console.log("[TOOL] Switched to Orthogonal 90-degree Draw Tool");
+  });
+  
+  btnCurve.addEventListener("click", () => {
+    activeTool = "curve";
+
+    btnCurve.style.background = "#1e293b";
+    btnCurve.style.color = "#fff";
+    btnMove.style.background = "transparent";
+    btnMove.style.color = "#94a3b8";
+    btnDraw.style.background = "transparent";
+    btnDraw.style.color = "#94a3b8";
+    btnOrtho.style.background = "transparent";
+    btnOrtho.style.color = "#94a3b8";
+    btnCurve.style.background = "transparent";
+    btnCurve.style.color = "#94a3b8";
+    btnDelete.style.background = "transparent";
+    btnDelete.style.color = "#ef4444";
+    
+    document.querySelectorAll("svg, circle, text").forEach(el => {
+      el.style.cursor = "crosshair";
+    });
+    console.log("[TOOL] Switched to Bezier S-Curve Draw Tool");
+  });
+
+  btnDelete.addEventListener("click", () => {
+    activeTool = "delete";
+
+    cancelDrawing();
+    btnDelete.style.background = "#ef4444";
+    btnDelete.style.color = "#fff";
+    btnMove.style.background = "transparent";
+    btnMove.style.color = "#94a3b8";
+    btnDraw.style.background = "transparent";
+    btnDraw.style.color = "#94a3b8";
+    btnOrtho.style.background = "transparent";
+    btnOrtho.style.color = "#94a3b8";
+    btnCurve.style.background = "transparent";
+    btnCurve.style.color = "#94a3b8";
+    btnCurve.style.background = "transparent";
+    btnCurve.style.color = "#94a3b8";
+    
+    // 삭제 지우개 모드 시 마우스 커서 스타일 변경 및 궤도선 호버 강조 연출
+    document.querySelectorAll("svg, circle, text").forEach(el => {
+      el.style.cursor = "default";
+    });
+    
+    // 궤도선들에 굵은 호버 하이라이트 주입
+    document.querySelectorAll("path.route-path").forEach(path => {
+      path.style.cursor = "pointer";
+      path.style.transition = "stroke-width 0.1s";
+      
+      // 마우스 들어가면 빨간색 강조
+      path.addEventListener("mouseenter", () => {
+        if (activeTool === "delete") {
+          path.setAttribute("stroke-width", "8.5");
+        }
+      });
+      path.addEventListener("mouseleave", () => {
+        path.setAttribute("stroke-width", "4.5");
+      });
+    });
+    
+    console.log("[TOOL] Switched to Eraser Tool");
+  });
+  
+  // ESC 키 누르면 그리기 취소
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+      cancelDrawing();
+    }
+  });
+}
+
+
+window.addEventListener("error", function(e) {
+  let errDiv = document.getElementById("debug-error-panel");
+  if (!errDiv) {
+    errDiv = document.createElement("div");
+    errDiv.id = "debug-error-panel";
+    errDiv.style.cssText = "position:fixed;bottom:10px;left:10px;right:10px;background:#fef2f2;border:2px solid #ef4444;color:#991b1b;padding:12px;z-index:9999;font-size:12px;font-family:monospace;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.15);overflow-y:auto;max-height:150px;";
+    document.body.appendChild(errDiv);
+  }
+  errDiv.innerHTML = "<strong>⚠️ [JS 런타임 오류 발생]</strong><br>" + e.message + " <br>위치: " + e.filename + ":" + e.lineno + ":" + e.colno;
+});
+
+
+// ================================================================
+// 상수
+// ================================================================
+const BLUE = "#1d6fe8", RED = "#e03131";
+const BN_TOTAL = 505.0, BS_TOTAL = 601.3, RW_TOTAL = 660.8, RE_TOTAL = 1011.8;
+
+// ================================================================
+// 승강장 폭원 및 기둥위치 정밀 분석 데이터 (안전이격 검토)
+// ================================================================
+const platformData = {
+  "301": { type: "쌍섬식 (시점)", baseWidth: "4.0m", endWidth: "1.86m / 1.85m", centerWidth: "3.46m / 3.45m", colPosition: "-", shortage: "" },
+  "302": { type: "섬식", baseWidth: "4.5m", endWidth: "1.17m", centerWidth: "2.77m", colPosition: "-", shortage: "" },
+  "303": { type: "섬식", baseWidth: "4.5m", endWidth: "1.22m", centerWidth: "2.82m", colPosition: "-", shortage: "" },
+  "304": { type: "섬식", baseWidth: "4.5m", endWidth: "1.25m", centerWidth: "2.85m", colPosition: "-", shortage: "" },
+  "305": { type: "섬식", baseWidth: "4.5m", endWidth: "1.62m", centerWidth: "3.22m", colPosition: "-", shortage: "" },
+  "306": { type: "섬식", baseWidth: "4.5m", endWidth: "1.37m", centerWidth: "2.97m", colPosition: "-", shortage: "" },
+  "307": { type: "섬식", baseWidth: "4.5m", endWidth: "1.24m", centerWidth: "2.84m", colPosition: "-", shortage: "" },
+  "201": { type: "섬식 (지하 특화정거장)", baseWidth: "5.5m", endWidth: "6.23m", centerWidth: "7.83m", colPosition: "끝단배치 및 폭원확장", shortage: "▲0.73m" },
+  "202": { type: "섬식", baseWidth: "4.5m", endWidth: "1.53m", centerWidth: "3.13m", colPosition: "-", shortage: "" },
+  "203": { type: "섬식", baseWidth: "4.5m", endWidth: "1.54m", centerWidth: "3.14m", colPosition: "-", shortage: "" },
+  "204": { type: "섬식", baseWidth: "4.5m", endWidth: "1.71m", centerWidth: "3.31m", colPosition: "-", shortage: "" },
+  "205": { type: "섬식", baseWidth: "4.5m", endWidth: "2.12m", centerWidth: "3.72m", colPosition: "-", shortage: "" },
+  "206": { type: "섬식", baseWidth: "4.5m", endWidth: "3.41m", centerWidth: "5.01m", colPosition: "끝단배치", shortage: "" },
+  "207": { type: "섬식", baseWidth: "4.5m", endWidth: "3.54m", centerWidth: "5.14m", colPosition: "끝단배치", shortage: "" },
+  "208": { type: "섬식", baseWidth: "4.5m", endWidth: "2.37m", centerWidth: "3.97m", colPosition: "-", shortage: "" },
+  "209": { type: "섬식", baseWidth: "4.5m", endWidth: "4.81m", centerWidth: "6.41m", colPosition: "끝단배치 및 길이연장", shortage: "▲0.31m" },
+  "210": { type: "섬식", baseWidth: "4.5m", endWidth: "1.99m", centerWidth: "3.59m", colPosition: "-", shortage: "" },
+  
+  "S01": { type: "상대식 (시점)", baseWidth: "3.0m", endWidth: "2.98m / 2.89m", centerWidth: "-", colPosition: "-", shortage: "" },
+  "S02": { type: "상대식", baseWidth: "3.0m", endWidth: "1.19m / 1.18m", centerWidth: "-", colPosition: "-", shortage: "" },
+  "101": { type: "섬식", baseWidth: "4.5m", endWidth: "1.63m", centerWidth: "3.23m", colPosition: "-", shortage: "" },
+  "102": { type: "섬식", baseWidth: "4.5m", endWidth: "1.90m", centerWidth: "3.50m", colPosition: "-", shortage: "" },
+  "103": { type: "섬식", baseWidth: "4.5m", endWidth: "1.86m", centerWidth: "3.46m", colPosition: "-", shortage: "" },
+  "104": { type: "섬식", baseWidth: "4.5m", endWidth: "1.87m", centerWidth: "3.47m", colPosition: "-", shortage: "" },
+  "105": { type: "섬식", baseWidth: "4.5m", endWidth: "1.73m", centerWidth: "3.33m", colPosition: "-", shortage: "" },
+  "106": { type: "섬식", baseWidth: "4.5m", endWidth: "1.10m", centerWidth: "2.70m", colPosition: "-", shortage: "" },
+  "107": { type: "섬식 (지하 특화정거장)", baseWidth: "5.5m", endWidth: "6.36m", centerWidth: "7.96m", colPosition: "끝단배치 및 폭원확장", shortage: "▲0.86m" },
+  "108": { type: "섬식", baseWidth: "4.5m", endWidth: "1.16m", centerWidth: "2.76m", colPosition: "-", shortage: "" },
+  "109": { type: "섬식", baseWidth: "4.5m", endWidth: "1.47m", centerWidth: "3.07m", colPosition: "-", shortage: "" },
+  "110": { type: "섬식", baseWidth: "4.5m", endWidth: "1.46m", centerWidth: "3.06m", colPosition: "-", shortage: "" },
+  "111": { type: "섬식", baseWidth: "4.5m", endWidth: "2.03m", centerWidth: "3.63m", colPosition: "-", shortage: "" },
+  "112": { type: "섬식", baseWidth: "4.5m", endWidth: "4.99m", centerWidth: "6.59m", colPosition: "끝단배치 및 길이연장", shortage: "▲0.44m" },
+  "113": { type: "섬식", baseWidth: "4.5m", endWidth: "1.87m", centerWidth: "3.47m", colPosition: "-", shortage: "" },
+  "114": { type: "섬식 (종점)", baseWidth: "4.5m", endWidth: "1.15m", centerWidth: "2.75m", colPosition: "-", shortage: "" },
+  "동탄역": { type: "지하 공용특화역", baseWidth: "5.5m (107역/201역 공용)", endWidth: "6.23m ~ 6.36m", centerWidth: "7.83m ~ 7.96m", colPosition: "끝단배치 및 폭원확장", shortage: "▲0.73m ~ ▲0.86m" }
+};
+
+// ================================================================
+// 그리드 시스템 설정 및 노드 좌표계 정의 (1:1 배율 스케일 적용으로 각도 왜곡 차단)
+// ================================================================
+const GRID_SCALE_X = 20;
+const GRID_SCALE_Y = 20;
+
+let nodes = {
+  // ── 동탄역 공통 환승 ──
+  "동탄역": { x: 678, y: 377 },
+
+  // ── 파랑 북 (pBN) ──
+  "S01":    { x: 350, y: 66 },
+  "S02":    { x: 425, y: 66 },
+  "W_BN_1": { x: 485, y: 135 },
+  "101":    { x: 520, y: 185 },
+  "102":    { x: 572, y: 225 },
+  "103":    { x: 572, y: 280 },
+  "104":    { x: 572, y: 312 },
+  "105":    { x: 600, y: 312 },
+  "106":    { x: 625, y: 312 },
+  "107":    { x: 625, y: 377 },
+  "W_BN_4": { x: 650, y: 377 },
+
+  // ── 파랑 남 (pBS) ──
+  "108":    { x: 678, y: 410 },
+  "109":    { x: 678, y: 450 },
+  "110":    { x: 678, y: 490 },
+  "111":    { x: 678, y: 530 },
+  "112":    { x: 678, y: 570 },
+  "113":    { x: 678, y: 610 },
+  "114":    { x: 640, y: 660 },
+  "115":    { x: 580, y: 660 },
+  "116":    { x: 540, y: 700 },
+  "117":    { x: 480, y: 760 },
+
+  // ── 빨강 서 (pRW) ──
+  "301":    { x: 180, y: 344 },
+  "302":    { x: 220, y: 394 },
+  "303":    { x: 310, y: 394 },
+  "304":    { x: 400, y: 394 },
+  "305":    { x: 488, y: 440 },
+  "306":    { x: 488, y: 492 },
+  "307":    { x: 594, y: 492 },
+  "W_RW_10":{ x: 620, y: 450 },
+
+  // ── 빨강 동 (pRE) ──
+  "202":    { x: 678, y: 312 },
+  "203":    { x: 740, y: 312 },
+  "204":    { x: 830, y: 312 },
+  "205":    { x: 920, y: 394 },
+  "206":    { x: 920, y: 470 },
+  "207":    { x: 920, y: 545 },
+  "208":    { x: 860, y: 620 },
+  "209":    { x: 780, y: 660 },
+  "210":    { x: 740, y: 660 },
+  "vehicle-depot": { x: 665, y: 770 }
+};
+
+let routeSequences = {
+  pBN: ["S01", "S02", "W_BN_1", "101", "102", "103", "104", "105", "106", "107", "동탄역"],
+  pBS: ["동탄역", "108", "109", "110", "111", "112", "113", "114", "115", "116", "117"],
+  pRW: ["301", "302", "303", "304", "305", "306", "307", "W_RW_10", "동탄역"],
+  pRE: ["동탄역", "202", "203", "204", "205", "206", "207", "208", "209", "210", "vehicle-depot"],
+  pCustom: []
+};
+
+// 노드 좌표는 이미 완벽한 픽셀 좌표(x, y)로 하드코딩되어 있으므로 변환 불필요
+
+
+// ================================================================
+// 정거장 데이터 (t값은 궤도 선형 기하 연산을 통해 자동으로 계산됨)
+// ================================================================
+let stations = [
+  // ── 파랑 북 (pBN) ──
+  {path:"pBN",            id:"S01",  label:"S01\n망포역",     dist:"715m",   color:BLUE,isT:true, side:"l"},
+  {path:"pBN",            id:"S02",  label:"S02\n영통로",     dist:"1,158m", color:BLUE,          side:"l"},
+  {path:"pBN",            id:"101",  label:"101\n반월고가",   dist:"1,210m", color:BLUE,          side:"l"},
+  {path:"pBN",            id:"102",  label:"102\n삼성1로",    dist:"873m",   color:BLUE,          side:"l"},
+  {path:"pBN",            id:"103",  label:"103",            dist:"718m",   color:BLUE,          side:"l"},
+  {path:"pBN",            id:"104",  label:"104",            dist:"903m",   color:BLUE,          side:"l"},
+  {path:"pBN",            id:"105",  label:"105",            dist:"345m",   color:BLUE,          side:"l"},
+  {path:"pBN",            id:"106",  label:"106",            dist:"1,401m", color:BLUE,  ug:true, side:"l"},
+  {path:"pBN",            id:"동탄역", label:"동탄역",         dist:"898m",   color:BLUE,isT:true, side:"r"},
+  
+  // ── 파랑 남 (pBS) ──
+  {path:"pBS",            id:"201",  label:"201",            dist:"898m",   color:BLUE,  ug:true, side:"r"},
+  {path:"pBS",            id:"108",  label:"108\n108역",      dist:"1,046m", color:BLUE,  ug:true, side:"r"},
+  {path:"pBS",            id:"109",  label:"109",            dist:"973m",   color:BLUE,          side:"r"},
+  {path:"pBS",            id:"110",  label:"110",            dist:"650m",   color:BLUE,          side:"r"},
+  {path:"pBS",            id:"111",  label:"111",            dist:"619m",   color:BLUE,          side:"r"},
+  {path:"pBS",            id:"112",  label:"112",            dist:"1,010m", color:BLUE,          side:"r"},
+  {path:"pBS",            id:"113",  label:"113",            dist:"1,110m", color:BLUE,          side:"l"},
+  {path:"pBS",            id:"114",  label:"114",            dist:"1,027m", color:BLUE,          side:"l"},
+  {path:"pBS",            id:"115",  label:"115\n오산경찰서",  dist:"851m",   color:BLUE,          side:"r"},
+  {path:"pBS",            id:"116",  label:"116\n대원로",     dist:"1,047m", color:BLUE,          side:"b"},
+  {path:"pBS",            id:"117",  label:"117\n오산역",     dist:"",       color:BLUE,isT:true, side:"l"},
+  
+  // ── 빨강 서 (pRW) ──
+  {path:"pRW",            id:"301",  label:"301\n병점역",     dist:"3,187m", color:RED, isT:true, side:"r"},
+  {path:"pRW",            id:"302",  label:"302\n10용사로",   dist:"495m",   color:RED,           side:"t"},
+  {path:"pRW",            id:"303",  label:"303\n벌말교",     dist:"958m",   color:RED,           side:"t"},
+  {path:"pRW",            id:"304",  label:"304",            dist:"747m",   color:RED,           side:"t"},
+  {path:"pRW",            id:"305",  label:"305\n동탄중앙로", dist:"880m",   color:RED,           side:"l"},
+  {path:"pRW",            id:"306",  label:"306\n동탄청계로", dist:"1,125m", color:RED,           side:"b"},
+  {path:"pRW",            id:"307",  label:"307",            dist:"1,250m", color:RED,  ug:true, side:"l"},
+  
+  // ── 빨강 동 (pRE) ──
+  {path:"pRE",            id:"202",  label:"202",            dist:"1,397m", color:RED,           side:"t"},
+  {path:"pRE",            id:"203",  label:"203",            dist:"979m",   color:RED,           side:"t"},
+  {path:"pRE",            id:"204",  label:"204",            dist:"1,204m", color:RED,           side:"r"},
+  {path:"pRE",            id:"205",  label:"205",            dist:"680m",   color:RED,           side:"r"},
+  {path:"pRE",            id:"206",  label:"206",            dist:"1,283m", color:RED,           side:"r"},
+  {path:"pRE",            id:"207",  label:"207",            dist:"847m",   color:RED,           side:"r"},
+  {path:"pRE",            id:"208",  label:"208",            dist:"764m",   color:RED,           side:"r"},
+  {path:"pRE",            id:"209",  label:"209",            dist:"656m",   color:RED,           side:"r"},
+  {path:"pRE",            id:"210",  label:"210",            dist:"500m",   color:RED,           side:"r"}
+];
+
+// ================================================================
+// 구간여건(지장물) 데이터 — 1공구 현장여건 조사결과 (2026.06.11 기준)
+// 출처: 동탄 도시철도 건설공사(1단계) 1공구 구간별 현장여건 조사결과 (총 193개 구간)
+// STA: 미터 단위 절대값. pRE는 동탄역 STA=8665m 기준 오프셋 적용.
+// ================================================================
+
+// 구간 유형별 색상·굵기 정의
+const jangmulTypes = {
+  station:       { color: "#2563eb", label: "정거장",         sw: 20, op: 0.20 },
+  bridge:        { color: "#ea580c", label: "교량",           sw: 12, op: 0.60 },
+  overpass:      { color: "#f97316", label: "육교",           sw: 10, op: 0.60 },
+  underpass:     { color: "#7c3aed", label: "지하차도",       sw: 12, op: 0.55 },
+  tunnel:        { color: "#4c1d95", label: "터널",           sw: 12, op: 0.60 },
+  intersection3: { color: "#15803d", label: "삼거리",         sw:  9, op: 0.70 },
+  intersection4: { color: "#0d9488", label: "사거리",         sw:  9, op: 0.70 },
+  utility:       { color: "#d97706", label: "전기/통신 설비", sw:  9, op: 0.55 },
+  busStop:       { color: "#0891b2", label: "버스정류장",     sw:  9, op: 0.55 },
+};
+
+// STA→t 변환 앵커 (pRW: 절대 STA m, pRE: 절대 STA m — 오프셋 8665 적용)
+// 각 역 중앙 STA 실측값 기반 보정
+const pRW_ANCHORS = [
+  [0,0],[23,0.000000],[3209,0.166000],[3705,0.282000],
+  [4663,0.461000],[5380,0.547000],[6288,0.675000],
+  [7415,0.846000],[8665,1.000000]
+];
+const pRE_ANCHORS = [  // STA 기준값 = abs_STA - 8665
+  [0,0.000000],[350,0.020000],[1065,0.125000],[2462,0.300000],
+  [3416,0.400000],[4645,0.420000],[5325,0.510000],[6608,0.600000],
+  [7455,0.720000],[8219,0.865000],[8875,0.920000],[9155,1.000000]
+];
+const pRE_STA_OFFSET = 8665; // 동탄역 절대 STA (m)
+
+// 구간 데이터: [pathId, sta_s(m), sta_e(m), type, note]
+// pRW: 절대STA / pRE: 절대STA (내부에서 -8665 적용)
+const jangmulSegments = [];
+let stnDetail = {
+  "301": {
+    name: "301정거장 (병점역 기종점)", line: "빨강노선 (1공구)", type: "기종점 복합환승역",
+    addr: "경기도 화성시 진안동 832-1 (병점역 광장)", km: "0+000",
+    utilities: [
+      { type: "상수도", scope: "도급분", desc: "병점역 광장 D500 상수도 배관 이설 (120m)" },
+      { type: "지하매설물", scope: "도급분", desc: "기존 병점광장 공동구 전력선로 보강공법 수립" }
+    ],
+    issues: [
+      "병점 복합환승센터 연계 및 트램 회차 배선 계획 수립 필요",
+      "정거장 캐노피 유효 높이 3.8m 검토 (RFP 미달 보강공 설계 반영)"
+    ],
+    rfp: [
+      { no: "(나)74조", text: "병점 복합환승센터 구간 301정거장~주박기지 — 동탄 도시철도 1단계 사업 중첩" },
+      { no: "(나)94조", text: "정거장 캐노피 유효 높이 3.8m 확보 및 H형강 강재 구조 보강 수립", status: "검토중" }
+    ],
+    prog: { 토공: 35, 궤도: 22, 시스템: 18, 건축: 20, 구조: 15 }
+  },
+  "302": {
+    name: "302정거장", line: "빨강노선 (1공구)", type: "일반 정거장",
+    addr: "화성시 10용사로 · 벌말교 인근", km: "3+187",
+    utilities: [
+      { type: "도로시설", scope: "도급분", desc: "10용사로 교차부 보도 셋백 및 교통안전표지판 이설" },
+      { type: "전력선", scope: "도급분", desc: "배전선로 평면 지중화 간섭 보호공 설치" }
+    ],
+    issues: [
+      "301→302 최장 구간(3,187m) — 정차 간격 및 표격속도 연동 운행 검토",
+      "10용사로 평면교차 설계 시 정차시간 최소화 계획"
+    ],
+    rfp: [
+      { no: "일반", text: "최장 정거장 간격(3,187m) 구간 — 운행속도·정시성 검토" },
+      { no: "(나)71조", text: "10용사로 평면교차 구간 우선 신호 시스템 및 안전 설비 구축" }
+    ],
+    prog: { 토공: 38, 궤도: 24, 시스템: 16, 건축: 12, 구조: 12 }
+  },
+  "303": {
+    name: "303정거장", line: "빨강노선 (1공구)", type: "일반 정거장",
+    addr: "화성시 벌말교", km: "3+682",
+    utilities: [
+      { type: "상수도", scope: "도급분", desc: "벌말교 주변 D300 상수도 배관 이설" },
+      { type: "통신선", scope: "도급분", desc: "교량 하부 매설 KT 통신관로 보호 대책 수립" }
+    ],
+    issues: [
+      "벌말교 부근 궤도 평면선형 완화곡선 확보 검토",
+      "교량 접속부 궤도 신축이음장치(LJD) 적용 분석"
+    ],
+    rfp: [
+      { no: "(나)82조", text: "기존 교량 구조물 및 옹벽 배면 인접 굴착 가시설 영향성 검토 수행" }
+    ],
+    prog: { 토공: 36, 궤도: 22, 시스템: 15, 건축: 10, 구조: 10 }
+  },
+  "304": {
+    name: "304정거장", line: "빨강노선 (1공구)", type: "일반 정거장",
+    addr: "화성시 동탄중앙로", km: "4+640",
+    utilities: [
+      { type: "철도시설", scope: "발주처분", desc: "동탄~병점선 18호 기지창 지하 개착 가시설 중첩" },
+      { type: "도시가스", scope: "도급분", desc: "동탄중앙로 횡단 도시가스 배관 이설" }
+    ],
+    issues: [
+      "동탄~병점선 18호 기지창 개착공사 일정 협의",
+      "곡선부 승강장 연단 간격 위반 검토 (열차 롤링 흔들림으로 인한 이격 50mm 초과 리스크)"
+    ],
+    rfp: [
+      { no: "(나)75조", text: "동탄~병점선 18호 기지창 개착구간 304~305 중첩 — 관계기관 협의 및 공정관리 계획" },
+      { no: "(나)75조(추가)", text: "승강장 연단 간격 50mm 이내 안전기준 확보 및 횡단부 고무안전발판 규격 반영", status: "검토중" }
+    ],
+    prog: { 토공: 28, 궤도: 16, 시스템: 12, 건축: 12, 구조: 25 }
+  },
+  "305": {
+    name: "305정거장", line: "빨강노선 (1공구)", type: "일반 정거장",
+    addr: "화성시 동탄중앙로", km: "5+387",
+    utilities: [],
+    issues: [
+      "기지창 개착구간 종료부 구조 처리",
+      "동탄중앙로 노면 복구 계획"
+    ],
+    rfp: [
+      { no: "(나)75조", text: "304~305 기지창 개착구간 종료 지점" }
+    ],
+    prog: { 토공: 28, 궤도: 16, 시스템: 12, 건축: 12, 구조: 25 }
+  },
+  "306": {
+    name: "306정거장", line: "빨강노선 (1공구)", type: "일반 정거장",
+    addr: "화성시 동탄청계로 · 오산천 인근", km: "6+267",
+    utilities: [
+      { type: "하천시설", scope: "발주처분", desc: "오산천 친수공간 교량 기초 및 가시설 간섭" },
+      { type: "통신선", scope: "도급분", desc: "오산천 횡단 KT/LGU+ 광케이블 이설" }
+    ],
+    issues: [
+      "오산천 친수공간 공사 일정 협의",
+      "하천 점용허가 취득 및 우기철 교각 보강 공법 적용"
+    ],
+    rfp: [
+      { no: "(나)76조", text: "오산천 친수공간 좌안·우안 2지구 공사 306~307 중첩 — 관계기관 협의 필수" }
+    ],
+    prog: { 토공: 25, 궤도: 15, 시스템: 12, 건축: 10, 구조: 28 }
+  },
+  "307": {
+    name: "307정거장 (지하개착 시작)", line: "빨강노선 (1공구)", type: "지하 정거장",
+    addr: "화성시 동탄순환대로", km: "7+392",
+    utilities: [
+      { type: "하수도", scope: "발주처분", desc: "오산천 하수압송관(D600) 이설 및 방호공" },
+      { type: "철도시설", scope: "발주처분", desc: "동탄~병점선 지하 개착 시작부 간섭 조율" }
+    ],
+    issues: [
+      "307~201 지하 개착구간 공법 검토",
+      "오산천 구간 종료부 ~ 지하 전환부 설계",
+      "동탄~병점선 개착공사 일정 협의"
+    ],
+    rfp: [
+      { no: "(나)72조", text: "동탄~병점선 1단계 307~201 개착구간 중첩 시작" },
+      { no: "(나)76조", text: "오산천 친수공간 공사 종료 지점" }
+    ],
+    prog: { 토공: 20, 궤도: 12, 시스템: 10, 건축: 18, 구조: 32 }
+  }
+};
+
+const overlayConfigs = [
+  // id, 원본pathId, t1, t2
+  {id:"ov-waterworks", pathId:"pBN", t1:0.0,            t2:0.579423},  // S01~103
+  {id:"ov-rd318",      pathId:"pBN", t1:0.105561,       t2:0.413353},  // S02~102
+  {id:"ov-bike",       pathId:"pBN", t1:0.234648,       t2:0.413353},  // 101~102
+  {id:"ov-dbtbn-bn",   pathId:"pBN", t1:0.813869,       t2:1.0},       // 106~동탄역
+  {id:"ov-dbtbn-rw1-a", pathId:"pRW", t1:0.890729,       t2:1.0},       // 307~동탄역
+  {id:"ov-dbtbn-rw1-b", pathId:"pRE", t1:0.0,            t2:0.057326},  // 동탄역~201
+  {id:"ov-dbtbn-rw2",  pathId:"pRW", t1:0.466136,       t2:0.614452},  // 304~305 기지창
+  {id:"ov-osan-creek", pathId:"pRW", t1:0.774875,       t2:0.890729},  // 306~307 오산천
+  {id:"ov-byoungjeom", pathId:"pRW", t1:0.0,            t2:0.208853},  // 301~302 병점환승센터
+];
+
+// ================================================================
+// 변전소 급전 구역 설정
+// ================================================================
+const feedingConfigs = [
+  {id:"feed-1-a", pathId:"pBN", t1:0.0,            t2:0.579423},
+  {id:"feed-1-b", pathId:"pRW", t1:0.0,            t2:0.466136},
+  {id:"feed-2-a", pathId:"pBN", t1:0.678428,       t2:1.0},
+  {id:"feed-2-b", pathId:"pBS", t1:0.0,            t2:0.382491},
+  {id:"feed-2-c", pathId:"pRW", t1:0.614452,       t2:1.0},
+  {id:"feed-2-d", pathId:"pRE", t1:0.0,            t2:0.329131},
+  {id:"feed-3-a", pathId:"pBS", t1:0.463978,       t2:1.0},
+  {id:"feed-3-b", pathId:"pRE", t1:0.449470,       t2:1.0},
+];
+
+function setupFeedingZones() {
+  feedingConfigs.forEach(cfg => {
+    const srcPath = document.getElementById(cfg.pathId);
+    if(!srcPath) return;
+    const L = srcPath.getTotalLength();
+    const start = cfg.t1 * L, end = cfg.t2 * L;
+    const segLen = end - start;
+    const feedPath = document.getElementById(cfg.id);
+    if(!feedPath) return;
+    feedPath.setAttribute("d", srcPath.getAttribute("d"));
+    feedPath.setAttribute("stroke-dasharray", `${segLen} ${L + 10}`);
+    feedPath.setAttribute("stroke-dashoffset", `-${start}`);
+  });
+}
+
+// ================================================================
+// 렌더링
+// ================================================================
+// ================================================================
+// 정거장 드래그 앤 드롭 및 동적 추가 저작 기능
+// ================================================================
+let activeDraggedNode = null;
+let isDraggingNode = false;
+let activeSvgElement = null;
+
+function setupNodeDragEvents(circleEl) {
+  let downX = 0;
+  let downY = 0;
+
+  circleEl.addEventListener("mousedown", e => {
+    // 노선 그리기/삭제 도구일 때는 드래그 중단
+    if (activeTool === "draw" || activeTool === "ortho" || activeTool === "curve" || activeTool === "delete") return;
+    
+    // 맵 줌/팬 전파 방지 및 드래그 동작 보장
+    e.stopPropagation();
+    e.preventDefault();
+    
+    downX = e.clientX;
+    downY = e.clientY;
+    
+    activeDraggedNode = circleEl.dataset.id;
+    isDraggingNode = true;
+    activeSvgElement = circleEl.closest("svg");
+    circleEl.setAttribute("stroke", "#10b981"); // 녹색 하이라이트
+    circleEl.setAttribute("stroke-width", "5");
+    circleEl.style.cursor = "grabbing";
+  });
+
+  // 클릭 이벤트 삼킴 부작용 방지용 수동 마우스업 클릭 트리거
+  circleEl.addEventListener("mouseup", e => {
+    if (activeTool === "draw" || activeTool === "ortho" || activeTool === "curve" || activeTool === "delete") return;
+    
+    const dist = Math.sqrt(Math.pow(e.clientX - downX, 2) + Math.pow(e.clientY - downY, 2));
+    if (dist < 6) {
+      // 드래그가 아닌 단순 탭/클릭으로 판단 -> 슬라이딩 패널 강제 열기!
+      const id = circleEl.dataset.id;
+      const svg = circleEl.closest("svg");
+      const paneType = svg.id === "map" ? "main" : (svg.id === "mapLeft" ? "left" : "right");
+      
+      console.log(`[SLIDE PANEL TRIGGER] Clicked on station: ${id} via pane: ${paneType}`);
+      if (typeof openPanel === "function") {
+        openPanel(id, paneType === "main" ? null : paneType);
+      }
+    }
+  });
+}
+
+// document mousemove 이벤트로 부드러운 트래킹 보장
+document.addEventListener("mousemove", e => {
+  if (!isDraggingNode || !activeDraggedNode || !activeSvgElement) return;
+  
+  // 마우스 좌표를 드래그가 활성화된 SVG 기준 좌표계로 변환
+  const pt = activeSvgElement.createSVGPoint();
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  
+  try {
+    const svgP = pt.matrixTransform(activeSvgElement.getScreenCTM().inverse());
+    const node = nodes[activeDraggedNode];
+    if (node) {
+      node.x = svgP.x;
+      node.y = svgP.y;
+      
+      // 메인 지도와 복제 지도들의 마커 동그라미를 실시간으로 일괄 동시 추적 이동!
+      document.querySelectorAll(`circle[data-id="${activeDraggedNode}"]`).forEach(circle => {
+        circle.setAttribute("cx", node.x);
+        circle.setAttribute("cy", node.y);
+      });
+      
+      // 드래그 중인 찰나의 매 프레임에도 90도 꺾은선 궤도가 실시간으로 춤추듯 업데이트 반영되도록 연동!
+      calculateRouteMetrics();
+    }
+  } catch(err) {
+    console.error("Coordinate transform error in mousemove:", err);
+  }
+  
+  // [추가] 선 그리기 모드 시 마우스 끝을 따라다니는 고무줄 선 실시간 갱신!
+  if ((activeTool === "draw" || activeTool === "ortho" || activeTool === "curve") && drawStartNode) {
+    updateRubberband(e);
+  }
+});
+
+// document mouseup 이벤트로 그리드 스냅 갱신
+document.addEventListener("mouseup", e => {
+  if (!isDraggingNode || !activeDraggedNode) return;
+  
+  const node = nodes[activeDraggedNode];
+  if (node) {
+    // 마우스를 뗄 때, 정의된 정수 그리드 스냅(Snap to Grid) 적용!
+    const rawGridX = node.x / GRID_SCALE_X;
+    const rawGridY = node.y / GRID_SCALE_Y;
+    
+    node.gridX = Math.round(rawGridX);
+    node.gridY = Math.round(rawGridY);
+    
+    // 그리드 좌표를 실제 픽셀 좌표로 환산 고정
+    node.x = node.gridX * GRID_SCALE_X;
+    node.y = node.gridY * GRID_SCALE_Y;
+    
+    console.log(`[노드 좌표 저작 완료] ID: ${activeDraggedNode} -> gridX: ${node.gridX}, gridY: ${node.gridY}`);
+  }
+  
+  isDraggingNode = false;
+  activeDraggedNode = null;
+  activeSvgElement = null;
+  
+  // 궤도 및 역 리렌더링 및 분할 뷰 동기화
+  calculateRouteMetrics();
+  renderStations();
+  syncSplitViews();
+  saveMapData(); // 드래그 완료 후 자동 저장
+});
+
+// 정거장 추가 버튼 클릭 이벤트 바인딩
+
+let isLinkMode = false;
+let firstSelectedNode = null;
+
+
+// 커스텀 연결선 관리 배열 추가
+window.customLinks = window.customLinks || [];
+
+function linkNodes(nodeA, nodeB) {
+  // [완벽한 버그 픽스] 기존 궤도 배열(seq)을 억지로 splice 하여 선형이 꼬이는 현상을 원천 차단!
+  // 사용자가 긋는 모든 수동 선은 완전히 독립된 customLinks 레이어로 분리 관리합니다.
+  const currMode = activeTool === "ortho" ? "ortho" : (activeTool === "curve" ? "curve" : "straight");
+  
+  // 시작 정거장의 노선 색상 판별
+  let lineColor = "black";
+  const stn = stations.find(s => s.id === nodeA);
+  if (stn) {
+    if (stn.color === RED) lineColor = "red";
+    else if (stn.color === BLUE) lineColor = "blue";
+  }
+  
+  // 기존의 복잡한 routeSequences 간섭 코드는 버리고 직결 링크만 저장!
+  const modeKey = nodeA + "_" + nodeB;
+  linkModes[modeKey] = currMode;
+  delete linkModes[nodeB + "_" + nodeA];
+  
+  // 렌더링 전용 배열에 삽입 (색상 정보 포함)
+  window.customLinks.push({ from: nodeA, to: nodeB, mode: currMode, color: lineColor });
+  
+  console.log(`[노선 연결 완료] 독립된 커스텀 선 추가: ${nodeA} 🔗 ${nodeB} (선형: ${currMode}, 색상: ${lineColor})`);
+  
+  calculateRouteMetrics();
+  renderStations();
+  syncSplitViews();
+  saveMapData(); // 스토리지 반영
+}
+
+
+function bindLinkStationsButton() {
+  const btn = document.getElementById("btnLinkStations");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    isLinkMode = !isLinkMode;
+    firstSelectedNode = null;
+    btn.style.background = isLinkMode ? "#16a34a" : "#ea580c"; // 활성화 시 초록색으로
+    btn.textContent = isLinkMode ? "✔️ 연결 완료" : "🔗 노선 연결";
+    if (!isLinkMode) {
+      renderStations(); // 하이라이트 해제용 리드로잉
+    }
+  });
+}
+
+
+let newStationCount = 1;
+function bindAddStationButton() {
+  const btn = document.getElementById("btnAddStation");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const newId = "NEW_" + newStationCount;
+    const newName = "신설역_" + newStationCount;
+    newStationCount++;
+    
+    // 1. nodes에 기본 그리드 중앙 위치 설정
+    nodes[newId] = {
+      gridX: 25,
+      gridY: 20,
+      x: 25 * GRID_SCALE_X,
+      y: 20 * GRID_SCALE_Y
+    };
+    
+    // 2. stations 목록에 추가
+    stations.push({
+      path: "pBN", // 임시 파랑 북 노선
+      id: newId,
+      label: newId + "\n" + newName,
+      dist: "",
+      color: BLUE,
+      side: "r"
+    });
+    
+    // 3. stnDetail에 기본 명세 등록
+    stnDetail[newId] = {
+      name: newName,
+      line: "실시간 신설 노선",
+      type: "신설 정거장",
+      addr: "그리드 좌표 실시간 배치 중",
+      km: "미정",
+      utilities: [],
+      issues: ["생성된 노드 동그라미를 드래그해서 위치를 맞추어 보세요."],
+      prog: { 토공: 0, 궤도: 0, 시스템: 0, 건축: 0, 구조: 0 }
+    };
+    
+    calculateRouteMetrics();
+    renderStations();
+    
+    alert(`[${newName}]이 신설되었습니다! 화면 중앙에 생성된 노드 동그라미를 마우스로 드래그해서 적절한 그리드 좌표에 위치시키세요.`);
+    saveMapData(); // 신설역 추가 후 자동 저장
+  });
+}
+
+const ns = "http://www.w3.org/2000/svg";
+
+function getPerp(pathEl, tNorm, offset) {
+  const dVal = pathEl.getAttribute("d"); const L = (!dVal || dVal === "" || dVal === "M 0,0" || dVal === "M0,0") ? 0 : pathEl.getTotalLength();
+  const dt = 0.015;
+  const t1 = Math.max(0, tNorm - dt), t2 = Math.min(1, tNorm + dt);
+  const p1 = pathEl.getPointAtLength(L * t1), p2 = pathEl.getPointAtLength(L * t2);
+  const dx = p2.x - p1.x, dy = p2.y - p1.y, mag = Math.sqrt(dx*dx+dy*dy)||1;
+  return { px: -dy/mag * offset, py: dx/mag * offset };
+}
+
+function calculateRouteMetrics() {
+  for (let pathId in routeSequences) {
+    if (pathId === "pCustom") continue; // 커스텀은 메인 루프에서 제외
+    const seq = routeSequences[pathId];
+    const pathEl = document.getElementById(pathId);
+    if (!pathEl) continue;
+
+    // 1. 노드 정수 그리드 좌표를 차례로 이은 path d 동적 빌드
+    let d = "";
+    const validIds = seq.filter(id => nodes[id]);
+    if (validIds.length > 0) {
+      const firstNode = nodes[validIds[0]];
+      d += `M ${firstNode.x},${firstNode.y}`;
+      
+      for (let i = 1; i < validIds.length; i++) {
+        const prevId = validIds[i-1];
+        const currId = validIds[i];
+        const prevNode = nodes[prevId];
+        const currNode = nodes[currId];
+        
+        // 지우개(none) 로직은 기존 메인 궤도 단절을 위해 유지
+        let mode = linkModes[prevId + "_" + currId] || linkModes[currId + "_" + prevId];
+        if (mode === "none") {
+          d += ` M ${currNode.x},${currNode.y}`;
+        } else {
+          // 메인 궤도는 무조건 유려한 Catmull-Rom 연속 곡선으로 유지!
+          const p0 = i === 1 ? prevNode : nodes[validIds[i-2]];
+          const p1 = prevNode;
+          const p2 = currNode;
+          const p3 = i === validIds.length - 1 ? currNode : nodes[validIds[i+1]];
+          
+          const t = 0.20;
+          const cp1x = p1.x + (p2.x - p0.x) * t;
+          const cp1y = p1.y + (p2.y - p0.y) * t;
+          const cp2x = p2.x - (p3.x - p1.x) * t;
+          const cp2y = p2.y - (p3.y - p1.y) * t;
+          
+          d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p2.x},${p2.y}`;
+        }
+      }
+    }
+    pathEl.setAttribute("d", d);
+
+    // 2. 궤도 선형 누적 연산
+    let accumulated = 0;
+    const nodePositions = [];
+    for (let i = 0; i < seq.length; i++) {
+      const currNode = nodes[seq[i]];
+      if (i === 0) {
+        nodePositions.push(0);
+      } else {
+        const prevNode = nodes[seq[i-1]];
+        if (currNode && prevNode) {
+          const dist = Math.sqrt(Math.pow(currNode.x - prevNode.x, 2) + Math.pow(currNode.y - prevNode.y, 2));
+          accumulated += dist;
+        }
+        nodePositions.push(accumulated);
+      }
+    }
+    const totalLen = accumulated || 1;
+    seq.forEach((nodeId, idx) => {
+      const tVal = nodePositions[idx] / totalLen;
+      if (nodes[nodeId]) { nodes[nodeId].t = tVal; }
+      const stn = stations.find(s => s.id === nodeId && s.path === pathId);
+      if (stn) { stn.t = tVal; }
+    });
+  }
+  
+  // 3. 사용자 수동 커스텀 렌더링 전담 처리 (색상별 다중 레이어 분리)
+  const paths = {
+    blue: document.getElementById("pCustomBlue"),
+    red: document.getElementById("pCustomRed"),
+    black: document.getElementById("pCustomBlack")
+  };
+  const dStrings = { blue: "", red: "", black: "" };
+  
+  if (window.customLinks && window.customLinks.length > 0) {
+    window.customLinks.forEach(link => {
+      const n1 = nodes[link.from];
+      const n2 = nodes[link.to];
+      if (!n1 || !n2) return;
+      
+      const col = link.color || "black";
+      let dCust = `M ${n1.x},${n1.y}`;
+      if (link.mode === "ortho") {
+        const dx = Math.abs(n2.x - n1.x);
+        const dy = Math.abs(n2.y - n1.y);
+        if (dx > dy) {
+          dCust += ` L ${n2.x},${n1.y} L ${n2.x},${n2.y}`;
+        } else {
+          dCust += ` L ${n1.x},${n2.y} L ${n2.x},${n2.y}`;
+        }
+      } else if (link.mode === "curve") {
+        const cp1x = (n1.x + n2.x) / 2;
+        const cp1y = n1.y;
+        const cp2x = (n1.x + n2.x) / 2;
+        const cp2y = n2.y;
+        dCust += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${n2.x},${n2.y}`;
+      } else {
+        dCust += ` L ${n2.x},${n2.y}`;
+      }
+      dStrings[col] += dCust + " ";
+    });
+  }
+  
+  for (const [col, el] of Object.entries(paths)) {
+    if (el) {
+      el.setAttribute("d", dStrings[col].trim() || "M 0,0");
+    }
+  }
+}
+
+function setupOverlays() {
+  overlayConfigs.forEach(cfg => {
+    const srcPath = document.getElementById(cfg.pathId);
+    if(!srcPath) return;
+    const L = srcPath.getTotalLength();
+    const start = cfg.t1 * L, end = cfg.t2 * L;
+    const segLen = end - start;
+    const ovPath = document.getElementById(cfg.id);
+    if(!ovPath) return;
+    ovPath.setAttribute("d", srcPath.getAttribute("d"));
+    ovPath.setAttribute("stroke-dasharray", `${segLen} ${L + 10}`);
+    ovPath.setAttribute("stroke-dashoffset", `-${start}`);
+  });
+}
+
+function syncSplitViews() {
+  const mapMain = document.getElementById("map");
+  const mapLeft = document.getElementById("mapLeft");
+  const mapRight = document.getElementById("mapRight");
+  const mainStn = document.getElementById("gStn");
+  const mainLbl = document.getElementById("gLbl");
+  
+  if (mapLeft) {
+    const leftStn = mapLeft.querySelector("#gStn");
+    const leftLbl = mapLeft.querySelector("#gLbl");
+    const leftPath = mapLeft.querySelector("#gPath");
+    const mainPath = mapMain.querySelector("#gPath");
+    if (leftStn && mainStn) leftStn.innerHTML = mainStn.innerHTML;
+    if (leftLbl && mainLbl) leftLbl.innerHTML = mainLbl.innerHTML;
+    if (leftPath && mainPath) leftPath.innerHTML = mainPath.innerHTML; // [분할 뷰 선 렌더링 누락 버그 픽스]
+    if (leftStn) {
+      leftStn.querySelectorAll("circle").forEach(c => {
+        setupNodeDragEvents(c);
+      });
+    }
+  }
+  
+  if (mapRight) {
+    const rightStn = mapRight.querySelector("#gStn");
+    const rightLbl = mapRight.querySelector("#gLbl");
+    const rightPath = mapRight.querySelector("#gPath");
+    const mainPath = mapMain.querySelector("#gPath");
+    if (rightStn && mainStn) rightStn.innerHTML = mainStn.innerHTML;
+    if (rightLbl && mainLbl) rightLbl.innerHTML = mainLbl.innerHTML;
+    if (rightPath && mainPath) rightPath.innerHTML = mainPath.innerHTML; // [분할 뷰 선 렌더링 누락 버그 픽스]
+    if (rightStn) {
+      rightStn.querySelectorAll("circle").forEach(c => {
+        setupNodeDragEvents(c);
+      });
+    }
+  }
+}
+
+
+function renameStation(id) {
+  const stn = stations.find(s => s.id === id);
+  if (!stn) return;
+  const currentName = stn.label.split("\n").pop() || "";
+  const newName = prompt("새로운 정거장 이름을 입력하세요:", currentName);
+  if (newName === null) return;
+  const trimmed = newName.trim();
+  if (trimmed === "") {
+    alert("정거장 이름은 빈 칸일 수 없습니다.");
+    return;
+  }
+  stn.label = id + "\n" + trimmed;
+  if (stnDetail[id]) {
+    stnDetail[id].name = trimmed;
+  }
+  renderStations();
+  syncSplitViews();
+  // 사이드바 새로고침
+  const activeDetailId = document.getElementById("sidePanel")?.classList.contains("open") 
+    ? document.getElementById("spTitle")?.textContent 
+    : null;
+  // 분할 뷰 사이드바 포함 새로고침 연동
+  openPanel(id);
+}
+
+
+function renderStations() {
+  const gDist = document.getElementById("gDist");
+  const gStn  = document.getElementById("gStn");
+  const gLbl  = document.getElementById("gLbl");
+  if(gDist) gDist.innerHTML = "";
+  if(gStn) gStn.innerHTML = "";
+  if(gLbl) gLbl.innerHTML = "";
+
+  const groups = [
+    {pathId:"pBN", list: stations.filter(s=>s.path==="pBN"), dColor:"#1e40af"},
+    {pathId:"pBS", list: stations.filter(s=>s.path==="pBS"), dColor:"#1e40af"},
+    {pathId:"pRW", list: stations.filter(s=>s.path==="pRW"), dColor:"#991b1b"},
+    {pathId:"pRE", list: stations.filter(s=>s.path==="pRE"), dColor:"#991b1b"},
+  ];
+
+  groups.forEach(g => {
+    const pathEl = document.getElementById(g.pathId);
+    if(!pathEl) return;
+    const dVal = pathEl.getAttribute("d"); const L = (!dVal || dVal === "" || dVal === "M 0,0" || dVal === "M0,0") ? 0 : pathEl.getTotalLength();
+
+    g.list.forEach((s, i) => {
+      // 그리드 노드 좌표 직접 매칭하여 오차 0px 보장
+      const node = nodes[s.id];
+      if (!node) return;
+      const pt = { x: node.x, y: node.y };
+
+      // 원 (107역, 201역 특화정거장 개별 차별화 스타일 적용)
+      const isSpecial = s.id === "107" || s.id === "201";
+      const r = s.isT ? 14 : (isSpecial ? 12 : 9);
+      
+      let fillClr;
+      if (s.isT) {
+        fillClr = "#f59e0b"; // 일반 환승/기종점: 주황
+      } else if (isSpecial) {
+        fillClr = "#a78bfa"; // 특화정거장: 연보라 채우기
+      } else if (s.ug) {
+        fillClr = s.color === BLUE ? "#dbeafe" : "#fee2e2"; // 일반 지하역: 밝은 청/적색
+      } else {
+        fillClr = "white"; // 일반 지상역: 흰색
+      }
+
+      let strokeClr;
+      if (s.isT) {
+        strokeClr = "white";
+      } else if (isSpecial) {
+        strokeClr = "#6d28d9"; // 특화정거장 테두리: 진보라
+      } else {
+        strokeClr = s.color;
+      }
+
+      const strokeWidth = s.isT ? "3.5" : (isSpecial ? "4" : "3");
+
+      const c = document.createElementNS(ns, "circle");
+      c.setAttribute("cx", pt.x); c.setAttribute("cy", pt.y); c.setAttribute("r", r);
+      c.setAttribute("fill", fillClr);
+      c.setAttribute("stroke", strokeClr);
+      c.setAttribute("stroke-width", strokeWidth);
+      c.style.cursor = (activeTool === "draw" || activeTool === "ortho" || activeTool === "curve") ? "crosshair" : (activeTool === "delete" ? "pointer" : "grab");
+      c.dataset.id = s.id;
+      c.setAttribute("data-line", s.color === BLUE ? "blue" : "red");
+      setupNodeDragEvents(c);
+      c.addEventListener("dblclick", (e) => {
+        e.stopPropagation();
+        renameStation(s.id);
+      });
+      gStn.appendChild(c);
+
+      // 라벨
+      const lines = s.label.split("\n");
+      // 역별 라벨 위치 미세 조정 (동탄역 주변 겹침 해소용)
+      const labelAdj = {
+        "107": {dx:5, dy:-8},    // 수평 이격이 생겼으므로 수직 오프셋 축소
+        "201": {dx:5, dy:8},     // 수평 이격이 생겼으므로 수직 오프셋 축소
+        "108": {dx:0, dy:3},     // 108을 약간 아래로
+      };
+      const adj = labelAdj[s.id] || {dx:0, dy:0};
+
+      const ro = r + 4;
+      let lx=pt.x, ly=pt.y+4, anchor="middle";
+      if(s.side==="r"){lx=pt.x+ro+3; ly=pt.y+4; anchor="start";}
+      else if(s.side==="l"){lx=pt.x-ro-3; ly=pt.y+4; anchor="end";}
+      else if(s.side==="a" || s.side==="t"){lx=pt.x; ly=pt.y-ro-(lines.length>1?20:3); anchor="middle";}
+      else if(s.side==="b"){lx=pt.x; ly=pt.y+ro+13; anchor="middle";}
+      lx += (adj.dx || 0);
+      ly += (adj.dy || 0);
+      lines.forEach((line,j)=>{
+        const t=document.createElementNS(ns,"text");
+        const offsetX = (j === 1 && s.id === "115") ? 25 : 0; t.setAttribute("x", lx + offsetX); t.setAttribute("y", ly + j * 20);
+        const currentAnchor = (j === 1 && s.id === "115") ? "start" : anchor; t.setAttribute("text-anchor", currentAnchor);
+        t.setAttribute("font-family","Noto Sans KR,sans-serif");
+        t.setAttribute("font-size",j===0?"10":"8.5");
+        t.setAttribute("font-weight",j===0?"700":"400");
+        t.setAttribute("fill",j===0?"#1e293b":"#64748b");
+        t.setAttribute("data-line", s.color === BLUE ? "blue" : "red");
+        t.setAttribute("data-id", s.id);
+        t.textContent = line;
+        t.style.cursor = (activeTool === "draw" || activeTool === "ortho" || activeTool === "curve") ? "crosshair" : "pointer";
+        t.addEventListener("dblclick", (e) => {
+          e.stopPropagation();
+          renameStation(s.id);
+        });
+        gLbl.appendChild(t);
+      });
+
+      // 거리 라벨 (다음 정거장까지)
+      if(!s.dist || i+1>=g.list.length) return;
+      const sNext = g.list[i+1];
+      // 306역 구간은 중앙에 오산천교량이 위치하므로, 거리 라벨을 306역 방향으로 25% 쏠린 위치로 조정하여 간섭을 방지합니다.
+      let midT = s.id === "306"
+        ? s.t + (sNext.t - s.t) * 0.25
+        : (s.t + sNext.t) / 2;
+      const val = L * midT;
+      if (isNaN(val) || !isFinite(val)) return;
+      const mp = pathEl.getPointAtLength(val);
+      
+      // 각 역별로 거리 라벨과 역 라벨의 겹침을 방지하기 위해 오프셋 방향을 개별 지정합니다.
+      let distOffset = 17;
+      if (s.id === "306" || s.id === "104" || s.id === "116") {
+        distOffset = -22;
+      } else if (s.id === "107") {
+        // 107역 side="r"이므로 거리 라벨을 왼쪽(-22)에 배치
+        distOffset = -22;
+      } else if (s.id === "207" || s.id === "208" || s.id === "209") {
+        distOffset = 17;
+      } else if (s.id === "115") {
+        distOffset = 17;
+      }
+      const perp = getPerp(pathEl, midT, distOffset);
+
+      const txt = s.dist;
+      const PILL_W = txt.length * 5.5 + 10, PILL_H = 14;
+      const bg = document.createElementNS(ns,"rect");
+      bg.setAttribute("x",mp.x+perp.px-PILL_W/2); bg.setAttribute("y",mp.y+perp.py-PILL_H/2);
+      bg.setAttribute("width",PILL_W); bg.setAttribute("height",PILL_H); bg.setAttribute("rx","7");
+      bg.setAttribute("fill",s.color===BLUE?"#eff6ff":"#fff5f5");
+      bg.setAttribute("stroke",s.color===BLUE?"#bfdbfe":"#fecaca");
+      bg.setAttribute("stroke-width","1");
+      bg.setAttribute("data-line", s.color === BLUE ? "blue" : "red");
+      gDist.appendChild(bg);
+
+      const dt=document.createElementNS(ns,"text");
+      dt.setAttribute("x",mp.x+perp.px); dt.setAttribute("y",mp.y+perp.py+4.5);
+      dt.setAttribute("text-anchor","middle");
+      dt.setAttribute("font-family","Noto Sans KR,sans-serif");
+      dt.setAttribute("font-size","9"); dt.setAttribute("font-weight","600");
+      dt.setAttribute("fill",g.dColor); dt.textContent=txt;
+      dt.setAttribute("data-line", s.color === BLUE ? "blue" : "red");
+      gDist.appendChild(dt);
+    });
+
+    // 동탄역→202 거리 (pRE 첫 구간, 기존 201역 삭제에 따른 합산)
+    if(g.pathId==="pRE" && L > 10){
+      const midT=0.025; // 수평 구간 중심 부근
+      const pre_val = L * midT;
+      if (isNaN(pre_val) || !isFinite(pre_val)) return;
+      const mp=pathEl.getPointAtLength(pre_val);
+      const fixedPx = 0, fixedPy = -22;
+      const txt="1,747m", PILL_W=txt.length*5.5+10, PILL_H=14;
+      const bg=document.createElementNS(ns,"rect");
+      bg.setAttribute("x",mp.x+fixedPx-PILL_W/2); bg.setAttribute("y",mp.y+fixedPy-PILL_H/2);
+      bg.setAttribute("width",PILL_W); bg.setAttribute("height",PILL_H); bg.setAttribute("rx","7");
+      bg.setAttribute("fill","#fff5f5"); bg.setAttribute("stroke","#fecaca"); bg.setAttribute("stroke-width","1");
+      bg.setAttribute("data-line", "red");
+      gDist.appendChild(bg);
+      const dt=document.createElementNS(ns,"text");
+      dt.setAttribute("x",mp.x+fixedPx); dt.setAttribute("y",mp.y+fixedPy+4.5);
+      dt.setAttribute("text-anchor","middle"); dt.setAttribute("font-family","Noto Sans KR,sans-serif");
+      dt.setAttribute("font-size","9"); dt.setAttribute("font-weight","600"); dt.setAttribute("fill","#991b1b");
+      dt.textContent=txt; 
+      dt.setAttribute("data-line", "red");
+      gDist.appendChild(dt);
+    }
+
+    // 동탄역→108 거리 (pBS 첫 구간, 기존 107역 삭제에 따른 합산)
+    if(g.pathId==="pBS" && L > 10){
+      const midT=0.044; // 파란선 수평 구간 정중앙
+      const pre_val = L * midT;
+      if (isNaN(pre_val) || !isFinite(pre_val)) return;
+      const mp=pathEl.getPointAtLength(pre_val);
+      const fixedPx = 0, fixedPy = 22; // 오른쪽 수평선 아래
+      const txt="1,082m", PILL_W=txt.length*5.5+10, PILL_H=14;
+      const bg=document.createElementNS(ns,"rect");
+      bg.setAttribute("x",mp.x+fixedPx-PILL_W/2); bg.setAttribute("y",mp.y+fixedPy-PILL_H/2);
+      bg.setAttribute("width",PILL_W); bg.setAttribute("height",PILL_H); bg.setAttribute("rx","7");
+      bg.setAttribute("fill","#eff6ff"); bg.setAttribute("stroke","#bfdbfe"); bg.setAttribute("stroke-width","1");
+      bg.setAttribute("data-line", "blue");
+      gDist.appendChild(bg);
+      const dt=document.createElementNS(ns,"text");
+      dt.setAttribute("x",mp.x+fixedPx); dt.setAttribute("y",mp.y+fixedPy+4.5);
+      dt.setAttribute("text-anchor","middle"); dt.setAttribute("font-family","Noto Sans KR,sans-serif");
+      dt.setAttribute("font-size","9"); dt.setAttribute("font-weight","600"); dt.setAttribute("fill","#1e40af");
+      dt.textContent=txt; 
+      dt.setAttribute("data-line", "blue");
+      gDist.appendChild(dt);
+    }
+  });
+  
+  
+  syncSplitViews();
+}
+
+// ================================================================
+// 사이드 패널 렌더링 및 인터랙션
+// ================================================================
+const mapControllers = {
+  main: null,
+  left: null,
+  right: null
+};
+
+function getTargetPanes(id) {
+  const d = stnDetail[id];
+  if (!d) return ["left", "right"];
+  if (d.line && (d.line.includes("신설") || d.line.includes("실시간"))) {
+    return ["left", "right"];
+  }
+  if (id === "동탄역" || id === "vs2") {
+    return ["left", "right"];
+  }
+  if (d.line.includes("빨강") || id === "vs3" || id.startsWith("struct-") || id === "vehicle-depot") {
+    return ["left"];
+  }
+  if (d.line.includes("파랑") || id === "vs1") {
+    return ["right"];
+  }
+  return [];
+}
+
+function renderPanelContent(id, panelId, badgeId, titleId, subId, bodyId) {
+  const d = stnDetail[id];
+  if (!d) return;
+  
+  const badge = document.getElementById(badgeId);
+  const title = document.getElementById(titleId);
+  const sub   = document.getElementById(subId);
+  const body  = document.getElementById(bodyId);
+  
+  const isBlue = d.line.includes("파랑") || id === "동탄역" || id.startsWith("vs");
+  const isRed  = d.line.includes("빨강");
+  const isBoth = id === "동탄역";
+  
+  badge.style.background = isBoth 
+    ? "linear-gradient(135deg,#1d6fe8,#e03131)" 
+    : (isBlue ? "#1d6fe8" : (isRed ? "#e03131" : "#10b981"));
+  badge.textContent = id.length > 3 ? id.substring(0, 3) : id;
+  
+  title.innerHTML = `${d.name} <button onclick="renameStation('${id}')" style="margin-left:8px; font-size:0.75rem; background:#475569; border:none; border-radius:4px; padding:2px 6px; color:#fff; cursor:pointer; vertical-align:middle;" title="이름 편집">✏️ 편집</button>`;
+  sub.textContent = d.line + " · " + d.type;
+
+  let html = `
+  <div class="sp-section">
+    <div class="sp-section-title">기본 정보</div>
+    <div class="sp-info-grid">
+      <div class="sp-info-item"><div class="k">위치</div><div class="v" style="font-size:.78rem">${d.addr}</div></div>
+      <div class="sp-info-item"><div class="k">노선거리</div><div class="v">${d.km}</div></div>
+    </div>
+  </div>`;
+
+  if (d.utilities && d.utilities.length > 0) {
+    html += `
+    <div class="sp-section">
+      <div class="sp-section-title">🚧 지장물 이설 관리 구분</div>
+      <div class="utility-grid" style="display:flex; flex-direction:column; gap:0.4rem; margin-top:0.5rem;">
+    `;
+    d.utilities.forEach(ut => {
+      const scopeBg = ut.scope === "도급분" ? "#e0f2fe" : "#ffedd5";
+      const scopeColor = ut.scope === "도급분" ? "#0369a1" : "#c2410c";
+      const scopeBorder = ut.scope === "도급분" ? "#bae6fd" : "#fed7aa";
+      
+      html += `
+        <div style="display:flex; align-items:center; border:1px solid #e2e8f0; border-radius:6px; padding:0.4rem 0.5rem; background:#f8fafc; gap:0.5rem;">
+          <span style="font-size:0.72rem; font-weight:700; padding:0.15rem 0.35rem; border-radius:4px; background:${scopeBg}; color:${scopeColor}; border:1px solid ${scopeBorder}; white-space:nowrap; width:52px; text-align:center;">
+            ${ut.scope}
+          </span>
+          <div style="display:flex; flex-direction:column; flex:1;">
+            <span style="font-size:0.78rem; font-weight:700; color:#334155;">${ut.type}</span>
+            <span style="font-size:0.72rem; color:#64748b; margin-top:0.1rem; line-height:1.35;">${ut.desc}</span>
+          </div>
+        </div>
+      `;
+    });
+    html += `
+      </div>
+    </div>
+    `;
+  }
+
+  const p = platformData[id];
+  if (p) {
+    html += `
+    <div class="sp-section">
+      <div class="sp-section-title">📐 승강장 폭원 분석 (안전이격 검토)</div>
+      <div class="sp-info-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 0.5rem;">
+        <div class="sp-info-item" style="grid-column: span 2;"><div class="k">승강장 형식</div><div class="v" style="color:var(--blue)">${p.type}</div></div>
+        <div class="sp-info-item"><div class="k">기본설계 폭원</div><div class="v">${p.baseWidth}</div></div>
+        <div class="sp-info-item"><div class="k">기둥위치 조치</div><div class="v" style="font-size:0.78rem; ${p.colPosition !== '-' ? 'color:#dc2626; font-weight:bold;' : ''}">${p.colPosition}</div></div>
+        <div class="sp-info-item"><div class="k">끝단배치 필요폭</div><div class="v">${p.endWidth}</div></div>
+        <div class="sp-info-item"><div class="k">중앙배치 필요폭</div><div class="v">${p.centerWidth}</div></div>
+      </div>
+      ${p.shortage ? `
+      <div style="background:#fee2e2; border:1px solid #fca5a5; border-radius:8px; padding:0.5rem 0.75rem; font-size:0.78rem; color:#b91c1c; font-weight:bold; display:flex; align-items:center; gap:0.35rem; margin-top:0.35rem;">
+        ⚠️ 폭원 부족량: ${p.shortage} (실시설계 시 폭원 확장 필수)
+      </div>` : ''}
+    </div>`;
+  }
+
+  if (d.specs) {
+    html += `
+    <div class="sp-section">
+      <div class="sp-section-title">🌉 교량 설계 제원 요약</div>
+      <div class="sp-info-grid" style="grid-template-columns: 1fr 1fr; gap: 0.45rem;">
+        <div class="sp-info-item" style="grid-column: span 2;"><div class="k">교량 형식</div><div class="v" style="color:#e03131; font-weight:bold;">${d.specs.type}</div></div>
+        <div class="sp-info-item"><div class="k">교량 연장 (교장)</div><div class="v">${d.specs.length}</div></div>
+        <div class="sp-info-item"><div class="k">교량 폭원 (교폭)</div><div class="v">${d.specs.width}</div></div>
+        <div class="sp-info-item"><div class="k">설계 하중</div><div class="v">${d.specs.load}</div></div>
+        <div class="sp-info-item"><div class="k">상부 가설 공법</div><div class="v" style="font-size:0.74rem; font-weight:700;">${d.specs.method}</div></div>
+        <div class="sp-info-item" style="grid-column: span 2;"><div class="k">하부 기초 형식</div><div class="v" style="font-size:0.77rem;">${d.specs.foundation}</div></div>
+      </div>
+    </div>`;
+  }
+
+  if(d.overlaps && d.overlaps.length > 0){
+    html += `<div class="sp-section">
+    <div class="sp-section-title">⚠ 타 사업 중첩 구간</div>`;
+    d.overlaps.forEach(ov=>{
+      const c = ovColors[ov.key]||"#64748b";
+      html += `<div class="ov-badge" style="background:${c}22;border:1px solid ${c}55;">
+        <div class="dot" style="background:${c}"></div>
+        <span style="color:${c};font-weight:700">${ov.label}</span>
+      </div>
+      <div style="font-size:.77rem;color:#64748b;margin:.15rem 0 .4rem .3rem;">${ov.desc}</div>`;
+    });
+    html += `</div>`;
+  }
+
+  if(d.issues && d.issues.length > 0){
+    html += `<div class="sp-section">
+    <div class="sp-section-title">주요 설계 이슈</div>
+    <ul class="issue-list">`;
+    d.issues.forEach(iss=>{
+      html += `<li><span class="icon">🔹</span>${iss}</li>`;
+    });
+    html += `</ul></div>`;
+  }
+
+  if(d.rfp && d.rfp.length > 0){
+    html += `<div class="sp-section">
+    <div class="sp-section-title">RFP 특수조건</div>
+    <ul class="rfp-list">`;
+    d.rfp.forEach(r=>{
+      const statusColor = r.status === "완료" ? "#10b981" : (r.status === "검토중" ? "#f59e0b" : "#ef4444");
+      const statusBg = r.status === "완료" ? "#dcfce7" : (r.status === "검토중" ? "#fef3c7" : "#fee2e2");
+      html += `<li style="padding:0.45rem 0;">
+        <div style="display:flex;align-items:center;width:100%;gap:0.4rem;">
+          <span class="rfp-no">${r.no}</span>
+          <span style="font-size:0.64rem;font-weight:700;padding:0.12rem 0.4rem;border-radius:4px;background:${statusBg};color:${statusColor};margin-left:auto;">${r.status||"검토중"}</span>
+        </div>
+        <div style="margin-top:0.25rem;color:#475569;font-size:0.78rem;line-height:1.45;">${r.text}</div>
+      </li>`;
+    });
+    html += `</ul></div>`;
+  }
+
+  html += `
+  <div class="sp-section">
+    <div class="sp-section-title">🔗 연계 실무 매뉴얼 가이드</div>
+    <div class="manual-link-sec">
+  `;
+
+  if (["107", "201", "301", "동탄역"].includes(id)) {
+    html += `
+      
+                    <a href="dongtan_manual.html#sec-architecture-3" target="_blank" class="manual-link" style="background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; font-weight:700;">
+        ⚠️ 정거장 캐노피 설계 높이 검토 가이드 (RFP 3.8m 미달 리스크)
+      </a>
+    `;
+  }
+  
+  if (id === "304") {
+    html += `
+      <a href="dongtan_manual.html#sec-architecture-2" target="_blank" class="manual-link" style="background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; font-weight:700;">
+        ⚠️ 곡선부 승강장 연단 간격 설계 가이드 (이격 50mm 초과 리스크)
+      </a>
+    `;
+  }
+
+  if (id === "동탄역" || id === "201" || id === "107") {
+    html += `
+      <a href="dongtan_manual.html#sec-architecture-2" target="_blank" class="manual-link" style="background:#fff7ed; color:#c2410c; border:1px solid #ffedd5;">
+        📜 동탄역 특화 디자인 가이드라인 요건
+      </a>
+    `;
+  }
+
+  if (id.startsWith("vs")) {
+    html += `
+      <a href="동탄트램_건축_매뉴얼.html#sec-5-1" target="_blank" class="manual-link" style="background:#e0f2fe; color:#0369a1; border:1px solid #bae6fd;">
+        🏢 변전소(vs) 건축 설계 지침 (Hatch 규격)
+      </a>
+      <a href="dongtan_manual.html#sec-systems-2" target="_blank" class="manual-link" style="background:#f1f5f9; color:#475569; border:1px solid #e2e8f0;">
+        ⚡ 8.2 전력공급 시스템 매뉴얼 (변전실)
+      </a>
+    `;
+  } else if (id === "vehicle-depot" || d.name.includes("차량기지")) {
+    html += `
+      <a href="동탄트램_건축_매뉴얼.html#sec-4" target="_blank" class="manual-link" style="background:#f3e8ff; color:#6b21a8; border:1px solid #e9d5ff; font-weight:700;">
+        🏭 차량기지 건축 & OCC 계획 매뉴얼
+      </a>
+      <a href="dongtan_manual.html#sec-depot" target="_blank" class="manual-link" style="background:#f1f5f9; color:#475569; border:1px solid #e2e8f0;">
+        🏭 4. 차량기지 종합계획 및 정비동 매뉴얼
+      </a>
+    `;
+  } else if (id.startsWith("struct-")) {
+    html += `
+      <a href="dongtan_manual.html#sec-structure" target="_blank" class="manual-link" style="background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; font-weight:700;">
+        🌉 주요 구조물 (교량/터널) 설계 매뉴얼
+      </a>
+    `;
+  }
+
+  const hasJijang = d.overlaps && d.overlaps.some(ov => ["광역상수도", "지방도318", "자전거도로", "오산천", "병점환승", "동탄병점선"].includes(ov.key));
+  if (hasJijang) {
+    html += `
+      <a href="지장물_이설_업무_매뉴얼.html#sec-design" target="_blank" class="manual-link" style="background:#f0fdf4; color:#166534; border:1px solid #bbf7d0;">
+        🚧 지장물 이설 설계/협의 가이드라인
+      </a>
+    `;
+  }
+
+  html += `
+      
+      <!-- 동적 연계 모달 링크 -->
+      <a href="javascript:void(0)" onclick="window.open('dongtan_manual.html?openStation=${id}#sec-railway-plan-1', 'tram_manual_window');" class="manual-link" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); font-weight: 600; display:flex; align-items:center; gap:0.5rem;" onmouseover="this.style.borderColor='var(--accent-color)'; this.style.backgroundColor='rgba(2, 132, 199, 0.05)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.backgroundColor='var(--bg-secondary)';">
+        <span style="font-size: 1.1rem;">📐</span>
+        <span>3.2 정거장 상세 여건 및 도면 (모달 열기)</span>
+      </a>
+
+      <a href="dongtan_manual.html#sec-architecture" target="_blank" class="manual-link" style="background:#f1f5f9; color:#475569; border:1px solid #e2e8f0;">
+        🏢 3. 정거장 건축 일반 가이드라인
+      </a>
+      <a href="dongtan_manual.html#sec-track" target="_blank" class="manual-link" style="background:#f1f5f9; color:#475569; border:1px solid #e2e8f0;">
+        🛤️ 9. 트램 궤도 형식 검토 매뉴얼
+      </a>
+    </div>
+  </div>`;
+
+  body.innerHTML = html;
+}
+
+function openPanel(id, forcePane = null) {
+  console.log("[openPanel] id:", id, "forcePane:", forcePane);
+  // stnDetail에 데이터가 없으면 즉석 동적 생성 보장
+  if (!stnDetail[id]) {
+    stnDetail[id] = {
+      name: id + " 정거장",
+      line: "실시간 신설 노선",
+      type: "신설 정거장",
+      addr: "도면상 좌표 실시간 저작 중",
+      km: "측량 중",
+      utilities: [],
+      issues: ["정거장 위치를 저작 도구 상에서 이동할 수 있습니다."],
+      prog: { 토공: 0, 궤도: 0, 시스템: 0, 건축: 0, 구조: 0 }
+    };
+  }
+  const d = stnDetail[id];
+
+  const currentView = document.querySelector(".view-toggle-btn.active").dataset.view;
+
+  if (currentView === "unified") {
+    renderPanelContent(id, "sidePanel", "spBadge", "spTitle", "spSubtitle", "spBody");
+    document.getElementById("sidePanel").classList.add("open");
+    
+    panToElementInPane(id, "map");
+    blinkMarkerInPane(id, "map");
+    
+    // 변전소 클릭 시 급전 구역 하이라이트 활성화
+    const svg = document.getElementById("map");
+    svg.querySelectorAll(".layer-feed").forEach(el => el.classList.add("hidden"));
+    if (id === "vs1") {
+      svg.querySelector("#feed-1-a").classList.remove("hidden");
+      svg.querySelector("#feed-1-b").classList.remove("hidden");
+    } else if (id === "vs2") {
+      svg.querySelector("#feed-2-a").classList.remove("hidden");
+      svg.querySelector("#feed-2-b").classList.remove("hidden");
+      svg.querySelector("#feed-2-c").classList.remove("hidden");
+      svg.querySelector("#feed-2-d").classList.remove("hidden");
+    } else if (id === "vs3") {
+      svg.querySelector("#feed-3-a").classList.remove("hidden");
+      svg.querySelector("#feed-3-b").classList.remove("hidden");
+    }
+  } else {
+    // 2분할 뷰 동작
+    const targetPanes = forcePane ? [forcePane] : getTargetPanes(id);
+    
+    targetPanes.forEach(pane => {
+      const panelId = pane === "left" ? "sidePanelLeft" : "sidePanelRight";
+      const badgeId = pane === "left" ? "spBadgeLeft" : "spBadgeRight";
+      const titleId = pane === "left" ? "spTitleLeft" : "spTitleRight";
+      const subId   = pane === "left" ? "spSubtitleLeft" : "spSubtitleRight";
+      const bodyId  = pane === "left" ? "spBodyLeft" : "spBodyRight";
+      const svgId   = pane === "left" ? "mapLeft" : "mapRight";
+      
+      renderPanelContent(id, panelId, badgeId, titleId, subId, bodyId);
+      document.getElementById(panelId).classList.add("open");
+      
+      panToElementInPane(id, svgId);
+      blinkMarkerInPane(id, svgId);
+      
+      // 변전소 클릭 시 해당 지도에서의 급전 구역 하이라이트 활성화
+      const svg = document.getElementById(svgId);
+      svg.querySelectorAll(".layer-feed").forEach(el => el.classList.add("hidden"));
+      if (id === "vs1") {
+        const f1 = svg.querySelector("#feed-1-a"); if(f1) f1.classList.remove("hidden");
+        const f2 = svg.querySelector("#feed-1-b"); if(f2) f2.classList.remove("hidden");
+      } else if (id === "vs2") {
+        const f1 = svg.querySelector("#feed-2-a"); if(f1) f1.classList.remove("hidden");
+        const f2 = svg.querySelector("#feed-2-b"); if(f2) f2.classList.remove("hidden");
+        const f3 = svg.querySelector("#feed-2-c"); if(f3) f3.classList.remove("hidden");
+        const f4 = svg.querySelector("#feed-2-d"); if(f4) f4.classList.remove("hidden");
+      } else if (id === "vs3") {
+        const f1 = svg.querySelector("#feed-3-a"); if(f1) f1.classList.remove("hidden");
+        const f2 = svg.querySelector("#feed-3-b"); if(f2) f2.classList.remove("hidden");
+      }
+    });
+  }
+}
+
+function panToElementInPane(id, svgId) {
+  const svg = document.getElementById(svgId);
+  if (!svg) return;
+
+  const pane = svg.closest(".view-pane") || svg.closest(".split-half") || document;
+  const targetEl = pane.querySelector(`[id="${id}"]`) || pane.querySelector(`circle[data-id="${id}"]`) || (id === "동탄역" ? pane.querySelector("#stDongt") : null);
+  if (!targetEl) return;
+
+  let cx, cy;
+  if (targetEl.tagName === "circle") {
+    cx = parseFloat(targetEl.getAttribute("cx"));
+    cy = parseFloat(targetEl.getAttribute("cy"));
+  } else if (targetEl.tagName === "rect") {
+    cx = parseFloat(targetEl.getAttribute("x")) + parseFloat(targetEl.getAttribute("width")) / 2;
+    cy = parseFloat(targetEl.getAttribute("y")) + parseFloat(targetEl.getAttribute("height")) / 2;
+  } else if (targetEl.tagName === "g" || targetEl.id === "ug-zone") {
+    // 지하개착 구간(<g>)일 경우 중심 고정 좌표 적용
+    cx = 652.5;
+    cy = 385;
+  } else if (targetEl.id === "struct-bridge") {
+    // 오산천 횡단 교량 중심 고정 좌표 적용
+    cx = 607;
+    cy = 456;
+  } else if (targetEl.id === "vehicle-depot") {
+    // 동탄 차량기지 중심 고정 좌표 적용
+    cx = 812.5;
+    cy = 725;
+  }
+
+  if (cx !== undefined && cy !== undefined) {
+    const paneType = svgId === "map" ? "main" : (svgId === "mapLeft" ? "left" : "right");
+    const ctrl = mapControllers[paneType];
+    if (ctrl) {
+      ctrl.panTo(cx, cy);
+    }
+  }
+}
+
+function blinkMarkerInPane(id, svgId) {
+  const svg = document.getElementById(svgId);
+  if (!svg) return;
+  
+  const pane = svg.closest(".view-pane") || svg.closest(".split-half") || document;
+  pane.querySelectorAll(".marker-blink").forEach(el => el.classList.remove("marker-blink"));
+  
+  const marker = pane.querySelector(`[id="${id}"]`) || pane.querySelector(`circle[data-id="${id}"]`) || (id === "동탄역" ? pane.querySelector("#stDongt") : null);
+  if (marker) {
+    const shape = marker.tagName === "g" ? (marker.querySelector("rect") || marker.querySelector("circle")) : marker;
+    if (shape) {
+      shape.classList.remove("marker-blink");
+      void shape.offsetWidth; // trigger reflow
+      shape.classList.add("marker-blink");
+    }
+  }
+}
+
+// ================================================================
+// 레이어 토글
+// ================================================================
+const LAYER_CLASSES = {
+  "all":   ["layer-ov","layer-ug","layer-vs"],
+  "ov":    ["layer-ov"],
+  "ug":    ["layer-ug"],
+  "vs":    ["layer-vs"],
+};
+
+function applyLayers(active) {
+  // 모든 레이어 숨김
+  document.querySelectorAll(".layer-ov, .layer-ug, .layer-vs").forEach(el => {
+    el.classList.add("hidden");
+    el.style.display = "none";
+  });
+  
+  const ovLegend = document.getElementById("ovLegend");
+  if (ovLegend) ovLegend.classList.add("hidden");
+
+  const show = active === "all"
+    ? ["layer-ov","layer-ug","layer-vs"]
+    : LAYER_CLASSES[active] || [];
+
+  show.forEach(cls => {
+    document.querySelectorAll("." + cls).forEach(el => {
+      el.classList.remove("hidden");
+      el.style.display = "";
+    });
+  });
+
+  if (active === "all" || active === "ov") {
+    if (ovLegend) ovLegend.classList.remove("hidden");
+  }
+}
+
+// ================================================================
+// Pan / Zoom 상호작용 설정
+// ================================================================
+function setupMapInteractions(svgId, zoomInId, zoomOutId, zoomResetId, initialVB) {
+  const svg = document.getElementById(svgId);
+  if (!svg) return null;
+  
+  let currentVB = { ...initialVB };
+  
+  function updateVB() {
+    svg.setAttribute("viewBox", `${currentVB.x} ${currentVB.y} ${currentVB.w} ${currentVB.h}`);
+  }
+  
+  // Set initial
+  updateVB();
+  
+  let isDragging = false;
+  let startX, startY;
+  let startX_click, startY_click;
+  let localDragMoved = false;
+  
+  svg.addEventListener("mousedown", (e) => {
+    if (e.button !== 0) return;
+    // [버그 픽스] 이동 툴("move")이 아닐 때는 화면 패닝(드래그)을 차단하여 클릭(점찍기)이 씹히는 현상 방지!
+    if (activeTool !== "move") {
+      localDragMoved = false;
+      return; 
+    }
+    isDragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    startX_click = e.clientX;
+    startY_click = e.clientY;
+    localDragMoved = false;
+    svg.style.cursor = "grabbing";
+  });
+  
+  window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    
+    const totalDx = Math.abs(e.clientX - startX_click);
+    const totalDy = Math.abs(e.clientY - startY_click);
+    // 조금 덜 예민하게 10픽셀 이상이어야 드래그로 판정
+    if (totalDx > 10 || totalDy > 10) {
+      localDragMoved = true;
+    }
+    
+    const rect = svg.getBoundingClientRect();
+    const scaleX = currentVB.w / rect.width;
+    const scaleY = currentVB.h / rect.height;
+    
+    currentVB.x -= dx * scaleX;
+    currentVB.y -= dy * scaleY;
+    
+    startX = e.clientX;
+    startY = e.clientY;
+    
+    updateVB();
+  });
+  
+  window.addEventListener("mouseup", () => {
+    if (isDragging) {
+      isDragging = false;
+      svg.style.cursor = "grab";
+      // 마우스 뗌 직후 50ms 딜레이를 주어 click 이벤트 발송 완료 후 드래그 판단 상태 초기화
+      setTimeout(() => { localDragMoved = false; }, 50);
+    }
+  });
+  
+  svg.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    const rect = svg.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    const svgMouseX = currentVB.x + (mouseX / rect.width) * currentVB.w;
+    const svgMouseY = currentVB.y + (mouseY / rect.height) * currentVB.h;
+    
+    const zoomFactor = e.deltaY < 0 ? 0.88 : 1.12;
+    const newW = currentVB.w * zoomFactor;
+    const newH = currentVB.h * zoomFactor;
+    
+    if (newW < 180 || newW > 3500) return;
+    
+    currentVB.w = newW;
+    currentVB.h = newH;
+    currentVB.x = svgMouseX - (mouseX / rect.width) * currentVB.w;
+    currentVB.y = svgMouseY - (mouseY / rect.height) * currentVB.h;
+    
+    updateVB();
+  }, { passive: false });
+  
+  function zoomCenter(zoomFactor) {
+    const newW = currentVB.w * zoomFactor;
+    const newH = currentVB.h * zoomFactor;
+    if (newW < 180 || newW > 3500) return;
+    
+    currentVB.x = currentVB.x + (currentVB.w - newW) / 2;
+    currentVB.y = currentVB.y + (currentVB.h - newH) / 2;
+    currentVB.w = newW;
+    currentVB.h = newH;
+    updateVB();
+  }
+  
+  document.getElementById(zoomInId).addEventListener("click", () => zoomCenter(0.8));
+  document.getElementById(zoomOutId).addEventListener("click", () => zoomCenter(1.25));
+  document.getElementById(zoomResetId).addEventListener("click", () => {
+    currentVB = { ...initialVB };
+    updateVB();
+  });
+  
+  return {
+    getCurrentVB: () => currentVB,
+    setCurrentVB: (vb) => { currentVB = { ...vb }; updateVB(); },
+    getDragMoved: () => localDragMoved,
+    panTo: (cx, cy) => {
+      let targetW = currentVB.w;
+      let targetH = currentVB.h;
+      // 지도가 줌아웃되어 전체를 넓게 보고 있을 경우(가로폭 700 초과), 정거장 식별을 위해 가로폭 480 수준으로 자연스럽게 줌인합니다.
+      if (currentVB.w > 700) {
+        targetW = 480;
+        targetH = 480 * (820 / 1060);
+      }
+      const targetX = cx - targetW / 2;
+      // 클릭한 노드가 화면 정중앙에 정확히 위치하도록 0.5 비율을 적용합니다.
+      const targetY = cy - targetH * 0.5;
+
+      if (svg._panAniFrame) {
+        cancelAnimationFrame(svg._panAniFrame);
+      }
+
+      const duration = 380; // 0.38초 동안 부드럽게 이동
+      const startTime = performance.now();
+      const startX = currentVB.x;
+      const startY = currentVB.y;
+      const startW = currentVB.w;
+      const startH = currentVB.h;
+
+      function animate(time) {
+        const elapsed = time - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Ease-out-cubic 보간으로 부드러운 감속 이동 구현
+        const ease = 1 - Math.pow(1 - progress, 3);
+
+        currentVB.x = startX + (targetX - startX) * ease;
+        currentVB.y = startY + (targetY - startY) * ease;
+        currentVB.w = startW + (targetW - startW) * ease;
+        currentVB.h = startH + (targetH - startH) * ease;
+
+        updateVB();
+
+        if (progress < 1) {
+          svg._panAniFrame = requestAnimationFrame(animate);
+        } else {
+          svg._panAniFrame = null;
+        }
+      }
+
+      svg._panAniFrame = requestAnimationFrame(animate);
+    }
+  };
+}
+
+// ================================================================
+// 분할 뷰 초기화 및 런타임 클로닝
+// ================================================================
+function initializeSplitView() {
+  const originalMapBox = document.querySelector("#paneUnified .map-box");
+  if (!originalMapBox) return;
+  
+  // 1공구 (Left) 지도 복제 및 ID 조정
+  const leftMapBox = originalMapBox.cloneNode(true);
+  leftMapBox.querySelector("svg").id = "mapLeft";
+  leftMapBox.querySelector("#zoomIn").id = "zoomInLeft";
+  leftMapBox.querySelector("#zoomOut").id = "zoomOutLeft";
+  leftMapBox.querySelector("#zoomReset").id = "zoomResetLeft";
+  document.getElementById("mapWrapLeft").appendChild(leftMapBox);
+  
+  // 2공구 (Right) 지도 복제 및 ID 조정
+  const rightMapBox = originalMapBox.cloneNode(true);
+  rightMapBox.querySelector("svg").id = "mapRight";
+  rightMapBox.querySelector("#zoomIn").id = "zoomInRight";
+  rightMapBox.querySelector("#zoomOut").id = "zoomOutRight";
+  rightMapBox.querySelector("#zoomReset").id = "zoomResetRight";
+  document.getElementById("mapWrapRight").appendChild(rightMapBox);
+  
+  // Pan/Zoom 바인딩 (각 뷰 최적 뷰포트 중심 설정)
+  mapControllers.left = setupMapInteractions("mapLeft", "zoomInLeft", "zoomOutLeft", "zoomResetLeft", { x: 150, y: 280, w: 800, h: 480 });
+  mapControllers.right = setupMapInteractions("mapRight", "zoomInRight", "zoomOutRight", "zoomResetRight", { x: 350, y: 50, w: 450, h: 750 });
+  
+  // 이벤트 바인딩
+  bindEventsForPane("mapWrapLeft", "mapLeft");
+  bindEventsForPane("mapWrapRight", "mapRight");
+}
+
+function bindEventsForPane(paneId, svgId) {
+  const pane = document.getElementById(paneId);
+  const svg = document.getElementById(svgId);
+  if (!pane || !svg) return;
+  
+  const paneType = svgId === "map" ? "main" : (svgId === "mapLeft" ? "left" : "right");
+
+  // --- [다중 클릭 자유 선 그리기] SVG 배경 클릭 및 우클릭 이벤트 ---
+  svg.addEventListener("contextmenu", e => {
+    e.preventDefault(); // 기본 메뉴 차단
+    if (activeTool === "draw" || activeTool === "ortho" || activeTool === "curve") {
+      cancelDrawing();
+    }
+  });
+
+  svg.addEventListener("click", e => {
+    if (activeTool !== "draw" && activeTool !== "ortho" && activeTool !== "curve") return;
+    const tag = e.target.tagName ? e.target.tagName.toLowerCase() : "";
+    if (tag === "circle" || tag === "text") return;
+
+    const ctrl = mapControllers[paneType];
+    if (ctrl && ctrl.getDragMoved()) {
+       console.log("[SVG Click] Ignored due to dragMoved");
+       return;
+    }
+
+    const pt = svg.createSVGPoint();
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+    const svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+    
+    const vNodeId = "V_" + Date.now() + Math.floor(Math.random() * 1000);
+    nodes[vNodeId] = { x: svgP.x, y: svgP.y };
+    
+    if (!drawStartNode) {
+        drawStartNode = vNodeId;
+    } else {
+        linkNodes(drawStartNode, vNodeId);
+        drawStartNode = vNodeId;
+    }
+    // 클릭 즉시 점이 보이도록 강제 렌더링
+    renderStations();
+  });
+
+  const gStn = svg.querySelector("#gStn");
+  if (gStn) {
+    gStn.addEventListener("click", e => {
+      console.log("[EVENT] gStn clicked on paneType:", paneType, "target:", e.target);
+      const ctrl = mapControllers[paneType];
+      if (ctrl && ctrl.getDragMoved()) {
+        console.log("[EVENT] Ignored due to dragMoved");
+        return;
+      }
+      const c = e.target.closest("circle");
+      if (!c || !c.dataset.id) {
+        console.log("[EVENT] circle or dataset.id not found");
+        return;
+      }
+      const id = c.dataset.id;
+      
+      if (activeTool === "delete") {
+        // 정거장(노드) 삭제는 차단하여 노드 보존 보장!
+        e.stopPropagation();
+        return;
+      }
+      
+      if (activeTool === "draw" || activeTool === "ortho" || activeTool === "curve") {
+        e.stopPropagation();
+        if (!drawStartNode) {
+          drawStartNode = id;
+          c.setAttribute("stroke", "#ea580c"); // 오렌지색 하이라이트
+          c.setAttribute("stroke-width", "6");
+          console.log("[DRAW TOOL] Drawing started from station:", id);
+        } else {
+          if (drawStartNode === id) {
+            cancelDrawing();
+            return;
+          }
+          linkNodes(drawStartNode, id);
+          // 연속 연결을 위해 시작점을 다음 노드로 바로 지정
+          drawStartNode = id;
+          renderStations();
+          // 새로 지정된 시작 노드 하이라이트
+          setTimeout(() => {
+            document.querySelectorAll(`circle[data-id="${id}"]`).forEach(circle => {
+              circle.setAttribute("stroke", "#ea580c");
+              circle.setAttribute("stroke-width", "6");
+            });
+          }, 10);
+        }
+        return;
+      }
+      
+      console.log("[EVENT] Launching openPanel for ID:", id);
+      openPanel(id, paneType === "main" ? null : paneType);
+    });
+  }
+  
+  // 정거장 라벨(글자) 클릭 핸들러 신설
+  const gLbl = svg.querySelector("#gLbl");
+  if (gLbl) {
+    gLbl.addEventListener("click", e => {
+      console.log("[EVENT] gLbl clicked on paneType:", paneType, "target:", e.target);
+      const ctrl = mapControllers[paneType];
+      if (ctrl && ctrl.getDragMoved()) {
+        console.log("[EVENT] Ignored due to dragMoved");
+        return;
+      }
+      const t = e.target.closest("text");
+      if (!t || !t.getAttribute("data-id")) {
+        console.log("[EVENT] text node or data-id not found");
+        return;
+      }
+      const id = t.getAttribute("data-id");
+      
+      if (activeTool === "delete") {
+        // 정거장(노드) 삭제는 차단하여 노드 보존 보장!
+        e.stopPropagation();
+        return;
+      }
+      
+      if (activeTool === "draw" || activeTool === "ortho" || activeTool === "curve") {
+        e.stopPropagation();
+        if (!drawStartNode) {
+          drawStartNode = id;
+          document.querySelectorAll(`circle[data-id="${id}"]`).forEach(circle => {
+            circle.setAttribute("stroke", "#ea580c");
+            circle.setAttribute("stroke-width", "6");
+          });
+          console.log("[DRAW TOOL] Drawing started via label:", id);
+        } else {
+          if (drawStartNode === id) {
+            cancelDrawing();
+            return;
+          }
+          linkNodes(drawStartNode, id);
+          drawStartNode = id;
+          renderStations();
+          setTimeout(() => {
+            document.querySelectorAll(`circle[data-id="${id}"]`).forEach(circle => {
+              circle.setAttribute("stroke", "#ea580c");
+              circle.setAttribute("stroke-width", "6");
+            });
+          }, 10);
+        }
+        return;
+      }
+      
+      console.log("[EVENT] Launching openPanel for ID via Label:", id);
+      openPanel(id, paneType === "main" ? null : paneType);
+    });
+  }
+  
+  // 동탄역 허브 클릭
+  const stDongt = svg.querySelector("#stDongt");
+  if (stDongt) {
+    stDongt.addEventListener("click", () => {
+      const ctrl = mapControllers[paneType];
+      if (ctrl && ctrl.getDragMoved()) return;
+      // 동탄역은 공용(shared)이므로 항상 양쪽 모두 싱크를 맞추기 위해 forcePane을 null로 전달합니다.
+      openPanel("동탄역", null);
+    });
+  }
+  
+  // 변전소 클릭
+  ["vs1", "vs2", "vs3"].forEach(id => {
+    const el = svg.querySelector("#" + id);
+    if (el) {
+      el.addEventListener("click", () => {
+        const ctrl = mapControllers[paneType];
+        if (ctrl && ctrl.getDragMoved()) return;
+        // vs2(동탄역 지하 공용변전소)는 공용이므로 항상 양쪽 모두 싱크를 맞추기 위해 forcePane을 null로 전달합니다.
+        openPanel(id, id === "vs2" ? null : (paneType === "main" ? null : paneType));
+      });
+    }
+  });
+  
+  // 지하개착 구간 클릭
+  const ugZone = svg.querySelector("#ug-zone");
+  if (ugZone) {
+    ugZone.addEventListener("click", () => {
+      const ctrl = mapControllers[paneType];
+      if (ctrl && ctrl.getDragMoved()) return;
+      // 지하개착 구간은 공용(shared)이므로 항상 양쪽 모두 싱크를 맞추기 위해 forcePane을 null로 전달합니다.
+      openPanel("ug-zone", null);
+    });
+  }
+  
+  // 오산천교 클릭
+  const osanBridge = svg.querySelector("#struct-bridge");
+  if (osanBridge) {
+    osanBridge.addEventListener("click", () => {
+      const ctrl = mapControllers[paneType];
+      if (ctrl && ctrl.getDragMoved()) return;
+      openPanel("struct-bridge", paneType === "main" ? null : paneType);
+    });
+  }
+  
+  // 차량기지 클릭
+  const depotZone = svg.querySelector("#vehicle-depot");
+  if (depotZone) {
+    depotZone.addEventListener("click", () => {
+      const ctrl = mapControllers[paneType];
+      if (ctrl && ctrl.getDragMoved()) return;
+      openPanel("vehicle-depot", paneType === "main" ? null : paneType);
+    });
+  }
+  
+  // 툴팁 연동
+  const tip = document.getElementById("tip");
+  const addTip = (el, name) => {
+    el.addEventListener("mouseenter", () => {
+      tip.innerHTML = "<strong>" + name + "</strong><br>클릭하면 상세정보 확인";
+      tip.classList.add("show");
+    });
+    el.addEventListener("mousemove", e => {
+      tip.style.left = (e.clientX + 14) + "px";
+      tip.style.top = (e.clientY-10) + "px";
+    });
+    el.addEventListener("mouseleave", () => tip.classList.remove("show"));
+  };
+  
+  svg.querySelectorAll("#gStn circle").forEach(c => {
+    const d = stnDetail[c.dataset.id];
+    addTip(c, d ? d.name : c.dataset.id);
+  });
+  
+  if (stDongt) addTip(stDongt, "동탄역 (환승허브)");
+  
+  ["vs1", "vs2", "vs3"].forEach(id => {
+    const el = svg.querySelector("#" + id);
+    if (el && stnDetail[id]) addTip(el, stnDetail[id].name);
+  });
+  
+  if (ugZone) addTip(ugZone, "지하개착 구간 (동탄역 주변)");
+  
+  if (osanBridge && stnDetail["struct-bridge"]) addTip(osanBridge, stnDetail["struct-bridge"].name);
+  
+  if (depotZone && stnDetail["vehicle-depot"]) addTip(depotZone, stnDetail["vehicle-depot"].name);
+  
+  // ── [선로 개별 삭제] 궤도 패스 자체 클릭 시, 클릭한 지점에서 가장 가까운 정거장 연결선(Edge)만 Disconnect 처리! ──
+  ["pBN", "pBS", "pRW", "pRE", "pCustomBlue", "pCustomRed", "pCustomBlack"].forEach(pathId => {
+    const pathEl = svg.querySelector("#" + pathId);
+    if (pathEl) {
+      pathEl.setAttribute("pointer-events", "stroke");
+      pathEl.style.cursor = activeTool === "delete" ? "pointer" : "default";
+      
+      pathEl.addEventListener("click", e => {
+        const isCustom = pathId.startsWith("pCustom");
+
+        // --- [선 점편집] 이동 도구 시 선 위에 새로운 꺾임점 추가 ---
+        if (activeTool === "move") {
+          e.stopPropagation();
+          if (isCustom) return; // 커스텀 선은 꺾임점 추가 미지원
+
+          const pt = svg.createSVGPoint();
+          pt.x = e.clientX;
+          pt.y = e.clientY;
+          const svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+          const cx = svgP.x;
+          const cy = svgP.y;
+
+          const seq = routeSequences[pathId];
+          let minDist = Infinity;
+          let bestIdx = -1;
+          for (let i = 0; i < seq.length - 1; i++) {
+            const nA = nodes[seq[i]];
+            const nB = nodes[seq[i+1]];
+            if (!nA || !nB) continue;
+            
+            const l2 = Math.pow(nA.x - nB.x, 2) + Math.pow(nA.y - nB.y, 2);
+            if (l2 === 0) continue;
+            let t = Math.max(0, Math.min(1, ((cx - nA.x) * (nB.x - nA.x) + (cy - nA.y) * (nB.y - nA.y)) / l2));
+            const projX = nA.x + t * (nB.x - nA.x);
+            const projY = nA.y + t * (nB.y - nA.y);
+            const dist = Math.sqrt(Math.pow(cx - projX, 2) + Math.pow(cy - projY, 2));
+
+            if (dist < minDist) {
+              minDist = dist;
+              bestIdx = i;
+            }
+          }
+
+          if (minDist < 30 && bestIdx !== -1) {
+            const nodeA = seq[bestIdx];
+            const nodeB = seq[bestIdx+1];
+            const vNodeId = "V_" + Date.now(); // 유니크 가상 노드 ID
+            nodes[vNodeId] = { x: cx, y: cy };
+            seq.splice(bestIdx + 1, 0, vNodeId);
+
+            const oldMode = linkModes[nodeA + "_" + nodeB] || linkModes[nodeB + "_" + nodeA] || "straight";
+            linkModes[nodeA + "_" + vNodeId] = oldMode;
+            linkModes[vNodeId + "_" + nodeB] = oldMode;
+            delete linkModes[nodeA + "_" + nodeB];
+            delete linkModes[nodeB + "_" + nodeA];
+
+            console.log(`[점편집] 궤도 ${pathId} 위에 새로운 꺾임점 ${vNodeId} 추가됨.`);
+            calculateRouteMetrics();
+            renderStations();
+            syncSplitViews();
+            saveMapData();
+          }
+          return;
+        }
+
+        // --- 삭제 툴일 때 선 분리 ---
+        if (activeTool !== "delete") return;
+        e.stopPropagation();
+        
+        // 클릭 좌표계 변환
+        const pt = svg.createSVGPoint();
+        pt.x = e.clientX;
+        pt.y = e.clientY;
+        const svgP = pt.matrixTransform(svg.getScreenCTM().inverse());
+        
+        let minDistance = Infinity;
+        let bestPairIndex = -1;
+
+        if (isCustom) {
+          if (!window.customLinks || window.customLinks.length === 0) return;
+          for (let i = 0; i < window.customLinks.length; i++) {
+            const link = window.customLinks[i];
+            const nodeA = nodes[link.from];
+            const nodeB = nodes[link.to];
+            if (!nodeA || !nodeB) continue;
+
+            const dist = getPointToSegmentDistance(svgP.x, svgP.y, nodeA.x, nodeA.y, nodeB.x, nodeB.y);
+            if (dist < minDistance) {
+              minDistance = dist;
+              bestPairIndex = i;
+            }
+          }
+
+          if (bestPairIndex !== -1 && minDistance < 50) {
+            window.customLinks.splice(bestPairIndex, 1);
+            console.log(`[삭제] 커스텀 선 삭제됨.`);
+            calculateRouteMetrics();
+            renderStations();
+            syncSplitViews();
+            saveMapData();
+          }
+        } else {
+          const seq = routeSequences[pathId];
+          if (!seq || seq.length < 2) return;
+          
+          for (let i = 0; i < seq.length - 1; i++) {
+            const nodeA = nodes[seq[i]];
+            const nodeB = nodes[seq[i+1]];
+            if (!nodeA || !nodeB) continue;
+            
+            const currentMode = linkModes[seq[i] + "_" + seq[i+1]] || linkModes[seq[i+1] + "_" + seq[i]] || "straight";
+            if (currentMode === "none") continue;
+            
+            const dist = getPointToSegmentDistance(svgP.x, svgP.y, nodeA.x, nodeA.y, nodeB.x, nodeB.y);
+            if (dist < minDistance) {
+              minDistance = dist;
+              bestPairIndex = i;
+            }
+          }
+          
+          // 클릭점이 철로 선로 구간과 충분히 가까울 때만 절단 실행 (임계치 50px)
+          if (bestPairIndex !== -1 && minDistance < 50) {
+            const nodeA_id = seq[bestPairIndex];
+            const nodeB_id = seq[bestPairIndex + 1];
+            deleteLinkBetweenNodes(nodeA_id, nodeB_id);
+          }
+        }
+      });
+    }
+  });
+}
+
+function switchViewMode(mode) {
+  const paneUnified = document.getElementById("paneUnified");
+  const paneSplit = document.getElementById("paneSplit");
+  
+  if (mode === "unified") {
+    paneUnified.style.display = "flex";
+    paneSplit.style.display = "none";
+    document.getElementById("sidePanelLeft").classList.remove("open");
+    document.getElementById("sidePanelRight").classList.remove("open");
+  } else {
+    paneUnified.style.display = "none";
+    paneSplit.style.display = "flex";
+    document.getElementById("sidePanel").classList.remove("open");
+    
+    // 뷰포트 초기화
+    if (mapControllers.left) {
+      mapControllers.left.setCurrentVB({ x: 150, y: 280, w: 800, h: 480 });
+    }
+    if (mapControllers.right) {
+      mapControllers.right.setCurrentVB({ x: 350, y: 50, w: 450, h: 750 });
+    }
+  }
+}
+
+// ================================================================
+// 초기화
+// ================================================================
+function init() {
+  loadMapData();
+  bindAddStationButton();
+  bindToolButtons();
+  bindResetButton();
+  const stDongt = document.getElementById("stDongt");
+  if (stDongt) {
+    setupNodeDragEvents(stDongt);
+  }
+  calculateRouteMetrics();
+  setupOverlays();
+  setupFeedingZones();
+  renderStations();
+  
+
+  // 메인 지도 Pan/Zoom 바인딩
+  mapControllers.main = setupMapInteractions("map", "zoomIn", "zoomOut", "zoomReset", { x: 0, y: 0, w: 1060, h: 1200 });
+  
+  // 분할 뷰 지도들 복제 및 바인딩
+  initializeSplitView();
+  
+  // 메인 지도 이벤트 바인딩
+  bindEventsForPane("mainContainer", "map");
+
+  // 뷰 토글 핸들러
+  document.querySelectorAll(".view-toggle-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".view-toggle-btn").forEach(b => {
+        b.classList.remove("active");
+        b.style.background = "transparent";
+        b.style.color = "#94a3b8";
+      });
+      btn.classList.add("active");
+      btn.style.background = "#1e293b";
+      btn.style.color = "#fff";
+      
+      switchViewMode(btn.dataset.view);
+    });
+  });
+
+  // 메인 패널 닫기 버튼 핸들러
+  const mainClose = document.getElementById("closePanel");
+  if (mainClose) {
+    mainClose.addEventListener("click", () => {
+      document.getElementById("sidePanel").classList.remove("open");
+      document.querySelectorAll(".layer-feed").forEach(el => el.classList.add("hidden"));
+      document.querySelectorAll(".marker-blink").forEach(el => el.classList.remove("marker-blink"));
+    });
+  }
+
+  // 분할 패널 닫기 버튼 핸들러
+  document.querySelectorAll(".close-panel-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const pane = btn.dataset.pane;
+      const panelId = pane === "left" ? "sidePanelLeft" : "sidePanelRight";
+      const svgId = pane === "left" ? "mapLeft" : "mapRight";
+      
+      document.getElementById(panelId).classList.remove("open");
+      
+      const svg = document.getElementById(svgId);
+      if (svg) {
+        svg.querySelectorAll(".marker-blink").forEach(el => el.classList.remove("marker-blink"));
+        svg.querySelectorAll(".layer-feed").forEach(el => el.classList.add("hidden"));
+      }
+    });
+  });
+
+  // 레이어 버튼
+  document.querySelectorAll(".layer-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const layer = btn.dataset.layer;
+      // 구간여건 버튼은 독립 토글 (다른 레이어 상태에 영향 없음)
+      if (layer === "jangmul") {
+        jangmulVisible = !jangmulVisible;
+        btn.style.background  = jangmulVisible ? "#fbbf24" : "#fef9c3";
+        btn.style.color       = jangmulVisible ? "#1e293b" : "#92400e";
+        btn.style.borderColor = jangmulVisible ? "#d97706" : "#fbbf24";
+        btn.style.fontWeight  = jangmulVisible ? "800"     : "600";
+        renderJangmulLayer();
+        showJangmulLegend(jangmulVisible);
+        return;
+      }
+      // 일반 레이어 버튼
+      document.querySelectorAll(".layer-btn:not([data-layer='jangmul'])").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      applyLayers(layer);
+    });
+  });
+
+  // 신속 이동 메뉴 연동
+  const quickNav = document.getElementById("quickNavMenu");
+  if (quickNav) {
+    quickNav.addEventListener("change", (e) => {
+      const val = e.target.value;
+      if (val) {
+        openPanel(val);
+        quickNav.value = "";
+      }
+    });
+  }
+
+  // 기본: 통합 뷰 활성화 및 전체 레이어 표시
+  switchViewMode("unified");
+  applyLayers("all");
+}
+
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init);}
+else{init();}
+
+
+
+
+
+window.addEventListener('error', function(e) {
+    document.body.innerHTML += '<div style="position:fixed; top:50px; left:50px; background:red; color:white; z-index:9999; padding:20px; font-size:20px; border:3px solid black;">ERROR: ' + e.message + ' at ' + e.filename + ':' + e.lineno + '</div>';
+});
+
+// 고급 편집 도구 토글 이벤트
+document.addEventListener("DOMContentLoaded", () => {
+  const btnToggle = document.getElementById("btnToggleEditTools");
+  const container = document.getElementById("editToolsContainer");
+  if (btnToggle && container) {
+    btnToggle.addEventListener("click", () => {
+      const isHidden = container.style.display === "none";
+      container.style.display = isHidden ? "inline-flex" : "none";
+      btnToggle.innerHTML = isHidden ? "🛠️ 고급 편집 도구 ▴" : "🛠️ 고급 편집 도구 ▾";
+      btnToggle.style.background = isHidden ? "#0369a1" : "#0f172a";
+      btnToggle.style.color = "#fff";
+    });
+  }
+});
+
+</script>
+</body>
+</html>
