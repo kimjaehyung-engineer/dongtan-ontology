@@ -1,7 +1,8 @@
 services:
   memgraph:
-    image: memgraph/memgraph:2.2.1
-    container_name: dongtan-memgraph
+    image: memgraph/memgraph:latest
+    container_name: memgraph
+    user: "0"
     ports:
       - "7687:7687"
     volumes:

@@ -26,21 +26,20 @@ def export_compliance_report():
     driver = GraphDatabase.driver(URI, auth=(USER, PASSWORD))
     
     query = """
-    MATCH (r:Risk)
-    MATCH (r)-[:OCCURS_AT]->(loc:Location)
-    MATCH (r)-[:BELONGS_TO]->(disc:Discipline)
-    MATCH (r)-[:VIOLATES]->(s:Standard)
-    MATCH (r)-[ev:EVIDENCE_IN]->(doc:Document)
+    MATCH (fact:DesignFact)-[:VIOLATES]->(s:Requirement)
+    MATCH (fact)-[:OCCURS_AT]->(loc:Location)
+    MATCH (fact)-[:BELONGS_TO]->(disc:Discipline)
+    MATCH (fact)-[ev:EVIDENCE_IN]->(doc:Document)
     RETURN disc.name AS `공종 분야`,
            loc.name AS `발생 위치`,
-           s.target_metric AS `검토 항목`,
-           r.issue_description AS `상세 이슈 및 위배 내용`,
+           COALESCE(s.metric, s.name) AS `검토 항목`,
+           COALESCE(fact.issue_description, fact.description, fact.name) AS `상세 이슈 및 위배 내용`,
            s.limit_value AS `관리한계 기준치`,
-           r.actual_value AS `실제 기본설계치`,
+           fact.actual_value AS `실제 기본설계치`,
            s.unit AS `단위`,
            doc.name AS `근거 서류명`,
            ev.page AS `근거 페이지`,
-           doc.absolute_path AS `로컬 증빙 경로`
+           COALESCE(doc.absolute_path, doc.file_path) AS `로컬 증빙 경로`
     ORDER BY `공종 분야`, `발생 위치`
     """
     
