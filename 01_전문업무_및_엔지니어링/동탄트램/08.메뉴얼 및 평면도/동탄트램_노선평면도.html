@@ -558,7 +558,49 @@ footer{text-align:center;padding:1rem;font-size:.73rem;color:var(--muted);}
 <script>
 
 // 글로벌 에러 캐쳐 UI 신설
-
+(function() {
+  const errDiv = document.createElement("div");
+  errDiv.id = "global-err-log";
+  errDiv.style.position = "fixed";
+  errDiv.style.top = "0";
+  errDiv.style.left = "0";
+  errDiv.style.width = "100%";
+  errDiv.style.background = "#fee2e2";
+  errDiv.style.color = "#991b1b";
+  errDiv.style.borderBottom = "2px solid #f87171";
+  errDiv.style.padding = "10px";
+  errDiv.style.fontSize = "12px";
+  errDiv.style.fontWeight = "bold";
+  errDiv.style.zIndex = "999999";
+  errDiv.style.display = "none";
+  errDiv.style.boxShadow = "0 4px 6px -1px rgba(0,0,0,0.1)";
+  
+  const closeBtn = document.createElement("button");
+  closeBtn.textContent = "✕ 닫기";
+  closeBtn.style.float = "right";
+  closeBtn.style.background = "#991b1b";
+  closeBtn.style.color = "#fff";
+  closeBtn.style.border = "none";
+  closeBtn.style.borderRadius = "3px";
+  closeBtn.style.cursor = "pointer";
+  closeBtn.style.padding = "2px 6px";
+  closeBtn.onclick = () => errDiv.style.display = "none";
+  
+  const msgSpan = document.createElement("span");
+  msgSpan.id = "global-err-msg";
+  
+  errDiv.appendChild(closeBtn);
+  errDiv.appendChild(msgSpan);
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    document.body.appendChild(errDiv);
+  });
+  
+  window.addEventListener("error", function(e) {
+    errDiv.style.display = "block";
+    msgSpan.innerHTML = `⚠️ [자바스크립트 오류] ${e.message} (파일: ${e.filename.split('/').pop()}, 행: ${e.lineno})`;
+  });
+})();
 
 
 // 점과 선분 사이의 최단 거리를 구하는 2D 기하 알고리즘 (선로 클릭 매칭용)
@@ -1519,10 +1561,10 @@ function calculateRouteMetrics() {
           d += ` M ${currNode.x},${currNode.y}`;
         } else {
           // 메인 궤도는 무조건 유려한 Catmull-Rom 연속 곡선으로 유지!
-          const p0 = i === 1 ? prevNode : nodes[validIds[i-2]];
+          const p0 = (i === 1 ? prevNode : nodes[validIds[i-2]]) || prevNode;
           const p1 = prevNode;
           const p2 = currNode;
-          const p3 = i === validIds.length - 1 ? currNode : nodes[validIds[i+1]];
+          const p3 = (i === validIds.length - 1 ? currNode : nodes[validIds[i+1]]) || currNode;
           
           const t = 0.20;
           const cp1x = p1.x + (p2.x - p0.x) * t;
