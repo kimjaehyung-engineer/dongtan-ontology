@@ -599,9 +599,8 @@ function deleteLinkBetweenNodes(nodeA, nodeB) {
 let linkModes = {};
 let jangmulVisible = false;
 
-// 맵 저작 데이터 로컬 스토리지 영구 저장 함수
-// [FINAL FIX 동결 조치] 과거 깨진 데이터를 완전히 차단하기 위해 STORAGE_KEY 버전을 v3로 업그레이드
-const STORAGE_KEY = "dongtan_tram_map_data_v3_perfect_fixed";
+// [FINAL FIX 동결 조치] 과거 깨진 캐시 데이터를 완벽 차단하기 위해 버전을 v4로 전격 업그레이드
+const STORAGE_KEY = "dongtan_tram_map_data_v4_final_lock";
 
 function saveMapData() {
   const data = {
@@ -618,9 +617,10 @@ function saveMapData() {
 
 function loadMapData() {
   try {
-    // 오래된 구버전 캐시 데이터만 청소
+    // 오래된 구버전 캐시 데이터(v1, v2, v3) 강제 청소
     localStorage.removeItem("dongtan_tram_map_data");
     localStorage.removeItem("dongtan_tram_map_data_v2_master_fix");
+    localStorage.removeItem("dongtan_tram_map_data_v3_perfect_fixed");
     
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
