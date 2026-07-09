@@ -189,14 +189,22 @@ const WbsTreeNode = ({
   onToggleActivityVisible,
   onAddChild,
   onDelete,
-  onRename
+  onRename,
+  // ── 필터링용 프롭 ──
+  filteredWbsIds,
+  filteredActIds,
+  searchActive
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState(item.name);
   const inputRef = useRef(null);
 
+  // WBS 필터 목록에 속해 있지 않으면 렌더링 생략
+  if (filteredWbsIds && !filteredWbsIds.has(item.id)) return null;
+
   const children = allItems.filter(i => i.parentId === item.id);
-  const isCollapsed = collapsedIds.has(item.id);
+  // 검색어가 있을 때는 강제로 펼쳐서 보이도록 설정
+  const isCollapsed = collapsedIds.has(item.id) && !searchActive;
   const isSelected = selectedWbsId === item.id;
 
   const descendantIds = getDescendantIds(item.id, allItems);
@@ -206,6 +214,7 @@ const WbsTreeNode = ({
   
   // WBS 그룹 및 하위 액티비티 개수 계산
   const localActs = activities.filter(a => a.wbsId === item.id);
+  const visibleLocalActs = localActs.filter(act => !filteredActIds || filteredActIds.has(act.id));
   const totalActCount = activities.filter(a => descendantIds.includes(a.wbsId)).length;
 
   const startEdit = (e) => { e.stopPropagation(); setEditName(item.name); setIsEditing(true); setTimeout(() => inputRef.current?.select(), 0); };
@@ -236,10 +245,10 @@ const WbsTreeNode = ({
       >
         {/* 접기 화살표 */}
         <span
-          style={{ width:'14px', fontSize:'0.65rem', color:'#64748b', textAlign:'center', flexShrink:0, cursor: (children.length > 0 || localActs.length > 0) ? 'pointer' : 'default' }}
-          onClick={e => { e.stopPropagation(); if (children.length > 0 || localActs.length > 0) onToggleCollapse(item.id); }}
+          style={{ width:'14px', fontSize:'0.65rem', color:'#64748b', textAlign:'center', flexShrink:0, cursor: (children.length > 0 || visibleLocalActs.length > 0) ? 'pointer' : 'default' }}
+          onClick={e => { e.stopPropagation(); if (children.length > 0 || visibleLocalActs.length > 0) onToggleCollapse(item.id); }}
         >
-          {(children.length > 0 || localActs.length > 0) ? (isCollapsed ? '▶' : '▼') : '•'}
+          {(children.length > 0 || visibleLocalActs.length > 0) ? (isCollapsed ? '▶' : '▼') : '•'}
         </span>
 
         {/* 가시성 체크박스 */}
@@ -314,11 +323,14 @@ const WbsTreeNode = ({
               onAddChild={onAddChild}
               onDelete={onDelete}
               onRename={onRename}
+              filteredWbsIds={filteredWbsIds}
+              filteredActIds={filteredActIds}
+              searchActive={searchActive}
             />
           ))}
 
-          {/* 2. 현재 WBS 노드에 직접 속해 있는 액티비티 노드들 렌더 */}
-          {localActs.map(act => {
+          {/* 2. 현재 WBS 노드에 직접 속해 있는 액티비티 노드들 중 필터를 통과한 것만 렌더 */}
+          {visibleLocalActs.map(act => {
             const isActSelected = selectedActivityId === act.id;
             return (
               <div
@@ -405,6 +417,19 @@ function App() {
     }
     return INITIAL_DATA;
   });
+
+  // ── 대량 액티비티 관리를 위한 트리용 필터 상태 추가 ──
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterByZoom, setFilterByZoom] = useState(false);
+
+  // WBS 일괄 접기/펼치기 핸들러
+  const handleCollapseAll = () => {
+    const allIds = wbsItems.map(w => w.id);
+    setCollapsedWbs(new Set(allIds));
+  };
+  const handleExpandAll = () => {
+    setCollapsedWbs(new Set());
+  };
 
   // ── WBS 및 액티비티 UI 선택 상태 ──
   const [selectedWbsId, setSelectedWbsId] = useState(null);
@@ -627,6 +652,91 @@ function App() {
 
   const BOUNDARY_1_2 = 10.85;
 
+  // ── 대량 액티비티 관리를 위한 트리용 필터 연산 ──
+  const filteredActIds = new Set();
+  const filteredWbsIds = new Set();
+
+  activities.forEach(act => {
+    // 1. 줌 영역 필터 검증
+    if (filterByZoom) {
+      let overlapX = false;
+      let overlapY = false;
+      
+      const startT = act.startDate ? getTime(parseISO(act.startDate)) : NaN;
+      const endT = act.endDate ? getTime(parseISO(act.endDate)) : NaN;
+      
+      if (!isNaN(startT) && !isNaN(endT)) {
+        const minY = Math.min(startT, endT);
+        const maxY = Math.max(startT, endT);
+        overlapY = maxY >= domainY[0] && minY <= domainY[1];
+        
+        if (act.type === 'block') {
+          const km = getKm(act.targetStation);
+          overlapX = km >= domainX[0] && km <= domainX[1];
+        } else {
+          const minX = Math.min(getKm(act.startStation), getKm(act.endStation));
+          const maxX = Math.max(getKm(act.startStation), getKm(act.endStation));
+          overlapX = maxX >= domainX[0] && minX <= domainX[1];
+        }
+      }
+      
+      if (!overlapX || !overlapY) return; // 범위를 벗어나면 필터링 제외
+    }
+
+    // 2. 검색어 검증
+    const wbs = getWbsItem(act.wbsId);
+    const wbsText = wbs ? `${wbs.code} ${wbs.name}` : '';
+    const matchText = `${act.actName} ${wbsText}`.toLowerCase();
+    
+    if (searchQuery && !matchText.includes(searchQuery.toLowerCase())) {
+      return; // 검색어 불일치 시 필터링 제외
+    }
+
+    // 통과한 액티비티
+    filteredActIds.add(act.id);
+    
+    // 상위 WBS 체인 노출 등록
+    let currentWbsId = act.wbsId;
+    while (currentWbsId) {
+      filteredWbsIds.add(currentWbsId);
+      const curr = getWbsItem(currentWbsId);
+      currentWbsId = curr ? curr.parentId : null;
+    }
+  });
+
+  // WBS 명칭 자체가 검색어에 직접 매치되는 경우 예외 노출 처리
+  if (searchQuery) {
+    wbsItems.forEach(w => {
+      if (`${w.code} ${w.name}`.toLowerCase().includes(searchQuery.toLowerCase())) {
+        let currentWbsId = w.id;
+        while (currentWbsId) {
+          filteredWbsIds.add(currentWbsId);
+          const curr = getWbsItem(currentWbsId);
+          currentWbsId = curr ? curr.parentId : null;
+        }
+        // 자식들 노출
+        const descendants = getDescendantIds(w.id, wbsItems);
+        descendants.forEach(dId => filteredWbsIds.add(dId));
+      }
+    });
+  } else if (!filterByZoom) {
+    // 필터링 비활성화 상태에서는 전체 허용
+    wbsItems.forEach(w => filteredWbsIds.add(w.id));
+    activities.forEach(a => filteredActIds.add(a.id));
+  } else {
+    // 줌 필터만 켜진 상태에서, 자식 중 통과한 액티비티가 있거나 
+    // 혹은 트리 아키텍처 상의 공구 노드는 구조 유지를 위해 강제 허용
+    wbsItems.forEach(w => {
+      const descendants = getDescendantIds(w.id, wbsItems);
+      const hasVisibleAct = activities.some(a => descendants.includes(a.wbsId) && filteredActIds.has(a.id));
+      if (hasVisibleAct) {
+        filteredWbsIds.add(w.id);
+      }
+    });
+    // 최상위 WBS(공구 레벨)는 항상 트리 기본 뼈대로 보여줌
+    wbsItems.filter(w => w.parentId === null).forEach(w => filteredWbsIds.add(w.id));
+  }
+
   // 선택된 액티비티 객체 찾기
   const activeActivity = activities.find(a => a.id === selectedActivityId);
 
@@ -810,6 +920,37 @@ function App() {
               </div>
             </div>
 
+            {/* 🔍 트리 전용 조작 컨트롤러 (검색, 접기, 줌연동) */}
+            <div style={{ display:'flex', flexDirection:'column', gap:'5px', padding:'6px 8px', background:'#f1f5f9', borderBottom:'1px solid #cbd5e1', flexShrink:0, fontSize:'0.72rem' }}>
+              <div style={{ display:'flex', gap:'6px' }}>
+                <input
+                  type="text"
+                  placeholder="WBS 또는 액티비티 검색..."
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  style={{ flex:1, padding:'3px 6px', border:'1px solid #cbd5e1', borderRadius:'4px', outline:'none', fontSize:'0.72rem' }}
+                />
+                {searchQuery && (
+                  <button onClick={() => setSearchQuery('')} style={{ background:'#94a3b8', border:'none', color:'white', borderRadius:'3px', padding:'0 6px', cursor:'pointer' }}>✕</button>
+                )}
+              </div>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+                <label style={{ display:'flex', alignItems:'center', gap:'3px', cursor:'pointer', fontWeight:'bold', color:'#475569' }}>
+                  <input
+                    type="checkbox"
+                    checked={filterByZoom}
+                    onChange={e => setFilterByZoom(e.target.checked)}
+                    style={{ width:'12px', height:'12px', cursor:'pointer' }}
+                  />
+                  🔍 현재 줌 영역만 보기
+                </label>
+                <div style={{ display:'flex', gap:'4px' }}>
+                  <button onClick={handleCollapseAll} style={{ padding:'2px 6px', background:'#ffffff', border:'1px solid #cbd5e1', borderRadius:'3px', cursor:'pointer', fontSize:'0.65rem', fontWeight:'500' }}>모두접기</button>
+                  <button onClick={handleExpandAll} style={{ padding:'2px 6px', background:'#ffffff', border:'1px solid #cbd5e1', borderRadius:'3px', cursor:'pointer', fontSize:'0.65rem', fontWeight:'500' }}>모두펴기</button>
+                </div>
+              </div>
+            </div>
+
             {/* 트리 스크롤 바디 */}
             <div style={{ flex: 1, overflowY: 'auto', padding: '4px 0' }}>
               {rootWbsItems.map(item => (
@@ -829,6 +970,9 @@ function App() {
                   onAddChild={handleAddWbsChild}
                   onDelete={handleDeleteWbs}
                   onRename={handleRenameWbs}
+                  filteredWbsIds={filteredWbsIds}
+                  filteredActIds={filteredActIds}
+                  searchActive={!!searchQuery}
                 />
               ))}
             </div>
