@@ -20,6 +20,9 @@
             options: {
                 ignoreHtmlClass: 'tex2jax_ignore',
                 processHtmlClass: 'tex2jax_process'
+            },
+            startup: {
+                typeset: false
             }
         };
     </script>
@@ -1148,6 +1151,13 @@
         }
 
 
+
+        /* 웹 성능 최적화: 화면 밖 DOM 렌더링 연산 생략 */
+        article.answer-sheet {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 1200px;
+        }
+    
 </style>
 </head>
 <body>
@@ -25461,5 +25471,57 @@ ightarrow Ag$$
     });
 })();
 </script>
+
+    <script id="mathjax-lazy-loader">
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. 초기 화면에 보이는 첫 3개 문항만 빠르게 수식 렌더링
+        setTimeout(() => {
+            if (window.MathJax && MathJax.typesetPromise) {
+                const firstArticles = Array.from(document.querySelectorAll('article.answer-sheet')).slice(0, 3);
+                MathJax.typesetPromise(firstArticles).catch(err => console.log(err));
+            }
+        }, 400);
+
+        // 2. IntersectionObserver를 통해 화면 스크롤 시 해당 문항만 수식 렌더링
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                     const target = entry.target;
+                     if (!target.classList.contains('math-rendered')) {
+                         target.classList.add('math-rendered');
+                         if (window.MathJax && MathJax.typesetPromise) {
+                             MathJax.typesetPromise([target]).catch(err => console.error(err));
+                         }
+                     }
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '100px 0px 400px 0px', // 스크롤이 도달하기 전 아래쪽 400px 영역에서 미리 렌더링 시작
+            threshold: 0
+        });
+
+        document.querySelectorAll('article.answer-sheet').forEach(art => {
+            observer.observe(art);
+        });
+
+        // 3. 사이드바 링크 클릭 시 해당 문항 강제 수식 렌더링 (즉각 시각화)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    const targetArt = document.querySelector(href);
+                    if (targetArt && !targetArt.classList.contains('math-rendered')) {
+                        targetArt.classList.add('math-rendered');
+                        if (window.MathJax && MathJax.typesetPromise) {
+                            MathJax.typesetPromise([targetArt]).catch(err => {});
+                        }
+                    }
+                }
+            });
+        });
+    });
+    </script>
+    
 </body>
 </html>
