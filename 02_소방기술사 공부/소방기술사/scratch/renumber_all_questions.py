@@ -33,9 +33,11 @@ def extract_clean_title(h2_text):
     clean = re.sub(r"^\[Question\s*\d+(?:-\d+)?\]\s*", "", h2_text, flags=re.IGNORECASE)
     # 2. Remove chapter brackets
     clean = re.sub(r"^\[[^\]]+\]\s*", "", clean)
-    # 3. Remove Question XX. prefix
+    # 3. Remove Question_Temp prefix
+    clean = re.sub(r"Question_Temp_\d+\.\s*", "", clean, flags=re.IGNORECASE)
+    # 4. Remove Question XX. prefix
     clean = re.sub(r"^(?:Question|Q)\s*\d+(?:-\d+)?\.\s*", "", clean, flags=re.IGNORECASE)
-    # 4. Remove number only prefix like "44-1. "
+    # 5. Remove number only prefix like "44-1. "
     clean = re.sub(r"^\d+(?:-\d+)?\.\s*", "", clean)
     return clean.strip()
 
