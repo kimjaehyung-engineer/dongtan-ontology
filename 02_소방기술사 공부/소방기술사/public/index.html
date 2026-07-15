@@ -5937,116 +5937,403 @@ function animateLine(lineEl, dotEl, x1, y1, x2, y2, duration, callback) {
 <li style="margin-bottom: 6px;"><strong>제138회 1교시</strong>: 가연성 기체의 온도 상승에 따라 연소 하한계(LFL)가 낮아지는 현상을 Burgess-Wheeler 법칙과 Zabetakis 식을 이용하여 설명하시오.</li>
 </ul>
 </div>
-</article><article class="answer-sheet" id="q10">
-<div class="question-header">
-<span class="question-tag">연소공학 · 화재성상</span>
-<h2 class="question-title">[연소공학] Question 10. 자연발화의 정의, 분류, 조건 및 예방방법에 대하여 설명하시오.</h2>
-</div>
-<div class="key-takeaway">
-<strong>초간단 직관적 이해: 비유법 요약 박스</strong>
-<p>💡 자연발화는 마치 <strong>'두꺼운 겨울 이불 속에서 켜진 핫팩'</strong>과 같습니다. 외부에서 불을 붙이지 않아도 이불(낮은 열전도율)이 핫팩의 열을 가두어 내부에 열이 계속 쌓이다가 결국 스스로 발화점 온도에 도달하여 불이 붙는 원리입니다.</p>
-</div>
-<div class="answer-section">
-<h3>1. 자연발화의 정의 및 기본 메커니즘</h3>
-<p>외부로부터 직접적인 점화원(불꽃, 전기스파크 등)을 공급받지 않고, 물질 내부에서 일어나는 물리적·화학적 작용(산화, 분해, 중합, 발효, 흡착 등)으로 인해 생성된 열이 외부로 방출되지 못하고 축적되어, 물질의 온도가 발화점 이상으로 상승하여 스스로 연소를 시작하는 현상입니다.</p>
-<div class="diagram-container" style="text-align: center; margin: 20px 0;">
-<svg height="auto" style="background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border);" viewbox="0 0 600 300" width="100%">
-<!-- Background grid -->
-<defs>
-<lineargradient id="heatGrad" x1="0%" x2="0%" y1="100%" y2="0%">
-<stop offset="0%" stop-color="#3B82F6" stop-opacity="0.2"></stop>
-<stop offset="50%" stop-color="#F59E0B" stop-opacity="0.5"></stop>
-<stop offset="100%" stop-color="#EF4444" stop-opacity="0.9"></stop>
-</lineargradient>
-</defs>
-<!-- Title -->
-<text fill="var(--text-primary)" font-size="16" font-weight="bold" text-anchor="middle" x="300" y="30">자연발화 열역학적 밸런스 메커니즘</text>
-<!-- Left box: Heat generation -->
-<rect fill="url(#heatGrad)" height="140" rx="6" stroke="#EF4444" stroke-width="2" width="200" x="50" y="80"></rect>
-<text fill="#EF4444" font-size="14" font-weight="bold" text-anchor="middle" x="150" y="110">1. 열발생 (Heat Gen)</text>
-<text fill="var(--text-primary)" font-size="12" text-anchor="middle" x="150" y="140">· 산화 / 분해 / 중합 반응</text>
-<text fill="var(--text-primary)" font-size="12" text-anchor="middle" x="150" y="165">· 흡착 / 미생물 발효열</text>
-<text fill="#EF4444" font-size="13" font-weight="bold" text-anchor="middle" x="150" y="190">q_gen (▲ 상승)</text>
-<!-- Center arrow: Inequality -->
-<text fill="#EF4444" font-size="36" font-weight="bold" text-anchor="middle" x="300" y="160">&gt;</text>
-<text fill="var(--text-muted)" font-size="12" text-anchor="middle" x="300" y="200">열 축적 (열평형 붕괴)</text>
-<!-- Right box: Heat loss -->
-<rect fill="none" height="140" rx="6" stroke="#3B82F6" stroke-width="2" width="200" x="350" y="80"></rect>
-<text fill="#3B82F6" font-size="14" font-weight="bold" text-anchor="middle" x="450" y="110">2. 열방출 (Heat Loss)</text>
-<text fill="var(--text-primary)" font-size="12" text-anchor="middle" x="450" y="140">· 대류 및 전도 열전달</text>
-<text fill="var(--text-primary)" font-size="12" text-anchor="middle" x="450" y="165">· 외부 공기 냉각 효과</text>
-<text fill="#3B82F6" font-size="13" font-weight="bold" text-anchor="middle" x="450" y="190">q_loss (▼ 불량)</text>
-<!-- Result path -->
-<path d="M 150 220 L 150 260 L 450 260 L 450 220" fill="none" stroke="#10B981" stroke-dasharray="4,4" stroke-width="2"></path>
-<circle cx="300" cy="260" fill="#EF4444" r="18"></circle>
-<text cy="264" fill="#FFFFFF" font-size="11" font-weight="bold" text-anchor="middle" x="300">발화</text>
-</svg>
-</div>
-<h3>2. 자연발화의 분류 (발열 원인별)</h3>
-<table>
-<thead>
-<tr>
-<th>분류</th>
-<th>발열 원인 및 특징</th>
-<th>대표 물질</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>산화열 (Oxidation)</strong></td>
-<td>공기 중의 산소와 반응하여 산화되면서 발생하는 열이 축적됨. 요오드가가 높은 건성유가 특히 위험.</td>
-<td>석탄, 동식물성 유지(아마인유, 들기름 등), 고무분말</td>
-</tr>
-<tr>
-<td><strong>분해열 (Decomposition)</strong></td>
-<td>열적으로 불안정한 물질이 스스로 분해되며 열을 방출. 외부 산소 없이도 자기 연소 가능.</td>
-<td>셀룰로이드류, 니트로셀룰로오스 (제5류 위험물)</td>
-</tr>
-<tr>
-<td><strong>흡착열 (Adsorption)</strong></td>
-<td>다공성 물질 표면에 기체가 흡착될 때 발생하는 물리적 응축열이 축적됨.</td>
-<td>활성탄, 목탄, 석탄가루, 규조토</td>
-</tr>
-<tr>
-<td><strong>중합열 (Polymerization)</strong></td>
-<td>단량체(Monomer)가 결합하여 고분자 화합물이 될 때 발생하는 열.</td>
-<td>시안화수소(HCN), 메틸아크릴레이트, 스티렌</td>
-</tr>
-<tr>
-<td><strong>발효열 (Fermentation)</strong></td>
-<td>미생물의 증식 및 유기물 발효 과정에서 발생하는 생화학적 열이 축적됨.</td>
-<td>퇴비, 사료, 먼지, 곡물 더미</td>
-</tr>
-</tbody>
-</table>
-<h3>3. 자연발화가 일어나기 쉬운 조건 (영향 인자)</h3>
-<ul>
-<li><strong>낮은 열전도율:</strong> 발생한 열이 외부로 잘 전도되지 않고 중심부에 갇히는 구조여야 합니다.</li>
-<li><strong>높은 퇴적(쌓임) 밀도와 넓은 표면적:</strong> 공기와의 접촉 면적이 넓어 초기 산화열 발생 속도는 빠르되, 방출되는 경로가 막혀있어야 합니다.</li>
-<li><strong>적당한 환기(산소 공급):</strong> 너무 강한 통풍은 물질을 냉각시키고, 통풍이 아예 없으면 반응에 필요한 산소가 고갈되므로, 열 축적과 산소 공급이 평형을 이루는 '적당한 유동'일 때 자연발화 위험이 극대화됩니다.</li>
-<li><strong>높은 온도와 습도:</strong> 주위 온도가 높을수록 화학 반응 속도가 빨라지며(Arrhenius 법칙), 수분은 촉매 역할을 하여 분해 및 발효열 발생을 촉진시킵니다.</li>
-</ul>
-<h3>4. 자연발화 예방대책</h3>
-<ul>
-<li><strong>온도 및 습도 관리:</strong> 저장실의 온도를 낮추고 건조한 상태(저온 건조)를 유지하여 초기 산화 및 발효 반응을 억제합니다.</li>
-<li><strong>환기 및 통풍 유도:</strong> 적극적인 강제 환기를 통하여 열이 내부에 축적되지 않고 즉각 방출(냉각)되도록 유도합니다.</li>
-<li><strong>퇴적 방지 및 분산 저장:</strong> 물질을 대량으로 쌓아두지 않고 소량으로 분산 및 정리하여 방열 면적 비율을 높입니다.</li>
-<li><strong>불활성 가스 주입:</strong> 가연성 가스가 흡착 또는 중합되는 탱크 내부를 질소(N2) 등 불활성 가스로 치환하여 산소 접촉을 차단합니다.</li>
-<li><strong>혼합 위험 물질 격리:</strong> 분해 및 산화를 촉진할 수 있는 산성 물질이나 금속 산화물 등 촉매류의 유입을 철저히 차단합니다.</li>
-</ul>
-</div>
-<div class="insight-box">
-<h4>💡 실전 답안 작성 전략: 꼬리에 꼬리를 무는 연상 마인드맵</h4>
-<p><strong>중심 이미지:</strong> 축축하게 젖은 장갑더미와 아마인유 걸레들이 창고 구석에서 방열되지 못해 연기가 피어오르는 열축적 단면 이미지</p>
-<ol>
-<li><strong>① 정의 및 밸런스:</strong> 열발생 속도(q_gen) &gt; 열방출 속도(q_loss)로 인한 자가 온도 상승 메커니즘을 명시한다.</li>
-<li><strong>② 분류:</strong> '산분흡중발' (산화, 분해, 흡착, 중합, 발효) 앞글자를 연상하여 각 분류별 대표 물질과 매핑한다.</li>
-<li><strong>③ 영향 요인:</strong> 전도율이 낮고, 축적 면적이 넓으며, 수분 촉매가 있고, 적당한 풍량이 있는 임계 조건을 기술한다.</li>
-<li><strong>④ 예방 대책:</strong> '통풍, 분산, 저온, 불활성화'의 물리적 대책을 연계하여 스토리텔링을 마친다.</li>
-</ol>
-</div>
-<div class="question-meta">
-<strong>관련 기출문제:</strong> 제121회 3교시 자연발화의 정의, 분류, 조건 및 예방방법에 대하여 설명하시오. | 제122회 1교시 화학물질 위험도 정의 | 제127회 1교시 방화구획 및 방연구획 정의
+</article><article id="q10" class="answer-sheet">
+    <div class="question-header">
+        <span class="question-number">Q10</span>
+        <h2 class="question-title">자연발화의 정의, 분류, 조건 및 예방방법에 대하여 설명하시오.</h2>
+    </div>
+    
+    <div class="answer-section">
+        <h3 class="section-title">1. 자연발화의 정의 및 기본 메커니즘</h3>
+        <div class="sub-section">
+            <p class="desc">외부로부터 열원(불꽃, 전기스파크 등)을 받지 않고, 물질 내부에 일어나는 화학 반응열(산화, 분해, 흡착, 중합, 발효 등)이 축적되어 물질의 온도가 점차 상승하여 발화점 이상이 되어 스스로 연소를 시작하는 현상입니다. 즉, <strong>열발생 속도(q_gen) &gt; 열방출 속도(q_loss)</strong>의 불균형이 주요인입니다.</p>
+        </div>
+
+        <h3 class="section-title">2. 자연발화의 분류 (발열 원인별)</h3>
+        <div class="sub-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>분류</th>
+                        <th>발열 원인 및 특징</th>
+                        <th>대표 물질</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>산화열</strong></td>
+                        <td>공기 중의 산소와 반응하여 산화되면서 발생하는 열이 축적됨. 요오드가가 높은 건성유가 특히 위험.</td>
+                        <td>석탄, 원면, 건성유(아마인유, 들기름 등), 고무분말</td>
+                    </tr>
+                    <tr>
+                        <td><strong>분해열</strong></td>
+                        <td>열적으로 불안정한 물질이 스스로 분해되며 열을 방출. 외부 산소 없이도 자기 연소 가능.</td>
+                        <td>니트로셀룰로오스, 셀룰로이드, 유기과산화물(5류 위험물)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>흡착열</strong></td>
+                        <td>다공성 고체 표면에 가스나 수분이 흡착되면서 발생하는 응축열.</td>
+                        <td>활성탄, 목탄, 가루숯, 시리카겔</td>
+                    </tr>
+                    <tr>
+                        <td><strong>중합열</strong></td>
+                        <td>단량체가 결합하여 고분자가 되는 중합 반응 시 방출되는 화학 에너지.</td>
+                        <td>시안화수소, 스티렌, 액체 산화에틸렌, 메틸메타크릴레이트</td>
+                    </tr>
+                    <tr>
+                        <td><strong>발효열</strong></td>
+                        <td>유기물 속의 미생물이 수분을 촉매로 증식 및 유기물을 분해하며 방출하는 생화학적 완만한 열.</td>
+                        <td>퇴비, 먼지, 사료, 곡물 더미</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- 5대 자연발화 원인의 상호 관계 및 시각화 모식도 -->
+            <div class="relation-section" style="margin-top: 30px; padding: 20px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 12px;">
+                <h4 style="font-size: 1.15rem; color: var(--accent); margin-top: 0; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                    🔄 5대 발열 반응의 상호 관계 및 열적 폭주 시너지 (Cascade Effect)
+                </h4>
+                <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; color: var(--text-secondary);">
+                    자연발화는 단순히 하나의 발열 반응으로만 일어나기보다, 여러 요인이 단계적으로 얽혀 발화점으로 도달하는 <strong>'연쇄 반응(Cascade Effect)'</strong>의 특성을 가집니다. 물리·생화학 반응이 온도를 올리는 마중물 역할을 하고, 화학 반응이 이를 이어받아 폭발적인 열적 폭주를 완성합니다.
+                </p>
+
+                <!-- 반응형 프리미엄 SVG 모식도 -->
+                <div class="diagram-container zoomable-media" data-title="자연발화 5대 발열 반응 및 연계 메커니즘" style="text-align: center; margin: 25px 0; cursor: pointer;">
+                    <svg viewBox="0 0 800 430" width="100%" height="auto" style="background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                        <defs>
+                            <linearGradient id="oxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#EF4444" stop-opacity="0.3"/>
+                            </linearGradient>
+                            <linearGradient id="decGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#EF4444" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#DC2626" stop-opacity="0.4"/>
+                            </linearGradient>
+                            <linearGradient id="adGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#1D4ED8" stop-opacity="0.3"/>
+                            </linearGradient>
+                            <linearGradient id="polyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#6D28D9" stop-opacity="0.3"/>
+                            </linearGradient>
+                            <linearGradient id="fermGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#10B981" stop-opacity="0.2"/>
+                                <stop offset="100%" stop-color="#047857" stop-opacity="0.3"/>
+                            </linearGradient>
+                            <linearGradient id="flowArrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#10B981"/>
+                                <stop offset="50%" stop-color="#F59E0B"/>
+                                <stop offset="100%" stop-color="#EF4444"/>
+                            </linearGradient>
+                            <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--text-muted)"/>
+                            </marker>
+                            <marker id="redArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#EF4444"/>
+                            </marker>
+                        </defs>
+
+                        <text x="400" y="30" fill="var(--text-primary)" font-size="16" font-weight="bold" text-anchor="middle">자연발화 5대 원인 개별 반응 메커니즘 및 연계 관계</text>
+
+                        <!-- 1. 산화열 -->
+                        <g transform="translate(20, 55)">
+                            <rect width="140" height="190" rx="10" fill="url(#oxGrad)" stroke="#F59E0B" stroke-width="1.5"/>
+                            <circle cx="70" cy="45" r="25" fill="var(--bg-primary)" stroke="#F59E0B" stroke-width="1"/>
+                            <path d="M 60 45 C 60 35, 80 35, 80 45 C 80 55, 60 55, 60 45" fill="none" stroke="#EF4444" stroke-width="2"/>
+                            <circle cx="55" cy="40" r="4" fill="#3B82F6"/>
+                            <text x="55" y="43" fill="#FFF" font-size="7" text-anchor="middle" font-weight="bold">O₂</text>
+                            <circle cx="85" cy="50" r="4" fill="#3B82F6"/>
+                            <text x="85" y="53" fill="#FFF" font-size="7" text-anchor="middle" font-weight="bold">O₂</text>
+                            <path d="M 70 28 L 73 35 L 80 32 L 75 38 L 81 44 L 73 44 L 70 51 L 67 44 L 59 44 L 65 38 L 60 32 L 67 35 Z" fill="#EF4444" opacity="0.8"/>
+                            <text x="70" y="95" fill="var(--text-primary)" font-size="13" font-weight="bold" text-anchor="middle">산화열</text>
+                            <text x="70" y="115" fill="var(--text-secondary)" font-size="11" text-anchor="middle">기름/석탄 + 산소</text>
+                            <text x="70" y="132" fill="var(--text-muted)" font-size="10" text-anchor="middle">상온에서 서서히</text>
+                            <text x="70" y="147" fill="var(--text-muted)" font-size="10" text-anchor="middle">산화 반응 진행</text>
+                            <text x="70" y="170" fill="#F59E0B" font-size="11" font-weight="bold" text-anchor="middle">요오드가 건성유</text>
+                        </g>
+
+                        <!-- 2. 분해열 -->
+                        <g transform="translate(175, 55)">
+                            <rect width="140" height="190" rx="10" fill="url(#decGrad)" stroke="#EF4444" stroke-width="1.5"/>
+                            <circle cx="70" cy="45" r="25" fill="var(--bg-primary)" stroke="#EF4444" stroke-width="1"/>
+                            <path d="M 52 45 Q 60 35, 68 42 L 72 48 Q 80 55, 88 45" fill="none" stroke="#94A3B8" stroke-width="2.5"/>
+                            <circle cx="50" cy="45" r="6" fill="#F43F5E"/>
+                            <circle cx="90" cy="45" r="6" fill="#3B82F6"/>
+                            <path d="M 68 35 L 72 45 L 68 55" fill="none" stroke="#EF4444" stroke-width="2"/>
+                            <path d="M 68 28 L 71 33 L 76 31 L 72 36 L 77 40 L 71 40 L 68 45" fill="none" stroke="#F59E0B" stroke-width="1.5"/>
+                            <text x="70" y="95" fill="var(--text-primary)" font-size="13" font-weight="bold" text-anchor="middle">분해열</text>
+                            <text x="70" y="115" fill="var(--text-secondary)" font-size="11" text-anchor="middle">자기반응성 물질</text>
+                            <text x="70" y="132" fill="var(--text-muted)" font-size="10" text-anchor="middle">외부 산소 없이</text>
+                            <text x="70" y="147" fill="var(--text-muted)" font-size="10" text-anchor="middle">자가 분해·발열</text>
+                            <text x="70" y="170" fill="#EF4444" font-size="11" font-weight="bold" text-anchor="middle">니트로셀룰로오스</text>
+                        </g>
+
+                        <!-- 3. 흡착열 -->
+                        <g transform="translate(330, 55)">
+                            <rect width="140" height="190" rx="10" fill="url(#adGrad)" stroke="#3B82F6" stroke-width="1.5"/>
+                            <circle cx="70" cy="45" r="25" fill="var(--bg-primary)" stroke="#3B82F6" stroke-width="1"/>
+                            <rect x="53" y="38" width="34" height="14" rx="3" fill="#64748B" opacity="0.6"/>
+                            <circle cx="58" cy="45" r="2" fill="var(--bg-primary)"/>
+                            <circle cx="65" cy="42" r="2" fill="var(--bg-primary)"/>
+                            <circle cx="70" cy="47" r="2" fill="var(--bg-primary)"/>
+                            <circle cx="76" cy="43" r="2" fill="var(--bg-primary)"/>
+                            <circle cx="82" cy="46" r="2" fill="var(--bg-primary)"/>
+                            <circle cx="58" cy="41" r="2.5" fill="#EF4444"/>
+                            <path d="M 58 35 L 58 39" fill="none" stroke="#EF4444" stroke-width="1"/>
+                            <circle cx="70" cy="52" r="2.5" fill="#EF4444"/>
+                            <path d="M 70 58 L 70 54" fill="none" stroke="#EF4444" stroke-width="1"/>
+                            <circle cx="80" cy="39" r="2.5" fill="#EF4444"/>
+                            <text x="70" y="95" fill="var(--text-primary)" font-size="13" font-weight="bold" text-anchor="middle">흡착열</text>
+                            <text x="70" y="115" fill="var(--text-secondary)" font-size="11" text-anchor="middle">다공성 고체 표면</text>
+                            <text x="70" y="132" fill="var(--text-muted)" font-size="10" text-anchor="middle">가스 응축·접착 시</text>
+                            <text x="70" y="147" fill="var(--text-muted)" font-size="10" text-anchor="middle">물리적 발열 발생</text>
+                            <text x="70" y="170" fill="#3B82F6" font-size="11" font-weight="bold" text-anchor="middle">활성탄 / 목탄</text>
+                        </g>
+
+                        <!-- 4. 중합열 -->
+                        <g transform="translate(485, 55)">
+                            <rect width="140" height="190" rx="10" fill="url(#polyGrad)" stroke="#8B5CF6" stroke-width="1.5"/>
+                            <circle cx="70" cy="45" r="25" fill="var(--bg-primary)" stroke="#8B5CF6" stroke-width="1"/>
+                            <circle cx="52" cy="45" r="4" fill="#A78BFA"/>
+                            <circle cx="64" cy="45" r="4" fill="#8B5CF6"/>
+                            <circle cx="76" cy="45" r="4" fill="#7C3AED"/>
+                            <circle cx="88" cy="45" r="4" fill="#6D28D9"/>
+                            <line x1="56" y1="45" x2="60" y2="45" stroke="#E9D5FF" stroke-width="1.5"/>
+                            <line x1="68" y1="45" x2="72" y2="45" stroke="#E9D5FF" stroke-width="1.5"/>
+                            <line x1="80" y1="45" x2="84" y2="45" stroke="#E9D5FF" stroke-width="1.5"/>
+                            <path d="M 64 33 Q 70 30, 76 33" fill="none" stroke="#EF4444" stroke-width="1"/>
+                            <text x="70" y="95" fill="var(--text-primary)" font-size="13" font-weight="bold" text-anchor="middle">중합열</text>
+                            <text x="70" y="115" fill="var(--text-secondary)" font-size="11" text-anchor="middle">단량체의 사슬결합</text>
+                            <text x="70" y="132" fill="var(--text-muted)" font-size="10" text-anchor="middle">고분자화 과정의</text>
+                            <text x="70" y="147" fill="var(--text-muted)" font-size="10" text-anchor="middle">강한 화학적 발열</text>
+                            <text x="70" y="170" fill="#8B5CF6" font-size="11" font-weight="bold" text-anchor="middle">시안화수소 / 스티렌</text>
+                        </g>
+
+                        <!-- 5. 발효열 -->
+                        <g transform="translate(640, 55)">
+                            <rect width="140" height="190" rx="10" fill="url(#fermGrad)" stroke="#10B981" stroke-width="1.5"/>
+                            <circle cx="70" cy="45" r="25" fill="var(--bg-primary)" stroke="#10B981" stroke-width="1"/>
+                            <rect x="54" y="42" width="12" height="6" rx="3" fill="#34D399" transform="rotate(-15 60 45)"/>
+                            <rect x="72" y="38" width="14" height="6" rx="3" fill="#059669" transform="rotate(30 79 41)"/>
+                            <circle cx="65" cy="52" r="3" fill="#6EE7B7"/>
+                            <circle cx="74" cy="50" r="2" fill="#A7F3D0"/>
+                            <text x="70" y="95" fill="var(--text-primary)" font-size="13" font-weight="bold" text-anchor="middle">발효열</text>
+                            <text x="70" y="115" fill="var(--text-secondary)" font-size="11" text-anchor="middle">미생물의 생명활동</text>
+                            <text x="70" y="132" fill="var(--text-muted)" font-size="10" text-anchor="middle">유기물 분해 과정</text>
+                            <text x="70" y="147" fill="var(--text-muted)" font-size="10" text-anchor="middle">생화학적 완만한 열</text>
+                            <text x="70" y="170" fill="#10B981" font-size="11" font-weight="bold" text-anchor="middle">퇴비 / 사료 / 곡물</text>
+                        </g>
+
+                        <!-- Connection Flow Bridge -->
+                        <rect x="20" y="270" width="760" height="135" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <rect x="35" y="285" width="220" height="26" rx="4" fill="#1E293B" stroke="#3B82F6" stroke-width="1"/>
+                        <text x="145" y="302" fill="#3B82F6" font-size="11" font-weight="bold" text-anchor="middle">1단계: 저온 트리거 (물리·생화학)</text>
+                        <rect x="545" y="285" width="220" height="26" rx="4" fill="#1E293B" stroke="#EF4444" stroke-width="1"/>
+                        <text x="655" y="302" fill="#EF4444" font-size="11" font-weight="bold" text-anchor="middle">2단계: 고온 드라이버 (화학 반응)</text>
+
+                        <path d="M 145 320 Q 230 350, 320 350" fill="none" stroke="#3B82F6" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrow)"/>
+                        <path d="M 480 350 Q 570 350, 655 320" fill="none" stroke="#EF4444" stroke-width="2" marker-end="url(#redArrow)"/>
+
+                        <path d="M 330 340 L 470 340 L 455 365 L 345 365 Z" fill="url(#flowArrowGrad)"/>
+                        <text x="400" y="357" fill="#FFF" font-size="11" font-weight="bold" text-anchor="middle">온도 상승 &amp; 축적</text>
+
+                        <text x="145" y="340" fill="var(--text-secondary)" font-size="11" text-anchor="middle">• 발효열: 미생물 분해로 70~80℃ 도달</text>
+                        <text x="145" y="360" fill="var(--text-secondary)" font-size="11" text-anchor="middle">• 흡착열: 다공질 기재의 수분·가스 흡착</text>
+                        <text x="145" y="385" fill="#3B82F6" font-size="11" font-weight="bold" text-anchor="middle">초기 미열 생성 &amp; 환경 조성</text>
+
+                        <text x="655" y="340" fill="var(--text-secondary)" font-size="11" text-anchor="middle">• 산화열: 유기물 공기 노출로 열축적 가속</text>
+                        <text x="655" y="360" fill="var(--text-secondary)" font-size="11" text-anchor="middle">• 분해/중합: 고온서 분자 쇄 분열 및 결합</text>
+                        <text x="655" y="385" fill="#EF4444" font-size="11" font-weight="bold" text-anchor="middle">아레니우스 반응 폭주 -> 발화</text>
+                    </svg>
+                </div>
+
+                <!-- 5대 발열 반응의 직관적 이해: 비유법 요약 그리드 -->
+                <div class="takeaway-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 25px; margin-bottom: 15px;">
+                    <!-- 산화열 -->
+                    <div style="background: var(--bg-secondary); border: 1.5px solid #F59E0B; border-radius: 10px; padding: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <strong style="color: #F59E0B; font-size: 1.05rem; display: block; margin-bottom: 6px;">🔥 산화열 (Oxidation)</strong>
+                        <span style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-bottom: 8px; font-style: italic;">[초간단 비유] 기름걸레가 서서히 '숨쉬며 녹스는' 현상</span>
+                        <p style="font-size: 0.88rem; line-height: 1.55; color: var(--text-secondary); margin: 0;">
+                            비 맞은 철못이 녹슬 때 미세하게 따뜻해지듯, 기름이나 석탄이 공기 중 산소를 들이마시며 내는 열입니다. 이 걸레들을 수북이 쌓아두면 뚜꺼운 솜이불을 덮은 것처럼 열이 밖으로 못 나가고 안에 갇혀 점점 더 뜨거워지다 결국 불이 붙습니다.
+                        </p>
+                    </div>
+                    <!-- 분해열 -->
+                    <div style="background: var(--bg-secondary); border: 1.5px solid #EF4444; border-radius: 10px; padding: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <strong style="color: #EF4444; font-size: 1.05rem; display: block; margin-bottom: 6px;">💥 분해열 (Decomposition)</strong>
+                        <span style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-bottom: 8px; font-style: italic;">[초간단 비유] 공기 없는 우주에서도 터지는 시한폭탄</span>
+                        <p style="font-size: 0.88rem; line-height: 1.55; color: var(--text-secondary); margin: 0;">
+                            물질 내부가 너무 불안정해서 가만히 놔둬도 자기 혼자 와르르 깨지고 분열하며 엄청난 에너지를 쏟아내는 열입니다. <strong>산소가 완전히 없는 밀폐 상자 속에서도 자기 혼자 열을 내며 타 들어가므로</strong> 공기 차단 소화법이 통하지 않아 가장 무섭습니다.
+                        </p>
+                    </div>
+                    <!-- 흡착열 -->
+                    <div style="background: var(--bg-secondary); border: 1.5px solid #3B82F6; border-radius: 10px; padding: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <strong style="color: #3B82F6; font-size: 1.05rem; display: block; margin-bottom: 6px;">💧 흡착열 (Adsorption)</strong>
+                        <span style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-bottom: 8px; font-style: italic;">[초간단 비유] 쌩쌩 날아가던 입자들의 '급정거 브레이크 마찰열'</span>
+                        <p style="font-size: 0.88rem; line-height: 1.55; color: var(--text-secondary); margin: 0;">
+                            공기 중을 쌩쌩 날아다니던 물방울이나 기체 분자들이 숯의 미세 구멍 표면에 자석처럼 이끌려 <strong>'철컥!' 하고 달라붙어 멈출 때</strong> 내뿜는 열입니다. 시속 100km로 달리던 자동차가 벽에 부딪쳐 급정거하면 타이어에서 뜨거운 마찰열이 나듯, 날아다니던 입자가 고체에 부딪쳐 급정거하면서 운동 에너지가 열로 바뀌는 현상입니다. (예: 마른 숯이나 제습제에 물이 닿으면 순간 훅 뜨거워지는 현상)
+                        </p>
+                    </div>
+                    <!-- 중합열 -->
+                    <div style="background: var(--bg-secondary); border: 1.5px solid #8B5CF6; border-radius: 10px; padding: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <strong style="color: #8B5CF6; font-size: 1.05rem; display: block; margin-bottom: 6px;">🔗 중합열 (Polymerization)</strong>
+                        <span style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-bottom: 8px; font-style: italic;">[초간단 비유] 레고 기차들이 초고속 자석 합체하는 충격열</span>
+                        <p style="font-size: 0.88rem; line-height: 1.55; color: var(--text-secondary); margin: 0;">
+                            액체 상태로 얌전히 흩어져 있던 작은 알갱이들이 온도나 충격을 받으면 갑자기 서로 손을 꽉 잡고 길쭉한 쇠사슬(기차)처럼 합체할 때 내는 강한 에너지입니다. 순식간에 대량의 열이 터져 나와 보관 탱크를 찢고 폭발을 유발합니다.
+                        </p>
+                    </div>
+                    <!-- 발효열 -->
+                    <div style="background: var(--bg-secondary); border: 1.5px solid #10B981; border-radius: 10px; padding: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                        <strong style="color: #10B981; font-size: 1.05rem; display: block; margin-bottom: 6px;">🦠 발효열 (Fermentation)</strong>
+                        <span style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-bottom: 8px; font-style: italic;">[초간단 비유] 밀폐된 방에 가득 모인 사람들의 단체 땀방울</span>
+                        <p style="font-size: 0.88rem; line-height: 1.55; color: var(--text-secondary); margin: 0;">
+                            젖은 유기물 속에 사는 수억 마리의 미생물들이 밥을 먹고 증식하며 내뿜는 '생물의 활동 체온'입니다. 온도가 70~80도까지 오르면 너무 뜨거워 미생물 지네들도 다 죽어버리지만, 이 열기가 불을 지피는 잠자던 화학 반응(산화 반응)을 깨우는 마중물이 됩니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 모식도 전용 설명 공간 -->
+                <div class="diagram-explanation" style="font-size: 0.92rem; line-height: 1.6; color: var(--text-secondary); margin-top: 15px; border-left: 3px solid var(--accent); padding-left: 15px;">
+                    <strong>📋 다이어그램 핵심 메커니즘 연계 해설:</strong>
+                    <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                        <li><strong>상호 연계성 (Cascade)</strong>: 자연계의 많은 자연발화(예: 퇴비 더미, 석탄 더미)는 단일 반응이 아닙니다. 초기에는 <strong>발효열(미생물)</strong>이나 <strong>흡착열(물리적)</strong>에 의해 상온에서 70~80℃까지 온도가 상승(1단계 마중물)한 뒤, 고온이 되면 반응물질의 <strong>산화 반응(화학적)</strong> 속도가 아레니우스 지수(Exponential) 형태로 폭증(2단계 폭주)하면서 발화점 이상으로 치달아 불이 붙습니다.</li>
+                        <li><strong>독립성 및 중복성</strong>: 니트로셀룰로오스 등 5류 위험물은 공기(산소) 없이도 자체 분해열만으로 100% 독립적인 발화가 가능한 반면, 아마인유 등 건성유는 산소와의 결합(산화열)이 필수적입니다. 이처럼 가연물의 화학적 안정성에 따라 단독 혹은 연쇄적인 형태로 거동이 결정됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-title">3. 자연발화가 일어나기 쉬운 조건 (영향 인자)</h3>
+        <div class="sub-section">
+            <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8;">
+                <li style="margin-bottom: 8px;"><strong>낮은 열전도율:</strong> 발생한 열이 외부로 잘 전도되지 않고 중심부에 갇히는 구조여야 합니다.</li>
+                <li style="margin-bottom: 8px;"><strong>높은 퇴적(쌓임) 밀도와 넓은 표면적:</strong> 공기와의 접촉 면적이 넓어 초기 산화열 발생 속도는 빠르되, 방출되는 경로가 막혀있어야 합니다.</li>
+                <li style="margin-bottom: 8px;"><strong>적당한 환기(산소 공급):</strong> 너무 강한 통풍은 물질을 냉각시키고, 통풍이 아예 없으면 반응에 필요한 산소가 고갈되므로, 열 축적과 산소 공급이 평형을 이루는 '적당한 유동'일 때 자연발화 위험이 극대화됩니다.</li>
+                <li style="margin-bottom: 8px;"><strong>높은 온도와 습도:</strong> 주위 온도가 높을수록 화학 반응 속도가 빨라지며(Arrhenius 법칙), 수분은 촉매 역할을 하여 분해 및 발효열 발생을 촉진시킵니다.</li>
+            </ul>
+        </div>
+
+        <h3 class="section-title">4. 자연발화 예방대책</h3>
+        <div class="sub-section">
+            <ul style="margin: 8px 0 0 0; padding-left: 20px; line-height: 1.8;">
+                <li style="margin-bottom: 8px;"><strong>온도 및 습도 관리:</strong> 저장실의 온도를 낮추고 건조한 상태(저온 건조)를 유지하여 초기 산화 및 발효 반응을 억제합니다.</li>
+                <li style="margin-bottom: 8px;"><strong>환기 및 통풍 유도:</strong> 적극적인 강제 환기를 통하여 열이 내부에 축적되지 않고 즉각 방출(냉각)되도록 유도합니다.</li>
+                <li style="margin-bottom: 8px;"><strong>퇴적 방지 및 분산 저장:</strong> 물질을 대량으로 쌓아두지 않고 소량으로 분산 및 정리하여 방열 면적 비율을 높입니다.</li>
+                <li style="margin-bottom: 8px;"><strong>불활성 가스 주입:</strong> 가연성 가스가 흡착 또는 중합되는 탱크 내부를 질소(N2) 등 불활성 가스로 치환하여 산소 접촉을 차단합니다.</li>
+                <li style="margin-bottom: 8px;"><strong>혼합 위험 물질 격리:</strong> 분해 및 산화를 촉진할 수 있는 산성 물질이나 금속 산화물 등 촉매류의 유입을 철저히 차단합니다.</li>
+            </ul>
+
+            <!-- 예방대책 3대 방어 메커니즘 연계 모식도 -->
+            <div class="diagram-container zoomable-media" data-title="자연발화 예방대책 3대 연계 방어선" style="text-align: center; margin: 25px 0; cursor: pointer;">
+                <svg viewBox="0 0 760 300" width="100%" height="auto" style="background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                    <defs>
+                        <linearGradient id="shieldHeat" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#3B82F6" stroke-opacity="0.2"/>
+                            <stop offset="100%" stop-color="#1D4ED8" stroke-opacity="0.3"/>
+                        </linearGradient>
+                        <linearGradient id="shieldOxygen" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#10B981" stroke-opacity="0.2"/>
+                            <stop offset="100%" stop-color="#047857" stroke-opacity="0.3"/>
+                        </linearGradient>
+                        <linearGradient id="shieldDissipation" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#F59E0B" stroke-opacity="0.2"/>
+                            <stop offset="100%" stop-color="#D97706" stroke-opacity="0.3"/>
+                        </linearGradient>
+                    </defs>
+
+                    <text x="380" y="30" fill="var(--text-primary)" font-size="15" font-weight="bold" text-anchor="middle">자연발화 예방대책의 3대 연계 방어막 메커니즘</text>
+
+                    <g transform="translate(320, 90)">
+                        <rect x="0" y="0" width="120" height="140" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="2"/>
+                        <path d="M 20 40 L 100 40 L 90 120 L 30 120 Z" fill="#64748B" opacity="0.3"/>
+                        <text x="60" y="30" fill="var(--text-secondary)" font-size="12" font-weight="bold" text-anchor="middle">가연물 저장소</text>
+                        <circle cx="60" cy="75" r="22" fill="#EF4444" opacity="0.1"/>
+                        <path d="M 60 60 L 63 70 L 73 67 L 68 76 L 75 83 L 66 83 L 60 93 L 54 83 L 45 83 L 52 76 L 47 67 L 57 70 Z" fill="#EF4444"/>
+                        <text x="60" y="112" fill="var(--text-primary)" font-size="11" font-weight="bold" text-anchor="middle">자가 열축적 상태</text>
+                    </g>
+
+                    <!-- 방어막 1: 열 발생 억제 장벽 (좌측) -->
+                    <g transform="translate(40, 65)">
+                        <rect width="230" height="180" rx="10" fill="url(#shieldHeat)" stroke="#3B82F6" stroke-width="1.5"/>
+                        <text x="115" y="25" fill="#3B82F6" font-size="12" font-weight="bold" text-anchor="middle">🛡️ 1차 방어: 열 발생 자체를 차단</text>
+                        
+                        <rect x="15" y="45" width="200" height="50" rx="6" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="25" y="65" fill="var(--text-primary)" font-size="11" font-weight="bold">저온·건조 유지 (온/습도 제어)</text>
+                        <text x="25" y="83" fill="var(--text-muted)" font-size="10">미생물 번식 및 산화 화학 반응 속도 억제</text>
+
+                        <rect x="15" y="110" width="200" height="50" rx="6" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="25" y="130" fill="var(--text-primary)" font-size="11" font-weight="bold">혼합 위험물 격리 (촉매 배제)</text>
+                        <text x="25" y="148" fill="var(--text-muted)" font-size="10">반응을 가속하는 철가루/강산 등 유입 차단</text>
+                        
+                        <path d="M 230 115 L 270 115" fill="none" stroke="#3B82F6" stroke-width="3" stroke-dasharray="2,2"/>
+                        <polygon points="270,110 280,115 270,120" fill="#3B82F6"/>
+                    </g>
+
+                    <!-- 방어막 2: 열 방출 촉진 장벽 (우측) -->
+                    <g transform="translate(490, 65)">
+                        <rect width="230" height="180" rx="10" fill="url(#shieldDissipation)" stroke="#F59E0B" stroke-width="1.5"/>
+                        <text x="115" y="25" fill="#D97706" font-size="12" font-weight="bold" text-anchor="middle">💨 2차 방어: 열을 즉시 밖으로 방출</text>
+
+                        <rect x="15" y="45" width="200" height="50" rx="6" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="25" y="65" fill="var(--text-primary)" font-size="11" font-weight="bold">소량 분산 저장 (퇴적 방지)</text>
+                        <text x="25" y="83" fill="var(--text-muted)" font-size="10">적치 높이를 낮춰 방열 표면적 비율 극대화</text>
+
+                        <rect x="15" y="110" width="200" height="50" rx="6" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="25" y="130" fill="var(--text-primary)" font-size="11" font-weight="bold">적극적 강제 환기 (대류 냉각)</text>
+                        <text x="25" y="148" fill="var(--text-muted)" font-size="10">공기 흐름을 만들어 누적 열기를 강제 냉각</text>
+
+                        <path d="M 15 115 L -25 115" fill="none" stroke="#F59E0B" stroke-width="3" stroke-dasharray="2,2"/>
+                        <polygon points="-25,110 -35,115 -25,120" fill="#F59E0B"/>
+                    </g>
+
+                    <!-- 방어막 3: 연소 환경 제어 (상단) -->
+                    <g transform="translate(230, 245)">
+                        <rect width="300" height="45" rx="8" fill="url(#shieldOxygen)" stroke="#10B981" stroke-width="1"/>
+                        <text x="150" y="27" fill="#047857" font-size="12" font-weight="bold" text-anchor="middle">☁️ 3차 방어: 질소(N2) 불활성화로 산소 차단</text>
+                        
+                        <path d="M 150 0 L 150 -10" fill="none" stroke="#10B981" stroke-width="2"/>
+                        <polygon points="146,-10 150,-15 154,-10" fill="#10B981"/>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- 예방대책 연계 스토리텔링 설명 공간 -->
+            <div class="diagram-explanation" style="font-size: 0.92rem; line-height: 1.6; color: var(--text-secondary); margin-top: 15px; border-left: 3px solid var(--accent); padding-left: 15px;">
+                <strong>📋 예방대책 연계 메커니즘 요약 (스토리텔링 흐름):</strong>
+                <p style="margin: 6px 0 0 0;">
+                    자연발화는 열이 가두어지고 산소와 반응하는 과정에서 일어나므로, 예방대책도 이 세 가지 루트를 <strong>유기적으로 차단</strong>하는 종합 방어 시스템으로 설계됩니다.
+                </p>
+                <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                    <li><strong>🛡️ 1차 방어막 (발열 원천 봉쇄)</strong>: 저장소 내부를 시원하고 건조하게 관리하여 생화학 반응(미생물 등)이나 자가 분해를 잠재우고, 반응을 급가속하는 스파크 물질인 '촉매(철가루 등)'를 차단하여 초기 열 생성(q_gen) 자체를 최소화합니다.</li>
+                    <li><strong>💨 2차 방어막 (방열 강제 촉진)</strong>: 미열이 조금씩 나더라도 내부에 쌓이지 않도록, 가연물을 수북이 쌓지 않고 낮게 <strong>분산 저장</strong>하여 방열 표면적을 넓히고, 강력한 <strong>강제 환기(바람)</strong>를 가해 대류 냉각 효과(q_loss 극대화)로 열기를 쓸어내립니다.</li>
+                    <li><strong>☁️ 3차 방어막 (산소 연소 환경 제어)</strong>: 특히 밀폐 공간이나 저장 탱크는 질소(N2) 가스를 주입해 산소 농도를 MOC(최소산소농도) 이하로 강제로 낮춥니다. 이로써 설령 가연물이 뜨거워지더라도 <strong>산화 연소 반응을 원천 봉쇄</strong>합니다.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="insight-box">
+        <h4>💡 실전 답안 작성 전략: 꼬리에 꼬리를 무는 연상 마인드맵</h4>
+        <p style="margin-bottom: 12px; line-height: 1.6;"><strong>중심 이미지:</strong> 축축하게 젖은 장갑더미와 아마인유 걸레들이 창고 구석에서 방열되지 못해 연기가 피어오르는 열축적 단면 이미지</p>
+        <ul style="list-style-type: none; padding-left: 0; margin: 0; line-height: 1.8;">
+            <li style="margin-bottom: 6px;"><strong>① 정의 및 밸런스:</strong> 열발생 속도(q_gen) &gt; 열방출 속도(q_loss)로 인한 자가 온도 상승 메커니즘을 명시한다.</li>
+            <li style="margin-bottom: 6px;"><strong>② 분류:</strong> '산분흡중발' (산화, 분해, 흡착, 중합, 발효) 앞글자를 연상하여 각 분류별 대표 물질과 매핑한다.</li>
+            <li style="margin-bottom: 6px;"><strong>③ 영향 요인:</strong> 전도율이 낮고, 축적 면적이 넓으며, 수분 촉매가 있고, 적당한 풍량이 있는 임계 조건을 기술한다.</li>
+            <li style="margin-bottom: 6px;"><strong>④ 예방 대책:</strong> '통풍, 분산, 저온, 불활성화'의 물리적 대책을 연계하여 스토리텔링을 마친다.</li>
+        </ul>
+    </div>
+
+        <!-- 관련 기출문제 출제 이력 카드 -->
+    <div class="exam-history" style="background-color: var(--bg-secondary); border: 1px solid var(--border); padding: 24px; border-radius: 12px; margin-top: 30px;">
+        <h4 style="font-weight: 800; color: var(--text-primary); margin-bottom: 15px; font-size: 1.0rem; display: flex; align-items: center; gap: 8px;">
+            📋 관련 기출문제 출제 이력
+        </h4>
+        <ul style="list-style-type: disc; padding-left: 20px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.75;">
+            <li style="margin-bottom: 6px;"><strong>제121회 3교시</strong>: 자연발화의 정의, 분류, 조건 및 예방방법에 대하여 설명하시오.</li>
+            <li style="margin-bottom: 6px;"><strong>제128회 1교시</strong>: 자연발화가 일어나기 쉬운 조건을 설명하시오.</li>
+            <li style="margin-bottom: 6px;"><strong>제131회 1교시</strong>: 자연발화현상에서 열방사에 의한 자연발화와 고온기류에 의한 자연발화에 대하여 설명하시오.</li>
+            <li style="margin-bottom: 6px;"><strong>제131회 4교시</strong>: 옥내 저탄장(Coal Shed)에서 발생 가능한 자연발화의 원인을 분석하고 옥내 저탄장에 적응성 있는 소방시설과 화재 안전대책을 설명하시오.</li>
+        </ul>
     </div>
 </article>
 
