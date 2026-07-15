@@ -7301,9 +7301,12 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
         
         <h4 class="sub-title">1) 수학적 기본식 및 음(-) 부호의 의미</h4>
         <ul class="bullet-list" style="padding-left: 20px; line-height: 1.8;">
-            <li><strong>총 전도 열량식:</strong> $$q = -k A \frac{dT}{dx} \quad [\text{W}]$$</li>
-            <li><strong>단위 면적당 전도 열유속(Heat Flux):</strong> $$q'' = \frac{q}{A} = -k \frac{dT}{dx} \quad [\text{W/m}^2]$$
-                <span style="font-size: 0.85rem; color: var(--text-secondary);">($k$: 물질 고유의 <strong>열전도율 (Thermal Conductivity, $\text{W/m}\cdot\text{K}$)</strong>, $dT/dx$: 가동력 구배인 온도 경사)</span>
+            <li><strong>총 전도 열량식 ($q$):</strong> $$q = -k A \frac{dT}{dx} \quad [\text{W}] \quad \left(\text{또는 } [\text{kcal/h}]\right)$$</li>
+            <li><strong>단위 면적당 전도 열유속 ($q''$):</strong> $$q'' = \frac{q}{A} = -k \frac{dT}{dx} \quad [\text{W/m}^2] \quad \left(\text{또는 } [\text{kcal/m}^2\cdot\text{h}]\right)$$
+                <span style="font-size: 0.85rem; color: var(--text-secondary);">
+                    ($k$: 물질 고유의 <strong>열전도율 (Thermal Conductivity, $[\text{W/m}\cdot\text{K}]$ 또는 $[\text{kcal/m}\cdot\text{h}\cdot{^\circ}\text{C}]$)</strong>, $dT/dx$: 온도 구배)<br/>
+                    <strong style="color: var(--accent);">💡 [시험장 단위 환산 팁]</strong> $1 \text{ W/m}\cdot\text{K} \approx 0.86 \text{ kcal/m}\cdot\text{h}\cdot{^\circ}\text{C}$
+                </span>
             </li>
             <li><strong>음(-) 부호의 물리적 의미:</strong> 열역학 제2법칙에 의해 열은 온도가 낮아지는 방향($dT \lt 0$ 일 때 $dx \gt 0$)으로 자발적으로 흐른다. 따라서 온도 구배 분수 값 자체가 음수이므로, 최종 전도 열류 속도($q$)를 물리적으로 양(+)의 값으로 나타내기 위해 수학적으로 부호 조정을 한 것이다.</li>
         </ul>
@@ -7332,13 +7335,13 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
             Fourier의 법칙을 정상 상태 1차원 평판 벽체(두께 $L$)에 대해 적분하면:<br/>
             $$q = k A \frac{T_{in} - T_{out}}{L} = \frac{T_{in} - T_{out}}{\left(\frac{L}{k A}\right)} = \frac{\Delta T}{R_{th}}$$
             따라서 평판의 전도 열저항은 다음과 같다:<br/>
-            $$R_{th} = \frac{L}{k A} \quad [\text{K/W}] \quad \left( \text{또는 단위 면적당 열저항 } R''_{th} = \frac{L}{k} \quad [\text{m}^2\cdot\text{K/W}] \right)$$
+            $$R_{th} = \frac{L}{k A} \quad [\text{K/W}] \ \left(\text{또는 } [{^\circ}\text{C}\cdot\text{h/kcal}]\right) \quad \left( \text{단위 면적당 열저항 } R''_{th} = \frac{L}{k} \quad [\text{m}^2\cdot\text{K/W}] \ \left(\text{또는 } [\text{m}^2\cdot{^\circ}\text{C}\cdot\text{h/kcal}]\right) \right)$$
         </p>
 
         <h4 class="sub-title" style="margin-top: 15px;">2) 다층 벽체 직렬 연결 시 총 열전달률 ($q$)</h4>
         <p class="desc" style="line-height: 1.7;">
             이종 물질이 겹쳐진 다층 직렬 벽체의 경우 전체를 관통하는 알짜 전도 열유량은 정상 상태에서 모두 동일하다 ($q = q_A = q_B = q_C$).<br/>
-            $$q = \frac{\Delta T_{\text{total}}}{\sum R_{th}} = \frac{T_{\text{in}} - T_{\text{out}}}{\frac{L_A}{k_A A} + \frac{L_B}{k_B A} + \frac{L_C}{k_C A}} \quad [\text{W}]$$
+            $$q = \frac{\Delta T_{\text{total}}}{\sum R_{th}} = \frac{T_{\text{in}} - T_{\text{out}}}{\frac{L_A}{k_A A} + \frac{L_B}{k_B A} + \frac{L_C}{k_C A}} \quad [\text{W}] \quad \left(\text{또는 } [\text{kcal/h}]\right)$$
             <strong>단열재의 배치 효과:</strong> 두께 $L$ 대비 열전도도 $k$가 극단적으로 낮은 단열재 층을 중간에 삽입하면 $R_{th}$가 비약적으로 증가하여, 전체 열류량 $q$를 낮추고 단열재 양단에서 대부분의 온도 강하($\Delta T$)를 유도하여 이면의 열 전파를 완전히 통제할 수 있다.
         </p>
     </div>
