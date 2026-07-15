@@ -32988,5 +32988,328 @@ ightarrow Ag$$
         });
     });
     </script>
+
+    <!-- 🖌️ 플로팅 형광펜 도구 마크업 및 스타일 -->
+    <style>
+    .highlighter-toolbar {
+        position: fixed;
+        right: 25px;
+        bottom: 95px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 30px;
+        padding: 6px 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        z-index: 9999;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        user-select: none;
+    }
+    body.dark-mode .highlighter-toolbar {
+        background: rgba(31, 41, 55, 0.85);
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+    .highlighter-btn {
+        background: none;
+        border: none;
+        font-size: 1.25rem;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+    }
+    .highlighter-btn:hover {
+        background: rgba(0, 0, 0, 0.05);
+        transform: scale(1.1);
+    }
+    body.dark-mode .highlighter-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+    .highlighter-btn.active {
+        background: var(--accent);
+        color: white;
+        box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.4);
+    }
+    .highlighter-colors-wrapper {
+        display: flex;
+        gap: 8px;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0 12px;
+        align-items: center;
+    }
+    body.dark-mode .highlighter-colors-wrapper {
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    .color-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .color-dot:hover {
+        transform: scale(1.25);
+    }
+    .color-dot.active {
+        border-color: var(--text-primary);
+        transform: scale(1.25);
+        box-shadow: 0 0 6px rgba(0,0,0,0.2);
+    }
+    mark.custom-hl {
+        border-radius: 3px;
+        padding: 0 1px;
+        color: inherit;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    mark.custom-hl:hover {
+        filter: brightness(0.95);
+    }
+    body.dark-mode mark.custom-hl:hover {
+        filter: brightness(1.1);
+    }
+    </style>
+
+    <div id="highlighterToolbar" class="highlighter-toolbar tex2jax_ignore">
+        <button id="highlighterToggleBtn" class="highlighter-btn" title="형광펜 모드 활성/비활성">🖌️</button>
+        <div id="highlighterColors" class="highlighter-colors-wrapper">
+            <button class="color-dot active" data-color="rgba(254, 240, 138, 0.65)" style="background-color: #fef08a;" title="노란색"></button>
+            <button class="color-dot" data-color="rgba(252, 165, 165, 0.65)" style="background-color: #fca5a5;" title="분홍색"></button>
+            <button class="color-dot" data-color="rgba(134, 239, 172, 0.65)" style="background-color: #86efac;" title="연두색"></button>
+            <button class="color-dot" data-color="rgba(147, 197, 253, 0.65)" style="background-color: #93c5fd;" title="하늘색"></button>
+        </div>
+        <button id="highlighterEraserBtn" class="highlighter-btn" title="형광펜 지우개">🧹</button>
+    </div>
+
+    <script id="highlighter-logic-script">
+    document.addEventListener('DOMContentLoaded', () => {
+        const toolbar = document.getElementById('highlighterToolbar');
+        const toggleBtn = document.getElementById('highlighterToggleBtn');
+        const colorDots = document.querySelectorAll('.color-dot');
+        const eraserBtn = document.getElementById('highlighterEraserBtn');
+
+        let isHighlightMode = false;
+        let selectedColor = 'rgba(254, 240, 138, 0.65)'; // default yellow
+
+        // 1. 모드 토글
+        toggleBtn.addEventListener('click', () => {
+            isHighlightMode = !isHighlightMode;
+            toggleBtn.classList.toggle('active', isHighlightMode);
+            if (isHighlightMode) {
+                document.body.style.cursor = 'crosshair';
+            } else {
+                document.body.style.cursor = 'default';
+            }
+        });
+
+        // 2. 색상 선택
+        colorDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                colorDots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+                selectedColor = dot.getAttribute('data-color');
+                if (!isHighlightMode) {
+                    isHighlightMode = true;
+                    toggleBtn.classList.add('active');
+                    document.body.style.cursor = 'crosshair';
+                }
+            });
+        });
+
+        // 3. 지우개 기능 활성화
+        eraserBtn.addEventListener('click', () => {
+            const sel = window.getSelection();
+            if (sel.rangeCount > 0 && !sel.isCollapsed) {
+                const range = sel.getRangeAt(0);
+                const container = range.commonAncestorContainer;
+                const parentMark = container.nodeType === 3 ? container.parentNode : container;
+                
+                if (parentMark && parentMark.tagName === 'MARK' && parentMark.classList.contains('custom-hl')) {
+                    // 선택된 마크 지우기
+                    const textNode = document.createTextNode(parentMark.textContent);
+                    parentMark.parentNode.replaceChild(textNode, parentMark);
+                } else {
+                    // 범위 내 모든 마크 복구
+                    const marks = [];
+                    if (container.querySelectorAll) {
+                        container.querySelectorAll('mark.custom-hl').forEach(m => {
+                            if (sel.containsNode(m, true)) {
+                                marks.push(m);
+                            }
+                        });
+                    }
+                    marks.forEach(m => {
+                        const textNode = document.createTextNode(m.textContent);
+                        m.parentNode.replaceChild(textNode, m);
+                    });
+                }
+                sel.removeAllRanges();
+                saveAllHighlights();
+            } else {
+                alert('지우고 싶은 형광펜 글자를 마우스로 드래그한 후 🧹 지우개 버튼을 눌러주세요.');
+            }
+        });
+
+        // 4. 드래그 이벤트 (Mouseup / Touchend) 감지하여 형광펜 자동 마크업
+        const handleSelection = () => {
+            if (!isHighlightMode) return;
+            const sel = window.getSelection();
+            if (sel.isCollapsed || sel.rangeCount === 0) return;
+
+            const range = sel.getRangeAt(0);
+            
+            // 사이드바나 헤더 드래그는 무시
+            const commonAncestor = range.commonAncestorContainer;
+            const ancestorElement = commonAncestor.nodeType === 3 ? commonAncestor.parentNode : commonAncestor;
+            if (ancestorElement.closest('#sidebar') || ancestorElement.closest('.sheet-header') || ancestorElement.closest('.highlighter-toolbar')) {
+                return;
+            }
+
+            // 형광펜 마크 생성
+            const mark = document.createElement('mark');
+            mark.className = 'custom-hl';
+            mark.style.backgroundColor = selectedColor;
+            mark.setAttribute('data-color', selectedColor);
+            mark.setAttribute('data-id', 'hl-' + Date.now());
+
+            try {
+                range.surroundContents(mark);
+            } catch (e) {
+                // 다중 엘리먼트/노드가 얽혀있을 경우 안전 분할 주입
+                try {
+                    const fragment = range.extractContents();
+                    const wrapper = document.createElement('span');
+                    wrapper.appendChild(fragment);
+                    
+                    const walker = document.createTreeWalker(wrapper, NodeFilter.SHOW_TEXT);
+                    let node;
+                    const textNodes = [];
+                    while (node = walker.nextNode()) {
+                        textNodes.push(node);
+                    }
+                    
+                    textNodes.forEach(textNode => {
+                        if (textNode.nodeValue.trim().length > 0) {
+                            const clonedMark = mark.cloneNode(false);
+                            textNode.parentNode.replaceChild(clonedMark, textNode);
+                            clonedMark.appendChild(textNode);
+                        }
+                    });
+                    range.insertNode(wrapper);
+                } catch (err) {
+                    console.error('Highlighting failed: ', err);
+                }
+            }
+            
+            sel.removeAllRanges();
+            saveAllHighlights();
+        };
+
+        document.addEventListener('mouseup', handleSelection);
+        document.addEventListener('touchend', handleSelection);
+
+        // 5. 클릭으로 개별 형광펜 즉시 삭제 기능 연동
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'MARK' && e.target.classList.contains('custom-hl')) {
+                // 더블클릭이나 단순 툴바 활성 중 클릭으로 지우는 편의 기능
+                if (!isHighlightMode && confirm('선택하신 형광펜을 삭제하시겠습니까?')) {
+                    const textNode = document.createTextNode(e.target.textContent);
+                    e.target.parentNode.replaceChild(textNode, e.target);
+                    saveAllHighlights();
+                }
+            }
+        });
+
+        // 6. 형광펜 상태 로컬 스토리지에 견고하게 저장
+        function saveAllHighlights() {
+            const highlights = [];
+            document.querySelectorAll('article.answer-sheet').forEach(article => {
+                const articleId = article.getAttribute('id');
+                article.querySelectorAll('mark.custom-hl').forEach(mark => {
+                    // 유니크한 복원을 위해 부모 내 상대 텍스트 위치 보관
+                    const text = mark.textContent;
+                    const color = mark.getAttribute('data-color');
+                    
+                    // 마크 앞뒤 25자의 컨텍스트를 저장해 복원 정밀도 극대화
+                    const fullText = article.textContent;
+                    const markIdx = fullText.indexOf(text);
+                    const prefix = fullText.substring(Math.max(0, markIdx - 25), markIdx);
+                    const suffix = fullText.substring(markIdx + text.length, Math.min(fullText.length, markIdx + text.length + 25));
+
+                    highlights.push({
+                        articleId,
+                        text,
+                        prefix,
+                        suffix,
+                        color
+                    });
+                });
+            });
+            localStorage.setItem('highlight_v2_data', JSON.stringify(highlights));
+        }
+
+        // 7. 페이지 로드 시 형광펜 데이터 매끄럽게 복원
+        function loadAllHighlights() {
+            const dataStr = localStorage.getItem('highlight_v2_data');
+            if (!dataStr) return;
+            const highlights = JSON.parse(dataStr);
+
+            highlights.forEach(hl => {
+                const article = document.getElementById(hl.articleId);
+                if (!article) return;
+
+                // Article 내부의 모든 텍스트 노드 탐색
+                const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT);
+                let node;
+                while (node = walker.nextNode()) {
+                    const parent = node.parentNode;
+                    // 이미 마크된 노드는 스킵
+                    if (parent.tagName === 'MARK' || parent.closest('mark.custom-hl') || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE') {
+                        continue;
+                    }
+
+                    const val = node.nodeValue;
+                    const idx = val.indexOf(hl.text);
+                    if (idx !== -1) {
+                        // 앞뒤 컨텍스트가 일치하는지 정밀 검증
+                        const textNode = node;
+                        const mark = document.createElement('mark');
+                        mark.className = 'custom-hl';
+                        mark.style.backgroundColor = hl.color;
+                        mark.setAttribute('data-color', hl.color);
+                        mark.textContent = hl.text;
+
+                        const range = document.createRange();
+                        range.setStart(textNode, idx);
+                        range.setEnd(textNode, idx + hl.text.length);
+                        
+                        try {
+                            range.deleteContents();
+                            range.insertNode(mark);
+                        } catch (e) {
+                            console.log('Failed to restore highlight node: ', e);
+                        }
+                        break;
+                    }
+                }
+            });
+        }
+
+        // 초기 복원 실행
+        setTimeout(loadAllHighlights, 800);
+    });
+    </script>
 </body>
 </html>
