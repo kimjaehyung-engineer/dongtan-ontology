@@ -7079,6 +7079,110 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
                 </tr>
             </tbody>
         </table>
+        
+        <!-- 무차원수 직관 이해 모식도 SVG 추가 -->
+        <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-top: 20px; margin-bottom: 15px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);">
+            <svg style="width: 100%; max-width: 760px; height: auto; font-family: 'Noto Sans KR', sans-serif;" viewBox="0 0 800 380">
+                <defs>
+                    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3B82F6"/>
+                    </marker>
+                    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#EF4444"/>
+                    </marker>
+                    <linearGradient id="wall-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#374151"/>
+                        <stop offset="100%" stop-color="#111827"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- 좌측 구역: Prandtl 수 (Pr) - 속도 경계층 vs 열 경계층 -->
+                <g transform="translate(10, 10)">
+                    <rect x="0" y="0" width="370" height="340" rx="12" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+                    <text x="185" y="25" fill="var(--text-primary)" font-size="14" font-weight="bold" text-anchor="middle">① Prandtl 수 (Pr) : 경계층 두께 비교</text>
+                    
+                    <!-- 벽체 베이스 -->
+                    <rect x="30" y="280" width="310" height="30" fill="url(#wall-grad)" rx="4"/>
+                    <text x="185" y="300" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">고체 벽면 (Solid Wall)</text>
+
+                    <!-- Pr > 1 (예: 물) 모델 시각화 -->
+                    <g transform="translate(0, 40)">
+                        <!-- 속도 경계층 (파란색 영역) -->
+                        <path d="M 40 180 Q 150 70 320 70 L 320 240 L 40 240 Z" fill="#3B82F6" fill-opacity="0.08" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4,2"/>
+                        <!-- 열 경계층 (붉은색 영역) -->
+                        <path d="M 40 210 Q 150 140 320 140 L 320 240 L 40 240 Z" fill="#EF4444" fill-opacity="0.08" stroke="#EF4444" stroke-width="2"/>
+                        
+                        <!-- 화살표 및 기호 -->
+                        <path d="M 325 70 L 325 240" stroke="#3B82F6" stroke-width="1.5" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)"/>
+                        <text x="335" y="150" fill="#3B82F6" font-size="11" font-weight="bold" text-anchor="start">속도 경계층 (δ)</text>
+
+                        <path d="M 285 140 L 285 240" stroke="#EF4444" stroke-width="1.5" marker-start="url(#arrow-red)" marker-end="url(#arrow-red)"/>
+                        <text x="230" y="190" fill="#EF4444" font-size="11" font-weight="bold" text-anchor="end">열 경계층 (δ_t)</text>
+
+                        <!-- 설명글 -->
+                        <text x="50" y="30" fill="var(--text-primary)" font-size="12" font-weight="bold">Pr > 1 (물, 오일 등)</text>
+                        <text x="50" y="50" fill="var(--text-secondary)" font-size="10">운동량 확산이 빨라 속도 경계층(δ)이 더 두꺼움</text>
+                    </g>
+                </g>
+
+                <!-- 우측 구역: Nusselt 수 (Nu) - 정지 전도 대비 대류 활성화 배수 -->
+                <g transform="translate(400, 10)">
+                    <rect x="0" y="0" width="380" height="340" rx="12" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+                    <text x="190" y="25" fill="var(--text-primary)" font-size="14" font-weight="bold" text-anchor="middle">② Nusselt 수 (Nu) : 대류 활성화 배수</text>
+
+                    <!-- 정지 유체 전도 (Nu = 1) -->
+                    <g transform="translate(15, 50)">
+                        <rect x="0" y="0" width="165" height="260" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="82.5" y="25" fill="var(--text-primary)" font-size="12" font-weight="bold" text-anchor="middle">가만히 멈춰있을 때</text>
+                        <text x="82.5" y="42" fill="var(--accent)" font-size="13" font-weight="bold" text-anchor="middle">Nu = 1 (순수 전도)</text>
+                        
+                        <!-- 고체 벽체 -->
+                        <rect x="10" y="210" width="145" height="40" fill="#EF4444" fill-opacity="0.8" rx="2"/>
+                        <text x="82.5" y="235" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">고체 열원 (T_wall)</text>
+
+                        <!-- 열전달 화살표 (느리고 일직선 전도) -->
+                        <path d="M 45 200 L 45 100" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-red)"/>
+                        <path d="M 82.5 200 L 82.5 90" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-red)"/>
+                        <path d="M 120 200 L 120 100" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-red)"/>
+                        
+                        <text x="82.5" y="150" fill="var(--text-secondary)" font-size="10" font-weight="bold" text-anchor="middle">전도(Conduction)</text>
+                        <text x="82.5" y="70" fill="var(--text-muted)" font-size="9" text-anchor="middle">얌전하고 더디게 열이 넘어감</text>
+                    </g>
+
+                    <!-- 흐르는 유체 대류 (Nu >> 1) -->
+                    <g transform="translate(200, 50)">
+                        <rect x="0" y="0" width="165" height="260" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="82.5" y="25" fill="var(--text-primary)" font-size="12" font-weight="bold" text-anchor="middle">바람이 불어 흐를 때</text>
+                        <text x="82.5" y="42" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">Nu &gt;&gt; 1 (대류 열탈취)</text>
+                        
+                        <!-- 고체 벽체 -->
+                        <rect x="10" y="210" width="145" height="40" fill="#EF4444" fill-opacity="0.8" rx="2"/>
+                        <text x="82.5" y="235" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">고체 열원 (T_wall)</text>
+
+                        <!-- 소용돌이치는 강한 대류 화살표 -->
+                        <path d="M 35 200 Q 20 150 40 120 T 35 70" fill="none" stroke="#EF4444" stroke-width="3" marker-end="url(#arrow-red)"/>
+                        <path d="M 82.5 200 Q 70 140 95 110 T 80 60" fill="none" stroke="#EF4444" stroke-width="3" marker-end="url(#arrow-red)"/>
+                        <path d="M 130 200 Q 140 160 120 120 T 130 70" fill="none" stroke="#EF4444" stroke-width="3" marker-end="url(#arrow-red)"/>
+                        
+                        <!-- 유동 화살표 (바람) -->
+                        <path d="M 10 130 Q 82.5 150 155 130" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                        <text x="15" y="115" fill="#3B82F6" font-size="9" font-weight="bold">유체 흐름(바람)</text>
+
+                        <text x="82.5" y="175" fill="#10B981" font-size="11" font-weight="bold" text-anchor="middle">대류(Convection)</text>
+                        <text x="82.5" y="88" fill="var(--text-primary)" font-size="10" font-weight="bold" text-anchor="middle">열을 빠르게 쓸어감</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <!-- 무차원수 전용 해설 공간 -->
+        <div class="diagram-explanation" style="background-color: var(--bg-secondary); border: 1px solid var(--border); padding: 18px 20px; border-radius: 8px; margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.75;">
+            <strong>📋 무차원수 직관적 이해 해설:</strong><br/>
+            1. <strong>Prandtl 수 ($Pr$) : 경계층 두께의 시각화</strong><br/>
+            유체가 흐를 때 마찰 때문에 느려진 영역인 <strong>속도 경계층(파란선, $\delta$)</strong>과 벽면의 뜨거운 온도 영향을 받은 영역인 <strong>열 경계층(빨간선, $\delta_t$)</strong>의 상대적 크기 비율입니다. $Pr > 1$ 인 유체(예: 물, 오일)는 운동량 확산이 열 확산보다 빨라 속도 경계층이 훨씬 더 넓고 두껍게 발달합니다.<br/>
+            2. <strong>Nusselt 수 ($Nu$) : 대류에 의한 열 전달 배수</strong><br/>
+            고체 벽면에서 유체로 열이 건너갈 때, 유체가 <strong>가만히 정지해 있어 순수하게 전도(Conduction)로만 열을 보낼 때($Nu=1$)</strong> 대비, 유체가 <strong>바람처럼 빠르게 흘러가며 열을 대류(Convection)로 쓸어갈 때의 열전달 성능이 몇 배($Nu$ 배)인가</strong>를 보여주는 배수 지표입니다. 바람이 세차게 불어 흐름이 빨라질수록 대류 열전달이 비약적으로 활성화되어 $Nu$ 수치가 급증하게 됩니다.
+        </div>
     </div>
 
     <!-- 5. 실전 답안 작성 전략: 꼬리에 꼬리를 무는 연상 마인드맵 -->
@@ -7450,6 +7554,110 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
                 </tr>
             </tbody>
         </table>
+        
+        <!-- 무차원수 직관 이해 모식도 SVG 추가 -->
+        <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-top: 20px; margin-bottom: 15px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);">
+            <svg style="width: 100%; max-width: 760px; height: auto; font-family: 'Noto Sans KR', sans-serif;" viewBox="0 0 800 380">
+                <defs>
+                    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3B82F6"/>
+                    </marker>
+                    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#EF4444"/>
+                    </marker>
+                    <linearGradient id="wall-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#374151"/>
+                        <stop offset="100%" stop-color="#111827"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- 좌측 구역: Prandtl 수 (Pr) - 속도 경계층 vs 열 경계층 -->
+                <g transform="translate(10, 10)">
+                    <rect x="0" y="0" width="370" height="340" rx="12" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+                    <text x="185" y="25" fill="var(--text-primary)" font-size="14" font-weight="bold" text-anchor="middle">① Prandtl 수 (Pr) : 경계층 두께 비교</text>
+                    
+                    <!-- 벽체 베이스 -->
+                    <rect x="30" y="280" width="310" height="30" fill="url(#wall-grad)" rx="4"/>
+                    <text x="185" y="300" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">고체 벽면 (Solid Wall)</text>
+
+                    <!-- Pr > 1 (예: 물) 모델 시각화 -->
+                    <g transform="translate(0, 40)">
+                        <!-- 속도 경계층 (파란색 영역) -->
+                        <path d="M 40 180 Q 150 70 320 70 L 320 240 L 40 240 Z" fill="#3B82F6" fill-opacity="0.08" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4,2"/>
+                        <!-- 열 경계층 (붉은색 영역) -->
+                        <path d="M 40 210 Q 150 140 320 140 L 320 240 L 40 240 Z" fill="#EF4444" fill-opacity="0.08" stroke="#EF4444" stroke-width="2"/>
+                        
+                        <!-- 화살표 및 기호 -->
+                        <path d="M 325 70 L 325 240" stroke="#3B82F6" stroke-width="1.5" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)"/>
+                        <text x="335" y="150" fill="#3B82F6" font-size="11" font-weight="bold" text-anchor="start">속도 경계층 (δ)</text>
+
+                        <path d="M 285 140 L 285 240" stroke="#EF4444" stroke-width="1.5" marker-start="url(#arrow-red)" marker-end="url(#arrow-red)"/>
+                        <text x="230" y="190" fill="#EF4444" font-size="11" font-weight="bold" text-anchor="end">열 경계층 (δ_t)</text>
+
+                        <!-- 설명글 -->
+                        <text x="50" y="30" fill="var(--text-primary)" font-size="12" font-weight="bold">Pr > 1 (물, 오일 등)</text>
+                        <text x="50" y="50" fill="var(--text-secondary)" font-size="10">운동량 확산이 빨라 속도 경계층(δ)이 더 두꺼움</text>
+                    </g>
+                </g>
+
+                <!-- 우측 구역: Nusselt 수 (Nu) - 정지 전도 대비 대류 활성화 배수 -->
+                <g transform="translate(400, 10)">
+                    <rect x="0" y="0" width="380" height="340" rx="12" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+                    <text x="190" y="25" fill="var(--text-primary)" font-size="14" font-weight="bold" text-anchor="middle">② Nusselt 수 (Nu) : 대류 활성화 배수</text>
+
+                    <!-- 정지 유체 전도 (Nu = 1) -->
+                    <g transform="translate(15, 50)">
+                        <rect x="0" y="0" width="165" height="260" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="82.5" y="25" fill="var(--text-primary)" font-size="12" font-weight="bold" text-anchor="middle">가만히 멈춰있을 때</text>
+                        <text x="82.5" y="42" fill="var(--accent)" font-size="13" font-weight="bold" text-anchor="middle">Nu = 1 (순수 전도)</text>
+                        
+                        <!-- 고체 벽체 -->
+                        <rect x="10" y="210" width="145" height="40" fill="#EF4444" fill-opacity="0.8" rx="2"/>
+                        <text x="82.5" y="235" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">고체 열원 (T_wall)</text>
+
+                        <!-- 열전달 화살표 (느리고 일직선 전도) -->
+                        <path d="M 45 200 L 45 100" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-red)"/>
+                        <path d="M 82.5 200 L 82.5 90" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-red)"/>
+                        <path d="M 120 200 L 120 100" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-red)"/>
+                        
+                        <text x="82.5" y="150" fill="var(--text-secondary)" font-size="10" font-weight="bold" text-anchor="middle">전도(Conduction)</text>
+                        <text x="82.5" y="70" fill="var(--text-muted)" font-size="9" text-anchor="middle">얌전하고 더디게 열이 넘어감</text>
+                    </g>
+
+                    <!-- 흐르는 유체 대류 (Nu >> 1) -->
+                    <g transform="translate(200, 50)">
+                        <rect x="0" y="0" width="165" height="260" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="82.5" y="25" fill="var(--text-primary)" font-size="12" font-weight="bold" text-anchor="middle">바람이 불어 흐를 때</text>
+                        <text x="82.5" y="42" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">Nu &gt;&gt; 1 (대류 열탈취)</text>
+                        
+                        <!-- 고체 벽체 -->
+                        <rect x="10" y="210" width="145" height="40" fill="#EF4444" fill-opacity="0.8" rx="2"/>
+                        <text x="82.5" y="235" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">고체 열원 (T_wall)</text>
+
+                        <!-- 소용돌이치는 강한 대류 화살표 -->
+                        <path d="M 35 200 Q 20 150 40 120 T 35 70" fill="none" stroke="#EF4444" stroke-width="3" marker-end="url(#arrow-red)"/>
+                        <path d="M 82.5 200 Q 70 140 95 110 T 80 60" fill="none" stroke="#EF4444" stroke-width="3" marker-end="url(#arrow-red)"/>
+                        <path d="M 130 200 Q 140 160 120 120 T 130 70" fill="none" stroke="#EF4444" stroke-width="3" marker-end="url(#arrow-red)"/>
+                        
+                        <!-- 유동 화살표 (바람) -->
+                        <path d="M 10 130 Q 82.5 150 155 130" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                        <text x="15" y="115" fill="#3B82F6" font-size="9" font-weight="bold">유체 흐름(바람)</text>
+
+                        <text x="82.5" y="175" fill="#10B981" font-size="11" font-weight="bold" text-anchor="middle">대류(Convection)</text>
+                        <text x="82.5" y="88" fill="var(--text-primary)" font-size="10" font-weight="bold" text-anchor="middle">열을 빠르게 쓸어감</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <!-- 무차원수 전용 해설 공간 -->
+        <div class="diagram-explanation" style="background-color: var(--bg-secondary); border: 1px solid var(--border); padding: 18px 20px; border-radius: 8px; margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.75;">
+            <strong>📋 무차원수 직관적 이해 해설:</strong><br/>
+            1. <strong>Prandtl 수 ($Pr$) : 경계층 두께의 시각화</strong><br/>
+            유체가 흐를 때 마찰 때문에 느려진 영역인 <strong>속도 경계층(파란선, $\delta$)</strong>과 벽면의 뜨거운 온도 영향을 받은 영역인 <strong>열 경계층(빨간선, $\delta_t$)</strong>의 상대적 크기 비율입니다. $Pr > 1$ 인 유체(예: 물, 오일)는 운동량 확산이 열 확산보다 빨라 속도 경계층이 훨씬 더 넓고 두껍게 발달합니다.<br/>
+            2. <strong>Nusselt 수 ($Nu$) : 대류에 의한 열 전달 배수</strong><br/>
+            고체 벽면에서 유체로 열이 건너갈 때, 유체가 <strong>가만히 정지해 있어 순수하게 전도(Conduction)로만 열을 보낼 때($Nu=1$)</strong> 대비, 유체가 <strong>바람처럼 빠르게 흘러가며 열을 대류(Convection)로 쓸어갈 때의 열전달 성능이 몇 배($Nu$ 배)인가</strong>를 보여주는 배수 지표입니다. 바람이 세차게 불어 흐름이 빨라질수록 대류 열전달이 비약적으로 활성화되어 $Nu$ 수치가 급증하게 됩니다.
+        </div>
     </div>
 
     <!-- 6. 소방 공학적 주요 응용 사례 -->
