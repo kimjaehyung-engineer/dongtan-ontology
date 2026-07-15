@@ -7382,6 +7382,29 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
         <p class="desc" style="line-height: 1.7;">
             이종 물질이 겹쳐진 다층 직렬 벽체의 경우 전체를 관통하는 알짜 전도 열유량은 정상 상태에서 모두 동일하다 ($q = q_A = q_B = q_C$).<br/>
             $$q = \frac{\Delta T_{\text{total}}}{\sum R_{th}} = \frac{T_{\text{in}} - T_{\text{out}}}{\frac{L_A}{k_A A} + \frac{L_B}{k_B A} + \frac{L_C}{k_C A}} \quad [\text{W}] \quad \left(\text{또는 } [\text{kcal/h}]\right)$$
+            
+            <!-- 다층 벽체 열전달식 유도 과정 추가 -->
+            <div style="background-color: var(--bg-secondary); border-left: 3px solid var(--accent); padding: 15px 18px; margin: 15px 0 15px 0; border-radius: 0 6px 6px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
+                <strong style="color: var(--accent);">💡 [시험장 서술 꿀팁] 다층 벽체 직렬 열전달식 유도 과정</strong><br/>
+                직렬 연결된 다층 벽체($A, B, C$)의 전체 온도차($T_{\text{in}} - T_{\text{out}}$)와 각 층의 전도식 관계를 더해 쉽게 유도할 수 있습니다.
+                <ol style="margin: 6px 0 0 20px; padding: 0; line-height: 1.8;">
+                    <li><strong>정상 상태 열량 보존:</strong> 호스 속 물처럼 각 층을 흐르는 알짜 열량은 모두 동일합니다. ($q = q_A = q_B = q_C$)</li>
+                    <li><strong>각 층별 전도 저항식 (경계면 온도를 $T_1, T_2$라 지정):</strong>
+                        <ul style="margin: 2px 0 0 15px; padding: 0; list-style-type: square;">
+                            <li>$A$층: $T_{\text{in}} - T_1 = q \cdot R_{th,A}$</li>
+                            <li>$B$층: $T_1 - T_2 = q \cdot R_{th,B}$</li>
+                            <li>$C$층: $T_2 - T_{\text{out}} = q \cdot R_{th,C}$</li>
+                        </ul>
+                    </li>
+                    <li><strong>연립 방정식 더하기 (중간 온도 소거):</strong> 위 3개 식을 모두 더하면 좌변의 중간 온도($T_1, T_2$)들이 소거되어 깨끗이 사라집니다.
+                        $$T_{\text{in}} - T_{\text{out}} = q \cdot (R_{th,A} + R_{th,B} + R_{th,C})$$
+                    </li>
+                    <li><strong>최종 공식 도출:</strong> 열량 $q$에 대해 정리하고, 각 층의 전도저항 $R_{th} = \frac{L}{kA}$를 대입합니다.
+                        $$q = \frac{T_{\text{in}} - T_{\text{out}}}{R_{th,A} + R_{th,B} + R_{th,C}} = \frac{T_{\text{in}} - T_{\text{out}}}{\frac{L_A}{k_A A} + \frac{L_B}{k_B A} + \frac{L_C}{k_C A}} \quad [\text{W}]$$
+                    </li>
+                </ol>
+            </div>
+
             <strong>단열재의 배치 효과:</strong> 두께 $L$ 대비 열전도도 $k$가 극단적으로 낮은 단열재 층을 중간에 삽입하면 $R_{th}$가 비약적으로 증가하여, 전체 열류량 $q$를 낮추고 단열재 양단에서 대부분의 온도 강하($\Delta T$)를 유도하여 이면의 열 전파를 완전히 통제할 수 있다.
         </p>
     </div>
