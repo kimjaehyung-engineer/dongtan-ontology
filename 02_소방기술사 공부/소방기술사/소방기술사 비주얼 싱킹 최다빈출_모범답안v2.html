@@ -7200,6 +7200,11 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
             유체가 흐를 때 마찰 때문에 느려진 영역인 <strong>속도 경계층(파란선, $\delta$)</strong>과 벽면의 뜨거운 온도 영향을 받은 영역인 <strong>열 경계층(빨간선, $\delta_t$)</strong>의 상대적 크기 비율입니다. $Pr > 1$ 인 유체(예: 물, 오일)는 운동량 확산이 열 확산보다 빨라 속도 경계층이 훨씬 더 넓고 두껍게 발달합니다.<br/>
             2. <strong>Nusselt 수 ($Nu$) : 스프링클러 헤드 감열부의 대류 작동 지표</strong><br/>
             화재 발생 시 뜨거운 가스가 가만히 멈춰 있어 **순수하게 전도(Conduction)로만 스프링클러 헤드로 열을 보낼 때($Nu=1$)** 대비, 화재 플룸에 의해 천장을 따라 뜨거운 연기 기류가 초속 수 m/s로 뿜어 지나가는 **천장 제트기류(Ceiling Jet Flow)에 의해 대류(Convection)로 헤드 감열체에 열을 쏟아부어 줄 때의 열전달 능력이 몇 배($Nu$ 배)인가**를 보여주는 지표입니다. 천장 제트기류의 풍속이 빠를수록 대류 열전달계수 $h$가 비약적으로 올라가 $Nu$ 수치가 급증하며 헤드가 빠르게 개방됩니다.
+            <br/>
+            <strong style="color: var(--accent);">💡 [시험장 공식 유도 증명]</strong> 
+            각 무차원수 정의식($St = \frac{h}{\rho C_p V}$, $Re = \frac{\rho V L}{\mu}$, $Pr = \frac{\mu C_p}{k}$)을 대입하여 상호 곱하면,
+            $$St \cdot Re \cdot Pr = \left( \frac{h}{\rho C_p V} \right) \cdot \left( \frac{\rho V L}{\mu} \right) \cdot \left( \frac{\mu C_p}{k} \right) = \frac{h L}{k} = Nu$$
+            가 되어, 유체의 모든 수송 지배 인자($\rho, V, \mu, C_p$)들이 중간에 약분 소거되고 <strong>$Nu = St \cdot Re \cdot Pr$</strong> 가 깔끔하게 유도 증명됩니다.
         </div>
     </div>
 
@@ -7693,6 +7698,11 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
             유체가 흐를 때 마찰 때문에 느려진 영역인 <strong>속도 경계층(파란선, $\delta$)</strong>과 벽면의 뜨거운 온도 영향을 받은 영역인 <strong>열 경계층(빨간선, $\delta_t$)</strong>의 상대적 크기 비율입니다. $Pr > 1$ 인 유체(예: 물, 오일)는 운동량 확산이 열 확산보다 빨라 속도 경계층이 훨씬 더 넓고 두껍게 발달합니다.<br/>
             2. <strong>Nusselt 수 ($Nu$) : 스프링클러 헤드 감열부의 대류 작동 지표</strong><br/>
             화재 발생 시 뜨거운 가스가 가만히 멈춰 있어 **순수하게 전도(Conduction)로만 스프링클러 헤드로 열을 보낼 때($Nu=1$)** 대비, 화재 플룸에 의해 천장을 따라 뜨거운 연기 기류가 초속 수 m/s로 뿜어 지나가는 **천장 제트기류(Ceiling Jet Flow)에 의해 대류(Convection)로 헤드 감열체에 열을 쏟아부어 줄 때의 열전달 능력이 몇 배($Nu$ 배)인가**를 보여주는 지표입니다. 천장 제트기류의 풍속이 빠를수록 대류 열전달계수 $h$가 비약적으로 올라가 $Nu$ 수치가 급증하며 헤드가 빠르게 개방됩니다.
+            <br/>
+            <strong style="color: var(--accent);">💡 [시험장 공식 유도 증명]</strong> 
+            각 무차원수 정의식($St = \frac{h}{\rho C_p V}$, $Re = \frac{\rho V L}{\mu}$, $Pr = \frac{\mu C_p}{k}$)을 대입하여 상호 곱하면,
+            $$St \cdot Re \cdot Pr = \left( \frac{h}{\rho C_p V} \right) \cdot \left( \frac{\rho V L}{\mu} \right) \cdot \left( \frac{\mu C_p}{k} \right) = \frac{h L}{k} = Nu$$
+            가 되어, 유체의 모든 수송 지배 인자($\rho, V, \mu, C_p$)들이 중간에 약분 소거되고 <strong>$Nu = St \cdot Re \cdot Pr$</strong> 가 깔끔하게 유도 증명됩니다.
         </div>
     </div>
 
