@@ -7819,10 +7819,37 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
         </div>
 
         <!-- 임계반경 해설 공간 -->
-        <div class="diagram-explanation" style="background-color: var(--bg-secondary); border: 1px solid var(--border); padding: 15px 18px; border-radius: 8px; margin-bottom: 20px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
+        <div class="diagram-explanation" style="background-color: var(--bg-secondary); border: 1px solid var(--border); padding: 15px 18px; border-radius: 8px; margin-bottom: 15px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
             <strong>📋 임계 반경(Critical Radius) 물리 메커니즘 해석:</strong><br/>
             원통형 배관에 단열 보온재를 감싸면 <strong>전도 저항</strong>은 늘어나지만, 겉면적이 늘어나 외부 대기와의 <strong>대류 저항</strong>은 반대로 줄어드는 모순이 발생합니다. <br/>
             보온재 외반경이 임계 반경($r_c$)보다 작을 때($r \lt r_c$)는 표면적 확대에 의한 대류 저항 감소(방열 효과)가 더 우세하여 <strong>오히려 열손실이 맨배관 때보다 더 많아지는 최악의 결과</strong>가 생깁니다. 따라서 소방 동파 방지 단열을 설계할 때는 반드시 <strong>보온재의 최종 외부 반경을 $r_c$보다 충분히 두껍게($r \gt r_c$) 시공해야만</strong> 비로소 단열 효과가 나타나기 시작합니다.
+        </div>
+
+        <!-- 💡 [시험장 1등급 통찰] 임계반경 5대 핵심 의문 Q&A 박스 -->
+        <div style="background-color: rgba(var(--accent-rgb), 0.02); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 25px; font-size: 0.88rem; line-height: 1.75; color: var(--text-secondary);">
+            <strong style="color: var(--accent); font-size: 0.92rem; display: block; margin-bottom: 10px;">💡 [시험장 1등급 통찰] 임계반경에 대한 5가지 핵심 의문과 직관적 해답</strong>
+            <ul style="margin: 0; padding-left: 15px; list-style-type: decimal;">
+                <li style="margin-bottom: 8px;">
+                    <strong style="color: var(--text-primary);">Q. 배관은 뜨거운가요, 차가운가요? 결로는 왜 생기죠?</strong><br/>
+                    └─► <strong>상황에 따라 다릅니다.</strong> 겨울철 동파 방지는 <strong>[배관 속 따뜻한 물의 열이 차가운 외기로 뺏기는 것을 막는 단열]</strong>이며, 여름철 결로 방지는 <strong>[바깥의 덥고 습한 공기가 차가운 배관에 닿아 이슬이 맺히는 것을 차단하는 단열]</strong>입니다. 둘 다 열의 이동을 완벽히 차단해야 하는 목적은 동일합니다.
+                </li>
+                <li style="margin-bottom: 8px;">
+                    <strong style="color: var(--text-primary);">Q. 보온재를 감싸면 보온재가 배관 열을 흡수하나요?</strong><br/>
+                    └─► <strong>아닙니다. 열이 도망가는 길을 막는 "방패(저항)" 역할을 할 뿐입니다.</strong> 보온재 내부에 갇힌 수많은 공기 방울(열전도율 극소)이 열이 밖으로 빠져나가지 못하게 꽉 가로막아 배관 내부의 온기를 보존하는 원리입니다.
+                </li>
+                <li style="margin-bottom: 8px;">
+                    <strong style="color: var(--text-primary);">Q. 보온재 두께가 두꺼워지면 왜 전도저항이 늘어나나요?</strong><br/>
+                    └─► <strong>열이 뚫고 지나가야 할 보온재 몸뚱이(두께)가 길어지기 때문입니다.</strong> 겨울철에 얇은 티셔츠보다 두꺼운 패딩을 입을수록 온기가 밖으로 뚫고 나가지 못해 체온이 유지되는 원리와 같습니다.
+                </li>
+                <li style="margin-bottom: 8px;">
+                    <strong style="color: var(--text-primary);">Q. 외부 면적이 늘어나는데 왜 대류저항은 감소하나요?</strong><br/>
+                    └─► <strong>대류저항의 정의($R_{\text{conv}} = \frac{1}{h \cdot A}$) 때문입니다.</strong> 보온재를 감싸 원형 지름이 커질수록 바깥 공기와 닿는 <strong>겉 표면적($A$)</strong>이 엄청나게 넓어집니다. 열을 공기 중으로 날려 보내는 방열판이 넓어지는 셈이므로 바람(대류)에 열이 쓸려가기가 더 쉬워져(대류저항 감소) 열손실이 활성화됩니다.
+                </li>
+                <li style="margin-bottom: 0;">
+                    <strong style="color: var(--text-primary);">Q. 임계반경($r_c = k_{\text{ins}}/h$) 공식의 의미와 $r \gt r_c$의 시공 결과는?</strong><br/>
+                    └─► 열을 가두려는 <strong>보온재의 전도 방패 세력($k$)</strong>과 열을 날려 보내려는 <strong>바람의 대류 세력($h$)</strong>이 팽팽하게 힘겨루기하다가 딱 비기는 **최악의 두께 지점**이 바로 $r_c$입니다. 따라서 보온재를 임계반경보다 충분히 두껍게($r \gt r_c$) 감싸야 비로소 두께 증가(전도저항 증가)의 힘이 면적 증가(대류저항 감소)의 힘을 압도하여 **"진짜 단열(동파 방지)"**이 이루어집니다.
+                </li>
+            </ul>
         </div>
     </div>
 
