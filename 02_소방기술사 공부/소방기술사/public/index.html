@@ -7307,14 +7307,26 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
         <h4 class="sub-title">1) 수학적 기본식 및 음(-) 부호의 의미</h4>
         <ul class="bullet-list" style="padding-left: 20px; line-height: 1.8;">
             <li><strong>총 전도 열량식 ($q$):</strong> $$q = -k A \frac{dT}{dx} \quad [\text{W}] \quad \left(\text{또는 } [\text{kcal/h}]\right)$$</li>
-            <li><strong>단위 면적당 전도 열유속 ($q''$):</strong> $$q'' = \frac{q}{A} = -k \frac{dT}{dx} \quad [\text{W/m}^2] \quad \left(\text{또는 } [\text{kcal/m}^2\cdot\text{h}]\right)$$
-                <span style="font-size: 0.85rem; color: var(--text-secondary);">
-                    ($k$: 물질 고유의 <strong>열전도율 (Thermal Conductivity, $[\text{W/m}\cdot\text{K}]$ 또는 $[\text{kcal/m}\cdot\text{h}\cdot{^\circ}\text{C}]$)</strong>, $dT/dx$: 온도 구배)<br/>
-                    <strong style="color: var(--accent);">💡 [시험장 단위 환산 팁]</strong> $1 \text{ W/m}\cdot\text{K} \approx 0.86 \text{ kcal/m}\cdot\text{h}\cdot{^\circ}\text{C}$
-                </span>
-            </li>
+            <li><strong>단위 면적당 전도 열유속 ($q''$):</strong> $$q'' = \frac{q}{A} = -k \frac{dT}{dx} \quad [\text{W/m}^2] \quad \left(\text{또는 } [\text{kcal/m}^2\cdot\text{h}]\right)$$</li>
             <li><strong>음(-) 부호의 물리적 의미:</strong> 열역학 제2법칙에 의해 열은 온도가 낮아지는 방향($dT \lt 0$ 일 때 $dx \gt 0$)으로 자발적으로 흐른다. 따라서 온도 구배 분수 값 자체가 음수이므로, 최종 전도 열류 속도($q$)를 물리적으로 양(+)의 값으로 나타내기 위해 수학적으로 부호 조정을 한 것이다.</li>
         </ul>
+        
+        <!-- 단위 상세 설명 범례 추가 -->
+        <div style="background-color: var(--bg-secondary); padding: 15px; border-radius: 8px; margin: 12px 0; font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6; border: 1px solid var(--border);">
+            <strong style="color: var(--text-primary);">📋 단위 기호 일람 및 물리적 의미:</strong>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 15px; margin-top: 8px;">
+                <div>• <strong>$\text{W}$ (Watt, 와트):</strong> 초당 흘러가는 열에너지량 ($1\text{ W} = 1\text{ J/s}$)</div>
+                <div>• <strong>$\text{kcal}$ (Kilocalorie, 킬로칼로리):</strong> 물 1kg을 1°C 올리는 데 필요한 열량</div>
+                <div>• <strong>$\text{h}$ (Hour, 시간):</strong> 열류량 산정 기준 시간 (1시간 = 3,600초)</div>
+                <div>• <strong>$\text{m}$ (Meter, 미터):</strong> 벽체의 두께 및 열통과 면적 기준 길이</div>
+                <div>• <strong>$\text{K}$ (Kelvin, 켈빈):</strong> 절대온도 단위 (온도 차이 계측용)</div>
+                <div>• <strong>${^\circ}\text{C}$ (Celsius, 섭씨도):</strong> 섭씨온도 단위 (온도차 크기는 절대온도와 동일: $\Delta 1\text{ K} = \Delta 1\text{ }^\circ\text{C}$)</div>
+            </div>
+            <div style="margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 0.82rem;">
+                <strong style="color: var(--accent);">열전도율 ($k$) 단위:</strong> $[\text{W/m}\cdot\text{K}]$ 또는 $[\text{kcal/m}\cdot\text{h}\cdot{^\circ}\text{C}]$ 
+                <span style="margin-left: 10px; font-weight: bold; color: var(--text-primary);">(단위 환산: $1\text{ W/m}\cdot\text{K} \approx 0.86\text{ kcal/m}\cdot\text{h}\cdot{^\circ}\text{C}$)</span>
+            </div>
+        </div>
         <!-- 직관적 유도 원리 설명 박스 추가 -->
         <div style="background-color: var(--bg-secondary); border-left: 3px solid var(--accent); padding: 15px 18px; margin: 15px 0 10px 0; border-radius: 0 6px 6px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
             <strong style="color: var(--accent);">💡 [시험장 직관 확립] Fourier 법칙은 왜 이렇게 만들어졌는가?</strong><br/>
