@@ -7315,6 +7315,17 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
             </li>
             <li><strong>음(-) 부호의 물리적 의미:</strong> 열역학 제2법칙에 의해 열은 온도가 낮아지는 방향($dT \lt 0$ 일 때 $dx \gt 0$)으로 자발적으로 흐른다. 따라서 온도 구배 분수 값 자체가 음수이므로, 최종 전도 열류 속도($q$)를 물리적으로 양(+)의 값으로 나타내기 위해 수학적으로 부호 조정을 한 것이다.</li>
         </ul>
+        <!-- 직관적 유도 원리 설명 박스 추가 -->
+        <div style="background-color: var(--bg-secondary); border-left: 3px solid var(--accent); padding: 15px 18px; margin: 15px 0 10px 0; border-radius: 0 6px 6px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
+            <strong style="color: var(--accent);">💡 [시험장 직관 확립] Fourier 법칙은 왜 이렇게 만들어졌는가?</strong><br/>
+            실생활의 지극히 당연한 3가지 관찰 결과를 결합한 경험식입니다.
+            <ul style="margin: 6px 0 0 15px; padding: 0; list-style-type: circle;">
+                <li><strong>면적이 넓을수록 ($A$):</strong> 넓은 대형 방화문일수록 더 많은 열이 통과합니다. ($q \propto A$)</li>
+                <li><strong>온도 차이가 클수록 ($dT$):</strong> 화재실 온도가 $1000^\circ\text{C}$일 때가 $100^\circ\text{C}$일 때보다 열이 사정없이 뿜어 나갑니다. ($q \propto dT$)</li>
+                <li><strong>두께가 두꺼울수록 ($dx$):</strong> 얇은 철판보다 두꺼운 벽체일수록 열이 통과하기 어렵습니다. ($q \propto \frac{1}{dx}$)</li>
+                <li><strong>비례 상수와 부호 합산:</strong> 위 3가지 인자를 묶어 물질 고유 전도력 $k$를 곱하면 $q = kA\frac{dT}{dx}$가 되며, 온도가 낮아지는 방향으로만 흐르는 열류 특성상 분수(온도구배)가 음수(-)이므로 최종 열량($q$)을 양수(+)로 나타내기 위해 수학적 밸런스 조정용 <strong>마이너스($-$) 부호</strong>를 붙여 완성한 것입니다.</li>
+            </ul>
+        </div>
 
         <h4 class="sub-title" style="margin-top: 15px;">2) 열전도율($k$)의 공학적 특징</h4>
         <ul class="bullet-list" style="padding-left: 20px; line-height: 1.8;">
