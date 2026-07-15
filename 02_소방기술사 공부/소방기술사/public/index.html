@@ -6784,115 +6784,328 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
 <span class="category-badge">기초물리</span>
 <span class="category-chevron">▶</span>
 <span class="category-badge">열역학 법칙</span>
-</div><div class="question-meta">필수 기본이론 (열역학 기초)</div><h2 class="question-title">[열전달 및 방호공학] Question 13. 열역학 제0, 1, 2, 3법칙과 엔탈피(Enthalpy) 및 엔트로피(Entropy)에 대하여 설명하시오.</h2></div><div class="header-right"><span class="score-badge">9.5점 에센셜</span></div></header>
-<!-- 1. 열역학 제법칙 개요 -->
-<section class="doc-section">
-<h3 class="section-title">1. 열역학 제법칙 (Laws of Thermodynamics)</h3>
-<p class="desc">에너지의 흐름과 상태 변화를 설명하는 거시적 물리 법칙으로, 소방 공학에서 화재의 열전달, 연소열, 펌프 및 가스계 소화약제의 팽창/압축 과정을 해석하는 근간이 됨.</p>
-<div class="grid-container" style="grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 15px;">
-<!-- 0법칙 -->
-<div class="concept-card">
-<h5 style="color: var(--accent); margin-bottom: 8px;">① 제0법칙 (열평형의 법칙)</h5>
-<p>물체 A와 B가 각각 물체 C와 열평형 상태에 있다면, A와 B도 서로 열평형 상태에 있다는 법칙.</p>
-<ul style="margin-top: 6px; padding-left: 20px; color: var(--text-secondary); font-size: 0.9rem;">
-<li><strong>핵심 원리:</strong> 온도계의 원리 (온도 측정의 기준 제공)</li>
-<li><strong>물리적 의미:</strong> 온도 차이가 없으면 알짜 열 이동은 0임.</li>
-</ul>
-</div>
-<!-- 1법칙 -->
-<div class="concept-card">
-<h5 style="color: var(--accent); margin-bottom: 8px;">② 제1법칙 (에너지 보존의 법칙)</h5>
-<p>고립계의 전체 에너지는 형태만 변할 뿐 생성되거나 소멸되지 않고 일정하게 보존됨.</p>
-<ul style="margin-top: 6px; padding-left: 20px; color: var(--text-secondary); font-size: 0.9rem;">
-<li><strong>정의식:</strong> $$Q = \Delta U + W$$ (열 = 내부에너지 변화 + 일)</li>
-<li><strong>물리적 의미:</strong> 열과 일의 당량성 증명. 에너지는 양적으로 보존됨.</li>
-</ul>
-</div>
-<!-- 2법칙 -->
-<div class="concept-card">
-<h5 style="color: var(--accent); margin-bottom: 8px;">③ 제2법칙 (엔트로피 증가의 법칙)</h5>
-<p>자연계의 자발적 변화는 무질서도(엔트로피)가 증가하는 비가역적인 방향으로만 일어남.</p>
-<ul style="margin-top: 6px; padding-left: 20px; color: var(--text-secondary); font-size: 0.9rem;">
-<li><strong>방향성:</strong> 열은 고온에서 저온으로만 스스로 이동함.</li>
-<li><strong>물리적 의미:</strong> 열효율이 100%인 열기관은 존재할 수 없음.</li>
-</ul>
-</div>
-<!-- 3법칙 -->
-<div class="concept-card">
-<h5 style="color: var(--accent); margin-bottom: 8px;">④ 제3법칙 (절대영도의 법칙)</h5>
-<p>절대온도 0 K(-273.15℃)에 접근할수록 모든 완전결정 물질의 엔트로피는 0에 수렴함.</p>
-<ul style="margin-top: 6px; padding-left: 20px; color: var(--text-secondary); font-size: 0.9rem;">
-<li><strong>한계성:</strong> 유한한 과정으로는 절대영도에 도달할 수 없음. (Nernst-Simon 정리)</li>
-</ul>
-</div>
-</div>
-</section>
-<!-- 2. 엔탈피와 엔트로피 -->
-<section class="doc-section">
-<h3 class="section-title">2. 엔탈피(Enthalpy)와 엔트로피(Entropy)의 공학적 비교</h3>
-<table class="eng-table">
-<thead>
-<tr>
-<th style="width: 15%;">구분</th>
-<th style="width: 42%;">엔탈피 (Enthalpy, $H$)</th>
-<th style="width: 43%;">엔트로피 (Entropy, $S$)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>정의 및 개념</strong></td>
-<td>어떤 물질계가 주어진 압력 상태에서 가지고 있는 <strong>열함량(Heat Content)</strong> 또는 전체 에너지.</td>
-<td>물질계의 <strong>무질서도(Disorder)</strong> 또는 에너지가 무용한 상태로 분산되는 정도를 나타내는 상태 함수.</td>
-</tr>
-<tr>
-<td><strong>수식 표기</strong></td>
-<td>$$H = U + PV$$<br/><span style="font-size: 0.85rem; color: var(--text-secondary);">($U$: 내부에너지, $P$: 압력, $V$: 부피)</span></td>
-<td>$$dS = \frac{dQ}{T}$$<br/><span style="font-size: 0.85rem; color: var(--text-secondary);">($Q$: 열량, $T$: 절대온도)</span></td>
-</tr>
-<tr>
-<td><strong>물리적 특성</strong></td>
-<td>
-<ul style="margin: 0; padding-left: 15px;">
-<li>정압과정($\Delta P=0$)에서 계가 흡수한 열량은 엔탈피 변화량($\Delta H$)과 같음. ($Q = \Delta H$)</li>
-<li>화학 반응에서 발열반응 시 $\Delta H \lt 0$.</li>
-</ul>
-</td>
-<td>
-<ul style="margin: 0; padding-left: 15px;">
-<li>고립계에서 자발적 변화는 $\Delta S \gt 0$ 인 방향으로 진행.</li>
-<li>열역학 제2법칙의 정량적 지표 역할을 함.</li>
-</ul>
-</td>
-</tr>
-<tr>
-<td><strong>소방 공학적<br/>실제 응용</strong></td>
-<td>
-<ul style="margin: 0; padding-left: 15px;">
-<li><strong>연소열 산정:</strong> 가연물 연소 시 방출되는 발열량(에너지) 계산.</li>
-<li><strong>소화약제 성능 해석:</strong> 물($H_2O$)의 증발잠열($2257 \text{ kJ/kg}$)과 현열 흡수능력 분석 (냉각소화 메커니즘).</li>
-</ul>
-</td>
-<td>
-<ul style="margin: 0; padding-left: 15px;">
-<li><strong>자연발화 및 열폭주:</strong> 화학 반응의 자발적 진행 방향성 해석. 자연발화는 무질서도가 증가하는 비가역 과정.</li>
-<li><strong>연기 확산:</strong> 층류에서 난류로 바뀌며 공간 내 연기가 확산되는 비가역 혼합 과정 증명.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</section>
-<!-- 관련 기출문제 연계 분석 -->
-<div class="key-takeaway" style="background-color: rgba(var(--accent-rgb), 0.01); border-left: 4px solid var(--accent); padding: 18px 20px; border-radius: 0 12px 12px 0; margin-top: 30px;">
-<h4 style="font-weight: 800; color: var(--text-primary); margin-bottom: 10px; font-size: 1.0rem; display: flex; align-items: center; gap: 8px;">
-                📋 관련 기출문제 출제 이력
+</div><div class="question-meta">필수 기본이론 (열역학 기초)</div><h2 class="question-title">[열전달 및 방호공학] Question 13. 열역학 제0, 1, 2, 3법칙과 엔탈피(Enthalpy) 및 엔트로피(Entropy)에 대하여 설명하시오.</h2></div><div class="header-right"><span class="score-badge" style="background-color: rgba(245, 158, 11, 0.1); color: #F59E0B; border-color: rgba(245, 158, 11, 0.3); font-weight: 800;">필수 에센셜</span></div></header>
+
+<section class="sheet-body">
+    <!-- 1. 개요 및 출제 의도 -->
+    <div class="section-block">
+        <h3 class="section-title">1. 개요 및 출제 의도</h3>
+        <p class="desc" style="line-height: 1.95; margin-bottom: 12px; color: var(--text-secondary);">
+            열역학 법칙(Laws of Thermodynamics)은 에너지의 상태 변화와 이동 방향성을 지배하는 우주의 물리적 근간이다. 소방 공학에서는 <strong>가연물의 급격한 화학 반응(연소열 방출)</strong>, <strong>수계 소화배관 및 펌프 내부의 압력 작용(일과 에너지 교환)</strong>, <strong>가스계 소화약제의 단열 팽창(물리적 냉각 효과)</strong> 및 <strong>실내 화재의 연기 확산(엔트로피 증가의 자발적 과정)</strong>을 해석하는 핵심 이론이다. 또한, 계가 보유한 유효 열함량인 <strong>엔탈피(Enthalpy)</strong>와 에너지의 무질서 분산 지표인 <strong>엔트로피(Entropy)</strong>를 이해함으로써, 화재성상 및 소방 설비의 열역학적 변화를 계량적으로 해석할 수 있다.
+        </p>
+    </div>
+
+    <!-- 2. 종합 모식도 섹션 -->
+    <div class="section-block" style="margin-top: 25px;">
+        <h3 class="section-title">2. 종합 모식도: 열역학 4대 법칙 및 엔탈피·엔트로피 직관 비유도</h3>
+        <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-bottom: 15px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);">
+            <svg style="width: 100%; max-width: 760px; height: auto; font-family: 'Noto Sans KR', sans-serif;" viewBox="0 0 800 440">
+                <!-- 정의: 그라디언트 및 그림자 효과 -->
+                <defs>
+                    <linearGradient id="grad-hot" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#EF4444" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.8"/>
+                    </linearGradient>
+                    <linearGradient id="grad-cold" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#10B981" stop-opacity="0.8"/>
+                    </linearGradient>
+                    <linearGradient id="grad-neutral" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#6B7280" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#4B5563" stop-opacity="0.8"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- 좌측 구역: 열역학 4대 법칙 물리적 시각화 -->
+                <g transform="translate(10, 10)">
+                    <rect x="0" y="0" width="370" height="400" rx="12" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+                    <text x="185" y="25" fill="var(--text-primary)" font-size="14" font-weight="bold" text-anchor="middle">① 열역학 4대 기본 법칙 메커니즘</text>
+
+                    <!-- 제0법칙 (열평형) -->
+                    <g transform="translate(15, 45)">
+                        <rect x="0" y="0" width="160" height="150" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="80" y="20" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle">제0법칙: 열평형 (온도의 기초)</text>
+                        <!-- 물체 A, B, C 평형 도식 -->
+                        <rect x="20" y="40" width="35" height="35" rx="4" fill="#EF4444" fill-opacity="0.2" stroke="#EF4444"/>
+                        <text x="37" y="62" fill="var(--text-primary)" font-size="12" font-weight="bold" text-anchor="middle">A</text>
+                        <rect x="105" y="40" width="35" height="35" rx="4" fill="#3B82F6" fill-opacity="0.2" stroke="#3B82F6"/>
+                        <text x="122" y="62" fill="var(--text-primary)" font-size="12" font-weight="bold" text-anchor="middle">B</text>
+                        <rect x="62" y="95" width="35" height="35" rx="4" fill="#10B981" fill-opacity="0.2" stroke="#10B981"/>
+                        <text x="79" y="117" fill="var(--text-primary)" font-size="12" font-weight="bold" text-anchor="middle">C</text>
+                        <!-- 평형 점선 화살표 -->
+                        <path d="M 55 57 L 105 57" stroke="var(--text-secondary)" stroke-dasharray="3,3" stroke-width="1.5"/>
+                        <path d="M 37 75 L 62 112" stroke="var(--text-secondary)" stroke-dasharray="3,3" stroke-width="1.5"/>
+                        <path d="M 122 75 L 97 112" stroke="var(--text-secondary)" stroke-dasharray="3,3" stroke-width="1.5"/>
+                        <text x="80" y="53" fill="var(--text-secondary)" font-size="9" text-anchor="middle">Ta = Tb = Tc</text>
+                    </g>
+
+                    <!-- 제1법칙 (에너지 보존) -->
+                    <g transform="translate(195, 45)">
+                        <rect x="0" y="0" width="160" height="150" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="80" y="20" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle">제1법칙: 에너지 보존</text>
+                        <!-- 실린더 피스톤 도식 -->
+                        <rect x="40" y="50" width="80" height="60" fill="none" stroke="var(--text-primary)" stroke-width="2"/>
+                        <line x1="90" y1="50" x2="90" y2="110" stroke="#EF4444" stroke-width="3"/>
+                        <line x1="90" y1="80" x2="130" y2="80" stroke="#EF4444" stroke-width="3"/>
+                        <!-- 피스톤 가이드 -->
+                        <text x="65" y="85" fill="var(--info)" font-size="13" font-weight="bold" text-anchor="middle">ΔU</text>
+                        <!-- 열량 주입 Q -->
+                        <path d="M 20 120 Q 40 100 45 85" fill="none" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrow)"/>
+                        <text x="22" y="100" fill="#F59E0B" font-size="10" font-weight="bold">Q 주입</text>
+                        <!-- 피스톤 밀려남 일 W -->
+                        <path d="M 95 80 L 120 80" fill="none" stroke="#10B981" stroke-width="2"/>
+                        <text x="115" y="70" fill="#10B981" font-size="10" font-weight="bold">일 W</text>
+                        <text x="80" y="135" fill="var(--text-primary)" font-size="11" font-weight="bold" text-anchor="middle">Q = ΔU + W</text>
+                    </g>
+
+                    <!-- 제2법칙 (비가역 방향성) -->
+                    <g transform="translate(15, 215)">
+                        <rect x="0" y="0" width="160" height="170" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="80" y="20" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle">제2법칙: 엔트로피 증가</text>
+                        <!-- 고온(Hot)과 저온(Cold) 열전달 방향 -->
+                        <circle cx="40" cy="70" r="22" fill="url(#grad-hot)"/>
+                        <text x="40" y="74" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">고온 T₁</text>
+                        <circle cx="120" cy="70" r="22" fill="url(#grad-cold)"/>
+                        <text x="120" y="74" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">저온 T₂</text>
+                        <!-- 자발적 흐름 화살표 -->
+                        <path d="M 67 70 L 93 70" fill="none" stroke="#10B981" stroke-width="2.5"/>
+                        <polygon points="93,66 98,70 93,74" fill="#10B981"/>
+                        <text x="80" y="60" fill="#10B981" font-size="9" font-weight="bold" text-anchor="middle">자발적</text>
+                        <!-- 비자발적 흐름 차단 -->
+                        <path d="M 93 110 L 67 110" fill="none" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="2,2"/>
+                        <polygon points="67,106 62,110 67,114" fill="#EF4444"/>
+                        <text x="80" y="102" fill="#EF4444" font-size="9" font-weight="bold" text-anchor="middle">불가능 (X)</text>
+                        <text x="80" y="145" fill="var(--text-primary)" font-size="11" font-weight="bold" text-anchor="middle">dS ≥ dQ / T</text>
+                    </g>
+
+                    <!-- 제3법칙 (절대영도) -->
+                    <g transform="translate(195, 215)">
+                        <rect x="0" y="0" width="160" height="170" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="80" y="20" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle">제3법칙: 절대영도 한계</text>
+                        <!-- 완전결정 격자 분자 정렬 상태 -->
+                        <rect x="30" y="45" width="100" height="75" rx="4" fill="none" stroke="var(--border)" stroke-width="1"/>
+                        <!-- 격자 교점 위에 정렬된 완전 격자 구체들 -->
+                        <circle cx="45" cy="60" r="6" fill="#3B82F6"/>
+                        <circle cx="80" cy="60" r="6" fill="#3B82F6"/>
+                        <circle cx="115" cy="60" r="6" fill="#3B82F6"/>
+                        <circle cx="45" cy="82" r="6" fill="#3B82F6"/>
+                        <circle cx="80" cy="82" r="6" fill="#3B82F6"/>
+                        <circle cx="115" cy="82" r="6" fill="#3B82F6"/>
+                        <circle cx="45" cy="104" r="6" fill="#3B82F6"/>
+                        <circle cx="80" cy="104" r="6" fill="#3B82F6"/>
+                        <circle cx="115" cy="104" r="6" fill="#3B82F6"/>
+                        <text x="80" y="140" fill="var(--text-primary)" font-size="10" font-weight="bold" text-anchor="middle">0 K에서 진동 정지</text>
+                        <text x="80" y="155" fill="var(--text-primary)" font-size="11" font-weight="bold" text-anchor="middle">S → 0 (T = 0 K)</text>
+                    </g>
+                </g>
+
+                <!-- 우측 구역: 엔탈피 vs 엔트로피 직관 비유법 시각화 -->
+                <g transform="translate(395, 10)">
+                    <rect x="0" y="0" width="380" height="400" rx="12" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+                    <text x="190" y="25" fill="var(--text-primary)" font-size="14" font-weight="bold" text-anchor="middle">② 엔탈피 vs 엔트로피 직관 비유</text>
+
+                    <!-- 엔탈피: 계 내부 에너지의 총량 (보유 연료 팩) -->
+                    <g transform="translate(15, 45)">
+                        <rect x="0" y="0" width="165" height="340" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="82.5" y="20" fill="var(--info)" font-size="12" font-weight="bold" text-anchor="middle">엔탈피 (Enthalpy, H)</text>
+                        <text x="82.5" y="38" fill="var(--text-secondary)" font-size="10" text-anchor="middle">계가 가진 "전체 에너지 봉투"</text>
+                        <!-- 에너지 상자 렌더링 -->
+                        <rect x="32.5" y="60" width="100" height="130" rx="6" fill="#3B82F6" fill-opacity="0.1" stroke="#3B82F6" stroke-width="2"/>
+                        <text x="82.5" y="100" fill="#3B82F6" font-size="18" font-weight="bold" text-anchor="middle">H = U + PV</text>
+                        <!-- 수식 해석 화살표 -->
+                        <text x="82.5" y="130" fill="var(--text-primary)" font-size="11" text-anchor="middle">내부에너지 (U)</text>
+                        <text x="82.5" y="145" fill="var(--text-secondary)" font-size="10" text-anchor="middle">(물질 분자의 운동열)</text>
+                        <text x="82.5" y="165" fill="var(--success)" font-size="11" text-anchor="middle">+ 유동 에너지 (PV)</text>
+                        <text x="82.5" y="180" fill="var(--text-secondary)" font-size="10" text-anchor="middle">(부피 유지 압력 일)</text>
+                        
+                        <!-- 소방 매핑 상자 -->
+                        <rect x="15" y="210" width="135" height="110" rx="4" fill="var(--bg-secondary)" stroke="var(--border)"/>
+                        <text x="82.5" y="230" fill="var(--text-primary)" font-size="11" font-weight="bold" text-anchor="middle">소방 공학 연계</text>
+                        <text x="25" y="255" fill="var(--text-secondary)" font-size="10" text-anchor="start">ㆍ가연물 연소열 (ΔH)</text>
+                        <text x="25" y="275" fill="var(--text-secondary)" font-size="10" text-anchor="start">ㆍ물의 기화잠열 흡수</text>
+                        <text x="25" y="295" fill="var(--text-secondary)" font-size="10" text-anchor="start">ㆍ가스계 팽창 냉각</text>
+                    </g>
+
+                    <!-- 엔트로피: 에너지의 분산·무질서도 (퍼져나가는 연기 분자) -->
+                    <g transform="translate(195, 45)">
+                        <rect x="0" y="0" width="170" height="340" rx="8" fill="var(--bg-primary)" stroke="var(--border)" stroke-width="1"/>
+                        <text x="85" y="20" fill="var(--danger)" font-size="12" font-weight="bold" text-anchor="middle">엔트로피 (Entropy, S)</text>
+                        <text x="85" y="38" fill="var(--text-secondary)" font-size="10" text-anchor="middle">무질서한 "에너지의 흩어짐"</text>
+                        
+                        <!-- 무질서도 확산 도식 -->
+                        <rect x="35" y="60" width="100" height="130" rx="6" fill="#EF4444" fill-opacity="0.1" stroke="#EF4444" stroke-width="2"/>
+                        <!-- 분자들이 흩어지는 화살표들 -->
+                        <circle cx="50" cy="90" r="4" fill="#EF4444"/>
+                        <path d="M 50 90 L 40 75" stroke="#EF4444" stroke-width="1" marker-end="url(#arrow)"/>
+                        <circle cx="85" cy="100" r="4" fill="#EF4444"/>
+                        <path d="M 85 100 L 105 85" stroke="#EF4444" stroke-width="1" marker-end="url(#arrow)"/>
+                        <circle cx="65" cy="140" r="4" fill="#EF4444"/>
+                        <path d="M 65 140 L 50 160" stroke="#EF4444" stroke-width="1" marker-end="url(#arrow)"/>
+                        <circle cx="105" cy="130" r="4" fill="#EF4444"/>
+                        <path d="M 105 130 L 120 150" stroke="#EF4444" stroke-width="1" marker-end="url(#arrow)"/>
+                        
+                        <text x="85" y="125" fill="#EF4444" font-size="16" font-weight="bold" text-anchor="middle">dS = dQ / T</text>
+                        <text x="85" y="175" fill="var(--text-secondary)" font-size="10" text-anchor="middle">질서 정연 → 혼돈 상태</text>
+
+                        <!-- 소방 매핑 상자 -->
+                        <rect x="15" y="210" width="140" height="110" rx="4" fill="var(--bg-secondary)" stroke="var(--border)"/>
+                        <text x="85" y="230" fill="var(--text-primary)" font-size="11" font-weight="bold" text-anchor="middle">소방 공학 연계</text>
+                        <text x="25" y="255" fill="var(--text-secondary)" font-size="10" text-anchor="start">ㆍ화재 연기 난류 확산</text>
+                        <text x="25" y="275" fill="var(--text-secondary)" font-size="10" text-anchor="start">ㆍ자연발화 열축적 방향</text>
+                        <text x="25" y="295" fill="var(--text-secondary)" font-size="10" text-anchor="start">ㆍ열에너지 가용 한계</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        
+        <!-- 모식도 전용 해설 공간 -->
+        <div class="diagram-explanation" style="background-color: var(--bg-secondary); border: 1px solid var(--border); padding: 18px 20px; border-radius: 8px; margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.75;">
+            <strong>📋 종합 모식도 해설:</strong><br/>
+            1. <strong>열역학 4대 기본 법칙</strong>: 온도의 기준을 잡는 <strong>제0법칙(열평형)</strong>, 에너지는 무에서 생성되지 않는다는 <strong>제1법칙(양적 보존)</strong>, 비가역적인 흐름의 방향성을 선언하는 <strong>제2법칙(질적 쇠퇴/엔트로피)</strong>, 절대영도 조건에서 분자 움직임이 0이 되는 극한의 정렬을 보이는 <strong>제3법칙(절대영도 수렴)</strong>이 유기적으로 계의 거동을 제한한다.<br/>
+            2. <strong>상태 함수 비교</strong>: <strong>엔탈피($H=U+PV$)</strong>는 밀폐 탱크나 배관 속 가스·액체가 가진 총 열용량(양적 개념)이며, <strong>엔트로피($dS=dQ/T$)</strong>는 질서 정연하던 화재 열에너지와 배연 가스가 비가역적으로 흩어져 무용한 상태로 퍼져나가는 무질서도(방향성 지표)를 상징한다.
+        </div>
+
+        <div class="key-takeaway" style="background-color: rgba(var(--accent-rgb), 0.02); border-left: 4px solid var(--accent); padding: 15px 20px; border-radius: 0 12px 12px 0; margin-top: 15px;">
+            <strong>💡 초간단 직관적 이해 (비유법 요약):</strong><br/>
+            <ul>
+                <li><strong>엔탈피</strong>는 지갑 속에 든 <strong>"돈의 총액"</strong>(보유 열량)이며,</li>
+                <li><strong>엔트로피</strong>는 그 지갑에서 돈이 꺼내져서 온 동네로 흩어지는 <strong>"소비·분산의 무질서함"</strong>입니다. 흩어진 돈(무용해진 열)은 자발적으로 다시 지갑으로 모이지 않습니다(제2법칙 비가역성).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 3. 열역학 4대 법칙의 공학적 의미 및 수식 -->
+    <div class="section-block" style="margin-top: 30px;">
+        <h3 class="section-title">3. 열역학 4대 법칙의 정의 및 소방 공학적 의의</h3>
+        
+        <h4 class="sub-title">1) 제0법칙 (열평형의 법칙, Zeroth Law)</h4>
+        <ul class="bullet-list" style="padding-left: 20px; line-height: 1.8;">
+            <li><strong>정의:</strong> 두 물체 $A$와 $B$가 각각 제3의 물체 $C$와 열평형 상태에 있다면, $A$와 $B$도 서로 열평형 상태에 있다. ($T_A = T_C \land T_B = T_C \implies T_A = T_B$)</li>
+            <li><strong>소방적 의의:</strong> 온도 측정의 정당성을 보장한다. 화재 감지기(열감지기)와 온도계가 화재 구역의 분위기 온도와 열적으로 동기화되어 온도를 지시하는 기초 토대가 된다.</li>
+        </ul>
+
+        <h4 class="sub-title" style="margin-top: 15px;">2) 제1법칙 (에너지 보존 법칙, First Law)</h4>
+        <ul class="bullet-list" style="padding-left: 20px; line-height: 1.8;">
+            <li><strong>정의:</strong> 고립계의 전체 에너지는 형태만 변할 뿐 생성되거나 소멸되지 않고 일정하게 보존된다.</li>
+            <li><strong>정의식:</strong> $$Q = \Delta U + W \quad \text{또는} \quad dQ = dU + dW$$
+                <span style="font-size: 0.85rem; color: var(--text-secondary);">($Q$: 계에 주입된 열량, $\Delta U$: 내부에너지 변화량, $W$: 외부 계가 수행한 일 $= P\Delta V$)</span>
+            </li>
+            <li><strong>소방적 의의:</strong> 열과 일의 당량성($1 \text{ kcal} \approx 4,184 \text{ J}$)을 입증한다. 연소 반응 시 방출되는 에너지는 소멸하지 않고 전도·대류·복사열로 전환되며, 밀폐구역 내 화재 가스의 압력 상승(부피 팽창 일 $W$)을 결정한다.</li>
+        </ul>
+
+        <h4 class="sub-title" style="margin-top: 15px;">3) 제2법칙 (엔트로피 증가 법칙, Second Law)</h4>
+        <ul class="bullet-list" style="padding-left: 20px; line-height: 1.8;">
+            <li><strong>정의:</strong> 고립계의 자발적 변화는 무질서도(엔트로피)가 증가하는 비가역적인 방향으로만 진행된다.</li>
+            <li><strong>정의식:</strong> $$dS \ge \frac{dQ}{T}$$</li>
+            <li><strong>자연현상의 해석:</strong>
+                <ul>
+                    <li><strong>Clausius 선언:</strong> 열은 스스로 저온에서 고온으로 이동할 수 없다.</li>
+                    <li><strong>Kelvin-Planck 선언:</strong> 열효율이 $100\%$인 열기관(제2종 영구기관)은 존재 불가능하다.</li>
+                </ul>
+            </li>
+            <li><strong>소방적 의의:</strong> 화재 열기류가 자발적으로 주변 저온 구역으로 전파되는 현상, 누출된 가연성 가스가 대기 중으로 자발적 확산·혼합되는 현상의 비가역적 성질을 증명한다.</li>
+        </ul>
+
+        <h4 class="sub-title" style="margin-top: 15px;">4) 제3법칙 (절대영도의 법칙, Third Law)</h4>
+        <ul class="bullet-list" style="padding-left: 20px; line-height: 1.8;">
+            <li><strong>정의:</strong> 절대온도가 절대영도 $0 \text{ K}$($-273.15^\circ\text{C}$)에 수렴할 때, 완전결정 상태의 물질이 가지는 엔트로피는 $0$이 된다. 유한한 조작을 통해서는 절대온도 절대영도에 결코 도달할 수 없다.</li>
+            <li><strong>정의식:</strong> $$\lim_{T \rightarrow 0} S = 0$$</li>
+            <li><strong>소방적 의의:</strong> 화재 열에너지의 질적 가용성을 측정할 때 기준점(절대적인 기초 기준선)을 제공한다.</li>
+        </ul>
+    </div>
+
+    <!-- 4. 엔탈피(Enthalpy)와 엔트로피(Entropy)의 비교 -->
+    <div class="section-block" style="margin-top: 30px;">
+        <h3 class="section-title">4. 엔탈피(Enthalpy)와 엔트로피(Entropy)의 공학적 비교</h3>
+        <table class="eng-table">
+            <thead>
+                <tr>
+                    <th style="width: 15%;">구분</th>
+                    <th style="width: 42.5%;">엔탈피 (Enthalpy, $H$)</th>
+                    <th style="width: 42.5%;">엔트로피 (Entropy, $S$)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>공학적 정의</strong></td>
+                    <td>어떤 물질계가 특정 온도와 압력 하에서 보유한 <strong>전체 열함량 (Heat Content)</strong>.</td>
+                    <td>계 내부 분자들의 열적 <strong>무질서도 (Disorder)</strong> 또는 가용 불가능한 무용한 에너지의 지표.</td>
+                </tr>
+                <tr>
+                    <td><strong>기본 수식</strong></td>
+                    <td>$$H = U + PV$$<br/><span style="font-size: 0.85rem; color: var(--text-secondary);">($U$: 내부에너지, $P$: 압력, $V$: 부피)</span></td>
+                    <td>$$dS = \frac{dQ}{T}$$<br/><span style="font-size: 0.85rem; color: var(--text-secondary);">($Q$: 출입 열량, $T$: 계의 절대온도)</span></td>
+                </tr>
+                <tr>
+                    <td><strong>상태 변화의 특징</strong></td>
+                    <td>
+                         정압과정($dP=0$)에서 출입한 열량은 엔탈피 변화량과 같음: $Q_p = \Delta H$<br/>
+                         화학 반응 시 열량 방출(발열, $\Delta H \lt 0$)과 흡수(흡열, $\Delta H \gt 0$)의 척도가 됨.
+                    </td>
+                    <td>
+                         고립계의 자발적 변화는 무조건 엔트로피가 증가하는 방향으로 일어남: $\Delta S \gt 0$<br/>
+                         계의 가용한 일 에너지 한계를 규정함.
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>소방 공학적<br/>실제 적용</strong></td>
+                    <td>
+                        <strong>연소열 산정:</strong> 연료 연소 시의 발열량 수치 결정.<br/>
+                        <strong>수계 소화 효과:</strong> 물의 매우 높은 기화잠열($\Delta H_{vap} = 2257 \text{ kJ/kg}$)을 활용한 극대화된 냉각 성능 해석.<br/>
+                        <strong>가스계 약제 거동:</strong> 단열 팽창 시 엔탈피 보존에 기초한 줄-톰슨 효과(Joule-Thomson) 및 이산화탄소($CO_2$) 드라이아이스 형성 메커니즘 해석.
+                    </td>
+                    <td>
+                        <strong>연기 및 화염 난류 확산:</strong> 연소 생성물이 대기 중으로 확산되며 무질서도가 급격히 상승하는 자연적 전파 현상 증명.<br/>
+                        <strong>자연발화 축열 메커니즘:</strong> 가연물의 자발적 저온 산화 반응 속도와 열축적이 자발적으로 일어나는 열역학적 추진력 평가.<br/>
+                        <strong>열역학적 효율 한계:</strong> 소방 펌프나 가압 송풍 장치 작동 시 마찰 및 와류에 의한 에너지 손실(엔트로피 증가분) 분석.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 5. 실전 답안 작성 전략: 꼬리에 꼬리를 무는 연상 마인드맵 -->
+    <div class="section-block" style="margin-top: 30px;">
+        <div class="insight-box" style="background-color: rgba(var(--accent-rgb), 0.03); border: 1px solid var(--border); border-radius: 12px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+            <h4 style="font-weight: 800; color: var(--accent); margin-bottom: 12px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                💡 실전 답안 작성 전략: 꼬리에 꼬리를 무는 연상 마인드맵
             </h4>
-<ul style="list-style-type: none; padding-left: 0; font-size: 0.85rem; color: var(--text-secondary); line-height: 1.75;">
-<li style="margin-bottom: 6px;"><strong>제117회 1교시</strong>: 열역학 법칙에 대하여 설명하시오. (제0~3법칙 직접 출제)</li>
-<li style="margin-bottom: 6px;"><strong>제126회 1교시</strong>: 열역학 제2법칙과 엔트로피(Entropy)에 대하여 설명하시오. (열역학 법칙 및 엔트로피 직접 출제)</li>
-<li style="margin-bottom: 6px;"><strong>제113회 1교시</strong>: 엔탈피(Enthalpy)와 엔트로피(Entropy)를 비교하여 설명하시오. (직접 비교 문항)</li>
-</ul>
-</div>
+            
+            <div style="margin-bottom: 15px; font-size: 0.95rem; line-height: 1.75; color: var(--text-primary);">
+                <strong>🎬 중심 이미지 (Central Image):</strong><br/>
+                <span style="color: var(--text-secondary);">
+                    "맹렬히 타오르는 용광로 화로 속에서 팽창하는 뜨거운 공기 기둥과, 화로의 깨진 틈새로 연기가 거칠게 사방으로 뿜어져 나가는 비가역적 분산 현상"을 영화의 클로즈업 샷처럼 연상한다. 화로 내부의 총열량과 가스 팽창력(엔탈피)이 바깥으로 무질서하게 터져 나가는 비가역성(엔트로피)으로 완벽하게 연쇄된다.
+                </span>
+            </div>
+
+            <div style="font-size: 0.9rem; line-height: 1.8; color: var(--text-secondary);">
+                <strong>연상 흐름도 및 작성 순서:</strong><br/>
+                <span style="color: var(--text-primary); font-weight: 700;">① 온도 기준의 성립 (제0법칙)</span><br/>
+                &nbsp;&nbsp;&nbsp;└─► 온도 차이에 의해 열이 이동하는 기준으로서 감지기와 온도계의 물리적 타당성 설명<br/>
+                <span style="color: var(--text-primary); font-weight: 700;">② 에너지의 양적 보존 (제1법칙)</span><br/>
+                &nbsp;&nbsp;&nbsp;└─► 연소로 발생한 열량 $Q$는 소멸하지 않고 가스 내부온도 상승($\Delta U$)과 가스 팽창 압력 일($W$)로 변환됨을 서술<br/>
+                <span style="color: var(--text-primary); font-weight: 700;">③ 자발적 방향성 &amp; 효율의 한계 (제2, 3법칙)</span><br/>
+                &nbsp;&nbsp;&nbsp;└─► 열은 오직 고온에서 저온으로만 자발적으로 전파되고(제2법칙), 분자 활동이 정지하는 절대영도의 하한선(제3법칙) 확인<br/>
+                <span style="color: var(--text-primary); font-weight: 700;">④ 정량적 상태량 정의 (엔탈피 $H$ 와 엔트로피 $S$)</span><br/>
+                &nbsp;&nbsp;&nbsp;└─► 보유 에너지 총량($H = U + PV$)과 가용 불가능한 에너지 쇠퇴 지표($dS = dQ / T$) 수식 유도 및 완벽 대조 표 구성<br/>
+                <span style="color: var(--text-primary); font-weight: 700;">⑤ 소방 공학적 응용 예언 (결론 제언)</span><br/>
+                &nbsp;&nbsp;&nbsp;└─► 물의 기화잠열(엔탈피 차이)을 이용한 냉각 소화와 연기의 자발적 난류 확산(엔트로피 증가)을 연결하여 고득점 답안 마무리
+            </div>
+        </div>
+    </div>
+
+    <!-- 관련 기출문제 출제 이력 카드 -->
+    <div class="exam-history" style="background-color: var(--bg-secondary); border: 1px solid var(--border); padding: 24px; border-radius: 12px; margin-top: 30px;">
+        <h4 style="font-weight: 800; color: var(--text-primary); margin-bottom: 15px; font-size: 1.0rem; display: flex; align-items: center; gap: 8px;">
+            📋 관련 기출문제 출제 이력
+        </h4>
+        <ul style="list-style-type: disc; padding-left: 20px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.75;">
+            <li style="margin-bottom: 6px;"><strong>제126회 1교시</strong>: 열역학 제2법칙과 엔트로피(Entropy)에 대하여 설명하시오.</li>
+            <li style="margin-bottom: 6px;"><strong>제117회 1교시</strong>: 열역학 법칙에 대하여 설명하시오. (제0~3법칙 직접 출제)</li>
+            <li style="margin-bottom: 6px;"><strong>제113회 1교시</strong>: 엔탈피(Enthalpy)와 엔트로피(Entropy)를 비교하여 설명하시오.</li>
+        </ul>
+    </div>
+</section>
 </article><article class="answer-sheet" id="q14">
 <header class="sheet-header"><div class="header-left"><div class="category-path-container">
 <span class="category-badge">열전달 및 방호공학</span>
