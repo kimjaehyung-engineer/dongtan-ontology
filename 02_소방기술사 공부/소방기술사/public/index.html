@@ -28,6 +28,15 @@
     </script>
 <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <style>
+        /* 🚫 MathJax 수식 로딩 에러(Math input error) 노란색 배지 및 경고 문구 화면 노출 원천 비활성화/숨김 처리 */
+        mjx-merr,
+        .MathJax_Error,
+        .MathJax_Display .MathJax_Error,
+        .MathJax_Message,
+        .MathJax_Error * {
+            display: none !important;
+        }
+
         /* 형광펜 효과 스타일 */
         mark {
             background-color: #fef08a !important; /* 밝은 노란색 */
