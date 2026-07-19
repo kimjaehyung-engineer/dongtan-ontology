@@ -13331,6 +13331,38 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
 <li><strong>목적:</strong> 가연성 가스나 증기를 취급하는 설비 내에서 <strong>산소 농도를 최소산소농도(MOC) 이하로 낮춤</strong>으로써 점화원이 존재하더라도 원천적으로 폭발이 발생하지 않도록(위험분위기=0) 하는 방폭 조작이다.</li>
 <li><strong>불활성화(Purging) 방법의 4가지 부류:</strong> 조작 방식과 설비 특성에 따라 진공 퍼지, 압력 퍼지, 스위프 퍼지, 사이펀 퍼지로 나뉜다.</li>
 </ul>
+            <!-- 공학적 필요 시점 및 이론적 배경 복원 -->
+            <div class="insight-box" style="margin: 20px 0; padding: 20px; border-radius: 8px; background-color: rgba(96, 125, 139, 0.03); border: 1px dashed rgba(96, 125, 139, 0.3);">
+                <strong style="color: var(--primary-color); font-size: 0.95em; display: block; margin-bottom: 12px;">📑 [이론적 배경 및 플랜트 공학적 필요성]</strong>
+                
+                <div style="margin-bottom: 12px;">
+                    <span style="font-weight: 700; color: var(--text-main); font-size: 0.9em; display: block; margin-bottom: 4px;">① 공학적 필요 시점 (Operational Phases)</span>
+                    <ul style="list-style-type: circle; padding-left: 20px; margin: 0; font-size: 0.85em; color: var(--text-secondary); line-height: 1.6;">
+                        <li><strong>가동 전 (Start-up / Commissioning):</strong> 설비 내부 공기(산소)를 질소로 치환하여 가연성 원료 도입 시 폭발 분위기 형성을 원천 차단</li>
+                        <li><strong>운전 중 (Normal Operation):</strong> 고온 반응기 및 저장탱크 상부에 질소 블랭킷(Nitrogen Blanketing)을 형성하여 산소 유입 방지</li>
+                        <li><strong>정지 및 정비 전 (Shutdown / Maintenance):</strong> 가연성·독성 잔류 유체를 질소로 밀어낸 후 정비원 작업 공간 확보를 위해 공기로 최종 치환</li>
+                        <li><strong>비상 정지 시 (Emergency / Trip):</strong> 반응 폭주나 가스 누출 비상상황 시 질소를 긴급 주입하여 온도를 낮추고 산소를 급속 희석</li>
+                    </ul>
+                </div>
+                
+                <div style="margin-bottom: 12px;">
+                    <span style="font-weight: 700; color: var(--text-main); font-size: 0.9em; display: block; margin-bottom: 4px;">② 적용 화학공정 플랜트 (Target Plants & Processes)</span>
+                    <ul style="list-style-type: circle; padding-left: 20px; margin: 0; font-size: 0.85em; color: var(--text-secondary); line-height: 1.6;">
+                        <li><strong>석유화학 플랜트 (Petrochemical):</strong> 에틸렌, 부타디엔 등 중합성 인화성 가스를 다루는 중합반응기 및 NCC 분해 유닛</li>
+                        <li><strong>정유 플랜트 (Refinery):</strong> 유증기가 고온 상태로 정체·흐르는 상압/감압 증류탑(CDU/VDU) 및 가이드 크래킹 열분해 설비</li>
+                        <li><strong>정밀화학 및 제약 플랜트 (Fine Chemical / Pharma):</strong> THF, 톨루엔 등 다량의 인화성 용매를 사용하는 회분식 반응기(Batch Reactor)</li>
+                        <li><strong>가스 저장 및 유통 터미널 (Gas Terminals):</strong> LNG·LPG 탱크 및 배관 가압 유지, 수소 운송·충전 및 출하 시스템</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <span style="font-weight: 700; color: var(--text-main); font-size: 0.9em; display: block; margin-bottom: 4px;">③ 학술적·이론적 배경 (Theoretical Foundation)</span>
+                    <p style="font-size: 0.85em; line-height: 1.6; color: var(--text-secondary); margin: 0;">
+                        연소 3요소(가연물, 점화원, 산소) 중 정전기나 단열압축, 배관 내 마찰열 등의 <strong>점화원은 통제가 불확실</strong>하므로, 공학적으로 가장 신뢰할 수 있는 대책은 <strong>조연성 물질인 산소의 농도를 통제</strong>하는 것이다. 반응물질의 연소 범위와 화학양론에 기반한 <strong>최소산소농도(MOC, Minimum Oxygen Concentration)</strong> 이하로 산소 분압을 유지하여 점화원이 도래하더라도 화학 연쇄반응(Chain Reaction)이 진행되지 못하도록 무반응 상태를 유지시킨다.
+                    </p>
+                </div>
+            </div>
+
 <div class="insight-box" style="margin: 25px 0; padding: 25px; border-radius: 12px; background-color: var(--bg-card); border: 1px solid var(--border-color); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 <h4 style="margin-top: 0; margin-bottom: 25px; color: var(--primary-color); text-align: center; font-size: 1.15em;">
 <i class="fas fa-wind" style="margin-right:8px;"></i> 퍼지(Purge) 기법 4가지 동작 원리 비교
