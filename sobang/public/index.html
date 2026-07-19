@@ -13620,6 +13620,54 @@ $$MOC \approx LFL \times X_{O_2} = 2.1 \times 5 = 10.5 \quad (\text{vol}\%)$$
                             <div style="padding: 10px; margin: 8px 0; background-color: var(--bg-card); border-left: 4px solid var(--primary-color); font-family: monospace; font-size: 1.1em; color: var(--text-main);">
                                 $$ V_{gas} = V_{vessel} $$
                             </div>
+                            <!-- 사이펀 퍼지 수식 직관적 비유 삽입 -->
+                            <div class="insight-box" style="margin: 15px 0; padding: 15px; border-radius: 8px; background-color: rgba(16, 185, 129, 0.03); border: 1px dashed rgba(16, 185, 129, 0.3);">
+                                <strong style="color: var(--success); font-size: 0.95em; display: block; margin-bottom: 8px;">💡 [직관적 비유] 10초 만에 끝나는 수식 이해 (사이펀 퍼지 물컵 비유)</strong>
+                                <p style="font-size: 0.9em; line-height: 1.6; color: var(--text-secondary); margin-bottom: 10px;">
+                                    100ml 물컵(용기)에 잉크(산소)가 가득 차 있을 때($V_{vessel}$), 맹물(액체)을 가득 채워 잉크를 100% 밖으로 밀어냅니다(액체 충전). 그 후, 아래로 맹물을 다시 빼내면서 그 빈자리에 가스(질소)를 채워 넣으면, 복잡한 희석 과정 없이 정확히 <strong>1:1 비율</strong>로 완벽하게 질소 가스만 남습니다. 이 방식은 가스 낭비가 전혀 없으므로 소요 불활성 가스량($V_{gas}$)이 용기 체적($V_{vessel}$)과 정확히 같은 <strong>치환 효율 100%</strong>의 물리적 치환이 됩니다.
+                                </p>
+                                <svg style="max-width: 500px; display: block; margin: 10px auto; background: var(--bg-secondary); border-radius: 6px; border: 1px solid var(--border);" viewbox="0 0 500 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+                                    <g transform="translate(10, 10)">
+                                        <!-- 컵 1: 초기 상태 (가연성 가스 100%) -->
+                                        <rect fill="none" height="80" rx="4" stroke="var(--text-primary)" stroke-width="2" width="60" x="20" y="30"></rect>
+                                        <rect fill="rgba(244, 63, 94, 0.45)" height="79" rx="2" width="58" x="21" y="30"></rect>
+                                        <text fill="var(--text-primary)" font-size="10" font-weight="bold" text-anchor="middle" x="50" y="20">초기 상태</text>
+                                        <text fill="#fff" font-size="8.5" font-weight="bold" text-anchor="middle" x="50" y="75">가연성가스</text>
+                                        
+                                        <!-- 화살표 1 -->
+                                        <path d="M 100,70 L 130,70" fill="none" marker-end="url(#arr-h-siphon)" stroke="var(--text-muted)" stroke-width="2"></path>
+                                        <text fill="#3b82f6" font-size="8" font-weight="bold" text-anchor="middle" x="115" y="60">액체 충전</text>
+                                        
+                                        <!-- 컵 2: 액체 충전 (물 100%, 가스 배출) -->
+                                        <rect fill="none" height="80" rx="4" stroke="var(--text-primary)" stroke-width="2" width="60" x="150" y="30"></rect>
+                                        <rect fill="rgba(59, 130, 246, 0.65)" height="79" rx="2" width="58" x="151" y="30"></rect>
+                                        <text fill="var(--text-primary)" font-size="10" font-weight="bold" text-anchor="middle" x="180" y="20">액체 만재</text>
+                                        <text fill="#fff" font-size="8.5" font-weight="bold" text-anchor="middle" x="180" y="75">물 100%</text>
+                                        
+                                        <!-- 화살표 2 -->
+                                        <path d="M 230,70 L 260,70" fill="none" marker-end="url(#arr-h-siphon)" stroke="var(--text-muted)" stroke-width="2"></path>
+                                        <text fill="#10b981" font-size="8" font-weight="bold" text-anchor="middle" x="245" y="60">배수 &amp; N₂유입</text>
+                                        
+                                        <!-- 컵 3: 치환 완료 (질소 100%) -->
+                                        <rect fill="none" height="80" rx="4" stroke="var(--text-primary)" stroke-width="2" width="60" x="280" y="30"></rect>
+                                        <rect fill="rgba(16, 185, 129, 0.18)" height="79" rx="2" width="58" x="281" y="30"></rect>
+                                        <text fill="var(--text-primary)" font-size="10" font-weight="bold" text-anchor="middle" x="310" y="20">치환 완료</text>
+                                        <text fill="var(--success)" font-size="8.5" font-weight="bold" text-anchor="middle" x="310" y="75">질소 100%</text>
+                                        
+                                        <!-- 수식 요약 우측 배치 -->
+                                        <rect fill="rgba(16, 185, 129, 0.05)" height="90" rx="6" stroke="var(--success)" stroke-width="1" width="110" x="365" y="25"></rect>
+                                        <text fill="var(--success)" font-size="10.5" font-weight="bold" text-anchor="middle" x="420" y="48">소요 가스량</text>
+                                        <text fill="var(--text-primary)" font-size="12" font-weight="bold" text-anchor="middle" x="420" y="68">V_gas = V_vessel</text>
+                                        <text fill="var(--success)" font-size="9" font-weight="bold" text-anchor="middle" x="420" y="88">효율 100% (1:1)</text>
+                                    </g>
+                                    <defs>
+                                        <marker id="arr-h-siphon" markerheight="6" markerwidth="6" orient="auto-start-reverse" refx="6" refy="5" viewbox="0 0 10 10">
+                                            <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--text-muted)"></path>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                            </div>
+
 </li>
 <li><strong>최장점:</strong> 가스 낭비나 단락 현상이 전혀 없어 <strong>불활성 가스 소모량이 가장 적은(효율성 100%)</strong> 최고의 치환율을 자랑한다.</li>
 <li><strong>단점:</strong> 물 등 액체에 젖거나 오염되면 안 되는 공정 설비(수분 금수성, 잔류 액체 위험성 등)에는 <strong>절대로 적용할 수 없다.</strong></li>
