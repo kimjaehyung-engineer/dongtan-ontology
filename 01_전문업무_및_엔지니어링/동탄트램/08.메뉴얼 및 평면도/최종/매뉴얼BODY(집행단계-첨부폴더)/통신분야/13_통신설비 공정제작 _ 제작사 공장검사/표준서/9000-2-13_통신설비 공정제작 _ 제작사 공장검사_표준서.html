@@ -15,7 +15,7 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Technical Standard (WBS 9000-2-13)</span>
         <h1 class="text-3xl font-black mt-2">통신설비 공정제작 및 제작사 공장검사(FAT) 표준서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "15대 대상 장비별 4대 필수 검사 과제 & 정량적 판정 기준 기술 표준"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "15대 대상 장비별 4대 필수 과제 & 정량적 판정 기준 기술 표준"</p>
     </div>
     
     <div class="p-8 space-y-8">
@@ -70,6 +70,115 @@
                     <span class="font-bold text-teal-900 text-xs">4) 공장 내 성능검사 시험 실시</span>
                     <p class="text-slate-700 leading-relaxed">• 절연저항계(Megger) 측정(≥100MΩ) 및 접지저항(≤10Ω) 실측<br">• 공장 성능 시험실에서 15대 서브시스템 기능 시뮬레이션 구동</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- 📊 15대 통신 대상 장비별 기술 검증 기준 및 판정 한계 표준 표 -->
+        <div class="space-y-4">
+            <h3 class="text-lg font-bold text-slate-900 border-b-2 border-blue-600 pb-2">📊 15대 통신 대상 장비별 기술 검증 기준 및 판정 한계 표준 표</h3>
+            <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
+                            <th class="p-3 font-bold w-12 text-center">No</th>
+                            <th class="p-3 font-bold w-36">공장검사 대상 항목</th>
+                            <th class="p-3 font-bold">핵심 시방 사양 및 주요 검증 파라미터</th>
+                            <th class="p-3 font-bold w-48 text-center">정량적 판정 한계 기준</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white text-[11px]">
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">01</td>
+                            <td class="p-3 font-bold text-blue-900">영상감시장치 (CCTV)</td>
+                            <td class="p-3 text-slate-700">IP66/IK10 성적서 대조, 4K(3840x2160) 30fps 비디오 스트림, PoE (802.3at) 전력</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">영상 지연 ≤ 200 ms<br>30일 NVR 이중화</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">02</td>
+                            <td class="p-3 font-bold text-blue-900">행선안내장치 (PIS)</td>
+                            <td class="p-3 text-slate-700">SMD LED 표지판 휘도, 160° 광시야각, TCP/IP & RS-485 데이터 표지판 표출</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">휘도 ≥ 1,500 cd/㎡<br>문자 오차 0.00%</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">03</td>
+                            <td class="p-3 font-bold text-blue-900">구내방송장치 (PAS)</td>
+                            <td class="p-3 text-slate-700">D급 디지털 파워 앰프 S/N비, THD 왜곡률, 화재 수신기 연동 비상 차단 릴레이</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">S/N ≥ 80dB, THD ≤ 1.0%<br>화재 절체 ≤ 0.5초</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">04</td>
+                            <td class="p-3 font-bold text-indigo-900">전송설비 (OTN)</td>
+                            <td class="p-3 text-slate-700">100Gbps OTN 백본, Optical Ring 절체, BERT 비트 오류율 광파워 계측</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">Ring 절체 ≤ 50 ms<br>BERT = 0.00% (Zero)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">05</td>
+                            <td class="p-3 font-bold text-indigo-900">역무자동화설비 (AFC)</td>
+                            <td class="p-3 text-slate-700">플랩 게이트 도어 모터 속도, 교통카드 RF 리더기(13.56MHz) 응답, TOM 연동</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">도어 개폐 ≤ 0.5초<br>태그 응답 ≤ 0.2초</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">06</td>
+                            <td class="p-3 font-bold text-indigo-900">열차무선안내장치</td>
+                            <td class="p-3 text-slate-700">차상 수신기 커넥터 RF 차폐, 열차 위치 수신 데이터 패킷 성공률, RF 이득</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">패킷 성공률 100%<br>RF 이득 ± 0.5 dB</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">07</td>
+                            <td class="p-3 font-bold text-teal-900">여객자동안내장치</td>
+                            <td class="p-3 text-slate-700">TTS 음성 합성 음질, 시각장애인용 음성 신호기 음압, 표지판-음성 동기화</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">음압 75 dB ~ 85 dB<br>동기화 지연 ≤ 0.1초</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">08</td>
+                            <td class="p-3 font-bold text-teal-900">열차무선설비 (LTE-R)</td>
+                            <td class="p-3 text-slate-700">700MHz 기지국(DU/RRU) RF 출력, VSWR(정합수동비), 무선 통화 호 끊김 시험</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">VSWR ≤ 1.5<br>Handover 성공 100%</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">09</td>
+                            <td class="p-3 font-bold text-teal-900">재난방송수신설비</td>
+                            <td class="p-3 text-slate-700">FM(88~108MHz)/DMB 수신 감도, 터널 중계 앰프 이득, 재난 비상 자막/음성 절체</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">FM 감도 ≥ 60 dBμV<br>재난 절체 ≤ 1.0초</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">10</td>
+                            <td class="p-3 font-bold text-cyan-900">선로변 통합함체</td>
+                            <td class="p-3 text-slate-700">Stainless 3.2m/1.6m 옥외 함체 IP66 방수성적서, KEC 전선관 채움률, 방청 도장</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">KEC 채움률 ≤ 33%<br>도장 두께 ≥ 80 ㎛</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">11</td>
+                            <td class="p-3 font-bold text-cyan-900">역무용통신설비 (IP-PBX)</td>
+                            <td class="p-3 text-slate-700">IP 교환기 내선 전화 호출 응답, 비상 전화(SOS) 인터폰 신호 회로, POE 이중화</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">SOS 벨鳴 ≤ 0.5초<br>음성 MOS 점수 ≥ 4.0</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">12</td>
+                            <td class="p-3 font-bold text-cyan-900">백본스위치 (L4/L3)</td>
+                            <td class="p-3 text-slate-700">OCC 관제 코어 스위치 패킷 용량, CPU/파워 1+1 핫스왑 장애 수용, 전송 지연</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">전송 지연 ≤ 1.0 ms<br>무중단 핫스왑 검증</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">13</td>
+                            <td class="p-3 font-bold text-emerald-900">L3스위치 / L2스위치</td>
+                            <td class="p-3 text-slate-700">정거장 field switch VLAN 포트 격리, QoS 우선순위, 산업용 동작 온도(-20~60℃)</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">STP 재구성 ≤ 1.0초<br>패킷 손실율 0.00%</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">14</td>
+                            <td class="p-3 font-bold text-emerald-900">광케이블 (96C/48C)</td>
+                            <td class="p-3 text-slate-700">Single-mode 광섬유 케이블 OTDR 파형, 1310nm/1550nm 감쇄계수, 광 융착 접속</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">감쇄 ≤ 0.35 dB/km<br>접속손실 ≤ 0.05 dB</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold">15</td>
+                            <td class="p-3 font-bold text-emerald-900">옥외 Pole & 안테나</td>
+                            <td class="p-3 text-slate-700">옥외 용융아연도금 Pole 도금 두께 실측, Base Plate 비파괴 검사(MT), 내풍하중</td>
+                            <td class="p-3 text-center font-bold text-emerald-700">아연도금 ≥ 60 ㎛<br>앵커 공차 ± 1.0mm</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
