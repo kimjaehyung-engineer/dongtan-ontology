@@ -3,59 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동탄트램 통신분야 - 통신설비 공정제작 / 제작사 공장검사 표준서</title>
+    <title>동탄트램 통신분야 - 통신설비 공정제작 / 제작사 공장검사 표준서 (WBS 9000-2-13)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>body { font-family: 'Noto Sans KR', sans-serif; }</style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
 <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
-    <div class="bg-slate-900 text-white p-8">
-        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Standard</span>
-        <h1 class="text-3xl font-black mt-2">통신설비 공정제작 / 제작사 공장검사 표준서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀</p>
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Technical Standard (WBS 9000-2-13)</span>
+        <h1 class="text-3xl font-black mt-2">통신설비 공정제작 및 제작사 공장검사(FAT) 표준서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "현장 반입 전 결함 차단 및 FAT 공장 성능 검증 표준"</p>
     </div>
     
     <div class="p-8 space-y-8">
-        <div class="bg-blue-50 border border-blue-200 p-6 rounded-xl">
-            <h3 class="text-base font-bold text-blue-950 mb-2">🎯 표준 목적 (Objective)</h3>
-            <p class="text-slate-700 text-sm font-medium leading-relaxed">제작사양서/제작도면의 일치여부검토 및 현장반입 전 공장 성능검사 확인</p>
+        
+        <!-- 🎯 표준 목적 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl space-y-2">
+            <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">🎯 표준 목적 (Objective)</h3>
+            <p class="text-slate-800 text-sm font-medium leading-relaxed">
+                동탄도시철도(트램) 건설공사 통신설비 제작 과정 중, <strong>KCS 31 10 00 통신공사 표준시방서</strong> 및 승인된 제작사양서/Shop Drawing에 의거하여 제조 공장에서 <strong>공장검사(FAT, Factory Acceptance Test)</strong>를 입회·실시함으로써, 현장 반입 전 제품의 기능, 구조, 절연 및 성능 무결성을 완벽히 검증하기 위한 기술 기준입니다.
+            </p>
         </div>
 
-        <div>
-            <h3 class="text-lg font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">📜 시공 및 품질 검토 시방 수칙 (Methodology)</h3>
-            <ul class="space-y-3">
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 외산자재 등 Delivery 일정 확인</span>
-                </li>
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 제작도서 기준으로 최종 제작상태 확인</span>
-                </li>
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 제작도면과 일치여부 확인</span>
-                </li>
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 공장 내 성능검사 시험 실시</span>
-                </li>
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">[공장검사 대상 항목]</span>
-                </li>
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 영상장치장치, 행선안내장치, 구내방송장치, 전송설비, 역무자동화설비, 열차무선안내장치, 여객자동안내장치, 열차무선설비, 재난방송수신설비, 선로변 통합인터페이스 통신설비, 역무용통신설비, 백본스위치, L3스위치, 광케이블, 케이블 안테나 CCTV용 Pole</span>
-                </li>
-            </ul>
+        <!-- 📜 관련 시방서 및 규정 기준 -->
+        <div class="space-y-4">
+            <h3 class="text-lg font-bold text-slate-900 border-b-2 border-blue-600 pb-2">📜 공장검사(FAT) 관련 시방서 및 품질 규정</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">시방 기준 1</span>
+                    <h4 class="font-bold text-slate-900">KCS 31 10 00 / KDS 47 00 00</h4>
+                    <p class="text-slate-600 leading-relaxed">통신설비 공장검사 절차 및 출하 시험 검측 기준</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">품질 규정 2</span>
+                    <h4 class="font-bold text-slate-900">검사절차서(ITP) 및 시험계획서</h4>
+                    <p class="text-slate-600 leading-relaxed">승인된 FAT 검과 절차서(ITP) 항목 준수 입회 검사</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">법적 증빙 3</span>
+                    <h4 class="font-bold text-slate-900">정보통신사용전검사 증빙</h4>
+                    <p class="text-slate-600 leading-relaxed">과기부/지자체 제출용 공장검사 결과보고서 작성</p>
+                </div>
+            </div>
         </div>
 
-        <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-xl">
-            <h3 class="text-base font-bold text-emerald-950 mb-2">📦 증빙 산출물 (Deliverables)</h3>
-            <p class="text-emerald-900 text-sm font-bold">공장검사 결과보고서 (감리 및 관계기관 입회)</p>
+        <!-- 📑 공장검사(FAT) 5대 필수 핵심 검사 영역 규정 -->
+        <div class="space-y-4">
+            <h3 class="text-lg font-bold text-slate-900 border-b-2 border-blue-600 pb-2">📑 공장검사(FAT) 5대 필수 핵심 검사 영역 규정</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="bg-blue-50/70 p-4 rounded-xl border border-blue-200 space-y-1.5">
+                    <span class="font-bold text-blue-900 text-xs">1) 외관 및 구조 검사 (Visual Inspection)</span>
+                    <p class="text-slate-700 leading-relaxed">• 19인치 표준 랙 치수(600x1000x2200H mm) 및 도장 상태<br">• 메쉬 도어, 내부 트레이, 케이블 링 가공 정밀도 확인</p>
+                </div>
+                <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-200 space-y-1.5">
+                    <span class="font-bold text-indigo-900 text-xs">2) 전원 및 절연 저항 검사 (Power & Insulation)</span>
+                    <p class="text-slate-700 leading-relaxed">• AC 220V / DC -48V PDU 전원 모듈 절연저항 (≥100MΩ)<br">• 접지 단자대 접지저항 (≤10Ω) 및 극성 이중화 시험</p>
+                </div>
+                <div class="bg-cyan-50/70 p-4 rounded-xl border border-cyan-200 space-y-1.5">
+                    <span class="font-bold text-cyan-900 text-xs">3) 9대 서브시스템 기능 시뮬레이션</span>
+                    <p class="text-slate-700 leading-relaxed">• OTN 100G 광전송 Ring 절체(≤50ms), LTE-R 무선 연동<br">• CCTV(4K 30fps), PAS/PIS 화재 방송 차단 회로 시뮬레이션</p>
+                </div>
+                <div class="bg-teal-50/70 p-4 rounded-xl border border-teal-200 space-y-1.5">
+                    <span class="font-bold text-teal-900 text-xs">4) 환경 및 내진 시험성적서 대조</span>
+                    <p class="text-slate-700 leading-relaxed">• IP66 방수방진 및 IK10 내충격 시험성적서 1:1 대조<br">• 동작 온도(-20℃ ~ 60℃) 하드웨어 시험성적 검증</p>
+                </div>
+                <div class="bg-emerald-50/70 p-4 rounded-xl border border-emerald-200 md:col-span-2 space-y-1.5">
+                    <span class="font-bold text-emerald-950 text-xs">5) 부적합(NCR) 발생 시 조치 및 출하 승인 수칙</span>
+                    <p class="text-slate-800 leading-relaxed font-medium">
+                        • FAT 항목 중 미달 발생 시 현장에서 즉시 **부적합 보고서(NCR)**를 발행하고 시정 조치 완료 후 재검사를 수행합니다.<br>
+                        • 검사 합격 시 감리원 및 현장 엔지니어가 **공장검사 결과보고서**에 공동 서명하여 현장 반입을 최종 허가합니다.
+                    </p>
+                </div>
+            </div>
         </div>
+
+        <!-- 📦 증빙 산출물 -->
+        <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl space-y-2">
+            <h3 class="text-base font-bold text-emerald-950 flex items-center gap-2">📦 필수 제출 증빙 산출물 (Deliverables)</h3>
+            <p class="text-emerald-900 text-sm font-bold">
+                1) 통신설비 공장검사(FAT) 합격 결과보고서 5부<br>
+                2) FAT 입회 사진첩 및 분야별 시험 체크리스트 시트<br>
+                3) 감리단/발주처 공장검사 결과 승인 공문
+            </p>
+        </div>
+
     </div>
 </div>
 </body>
