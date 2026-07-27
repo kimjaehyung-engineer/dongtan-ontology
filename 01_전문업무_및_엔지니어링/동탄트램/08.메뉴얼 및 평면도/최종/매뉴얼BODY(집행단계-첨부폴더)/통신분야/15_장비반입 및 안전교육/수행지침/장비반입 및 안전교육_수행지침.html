@@ -89,16 +89,16 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-15)</span>
         <h1 class="text-3xl font-black mt-2">장비반입 및 안전교육 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-15 | 주관: 현장 시스템팀 / 안전팀 | "1:1 정밀 2D SVG 도식 & 실무 양중·안전교육 수행 수칙"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-15 | 주관: 현장 시스템팀 / 안전팀 | "BIM 3D 시뮬레이션, 크레인 산정식 & 위험성 평가(JSA/RAM)"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
         
         <!-- 💡 개념 해설 박스 -->
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
-            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 장비반입 및 안전교육 실무 가이드</h4>
+            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 BIM 기반 반입 및 위험성 평가 실무 가이드</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                고가의 정밀 통신 장비(19인치 랙, OTN 전송 랙, 기지국 장비) 반입 시, <strong>양중 크레인/리프트 무결성 검측</strong>과 <strong>반입 전 작업자 특별안전교육</strong>은 통신 공사의 품질과 안전을 결정짓는 핵심 공정입니다. 아래 4대 실무 카드의 <span class="term-highlight" onclick="openGlossary('swl')">양중 정격하중(SWL)</span>, <span class="term-highlight" onclick="openGlossary('safety_latch')">안전고리 해지장치</span>, <span class="term-highlight" onclick="openGlossary('lashing')">4점 래싱</span> 지침을 준수하십시오.
+                고가의 정밀 통신 장비(19인치 랙, OTN 전송 랙, 기지국 장비) 반입 시, <strong>BIM 3D 경로 간섭 검증</strong>, <strong>크레인 정격하중(SWL) 톤수 선정</strong> 및 <strong>작업 위험성 평가(JSA)</strong>는 공사 품질과 안전을 지키는 핵심 프로세스입니다. 용어의 <span class="term-highlight" onclick="openGlossary('bim_clash')">BIM 3D 간섭검증</span>, <span class="term-highlight" onclick="openGlossary('swl')">양중 정격하중(SWL)</span>, <span class="term-highlight" onclick="openGlossary('jsa')">위험성 평가(JSA)</span> 지침을 준수하십시오.
             </p>
         </div>
 
@@ -114,123 +114,123 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
                 
-                <!-- 1. 반입 동선 & 신호수 배치 -->
+                <!-- 1. BIM 3D 반입 경로 시뮬레이션 -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui1_path', '01. 장비 반입 동선 & 신호수 배치 2D 도식')">
-                        <svg id="svg_gui1_path" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui1_bim', '01. BIM 3D 반입 경로 시뮬레이션 2D 도식')">
+                        <svg id="svg_gui1_bim" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
                             <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
-                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🚚 1. 반입 동선 & 신호수 2인 배치</text>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🏢 1. BIM 3D 경로 간섭 시뮬레이션</text>
                             <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
                             
-                            <!-- Path & Crane Graphic -->
+                            <!-- BIM Model Graphic -->
                             <rect x="40" y="65" width="140" height="50" fill="#e0f2fe" stroke="#0284c7" rx="4"/>
-                            <text x="110" y="88" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">크레인 양중구역</text>
-                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">통제 펜스 설치 100%</text>
+                            <text x="110" y="88" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">Navisworks 3D</text>
+                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">Clash Detection Pass</text>
 
-                            <rect x="220" y="65" width="140" height="50" fill="#fffbebe" stroke="#d97706" rx="4"/>
-                            <text x="290" y="88" font-size="10" font-weight="black" fill="#b45309" text-anchor="middle">신호수 2인 배치</text>
-                            <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">무전기 주파수 수신</text>
+                            <rect x="220" y="65" width="140" height="50" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+                            <text x="290" y="88" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">Clearance 이격</text>
+                            <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">여유 공간 ≥ 300mm</text>
 
-                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 통제 구역 & 동선 확보 완료</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ BIM 경로 시뮬레이션 검증 완료</text>
                         </svg>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">STEP 01</span>
-                        <span class="text-[11px] font-bold text-blue-900">반입 동선 & 신호수</span>
+                        <span class="text-[11px] font-bold text-blue-900">BIM 반입 시뮬레이션</span>
                     </div>
-                    <h4 class="font-black text-slate-900 text-sm">🚚 1. 반입 동선 확보 & 신호수 2인 배치</h4>
+                    <h4 class="font-black text-slate-900 text-sm">🏢 1. BIM 3D 반입 경로 간섭 사전 시뮬레이션</h4>
                     <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
                         <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
-                        <p class="text-slate-700 leading-relaxed">• 장비 하차장, 기계실까지의 자재 이동 통로, 양중 반경 내 통제 펜스</p>
+                        <p class="text-slate-700 leading-relaxed">• 반입 개포구(W1.8m x H2.2m), 기계실 복도, 엘리베이터/양중 통로</p>
                         <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
                         <p class="text-slate-700 leading-relaxed">
-                            ① 하차장에 안전 통제 펜스 및 안내 표지판 100% 설치<br>
-                            ② 양중 전담 신호수 2인(크레인 하부 1인, 인입구 1인) 배치<br>
-                            ③ 무전기 전용 채널 100% 통화 송수신 수신 상태 점검
+                            ① BIM 3D 모델(Navisworks)을 통해 장비 통로 물리적 간섭(Clash) 100% 사전 점검<br>
+                            ② 이동 회전 구간 최저 이격거리(Clearance ≥ 300mm) 실측 검증<br>
+                            ③ 4D 공정 연동 시뮬레이션으로 벽체 봉쇄 전 대형 랙 선-양중 반영
                         </p>
                     </div>
                 </div>
 
-                <!-- 2. 양중 장비 & 걸이구 점검 -->
+                <!-- 2. 크레인 톤수 용량 산정 및 아웃트리거 검측 -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui2_hoisting', '02. 양중 장비 & 걸이구 안전점검 2D 도식')">
-                        <svg id="svg_gui2_hoisting" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui2_crane', '02. 크레인 톤수 산정 & 아웃트리거 2D 도식')">
+                        <svg id="svg_gui2_crane" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
                             <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="6"/>
-                            <text x="200" y="42" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">🏗️ 2. 양중 장비 (크레인/리프트) 안전점검</text>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">🏗️ 2. 크레인 톤수 산정 & 아웃트리거</text>
                             <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
                             
-                            <!-- Crane Outrigger Box -->
+                            <!-- Crane Box -->
                             <rect x="40" y="65" width="140" height="50" fill="#f0f5ff" stroke="#4f46e5" rx="4"/>
-                            <text x="110" y="88" font-size="10" font-weight="black" fill="#3730a3" text-anchor="middle">Outrigger 인출</text>
-                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">받침목 ≥ 50mm 설치</text>
+                            <text x="110" y="88" font-size="10" font-weight="black" fill="#3730a3" text-anchor="middle">25톤~50톤 크레인</text>
+                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">SWL 안전율 ≥ 1.5</text>
 
                             <rect x="220" y="65" width="140" height="50" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
-                            <text x="290" y="88" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">안전고리 해지장치</text>
-                            <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">와이어 단선율 ≤ 10%</text>
+                            <text x="290" y="88" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">Outrigger 받침목</text>
+                            <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">50mm 이상 철제/목재</text>
 
-                            <text x="200" y="170" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 양중 장비 안전 검측 합격</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 양중 크레인 톤수 선정 완수</text>
                         </svg>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">STEP 02</span>
-                        <span class="text-[11px] font-bold text-blue-900">양중 장비 안전점검</span>
+                        <span class="text-[11px] font-bold text-blue-900">크레인 톤수 용량 산정</span>
                     </div>
-                    <h4 class="font-black text-slate-900 text-sm">🏗️ 2. 이동식 크레인 & 양중 걸이구 검측</h4>
+                    <h4 class="font-black text-slate-900 text-sm">🏗️ 2. 장비 중량 대조 & 크레인 톤수 용량 결정</h4>
                     <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
                         <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
-                        <p class="text-slate-700 leading-relaxed">• 크레인 아웃트리거(Outrigger), 양중 훅(Hook) 해지장치, 와이어 로프 및 샤클</p>
+                        <p class="text-slate-700 leading-relaxed">• 화물 중량표(광케이블 600kg, 랙 250kg), 크레인 아웃트리거 지반, 훅 해지장치</p>
                         <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
                         <p class="text-slate-700 leading-relaxed">
-                            ① 이동식 크레인 아웃트리거 100% 인출 및 50mm 이상 지반 받침목 고정<br>
-                            ② 훅 해지장치 스프링 탄성 동작 및 와이어 로프 단선율(≤10%) 육안 실측<br>
-                            ③ 양중 하중 대비 장비 정격하중(SWL) 여유율 120% 이상 확인
+                            ① 작업반경(15m) 및 양중높이(12m) 산정식으로 25톤~50톤 이동식 크레인 선점<br>
+                            ② 아웃트리거 100% 인출 및 50mm 이상 지반 받침목 설치 실측<br>
+                            ③ 와이어 로프 안전율(≥5) 및 훅 해지장치 작동 100% 확인
                         </p>
                     </div>
                 </div>
 
-                <!-- 3. 장비 하차 & 랙 운반 전도 방지 -->
+                <!-- 3. 위험성 평가 (JSA/RAM) & 랙 전도 방지 -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui3_transport', '03. 통신 랙 운반 & 전도 방지 2D 도식')">
-                        <svg id="svg_gui3_transport" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui3_jsa', '03. 위험성 평가 (JSA) & 전도 방지 2D 도식')">
+                        <svg id="svg_gui3_jsa" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
-                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
-                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">📦 3. 통신 랙 하차 & 4점 래싱 운반</text>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#dc2626" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#b91c1c" text-anchor="middle">🛡️ 3. 위험성 평가 (JSA) & 감소 대책</text>
                             <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
                             
-                            <!-- Transport Box -->
-                            <rect x="40" y="65" width="140" height="50" fill="#ccfbf1" stroke="#14b8a6" rx="4"/>
-                            <text x="110" y="88" font-size="10" font-weight="black" fill="#0f766e" text-anchor="middle">바피 운반 휠</text>
-                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">경사판 각도 ≤ 15°</text>
+                            <!-- JSA Box -->
+                            <rect x="40" y="65" width="140" height="50" fill="#fef2f2" stroke="#ef4444" rx="4"/>
+                            <text x="110" y="88" font-size="10" font-weight="black" fill="#b91c1c" text-anchor="middle">전도/낙하 위험</text>
+                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">현재 위험성: 상(High)</text>
 
-                            <rect x="220" y="65" width="140" height="50" fill="#f0f9ff" stroke="#0284c7" rx="4"/>
-                            <text x="290" y="88" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">4점 래싱 고정</text>
-                            <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">전도 방지 벨트 100%</text>
+                            <rect x="220" y="65" width="140" height="50" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+                            <text x="290" y="88" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">4점 래싱 & 신호수</text>
+                            <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">개선후 위험성: 하(Low)</text>
 
-                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 랙 운반 전도 방지 합격</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 위험성 감소 대책 100% 수립</text>
                         </svg>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">STEP 03</span>
-                        <span class="text-[11px] font-bold text-indigo-900">하차 & 전도 방지</span>
+                        <span class="text-[11px] font-bold text-indigo-900">위험성 평가 (JSA/RAM)</span>
                     </div>
-                    <h4 class="font-black text-slate-900 text-sm">📦 3. 통신 랙 하차 & 이동 시 전도 방지</h4>
+                    <h4 class="font-black text-slate-900 text-sm">🛡️ 3. 작업 위험성 평가 (JSA) & 위험 감소 대책</h4>
                     <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
                         <p class="text-indigo-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
-                        <p class="text-slate-700 leading-relaxed">• 19인치 통신 랙 하부 바퀴(Caster), 바피 휠, 기계실 문턱 경사판</p>
+                        <p class="text-slate-700 leading-relaxed">• 크레인 전도, 화물 낙하, 랙 틸팅 전도, 고압선 인접 감전 위험 구간</p>
                         <p class="text-indigo-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
                         <p class="text-slate-700 leading-relaxed">
-                            ① 통신 랙 수평 이동 시 2인 1조 전도 방지 고정 벨트(4점 래싱) 결속<br>
-                            ② 기계실 입구 문턱 경사판(경사각 ≤ 15°) 설치하여 랙 충격(≤15G) 완화<br>
-                            ③ 하차 시 충격 센서(Shock Watch) 색상 변화 유무 100% 확인
+                            ① 양중 하부 신호수 2인 배치 및 출입 통제 펜스 설치<br>
+                            ② 19인치 통신 랙 4점 래싱 벨트 결속 및 2인 1조 수평 이동<br>
+                            ③ 고압선 3m 이상 안전거리 확보 및 방호관 설치 상태 점검
                         </p>
                     </div>
                 </div>
 
-                <!-- 4. 특별안전교육 & 교육일지 수립 -->
+                <!-- 4. 특별안전교육 & 서면 교육일지 체결 -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui4_edu', '04. 특별안전교육 & 점검표 확립 2D 도식')">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui4_edu', '04. 특별안전교육 & 서면 교육일지 2D 도식')">
                         <svg id="svg_gui4_edu" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
                             <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="6"/>
@@ -240,28 +240,28 @@
                             <!-- Edu Box -->
                             <rect x="40" y="65" width="140" height="50" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
                             <text x="110" y="88" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">특별교육 2시간</text>
-                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">양중/고소/감전 위험</text>
+                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">JSA 위험요인 교육</text>
 
                             <rect x="220" y="65" width="140" height="50" fill="#f0f9ff" stroke="#0284c7" rx="4"/>
-                            <text x="290" y="88" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">교육일지 확립</text>
+                            <text x="290" y="88" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">교육일지 체결</text>
                             <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">작업자 100% 서명</text>
 
-                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 특별안전교육 및 일지 체결 완수</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 특별안전교육 완수</text>
                         </svg>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">STEP 04</span>
-                        <span class="text-[11px] font-bold text-teal-900">특별안전교육 확립</span>
+                        <span class="text-[11px] font-bold text-teal-900">특별안전교육 완수</span>
                     </div>
-                    <h4 class="font-black text-slate-900 text-sm">🎓 4. 작업자 특별안전교육 & 교육일지 체결</h4>
+                    <h4 class="font-black text-slate-900 text-sm">🎓 4. 작업자 특별안전교육 & 교육일지 서명 체결</h4>
                     <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
                         <p class="text-teal-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
                         <p class="text-slate-700 leading-relaxed">• 작업자 개인 보호구 착용 상태, 안전교육 일지 서명부, 장비 점검표</p>
                         <p class="text-teal-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
                         <p class="text-slate-700 leading-relaxed">
-                            ① 작업 착수 전 2시간 이상 산안법 규정 특별안전교육 실시<br>
+                            ① 작업 착수 전 2시간 이상 산안법 제29조 특별안전교육 집행<br>
                             ② 안전모 2줄 턱끈, 안전화, 안전대 착용 상태 1:1 점검<br>
-                            ③ 안전교육 일지 및 장비 점검표에 현장 작업자 100% 자필 서명 확립
+                            ③ 안전교육 일지 및 장비 점검표에 현장 작업자 100% 자필 서명 체결
                         </p>
                     </div>
                 </div>
@@ -294,9 +294,9 @@
 
 <script>
 const glossaryData = {
-    "swl": "<b>양중 정격하중 (Safe Working Load, SWL)</b><br><br>• 크레인 및 리프트가 안전하게 들어올릴 수 있는 최대 허용 하중입니다. 통신장비 양중 시 자중 대비 120% 이상의 정격하중 여유율을 확보해야 합니다.",
-    "safety_latch": "<b>안전고리 해지장치 (Safety Latch)</b><br><br>• 크레인 훅(Hook)에서 와이어 로프나 샤클이 이탈하는 것을 방지하는 이탈 방지 래치 장치로 100% 정상 작동을 점검해야 합니다.",
-    "lashing": "<b>4점 래싱 (4-Point Lashing)</b><br><br>• 19인치 통신 랙 등 높이가 높은 화물을 운반할 때 전도를 방지하기 위해 4개 방향에서 고정 벨트로 체결하는 안전 결속 수칙입니다."
+    "bim_clash": "<b>BIM 3D 간섭검증 (Clash Detection)</b><br><br>• BIM 3D 모델(Navisworks)을 활용하여 장비 반입 개포구(W1.8m x H2.2m) 및 이동 복도 구간에서 물리적 충돌 및 유효 여유 공간(Clearance ≥ 300mm)을 사전 검증하는 프로세스입니다.",
+    "swl": "<b>양중 정격하중 (Safe Working Load, SWL)</b><br><br>• 크레인 및 리프트가 안전하게 들어올릴 수 있는 최대 허용 하중입니다. 통신장비 자중 및 작업반경(15m)을 고려하여 25톤~50톤 카고/이동식 크레인을 결정합니다.",
+    "jsa": "<b>작업 위험성 평가 (Job Safety Analysis, JSA)</b><br><br>• 양중 및 반입 작업 시 발생할 수 있는 4대 위험요인(크레인 전도, 화물 낙하, 랙 전도, 감전)을 파악하고 위험성 감소 대책을 수립하는 안전 평가 기법입니다."
 };
 
 function openGlossary(term) {
