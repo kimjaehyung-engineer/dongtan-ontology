@@ -1,14 +1,23 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동탄트램 통신분야 - 발주처 품질 요구사항 검토 전문 수행지침서 (WBS 9000-2-7)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Noto Sans KR', sans-serif; }
-        
+import os
+import shutil
+import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+artifact_dir = r"C:\Users\sskjh\.gemini\antigravity\brain\887aacfa-3165-4be1-8e89-29f90e47a298"
+gui_folder = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\08.메뉴얼 및 평면도\최종\매뉴얼BODY(집행단계-첨부폴더)\통신분야\7_발주처 품질 요구사항 검토\수행지침"
+
+orig_img = "optical_power_meter_1310_1550_1785118411776.jpg"
+target_img = "optical_power_meter_1310_1550.jpg"
+
+src_p = os.path.join(artifact_dir, orig_img)
+dst_p = os.path.join(gui_folder, target_img)
+
+if os.path.exists(src_p):
+    shutil.copy(src_p, dst_p)
+    print(f"   ✓ [IMAGE COPIED] {target_img} -> {gui_folder}")
+
+zoom_modal_style = """
     .term-highlight {
         color: #0284c7 !important;
         font-weight: 700 !important;
@@ -107,7 +116,116 @@
     .glossary-close:hover, .zoom-close:hover {
         color: #ef4444;
     }
+"""
 
+common_js = """
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 품질 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    "RSRP": "<b>RSRP (Reference Signal Received Power: 기준 신호 수신 파워)</b><br><br>• <b>약어 풀이:</b> Reference Signal Received Power<br>• <b>개념:</b> LTE-R 기지국 안테나에서 쏘아주는 무선 신호 중 기준이 되는 신호를 트램 무전 장치가 얼마나 세게 받고 있는지 나타내는 객관적 수치입니다.<br>• <b>안전 의미:</b> <b>-95dBm 이상</b>을 유지해야 음영지역 없이 관제실과 24시간 끊김 없는 긴급 무전 및 열차 제어 데이터를 주고받아 대형 사고를 예방합니다.",
+    "전계강도": "<b>전계강도 (Field Strength)</b><br><br>• <b>개념:</b> 공기 중으로 전파되는 무선 신호의 세기(Power)를 의미합니다. 스마트폰 안테나 막대 개수와 같은 개념입니다. (단위: dBm)",
+    "OTDR": "<b>OTDR (Optical Time Domain Reflectometer: 광파동 측정기)</b><br><br>• 광케이블에 파장(1310/1550nm)의 빛을 쏘아 접속 손실(≤0.05dB) 및 절단 지점을 1cm 오차 없이 정밀 측정하는 전문 테스트 장비입니다.",
+    "ITP": "<b>ITP (Inspection and Test Plan: 품질검사 계획서)</b><br><br>• 발주처 및 시방서 기준에 따라 자재 입고부터 시공 완료까지 시행할 품질 검사를 정의한 표준 서류입니다.",
+    "ITC": "<b>ITC (Inspection Certificate: 품질 검측 승인서)</b><br><br>• 발주처 품질감독관, 현장 총괄 감리원, 통신 책임자 3인이 합격을 최종 승인하는 결재 서류입니다.",
+    "융착접속": "<b>융착 접속 (Fusion Splicing)</b><br><br>• 머리카락만큼 가느다란 유리선 두 가닥을 2,000℃ 고온 전기 불꽃으로 녹여서 하나로 완벽히 붙이는 정밀 광케이블 연결 작업입니다.",
+    "접속손실": "<b>접속 손실 (Optical Loss)</b><br><br>• 유리선 접속 부위의 먼지, 불완전 절단, 미세한 중심축 불일치로 인해 빛 신호가 밖으로 새어나가는 현상입니다. <b>≤0.05dB 이하</b>가 합격 수치입니다.",
+    "헷지방안": "<b>손실 초과 시 현장 헷지(Hedge / 대책) 방안</b><br><br>• <b>1단계:</b> 접속 부위 즉시 절단 후 절삭기(Cleaver)로 단면 재정리 및 자동 융착 재시행<br>• <b>2단계:</b> 72가닥 중 손실이 발생하는 코어 대신 여분의 예비 코어(Spare Core) 채널로 즉시 우회 전환<br>• <b>3단계:</b> 접속 함체 알코올 세척 및 방수 재포장 조치",
+    "광파워미터": "<b>광파워미터 (Optical Power Meter: OPM)</b><br><br>• 광케이블 건너편에서 쏘아준 레이저 빛의 세기를 수신 받아 <b>빛이 줄어들지 않고 도착했는지 측정하는 광 통신 전용 계측기</b>입니다.",
+    "1310nm/1550nm": "<b>1310nm / 1550nm 파장 숫자의 의미</b><br><br>• <b>nm (나노미터):</b> 광케이블 내부를 지나는 레이저 빛의 파장(Wavelength) 길이입니다.<br>• <b>1310nm (신호 변형 최소 파장):</b> 데이터가 찌그러지는 분산 현상이 적어 단거리/중거리 전송에 정밀한 파장입니다.<br>• <b>1550nm (신호 손실 최소 파장):</b> 유리관을 지날 때 빛 세기가 옅어지는 감쇄가 가장 적어 장거리 전송에 최적인 파장입니다.<br>• <b>듀얼 파장 측정 이유:</b> 케이블 꺾임은 1550nm가, 미세 오염은 1310nm가 영향을 받으므로 <b>두 파장 모두 ≤0.05dB 이하</b>여야 100% 무결점으로 통과됩니다."
+};
+
+function openGlossary(term) {
+    const modal = document.getElementById('glossaryModal');
+    const titleEl = document.getElementById('modalTitle');
+    const descEl = document.getElementById('modalDescription');
+    
+    if (glossaryData[term]) {
+        titleEl.innerHTML = "📖 용어 해설: " + term;
+        descEl.innerHTML = glossaryData[term];
+        modal.classList.add('active');
+    }
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function closeGlossaryModalOutside(event) {
+    if (event.target.id === 'glossaryModal') {
+        closeGlossaryModal();
+    }
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+        closeGlossaryModal();
+    }
+});
+</script>
+"""
+
+gui_full_opm_html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 발주처 품질 요구사항 검토 전문 수행지침서 (WBS 9000-2-7)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {{ font-family: 'Noto Sans KR', sans-serif; }}
+        {zoom_modal_style}
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
@@ -493,101 +611,17 @@
         </div>
     </div>
 </div>
-
-<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
-    <div class="glossary-modal-content" onclick="event.stopPropagation()">
-        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
-        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 품질 기술 해설</h3>
-        <div class="modal-body">
-            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
-        </div>
-    </div>
-</div>
-
-<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
-    <div class="zoom-modal-content" onclick="event.stopPropagation()">
-        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
-        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
-        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
-        </div>
-        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
-            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
-        </div>
-    </div>
-</div>
-
-<script>
-const glossaryData = {
-    "RSRP": "<b>RSRP (Reference Signal Received Power: 기준 신호 수신 파워)</b><br><br>• <b>약어 풀이:</b> Reference Signal Received Power<br>• <b>개념:</b> LTE-R 기지국 안테나에서 쏘아주는 무선 신호 중 기준이 되는 신호를 트램 무전 장치가 얼마나 세게 받고 있는지 나타내는 객관적 수치입니다.<br>• <b>안전 의미:</b> <b>-95dBm 이상</b>을 유지해야 음영지역 없이 관제실과 24시간 끊김 없는 긴급 무전 및 열차 제어 데이터를 주고받아 대형 사고를 예방합니다.",
-    "전계강도": "<b>전계강도 (Field Strength)</b><br><br>• <b>개념:</b> 공기 중으로 전파되는 무선 신호의 세기(Power)를 의미합니다. 스마트폰 안테나 막대 개수와 같은 개념입니다. (단위: dBm)",
-    "OTDR": "<b>OTDR (Optical Time Domain Reflectometer: 광파동 측정기)</b><br><br>• 광케이블에 파장(1310/1550nm)의 빛을 쏘아 접속 손실(≤0.05dB) 및 절단 지점을 1cm 오차 없이 정밀 측정하는 전문 테스트 장비입니다.",
-    "ITP": "<b>ITP (Inspection and Test Plan: 품질검사 계획서)</b><br><br>• 발주처 및 시방서 기준에 따라 자재 입고부터 시공 완료까지 시행할 품질 검사를 정의한 표준 서류입니다.",
-    "ITC": "<b>ITC (Inspection Certificate: 품질 검측 승인서)</b><br><br>• 발주처 품질감독관, 현장 총괄 감리원, 통신 책임자 3인이 합격을 최종 승인하는 결재 서류입니다.",
-    "융착접속": "<b>융착 접속 (Fusion Splicing)</b><br><br>• 머리카락만큼 가느다란 유리선 두 가닥을 2,000℃ 고온 전기 불꽃으로 녹여서 하나로 완벽히 붙이는 정밀 광케이블 연결 작업입니다.",
-    "접속손실": "<b>접속 손실 (Optical Loss)</b><br><br>• 유리선 접속 부위의 먼지, 불완전 절단, 미세한 중심축 불일치로 인해 빛 신호가 밖으로 새어나가는 현상입니다. <b>≤0.05dB 이하</b>가 합격 수치입니다.",
-    "헷지방안": "<b>손실 초과 시 현장 헷지(Hedge / 대책) 방안</b><br><br>• <b>1단계:</b> 접속 부위 즉시 절단 후 절삭기(Cleaver)로 단면 재정리 및 자동 융착 재시행<br>• <b>2단계:</b> 72가닥 중 손실이 발생하는 코어 대신 여분의 예비 코어(Spare Core) 채널로 즉시 우회 전환<br>• <b>3단계:</b> 접속 함체 알코올 세척 및 방수 재포장 조치",
-    "광파워미터": "<b>광파워미터 (Optical Power Meter: OPM)</b><br><br>• 광케이블 건너편에서 쏘아준 레이저 빛의 세기를 수신 받아 <b>빛이 줄어들지 않고 도착했는지 측정하는 광 통신 전용 계측기</b>입니다.",
-    "1310nm/1550nm": "<b>1310nm / 1550nm 파장 숫자의 의미</b><br><br>• <b>nm (나노미터):</b> 광케이블 내부를 지나는 레이저 빛의 파장(Wavelength) 길이입니다.<br>• <b>1310nm (신호 변형 최소 파장):</b> 데이터가 찌그러지는 분산 현상이 적어 단거리/중거리 전송에 정밀한 파장입니다.<br>• <b>1550nm (신호 손실 최소 파장):</b> 유리관을 지날 때 빛 세기가 옅어지는 감쇄가 가장 적어 장거리 전송에 최적인 파장입니다.<br>• <b>듀얼 파장 측정 이유:</b> 케이블 꺾임은 1550nm가, 미세 오염은 1310nm가 영향을 받으므로 <b>두 파장 모두 ≤0.05dB 이하</b>여야 100% 무결점으로 통과됩니다."
-};
-
-function openGlossary(term) {
-    const modal = document.getElementById('glossaryModal');
-    const titleEl = document.getElementById('modalTitle');
-    const descEl = document.getElementById('modalDescription');
-    
-    if (glossaryData[term]) {
-        titleEl.innerHTML = "📖 용어 해설: " + term;
-        descEl.innerHTML = glossaryData[term];
-        modal.classList.add('active');
-    }
-}
-
-function closeGlossaryModal() {
-    document.getElementById('glossaryModal').classList.remove('active');
-}
-
-function closeGlossaryModalOutside(event) {
-    if (event.target.id === 'glossaryModal') {
-        closeGlossaryModal();
-    }
-}
-
-function openDiagramZoom(elementId, titleText) {
-    const srcEl = document.getElementById(elementId);
-    if (!srcEl) return;
-    
-    const zoomBody = document.getElementById('zoomBody');
-    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
-    
-    zoomBody.innerHTML = srcEl.outerHTML;
-    
-    const innerSvg = zoomBody.querySelector('svg');
-    if (innerSvg) {
-        innerSvg.setAttribute('width', '100%');
-        innerSvg.setAttribute('height', '550px');
-        innerSvg.style.maxWidth = '1050px';
-    }
-    
-    document.getElementById('zoomModal').classList.add('active');
-}
-
-function closeZoomModal() {
-    document.getElementById('zoomModal').classList.remove('active');
-}
-
-function closeZoomModalOutside(event) {
-    if (event.target.id === 'zoomModal') {
-        closeZoomModal();
-    }
-}
-
-window.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeZoomModal();
-        closeGlossaryModal();
-    }
-});
-</script>
-
+{common_js}
 </body>
 </html>
+"""
+
+# Update Guideline Files
+for fn in os.listdir(gui_folder):
+    if fn.endswith('.html'):
+        fp = os.path.join(gui_folder, fn)
+        with open(fp, 'w', encoding='utf-8') as f:
+            f.write(gui_full_opm_html)
+        print(f"   ✓ [OPM 1310/1550nm GLOSSARY & IMAGE ADDED] Guideline -> {fn}")
+
+print("\n🎉 SUCCESSFULLY ADDED OPTICAL POWER METER IMAGE & 1310/1550nm WAVELENGTH EXPLANATIONS TO WBS 9000-2-7 GUIDELINE HTMLs!")

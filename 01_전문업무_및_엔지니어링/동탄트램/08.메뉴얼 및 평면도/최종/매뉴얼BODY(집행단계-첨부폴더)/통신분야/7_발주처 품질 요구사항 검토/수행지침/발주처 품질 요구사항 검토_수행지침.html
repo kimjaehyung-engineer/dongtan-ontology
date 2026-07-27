@@ -115,7 +115,7 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-7)</span>
         <h1 class="text-3xl font-black mt-2">발주처 품질 요구사항 검토 엔지니어링 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-7 | 주관: 현장 시스템팀 / 통신 감리단 | "72-Core 광 접속 & 헷지방안 완벽 수록"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-7 | 주관: 현장 시스템팀 / 통신 감리단 | "광파워미터 & 1310/1550nm 파장 해설 수록"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
@@ -124,7 +124,7 @@
             <h4 class="font-bold text-base flex items-center gap-2">💡 한눈에 읽는 전문 실무 가이드 (Flexible 4-Step Architecture)</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
                 본 지침서는 발주처 품질검사 지침(<span class="term-highlight" onclick="openGlossary('ITP')">ITP</span>/<span class="term-highlight" onclick="openGlossary('ITC')">ITC</span>)에 맞춰 <strong>품질 계획 사전검토, 광 접속 정밀측정, LTE-R 전파검증, ITC 서명체결 4단계 유연 프로세스</strong>로 체계화되었습니다.
-                본문 속 <span class="term-highlight" onclick="openGlossary('전계강도')">전계강도</span>, <span class="term-highlight" onclick="openGlossary('RSRP')">RSRP</span>, <span class="term-highlight" onclick="openGlossary('OTDR')">OTDR</span>, <span class="term-highlight" onclick="openGlossary('융착접속')">융착접속</span>, <span class="term-highlight" onclick="openGlossary('헷지방안')">헷지방안</span> 용어를 클릭하면 <strong>친절한 용어 팝업 해설 창</strong>이 뜹니다.
+                본문 속 <span class="term-highlight" onclick="openGlossary('전계강도')">전계강도</span>, <span class="term-highlight" onclick="openGlossary('RSRP')">RSRP</span>, <span class="term-highlight" onclick="openGlossary('OTDR')">OTDR</span>, <span class="term-highlight" onclick="openGlossary('광파워미터')">광파워미터</span>, <span class="term-highlight" onclick="openGlossary('1310nm/1550nm')">1310nm/1550nm</span> 용어를 클릭하면 <strong>친절한 용어 팝업 해설 창</strong>이 뜹니다.
             </p>
         </div>
 
@@ -237,14 +237,14 @@
                     </div>
                 </div>
 
-                <!-- STEP 2 HOW + VISUAL SVG (72-Core 광 접속 & 헷지방안 초심자 해설 수록) -->
+                <!-- STEP 2 HOW + VISUAL SVG (72-Core 광 접속, 헷지방안 & 광파워미터 1310/1550nm 해설 수록) -->
                 <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
                     <div class="flex items-center gap-3">
                         <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
                         <h3 class="font-bold text-base text-slate-900">72-Core 메인 광케이블 <span class="term-highlight" onclick="openGlossary('융착접속')">융착 접속</span> 손실 0.05dB 이하 정밀 측정 시험</h3>
                     </div>
 
-                    <!-- 📖 초심자를 위한 72-Core 광 접속의 의미, 불량 시 하자 위험, 접속 손실 원인 및 헷지 방안 해설 박스 -->
+                    <!-- 📖 초심자를 위한 72-Core 광 접속 및 헷지 방안 해설 박스 -->
                     <div class="bg-indigo-50 border border-indigo-300 p-5 rounded-xl text-xs text-slate-800 space-y-3 shadow-inner">
                         <h4 class="font-black text-sm text-indigo-950 flex items-center gap-1.5">📖 [초심자 해설] 72-Core 광 접속의 의미, 하자 위험, 손실 원인 & 헷지(Hedge / 대책) 방안</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-4 rounded-lg border border-indigo-200">
@@ -283,19 +283,54 @@
                         </div>
                     </div>
 
+                    <!-- 📖 초심자를 위한 광파워미터 및 1310/1550nm 파장 숫자 의미 해설 박스 -->
+                    <div class="bg-blue-50 border border-blue-300 p-5 rounded-xl text-xs text-slate-800 space-y-3 shadow-inner">
+                        <h4 class="font-black text-sm text-blue-950 flex items-center gap-1.5">📖 [초심자 해설] 광파워미터란 무엇이며 1310nm / 1550nm 숫자가 의미하는 바는?</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-4 rounded-lg border border-blue-200">
+                            <div>
+                                <span class="font-bold text-blue-900 block mb-1">💡 1. 광파워미터(Optical Power Meter: OPM)란?</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    광케이블 반대쪽에서 쏘아준 레이저 빛의 세기를 측정하여 <b>"빛의 파워가 줄어들지 않고 도착했는지"</b> 정밀하게 계측하는 광 통신 전용 빛 측정기입니다.
+                                </p>
+                            </div>
+                            <div>
+                                <span class="font-bold text-blue-900 block mb-1">🔍 2. 1310nm / 1550nm 숫자의 의미 (파장 길이)</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    • <b>nm (나노미터):</b> 광케이블 속을 통과하는 <b>레이저 빛의 파장(Wavelength) 길이</b>입니다.<br>
+                                    • <b>1310nm (신호 변형 최소 파장):</b> 빛의 퍼짐(분산)이 적어 데이터 전송이 깨끗합니다.<br>
+                                    • <b>1550nm (신호 손실 최소 파장):</b> 유리관을 지날 때 빛 감쇄(손실)가 가장 적습니다.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-blue-200">
+                            <span class="font-bold text-indigo-900 block mb-1">❓ 왜 1310nm와 1550nm 두 가지 파장을 다 측정하나요?</span>
+                            <p class="text-slate-700 leading-relaxed">
+                                케이블이 꺾였을 때 1550nm 빛이 손실을 크게 받고, 미세 먼지가 묻었을 때 1310nm 빛이 손실을 크게 받습니다.<br>
+                                따라서 <b>두 가지 파장 모두에서 손실이 ≤0.05dB 이하</b>임을 확인해야 어떤 환경에서도 100% 완벽한 광 통신선임이 증명됩니다.
+                            </p>
+                        </div>
+                    </div>
+
                     <div class="bg-slate-50 p-5 rounded-xl text-xs text-slate-700 space-y-3 leading-relaxed border border-slate-200">
                         <p><strong>💡 핵심 실무 지침:</strong></p>
                         <ul class="list-disc pl-5 space-y-1.5 text-slate-800">
-                            <li><strong>광 접속 검측:</strong> 72-Core 메인 광케이블 융착 접속 완료 후, <span class="term-highlight" onclick="openGlossary('OTDR')">OTDR</span>(광파동 측정기) 및 광파워미터(1310/1550nm)를 통해 측정합니다.</li>
+                            <li><strong>광 접속 검측:</strong> 72-Core 메인 광케이블 융착 접속 완료 후, <span class="term-highlight" onclick="openGlossary('OTDR')">OTDR</span>(광파동 측정기) 및 <span class="term-highlight" onclick="openGlossary('광파워미터')">광파워미터</span>(<span class="term-highlight" onclick="openGlossary('1310nm/1550nm')">1310/1550nm</span>)를 통해 측정합니다.</li>
                             <li><strong>품질 기준 검증:</strong> 1개 Core당 <span class="term-highlight" onclick="openGlossary('접속손실')">접속 손실</span>이 <strong>≤0.05dB(현장 관리 목표: 0.01 ~ 0.04dB)</strong>를 만족하는지 전수 검측하고 측정 결과 리포트를 제출합니다.</li>
                         </ul>
                     </div>
 
-                    <!-- 📸 STEP 2 실제 장비 사진 -->
-                    <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
-                        <span class="text-xs font-bold text-indigo-900 block mb-2">📸 실무 측정 장비 사진: OTDR(광파동 측정기) 및 광파워미터(1310/1550nm)</span>
-                        <img src="./otdr_power_meter.jpg" alt="OTDR 및 광파워미터 측정 장비 실물 사진" class="w-full h-48 object-cover rounded-lg border border-slate-300 shadow-sm cursor-pointer" onclick="openDiagramZoom('img_step2_tag', 'STEP 2 OTDR 및 광파워미터 측정 장비 현장 사진')">
-                        <img id="img_step2_tag" src="./otdr_power_meter.jpg" alt="OTDR 측정 장비" class="hidden">
+                    <!-- 📸 STEP 2 실제 장비 사진 (OTDR & 광파워미터 2종 갤러리) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <span class="text-xs font-bold text-indigo-900 block mb-2">📸 실무 측정 장비 사진: OTDR(광파동 측정기)</span>
+                            <img src="./otdr_power_meter.jpg" alt="OTDR 측정 장비 실물 사진" class="w-full h-44 object-cover rounded-lg border border-slate-300 shadow-sm cursor-pointer" onclick="openDiagramZoom('img_step2_tag', 'STEP 2 OTDR 측정 장비 현장 사진')">
+                            <img id="img_step2_tag" src="./otdr_power_meter.jpg" alt="OTDR 측정 장비" class="hidden">
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <span class="text-xs font-bold text-blue-900 block mb-2">📸 실무 측정 장비 사진: 광파워미터(1310/1550nm 디지털 화면)</span>
+                            <img src="./optical_power_meter_1310_1550.jpg" alt="광파워미터 실물 사진" class="w-full h-44 object-cover rounded-lg border border-slate-300 shadow-sm cursor-pointer" onclick="openDiagramZoom('img_opm_tag', 'STEP 2 광파워미터(1310/1550nm) 실물 장비 사진')">
+                            <img id="img_opm_tag" src="./optical_power_meter_1310_1550.jpg" alt="광파워미터 장비" class="hidden">
+                        </div>
                     </div>
 
                     <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2', 'STEP 2 광케이블 접속 손실 0.05dB 측정 2D 시공 도식')">
@@ -490,7 +525,9 @@ const glossaryData = {
     "ITC": "<b>ITC (Inspection Certificate: 품질 검측 승인서)</b><br><br>• 발주처 품질감독관, 현장 총괄 감리원, 통신 책임자 3인이 합격을 최종 승인하는 결재 서류입니다.",
     "융착접속": "<b>융착 접속 (Fusion Splicing)</b><br><br>• 머리카락만큼 가느다란 유리선 두 가닥을 2,000℃ 고온 전기 불꽃으로 녹여서 하나로 완벽히 붙이는 정밀 광케이블 연결 작업입니다.",
     "접속손실": "<b>접속 손실 (Optical Loss)</b><br><br>• 유리선 접속 부위의 먼지, 불완전 절단, 미세한 중심축 불일치로 인해 빛 신호가 밖으로 새어나가는 현상입니다. <b>≤0.05dB 이하</b>가 합격 수치입니다.",
-    "헷지방안": "<b>손실 초과 시 현장 헷지(Hedge / 대책) 방안</b><br><br>• <b>1단계:</b> 접속 부위 즉시 절단 후 절삭기(Cleaver)로 단면 재정리 및 자동 융착 재시행<br>• <b>2단계:</b> 72가닥 중 손실이 발생하는 코어 대신 여분의 예비 코어(Spare Core) 채널로 즉시 우회 전환<br>• <b>3단계:</b> 접속 함체 알코올 세척 및 방수 재포장 조치"
+    "헷지방안": "<b>손실 초과 시 현장 헷지(Hedge / 대책) 방안</b><br><br>• <b>1단계:</b> 접속 부위 즉시 절단 후 절삭기(Cleaver)로 단면 재정리 및 자동 융착 재시행<br>• <b>2단계:</b> 72가닥 중 손실이 발생하는 코어 대신 여분의 예비 코어(Spare Core) 채널로 즉시 우회 전환<br>• <b>3단계:</b> 접속 함체 알코올 세척 및 방수 재포장 조치",
+    "광파워미터": "<b>광파워미터 (Optical Power Meter: OPM)</b><br><br>• 광케이블 건너편에서 쏘아준 레이저 빛의 세기를 수신 받아 <b>빛이 줄어들지 않고 도착했는지 측정하는 광 통신 전용 계측기</b>입니다.",
+    "1310nm/1550nm": "<b>1310nm / 1550nm 파장 숫자의 의미</b><br><br>• <b>nm (나노미터):</b> 광케이블 내부를 지나는 레이저 빛의 파장(Wavelength) 길이입니다.<br>• <b>1310nm (신호 변형 최소 파장):</b> 데이터가 찌그러지는 분산 현상이 적어 단거리/중거리 전송에 정밀한 파장입니다.<br>• <b>1550nm (신호 손실 최소 파장):</b> 유리관을 지날 때 빛 세기가 옅어지는 감쇄가 가장 적어 장거리 전송에 최적인 파장입니다.<br>• <b>듀얼 파장 측정 이유:</b> 케이블 꺾임은 1550nm가, 미세 오염은 1310nm가 영향을 받으므로 <b>두 파장 모두 ≤0.05dB 이하</b>여야 100% 무결점으로 통과됩니다."
 };
 
 function openGlossary(term) {
