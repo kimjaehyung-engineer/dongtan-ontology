@@ -63,9 +63,9 @@
         
         <!-- 💡 체크리스트 안내 박스 -->
         <div class="bg-blue-50 border border-blue-200 p-5 rounded-2xl text-xs text-blue-950 space-y-2">
-            <h4 class="font-bold text-sm text-blue-900 flex items-center gap-2">📜 16개 정밀 장비 형상·하중 분석, 충돌방지 & 충격 민감 등급 검측 체크리스트</h4>
+            <h4 class="font-bold text-sm text-blue-900 flex items-center gap-2">📜 16개 정밀 장비 개략하중 & 50톤 크레인 제원 검측 체크리스트</h4>
             <p class="text-slate-700 leading-relaxed font-medium">
-                본 체크리스트는 통신 장비 반입 시 <strong>3D 형상/하중 검증, 충격 민감 등급(Class S/A/B) 선별, 반입 경로 충돌 방지(Clearance ≥ 300mm), 크레인 SWL 톤수 산정 및 JSA 위험성 평가</strong>의 적정성을 현장 검측하기 위한 서식입니다. 각 단계별 <span class="bg-purple-100 text-purple-800 font-bold px-1.5 py-0.5 rounded">🟣 시공 도식 열기</span> 버튼을 누르면 2D 표준 지침 도식을 팝업으로 직접 확인하실 수 있습니다.
+                본 체크리스트는 통신 장비 반입 시 <strong>주요 장비 개략 하중(UPS 850kg 등), 50톤 크레인 정밀 제원 산정(작업반경 15m 시 정격총하중 3.8ton, 아웃트리거 7.0m), 반입 경로 충돌 방지(Clearance ≥ 300mm), JSA 위험성 평가</strong>의 적정성을 현장 검측하기 위한 서식입니다. 각 단계별 <span class="bg-purple-100 text-purple-800 font-bold px-1.5 py-0.5 rounded">🟣 시공 도식 열기</span> 버튼을 누르면 2D 표준 지침 도식을 팝업으로 직접 확인하실 수 있습니다.
             </p>
         </div>
 
@@ -81,31 +81,31 @@
                 </thead>
                 <tbody class="divide-y divide-slate-200 bg-white">
                     
-                    <!-- STEP 1 장비 형상/하중 & 충격 민감 등급 -->
+                    <!-- STEP 1 통신 주요 장비 개략 하중 검증 -->
                     <tr class="hover:bg-slate-50/80">
                         <td class="p-4 align-top text-center bg-slate-50/50">
                             <span class="bg-purple-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 1</span>
-                            <span class="font-bold text-slate-900 text-xs">형상하중 & 민감등급</span>
+                            <span class="font-bold text-slate-900 text-xs">장비 개략하중 검증</span>
                             <button onclick="openChecklistDiagram('step1')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
                                 <span>🟣</span> 시공 도식 열기
                             </button>
                         </td>
                         <td class="p-4 space-y-3">
                             <div class="space-y-1">
-                                <span class="font-bold text-purple-900 text-[11px]">[Class S 선별]</span>
-                                <p class="text-slate-800 font-medium">1. OTN 광전송 등 초정밀 장비(Class S)에 Shock Watch(5G) 라벨을 부착하고 무진동 에어서스펜션 차량 운송 수칙을 확인하였는가?</p>
+                                <span class="font-bold text-purple-900 text-[11px]">[Class S OTN 랙]</span>
+                                <p class="text-slate-800 font-medium">1. OTN 광전송 랙의 개략 하중(160kg)을 대조하고 Shock Watch(5G) 부착 및 에어서스펜션 운송을 확인하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
-                                <span class="font-bold text-purple-900 text-[11px]">[Class A 선별]</span>
-                                <p class="text-slate-800 font-medium">2. 19인치 랙 및 LTE-R 기지국(Class A) 하부에 고무 완충 패드를 고정하고 틸팅 방지 래싱 상태를 확인하였는가?</p>
+                                <span class="font-bold text-purple-900 text-[11px]">[19인치 통신 랙]</span>
+                                <p class="text-slate-800 font-medium">2. 19인치 통신 표준 랙의 개략 하중(250kg) 및 점하중(3.1 kN/m²) 사전 검증 및 4점 래싱 결속을 확인하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
-                                <span class="font-bold text-purple-900 text-[11px]">[Class B 중량물]</span>
-                                <p class="text-slate-800 font-medium">3. 600kg 광케이블 드럼의 회전 축 앙카 고정 상태 및 850kg UPS 비상 축전지의 자중을 사전 검증하였는가?</p>
+                                <span class="font-bold text-purple-900 text-[11px]">[광케이블 드럼]</span>
+                                <p class="text-slate-800 font-medium">3. 600kg 광케이블 드럼의 개략 총중량 및 회전 축 앙카 고정 상태를 확인하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
-                                <span class="font-bold text-purple-900 text-[11px]">[하중 분산판]</span>
-                                <p class="text-slate-800 font-medium">4. Access Floor 허용 하중(5.0 kN/m²) 초과 초중량물 이동 경로에 철판 분산판(t12mm)을 부착하였는가?</p>
+                                <span class="font-bold text-purple-900 text-[11px]">[850kg UPS 뱅크]</span>
+                                <p class="text-slate-800 font-medium">4. 850kg UPS 비상 축전지의 개략 하중을 파악하고 Access Floor 하중 분산 철판(t12mm)을 부착하였는가?</p>
                             </div>
                         </td>
                         <td class="p-4 align-middle text-center">
@@ -138,19 +138,19 @@
                         <td class="p-4 space-y-3">
                             <div class="space-y-1">
                                 <span class="font-bold text-blue-900 text-[11px]">[Clearance 검측]</span>
-                                <p class="text-slate-800 font-medium">5. 개포구 및 통로 통과 시 장비 상부/좌우 여유 Clearance(≥ 300mm)를 레이저 계측기로 실측하였는가?</p>
+                                <p class="text-slate-800 font-medium">5. 개포구 통과 시 장비 상부/좌우 여유 Clearance(≥ 300mm)를 실측하여 충돌 방지 공간을 확보하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
                                 <span class="font-bold text-blue-900 text-[11px]">[코너 회전 반경]</span>
-                                <p class="text-slate-800 font-medium">6. 복도 90°/180° 회전 구역 2200H 랙 회전 반경($R_c \ge 1.8	ext{m}$) 사전 검증 및 코너 완충 패딩을 설치하였는가?</p>
+                                <p class="text-slate-800 font-medium">6. 복도 90°/180° 회전 구역 2200H 랙 회전 반경($R_c \ge 1.8	ext{m}$) 사전 측량 및 코너 벽체 패딩을 설치하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
                                 <span class="font-bold text-blue-900 text-[11px]">[문턱 경사판]</span>
                                 <p class="text-slate-800 font-medium">7. 기계실 입구 문턱 단차 구간 경사판(경사각 ≤ 15°)을 설치하여 충돌 및 진동 충격을 방지하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
-                                <span class="font-bold text-blue-900 text-[11px]">[동선 장애물]</span>
-                                <p class="text-slate-800 font-medium">8. 이동 동선 상에 존재하는 가설재 및 토목 자재 장애물을 100% 청소 완료하였는가?</p>
+                                <span class="font-bold text-blue-900 text-[11px]">[동선 청소]</span>
+                                <p class="text-slate-800 font-medium">8. 장비 수송 동선 상에 존재하는 장애물을 제거하고 100% 청소 완료하였는가?</p>
                             </div>
                         </td>
                         <td class="p-4 align-middle text-center">
@@ -171,31 +171,31 @@
                         </td>
                     </tr>
 
-                    <!-- STEP 3 크레인 톤수 산정 & 지반 검측 -->
+                    <!-- STEP 3 50톤 양중 크레인 제원 산정 & 지반 검측 -->
                     <tr class="hover:bg-slate-50/80">
                         <td class="p-4 align-top text-center bg-slate-50/50">
                             <span class="bg-indigo-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 3</span>
-                            <span class="font-bold text-slate-900 text-xs">크레인산정 & 지반검측</span>
+                            <span class="font-bold text-slate-900 text-xs">50톤 크레인 제원</span>
                             <button onclick="openChecklistDiagram('step3')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
                                 <span>🟣</span> 시공 도식 열기
                             </button>
                         </td>
                         <td class="p-4 space-y-3">
                             <div class="space-y-1">
-                                <span class="font-bold text-indigo-900 text-[11px]">[크레인 용량]</span>
-                                <p class="text-slate-800 font-medium">9. 600kg 광케이블 드럼 및 850kg UPS 뱅크 양중 시 25톤~50톤 카고/이동식 크레인 필요 용량(SWL)을 계산하였는가?</p>
+                                <span class="font-bold text-indigo-900 text-[11px]">[작업반경 정격총하중]</span>
+                                <p class="text-slate-800 font-medium">9. 50톤 크레인의 작업 반경(15m) 시 정격총하중(3.8ton)을 확인하고 850kg UPS 양중 시 안전율(SF=4.00)을 검증하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
-                                <span class="font-bold text-indigo-900 text-[11px]">[아웃트리거]</span>
-                                <p class="text-slate-800 font-medium">10. 이동식 크레인 아웃트리거를 100% 인출하고 50mm 이상 지반 받침목을 설치하여 지반 침하를 방지하였는가?</p>
+                                <span class="font-bold text-indigo-900 text-[11px]">[아웃트리거 인출]</span>
+                                <p class="text-slate-800 font-medium">10. 아웃트리거를 전길이(7.0m) 100% 완전 인출하고 50mm 이상 받침목을 깔아 지반 침하를 예방하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
                                 <span class="font-bold text-indigo-900 text-[11px]">[줄걸이 안전율]</span>
-                                <p class="text-slate-800 font-medium">11. 2줄 걸이 와이어 로프의 안전율(≥ 5) 및 훅 해지장치 정상 가동 상태를 검측하였는가?</p>
+                                <p class="text-slate-800 font-medium">11. 2줄 걸이 와이어 로프의 안전율(≥ 5) 및 훅 해지장치 정상 작동 상태를 검측하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
-                                <span class="font-bold text-indigo-900 text-[11px]">[신호수 무전]</span>
-                                <p class="text-slate-800 font-medium">12. 양중 반경 하부 통제 펜스를 설치하고 신호수 2인 간 무전기 전용 채널 통화 상태를 확인하였는가?</p>
+                                <span class="font-bold text-indigo-900 text-[11px]">[신호수 배치]</span>
+                                <p class="text-slate-800 font-medium">12. 양중 반경 하부 출입 통제 펜스를 치고 전담 신호수 2인을 구획 내에 배치하였는가?</p>
                             </div>
                         </td>
                         <td class="p-4 align-middle text-center">
@@ -216,7 +216,7 @@
                         </td>
                     </tr>
 
-                    <!-- STEP 4 특별안전교육 & 위험성 평가 (JSA) 체결 -->
+                    <!-- STEP 4 JSA 위험성 평가 & 교육일지 서명 체결 -->
                     <tr class="hover:bg-slate-50/80">
                         <td class="p-4 align-top text-center bg-slate-50/50">
                             <span class="bg-teal-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 4</span>
@@ -228,19 +228,19 @@
                         <td class="p-4 space-y-3">
                             <div class="space-y-1">
                                 <span class="font-bold text-teal-900 text-[11px]">[JSA 위험교육]</span>
-                                <p class="text-slate-800 font-medium">13. 크레인 전도, 화물 낙하, 랙 전도, 감전 등 4대 위험요인에 대한 위험성 평가(JSA) 교육을 사전 집행하였는가?</p>
+                                <p class="text-slate-800 font-medium">13. 크레인 전도, 850kg UPS 낙하, 랙 전도 충돌 등 4대 위험요인 JSA 평가 교육을 집행하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
                                 <span class="font-bold text-teal-900 text-[11px]">[안전교육 2시간]</span>
-                                <p class="text-slate-800 font-medium">14. 산안법 제29조에 의거하여 작업 착수 전 특별안전보건교육 2시간 이상을 실시하였는가?</p>
+                                <p class="text-slate-800 font-medium">14. 산안법 제29조에 따른 작업 착수 전 50톤 크레인 양중 특별안전교육(2시간)을 실시하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
                                 <span class="font-bold text-teal-900 text-[11px]">[교육일지 서명]</span>
-                                <p class="text-slate-800 font-medium">15. 특별안전교육 일지에 참석 작업자 전원의 100% 자필 서명을 확립하였는가?</p>
+                                <p class="text-slate-800 font-medium">15. 특별안전교육 일지에 교육 참석자 전원의 100% 자필 서명을 체결하였는가?</p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-2">
                                 <span class="font-bold text-teal-900 text-[11px]">[점검표 서명]</span>
-                                <p class="text-slate-800 font-medium">16. 장비 점검표 작성을 완수하고 안전팀장 및 현장 대리인 최종 서명을 체결하였는가?</p>
+                                <p class="text-slate-800 font-medium">16. 장비 점검표 작성을 완수하고 현장 대리인 및 안전팀장 최종 승인 서명을 마쳤는가?</p>
                             </div>
                         </td>
                         <td class="p-4 align-middle text-center">
@@ -286,10 +286,10 @@
 
 <script>
 const stepDiagrams = {
-    'step1': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/><g transform="translate(20, 15)"><rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#7e22ce" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#6b21a8" text-anchor="middle">📦 1. Class S (OTN 광전송)</text><line x1="15" y1="35" x2="225" y2="35" stroke="#e9d5ff" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#faf5ff" stroke="#c084fc" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#6b21a8">• Shock Watch ≤ 5G 부착</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#6b21a8">• 무진동 차량 운송 수칙</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#6b21a8">• 틸팅(경사) 0° 절대 준수</text><text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 초정밀 등급 선별 완료</text></g><g transform="translate(280, 15)"><rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">📦 2. Class B (UPS 850kg)</text><line x1="15" y1="35" x2="225" y2="35" stroke="#bae6fd" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#f0f9ff" stroke="#38bdf8" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#0369a1">• 초중량 850kg 자중 대조</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#0369a1">• 하중 분산판(t12mm) 부착</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#0369a1">• Access Floor 타일 보호</text><text x="120" y="152" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">✔ 하중 분산 준비 완수</text></g></svg>`,
+    'step1': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/><g transform="translate(20, 15)"><rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#7e22ce" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#6b21a8" text-anchor="middle">📦 1. Class S (OTN 광전송)</text><line x1="15" y1="35" x2="225" y2="35" stroke="#e9d5ff" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#faf5ff" stroke="#c084fc" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#6b21a8">• 개략 하중: 160 kg</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#6b21a8">• Shock Watch ≤ 5G 부착</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#6b21a8">• 에어서스펜션 무진동 운송</text><text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 초정밀 등급 선별 완료</text></g><g transform="translate(280, 15)"><rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">📦 2. Class B (UPS 850kg)</text><line x1="15" y1="35" x2="225" y2="35" stroke="#bae6fd" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#f0f9ff" stroke="#38bdf8" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#0369a1">• 개략 하중: 850 kg (초중량)</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#0369a1">• 철판 분산판(t12mm) 부착</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#0369a1">• Access Floor 타일 보호</text><text x="120" y="152" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">✔ 하중 분산 준비 완수</text></g></svg>`,
     'step2': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/><g transform="translate(20, 15)"><rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🛑 2. 경로 분석 & Clearance</text><line x1="15" y1="35" x2="225" y2="35" stroke="#bae6fd" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#f0f9ff" stroke="#38bdf8" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#0369a1">• 개포구 Clearance ≥ 300mm</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#0369a1">• 복도 회전반경 Rc ≥ 1.8m</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#0369a1">• 코너 벽체 패딩 100%</text><text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 충돌 방지 검측 합격</text></g><g transform="translate(280, 15)"><rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#d97706" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#b45309" text-anchor="middle">📐 문턱 단차 경사판 설치</text><line x1="15" y1="35" x2="225" y2="35" stroke="#fde68a" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#fffbebe" stroke="#f59e0b" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#92400e">• 문턱 경사각 ≤ 15° 유지</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#92400e">• 랙 틸팅 전도 방지 래싱</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#92400e">• 바피 휠 2인 1조 이동</text><text x="120" y="152" font-size="10" font-weight="black" fill="#b45309" text-anchor="middle">✔ 진동 충격 방지 완수</text></g></svg>`,
-    'step3': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/><g transform="translate(20, 15)"><rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">🏗️ 3. 크레인 SWL 톤수 산정</text><line x1="15" y1="35" x2="225" y2="35" stroke="#c7d2fe" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#f0f5ff" stroke="#6366f1" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#3730a3">• 25톤~50톤 카고/이동식</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#3730a3">• SWL 안전율 ≥ 1.5 확보</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#3730a3">• Outrigger 받침목 ≥ 50mm</text><text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 양중 검측 완수</text></g><g transform="translate(280, 15)"><rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#16a34a" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#15803d" text-anchor="middle">🔒 줄걸이 & 신호수 배치</text><line x1="15" y1="35" x2="225" y2="35" stroke="#bbf7d0" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#f0fdf4" stroke="#22c55e" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#15803d">• 2줄 걸이 안전율 ≥ 5</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#15803d">• 훅 해지장치 가동 100%</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#15803d">• 신호수 2인 통제 구역</text><text x="120" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 양중 통제 합격</text></g></svg>`,
-    'step4': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/><g transform="translate(100, 10)"><rect x="0" y="0" width="340" height="170" fill="#ffffff" stroke="#059669" stroke-width="2" rx="6"/><rect x="0" y="0" width="340" height="32" fill="#059669" rx="6"/><text x="170" y="21" font-size="13" font-weight="black" fill="#ffffff" text-anchor="middle">📄 JSA 교육일지 & 점검표 서명</text><text x="25" y="52" font-size="10" font-weight="bold" fill="#1e293b">과 목: JSA 위험성 평가 & 특별안전교육 (2시간)</text><text x="25" y="70" font-size="9" fill="#475569">• 교육 내용: 민감 등급 반입, 경로 충돌, 크레인 양중</text><text x="25" y="85" font-size="9" fill="#475569">• 참석자 전원: 100% 자필 서명 및 서식 보관</text><line x1="25" y1="98" x2="315" y2="98" stroke="#cbd5e1" stroke-width="1"/><text x="25" y="118" font-size="9" font-weight="bold" fill="#0f172a">안전팀장 / 현장대리인:</text><text x="150" y="118" font-size="9.5" font-weight="bold" fill="#1e3a8a">최종 서명 체결</text><g transform="translate(210, 95) rotate(-12)"><rect x="0" y="0" width="110" height="50" fill="none" stroke="#059669" stroke-width="3" rx="6"/><rect x="3" y="3" width="104" height="44" fill="none" stroke="#059669" stroke-width="1" rx="4"/><text x="55" y="26" font-size="14" font-weight="900" fill="#059669" text-anchor="middle">교육 승인</text><text x="55" y="40" font-size="8" font-weight="bold" fill="#059669" text-anchor="middle">안전교육 일지 체결</text></g><text x="170" y="160" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 특별안전교육 완수</text></g></svg>`
+    'step3': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/><g transform="translate(20, 15)"><rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">🏗️ 3. 50톤 크레인 제원 산정</text><line x1="15" y1="35" x2="225" y2="35" stroke="#c7d2fe" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#f0f5ff" stroke="#6366f1" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#3730a3">• 작업반경 R=15m 정격 3.8t</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#3730a3">• 실제 안전율 SF = 4.00</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#3730a3">• 아웃트리거 전길이 7.0m</text><text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 크레인 검측 적합</text></g><g transform="translate(280, 15)"><rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#16a34a" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#15803d" text-anchor="middle">🔒 줄걸이 & 받침목 50mm</text><line x1="15" y1="35" x2="225" y2="35" stroke="#bbf7d0" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#f0fdf4" stroke="#22c55e" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#15803d">• 2줄 걸이 안전율 ≥ 5</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#15803d">• 훅 해지장치 가동 100%</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#15803d">• 받침목 50mm 침하 예방</text><text x="120" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 양중 지반 통제 합격</text></g></svg>`,
+    'step4': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/><g transform="translate(100, 10)"><rect x="0" y="0" width="340" height="170" fill="#ffffff" stroke="#059669" stroke-width="2" rx="6"/><rect x="0" y="0" width="340" height="32" fill="#059669" rx="6"/><text x="170" y="21" font-size="13" font-weight="black" fill="#ffffff" text-anchor="middle">📄 JSA 교육일지 & 점검표 서명</text><text x="25" y="52" font-size="10" font-weight="bold" fill="#1e293b">과 목: 50톤 크레인 양중 & JSA 특별교육 (2시간)</text><text x="25" y="70" font-size="9" fill="#475569">• 교육 내용: 850kg UPS 양중, 아웃트리거 지반 침하</text><text x="25" y="85" font-size="9" fill="#475569">• 참석자 전원: 100% 자필 서명 및 서식 보관</text><line x1="25" y1="98" x2="315" y2="98" stroke="#cbd5e1" stroke-width="1"/><text x="25" y="118" font-size="9" font-weight="bold" fill="#0f172a">안전팀장 / 현장대리인:</text><text x="150" y="118" font-size="9.5" font-weight="bold" fill="#1e3a8a">최종 서명 체결</text><g transform="translate(210, 95) rotate(-12)"><rect x="0" y="0" width="110" height="50" fill="none" stroke="#059669" stroke-width="3" rx="6"/><rect x="3" y="3" width="104" height="44" fill="none" stroke="#059669" stroke-width="1" rx="4"/><text x="55" y="26" font-size="14" font-weight="900" fill="#059669" text-anchor="middle">교육 승인</text><text x="55" y="40" font-size="8" font-weight="bold" fill="#059669" text-anchor="middle">안전교육 일지 체결</text></g><text x="170" y="160" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 특별안전교육 완수</text></g></svg>`
 };
 
 function openChecklistDiagram(stepKey) {
