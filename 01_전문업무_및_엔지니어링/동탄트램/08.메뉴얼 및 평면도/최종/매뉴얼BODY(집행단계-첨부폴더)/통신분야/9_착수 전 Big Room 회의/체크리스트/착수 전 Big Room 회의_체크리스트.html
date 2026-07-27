@@ -106,9 +106,9 @@
     <div class="p-6 sm:p-8 space-y-8">
         <!-- 📋 안내 상자 -->
         <div class="bg-blue-50/70 border border-blue-200 p-6 rounded-2xl text-xs sm:text-sm text-blue-950 space-y-2">
-            <h4 class="font-bold text-sm sm:text-base text-blue-900 flex items-center gap-2">📋 쉽게 풀어쓴 현장 점검 체크리스트</h4>
+            <h4 class="font-bold text-sm sm:text-base text-blue-900 flex items-center gap-2">📋 쉽게 풀어쓴 현장 점검 체크리스트 (8대 착수 회의 의제 반영)</h4>
             <p class="text-slate-700 leading-relaxed">
-                본 체크리스트는 착수 전 Big Room 회의 수행 시 <strong>[🟣 시공 도식 열기]</strong>를 클릭하면 대형 고화질 팝업 모달이 열려 도식을 직접 보며 <strong>~하였는가? (100%)</strong> 점검을 진행할 수 있도록 연동되었습니다.
+                본 체크리스트는 착수 전 Big Room 회의 8대 핵심 의제 및 Risk Hedge 점검 시 <strong>[🟣 시공 도식 열기]</strong>를 클릭하면 대형 고화질 팝업 모달이 열려 도식을 직접 보며 <strong>~하였는가? (100%)</strong> 점검을 진행할 수 있도록 연동되었습니다.
             </p>
         </div>
 
@@ -129,17 +129,17 @@
                         <td class="py-6 px-6 text-center align-middle bg-slate-50/50 border-r border-slate-200" rowspan="2">
                             <div class="flex flex-col items-center gap-2">
                                 <span class="text-xl">🤝</span>
-                                <span class="font-bold text-slate-900 text-sm">도면 대조</span>
-                                <span class="text-xs text-slate-500 font-medium">(Step 1 BIM/CAD)</span>
-                                <button onclick="openDiagramZoomByKey('step1', 'STEP 1 3D BIM/CAD 도면 대조 도식')" class="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm transition-all">
+                                <span class="font-bold text-slate-900 text-sm">협의체 & 5대간섭</span>
+                                <span class="text-xs text-slate-500 font-medium">(Step 1 인터페이스)</span>
+                                <button onclick="openDiagramZoomByKey('step1', 'STEP 1 3자 협의체 구축 및 5대 공종 간섭검토 도식')" class="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm transition-all">
                                     🟣 시공 도식 열기
                                 </button>
                             </div>
                         </td>
                         <td class="py-4 px-6">
                             <div class="flex items-start gap-2">
-                                <span class="bg-blue-100 text-blue-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">1. Big Room 개최</span>
-                                <p class="text-slate-800 font-medium"><strong>[회의 개최]</strong> 착수 전 사업관리, 건축, 토목, 시공, 기술 분야 핵심 파트너 합동 Big Room 회의를 개최하였는가?</p>
+                                <span class="bg-blue-100 text-blue-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">1. 협의체 구축</span>
+                                <p class="text-slate-800 font-medium"><strong>[Big Room 체계]</strong> 본사/현장/협력사 3자 Big Room 협의체를 구축하고 착수 세부 실행계획을 대조하였는가?</p>
                             </div>
                         </td>
                         <td class="py-4 px-6 text-center align-middle font-bold text-blue-600" rowspan="2">
@@ -149,8 +149,8 @@
                     <tr class="hover:bg-slate-50 transition-colors">
                         <td class="py-4 px-6 border-t border-slate-100">
                             <div class="flex items-start gap-2">
-                                <span class="bg-blue-100 text-blue-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">2. 3D 도면 대조</span>
-                                <p class="text-slate-800 font-medium"><strong>[도면 대조]</strong> 3D BIM & CAD 오버레이 대조로 통신 관통 슬리브(ø100~ø150mm) 좌표 오차(±10mm)를 검측하였는가?</p>
+                                <span class="bg-blue-100 text-blue-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">2. 5대 공종 간섭</span>
+                                <p class="text-slate-800 font-medium"><strong>[인터페이스]</strong> 노반(궤도)/전기/신호/기계/차량 5대 공종 간 관통 경로 및 간섭점을 사전 도출 검출하였는가?</p>
                             </div>
                         </td>
                     </tr>
@@ -159,18 +159,18 @@
                     <tr class="hover:bg-slate-50 transition-colors">
                         <td class="py-6 px-6 text-center align-middle bg-slate-50/50 border-r border-slate-200" rowspan="2">
                             <div class="flex flex-col items-center gap-2">
-                                <span class="text-xl">🏢</span>
-                                <span class="font-bold text-slate-900 text-sm">현장 실측</span>
-                                <span class="text-xs text-slate-500 font-medium">(Step 2 층고/동선)</span>
-                                <button onclick="openDiagramZoomByKey('step2', 'STEP 2 마감 층고 및 반입동선 실측 도식')" class="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm transition-all">
+                                <span class="text-xl">📦</span>
+                                <span class="font-bold text-slate-900 text-sm">반입 & 성능보증</span>
+                                <span class="text-xs text-slate-500 font-medium">(Step 2 야적/실적)</span>
+                                <button onclick="openDiagramZoomByKey('step2', 'STEP 2 자재 반입동선 실측 및 성능보증 대조 도식')" class="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm transition-all">
                                     🟣 시공 도식 열기
                                 </button>
                             </div>
                         </td>
                         <td class="py-4 px-6 border-t border-slate-200">
                             <div class="flex items-start gap-2">
-                                <span class="bg-indigo-100 text-indigo-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">3. 기능실 층고</span>
-                                <p class="text-slate-800 font-medium"><strong>[층고 실측]</strong> 통신기계실/관제실/TPS실 천장 마감 층고(≥3.0m) 및 반입 엘리베이터(1.5m×2.1m) 유효 너비를 실측하였는가?</p>
+                                <span class="bg-indigo-100 text-indigo-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">3. 반입동선 & 야적</span>
+                                <p class="text-slate-800 font-medium"><strong>[자재 동선]</strong> 통신 자재 반입구, 야적장 5대 안전 환경 및 제작사 공장검사 계획을 사전 확인하였는가?</p>
                             </div>
                         </td>
                         <td class="py-4 px-6 text-center align-middle font-bold text-blue-600" rowspan="2">
@@ -180,8 +180,8 @@
                     <tr class="hover:bg-slate-50 transition-colors">
                         <td class="py-4 px-6 border-t border-slate-100">
                             <div class="flex items-start gap-2">
-                                <span class="bg-indigo-100 text-indigo-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">4. 슬리브 3중 고정</span>
-                                <p class="text-slate-800 font-medium"><strong>[매설 검측]</strong> 콘크리트 타설 전 강관 슬리브 철근 용접 고정 및 고무 수밀 캡을 착용하였는가?</p>
+                                <span class="bg-indigo-100 text-indigo-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">4. 성능보증 & 실적</span>
+                                <p class="text-slate-800 font-medium"><strong>[품질 실적]</strong> 통신 자재 성능보증 조건 및 타 트램 프로젝트 유사 적용 실적을 사전 검증 대조하였는가?</p>
                             </div>
                         </td>
                     </tr>
@@ -190,18 +190,18 @@
                     <tr class="hover:bg-slate-50 transition-colors">
                         <td class="py-6 px-6 text-center align-middle bg-slate-50/50 border-r border-slate-200" rowspan="2">
                             <div class="flex flex-col items-center gap-2">
-                                <span class="text-xl">🔥</span>
-                                <span class="font-bold text-slate-900 text-sm">방화 & 체결</span>
-                                <span class="text-xs text-slate-500 font-medium">(Step 3 회의록 서명)</span>
-                                <button onclick="openDiagramZoomByKey('step3', 'STEP 3 Fire-Stop 방화 씰링 및 회의록 체결 도식')" class="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm transition-all">
+                                <span class="text-xl">🛡️</span>
+                                <span class="font-bold text-slate-900 text-sm">하자예방 & 양중장비</span>
+                                <span class="text-xs text-slate-500 font-medium">(Step 3 재발방지)</span>
+                                <button onclick="openDiagramZoomByKey('step3', 'STEP 3 타 현장 하자 재발방지 및 양중장비 안전 도식')" class="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm transition-all">
                                     🟣 시공 도식 열기
                                 </button>
                             </div>
                         </td>
                         <td class="py-4 px-6 border-t border-slate-200">
                             <div class="flex items-start gap-2">
-                                <span class="bg-cyan-100 text-cyan-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">5. Fire-Stop 씰링</span>
-                                <p class="text-slate-800 font-medium"><strong>[방화 구속]</strong> 벽체 및 슬라브 관통 부위 내화 2시간 방화 충전재(Fire-Stop) 씰링 조치를 검측하였는가?</p>
+                                <span class="bg-cyan-100 text-cyan-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">5. 하자예방 대책</span>
+                                <p class="text-slate-800 font-medium"><strong>[재발 방지]</strong> 타 프로젝트 하자 사례(광손실, 침수)를 분석하여 현장 재발 방지 대책을 수립하였는가?</p>
                             </div>
                         </td>
                         <td class="py-4 px-6 text-center align-middle font-bold text-blue-600" rowspan="2">
@@ -211,8 +211,39 @@
                     <tr class="hover:bg-slate-50 transition-colors">
                         <td class="py-4 px-6 border-t border-slate-100">
                             <div class="flex items-start gap-2">
-                                <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">6. 회의록 서명 체결</span>
-                                <p class="text-slate-800 font-medium"><strong>[회의록 체결]</strong> 공종 간 리스크 조율 결과를 반영하여 Big Room 회의록을 확정 체결하였는가?</p>
+                                <span class="bg-cyan-100 text-cyan-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">6. 양중장비 안전</span>
+                                <p class="text-slate-800 font-medium"><strong>[장비 안전]</strong> 크레인/양중장비 투입 계획 및 당사 장비 안전검사 기준 공유를 확인하였는가?</p>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 4 Row Group -->
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="py-6 px-6 text-center align-middle bg-slate-50/50 border-r border-slate-200" rowspan="2">
+                            <div class="flex flex-col items-center gap-2">
+                                <span class="text-xl">🚧</span>
+                                <span class="font-bold text-slate-900 text-sm">Risk Hedge & 체결</span>
+                                <span class="text-xs text-slate-500 font-medium">(Step 4 회의록 서명)</span>
+                                <button onclick="openDiagramZoomByKey('step3', 'STEP 4 24시간 Risk Hedge 및 Big Room 회의록 서명 체결 도식')" class="mt-2 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-sm transition-all">
+                                    🟣 시공 도식 열기
+                                </button>
+                            </div>
+                        </td>
+                        <td class="py-4 px-6 border-t border-slate-200">
+                            <div class="flex items-start gap-2">
+                                <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">7. 안전/품질 Risk</span>
+                                <p class="text-slate-800 font-medium"><strong>[안전 품질]</strong> 궤도 선로 투입 및 고소작업 낙하 방지 안전/품질 Risk 예방 대책을 확정하였는가?</p>
+                            </div>
+                        </td>
+                        <td class="py-4 px-6 text-center align-middle font-bold text-blue-600" rowspan="2">
+                            ☐ 확인완료
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="py-4 px-6 border-t border-slate-100">
+                            <div class="flex items-start gap-2">
+                                <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded shrink-0">8. 민원 대응 헷지</span>
+                                <p class="text-slate-800 font-medium"><strong>[민원 헷지]</strong> 도로 굴착 소음/진동 민원 발생 시 2시간 이내 출동 헷지 대책을 수립하고 회의록에 확정 체결하였는가?</p>
                             </div>
                         </td>
                     </tr>
@@ -240,47 +271,47 @@ const svgStore = {
     'step1': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
                 <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
-                <text x="130" y="50" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">📐 3D BIM & CAD 오버레이 대조</text>
-                <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 토목/건축 vs 통신배치도 대조</text>
-                <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 관통 슬리브 좌표 오차 ±10mm</text>
-                <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 관통 간섭점 사전 검출</text>
+                <text x="130" y="50" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">🤝 3자 Big Room 협의체</text>
+                <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 본사/현장/협력사 3자 결성</text>
+                <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 착수 세부 실행계획 대조</text>
+                <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 실행계획 대조 완료</text>
                 <path d="M 245 90 L 285 90" stroke="#2563eb" stroke-width="3"/>
                 <polygon points="285,85 295,90 285,95" fill="#2563eb"/>
                 <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🎯 3자 Big Room 회의체 운용</text>
-                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 통신/토목/건축/전기 협의</text>
-                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 회의록 서명 체결 완수</text>
-                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 선제 정밀 검토 통과</text>
+                <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📐 5대 공종 간섭 검출</text>
+                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 궤도/전기/신호/기계/차량</text>
+                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 관통 슬리브 좌표 오차 ±10mm</text>
+                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 간섭점 사전 해결</text>
             </svg>`,
     'step2': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
                 <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="8"/>
-                <text x="130" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">📏 레이저 마감 층고 실측</text>
-                <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 기계실/관제실 층고 ≥ 3.0m</text>
-                <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 이중바닥 Access Floor H=300mm</text>
-                <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 공간 실측 1:1 통과</text>
+                <text x="130" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">📏 층고 실측 & EV 반입동선</text>
+                <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 기능실 마감 층고 ≥ 3.0m</text>
+                <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 랙(H=2200mm) EV 1.5×2.1m 통과</text>
+                <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 반입동선 검측 합격</text>
                 <path d="M 245 90 L 285 90" stroke="#4f46e5" stroke-width="3"/>
                 <polygon points="285,85 295,90 285,95" fill="#4f46e5"/>
                 <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🛗 반입 동선 & 개구부 검측</text>
-                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 통신 랙 Height 2200mm 반입</text>
-                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• EV 유효너비 ≥ 1.5m×2.1m</text>
-                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 반입동선 간섭 Zero</text>
+                <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">⛺ 야적장 5대 환경 & 공장검사</text>
+                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 지면이격 팔레트+방수/방염천막</text>
+                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 제작사 공장 사전검사 승인</text>
+                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 야적장 환경 승인</text>
             </svg>`,
     'step3': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
-                <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="8"/>
-                <text x="130" y="50" font-size="13" font-weight="black" fill="#0f766e" text-anchor="middle">🔥 Fire-Stop 내화 2시간 씰링</text>
-                <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 관통 부위 방화 충전재 치밀관입</text>
-                <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 화재/연기 전파 차단 시험통과</text>
-                <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 내화 2시간 방화구역 확정</text>
-                <path d="M 245 90 L 285 90" stroke="#0d9488" stroke-width="3"/>
-                <polygon points="285,85 295,90 285,95" fill="#0d9488"/>
+                <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                <text x="130" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🚧 안전 & 품질 Risk Hedge</text>
+                <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 궤도/고소작업 안전 대책</text>
+                <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• Fire-Stop 내화 2시간 씰링 확정</text>
+                <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 현장 리스크 사전 차단</text>
+                <path d="M 245 90 L 285 90" stroke="#059669" stroke-width="3"/>
+                <polygon points="285,85 295,90 285,95" fill="#059669"/>
                 <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📑 회의록 서명 & 대장 등재</text>
-                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 3자 서명 날인으로 회의록 확정</text>
-                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 1,2공구 종합 관리대장 등재</text>
-                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ Big Room 회의 최종 승인</text>
+                <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🛡️ 24H 민원 헷지 & 서명 체결</text>
+                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 민원 시 2시간 출동 헷지 수칙</text>
+                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• Big Room 회의록 3자 서명 체결</text>
+                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 착수 회의 최종 승인</text>
             </svg>`
 };
 
