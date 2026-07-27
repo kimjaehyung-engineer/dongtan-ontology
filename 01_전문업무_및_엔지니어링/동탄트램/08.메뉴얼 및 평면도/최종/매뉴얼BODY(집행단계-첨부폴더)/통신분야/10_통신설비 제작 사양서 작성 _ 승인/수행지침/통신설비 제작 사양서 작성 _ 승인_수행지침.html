@@ -97,7 +97,7 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Detailed Guideline (WBS 9000-2-10)</span>
         <h1 class="text-3xl font-black mt-2">통신설비 제작 사양서 작성 및 승인 초정밀 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-10 | 주관: 현장 시스템팀 | "100% 밝은 계열(Light-Theme) 통신 서브시스템 승인 안내"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-10 | 주관: 현장 시스템팀 | "9대 통신 서브시스템 1:1 대화형 탭 시뮬레이터 탑재"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
@@ -106,11 +106,11 @@
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
             <h4 class="font-bold text-base flex items-center gap-2">💡 통신설비 제작사양서 작성 및 승인 실무 개요</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                본 지침서는 현장 엔지니어가 <strong><span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('shop_drawing')">제작 도면(Shop Drawing)</span></strong>을 작성하고, <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span>를 검증하여 감리단/발주처 승인을 수득하는 실무 가이드입니다. <strong>동탄트램 공사에 투입되는 전체 9대 통신 서브시스템 제작 승인 대상</strong> 및 5대 핵심 랙 장비의 1:1 역할 해설을 100% 밝은 계열 카드 디자인으로 수록하였습니다.
+                본 지침서는 현장 엔지니어가 <strong><span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('shop_drawing')">제작 도면(Shop Drawing)</span></strong>을 작성하고, <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span>를 검증하여 감리단/발주처 승인을 수득하는 실무 가이드입니다. <strong>아래 9대 통신 서브시스템 탭 버튼을 클릭하시면 각 설비별 필수 작성 수치, 제출 도면 및 감리 승인 체크포인트가 1:1로 표시됩니다.</strong>
             </p>
         </div>
 
-        <!-- ☀️☀️☀️☀️☀️ [100% LIGHT THEME] 동탄트램 전체 9대 통신 서브시스템 제작사양서 승인 대상 종합 카드 ☀️☀️☀️☀️☀️ -->
+        <!-- ☀️ 100% LIGHT THEME 9대 서브시스템 요약 카드 -->
         <div class="bg-gradient-to-br from-sky-50 via-indigo-50/60 to-blue-50 border-2 border-sky-200 p-7 rounded-2xl shadow-md space-y-5">
             <div class="border-b border-sky-200 pb-3 flex items-center justify-between">
                 <div>
@@ -121,95 +121,105 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                <div class="bg-white p-3.5 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="selectSubSystemTab('sub_1')">
+                    <span class="font-black text-sky-900 text-xs">01. 광전송 (OTN/PTN)</span>
+                    <p class="text-[10px] text-slate-600">백본망 랙 & 100G 광모듈</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="selectSubSystemTab('sub_2')">
+                    <span class="font-black text-sky-900 text-xs">02. 철도무선 (LTE-R)</span>
+                    <p class="text-[10px] text-slate-600">기지국(DU/RU) & 차재통신기</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="selectSubSystemTab('sub_3')">
+                    <span class="font-black text-sky-900 text-xs">03. 영상감시 (CCTV)</span>
+                    <p class="text-[10px] text-slate-600">4K IP 카메라 & NVR VMS</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="selectSubSystemTab('sub_4')">
+                    <span class="font-black text-sky-900 text-xs">04. 승객안내 & 방송</span>
+                    <p class="text-[10px] text-slate-600">행선안내게시기 & PAS 앰프</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="selectSubSystemTab('sub_5')">
+                    <span class="font-black text-sky-900 text-xs">05. 비상전화 (SOS)</span>
+                    <p class="text-[10px] text-slate-600">SOS 비상통화 & IP-PBX</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="selectSubSystemTab('sub_6')">
+                    <span class="font-black text-sky-900 text-xs">06. 디지털 시계동기</span>
+                    <p class="text-[10px] text-slate-600">GPS 자시계 & 모시계</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="selectSubSystemTab('sub_7')">
+                    <span class="font-black text-sky-900 text-xs">07. 무정전 전원 (UPS)</span>
+                    <p class="text-[10px] text-slate-600">UPS 30kVA & 정류기 배터리</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="selectSubSystemTab('sub_8')">
+                    <span class="font-black text-sky-900 text-xs">08. 통신선로 케이블</span>
+                    <p class="text-[10px] text-slate-600">72/144C 광케이블 & 트레이</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="selectSubSystemTab('sub_9')">
+                    <span class="font-black text-sky-900 text-xs">09. 기계실 랙 & 부대</span>
+                    <p class="text-[10px] text-slate-600">19인치 표준 랙 & PDU OFD</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🌟🌟🌟🌟🌟 [NEW] 9대 서브시스템 1:1 대화형 탭 실무 시뮬레이터 🌟🌟🌟🌟🌟 -->
+        <div class="bg-white border-2 border-sky-300 rounded-2xl p-6 shadow-lg space-y-6">
+            <div class="border-b-2 border-sky-200 pb-3 flex items-center justify-between">
+                <div>
+                    <span class="bg-indigo-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase">INTERACTIVE TAB SIMULATOR</span>
+                    <h3 class="text-xl font-black text-slate-900 mt-1">🗂️ 9대 통신 서브시스템별 1:1 제작사양서 작성 & 승인 실무 가이드</h3>
+                </div>
+                <span class="text-xs font-bold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">설비 클릭 시 1:1 정보 전환</span>
+            </div>
+
+            <!-- Tab Buttons (9 Tabs Grid) -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-9 gap-1.5">
+                <button id="tab_btn_sub_1" onclick="selectSubSystemTab('sub_1')" class="p-2.5 rounded-xl font-black text-xs transition border-2 border-sky-600 bg-sky-600 text-white shadow-md text-left">01. 광전송</button>
+                <button id="tab_btn_sub_2" onclick="selectSubSystemTab('sub_2')" class="p-2.5 rounded-xl font-bold text-xs transition border border-sky-200 bg-white text-sky-950 hover:bg-sky-50 text-left">02. LTE-R</button>
+                <button id="tab_btn_sub_3" onclick="selectSubSystemTab('sub_3')" class="p-2.5 rounded-xl font-bold text-xs transition border border-sky-200 bg-white text-sky-950 hover:bg-sky-50 text-left">03. CCTV</button>
+                <button id="tab_btn_sub_4" onclick="selectSubSystemTab('sub_4')" class="p-2.5 rounded-xl font-bold text-xs transition border border-sky-200 bg-white text-sky-950 hover:bg-sky-50 text-left">04. PIS/PAS</button>
+                <button id="tab_btn_sub_5" onclick="selectSubSystemTab('sub_5')" class="p-2.5 rounded-xl font-bold text-xs transition border border-sky-200 bg-white text-sky-950 hover:bg-sky-50 text-left">05. 비상전화</button>
+                <button id="tab_btn_sub_6" onclick="selectSubSystemTab('sub_6')" class="p-2.5 rounded-xl font-bold text-xs transition border border-sky-200 bg-white text-sky-950 hover:bg-sky-50 text-left">06. 시계동기</button>
+                <button id="tab_btn_sub_7" onclick="selectSubSystemTab('sub_7')" class="p-2.5 rounded-xl font-bold text-xs transition border border-sky-200 bg-white text-sky-950 hover:bg-sky-50 text-left">07. UPS전원</button>
+                <button id="tab_btn_sub_8" onclick="selectSubSystemTab('sub_8')" class="p-2.5 rounded-xl font-bold text-xs transition border border-sky-200 bg-white text-sky-950 hover:bg-sky-50 text-left">08. 광선로</button>
+                <button id="tab_btn_sub_9" onclick="selectSubSystemTab('sub_9')" class="p-2.5 rounded-xl font-bold text-xs transition border border-sky-200 bg-white text-sky-950 hover:bg-sky-50 text-left">09. 기계실랙</button>
+            </div>
+
+            <!-- Dynamic Content Display Panel -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-6">
+                <h4 id="display_sub_title" class="text-lg font-black text-sky-950 border-b border-slate-300 pb-2">01. 광전송 설비 (OTN / PTN)</h4>
                 
-                <!-- 1. 광전송 -->
-                <div class="bg-white p-4 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="openGlossary('sub_1')">
-                    <div class="flex items-center justify-between">
-                        <span class="font-black text-sky-900 text-xs">01. 광전송 설비</span>
-                        <span class="text-[9px] font-bold bg-sky-100 text-sky-800 border border-sky-300 px-1.5 py-0.5 rounded">OTN / PTN</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Column 1: Required Specs -->
+                    <div class="bg-white p-5 rounded-xl border border-sky-200 shadow-sm space-y-3">
+                        <h5 class="font-black text-sm text-sky-900 flex items-center gap-1.5">
+                            <span>📝</span> 사양서 필수 작성 공학 수치 (Spec)
+                        </h5>
+                        <ul id="display_sub_specs" class="text-xs text-slate-700 space-y-2 font-medium leading-relaxed pl-2">
+                        </ul>
                     </div>
-                    <p class="font-bold text-slate-900 text-xs">🌐 백본망 광전송 랙 & 광모듈</p>
-                    <p class="text-[10px] text-slate-600 leading-relaxed">정거장-관제 간 초고속 데이터 전송 망 구축</p>
+
+                    <!-- Column 2: Required Drawings -->
+                    <div class="bg-white p-5 rounded-xl border border-indigo-200 shadow-sm space-y-3">
+                        <h5 class="font-black text-sm text-indigo-900 flex items-center gap-1.5">
+                            <span>📐</span> 필수 첨부 Shop Drawing (제작 도면)
+                        </h5>
+                        <ul id="display_sub_drawings" class="text-xs text-slate-700 space-y-2 font-medium leading-relaxed pl-2">
+                        </ul>
+                    </div>
                 </div>
 
-                <!-- 2. LTE-R -->
-                <div class="bg-white p-4 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="openGlossary('sub_2')">
-                    <div class="flex items-center justify-between">
-                        <span class="font-black text-sky-900 text-xs">02. 철도무선 설비</span>
-                        <span class="text-[9px] font-bold bg-sky-100 text-sky-800 border border-sky-300 px-1.5 py-0.5 rounded">LTE-R</span>
+                <!-- Certifications Row -->
+                <div class="bg-white p-4 rounded-xl border border-amber-200 space-y-2">
+                    <h5 class="font-black text-xs text-amber-900">📜 필수 첨부 시험성적서 & 인증 서류 목록</h5>
+                    <div id="display_sub_certs" class="flex flex-wrap gap-2">
                     </div>
-                    <p class="font-bold text-slate-900 text-xs">📻 기지국(DU/RU) & 차재 통신기</p>
-                    <p class="text-[10px] text-slate-600 leading-relaxed">기관사-관제사 간 24H 철도 전용 무선통신</p>
                 </div>
 
-                <!-- 3. CCTV -->
-                <div class="bg-white p-4 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="openGlossary('sub_3')">
-                    <div class="flex items-center justify-between">
-                        <span class="font-black text-sky-900 text-xs">03. 영상감시 설비</span>
-                        <span class="text-[9px] font-bold bg-sky-100 text-sky-800 border border-sky-300 px-1.5 py-0.5 rounded">CCTV / VMS</span>
-                    </div>
-                    <p class="font-bold text-slate-900 text-xs">📹 4K 지능형 IP 카메라 & NVR</p>
-                    <p class="text-[10px] text-slate-600 leading-relaxed">승강장/궤도 4K 실시간 감시 및 화재 감지</p>
-                </div>
-
-                <!-- 4. PIS / PAS -->
-                <div class="bg-white p-4 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="openGlossary('sub_4')">
-                    <div class="flex items-center justify-between">
-                        <span class="font-black text-sky-900 text-xs">04. 승객안내 & 방송</span>
-                        <span class="text-[9px] font-bold bg-sky-100 text-sky-800 border border-sky-300 px-1.5 py-0.5 rounded">PIS / PAS</span>
-                    </div>
-                    <p class="font-bold text-slate-900 text-xs">📢 행선안내게시기 & 정거장 앰프</p>
-                    <p class="text-[10px] text-slate-600 leading-relaxed">열차 도착 안내 메시지 표시 및 비상 방송</p>
-                </div>
-
-                <!-- 5. 비상전화 -->
-                <div class="bg-white p-4 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="openGlossary('sub_5')">
-                    <div class="flex items-center justify-between">
-                        <span class="font-black text-sky-900 text-xs">05. 비상전화 설비</span>
-                        <span class="text-[9px] font-bold bg-sky-100 text-sky-800 border border-sky-300 px-1.5 py-0.5 rounded">IP-PBX / SOS</span>
-                    </div>
-                    <p class="font-bold text-slate-900 text-xs">📞 SOS 비상통화장치 & 인터폰</p>
-                    <p class="text-[10px] text-slate-600 leading-relaxed">승객 긴급 비상 상황 시 관제실 직통 통화</p>
-                </div>
-
-                <!-- 6. 시계동기 -->
-                <div class="bg-white p-4 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="openGlossary('sub_6')">
-                    <div class="flex items-center justify-between">
-                        <span class="font-black text-sky-900 text-xs">06. 디지털 시계 동기</span>
-                        <span class="text-[9px] font-bold bg-sky-100 text-sky-800 border border-sky-300 px-1.5 py-0.5 rounded">Master Clock</span>
-                    </div>
-                    <p class="font-bold text-slate-900 text-xs">⏰ GPS 자시계 & 디지털 모시계</p>
-                    <p class="text-[10px] text-slate-600 leading-relaxed">전 정거장-열차-관제 간 0.01초 오차 시각 동기</p>
-                </div>
-
-                <!-- 7. 전원설비 -->
-                <div class="bg-white p-4 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="openGlossary('sub_7')">
-                    <div class="flex items-center justify-between">
-                        <span class="font-black text-sky-900 text-xs">07. 무정전 전원 설비</span>
-                        <span class="text-[9px] font-bold bg-sky-100 text-sky-800 border border-sky-300 px-1.5 py-0.5 rounded">UPS / Battery</span>
-                    </div>
-                    <p class="font-bold text-slate-900 text-xs">🔋 UPS 무정전 전원 & 정류기</p>
-                    <p class="text-[10px] text-slate-600 leading-relaxed">한전 정전 시에도 통신망 2시간 이상 전원 유지</p>
-                </div>
-
-                <!-- 8. 통신선로 -->
-                <div class="bg-white p-4 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="openGlossary('sub_8')">
-                    <div class="flex items-center justify-between">
-                        <span class="font-black text-sky-900 text-xs">08. 통신선로 & 케이블</span>
-                        <span class="text-[9px] font-bold bg-sky-100 text-sky-800 border border-sky-300 px-1.5 py-0.5 rounded">72/144-Core Optic</span>
-                    </div>
-                    <p class="font-bold text-slate-900 text-xs">🧵 Single-Mode 광케이블 & 트레이</p>
-                    <p class="text-[10px] text-slate-600 leading-relaxed">정거장과 선로를 물리적으로 연결하는 광 전송로</p>
-                </div>
-
-                <!-- 9. 기계실 랙 -->
-                <div class="bg-white p-4 rounded-xl border border-sky-200 hover:border-sky-500 hover:shadow-md transition cursor-pointer space-y-1.5" onclick="openGlossary('sub_9')">
-                    <div class="flex items-center justify-between">
-                        <span class="font-black text-sky-900 text-xs">09. 기계실 랙 & 부대</span>
-                        <span class="text-[9px] font-bold bg-sky-100 text-sky-800 border border-sky-300 px-1.5 py-0.5 rounded">19" Rack / PDU</span>
-                    </div>
-                    <p class="font-bold text-slate-900 text-xs">🗄️ 19인치 표준 랙 & PDU / OFD</p>
-                    <p class="text-[10px] text-slate-600 leading-relaxed">통신 장비를 안착하고 온습도 먼지로부터 보호</p>
+                <!-- Checkpoint Callout -->
+                <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs space-y-1">
+                    <span class="font-black text-emerald-950 text-xs flex items-center gap-1">
+                        <span>🔍</span> <strong>감리원 책임 승인(APPROVED) 핵심 체크포인트</strong>
+                    </span>
+                    <p id="display_sub_checkpoint" class="text-slate-800 font-bold pl-5 leading-relaxed text-xs"></p>
                 </div>
 
             </div>
@@ -680,6 +690,206 @@
 </div>
 
 <script>
+const subSystemDetails = {
+    "sub_1": {
+        "title": "01. 광전송 설비 (OTN / PTN)",
+        "specs": [
+            "백본 전송속도: 100GbE / 10GbE 이중화 Ring 구조",
+            "광파장 사양: 1310nm / 1550nm Single-Mode",
+            "광전력 예산 (Power Budget): ≥ 15dB 확보",
+            "전원 규격: DC -48V 이중화 (PDU N+1 분배)",
+            "환경 조건: 동작온도 -20℃ ~ 60℃, 습도 95% 이하"
+        ],
+        "drawings": [
+            "통신기계실 19인치 광전송 랙 전면/후면 장비 배치도",
+            "정거장-OCC 관제 간 광점퍼코드 계통 배선도 (OFD 72-Core 연동)",
+            "Node 유닛 및 Power Module 입출력 단자도"
+        ],
+        "certs": ["KC 방송통신기자재 적합인증서", "내진 진동대 시험성적서 (8.0 리히터 둔감)", "FAT 공장검사 시험절차서"],
+        "checkpoints": "광전력 손실(Loss ≤ 0.35dB/km) 수치 및 DC-48V 이중화 전원 분배기 결선 정밀 검측"
+    },
+    "sub_2": {
+        "title": "02. 철도무선 설비 (LTE-R)",
+        "specs": [
+            "주파수 대역: 700MHz 철도 전용 (Band 28)",
+            "핸드오버 지연시간: ≤ 50ms (음성/데이터 끊김 방지)",
+            "수신 전계강도: 커버리지 영역 전구간 ≥ -95dBm 확보",
+            "DU/RU 분리형 기지국 및 차재 무선 단말기 연동",
+            "전원: AC 220V ±10%, 백업 배터리 2시간 이상"
+        ],
+        "drawings": [
+            "정거장/선로 LTE-R 기지국(DU/RU) 및 광분배 랙 배치도",
+            "터널/선로 무선 안테나 & 누설동축케이블(LCX) 부착 상세도",
+            "트램 운전실 차재 단말기(MOBI) 설치 조립도"
+        ],
+        "certs": ["TTA LTE-R 상호운용성 적합성 인증", "KC 방송통신기자재 적합인증서", "IP65 방수성적서 (야외 RU 기지국)"],
+        "checkpoints": "선로 전구간 수신전계강도 ≥-95dBm 시뮬레이션 및 차재 단말기 음성/데이터 우선순위 제어 검토"
+    },
+    "sub_3": {
+        "title": "03. 영상감시 설비 (CCTV / VMS)",
+        "specs": [
+            "카메라 해상도: 4K 8MP Ultra-HD (3840x2160 @ 30fps)",
+            "방진방수 규격: IP66 및 IK10 충격 방지 등급",
+            "야외 IR 적외선 조사거리: ≥ 30m (무광 상태 식별)",
+            "VMS 서버: NVR 64채널 이중화 저장 (30일 이상 보관)",
+            "지능형 객체 감지: 쓰러짐, 침입, 화재 연기 2초 내 알람"
+        ],
+        "drawings": [
+            "승강장/궤도 CCTV 카메라 위치 및 촬영 각도(FoV) 평면도",
+            "야외 CCTV 방수 폴(Pole) 브라켓 & 하우징 구조도",
+            "NVR 저장 서버 & VMS 관제 모니터링 배선 계통도"
+        ],
+        "certs": ["KISA 지능형 CCTV 성능 인증서", "IP66 방수방진 시험성적서", "IK10 겉box 충격 시험성적서"],
+        "checkpoints": "4K 해상도 Frame Rate 30fps 및 30일 영상 저장용량 계산서(RAID 5) 검증"
+    },
+    "sub_4": {
+        "title": "04. 승객안내 & 방송 설비 (PIS / PAS)",
+        "specs": [
+            "행선안내게시기(PIS): High-Brightness Full-Color LED (≥5,000 cd/m²)",
+            "방송 앰프(PAS): 디지털 D-Class 앰프 (SNR ≥ 90dB)",
+            "정거장 스피커: 명료도 STI ≥ 0.6, 음압 ≥ 95dB SPL",
+            "통합 관제 서버: 열차 위치 연동 자동 도착 안내 송출",
+            "전원: AC 220V, 비상 방송 30분 이상 백업"
+        ],
+        "drawings": [
+            "승강장 펜스/캐노피 행선안내게시기(PIS) 함체 구조도",
+            "정거장 음향 스피커 배치 및 음압 시뮬레이션 도면",
+            "PAS 방송 앰프 랙 및 비상 릴레이 차단 배선도"
+        ],
+        "certs": ["KC 적합인증서", "LED 모듈 수명 시험성적서 (≥ 50,000시간)", "스피커 방수 시험성적서"],
+        "checkpoints": "야외 주간 시인성(휘도 ≥5000cd/m²) 및 비상시 화재 수신기 연동 자동 비상방송 차단 회로 검측"
+    },
+    "sub_5": {
+        "title": "05. 비상전화 설비 (IP-PBX / SOS)",
+        "specs": [
+            "비상 버튼 반응 속도: 누름 후 관제 연결까지 ≤ 1초",
+            "통화 방식: 전이중(Full-Duplex) 고음질 잡음 제거",
+            "함체 규격: Stainless Steel SUS304 (IP65 방수)",
+            "시각장애인용 점자 픽토그램 및 비상 LED 플래시 수록",
+            "전원: PoE (Power over Ethernet) IEEE 802.3at"
+        ],
+        "drawings": [
+            "승강장 SOS 비상통화장치 함체 조립도 및 점자 위치도",
+            "IP-PBX 전화 교환기 및 관제 콘솔 계통 배선도",
+            "PoE 스위치 분배 및 비상전원 배선도"
+        ],
+        "certs": ["KC 적합인증서", "IP65 방수성적서", "음질 고음질(HD Voice) 성능 시험표"],
+        "checkpoints": "SOS 버튼 원터치 관제실 직통 통화 반응속도(≤1초) 및 PoE 공급 전력 수치 검증"
+    },
+    "sub_6": {
+        "title": "06. 디지털 시계 동기 설비 (Master Clock)",
+        "specs": [
+            "시간 수신: GPS 수신기 및 NTP (Network Time Protocol)",
+            "시각 동기 오차: 전 정거장/열차/관제 간 ≤ 1ms 이하",
+            "모시계 (Master Clock): 랙 타입 이중화 메인 클록",
+            "자시계 (Slave Clock): 6자리 디지털 LED (가시거리 ≥ 50m)",
+            "자율 시계 오차: GPS 절체 시 월 오차 ≤ 0.1초 이내"
+        ],
+        "drawings": [
+            "통신기계실 GPS 안테나 지붕 설치 상세도",
+            "정거장 자시계 벽체/천장 펜던트 마운트 상세도",
+            "NTP 모시계-자시계 데이터 네트워크 계통도"
+        ],
+        "certs": ["KC 방송통신기자재 인증서", "GPS 수신 감도 시험성적서", "LED 시계 수명 인증서"],
+        "checkpoints": "GPS 신호 절체 시 백업 오실레이터 월 오차 ≤0.1초 무중단 유지 및 NTP 동기 정밀도 검증"
+    },
+    "sub_7": {
+        "title": "07. 무정전 전원 설비 (UPS / 배터리)",
+        "specs": [
+            "UPS 용량: 통신기계실 30kVA 이중화 (N+1 잉여율)",
+            "정류기 (Rectifier) 효율: ≥ 95%, DC -48V 출력",
+            "정전시 비상 백업시간: 통신 전 시스템 2시간 (120분) 이상",
+            "축전지: 무보수 밀폐형 리튬이온/리튬인산철 배터리",
+            "상태 모니터링: SNMP 관제 자동 정전 알람 송출"
+        ],
+        "drawings": [
+            "UPS 무정전전원 랙 및 배터리 함체 2D CAD 단면도",
+            "AC 220V/380V 메인 입력 및 DC -48V/AC220V 출력 전원 계통도",
+            "정류기 모듈 이중화 및 SNMP 통신 배선도"
+        ],
+        "certs": ["KS C 8502 UPS 한국산업표준 인증", "배터리 화재안전성 KBIA 인증", "효율 시험성적서 (≥95%)"],
+        "checkpoints": "한전 정전 시 120분 연속 동작 배터리 용량 계산서 및 N+1 무순단 절체(0ms) 검증"
+    },
+    "sub_8": {
+        "title": "08. 통신선로 & 케이블 (72/144-Core Optic)",
+        "specs": [
+            "광케이블: Single-Mode 72코어 / 144코어 (광손실 ≤0.35dB/km @1310nm)",
+            "난연성: 트레이용 저독성 난연 케이블 (UL94 V-0, LSZH)",
+            "인장 강도: 허용 인장하중 ≥ 1,500N (포설 작업 견딤)",
+            "광커넥터: SC/LC 접속 손실 ≤ 0.2dB 이하",
+            "배관/트레이: 알루미늄/불연성 케이블 트레이"
+        ],
+        "drawings": [
+            "선로/정거장 케이블 트레이 및 광케이블 포설 평면도",
+            "맨홀/핸드홀 접속점 광케이블 접속함체(Closure) 상세도",
+            "OFD 광패치패널 72-Core 포트 매핑 배선 심볼도"
+        ],
+        "certs": ["KS C IEC 60794 광케이블 표준 인증", "LSZH 저독성 난연 시험성적서", "OTDR 손실 시험성적서"],
+        "checkpoints": "OTDR 광손실 측정치(≤0.35dB/km) 및 광케이블 최소 곡률 반경(외경의 20배) 포설 규격 검측"
+    },
+    "sub_9": {
+        "title": "09. 기계실 랙 & 부대설비 (19" Rack / PDU)",
+        "specs": [
+            "랙 외형 치수: 600(W) x 1000(D) x 2200(H) mm (19인치 표준)",
+            "도어 구조: 전후면 타공 메쉬 도어 (열발산율 ≥ 70%)",
+            "PDU 용량: AC220V 30A 12구 이중화 전원 분배기",
+            "OFD 용량: 72-Core SC/LC Optical Distribution Frame",
+            "부대설비: 기계실 항온항습기(22℃ ±2℃) & FM-200 가스 소화"
+        ],
+        "drawings": [
+            "19인치 통신 랙 외형 정면/측면/내부 Shop Drawing CAD 도면",
+            "PDU 전원 이중화 분배 및 케이블 가이드 링 배치도",
+            "통신기계실 랙 반입 동선 및 이중바닥(Access Floor 300mm) 배치도"
+        ],
+        "certs": ["KFI 한국소방산업기술원 인증 (FM-200)", "내진 진동대 시험성적서", "랙 분체도막 두께 검사서"],
+        "checkpoints": "랙 분체도막(≥60㎛), 메쉬 도어 열발산율(≥70%), PDU 이중화 분배 및 Access Floor H=300mm 검측"
+    }
+};
+
+function selectSubSystemTab(subId) {
+    const data = subSystemDetails[subId];
+    if (!data) return;
+
+    // 1. Update Button States
+    for (let i = 1; i <= 9; i++) {
+        const btn = document.getElementById('tab_btn_sub_' + i);
+        if (btn) {
+            if ('sub_' + i === subId) {
+                btn.className = "p-3 rounded-xl font-black text-xs transition border-2 border-sky-600 bg-sky-600 text-white shadow-md text-left flex items-center justify-between";
+            } else {
+                btn.className = "p-3 rounded-xl font-bold text-xs transition border border-sky-200 bg-white text-sky-950 hover:bg-sky-50 text-left flex items-center justify-between";
+            }
+        }
+    }
+
+    // 2. Render Details
+    document.getElementById('display_sub_title').innerText = data.title;
+    
+    // Specs
+    let specHtml = "";
+    data.specs.forEach(s => {
+        specHtml += `<li class="flex items-start gap-1.5"><span class="text-sky-600 font-bold">•</span> <span>${s}</span></li>`;
+    });
+    document.getElementById('display_sub_specs').innerHTML = specHtml;
+
+    // Drawings
+    let drawHtml = "";
+    data.drawings.forEach(d => {
+        drawHtml += `<li class="flex items-start gap-1.5"><span class="text-indigo-600 font-bold">📐</span> <span>${d}</span></li>`;
+    });
+    document.getElementById('display_sub_drawings').innerHTML = drawHtml;
+
+    // Certs
+    let certHtml = "";
+    data.certs.forEach(c => {
+        certHtml += `<span class="bg-amber-50 text-amber-900 border border-amber-300 font-bold px-2.5 py-1 rounded-md text-[11px] flex items-center gap-1">📜 ${c}</span>`;
+    });
+    document.getElementById('display_sub_certs').innerHTML = certHtml;
+
+    // Checkpoints
+    document.getElementById('display_sub_checkpoint').innerText = data.checkpoints;
+}
+
 const glossaryData = {
     "manufacturing_spec": "<b>통신설비 제작 사양서 (Manufacturing Specification)</b><br><br>• 실제 현장에 제작·설치될 통신설비(광전송장비, LTE-R 무선장치, CCTV, PIS/PAS 등)의 전기적 규격, 전원 소비전력, 기계적 치수, 환경시험 규격 및 기능 사양을 정밀 정의한 공식 문서입니다.",
     "shop_drawing": "<b>제작 도면 (Shop Drawing)</b><br><br>• 통신 랙(Rack) 내부 장비 배치도, 입출력 포트 배선도, 전원 분배도 및 외형 치수를 1:1 정밀 반영하여 제작에 사용하는 전용 2D/3D 도면입니다.",
@@ -756,6 +966,11 @@ window.addEventListener('keydown', function(event) {
         closeZoomModal();
         closeGlossaryModal();
     }
+});
+
+// Initialize Tab 1 default
+window.addEventListener('DOMContentLoaded', function() {
+    selectSubSystemTab('sub_1');
 });
 </script>
 
