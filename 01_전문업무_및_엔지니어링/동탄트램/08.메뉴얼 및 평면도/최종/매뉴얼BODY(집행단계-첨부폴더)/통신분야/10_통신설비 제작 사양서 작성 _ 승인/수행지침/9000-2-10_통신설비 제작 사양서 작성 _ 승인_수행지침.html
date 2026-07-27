@@ -97,7 +97,7 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Detailed Guideline (WBS 9000-2-10)</span>
         <h1 class="text-3xl font-black mt-2">통신설비 제작 사양서 작성 및 승인 초정밀 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-10 | 주관: 현장 시스템팀 | "4단계 완벽 공학 논리 체계 (Logical Flow Framework) 수록"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-10 | 주관: 현장 시스템팀 | "엔지니어 필수 숙지: 사양서(글) & 랙 Shop Drawing(그림) 승인 배경 탑재"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
@@ -106,11 +106,53 @@
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
             <h4 class="font-bold text-base flex items-center gap-2">💡 통신설비 제작사양서 작성 및 승인 실무 개요</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                본 지침서는 현장 엔지니어가 <strong><span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('shop_drawing')">제작 도면(Shop Drawing)</span></strong>을 작성하고, <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span>를 검증하여 감리단/발주처 승인을 수득하는 실무 가이드입니다. <strong>아래 4단계 완벽 공학 논리 흐름도(Logical Flow Map)를 통해 지침서 전체 체계를 한눈에 파악하실 수 있습니다.</strong>
+                본 지침서는 현장 엔지니어가 <strong><span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('shop_drawing')">제작 도면(Shop Drawing)</span></strong>을 작성하고, <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span>를 검증하여 감리단/발주처 승인을 수득하는 실무 가이드입니다.
             </p>
         </div>
 
-        <!-- 🧠🧠🧠🧠🧠 [NEW] 본 수행지침서의 4단계 완벽 공학 논리 흐름도 (Logical Flow Framework Map) 🧠🧠🧠🧠🧠 -->
+        <!-- 🌟🌟🌟🌟🌟 [NEW] 현장 엔지니어 필수 숙지: 왜 제작사양서와 랙 Shop Drawing을 한 세트로 승인받는가? 🌟🌟🌟🌟🌟 -->
+        <div class="bg-gradient-to-br from-amber-50 via-orange-50/60 to-yellow-50 border-2 border-amber-300 p-7 rounded-2xl shadow-md space-y-5">
+            <div class="border-b border-amber-300 pb-3 flex items-center justify-between">
+                <div>
+                    <span class="bg-amber-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase">ENGINEERING BACKGROUND & ESSENTIALS</span>
+                    <h3 class="text-xl font-black text-amber-950 mt-1">🎯 현장 엔지니어 필수 숙지: 왜 제작사양서와 랙 Shop Drawing을 한 세트로 승인받는가?</h3>
+                </div>
+                <span class="text-xs text-amber-900 font-black bg-white px-3 py-1.5 rounded-lg border border-amber-400 shadow-sm">실무 핵심 배경 해설</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                
+                <!-- Point 1 -->
+                <div class="bg-white p-4 rounded-xl border border-amber-300 space-y-2 shadow-sm">
+                    <span class="bg-amber-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">핵심 배경 1</span>
+                    <h4 class="font-black text-amber-950 text-xs flex items-center gap-1">📄 사양서(글) + 📐 도면(그림) = 1:1 세트</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px] font-medium">
+                        제작사양서(Spec)는 글자와 수치 문서이고, Shop Drawing(제작도면)은 랙 내부 장비 배치도(그림)입니다. 감리단 승인은 이 두 서류가 1:1로 결합되어야만 공식 <strong>APPROVED 승인 도장</strong>이 찍힙니다.
+                    </p>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="bg-white p-4 rounded-xl border border-amber-300 space-y-2 shadow-sm">
+                    <span class="bg-orange-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">핵심 배경 2</span>
+                    <h4 class="font-black text-orange-950 text-xs flex items-center gap-1">🗄️ 19" 랙(Rack H=2200mm) 통합 수용</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px] font-medium">
+                        광전송, LTE-R, CCTV, PIS 등 9대 통신 장비는 낱개로 굴러다니는 것이 아니라, 결국 <strong>통신기계실 19인치 표준 랙 쇠상자 안에 수용</strong>되므로 랙 배치도(Shop Drawing)가 승인의 핵심입니다.
+                    </p>
+                </div>
+
+                <!-- Point 3 -->
+                <div class="bg-white p-4 rounded-xl border border-amber-300 space-y-2 shadow-sm">
+                    <span class="bg-yellow-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">핵심 배경 3</span>
+                    <h4 class="font-black text-yellow-950 text-xs flex items-center gap-1">🏭 공장검사(FAT) 대조의 절대적 기준</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px] font-medium">
+                        자재 제작 공장 참관 검사(FAT) 시, 감리원은 승인받은 랙 Shop Drawing 도면을 펼쳐놓고 <strong>실물 랙 내부 장비 조립 상태와 1:1 대조 검사</strong>를 진행하므로 철저한 사전 승인이 필수입니다.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 🧠 본 수행지침서의 4단계 완벽 공학 논리 흐름도 (Logical Flow Framework Map) -->
         <div class="bg-gradient-to-r from-blue-50 via-indigo-50/70 to-sky-50 border-2 border-indigo-200 p-7 rounded-2xl shadow-md space-y-5">
             <div class="border-b border-indigo-200 pb-3 flex items-center justify-between">
                 <div>
@@ -122,35 +164,26 @@
 
             <!-- 4-Step Flow Infographic -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
-                
-                <!-- Stage 1 -->
                 <div class="bg-white p-4 rounded-xl border-2 border-sky-300 shadow-sm space-y-2 relative">
                     <span class="bg-sky-600 text-white text-[10px] font-black px-2 py-0.5 rounded">1단계: SCOPE</span>
                     <h4 class="font-black text-sky-950 text-xs">승인 범위 확정</h4>
                     <p class="text-[10px] text-slate-600 leading-snug">• 동탄트램 전체 9대 통신 서브시스템 승인 대상 파악<br">• 광전송, LTE-R, CCTV, PIS, UPS 등 범위 수립</p>
                 </div>
-
-                <!-- Stage 2 -->
                 <div class="bg-white p-4 rounded-xl border-2 border-indigo-300 shadow-sm space-y-2 relative">
                     <span class="bg-indigo-600 text-white text-[10px] font-black px-2 py-0.5 rounded">2단계: DEFINITION</span>
                     <h4 class="font-black text-indigo-950 text-xs">1:1 수치 & 도면 정의</h4>
                     <p class="text-[10px] text-slate-600 leading-snug">• 9대 설비 탭 시뮬레이터 활용<br">• 장비별 Spec 수치, Shop Drawing, 인증서 1:1 대조</p>
                 </div>
-
-                <!-- Stage 3 -->
                 <div class="bg-white p-4 rounded-xl border-2 border-teal-300 shadow-sm space-y-2 relative">
                     <span class="bg-teal-600 text-white text-[10px] font-black px-2 py-0.5 rounded">3단계: EXECUTION</span>
                     <h4 class="font-black text-teal-950 text-xs">5단계 현장 실측 & 검증</h4>
                     <p class="text-[10px] text-slate-600 leading-snug">• STEP 1~5 2D 실물 그래픽<br">• 층고 실측 ➔ 랙 배치 ➔ IP65/내진 ➔ 승인 ➔ 제작</p>
                 </div>
-
-                <!-- Stage 4 -->
                 <div class="bg-white p-4 rounded-xl border-2 border-emerald-400 shadow-sm space-y-2 relative">
                     <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded">4단계: SIGN-OFF</span>
                     <h4 class="font-black text-emerald-950 text-xs">최종 승인 & 공장 제작</h4>
                     <p class="text-[10px] text-slate-600 leading-snug">• 1:1 쉬운 그림 해설 검증<br">• 책임감리원 APPROVED 붉은 승인 인감 수득</p>
                 </div>
-
             </div>
         </div>
 
