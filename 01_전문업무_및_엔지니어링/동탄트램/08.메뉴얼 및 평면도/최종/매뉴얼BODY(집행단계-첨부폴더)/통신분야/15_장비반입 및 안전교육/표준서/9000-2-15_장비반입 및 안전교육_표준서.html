@@ -17,7 +17,7 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Technical Standard (WBS 9000-2-15)</span>
         <h1 class="text-3xl font-black mt-2">장비반입 및 안전교육 기술 표준서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-15 | 주관: 현장 시스템팀 / 안전팀 | "BIM 3D/4D 반입 시뮬레이션, 크레인 톤수 산정 & 위험성 평가(JSA/RAM)"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-15 | 주관: 현장 시스템팀 / 안전팀 | "통신장비 형상·하중 분석, 반입경로 충돌방지 & 충격 민감 등급 규정"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
@@ -26,49 +26,15 @@
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
             <h4 class="font-bold text-base flex items-center gap-2">💡 장비반입 및 특별안전교육 기술 표준서 명세 개요</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                본 표준서는 동탄도시철도(트램) 통신설비 본공사를 위해 <strong>19인치 통신 랙, OTN 전송 장비, LTE-R 기지국, 광케이블 드럼, PIS/PAS 앰프</strong> 등 고가·정밀 통신장비를 반입할 때 <strong>BIM 3D/4D 경로 간섭 시뮬레이션, 사전 장비 중량 대조를 통한 양중 크레인 톤수 선정 프로세스, 그리고 위험성 평가(JSA/RAM)</strong>를 통하여 완벽한 시공품질과 안전을 확보하는 기술 규정입니다.
+                본 표준서는 동탄도시철도(트램) 통신설비 본공사를 위해 <strong>19인치 통신 랙, OTN 전송 장비, LTE-R 기지국, 광케이블 드럼, UPS 축전지 뱅크</strong> 등 고가·중량 통신장비의 <strong>3D 형상/하중 분석, 반입 경로 충돌 방지(Clearance ≥ 300mm), 충격/진동 민감 등급(Class S/A/B) 선별 및 위험성 평가(JSA)</strong>를 통하여 최고 품질의 시공 안전을 확보하는 엔지니어링 시방 규정입니다.
             </p>
         </div>
 
-        <!-- 🏢 1. BIM 3D/4D 기반 장비 반입 경로 시뮬레이션 규정 -->
+        <!-- 📦 1. 주요 중량 통신장비별 형상(3D 규격), 하중(무게) & 충격 민감 등급표 -->
         <div class="space-y-4">
             <div class="border-b-2 border-blue-600 pb-2">
-                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">BIM SPATIAL CLEARANCE SIMULATION</span>
-                <h3 class="text-xl font-black text-slate-900 mt-0.5">🏢 1. BIM 3D/4D 기반 장비 반입 경로 간섭 시뮬레이션 규정</h3>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
-                    <span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">BIM 검증 01</span>
-                    <h4 class="font-bold text-slate-900">개포구 & 통로 3D Clash Detection</h4>
-                    <p class="text-slate-600 leading-relaxed">• 장비 반입 개포구(W1.8m x H2.2m) 및 기계실 복도 구간 3D 모델(Navisworks) 간섭 탐지 100% 수행</p>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
-                    <span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">BIM 검증 02</span>
-                    <h4 class="font-bold text-slate-900">유효 이격 거리 (Clearance) 확보</h4>
-                    <p class="text-slate-600 leading-relaxed">• 통신 랙(2200H) 회전 및 이동 시 건축 구조물과 통로 간 최저 clearance <strong>≥ 300mm</strong> 사전 확보</p>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
-                    <span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">BIM 검증 03</span>
-                    <h4 class="font-bold text-slate-900">BIM 4D 양중 시공 순서 연동</h4>
-                    <p class="text-slate-600 leading-relaxed">• 선행 건축 벽체 봉쇄 전 대형 랙 선-양중 반입 순서(4D Time Sequence) 사전 시뮬레이션 반영</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 📊 2. 주요 통신장비/자재별 중량 & 크레인 톤수 용량 산정 프로세스 -->
-        <div class="space-y-4">
-            <div class="border-b-2 border-blue-600 pb-2">
-                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">EQUIPMENT WEIGHT & CRANE TONNAGE CALCULATION</span>
-                <h3 class="text-xl font-black text-slate-900 mt-0.5">📊 2. 장비 중량/제원 및 양중 크레인 톤수 산정 프로세스</h3>
-            </div>
-
-            <!-- 크레인 산정 공식 박스 -->
-            <div class="bg-slate-100 p-4 rounded-xl border border-slate-300 text-xs space-y-2">
-                <span class="font-black text-blue-900 text-sm">📐 양중 크레인 필요 정격하중 (SWL) 계산 공식</span>
-                <p class="bg-white p-3 rounded-lg border border-slate-300 font-mono text-slate-800">
-                    필요 정격하중 (SWL) = (장비 자중 W_e + 줄걸이/훅 자중 W_r) × 안전율 SF(1.5) ÷ 작업반경 계수 (α)
-                </p>
-                <p class="text-slate-600 leading-relaxed">• 예시: 광케이블 드럼(600kg) + 줄걸이(100kg) = 700kg ➔ 작업반경 15m, 양중높이 12m 산정 시 <strong>25톤~50톤 카고/이동식 크레인</strong> 선점 결정</p>
+                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">EQUIPMENT SHAPE, WEIGHT & SENSITIVENESS GRADING</span>
+                <h3 class="text-xl font-black text-slate-900 mt-0.5">📦 1. 중량 통신장비별 형상, 하중 & 충격 민감 등급 분석</h3>
             </div>
             
             <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
@@ -76,58 +42,104 @@
                     <thead>
                         <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
                             <th class="p-3 font-bold text-center w-12">번호</th>
-                            <th class="p-3 font-bold w-40">장비 명칭</th>
-                            <th class="p-3 font-bold">외형 제원 (W x D x H)</th>
+                            <th class="p-3 font-bold w-36">장비 명칭</th>
+                            <th class="p-3 font-bold">외형 3D 규격 (W x D x H)</th>
                             <th class="p-3 font-bold">단위 중량</th>
-                            <th class="p-3 font-bold">권장 양중 크레인 톤수 (SWL)</th>
+                            <th class="p-3 font-bold text-center w-28">충격 민감 등급</th>
+                            <th class="p-3 font-bold">반입 운송 및 충격 방지 수칙</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-200 bg-white text-slate-800">
                         <tr class="hover:bg-slate-50">
                             <td class="p-3 text-center font-bold text-slate-500">01</td>
-                            <td class="p-3 font-bold text-blue-900">19인치 통신 랙 (2200H)</td>
-                            <td class="p-3">800 x 1000 x 2200 mm</td>
-                            <td class="p-3">250 kg / 랙</td>
-                            <td class="p-3 font-bold text-blue-950">25톤 카고 크레인 (안전율 ≥ 1.5)</td>
+                            <td class="p-3 font-bold text-blue-900">OTN DWDM 광전송 랙</td>
+                            <td class="p-3">800 x 900 x 2200 mm</td>
+                            <td class="p-3">160 kg / 랙</td>
+                            <td class="p-3 text-center"><span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">Class S (≤ 5G)</span></td>
+                            <td class="p-3 font-bold text-purple-950">Shock Watch(5G) 부착 | 에어서스펜션 운송 | 틸팅 0°</td>
                         </tr>
                         <tr class="hover:bg-slate-50">
                             <td class="p-3 text-center font-bold text-slate-500">02</td>
-                            <td class="p-3 font-bold text-blue-900">OTN 전송 랙 & 백본스위치</td>
-                            <td class="p-3">800 x 900 x 2200 mm</td>
-                            <td class="p-3">160 kg / 랙</td>
-                            <td class="p-3 font-bold text-blue-950">25톤 카고 크레인 (충격 한계 ≤ 15G)</td>
+                            <td class="p-3 font-bold text-blue-900">19인치 통신 표준 랙 (2200H)</td>
+                            <td class="p-3">800 x 1000 x 2200 mm</td>
+                            <td class="p-3">250 kg / 랙</td>
+                            <td class="p-3 text-center"><span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Class A (≤ 15G)</span></td>
+                            <td class="p-3 font-bold text-blue-950">4점 래싱 벨트 결속 | 바피 휠 2인 1조 | 문턱 경사판</td>
                         </tr>
                         <tr class="hover:bg-slate-50">
                             <td class="p-3 text-center font-bold text-slate-500">03</td>
-                            <td class="p-3 font-bold text-blue-900">LTE-R 기지국 (RU/DU) 랙</td>
+                            <td class="p-3 font-bold text-blue-900">LTE-R 기지국 (DU/RU) 랙</td>
                             <td class="p-3">600 x 800 x 1800 mm</td>
                             <td class="p-3">150 kg / 랙</td>
-                            <td class="p-3 font-bold text-blue-950">25톤 카고 크레인 (방수 IP65)</td>
+                            <td class="p-3 text-center"><span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Class A (≤ 15G)</span></td>
+                            <td class="p-3 font-bold text-blue-950">방수 IP65 무결성 | 하부 고무 완충 패드 고정</td>
                         </tr>
                         <tr class="hover:bg-slate-50">
                             <td class="p-3 text-center font-bold text-slate-500">04</td>
-                            <td class="p-3 font-bold text-indigo-900">광케이블 드럼 (Optical Drum)</td>
-                            <td class="p-3">Ø 1200 x 800 mm</td>
-                            <td class="p-3">450 ~ 600 kg / 드럼</td>
-                            <td class="p-3 font-bold text-indigo-950">25톤 ~ 50톤 이동식 크레인</td>
+                            <td class="p-3 font-bold text-indigo-900">CCTV NVR & 백본스위치 랙</td>
+                            <td class="p-3">800 x 1000 x 2000 mm</td>
+                            <td class="p-3">220 kg / 랙</td>
+                            <td class="p-3 text-center"><span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">Class A (≤ 15G)</span></td>
+                            <td class="p-3 font-bold text-indigo-950">정밀 전자 모듈 완충 래싱 | 수평 오차 ±1.0mm</td>
                         </tr>
                         <tr class="hover:bg-slate-50">
                             <td class="p-3 text-center font-bold text-slate-500">05</td>
-                            <td class="p-3 font-bold text-indigo-900">PIS / PAS 앰프 제어 랙</td>
-                            <td class="p-3">600 x 800 x 2000 mm</td>
-                            <td class="p-3">130 kg / 랙</td>
-                            <td class="p-3 font-bold text-indigo-950">25톤 카고 크레인 하부 고무 완충</td>
+                            <td class="p-3 font-bold text-indigo-900">광케이블 대형 드럼 (Drum)</td>
+                            <td class="p-3">Ø 1200 x 800 mm</td>
+                            <td class="p-3">450 ~ 600 kg / 드럼</td>
+                            <td class="p-3 text-center"><span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded">Class B (중량물)</span></td>
+                            <td class="p-3 font-bold text-slate-900">앙카 롤러 회전 축 고정 | 곡률 반지름 R ≥ 20D</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold text-slate-500">06</td>
+                            <td class="p-3 font-bold text-indigo-900">UPS 비상 축전지 뱅크</td>
+                            <td class="p-3">1200 x 800 x 1500 mm</td>
+                            <td class="p-3">850 kg / 뱅크</td>
+                            <td class="p-3 text-center"><span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded">Class B (초중량물)</span></td>
+                            <td class="p-3 font-bold text-slate-900">Access Floor 하중 분산 철판(t12mm) | 50톤 크레인</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- 🛡️ 3. 장비 반입 및 양중 작업 위험성 평가 (Risk Assessment - JSA/RAM) -->
+        <!-- 🛑 2. 반입 경로 분석을 통한 장비 충돌 방지 규정 (Collision Avoidance) -->
+        <div class="space-y-4">
+            <div class="border-b-2 border-blue-600 pb-2">
+                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">COLLISION AVOIDANCE & CLEARANCE ANALYSIS</span>
+                <h3 class="text-xl font-black text-slate-900 mt-0.5">🛑 2. 반입 경로 기하학 분석 & 충돌 방지 규정</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">경로 분석 01</span>
+                    <h4 class="font-bold text-slate-900">개포구 & 문통과 Clearance</h4>
+                    <p class="text-slate-600 leading-relaxed">• 장비 반입 개포구(W1.8m x H2.2m) 통과 시 상부/좌우 여유 Clearance <strong>≥ 300mm</strong> 사전 검측</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">경로 분석 02</span>
+                    <h4 class="font-bold text-slate-900">복도 90°/180° 코너 회전 반경</h4>
+                    <p class="text-slate-600 leading-relaxed">• 2200H 랙 회전 구간 대각선 유효 길이($R_c \ge 1.8	ext{m}$) 사전 측량 및 충돌 방지 벽체 패딩 설치</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">경로 분석 03</span>
+                    <h4 class="font-bold text-slate-900">Access Floor 이중바닥 지지력</h4>
+                    <p class="text-slate-600 leading-relaxed">• 허용 점하중(5.0 kN/m²) 초과 장비(850kg UPS 등) 이동 경로에 철판 분산판(t12mm) 필수 부착</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🛡️ 3. 위험성 평가 (Risk Assessment - JSA/RAM) & 산정 공식 -->
         <div class="space-y-4">
             <div class="border-b-2 border-red-600 pb-2">
-                <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">JOB SAFETY ANALYSIS & RISK ASSESSMENT</span>
-                <h3 class="text-xl font-black text-slate-900 mt-0.5">🛡️ 3. 장비 반입 및 양중 작업 위험성 평가 (JSA/RAM)</h3>
+                <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">JOB SAFETY ANALYSIS & CRANE CALCULATION</span>
+                <h3 class="text-xl font-black text-slate-900 mt-0.5">🛡️ 3. 크레인 용량 산정식 & 위험성 평가 (JSA/RAM)</h3>
+            </div>
+
+            <div class="bg-slate-100 p-4 rounded-xl border border-slate-300 text-xs space-y-2">
+                <span class="font-black text-blue-900 text-sm">📐 크레인 정격하중 (SWL) 필요 용량 산정 공식</span>
+                <p class="bg-white p-3 rounded-lg border border-slate-300 font-mono text-slate-800">
+                    필요 정격하중 (SWL) = (장비 자중 W_e + 줄걸이/훅 자중 W_r) × 안전율 SF(1.5) ÷ 작업반경 계수 (α)
+                </p>
             </div>
             
             <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
@@ -152,23 +164,16 @@
                         <tr class="hover:bg-slate-50">
                             <td class="p-3 text-center font-bold text-slate-500">02</td>
                             <td class="p-3 font-bold text-slate-900">화물 줄걸이 & 양중</td>
-                            <td class="p-3 text-red-900 font-medium">• 와이어 로프 단선 및 훅 이탈로 인한 장비 낙하 낙하물 사고</td>
+                            <td class="p-3 text-red-900 font-medium">• 와이어 로프 단선 및 훅 이탈로 인한 장비 낙하 사고</td>
                             <td class="p-3 text-center font-bold text-red-600">상 (High)</td>
                             <td class="p-3 leading-relaxed font-bold text-slate-900">• 2줄 걸이 안전율 ≥ 5 및 훅 해지장치 100% 가동<br>• 양중 반경 통제 펜스 설치 & 전담 신호수 2인 배치</td>
                         </tr>
                         <tr class="hover:bg-slate-50">
                             <td class="p-3 text-center font-bold text-slate-500">03</td>
                             <td class="p-3 font-bold text-slate-900">기계실 랙 수평 이동</td>
-                            <td class="p-3 text-red-900 font-medium">• 19인치 랙 이동 중 틸팅 전도 및 작업자 끼임/협착 사고</td>
+                            <td class="p-3 text-red-900 font-medium">• 19인치 랙 이동 중 틸팅 전도 및 코너 벽체 충돌 사고</td>
                             <td class="p-3 text-center font-bold text-amber-600">중 (Mid)</td>
-                            <td class="p-3 leading-relaxed font-bold text-slate-900">• 4점 래싱 벨트 결속 및 2인 1조 수평 이동<br>• 문턱 단차 구간 경사판(경사각 ≤ 15°) 설치</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50">
-                            <td class="p-3 text-center font-bold text-slate-500">04</td>
-                            <td class="p-3 font-bold text-slate-900">고압선 인접 작업</td>
-                            <td class="p-3 text-red-900 font-medium">• 양중 붐대가 가공 고압선에 접근하여 작업자 감전 사고</td>
-                            <td class="p-3 text-center font-bold text-red-600">상 (High)</td>
-                            <td class="p-3 leading-relaxed font-bold text-slate-900">• 고압 전선과 안전거리 3m 이상 유지<br>• 절연 방호관 설치 및 한전 협의 후 양중</td>
+                            <td class="p-3 leading-relaxed font-bold text-slate-900">• 4점 래싱 벨트 결속 및 2인 1조 수평 이동<br>• 코너 벽체 방호 패딩 및 문턱 경사판(≤15°) 설치</td>
                         </tr>
                     </tbody>
                 </table>
