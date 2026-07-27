@@ -95,35 +95,55 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-14)</span>
         <h1 class="text-3xl font-black mt-2">본공사 전 선행공정 인수인계 점검 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-14 | 주관: 현장 시스템팀 | "8대 선행 구조물 1:1 실물 도식/이미지 수록 & Deep-Dive 지침"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-14 | 주관: 현장 시스템팀 | "8대 선행 구조물 1:1 맞춤 정밀 2D SVG 도식 & Deep-Dive 지침"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
         
         <!-- 💡 개념 해설 박스 -->
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
-            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 선행공정 인수인계 점검 개념 및 실물 도식 연동 안내</h4>
+            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 선행공정 인수인계 점검 개념 및 1:1 맞춤 도식 안내</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                통신 본공사(케이블 포설 및 장비 안착) 착수 전, <strong>토목·건축이 수립한 8대 인프라 구조물</strong>의 마감과 시공 정밀도를 현장 검측하는 수칙입니다. 만약 기계실 누수나 관로 찌그러짐을 미처 확인하지 않고 케이블을 당기면 케이블 피복이 단선되어 막대한 재시공 비용이 발생합니다. <span class="term-highlight" onclick="openGlossary('mandrel_test')">Mandrel 관로 도통 시험</span> 및 <span class="term-highlight" onclick="openGlossary('handover_doc')">선행공정 인수인계서</span> 체결을 거쳐 본공사를 안전하게 개시하십시오.
+                통신 본공사(케이블 포설 및 장비 안착) 착수 전, <strong>토목·건축이 수립한 8대 인프라 구조물</strong>의 마감과 시공 정밀도를 현장 검측하는 수칙입니다. 만약 기계실 누수나 관로 찌그러짐을 미처 확인하지 않고 케이블을 당기면 케이블 피복이 단선되어 막대한 재시공 비용이 발생합니다. 각 카드마다 **내용과 100% 1:1 일치하는 정밀 2D SVG 기술 도식**을 수록하였으며, 클릭 시 대형 확대 팝업(`openDiagramZoom`)으로 확인하실 수 있습니다.
             </p>
         </div>
 
-        <!-- 🏢 8대 선행공정 점검 대상 구조물 1:1 실물 도식/이미지 & Deep-Dive 검증 가이드 -->
+        <!-- 🏢 8대 선행공정 점검 대상 구조물 1:1 맞춤 2D SVG 도식 & Deep-Dive 검증 가이드 -->
         <div class="space-y-6">
             <div class="border-b-2 border-blue-600 pb-2 flex items-center justify-between">
                 <div>
-                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">8 STRUCTURES DEEP-DIVE GALLERY</span>
-                    <h3 class="text-xl font-black text-slate-900 mt-0.5">🏢 8대 선행공정 점검 대상 구조물 1:1 실물 이미지 & 검증 지침</h3>
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">8 STRUCTURES 1:1 MATCHED SVG GALLERY</span>
+                    <h3 class="text-xl font-black text-slate-900 mt-0.5">🏢 8대 선행공정 점검 대상 구조물 1:1 정밀 2D SVG 도식 & 검증 지침</h3>
                 </div>
-                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">실물 이미지 연동</span>
+                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">100% 내용 일치 도식</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
                 
                 <!-- 1. 통신기계실 (Telecom Room) -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/telecom_room_access_floor_1785147097898.jpg', '01. 통신기계실 (Telecom Equipment Room) 실물 기술 도식')">
-                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/telecom_room_access_floor_1785147097898.jpg" alt="통신기계실" class="w-full h-full object-cover"/>
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct1_room', '01. 통신기계실 (Telecom Room) 마감 & 온습도 2D 도식')">
+                        <svg id="svg_struct1_room" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🏢 통신기계실 마감 & 온습도 환경</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <!-- Access Floor H300 -->
+                            <rect x="40" y="115" width="320" height="35" fill="#e0f2fe" stroke="#0284c7" stroke-dasharray="2"/>
+                            <text x="200" y="136" font-size="10" font-weight="bold" fill="#0369a1" text-anchor="middle">Access Floor H300 (수평 오차 ±2mm 이내)</text>
+                            
+                            <!-- HVAC & Leak Zero -->
+                            <rect x="40" y="62" width="150" height="42" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+                            <text x="115" y="79" font-size="9.5" font-weight="bold" fill="#15803d" text-anchor="middle">항온항습 22±2℃</text>
+                            <text x="115" y="94" font-size="8.5" fill="#334155" text-anchor="middle">습도 50±10% 가동</text>
+
+                            <rect x="210" y="62" width="150" height="42" fill="#f0f9ff" stroke="#0284c7" rx="4"/>
+                            <text x="285" y="79" font-size="9.5" font-weight="bold" fill="#0369a1" text-anchor="middle">천장/벽체 누수 0L</text>
+                            <text x="285" y="94" font-size="8.5" fill="#334155" text-anchor="middle">방진 에폭시 도장 100%</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 기계실 인수 환경 합격</text>
+                        </svg>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 01</span>
@@ -142,8 +162,26 @@
 
                 <!-- 2. 장비 반입 개포구 (Entrance Hatch) -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/equipment_entrance_hatch_1785147111989.jpg', '02. 장비 반입 개포구 (Equipment Hatch) 실물 기술 도식')">
-                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/equipment_entrance_hatch_1785147111989.jpg" alt="반입 개포구" class="w-full h-full object-cover"/>
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct2_hatch', '02. 장비 반입 개포구 (Equipment Hatch) 2D 도식')">
+                        <svg id="svg_struct2_hatch" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">🚪 장비 반입 개포구 (Equipment Hatch)</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <!-- Hatch Door Box -->
+                            <rect x="60" y="60" width="120" height="85" fill="#f0f5ff" stroke="#4f46e5" stroke-width="2" rx="4"/>
+                            <text x="120" y="98" font-size="10" font-weight="black" fill="#3730a3" text-anchor="middle">개포구 유효 규격</text>
+                            <text x="120" y="115" font-size="9" font-bold fill="#4338ca" text-anchor="middle">W 1.8m x H 2.2m</text>
+
+                            <!-- Winch Anchor -->
+                            <rect x="220" y="60" width="120" height="85" fill="#fffbebe" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                            <text x="280" y="92" font-size="9.5" font-weight="bold" fill="#b45309" text-anchor="middle">윈치/호이스트 앵커</text>
+                            <text x="280" y="110" font-size="10" font-weight="black" fill="#92400e" text-anchor="middle">하중 ≥ 2.0 ton</text>
+                            <text x="280" y="125" font-size="8.5" fill="#334155" text-anchor="middle">장애물 0cm (확보)</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 장비 반입 통로 합격</text>
+                        </svg>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 02</span>
@@ -162,14 +200,21 @@
 
                 <!-- 3. 지중 관로 (Underground Conduit) -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center" onclick="openDiagramZoom('svg_struct3_conduit', '03. 지중 관로 Mandrel 도통 시험 도식')">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct3_conduit', '03. 지중 관로 Mandrel 도통 시험 2D 도식')">
                         <svg id="svg_struct3_conduit" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
-                            <rect x="20" y="40" width="360" height="80" fill="#e2e8f0" stroke="#475569" stroke-width="2" rx="4"/>
-                            <circle cx="120" cy="80" r="28" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
-                            <text x="120" y="84" font-size="10" font-weight="black" fill="#ffffff" text-anchor="middle">Mandrel Ø50</text>
-                            <line x1="120" y1="80" x2="330" y2="80" stroke="#0284c7" stroke-width="3" stroke-dasharray="4"/>
-                            <text x="200" y="150" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ Mandrel Gauge 100% Pass</text>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">🕳️ 지중 관로 Mandrel 도통 시험</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+
+                            <!-- Conduit Pipe & Mandrel -->
+                            <rect x="40" y="65" width="320" height="50" fill="#e2e8f0" stroke="#475569" stroke-width="2" rx="4"/>
+                            <circle cx="140" cy="90" r="20" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+                            <text x="140" y="94" font-size="9" font-weight="black" fill="#ffffff" text-anchor="middle">Mandrel Ø50</text>
+                            <line x1="140" y1="90" x2="340" y2="90" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="4"/>
+                            
+                            <text x="200" y="134" font-size="9.5" font-weight="bold" fill="#0f766e" text-anchor="middle">• 관로 도통 Pass 100% | 배관 곡률 R ≥ 1.5m</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 관로 도통 100% 합격</text>
                         </svg>
                     </div>
                     <div class="flex items-center justify-between">
@@ -189,14 +234,19 @@
 
                 <!-- 4. 지중 핸드홀 & 맨홀 (Handhole) -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center" onclick="openDiagramZoom('svg_struct4_handhole', '04. 지중 핸드홀 청소 및 배수 도식')">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct4_handhole', '04. 지중 핸드홀 청소 및 배수 2D 도식')">
                         <svg id="svg_struct4_handhole" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
-                            <rect x="40" y="30" width="320" height="110" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
-                            <rect x="50" y="40" width="300" height="90" fill="#ccfbf1" stroke="#14b8a6" stroke-width="1"/>
-                            <text x="200" y="75" font-size="11" font-weight="black" fill="#0f766e" text-anchor="middle">지중 핸드홀 (1.2m x 1.2m)</text>
-                            <text x="200" y="100" font-size="9.5" font-weight="bold" fill="#115e59" text-anchor="middle">• 이물질 청소 100% | 바닥 배수 완비</text>
-                            <text x="200" y="162" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 배수 고임 수위 0mm (합격)</text>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">🕳️ 지중 핸드홀 이물질 청소 & 배수</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+
+                            <!-- Handhole Box -->
+                            <rect x="50" y="60" width="300" height="75" fill="#ccfbf1" stroke="#14b8a6" stroke-width="1.5" rx="4"/>
+                            <text x="200" y="85" font-size="10.5" font-weight="black" fill="#0f766e" text-anchor="middle">지중 핸드홀 (내공 1.2m x 1.2m)</text>
+                            <text x="200" y="105" font-size="9.5" font-weight="bold" fill="#115e59" text-anchor="middle">• 토사/쓰레기 청소 100% | 바닥 배수 구멍 완비</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 배수 고임 수위 0mm (합격)</text>
                         </svg>
                     </div>
                     <div class="flex items-center justify-between">
@@ -216,8 +266,22 @@
 
                 <!-- 5. 선로변 통합함체 기초 패드 -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/trackside_enclosure_1785146666666.jpg', '05. 선로변 통합함체 기초 패드 실물 기술 도식')">
-                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/trackside_enclosure_1785146666666.jpg" alt="통합함체 기초" class="w-full h-full object-cover"/>
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct5_pad', '05. 옥외 통합함체 콘크리트 기초 패드 2D 도식')">
+                        <svg id="svg_struct5_pad" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">📦 옥외 통합함체 콘크리트 기초 패드</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+
+                            <!-- Pad Graphic -->
+                            <rect x="60" y="65" width="280" height="40" fill="#cbd5e1" stroke="#475569" stroke-width="2" rx="2"/>
+                            <text x="200" y="88" font-size="10" font-weight="black" fill="#1e293b" text-anchor="middle">Concrete C24/30 기초 패드</text>
+                            <circle cx="100" cy="72" r="4" fill="#dc2626"/>
+                            <circle cx="300" cy="72" r="4" fill="#dc2626"/>
+                            <text x="200" y="125" font-size="9.5" font-weight="bold" fill="#0f766e" text-anchor="middle">• 패드 수평 오차 ±1.0mm | M16 앵커 공차 ±1.0mm</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 함체 기초 적합</text>
+                        </svg>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 05</span>
@@ -236,13 +300,19 @@
 
                 <!-- 6. 케이블 트렌치 & Floor Opening -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center" onclick="openDiagramZoom('svg_struct6_trench', '06. 케이블 트렌치 & Fire Stop 층간 관통재 도식')">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct6_trench', '06. 케이블 트렌치 & Fire Stop 내화 2시간 2D 도식')">
                         <svg id="svg_struct6_trench" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
-                            <rect x="30" y="40" width="340" height="70" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
-                            <rect x="40" y="50" width="320" height="50" fill="#f1f5f9" stroke="#94a3b8" stroke-dasharray="3"/>
-                            <text x="200" y="80" font-size="11" font-weight="black" fill="#0f172a" text-anchor="middle">바닥 트렌치 (W400 x D300)</text>
-                            <text x="200" y="145" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ Fire Stop 층간 내화 2시간 적합</text>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">🪜 케이블 트렌치 & 층간 방화 관통재</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+
+                            <!-- Trench Box -->
+                            <rect x="40" y="65" width="320" height="45" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3"/>
+                            <text x="200" y="92" font-size="10.5" font-weight="black" fill="#0f172a" text-anchor="middle">바닥 트렌치 (W400 x D300)</text>
+                            <text x="200" y="128" font-size="9.5" font-weight="bold" fill="#0f766e" text-anchor="middle">• 층간 Fire Stop 내화 성능 2시간 적합</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 트렌치 & 방화관통 완수</text>
                         </svg>
                     </div>
                     <div class="flex items-center justify-between">
@@ -262,8 +332,24 @@
 
                 <!-- 7. 토목 Joint Duct & 관로 랙 -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/optical_cable_drum_1785146706644.jpg', '07. 토목 Joint Duct & 관로 랙 실물 기술 도식')">
-                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/optical_cable_drum_1785146706644.jpg" alt="관로 랙" class="w-full h-full object-cover"/>
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct7_joint', '07. 토목 Joint Duct & 관로 랙 2D 도식')">
+                        <svg id="svg_struct7_joint" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🧵 토목 Joint Duct & 케이블 관로 랙</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+
+                            <!-- Joint Duct Graphic -->
+                            <rect x="50" y="65" width="140" height="50" fill="#f0f9ff" stroke="#0284c7" rx="3"/>
+                            <text x="120" y="88" font-size="9.5" font-weight="bold" fill="#0369a1" text-anchor="middle">Joint Duct 위치</text>
+                            <text x="120" y="103" font-size="8.5" fill="#334155" text-anchor="middle">공차 ±5.0mm</text>
+
+                            <rect x="210" y="65" width="140" height="50" fill="#f0fdf4" stroke="#16a34a" rx="3"/>
+                            <text x="280" y="88" font-size="9.5" font-weight="bold" fill="#15803d" text-anchor="middle">KEC 관로 채움률</text>
+                            <text x="280" y="103" font-size="8.5" fill="#334155" text-anchor="middle">채움률 ≤ 33%</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 관로 랙 인프라 합격</text>
+                        </svg>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="bg-cyan-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 07</span>
@@ -282,16 +368,24 @@
 
                 <!-- 8. 기계실 전원 분배반 & 접지 단자대 -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center" onclick="openDiagramZoom('svg_struct8_pdu', '08. 전원 분배반 (PDU) & 접지 단자대 도식')">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct8_pdu', '08. 전원 분배반 (PDU) & 접지 단자대 2D 도식')">
                         <svg id="svg_struct8_pdu" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
-                            <rect x="40" y="30" width="150" height="100" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="4"/>
-                            <text x="115" y="55" font-size="11" font-weight="black" fill="#0369a1" text-anchor="middle">AC 220V / DC -48V</text>
-                            <text x="115" y="80" font-size="9" fill="#334155" text-anchor="middle">PDU 극성 라벨링</text>
-                            <rect x="220" y="30" width="140" height="100" fill="#ffffff" stroke="#16a34a" stroke-width="2" rx="4"/>
-                            <text x="290" y="55" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">독립 1종 접지</text>
-                            <text x="290" y="80" font-size="9.5" font-weight="bold" fill="#15803d" text-anchor="middle">접지저항 ≤ 10 Ω</text>
-                            <text x="200" y="162" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 전원/절연/접지 100% 합격</text>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">⚡ 전원 분배반 (PDU) & 독립 1종 접지</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+
+                            <!-- PDU Box -->
+                            <rect x="40" y="65" width="150" height="52" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" rx="4"/>
+                            <text x="115" y="87" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">AC 220V / DC -48V</text>
+                            <text x="115" y="104" font-size="8.5" fill="#334155" text-anchor="middle">PDU 극성 라벨링 100%</text>
+
+                            <!-- Ground Box -->
+                            <rect x="210" y="65" width="150" height="52" fill="#ffffff" stroke="#16a34a" stroke-width="1.5" rx="4"/>
+                            <text x="285" y="87" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">독립 1종 접지</text>
+                            <text x="285" y="104" font-size="9.5" font-weight="bold" fill="#15803d" text-anchor="middle">접지저항 ≤ 10 Ω</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 전원/절연/접지 100% 합격</text>
                         </svg>
                     </div>
                     <div class="flex items-center justify-between">
@@ -400,19 +494,12 @@ function closeGlossaryModalOutside(event) {
     }
 }
 
-function openImageZoom(imgUrl, titleText) {
-    const zoomBody = document.getElementById('zoomBody');
-    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "실물 구조물 기술 도식 보기");
-    zoomBody.innerHTML = `<img src="${imgUrl}" alt="구조물 대형보기" style="max-width:100%; max-height:580px; object-fit:contain; border-radius:12px; border:1px solid #cbd5e1; shadow:0 10px 15px -3px rgba(0,0,0,0.1);"/>`;
-    document.getElementById('zoomModal').classList.add('active');
-}
-
 function openDiagramZoom(elementId, titleText) {
     const srcEl = document.getElementById(elementId);
     if (!srcEl) return;
     
     const zoomBody = document.getElementById('zoomBody');
-    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "선행공정 도식 대형 보기");
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "선행공정 정밀 도식 대형 보기");
     
     zoomBody.innerHTML = srcEl.outerHTML;
     
