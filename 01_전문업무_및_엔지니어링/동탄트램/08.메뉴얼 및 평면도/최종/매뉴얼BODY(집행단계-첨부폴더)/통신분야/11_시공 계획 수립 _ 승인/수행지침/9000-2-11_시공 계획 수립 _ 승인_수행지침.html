@@ -95,16 +95,16 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-11)</span>
         <h1 class="text-3xl font-black mt-2">통신공사 시공 계획 수립 및 승인 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-11 | 주관: 현장 시스템팀 | "시공계획 수립 4단계 마스터 프로세스 탑재"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-11 | 주관: 현장 시스템팀 | "시스템 분야(관로/외함/광Core/Pole) 인터페이스 통합 탑재"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
         
         <!-- 💡 개념 해설 박스 -->
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
-            <h4 class="font-bold text-base flex items-center gap-2">💡 통신 시공계획 수립 및 승인 실무 개요</h4>
+            <h4 class="font-bold text-base flex items-center gap-2">💡 통신 시공계획 수립 및 시스템 인터페이스 개요</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                본 지침서는 통신공사 착수 전, <strong><span class="term-highlight" onclick="openGlossary('construction_plan')">시공계획서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('cpm_schedule')">CPM 예정공정표</span></strong>를 수립하고 <span class="term-highlight" onclick="openGlossary('private_telecom')">자가용전기통신설비 신고</span>를 이행하여 감리 승인을 수득하는 절차서입니다.
+                본 지침서는 통신공사 착수 전, <strong><span class="term-highlight" onclick="openGlossary('construction_plan')">시공계획서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('cpm_schedule')">CPM 예정공정표</span></strong>를 수립하고, <span class="term-highlight" onclick="openGlossary('joint_duct')">공동관로 점유율</span>, <span class="term-highlight" onclick="openGlossary('integrated_enclosure')">통합 외함 Size</span> 등 시스템 분야 인터페이스를 시공계획서에 정밀 반영하여 감리 승인을 수득하는 절차서입니다.
             </p>
         </div>
 
@@ -113,7 +113,7 @@
             <div class="border-b border-amber-300 pb-3 flex items-center justify-between">
                 <div>
                     <span class="bg-amber-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase">ENGINEERING BACKGROUND & ESSENTIALS</span>
-                    <h3 class="text-xl font-black text-amber-950 mt-1">🎯 현장 엔지니어 필수 숙지: 왜 시공계획서 승인이 공사의 출발점인가?</h3>
+                    <h3 class="text-xl font-black text-amber-950 mt-1">🎯 현장 엔지니어 필수 숙지: 왜 시스템 인터페이스 반영이 시공계획의 핵심인가?</h3>
                 </div>
                 <span class="text-xs text-amber-900 font-black bg-white px-3 py-1.5 rounded-lg border border-amber-400 shadow-sm">실무 핵심 배경</span>
             </div>
@@ -121,23 +121,23 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                 <div class="bg-white p-4 rounded-xl border border-amber-300 space-y-2 shadow-sm">
                     <span class="bg-amber-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">핵심 이유 1</span>
-                    <h4 class="font-black text-amber-950 text-xs">📄 자재 반입 및 작업 허가의 법적 기준</h4>
+                    <h4 class="font-black text-amber-950 text-xs">🕳️ 공동관로 단면적 점유율(KEC ≤33%) 준수</h4>
                     <p class="text-slate-700 leading-relaxed text-[11px] font-medium">
-                        감리 승인을 받은 시공계획서 없이는 현장에 광케이블, 통신 랙 등 어떤 자재도 반입하거나 공사를 개시할 수 없습니다.
+                        신호/전기/통신 케이블이 동일 지하 관로를 사용할 때, ELP Φ150mm 관로 점유율을 33% 이하(통신 약 4.4%)로 배치 계획을 수립해야 케이블 손상을 예방합니다.
                     </p>
                 </div>
                 <div class="bg-white p-4 rounded-xl border border-amber-300 space-y-2 shadow-sm">
                     <span class="bg-orange-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">핵심 이유 2</span>
-                    <h4 class="font-black text-orange-950 text-xs">🔀 타 공종(토목/건축/전기) 인터페이스 동선 확보</h4>
+                    <h4 class="font-black text-orange-950 text-xs">📦 정거장 통합 외함(Layout) 시공 수용성</h4>
                     <p class="text-slate-700 leading-relaxed text-[11px] font-medium">
-                        기계실 Access Floor 층고 및 배관 트레이 선행 공정과 시공 순서를 사전에 조율하여 간섭을 예방합니다.
+                        정거장 Type별(Type 1~6) 통신 함체 길이(3.2m/1.6m) 및 내부 19인치 랙 배치를 사전에 시공계획서에 평면으로 명시해야 선행 공정과 마찰이 없습니다.
                     </p>
                 </div>
                 <div class="bg-white p-4 rounded-xl border border-amber-300 space-y-2 shadow-sm">
                     <span class="bg-yellow-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">핵심 이유 3</span>
-                    <h4 class="font-black text-yellow-950 text-xs">🏛️ 관할 지자체 자가용통신 인허가 근거</h4>
+                    <h4 class="font-black text-yellow-950 text-xs">🔌 광 Core 배분 & 통합 UPS 전원 연동</h4>
                     <p class="text-slate-700 leading-relaxed text-[11px] font-medium">
-                        전기통신사업법에 따른 지자체/과기부 자가용전기통신설비 설치신고 접수의 공식 첨부 서류로 활용됩니다.
+                        96Core/48Core 광케이블 심선 배분표 및 무정전전원(UPS 120분 백업) 용량을 산출하여 통신망 단선 및 정전 위험을 원천 차단합니다.
                     </p>
                 </div>
             </div>
@@ -157,59 +157,29 @@
                 <div class="bg-white p-4 rounded-xl border-2 border-sky-300 shadow-sm space-y-2">
                     <span class="bg-sky-600 text-white text-[10px] font-black px-2 py-0.5 rounded">1단계: PREPARATION</span>
                     <h4 class="font-black text-sky-950 text-xs">도서검토 & 위험성평가</h4>
-                    <p class="text-[10px] text-slate-600 leading-snug">• 설계도서 수치 1:1 검토<br">• 고소/감전 위험성평가 회의 수립</p>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 설계도서 수치 1:1 검토<br">• 고소/감전 위험성평가 수립</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl border-2 border-indigo-300 shadow-sm space-y-2">
                     <span class="bg-indigo-600 text-white text-[10px] font-black px-2 py-0.5 rounded">2단계: DRAFTING</span>
-                    <h4 class="font-black text-indigo-950 text-xs">6대 장 시공계획서 작성</h4>
-                    <p class="text-[10px] text-slate-600 leading-snug">• CPM 공정표 & 랙/배선 동선 수립<br">• OTDR 품질관리 절차서 작성</p>
+                    <h4 class="font-black text-indigo-950 text-xs">7대 장 시공계획서 작성</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• CPM 공정표 & 랙/배선 동선<br">• OTDR 품질관리 절차서 작성</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl border-2 border-teal-300 shadow-sm space-y-2">
-                    <span class="bg-teal-600 text-white text-[10px] font-black px-2 py-0.5 rounded">3단계: PERMIT & INTERFACE</span>
-                    <h4 class="font-black text-teal-950 text-xs">인허가 신고 & 타공종 협의</h4>
-                    <p class="text-[10px] text-slate-600 leading-snug">• 자가용통신 설치신고서 접수<br">• 토목/건축/전기 인터페이스 확정</p>
+                    <span class="bg-teal-600 text-white text-[10px] font-black px-2 py-0.5 rounded">3단계: INTERFACE & PERMIT</span>
+                    <h4 class="font-black text-teal-950 text-xs">시스템 인터페이스 & 인허가</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 공동관로(ELP150) & 통합외함<br">• 자가용통신 설치신고 접수</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl border-2 border-emerald-400 shadow-sm space-y-2">
                     <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded">4단계: APPROVAL</span>
-                    <h4 class="font-black text-emerald-950 text-xs">감리 승인 & 공사 착수</h4>
-                    <p class="text-[10px] text-slate-600 leading-snug">• 감리단 보완 조치표 검토<br">• 공식 승인 승인 인감 수득</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ☀️ 4단계 마스터 프로세스 요약 카드 -->
-        <div class="bg-blue-50/70 border border-blue-200 p-7 rounded-2xl shadow-md space-y-6">
-            <div class="border-b border-blue-200 pb-4">
-                <span class="bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase">MASTER PROCESS ARCHITECTURE</span>
-                <h3 class="text-xl font-black text-blue-950 mt-2">📋 통신 시공계획 수립 및 승인 4단계 마스터 프로세스</h3>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-                <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-1">
-                    <span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 1</span>
-                    <h4 class="font-bold text-slate-900 text-xs">도서검토 & 위험성평가</h4>
-                    <p class="text-[10px] text-slate-600">• CAD 도면 수치 검토<br">• 안전/품질 사전 회의</p>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-1">
-                    <span class="bg-indigo-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 2</span>
-                    <h4 class="font-bold text-slate-900 text-xs">공정표 & 랙/배선 동선</h4>
-                    <p class="text-[10px] text-slate-600">• CPM 주공정선 확정<br">• 자재 투입/배선 수립</p>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-1">
-                    <span class="bg-teal-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 3</span>
-                    <h4 class="font-bold text-slate-900 text-xs">자가용통신 설치신고</h4>
-                    <p class="text-[10px] text-slate-600">• 지자체 인허가 접수<br">• 무선국 주파수 협의</p>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-1">
-                    <span class="bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 4</span>
-                    <h4 class="font-bold text-slate-900 text-xs">공식 승인 승인도장</h4>
-                    <p class="text-[10px] text-slate-600">• 기술검토 보완 조치<br">• 승인 공문 수득</p>
+                    <h4 class="font-black text-emerald-950 text-xs">공식 승인 공문 수득</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 감리단 기술검토 보완 조치<br">• 공식 승인 공문/결재 확정</p>
                 </div>
             </div>
         </div>
 
         <!-- 🔥 HOW 세부 지침 & 1:1 2D VISUAL SVG -->
         <div class="space-y-10">
-            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-indigo-600 pb-2">단계별 HOW 실무 지침 & 1:1 그림 해설 상자</h2>
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-indigo-600 pb-2">단계별 HOW 실무 지침 & 시스템 인터페이스 도식</h2>
 
             <!-- STEP 1 Card -->
             <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-4">
@@ -251,22 +221,13 @@
                         </g>
                     </svg>
                 </div>
-
-                <div class="bg-blue-50/90 border-l-4 border-blue-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
-                    <span class="font-bold text-blue-900 flex items-center gap-1.5 text-xs">
-                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 1 도서 대조 & 위험성평가]</strong>
-                    </span>
-                    <p class="text-slate-700 leading-relaxed pl-5 font-medium">
-                        좌측 도면의 수치(KCS 시방서 및 광손실 수치)를 검토하고, 우측 안전 위험성평가 회의를 개최하여 감전/고소작업 안전 대책을 수립하는 단계입니다.
-                    </p>
-                </div>
             </div>
 
             <!-- STEP 2 Card -->
             <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
-                    <h3 class="font-bold text-base text-slate-900">예정공정표(CPM) 작성 및 통신 랙/케이블 포설 자재·인력 동선 계획 수립</h3>
+                    <h3 class="font-bold text-base text-slate-900">예정공정표(CPM) 작성 및 통신 랙/케이블 포설 동선 계획 수립</h3>
                 </div>
                 <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
                     <li><strong>CPM 공정표 수립:</strong> 통신 랙 반입, 광케이블 포설, OTDR 시험, 통합시험 일정을 주공정선(Critical Path)으로 체계화합니다.</li>
@@ -314,72 +275,72 @@
                         </g>
                     </svg>
                 </div>
-
-                <div class="bg-indigo-50/90 border-l-4 border-indigo-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
-                    <span class="font-bold text-indigo-900 flex items-center gap-1.5 text-xs">
-                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 2 예정공정표 & 반입 동선]</strong>
-                    </span>
-                    <p class="text-slate-700 leading-relaxed pl-5 font-medium">
-                        좌측 예정공정표(CPM)를 통해 공사 순서를 체계화하고, 우측 반입 동선도를 통해 2.2m 높이의 통신 랙이 기계실까지 물리적 충돌 없이 안전하게 들어오도록 계획하는 단계입니다.
-                    </p>
-                </div>
             </div>
 
-            <!-- STEP 3 Card -->
-            <div class="bg-white p-6 rounded-2xl border border-teal-200 shadow-sm space-y-4">
+            <!-- STEP 3 Card (ENHANCED WITH SYSTEM INTERFACE) -->
+            <div class="bg-white p-6 rounded-2xl border-2 border-teal-300 shadow-md space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-teal-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3</span>
-                    <h3 class="font-bold text-base text-slate-900">자가용 전기통신설비 설치신고 접수 및 인터페이스 협의</h3>
+                    <h3 class="font-bold text-base text-slate-900">시스템 분야 4대 인터페이스(공동관로/통합외함/광Core/Pole) 협의 및 시공계획 수립</h3>
                 </div>
                 <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
-                    <li><strong>자가용통신 설치신고:</strong> 전기통신사업법에 의거 관할 지자체/과기부에 자가용전기통신설비 설치신고서 및 시공계획서를 접수합니다.</li>
-                    <li><strong>타 공종 인터페이스:</strong> 토목/건축/전기 공종과 기계실 Access Floor 및 선로 관로 배치 인터페이스를 최종 협의합니다.</li>
+                    <li><strong>공동관로 단면적 점유율:</strong> KEC 규정에 의거 ELP Φ150mm 관로 점유율을 33% 이하(통신 약 4.4%)로 배치하고 지하 매설 상부 프리캐스트 보호를 확정합니다.</li>
+                    <li><strong>정거장 통합 외함 배치:</strong> 정거장 Type별 함체 길이(3.2m / 1.6m) 내 통신 19인치 랙 및 배선 트레이 수용성을 시공계획에 명시합니다.</li>
+                    <li><strong>통합 Pole 및 광 Core:</strong> 승강장 CCTV, PAS, PIS 공용 Pole 설치 위치 및 96Core/48Core 광케이블 심선 배분 인터페이스를 최종 체계화합니다.</li>
                 </ul>
 
-                <!-- STEP 3 SVG Graphic -->
-                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step3_planning', 'STEP 3 자가용전기통신설비 설치신고 접수 및 타 공종 인터페이스 도식')">
-                    <svg id="svg_step3_planning" viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/>
+                <!-- STEP 3 SYSTEM INTERFACE SVG Graphic -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step3_system_interface', 'STEP 3 시스템 분야 통합 인터페이스(공동관로 & 통합외함) 2D 도식')">
+                    <svg id="svg_step3_system_interface" viewBox="0 0 540 210" width="100%" height="210" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="540" height="210" fill="#f8fafc" rx="8"/>
                         
-                        <g transform="translate(20, 15)">
-                            <rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
-                            <text x="120" y="25" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">🏛️ 자가용통신설비 설치신고서</text>
-                            <line x1="15" y1="35" x2="225" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                        <g transform="translate(15, 15)">
+                            <rect x="0" y="0" width="245" height="180" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
+                            <text x="122" y="25" font-size="11.5" font-weight="black" fill="#0f766e" text-anchor="middle">🕳️ 본선 공동관로 (ELP Φ150mm)</text>
+                            <line x1="15" y1="35" x2="230" y2="35" stroke="#cbd5e1" stroke-width="1"/>
                             
-                            <rect x="35" y="48" width="170" height="75" fill="#f0fdf4" stroke="#16a34a" stroke-width="1" rx="4"/>
-                            <text x="45" y="68" font-size="9" font-weight="bold" fill="#15803d">수신: 관할 지자체장 / 과기부</text>
-                            <text x="45" y="85" font-size="8.5" fill="#334155">• 자가용전기통신설비 공사계획</text>
-                            <text x="45" y="98" font-size="8.5" fill="#334155">• 광전송망 & 무선국 배치도 첨부</text>
-                            
-                            <text x="120" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 인허가 신고 접수 완료</text>
+                            <!-- Precast Concrete Protect Top -->
+                            <rect x="25" y="45" width="195" height="16" fill="#e2e8f0" stroke="#64748b" stroke-width="1"/>
+                            <text x="122" y="56" font-size="8" font-weight="bold" fill="#334155" text-anchor="middle">프리캐스트 콘크리트 보호판</text>
+
+                            <!-- Conduit Array -->
+                            <rect x="25" y="65" width="195" height="75" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
+                            <circle cx="55" cy="88" r="14" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+                            <text x="55" y="91" font-size="7.5" font-weight="bold" fill="#1e40af" text-anchor="middle">전기 12%</text>
+
+                            <circle cx="122" cy="88" r="14" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+                            <text x="122" y="91" font-size="7.5" font-weight="bold" fill="#92400e" text-anchor="middle">신호 25%</text>
+
+                            <circle cx="188" cy="88" r="14" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+                            <text x="188" y="91" font-size="7.5" font-weight="bold" fill="#15803d" text-anchor="middle">통신 4.4%</text>
+
+                            <text x="122" y="125" font-size="8" font-weight="bold" fill="#0f766e" text-anchor="middle">KEC 규정 점유율 ≤ 33% 완벽 준수</text>
+                            <text x="122" y="165" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 공동관로 인터페이스 적합</text>
                         </g>
 
-                        <g transform="translate(280, 15)">
-                            <rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
-                            <text x="120" y="25" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🔀 타 공종 인터페이스 협의</text>
-                            <line x1="15" y1="35" x2="225" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                        <g transform="translate(275, 15)">
+                            <rect x="0" y="0" width="250" height="180" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="125" y="25" font-size="11.5" font-weight="black" fill="#0369a1" text-anchor="middle">📦 정거장 통합 외함 (함체 3.2m)</text>
+                            <line x1="15" y1="35" x2="235" y2="35" stroke="#cbd5e1" stroke-width="1"/>
                             
-                            <rect x="30" y="50" width="55" height="40" fill="#f0f9ff" stroke="#0284c7" rx="3"/>
-                            <text x="57" y="73" font-size="9" font-weight="bold" fill="#0369a1" text-anchor="middle">토목/건축</text>
+                            <rect x="25" y="45" width="200" height="95" fill="#f0f9ff" stroke="#38bdf8" stroke-width="1"/>
+                            <rect x="35" y="55" width="100" height="75" fill="#e0f2fe" stroke="#0284c7"/>
+                            <text x="85" y="97" font-size="8" font-weight="bold" fill="#0369a1" text-anchor="middle">전기함체 (11.7m)</text>
 
-                            <rect x="95" y="50" width="55" height="40" fill="#f0fdf4" stroke="#16a34a" rx="3"/>
-                            <text x="122" y="73" font-size="9" font-weight="bold" fill="#15803d" text-anchor="middle">전기/신호</text>
+                            <rect x="140" y="55" width="75" height="75" fill="#dcfce7" stroke="#16a34a"/>
+                            <text x="177" y="97" font-size="8" font-weight="bold" fill="#15803d" text-anchor="middle">통신함체 (3.2m)</text>
 
-                            <rect x="160" y="50" width="55" height="40" fill="#fff7ed" stroke="#ea580c" rx="3"/>
-                            <text x="187" y="73" font-size="9" font-weight="bold" fill="#c2410c" text-anchor="middle">운영사</text>
-
-                            <text x="120" y="120" font-size="9" font-weight="bold" fill="#334155" text-anchor="middle">기계실 층고 H=3000mm 최종 승인</text>
-                            <text x="120" y="152" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">✔ 인터페이스 협의 완료</text>
+                            <text x="125" y="165" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">✔ 함체 수용성 확보 완료</text>
                         </g>
                     </svg>
                 </div>
 
                 <div class="bg-teal-50/90 border-l-4 border-teal-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
                     <span class="font-bold text-teal-900 flex items-center gap-1.5 text-xs">
-                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 3 인허가 신고 & 인터페이스]</strong>
+                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 3 시스템 분야 통합 인터페이스]</strong>
                     </span>
                     <p class="text-slate-700 leading-relaxed pl-5 font-medium">
-                        좌측 지자체 자가용전기통신설비 설치신고서를 접수하고, 우측 토목/건축/전기 타 공종 담당자와 기계실 층고 및 배관 트레이 인터페이스를 공식 조율하는 단계입니다.
+                        좌측 KEC 관로 점유율 규정(통신 4.4% 수용)을 지켜 지체 없이 케이블이 지나가도록 공동관로를 배치하고, 우측 정거장 통합 함체(3.2m) 공간 내에 통신 랙이 선행 공종과 간섭 없이 정확히 배치되도록 시공계획서에 반영하는 단계입니다.
                     </p>
                 </div>
             </div>
@@ -388,15 +349,15 @@
             <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4</span>
-                    <h3 class="font-bold text-base text-slate-900">감리단 기술 검토 보완 조치 및 감리단 / 발주처 공식 승인 수득</h3>
+                    <h3 class="font-bold text-base text-slate-900">감리단 / 발주처 기술 검토 보완 조치 및 공식 승인 공문 수득</h3>
                 </div>
                 <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
-                    <li><strong>검토 보완 조치:</strong> 감리단 기술검토 의견서 지적 사항에 대한 보완 조치표를 작성하여 최종 조율합니다.</li>
-                    <li><strong>공식 승인 통보:</strong> 책임감리원 서명 및 붉은색 공식 승인을 서류에 받아 공사 착수를 공식 개시합니다.</li>
+                    <li><strong>검토 보완 조치:</strong> 감리단/발주처 기술검토 의견서 지적 사항 및 시스템 인터페이스 항목 보완 조치표를 최종 제출합니다.</li>
+                    <li><strong>공식 승인 수득:</strong> 전자결재, 승인 공문 수신 또는 조건부 승인 통보 등 공식 절차를 받아 시공을 최종 확정합니다.</li>
                 </ul>
 
                 <!-- STEP 4 SVG Graphic -->
-                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step4_planning', 'STEP 4 감리단 감리단 / 발주처 공식 승인 수득 2D 도식')">
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step4_planning', 'STEP 4 감리단/발주처 공식 승인 공문 수득 2D 도식')">
                     <svg id="svg_step4_planning" viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/>
                         
@@ -406,15 +367,15 @@
                             <text x="170" y="21" font-size="13" font-weight="black" fill="#ffffff" text-anchor="middle">📄 통신공사 시공계획서 최종 승인서</text>
                             
                             <text x="25" y="52" font-size="10" font-weight="bold" fill="#1e293b">공사명: 동탄도시철도(트램) 건설공사 통신공사</text>
-                            <text x="25" y="70" font-size="9" fill="#475569">• 검토 항목: CPM 공정표, 9대 서브시스템 배치도, 위험성평가</text>
-                            <text x="25" y="85" font-size="9" fill="#475569">• 검토 의견: 시방서 및 법령 준수, 시공계획서 적합 승인함.</text>
+                            <text x="25" y="70" font-size="9" fill="#475569">• 검토 항목: CPM 공정표, 공동관로 점유율, 통합외함, 위험성평가</text>
+                            <text x="25" y="85" font-size="9" fill="#475569">• 검토 의견: 시스템 인터페이스 및 시방 준수, 시공계획서 적합 승인함.</text>
                             
                             <line x1="25" y1="98" x2="315" y2="98" stroke="#cbd5e1" stroke-width="1"/>
                             
                             <text x="25" y="118" font-size="10" font-weight="bold" fill="#0f172a">책임 감리원:</text>
                             <text x="90" y="118" font-size="10" font-weight="bold" fill="#1e3a8a">김 책임 (서명/인)</text>
                             
-                            <!-- RED 공식 승인 STAMP -->
+                            <!-- RED OFFICIAL STAMP -->
                             <g transform="translate(210, 95) rotate(-12)">
                                 <rect x="0" y="0" width="110" height="50" fill="none" stroke="#dc2626" stroke-width="3" rx="6"/>
                                 <rect x="3" y="3" width="104" height="44" fill="none" stroke="#dc2626" stroke-width="1" rx="4"/>
@@ -422,18 +383,9 @@
                                 <text x="55" y="40" font-size="8" font-weight="bold" fill="#dc2626" text-anchor="middle">감리단/발주처 승인완료</text>
                             </g>
                             
-                            <text x="170" y="160" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 통신공사 시공계획 공식 승인 완수</text>
+                            <text x="170" y="160" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 감리단 / 발주처 공식 승인 공문 수득 완수</text>
                         </g>
                     </svg>
-                </div>
-
-                <div class="bg-emerald-50/90 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
-                    <span class="font-bold text-emerald-900 flex items-center gap-1.5 text-xs">
-                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 4 감리단 승인 인감 수득]</strong>
-                    </span>
-                    <p class="text-slate-700 leading-relaxed pl-5 font-medium">
-                        감리단의 보완 요구 사항을 완전히 반영한 후 책임감리원으로부터 붉은색 <strong>공식 승인</strong> 인감 도장을 승인서에 수득하여 본격적인 현장 공사에 착수하는 단계입니다.
-                    </p>
                 </div>
             </div>
 
@@ -466,9 +418,10 @@
 
 <script>
 const glossaryData = {
-    "construction_plan": "<b>시공계획서 (Construction Plan)</b><br><br>• 통신공사 착수 전 공사 개요, 조직도, 예정공정표, 자재/인력/장비 투입계획, 품질관리 및 안전관리 계획을 수립하여 감리단 승인을 받는 공식 시공 지침서입니다.",
-    "cpm_schedule": "<b>CPM 예정공정표 (Critical Path Method Schedule)</b><br><br>• 공사의 전체 세부 작업 간 선후 관계를 네트워크 형태로 분석하여 공기에 결정적 영향을 미치는 주공정선(Critical Path)을 집중 관리하는 공정표입니다.",
-    "private_telecom": "<b>자가용전기통신설비 설치신고 (Private Telecommunications Facility Filing)</b><br><br>• 전기통신사업법 제64조에 의거 구내 통신망 및 자가 통신설비를 설치하기 전 관할 지자체장 또는 과기부에 공사계획을 공식 신고 접수하는 필수 법적 절차입니다."
+    "construction_plan": "<b>시공계획서 (Construction Plan)</b><br><br>• 통신공사 착수 전 공사 개요, 조직도, 예정공정표, 자재/인력/장비 투입계획, 품질/안전 관리 및 시스템 인터페이스 계획을 수립하여 감리단 승인을 받는 공식 지침서입니다.",
+    "cpm_schedule": "<b>CPM 예정공정표 (Critical Path Method Schedule)</b><br><br>• 공사의 전체 세부 작업 간 선후 관계를 분석하여 주공정선(Critical Path)을 집중 관리하는 공정표입니다.",
+    "joint_duct": "<b>공동관로 단면적 점유율 (Joint Duct Fill Ratio)</b><br><br>• 한국전기설비규정(KEC)에 의거, 지하 매설 ELP Φ150mm 전선관 내 케이블 단면적 합계가 내부 단면적의 33% 이하(통신 4.4%)가 되도록 관리하는 규격입니다.",
+    "integrated_enclosure": "<b>정거장 통합 외함 (Integrated Enclosure)</b><br><br>• 정거장 승강장 및 궤도변에 설치되는 전기, 신호, 통신 분야 통합 함체로서 분야별 길이(통신 3.2m/1.6m) 및 배치 케이블 트레이 인터페이스를 포함합니다."
 };
 
 function openGlossary(term) {

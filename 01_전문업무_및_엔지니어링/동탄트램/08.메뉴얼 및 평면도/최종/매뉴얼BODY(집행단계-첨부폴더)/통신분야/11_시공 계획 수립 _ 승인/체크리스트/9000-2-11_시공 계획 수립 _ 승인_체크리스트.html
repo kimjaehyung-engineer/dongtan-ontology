@@ -15,7 +15,7 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Inspection Checklist (WBS 9000-2-11)</span>
         <h1 class="text-3xl font-black mt-2">통신공사 시공 계획 수립 및 승인 체크리스트</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-11 | 주관: 현장 시스템팀 | "질문형 종결 어미 (~하였는가?) 100% 통일"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-11 | 주관: 현장 시스템팀 | "시스템 분야 정밀 인터페이스 포함 질문형 문항 100% 통일"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-8">
@@ -24,11 +24,11 @@
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-wrap items-center justify-between gap-4">
             <div>
                 <h3 class="text-base font-bold text-blue-950">📋 시공계획서 검측 항목 현황</h3>
-                <p class="text-xs text-slate-600">통신 시공계획서 6대 장 및 인허가 필수 확인 항목</p>
+                <p class="text-xs text-slate-600">통신 시공계획서 7대 장 및 시스템 인터페이스 검측 항목</p>
             </div>
             <div class="flex items-center gap-3">
                 <span class="bg-white px-4 py-2 rounded-xl border border-blue-300 text-xs font-bold text-blue-900 shadow-sm">
-                    전체 문항: <span id="total-count">6</span>개
+                    전체 문항: <span id="total-count">7</span>개
                 </span>
                 <span class="bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm">
                     완료: <span id="checked-count">0</span>개
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <!-- 6대 정밀 검측 체크리스트 테이블 -->
+        <!-- 7대 정밀 검측 체크리스트 테이블 -->
         <div class="overflow-x-auto border border-slate-200 rounded-2xl shadow-sm">
             <table class="w-full text-left border-collapse text-xs">
                 <thead>
@@ -128,6 +128,19 @@
                         <td class="p-4 text-center font-bold text-emerald-600">적합 (☐)</td>
                     </tr>
 
+                    <!-- Row 7 (NEW SYSTEM INTERFACE ITEM) -->
+                    <tr class="hover:bg-slate-50 transition bg-amber-50/40">
+                        <td class="p-4 text-center">
+                            <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" onchange="updateCount()">
+                        </td>
+                        <td class="p-4 text-center font-bold text-amber-700">07</td>
+                        <td class="p-4 font-bold text-amber-900 bg-amber-100/60">7장 시스템인터페이스</td>
+                        <td class="p-4 font-medium text-slate-900">
+                            본선 공동관로 KEC 점유율(≤33% 준수, 통신 4.4%), 정거장 통합 외함(3.2m) 수용성 및 통합 Pole(공용지주) 배치가 반영되었는가?
+                        </td>
+                        <td class="p-4 text-center font-bold text-emerald-600">적합 (☐)</td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -136,7 +149,7 @@
         <div class="bg-slate-100 border border-slate-300 p-6 rounded-2xl flex flex-wrap justify-between items-center text-xs text-slate-700">
             <div>
                 <span class="font-bold text-slate-900">검측 일자: 2026년 _____월 _____일</span>
-                <p class="text-[11px] text-slate-500 mt-1">현장 시스템팀 검측 완료 및 감리단 공식 승인공문 부착 확인</p>
+                <p class="text-[11px] text-slate-500 mt-1">현장 시스템팀 검측 완료 및 감리단/발주처 공식 승인 공문 수득 확인</p>
             </div>
             <div class="flex items-center gap-6 mt-2 sm:mt-0">
                 <span>점검자(시공사): ____________ (인)</span>
