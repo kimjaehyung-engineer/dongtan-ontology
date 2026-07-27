@@ -92,23 +92,25 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
 <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
     <!-- 🔵 헤더 영역 -->
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Detailed Guideline (WBS 9000-2-10)</span>
         <h1 class="text-3xl font-black mt-2">통신설비 제작 사양서 작성 및 승인 초정밀 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-10 | 주관: 현장 시스템팀 | "1:1 STEP별 직관적 2D 그림 수록 가이드"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-10 | 주관: 현장 시스템팀 | "실물 장비 & 현장 단면 정밀 2D 도식 수록"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
-        <!-- 💡 개념 해설 박스 -->
+        
+        <!-- 💡 친절한 개념 해설 박스 -->
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
             <h4 class="font-bold text-base flex items-center gap-2">💡 통신설비 제작사양서 작성 및 승인 실무 개요</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                본 지침서는 현장 시스템팀 엔지니어가 통신설비 제작을 개시하기 전 <strong><span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('shop_drawing')">제작 도면(Shop Drawing)</span></strong>을 작성하고, <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span>를 포함하여 감리단/발주처 승인을 획득하는 5단계 실무 가이드를 제공합니다. **모든 카드에 1:1 직관적 2D 그림과 확대 보기**를 수록하였습니다.
+                본 지침서는 현장 엔지니어가 <strong><span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('shop_drawing')">제작 도면(Shop Drawing)</span></strong>을 작성하고, <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span>를 검증하여 감리단/발주처 최종 승인을 수득하는 실무 가이드입니다. **단순 글상자를 배제하고 실물 장비(19" 랙, 레이저 빔, IP65 노즐, APPROVED 도장)가 그려진 2D 그래픽**을 수록하였습니다.
             </p>
         </div>
 
-        <!-- ☀️ 5단계 수행 마스터 프로세스 -->
+        <!-- ☀️ 5단계 마스터 프로세스 -->
         <div class="bg-blue-50/70 border border-blue-200 p-7 rounded-2xl shadow-md space-y-6">
             <div class="border-b border-blue-200 pb-4">
                 <span class="bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase">FLEXIBLE 5-STEP ARCHITECTURE</span>
@@ -117,65 +119,105 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2 text-xs">
                 <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1">
                     <span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 1</span>
-                    <h4 class="font-bold text-slate-900 text-xs">설계도서 1:1 대조</h4>
-                    <p class="text-[10px] text-slate-600">• 실시설계 보고서/도면<br">• 현장 기계실 규격 대조</p>
+                    <h4 class="font-bold text-slate-900 text-xs">도면 vs 현장대조</h4>
+                    <p class="text-[10px] text-slate-600">• CAD도면 기호 대조<br">• 기계실 층고/AccessFloor</p>
                 </div>
                 <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1">
                     <span class="bg-indigo-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 2</span>
-                    <h4 class="font-bold text-slate-900 text-xs">사양서 & 도면작성</h4>
-                    <p class="text-[10px] text-slate-600">• 전기/기계 세부규격<br">• 통신 랙 Shop Drawing</p>
+                    <h4 class="font-bold text-slate-900 text-xs">19" 랙 Shop Drawing</h4>
+                    <p class="text-[10px] text-slate-600">• 광전송/L3/OFD 랙배치<br">• 전원 AC/DC & PDU배선</p>
                 </div>
                 <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1">
                     <span class="bg-cyan-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 3</span>
-                    <h4 class="font-bold text-slate-900 text-xs">품질 & FAT 절차서</h4>
-                    <p class="text-[10px] text-slate-600">• KC/IP65/내진 검증<br">• 공장검사 시험절차서</p>
+                    <h4 class="font-bold text-slate-900 text-xs">IP65 / 내진 / FAT</h4>
+                    <p class="text-[10px] text-slate-600">• IP65 수압 노즐 분사<br">• 내진 진동대 & FAT 양식</p>
                 </div>
                 <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1">
                     <span class="bg-teal-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 4</span>
-                    <h4 class="font-bold text-slate-900 text-xs">감리단 승인(Sign-Off)</h4>
-                    <p class="text-[10px] text-slate-600">• 감리/발주처 제출<br">• 기술 승인 인감 획득</p>
+                    <h4 class="font-bold text-slate-900 text-xs">APPROVED 승인인감</h4>
+                    <p class="text-[10px] text-slate-600">• 기술검토 보완 조치표<br">• 감리 승인인감(APPROVED)</p>
                 </div>
                 <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1">
                     <span class="bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 5</span>
-                    <h4 class="font-bold text-slate-900 text-xs">제작사 전달 & 착수</h4>
-                    <p class="text-[10px] text-slate-600">• 승인도서 제작사 전달<br">• 공장 제작 착수 지시</p>
+                    <h4 class="font-bold text-slate-900 text-xs">공장 제작 착수</h4>
+                    <p class="text-[10px] text-slate-600">• 승인사양서 제작사전달<br">• 공장 조립 라인 착수</p>
                 </div>
             </div>
         </div>
 
-        <!-- 🔥 HOW 세부 지침 & 1:1 2D Visual SVG -->
+        <!-- 🔥 HOW 세부 지침 & 실제 장비 2D Visual SVG -->
         <div class="space-y-8">
-            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-indigo-600 pb-2">단계별 초정밀 HOW 실무 지침 & 1:1 직관적 2D 그림</h2>
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-indigo-600 pb-2">단계별 초정밀 HOW 실무 지침 & 실제 장비 2D visual 시각 도식</h2>
 
             <!-- STEP 1 Card -->
             <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1</span>
-                    <h3 class="font-bold text-base text-slate-900">실시설계도서 1:1 대조 및 현장 기계실/역사 치수 확인</h3>
+                    <h3 class="font-bold text-base text-slate-900">실시설계도서 1:1 대조 및 현장 통신기계실 층고·이중바닥 실측 (HOW TO MEASURE)</h3>
                 </div>
-                <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
-                    <p>• <strong>도서 1:1 비교:</strong> 기본/실시설계 보고서, 시방서, 도면 및 자재사양서 수치를 수신하여 현장 통신기계실/TPS실 실제 실측 치수와 1:1 비교합니다.</p>
-                    <p>• <strong>설치 공간 확정:</strong> 랙 반입 경로, 이중바닥(Access Floor H=300mm), 천장 마감 층고(≥3.0m) 및 전원 배선반 위치를 확인하여 사양서 기준을 확정합니다.</p>
-                </div>
+                <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                    <li><strong>도면 수치 1:1 대조:</strong> 기본/실시설계 보고서, 시방서, 도면 및 자재사양서 수치를 수신하여 현장 통신기계실/TPS실 실제 실측 치수와 1:1 비교합니다.</li>
+                    <li><strong>설치 공간 레이저 측정:</strong> 통신 랙 반입 경로, 이중바닥(Access Floor H=300mm), 천장 마감 층고(≥3.0m) 및 전원 배선반 위치를 레이저 측정기로 실측하여 사양서 기준을 확정합니다.</li>
+                </ul>
 
-                <!-- 1:1 STEP 1 2D SVG -->
-                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step1_wbs10', 'STEP 1 실시설계도서 대조 및 현장 실측 치수 확인 2D 도식')">
-                    <svg id="svg_step1_wbs10" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
-                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
-                        <text x="130" y="50" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">📐 실시설계도서 1:1 대조</text>
-                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 보고서/도면/자재사양서 검토</text>
-                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 장비별 세부 기능 규격 대조</text>
-                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 도서 대조 통과</text>
+                <!-- 🎨 STEP 1 REAL EQUIPMENT & ROOM CROSS-SECTION 2D SVG -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step1_real', 'STEP 1 CAD 설계도서 vs 실제 통신기계실 단면 1:1 레이저 측정 도식')">
+                    <svg id="svg_step1_real" viewBox="0 0 540 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="540" height="200" fill="#f1f5f9" rx="8"/>
+                        
+                        <!-- Left: CAD Blueprint Document Graphic -->
+                        <g transform="translate(15, 15)">
+                            <rect x="0" y="0" width="220" height="170" fill="#1e293b" stroke="#3b82f6" stroke-width="2" rx="6"/>
+                            <text x="110" y="25" font-size="12" font-weight="black" fill="#60a5fa" text-anchor="middle">📐 CAD 실시설계도서 규격</text>
+                            <line x1="15" y1="35" x2="205" y2="35" stroke="#475569" stroke-width="1"/>
+                            
+                            <!-- Blueprint Lines -->
+                            <rect x="25" y="45" width="170" height="105" fill="#0f172a" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3,3"/>
+                            <!-- Room Height Arrow in Blueprint -->
+                            <line x1="45" y1="55" x2="45" y2="135" stroke="#f59e0b" stroke-width="1.5"/>
+                            <polygon points="45,52 42,57 48,57" fill="#f59e0b"/>
+                            <polygon points="45,138 42,133 48,133" fill="#f59e0b"/>
+                            <text x="52" y="98" font-size="10" font-weight="bold" fill="#fbbf24">H ≥ 3.0m</text>
+                            
+                            <!-- Access Floor in Blueprint -->
+                            <rect x="25" y="125" width="170" height="15" fill="#334155" stroke="#f59e0b" stroke-width="1"/>
+                            <text x="110" y="136" font-size="9" font-weight="bold" fill="#fcd34d" text-anchor="middle">Access Floor H=300mm</text>
+                            <text x="110" y="75" font-size="10" font-weight="bold" fill="#93c5fd" text-anchor="middle">Rack H=2200mm 배치</text>
+                        </g>
 
-                        <path d="M 245 90 L 285 90" stroke="#2563eb" stroke-width="3"/>
-                        <polygon points="285,85 295,90 285,95" fill="#2563eb"/>
+                        <!-- Center Arrow -->
+                        <g transform="translate(245, 90)">
+                            <circle cx="15" cy="0" r="14" fill="#2563eb"/>
+                            <text x="15" y="4" font-size="10" font-weight="black" fill="#ffffff" text-anchor="middle">VS</text>
+                        </g>
 
-                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📏 현장 기계실 치수 검측</text>
-                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 천장 층고 ≥ 3.0m 실측</text>
-                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• Access Floor H=300mm 확인</text>
-                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 공간 실측 1:1 승인</text>
+                        <!-- Right: Real Machine Room Cross-Section Graphic -->
+                        <g transform="translate(290, 15)">
+                            <rect x="0" y="0" width="235" height="170" fill="#ffffff" stroke="#059669" stroke-width="2" rx="6"/>
+                            <text x="117" y="25" font-size="12" font-weight="black" fill="#047857" text-anchor="middle">📏 통신기계실 현장 단면 실측</text>
+                            <line x1="15" y1="35" x2="220" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <!-- Concrete Slab Ceiling -->
+                            <rect x="20" y="42" width="195" height="10" fill="#94a3b8"/>
+                            <text x="117" y="50" font-size="8" fill="#ffffff" text-anchor="middle">콘크리트 슬라브 천장</text>
+                            
+                            <!-- Access Floor Concrete Structure -->
+                            <rect x="20" y="145" width="195" height="15" fill="#64748b"/>
+                            <!-- Access Floor Pedestals -->
+                            <line x1="40" y1="130" x2="40" y2="145" stroke="#0f172a" stroke-width="3"/>
+                            <line x1="117" y1="130" x2="117" y2="145" stroke="#0f172a" stroke-width="3"/>
+                            <line x1="190" y1="130" x2="190" y2="145" stroke="#0f172a" stroke-width="3"/>
+                            <rect x="20" y="127" width="195" height="4" fill="#0284c7"/>
+                            
+                            <!-- Engineer with Laser Distance Meter -->
+                            <rect x="160" y="90" width="18" height="37" fill="#3b82f6" rx="2"/>
+                            <circle cx="169" cy="82" r="7" fill="#fde047"/> <!-- Engineer Helmet -->
+                            <!-- Red Laser Beam Line to Ceiling -->
+                            <line x1="169" y1="90" x2="169" y2="52" stroke="#ef4444" stroke-width="2" stroke-dasharray="2,2"/>
+                            <text x="160" y="74" font-size="9" font-weight="black" fill="#dc2626">Laser 3.002m</text>
+                            <text x="110" y="140" font-size="9" font-weight="bold" fill="#0369a1" text-anchor="middle">Access Floor H=300mm 확인</text>
+                        </g>
+
                     </svg>
                 </div>
             </div>
@@ -184,31 +226,79 @@
             <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
-                    <h3 class="font-bold text-base text-slate-900">통신설비 <span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span> 및 <span class="term-highlight" onclick="openGlossary('shop_drawing')">제작도면(Shop Drawing)</span> 작성</h3>
+                    <h3 class="font-bold text-base text-slate-900">19인치 통신 랙(Rack H=2200mm) 실물 Shop Drawing & 전원 배선도 작성 (HOW TO DRAW)</h3>
                 </div>
-                <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
-                    <p>• <strong>전기/기계 사양 정의:</strong> 전원 사양(AC220V/DC48V), 소비전력(W), 포트 구성(10GbE, Optic), 신호 전파 특성 및 동작 온도(-20℃~60℃)를 작성합니다.</p>
-                    <p>• <strong>제작 도면 작성:</strong> 통신 랙(Height 2200mm) 전면/후면 장비 배치도, 전원 분배 배선도, 광패치패널 구성도 및 외구 치수를 CAD 도면화합니다.</p>
-                </div>
+                <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                    <li><strong>전기/기계 규격 정의:</strong> 전원 사양(AC220V/DC48V), 소비전력(W), 포트 구성(10GbE, Optic), 신호 전파 특성 및 동작 온도(-20℃~60℃)를 작성합니다.</li>
+                    <li><strong>랙 실물 도면 CAD 작성:</strong> 통신 랙(Height 2200mm) 전면/후면 장비 배치도, 광전송, L3 스위치, OFD 광패치패널, PDU 전원 분배기 및 케이블 배선 링을 정밀 2D 그려 도면화합니다.</li>
+                </ul>
 
-                <!-- 1:1 STEP 2 2D SVG -->
-                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2_wbs10', 'STEP 2 제작사양서 및 통신 랙 Shop Drawing 작성 2D 도식')">
-                    <svg id="svg_step2_wbs10" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
-                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="8"/>
-                        <text x="130" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">🔌 전기/기계 세부규격 정의</text>
-                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 전원 AC220V/DC48V & 소비전력</text>
-                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 10GbE 광포트 & 인터페이스</text>
-                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 사양서 작성 완수</text>
+                <!-- 🎨 STEP 2 19-INCH COMMUNICATION RACK REAL GRAPHIC 2D SVG -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2_real', 'STEP 2 19인치 통신 랙(Height 2200mm) 실물 장비 배치 및 배선도 Shop Drawing 2D 도식')">
+                    <svg id="svg_step2_real" viewBox="0 0 540 210" width="100%" height="210" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="540" height="210" fill="#f8fafc" rx="8"/>
+                        
+                        <!-- Left: 19" Rack Graphic (H=2200mm Front View) -->
+                        <g transform="translate(30, 15)">
+                            <!-- Rack Cabinet Outer Frame -->
+                            <rect x="0" y="0" width="160" height="180" fill="#1e293b" stroke="#475569" stroke-width="3" rx="4"/>
+                            <text x="80" y="18" font-size="11" font-weight="black" fill="#38bdf8" text-anchor="middle">🗄️ 19" 통신 랙 (H=2200mm)</text>
+                            
+                            <!-- Mounting Rails -->
+                            <rect x="10" y="25" width="140" height="145" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+                            
+                            <!-- Equipment 1: PDU Power Unit (1U) -->
+                            <rect x="15" y="32" width="130" height="15" fill="#dc2626" rx="2"/>
+                            <text x="80" y="43" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">PDU Main Power AC220V / DC48V</text>
+                            <circle cx="25" cy="39" r="2.5" fill="#fde047"/>
+                            
+                            <!-- Equipment 2: OTN Optical Transmission Unit (2U) -->
+                            <rect x="15" y="52" width="130" height="28" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1" rx="2"/>
+                            <text x="80" y="69" font-size="9" font-weight="black" fill="#60a5fa" text-anchor="middle">광전송장비 (OTN Main 2U)</text>
+                            <!-- Optic Ports -->
+                            <rect x="25" y="70" width="8" height="6" fill="#f59e0b"/>
+                            <rect x="36" y="70" width="8" height="6" fill="#f59e0b"/>
+                            <rect x="47" y="70" width="8" height="6" fill="#f59e0b"/>
 
-                        <path d="M 245 90 L 285 90" stroke="#4f46e5" stroke-width="3"/>
-                        <polygon points="285,85 295,90 285,95" fill="#4f46e5"/>
+                            <!-- Equipment 3: Cable Management Ring (1U) -->
+                            <rect x="15" y="85" width="130" height="12" fill="#334155"/>
+                            <path d="M 25 87 L 25 95 M 65 87 L 65 95 M 105 87 L 105 95" stroke="#94a3b8" stroke-width="2"/>
+                            <text x="80" y="94" font-size="7" fill="#cbd5e1" text-anchor="middle">Cable Guide Ring</text>
 
-                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🗄️ 랙(Rack) Shop Drawing</text>
-                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 통신 랙(H=2200mm) 배치도</text>
-                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 전원분배 & 광패치 배선도 CAD</text>
-                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 제작도면 작성완료</text>
+                            <!-- Equipment 4: L3 Backbone Switch (1U) -->
+                            <rect x="15" y="102" width="130" height="18" fill="#065f46" stroke="#10b981" stroke-width="1" rx="2"/>
+                            <text x="80" y="114" font-size="8" font-weight="bold" fill="#a7f3d0" text-anchor="middle">10GbE L3 Backbone Switch</text>
+
+                            <!-- Equipment 5: Optical Distribution Frame (OFD 2U) -->
+                            <rect x="15" y="125" width="130" height="28" fill="#431407" stroke="#b45309" stroke-width="1" rx="2"/>
+                            <text x="80" y="142" font-size="9" font-weight="black" fill="#fde047" text-anchor="middle">OFD 광패치패널 (72-Core)</text>
+                        </g>
+
+                        <!-- Right: CAD Wiring & Cable Routing Shop Drawing Detail -->
+                        <g transform="translate(220, 15)">
+                            <rect x="0" y="0" width="290" height="180" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="6"/>
+                            <text x="145" y="25" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">📄 CAD Shop Drawing 배선도 세부 규격</text>
+                            <line x1="15" y1="35" x2="275" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <!-- CAD Callout Box 1 -->
+                            <rect x="20" y="45" width="250" height="35" fill="#f0f9ff" stroke="#0284c7" stroke-width="1" rx="4"/>
+                            <text x="30" y="60" font-size="10" font-weight="bold" fill="#0369a1">⚡ 전원 규격:</text>
+                            <text x="95" y="60" font-size="10" font-weight="medium" fill="#1e293b">AC 220V ±10% / DC -48V 이중화</text>
+                            <text x="30" y="73" font-size="9" fill="#64748b">• 소비전력: 450W 이하 (PDU N+1 분배)</text>
+
+                            <!-- CAD Callout Box 2 -->
+                            <rect x="20" y="88" width="250" height="35" fill="#f0fdf4" stroke="#16a34a" stroke-width="1" rx="4"/>
+                            <text x="30" y="103" font-size="10" font-weight="bold" fill="#15803d">🔌 포트 규격:</text>
+                            <text x="95" y="103" font-size="10" font-weight="medium" fill="#1e293b">10GbE SFP+ Optic 24Port</text>
+                            <text x="30" y="116" font-size="9" fill="#64748b">• 광점퍼코드: LC-LC Single Mode (1310/1550nm)</text>
+
+                            <!-- CAD Callout Box 3 -->
+                            <rect x="20" y="131" width="250" height="35" fill="#fff7ed" stroke="#ea580c" stroke-width="1" rx="4"/>
+                            <text x="30" y="146" font-size="10" font-weight="bold" fill="#c2410c">📏 외형 규격:</text>
+                            <text x="95" y="146" font-size="10" font-weight="medium" fill="#1e293b">600(W) x 1000(D) x 2200(H) mm</text>
+                            <text x="30" y="159" font-size="9" fill="#64748b">• 전후면 타공 메쉬 도어 (열발산 구조)</text>
+                        </g>
+
                     </svg>
                 </div>
             </div>
@@ -217,31 +307,67 @@
             <div class="bg-white p-6 rounded-2xl border border-cyan-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-cyan-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3</span>
-                    <h3 class="font-bold text-base text-slate-900">품질/환경 규격(KC/IP65/내진) & <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span> 검증</h3>
+                    <h3 class="font-bold text-base text-slate-900">야외 CCTV IP65 수압 방수 노즐 분사 & 내진 시험 2D 검증 (HOW TO TEST)</h3>
                 </div>
-                <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
-                    <p>• <strong>인증서 & 성적서 포함:</strong> KC 방송통신기자재 적합인증서, 내진 시험성적서 및 야외 카메라 방진·방수 IP65 등급 시험성적서를 첨부합니다.</p>
-                    <p>• <strong>FAT 절차서 작성:</strong> 공장 출하 전 입석 감리원 참관 하에 수행할 공장검사(FAT) 시험 항목, 검사 기준 및 양식을 사양서 부록에 포함합니다.</p>
-                </div>
+                <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                    <li><strong>IP65 방수 & 내진 성적서:</strong> 야외 설치형 CCTV 하우징에 IP65 고압 수압 노즐 분사 시험을 실시하고, 랙 내진 진동대 시험성적서 및 KC 방송통신기자재 인증서를 첨부합니다.</li>
+                    <li><strong>공장검사(FAT) 절차서:</strong> 공장 출하 전 입석 감리원 참관 하에 수행할 공장검사(FAT) 시험 항목, 검사 기준 및 양식을 사양서 부록에 수록합니다.</li>
+                </ul>
 
-                <!-- 1:1 STEP 3 2D SVG -->
-                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step3_wbs10', 'STEP 3 KC인증/내진/IP65 성적서 및 공장검사 FAT 절차서 2D 도식')">
-                    <svg id="svg_step3_wbs10" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
-                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#0891b2" stroke-width="2" rx="8"/>
-                        <text x="130" y="50" font-size="13" font-weight="black" fill="#0e7490" text-anchor="middle">🛡️ KC 인증 & 환경시험성적서</text>
-                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• KC 방송통신기자재 인증서</text>
-                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 내진성능 & IP65 방수성적서</text>
-                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 품질 규격 첨부 완료</text>
+                <!-- 🎨 STEP 3 IP65 WATERJET & SHAKE TABLE TEST REAL GRAPHIC 2D SVG -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step3_real', 'STEP 3 야외 CCTV IP65 고압 수압 노즐 분사 및 내진 진동대 시험 2D 검증 도식')">
+                    <svg id="svg_step3_real" viewBox="0 0 540 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="540" height="200" fill="#f8fafc" rx="8"/>
+                        
+                        <!-- Left: IP65 High Pressure Water Jet Test Graphic -->
+                        <g transform="translate(20, 15)">
+                            <rect x="0" y="0" width="240" height="170" fill="#ffffff" stroke="#0891b2" stroke-width="2" rx="6"/>
+                            <text x="120" y="25" font-size="12" font-weight="black" fill="#0e7490" text-anchor="middle">💦 야외 CCTV IP65 수압 분사 시험</text>
+                            <line x1="15" y1="35" x2="225" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <!-- Outdoor CCTV Camera Housing Graphic -->
+                            <rect x="130" y="65" width="70" height="45" fill="#334155" rx="5"/>
+                            <circle cx="140" cy="87" r="10" fill="#0f172a"/>
+                            <circle cx="140" cy="87" r="5" fill="#38bdf8"/> <!-- Lens -->
+                            <rect x="125" y="60" width="80" height="6" fill="#64748b"/> <!-- Sunshield -->
+                            <rect x="180" y="110" width="12" height="40" fill="#475569"/> <!-- Pole Bracket -->
 
-                        <path d="M 245 90 L 285 90" stroke="#0891b2" stroke-width="3"/>
-                        <polygon points="285,85 295,90 285,95" fill="#0891b2"/>
+                            <!-- Water Jet Nozzle Sprayer -->
+                            <rect x="30" y="75" width="35" height="16" fill="#0284c7" rx="3"/>
+                            <!-- Water Spray Streams -->
+                            <path d="M 65 83 L 125 65 M 65 83 L 125 75 M 65 83 L 125 87 M 65 83 L 125 98 M 65 83 L 125 105" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4,2"/>
+                            <text x="75" y="60" font-size="9" font-weight="black" fill="#0284c7">High Water Jet</text>
+                            <text x="120" y="162" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ IP65 방진방수 시험 합격</text>
+                        </g>
 
-                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📋 공장검사(FAT) 시험절차서</text>
-                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 출하 전 감리 참관 FAT 항목</text>
-                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 시험검사 양식 부록 첨부</text>
-                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ FAT 절차서 검증통과</text>
+                        <!-- Right: Shake Table Seismic Test & KC Certificate Graphic -->
+                        <g transform="translate(280, 15)">
+                            <rect x="0" y="0" width="240" height="170" fill="#ffffff" stroke="#059669" stroke-width="2" rx="6"/>
+                            <text x="120" y="25" font-size="12" font-weight="black" fill="#047857" text-anchor="middle">🏢 내진 진동대 & KC 인증 성적서</text>
+                            <line x1="15" y1="35" x2="225" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <!-- Seismic Shake Table Graphic -->
+                            <rect x="30" y="130" width="90" height="12" fill="#475569"/>
+                            <!-- Shake Arrows -->
+                            <path d="M 20 136 L 28 136 M 122 136 L 130 136" stroke="#dc2626" stroke-width="3"/>
+                            <!-- Rack on Shake Table -->
+                            <rect x="45" y="55" width="60" height="75" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+                            <text x="75" y="95" font-size="8" fill="#ffffff" text-anchor="middle">내진 Rack</text>
+
+                            <!-- KC Certificate Badge Graphic -->
+                            <g transform="translate(140, 50)">
+                                <rect x="0" y="0" width="80" height="95" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" rx="4"/>
+                                <!-- KC Emblem -->
+                                <circle cx="40" cy="25" r="14" fill="#c2410c"/>
+                                <text x="40" y="30" font-size="13" font-weight="black" fill="#ffffff" text-anchor="middle">KC</text>
+                                <text x="40" y="50" font-size="8" font-weight="bold" fill="#9a3412" text-anchor="middle">방송통신기자재</text>
+                                <text x="40" y="62" font-size="8" font-weight="bold" fill="#9a3412" text-anchor="middle">적합인증서</text>
+                                <line x1="10" y1="70" x2="70" y2="70" stroke="#fed7aa" stroke-width="1"/>
+                                <text x="40" y="82" font-size="7" fill="#c2410c" text-anchor="middle">FAT 시험절차서 첨부</text>
+                            </g>
+                            <text x="120" y="162" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 공학적 검증 완료</text>
+                        </g>
+
                     </svg>
                 </div>
             </div>
@@ -250,31 +376,48 @@
             <div class="bg-white p-6 rounded-2xl border border-teal-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-teal-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4</span>
-                    <h3 class="font-bold text-base text-slate-900">감리단 및 발주처 기술 검토 제출 & 최종 승인(Sign-Off)</h3>
+                    <h3 class="font-bold text-base text-slate-900">감리단/발주처 기술 승인 붉은 인감 도장(APPROVED Stamp) 수득 (HOW TO SIGN-OFF)</h3>
                 </div>
-                <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
-                    <p>• <strong>공문 승인 신청:</strong> 현장 시스템팀 주관으로 작성된 제작사양서 및 제작도면 세트를 감리단/발주처에 제출합니다.</p>
-                    <p>• <strong>기술 보완 조치:</strong> 감리 기술 검토 의견서 발생 시 3일 이내 보완 조치표를 작성하여 최종 승인 인감(Sign-Off)을 수득합니다.</p>
-                </div>
+                <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                    <li><strong>승인 공문 제출:</strong> 현장 시스템팀 주관으로 작성된 제작사양서 및 제작도면 세트를 감리단/발주처에 공식 제출합니다.</li>
+                    <li><strong>승인 인감 수득:</strong> 기술 검토 보완 조치표 최종 조율 후 감리단 책임감리원 서명 및 붉은색 APPROVED 승인 도장을 서서 수득합니다.</li>
+                </ul>
 
-                <!-- 1:1 STEP 4 2D SVG -->
-                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step4_wbs10', 'STEP 4 감리단 기술검토 제출 및 승인 인감 수득 2D 도식')">
-                    <svg id="svg_step4_wbs10" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
-                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="8"/>
-                        <text x="130" y="50" font-size="13" font-weight="black" fill="#0f766e" text-anchor="middle">📩 감리단/발주처 공문 제출</text>
-                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 제작사양서 & 도면 세트 제출</text>
-                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 기술 검토 의견서 보완 조치</text>
-                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 제출 및 검토 완료</text>
+                <!-- 🎨 STEP 4 APPROVED STAMP & APPROVAL DOCUMENT REAL GRAPHIC 2D SVG -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step4_real', 'STEP 4 제작사양서 승인서 문서 및 감리단 APPROVED 붉은 승인 인감 도장 2D 도식')">
+                    <svg id="svg_step4_real" viewBox="0 0 540 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="540" height="200" fill="#f8fafc" rx="8"/>
+                        
+                        <!-- Center: Formal Approval Document Graphic -->
+                        <g transform="translate(100, 15)">
+                            <rect x="0" y="0" width="340" height="170" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
+                            <!-- Document Header -->
+                            <rect x="0" y="0" width="340" height="32" fill="#0f766e" rx="6"/>
+                            <text x="170" y="21" font-size="13" font-weight="black" fill="#ffffff" text-anchor="middle">📄 통신설비 제작 사양서 및 제작도면 승인서</text>
+                            
+                            <!-- Document Body Text Lines -->
+                            <text x="25" y="52" font-size="10" font-weight="bold" fill="#1e293b">공사명: 동탄도시철도(트램) 건설공사 통신설비 제작</text>
+                            <text x="25" y="70" font-size="9" fill="#475569">• 검토 항목: 19" 랙 Shop Drawing, 광전송/LTE-R 사양, KC/IP65 성적서</text>
+                            <text x="25" y="85" font-size="9" fill="#475569">• 검토 의견: 기술 검토 보완 조치 완수, 공학적 무결성 적합 승인함.</text>
+                            
+                            <line x1="25" y1="98" x2="315" y2="98" stroke="#cbd5e1" stroke-width="1"/>
+                            
+                            <!-- Sign Box -->
+                            <text x="25" y="118" font-size="10" font-weight="bold" fill="#0f172a">책임 감리원:</text>
+                            <text x="90" y="118" font-size="10" font-weight="bold" fill="#1e3a8a">김 책임 (서명/인)</text>
+                            <text x="25" y="135" font-size="9" fill="#64748b">승인 일자: 2026년 07월 27일</text>
+                            
+                            <!-- RED APPROVED STAMP GRAPHIC -->
+                            <g transform="translate(210, 95) rotate(-12)">
+                                <rect x="0" y="0" width="110" height="50" fill="none" stroke="#dc2626" stroke-width="3" rx="6"/>
+                                <rect x="3" y="3" width="104" height="44" fill="none" stroke="#dc2626" stroke-width="1" rx="4"/>
+                                <text x="55" y="26" font-size="14" font-weight="900" fill="#dc2626" text-anchor="middle">APPROVED</text>
+                                <text x="55" y="40" font-size="8" font-weight="bold" fill="#dc2626" text-anchor="middle">동탄트램 감리단 승인</text>
+                            </g>
+                            
+                            <text x="170" y="160" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 감리단 / 발주처 최종 승인(Sign-Off) 완수</text>
+                        </g>
 
-                        <path d="M 245 90 L 285 90" stroke="#0d9488" stroke-width="3"/>
-                        <polygon points="285,85 295,90 285,95" fill="#0d9488"/>
-
-                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🖊️ 승인 인감(Sign-Off) 획득</text>
-                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 책임감리원 최종 승인 서명</text>
-                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 공학적 무결성 공식 입증</text>
-                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 최종 승인 완료</text>
                     </svg>
                 </div>
             </div>
@@ -283,31 +426,75 @@
             <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 5</span>
-                    <h3 class="font-bold text-base text-slate-900">최종 승인 사양서 제작사 공식 전달 & 공장 제작 착수</h3>
+                    <h3 class="font-bold text-base text-slate-900">승인 사양서 제작사 공식 전달 & 자재 공장 조립 라인 착수 (HOW TO START)</h3>
                 </div>
-                <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
-                    <p>• <strong>승인 도서 통보:</strong> 감리 승인 필증이 첨부된 제작사양서 및 도면을 자재 제작사에 공식 전달 통보합니다.</p>
-                    <p>• <strong>제작 착수 지시:</strong> 제작사 공장 제작 일정을 확정하고 공장검사(FAT) 준비를 지시하여 불량 없는 제품 생산을 개시합니다.</p>
-                </div>
+                <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                    <li><strong>승인 도서 공문 통보:</strong> 감리 승인 인감이 부착된 최종 제작사양서 및 도면 세트를 자재 제작사에 공식 전달 통보합니다.</li>
+                    <li><strong>공장 조립 라인 착수:</strong> 제작사 공장 조립 라인(랙 하우징 타공, 배선 링 가공, FAT 대기)을 개시하고 공장검사 일정을 확정합니다.</li>
+                </ul>
 
-                <!-- 1:1 STEP 5 2D SVG -->
-                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step5_wbs10', 'STEP 5 승인 사양서 제작사 전달 및 공장 제작 착수 2D 도식')">
-                    <svg id="svg_step5_wbs10" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
-                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                        <text x="130" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📄 승인 도서 제작사 통보</text>
-                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 승인 필증 포함 사양서 전달</text>
-                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 임의 변형 방지 대조 마감</text>
-                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 통보 전달 완료</text>
+                <!-- 🎨 STEP 5 FACTORY MANUFACTURING ASSEMBLY LINE REAL GRAPHIC 2D SVG -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step5_real', 'STEP 5 승인도서 제작사 전달 및 자재 공장 조립 라인 제작 착수 2D 도식')">
+                    <svg id="svg_step5_real" viewBox="0 0 540 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="540" height="200" fill="#f8fafc" rx="8"/>
+                        
+                        <!-- Left: Document Transmittal to Factory Graphic -->
+                        <g transform="translate(20, 15)">
+                            <rect x="0" y="0" width="220" height="170" fill="#ffffff" stroke="#059669" stroke-width="2" rx="6"/>
+                            <text x="110" y="25" font-size="12" font-weight="black" fill="#047857" text-anchor="middle">📨 승인 도서 제작사 공식 통보</text>
+                            <line x1="15" y1="35" x2="205" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <!-- Approved Document Icon -->
+                            <rect x="45" y="48" width="50" height="65" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5" rx="3"/>
+                            <rect x="80" y="90" width="25" height="15" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+                            <text x="92" y="101" font-size="7" font-weight="bold" fill="#dc2626" text-anchor="middle">승인</text>
+                            
+                            <!-- Factory Transmittal Arrow -->
+                            <path d="M 105 80 L 175 80" stroke="#059669" stroke-width="3" stroke-dasharray="4,2"/>
+                            <polygon points="175,75 185,80 175,85" fill="#059669"/>
+                            <text x="140" y="70" font-size="9" font-weight="bold" fill="#047857">공문 전달</text>
+                            <text x="110" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 제작사 전달 완료</text>
+                        </g>
 
-                        <path d="M 245 90 L 285 90" stroke="#059669" stroke-width="3"/>
-                        <polygon points="285,85 295,90 285,95" fill="#059669"/>
+                        <!-- Right: Factory Assembly Line Graphic -->
+                        <g transform="translate(260, 15)">
+                            <rect x="0" y="0" width="260" height="170" fill="#ffffff" stroke="#059669" stroke-width="2" rx="6"/>
+                            <text x="130" y="25" font-size="12" font-weight="black" fill="#047857" text-anchor="middle">🏭 통신 랙 공장 조립 라인 착수</text>
+                            <line x1="15" y1="35" x2="245" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <!-- Conveyor Belt Graphic -->
+                            <rect x="25" y="115" width="210" height="12" fill="#475569"/>
+                            <circle cx="45" cy="121" r="4" fill="#94a3b8"/>
+                            <circle cx="105" cy="121" r="4" fill="#94a3b8"/>
+                            <circle cx="165" cy="121" r="4" fill="#94a3b8"/>
+                            <circle cx="215" cy="121" r="4" fill="#94a3b8"/>
 
-                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🏭 자재 공장 제작 착수</text>
-                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 공장 검사(FAT) 일정 확정</text>
-                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 통신설비 품질 제작 개시</text>
-                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 제작 착수 완료</text>
+                            <!-- Rack 1: Assembling Frame -->
+                            <rect x="35" y="55" width="40" height="60" fill="none" stroke="#0284c7" stroke-width="2"/>
+                            <text x="55" y="88" font-size="8" fill="#0369a1" text-anchor="middle">프레임가공</text>
+
+                            <!-- Arrow -->
+                            <path d="M 82 85 L 98 85" stroke="#64748b" stroke-width="2"/>
+
+                            <!-- Rack 2: Mounting Units -->
+                            <rect x="105" y="55" width="40" height="60" fill="#1e293b"/>
+                            <rect x="108" y="60" width="34" height="10" fill="#3b82f6"/>
+                            <rect x="108" y="73" width="34" height="10" fill="#10b981"/>
+                            <text x="125" y="100" font-size="8" fill="#ffffff" text-anchor="middle">장비 조립</text>
+
+                            <!-- Arrow -->
+                            <path d="M 152 85 L 168 85" stroke="#64748b" stroke-width="2"/>
+
+                            <!-- Rack 3: FAT Test Ready -->
+                            <rect x="175" y="55" width="40" height="60" fill="#1e293b" stroke="#16a34a" stroke-width="2"/>
+                            <rect x="178" y="60" width="34" height="10" fill="#3b82f6"/>
+                            <rect x="178" y="73" width="34" height="10" fill="#10b981"/>
+                            <rect x="178" y="86" width="34" height="10" fill="#f59e0b"/>
+                            <text x="195" y="108" font-size="7" font-weight="bold" fill="#22c55e" text-anchor="middle">FAT 대기</text>
+
+                            <text x="130" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 공장 제작 및 FAT 준비 개시</text>
+                        </g>
+
                     </svg>
                 </div>
             </div>
@@ -329,8 +516,8 @@
 <div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
     <div class="zoom-modal-content" onclick="event.stopPropagation()">
         <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
-        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
-        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 정밀 엔지니어링 시공 도식 대형 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[420px]">
         </div>
         <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
             💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
@@ -372,15 +559,15 @@ function openDiagramZoom(elementId, titleText) {
     if (!srcEl) return;
     
     const zoomBody = document.getElementById('zoomBody');
-    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "정밀 시공 도식 대형 보기");
     
     zoomBody.innerHTML = srcEl.outerHTML;
     
     const innerSvg = zoomBody.querySelector('svg');
     if (innerSvg) {
         innerSvg.setAttribute('width', '100%');
-        innerSvg.setAttribute('height', '550px');
-        innerSvg.style.maxWidth = '1050px';
+        innerSvg.setAttribute('height', '580px');
+        innerSvg.style.maxWidth = '1080px';
     }
     
     document.getElementById('zoomModal').classList.add('active');
