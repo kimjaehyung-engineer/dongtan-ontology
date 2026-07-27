@@ -97,7 +97,7 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Detailed Guideline (WBS 9000-2-10)</span>
         <h1 class="text-3xl font-black mt-2">통신설비 제작 사양서 작성 및 승인 초정밀 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-10 | 주관: 현장 시스템팀 | "1:1 그림 보정 & 초심자 쉬운 해설 상자 연동 가이드"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-10 | 주관: 현장 시스템팀 | "통신 랙 5대 핵심 장비 초쉬운 1:1 역할 탑재"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
@@ -106,7 +106,7 @@
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
             <h4 class="font-bold text-base flex items-center gap-2">💡 통신설비 제작사양서 작성 및 승인 실무 개요</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                본 지침서는 현장 엔지니어가 <strong><span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('shop_drawing')">제작 도면(Shop Drawing)</span></strong>을 작성하고, <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span>를 검증하여 감리단/발주처 승인을 수득하는 실무 가이드입니다. **SVG 내 텍스트 간섭 0% 보정 및 그림 하단에 1:1 직관적 그림 해설 상자**를 탑재하였습니다.
+                본 지침서는 현장 엔지니어가 <strong><span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('shop_drawing')">제작 도면(Shop Drawing)</span></strong>을 작성하고, <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span>를 검증하여 감리단/발주처 승인을 수득하는 실무 가이드입니다. **통신 랙 내 5대 주요 장비(PDU, OTN, Cable Ring, L3 Switch, OFD)의 1:1 초쉬운 역할 카드**를 탑재하였습니다.
             </p>
         </div>
 
@@ -160,7 +160,7 @@
                     <li><strong>설치 공간 레이저 측정:</strong> 통신 랙 반입 경로, 이중바닥(Access Floor H=300mm), 천장 마감 층고(≥3.0m) 및 전원 배선반 위치를 레이저 측정기로 실측하여 사양서 기준을 확정합니다.</li>
                 </ul>
 
-                <!-- STEP 1 SVG Graphic (Light Theme) -->
+                <!-- STEP 1 SVG Graphic -->
                 <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step1_perfect', 'STEP 1 CAD 설계도서 vs 실제 통신기계실 단면 1:1 레이저 측정 도식')">
                     <svg id="svg_step1_perfect" viewBox="0 0 540 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0" y="0" width="540" height="200" fill="#f8fafc" rx="8"/>
@@ -209,7 +209,7 @@
                     </svg>
                 </div>
 
-                <!-- 💡 1:1 직관적 그림 해설 박스 (NEW) -->
+                <!-- 💡 1:1 직관적 그림 해설 박스 -->
                 <div class="bg-blue-50/90 border-l-4 border-blue-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
                     <span class="font-bold text-blue-900 flex items-center gap-1.5 text-xs">
                         <span>💡</span> <strong>[초심자 1:1 그림 해설 - STEP 1 도면 vs 현장 실측]</strong>
@@ -231,12 +231,11 @@
                     <li><strong>랙 실물 도면 CAD 작성:</strong> 통신 랙(Height 2200mm) 전면/후면 장비 배치도, 광전송, L3 스위치, OFD 광패치패널, PDU 전원 분배기 및 케이블 배선 링을 정밀 2D 그려 도면화합니다.</li>
                 </ul>
 
-                <!-- STEP 2 SVG Graphic (ZERO OVERLAP FIXED) -->
+                <!-- STEP 2 SVG Graphic -->
                 <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2_perfect', 'STEP 2 19인치 통신 랙(Height 2200mm) 실물 장비 배치 및 배선도 Shop Drawing 2D 도식')">
                     <svg id="svg_step2_perfect" viewBox="0 0 550 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0" y="0" width="550" height="220" fill="#f8fafc" rx="8"/>
                         
-                        <!-- Left: 19" Rack Graphic (H=2200mm Front View, Zero Overlap Fixed) -->
                         <g transform="translate(25, 15)">
                             <rect x="0" y="0" width="180" height="190" fill="#ffffff" stroke="#475569" stroke-width="2.5" rx="4"/>
                             <text x="90" y="18" font-size="11" font-weight="black" fill="#0369a1" text-anchor="middle">🗄️ 19" 통신 랙 (H=2200mm)</text>
@@ -250,7 +249,6 @@
                             <!-- 2. OTN Optical Unit (2U) -->
                             <rect x="15" y="57" width="150" height="36" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" rx="2"/>
                             <text x="90" y="72" font-size="9" font-weight="black" fill="#1d4ed8" text-anchor="middle">광전송장비 (OTN Main 2U)</text>
-                            <!-- Optic Ports (Y Position Separated completely from text) -->
                             <rect x="35" y="79" width="10" height="7" fill="#d97706"/>
                             <rect x="50" y="79" width="10" height="7" fill="#d97706"/>
                             <rect x="65" y="79" width="10" height="7" fill="#d97706"/>
@@ -270,7 +268,6 @@
                             <text x="90" y="166" font-size="9" font-weight="black" fill="#b45309" text-anchor="middle">OFD 광패치패널 (72-Core)</text>
                         </g>
 
-                        <!-- Right: CAD Wiring Detail -->
                         <g transform="translate(230, 15)">
                             <rect x="0" y="0" width="295" height="190" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="6"/>
                             <text x="147" y="25" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">📄 CAD Shop Drawing 배선도 세부 규격</text>
@@ -294,7 +291,7 @@
                     </svg>
                 </div>
 
-                <!-- 💡 1:1 직관적 그림 해설 박스 (NEW) -->
+                <!-- 💡 1:1 직관적 그림 해설 박스 -->
                 <div class="bg-indigo-50/90 border-l-4 border-indigo-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
                     <span class="font-bold text-indigo-900 flex items-center gap-1.5 text-xs">
                         <span>💡</span> <strong>[초심자 1:1 그림 해설 - STEP 2 통신 랙 내부 구성]</strong>
@@ -303,6 +300,58 @@
                         높이 2.2m의 쇠로 만든 통신 랙(장비 함체) 내부에 상단 전원공급기(PDU), 광전송장비(OTN), 케이블 정리 링, L3 스위치, 광패치패널(OFD 72-Core)을 차곡차곡 배치하고 오른쪽 전원·포트 규격을 CAD 도면(Shop Drawing)으로 그리는 과정입니다.
                     </p>
                 </div>
+
+                <!-- 🌟🌟🌟🌟🌟 [NEW] 통신 랙 내 5대 주요 장비 1:1 초쉬운 역할 안내 카드 🌟🌟🌟🌟🌟 -->
+                <div class="bg-white border-2 border-indigo-200 p-5 rounded-xl space-y-3 mt-3 shadow-sm">
+                    <h4 class="font-black text-sm text-indigo-950 flex items-center gap-2 border-b border-indigo-100 pb-2">
+                        <span>🗄️</span> <strong>통신 랙 내부 5대 핵심 장비별 초쉬운 1:1 역할 해설 (일상 비유)</strong>
+                    </h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-2 text-xs">
+                        
+                        <!-- 1. PDU -->
+                        <div class="bg-red-50 p-3 rounded-lg border border-red-200 space-y-1 cursor-pointer hover:bg-red-100 transition" onclick="openGlossary('pdu')">
+                            <span class="bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">1U 장비</span>
+                            <h5 class="font-black text-red-950 text-xs flex items-center gap-1">⚡ PDU (전원부)</h5>
+                            <p class="text-[11px] font-bold text-red-700">"스마트 멀티탭"</p>
+                            <p class="text-[10px] text-slate-600 leading-snug">랙 안의 모든 장비에 전원(AC220V/DC48V)을 나눠 켜주는 전원 분배기</p>
+                        </div>
+
+                        <!-- 2. OTN -->
+                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-200 space-y-1 cursor-pointer hover:bg-blue-100 transition" onclick="openGlossary('otn')">
+                            <span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">2U 장비</span>
+                            <h5 class="font-black text-blue-950 text-xs flex items-center gap-1">🌐 OTN (광전송)</h5>
+                            <p class="text-[11px] font-bold text-blue-700">"광통신 고속도로"</p>
+                            <p class="text-[10px] text-slate-600 leading-snug">CCTV 영상 데이터를 빛으로 바꿔 관제센터까지 초고속 실어나르는 장비</p>
+                        </div>
+
+                        <!-- 3. Cable Ring -->
+                        <div class="bg-slate-100 p-3 rounded-lg border border-slate-300 space-y-1 cursor-pointer hover:bg-slate-200 transition" onclick="openGlossary('cable_ring')">
+                            <span class="bg-slate-700 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">1U 가이드</span>
+                            <h5 class="font-black text-slate-900 text-xs flex items-center gap-1">🧵 Cable Ring</h5>
+                            <p class="text-[11px] font-bold text-slate-700">"전선 정리 고리"</p>
+                            <p class="text-[10px] text-slate-600 leading-snug">수십 가닥 선이 꼬이거나 꺾여 끊기지 않도록 예쁘게 묶어주는 정돈 고리</p>
+                        </div>
+
+                        <!-- 4. L3 Switch -->
+                        <div class="bg-green-50 p-3 rounded-lg border border-green-200 space-y-1 cursor-pointer hover:bg-green-100 transition" onclick="openGlossary('l3_switch')">
+                            <span class="bg-green-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">1U 스위치</span>
+                            <h5 class="font-black text-green-950 text-xs flex items-center gap-1">🔀 L3 Switch</h5>
+                            <p class="text-[11px] font-bold text-green-700">"데이터 교통경찰"</p>
+                            <p class="text-[10px] text-slate-600 leading-snug">들어오는 데이터 IP주소를 확인해 올바른 목적지 길로 안내하는 메인 스위치</p>
+                        </div>
+
+                        <!-- 5. OFD -->
+                        <div class="bg-amber-50 p-3 rounded-lg border border-amber-200 space-y-1 cursor-pointer hover:bg-amber-100 transition" onclick="openGlossary('ofd')">
+                            <span class="bg-amber-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">2U 패널</span>
+                            <h5 class="font-black text-amber-950 text-xs flex items-center gap-1">🔌 OFD (광패치)</h5>
+                            <p class="text-[11px] font-bold text-amber-700">"광전용 콘센트"</p>
+                            <p class="text-[10px] text-slate-600 leading-snug">땅속 72코어 광케이블을 단단히 고정하고 잭을 꽂게 만든 광패치 소켓</p>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
 
             <!-- STEP 3 Card -->
@@ -362,7 +411,7 @@
                     </svg>
                 </div>
 
-                <!-- 💡 1:1 직관적 그림 해설 박스 (NEW) -->
+                <!-- 💡 1:1 직관적 그림 해설 박스 -->
                 <div class="bg-cyan-50/90 border-l-4 border-cyan-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
                     <span class="font-bold text-cyan-900 flex items-center gap-1.5 text-xs">
                         <span>💡</span> <strong>[초심자 1:1 그림 해설 - STEP 3 품질 & 방수/내진 시험]</strong>
@@ -417,7 +466,7 @@
                     </svg>
                 </div>
 
-                <!-- 💡 1:1 직관적 그림 해설 박스 (NEW) -->
+                <!-- 💡 1:1 직관적 그림 해설 박스 -->
                 <div class="bg-teal-50/90 border-l-4 border-teal-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
                     <span class="font-bold text-teal-900 flex items-center gap-1.5 text-xs">
                         <span>💡</span> <strong>[초심자 1:1 그림 해설 - STEP 4 감리단 승인 도장 수득]</strong>
@@ -493,7 +542,7 @@
                     </svg>
                 </div>
 
-                <!-- 💡 1:1 직관적 그림 해설 박스 (NEW) -->
+                <!-- 💡 1:1 직관적 그림 해설 박스 -->
                 <div class="bg-emerald-50/90 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
                     <span class="font-bold text-emerald-900 flex items-center gap-1.5 text-xs">
                         <span>💡</span> <strong>[초심자 1:1 그림 해설 - STEP 5 공장 제작 착수]</strong>
@@ -534,7 +583,12 @@
 const glossaryData = {
     "manufacturing_spec": "<b>통신설비 제작 사양서 (Manufacturing Specification)</b><br><br>• 실제 현장에 제작·설치될 통신설비(광전송장비, LTE-R 무선장치, CCTV, PIS/PAS 등)의 전기적 규격, 전원 소비전력, 기계적 치수, 환경시험 규격 및 기능 사양을 정밀 정의한 공식 문서입니다.",
     "shop_drawing": "<b>제작 도면 (Shop Drawing)</b><br><br>• 통신 랙(Rack) 내부 장비 배치도, 입출력 포트 배선도, 전원 분배도 및 외형 치수를 1:1 정밀 반영하여 제작에 사용하는 전용 2D/3D 도면입니다.",
-    "fat_procedure": "<b>공장 검사 절차서 (FAT - Factory Acceptance Test Procedure)</b><br><br>• 자재 제작사 공장에서 현장 출하 전 입석 감리원 참관 하에 기능, 연동 및 품질 규격을 테스트하기 위한 공식 시험검사 기준서입니다."
+    "fat_procedure": "<b>공장 검사 절차서 (FAT - Factory Acceptance Test Procedure)</b><br><br>• 자재 제작사 공장에서 현장 출하 전 입석 감리원 참관 하에 기능, 연동 및 품질 규격을 테스트하기 위한 공식 시험검사 기준서입니다.",
+    "pdu": "<b>PDU (Power Distribution Unit - 전원공급기)</b><br>💡 <i>비유: 스마트 멀티탭</i><br><br>• 통신 랙 안의 모든 장비들에 메인 전기(AC 220V / DC 48V)를 안전하게 나누어 공급해 주는 전원 분배기 장비입니다.",
+    "otn": "<b>OTN (Optical Transport Network - 광전송장비)</b><br>💡 <i>비유: 광통신 고속도로</i><br><br>• 대용량 CCTV 영상과 데이터를 '빛(Optic)'으로 변환하여 관제센터까지 초고속으로 실어나르는 핵심 광 전송장비입니다.",
+    "cable_ring": "<b>Cable Guide Ring (케이블 정리 링)</b><br>💡 <i>비유: 전선 정리 고리</i><br><br>• 랙 내부에 연결된 수십 가닥의 통신·광 케이블이 꼬이거나 꺾이지 않도록 예쁘게 정돈해 주는 케이블 가이드입니다.",
+    "l3_switch": "<b>L3 Backbone Switch (백본 스위치)</b><br>💡 <i>비유: 데이터 교통경찰관</i><br><br>• CCTV, 방송, 열차 신호 등 들어오는 수많은 데이터의 IP 주소를 확인하고 올바른 목적지 길로 보내주는 메인 데이터 스위치 장비입니다.",
+    "ofd": "<b>OFD (Optical Distribution Frame - 광패치패널)</b><br>💡 <i>비유: 광케이블 전용 콘센트</i><br><br>• 땅속에서 들어오는 두꺼운 72코어 광케이블을 단단히 고정하고 장비와 쉽게 잭을 꽂아 연결할 수 있도록 만든 광 소켓 패널입니다."
 };
 
 function openGlossary(term) {
