@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>본공사 전 선행공정 인수인계 점검 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Detailed Guideline</span>
+        <h1 class="text-3xl font-black mt-2">본공사 전 선행공정 인수인계 점검 초정밀 실무 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-14 | 주관: 현장 시스템팀 | "어떻게(HOW) 수행하는가 초정밀 가이드"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 친절한 개념 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 본공사 전 선행공정 인수인계 점검 현장 실무 개요 및 수칙</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                통신설비 설치를 위한 현장점검/정리 상태 확인(기능실: 건축,전기/현장: 노반). 본 지침서는 현장 엔지니어가 작업 단계별로 <strong>어떻게(HOW) 사전 준비, 실측, 시공 매설, 씰링 및 최종 서명</strong>을 수행해야 하는지 구체적 기술 수치와 행동 수칙을 정밀하게 제공합니다. 
+                특히 <strong><span class="term-highlight" onclick="openGlossary('sleeve_penetration')">관통 슬리브 매설</span></strong>, <strong><span class="term-highlight" onclick="openGlossary('equipment_room_height')">기능실 층고 실측</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('fire_stop_seal')">방화 구속(Fire-Stop)</span></strong>을 완벽히 수록하였습니다.
+            </p>
+        </div>
+
+        <!-- ☀️ 라이트 테마 특화 카드 섹션 -->
+        <div class="bg-blue-50/70 border border-blue-200 p-7 rounded-2xl shadow-md space-y-6">
+            <div class="border-b border-blue-200 pb-4">
+                <span class="bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase">SPECIAL FOCUS</span>
+                <h3 class="text-xl font-black text-blue-950 mt-2">📋 본공사 전 선행공정 인수인계 점검 4대 핵심 실무 검토 가이드</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🧱</span> 1. - 통신설비 설치 시 간섭여부 점검</span>
+                    <p class="text-slate-700 text-xs">콘크리트 타설 전 통신 관통 관로 및 방수 슬리브 위치 1:1 대조 확정.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🏢</span> 2. - 현장 정리상태 점검 (건축마감, 공조, 조</span>
+                    <p class="text-slate-700 text-xs">기계실, 관제실, 앰프실, TPS실 천장 층고(≥3.0m) 및 타공 규격 확인.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🚛</span> 3. 자재 반입 동선 & 공용구</span>
+                    <p class="text-slate-700 text-xs">통신 랙, 관제 서버 반입 엘리베이터 및 반입구 마감 규격 조율.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🔥</span> 4. 방화 구속(Fire-Stop) 마감</span>
+                    <p class="text-slate-700 text-xs">관통 부위 내화 2시간 이상 방화 재료 씰링 조치 및 3자 서명 체결.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. FLEXIBLE 5-STEP ARCHITECTURE SLOTS -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 5단계 수행 마스터 프로세스 (Flexible 5-Step Architecture)
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2">
+                <div class="bg-blue-50 p-3 rounded-xl border border-blue-200 flex flex-col justify-between">
+                    <span class="bg-blue-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded w-fit">STEP 1</span>
+                    <h4 class="font-bold text-slate-900 text-[11px] mt-1">도면 대조</h4>
+                    <p class="text-[10px] text-blue-900 mt-1 font-medium">• 1,2공구 도서 대조<br">• 슬리브 위치 대조</p>
+                </div>
+                <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200 flex flex-col justify-between">
+                    <span class="bg-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded w-fit">STEP 2</span>
+                    <h4 class="font-bold text-slate-900 text-[11px] mt-1">현장 실측</h4>
+                    <p class="text-[10px] text-indigo-900 mt-1 font-medium">• 기계실 층고 검증<br">• 반입 동선 측량</p>
+                </div>
+                <div class="bg-cyan-50 p-3 rounded-xl border border-cyan-200 flex flex-col justify-between">
+                    <span class="bg-cyan-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded w-fit">STEP 3</span>
+                    <h4 class="font-bold text-slate-900 text-[11px] mt-1">시공 매설</h4>
+                    <p class="text-[10px] text-cyan-900 mt-1 font-medium">• 콘크리트 타설 전<br">• 통신관 매설 검측</p>
+                </div>
+                <div class="bg-teal-50 p-3 rounded-xl border border-teal-200 flex flex-col justify-between">
+                    <span class="bg-teal-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded w-fit">STEP 4</span>
+                    <h4 class="font-bold text-slate-900 text-[11px] mt-1">방화 구속</h4>
+                    <p class="text-[10px] text-teal-900 mt-1 font-medium">• Fire-Stop 씰링<br">• 인입 관로 밀폐</p>
+                </div>
+                <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200 flex flex-col justify-between">
+                    <span class="bg-emerald-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded w-fit">STEP 5</span>
+                    <h4 class="font-bold text-slate-900 text-[11px] mt-1">3자 체결</h4>
+                    <p class="text-[10px] text-emerald-900 mt-1 font-medium">• 회의록 서명<br">• 기록지, 현장점검결과보</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔥 2. 초정밀 HOW(어떻게 수행하는가) 세부 실무 가이드 (NEW EXPANDED SECTION) -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-indigo-600 pb-2">
+                <span class="text-indigo-600">2.</span> 초정밀 HOW(어떻게 수행하는가) 세부 실무 가이드
+            </h2>
+
+            <div class="space-y-4 text-sm">
+                <!-- STEP 1 HOW -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">도면 대조 및 선제 정밀 검토 방법 (HOW TO PREPARE)</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li><strong>3D BIM & CAD 오버레이 대조:</strong> 동탄트램 1,2공구 본선 궤도 및 정거장 토목 CAD 도면과 통신 설비 배치도를 오버레이하여 관통 지점 오차를 사전 검출합니다.</li>
+                        <li><strong>슬리브 규격 및 좌표 검증:</strong> 광케이블(72-Core) 및 전원선 관입용 슬리브(ø100~ø150mm) 매설 위치의 세계측지계(GRS80) 좌표 오차를 ±10mm 이내로 도면 대조합니다.</li>
+                        <li><strong>자재 보관 창고 검토:</strong> 현장 자재 보관 전용 창고(임대 비용 내역서 반영) 및 반입동선 내 장애 요소(층고, 가설 도로)를 사전 점검합니다.</li>
+                    </ul>
+                </div>
+
+                <!-- STEP 2 HOW -->
+                <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">현장 실측 및 공간 여건 검증 방법 (HOW TO MEASURE)</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li><strong>마감 층고 레이저 측량:</strong> 레이저 거리 측정기를 사용하여 통신기계실, 관제실, 앰프실, TPS실 천장 마감 층고(최소 3.0m 이상) 및 이중바닥(Access Floor H=300mm) 간격을 1:1 실측합니다.</li>
+                        <li><strong>반입 엘리베이터 및 개구부 검측:</strong> 고가 통신 랙(Height 2200mm) 및 케이블 드럼 반입을 위한 엘리베이터 유효 너비(최소 1.5m×2.1m 이상)와 건축 반입구 통과 유효 치수를 검측합니다.</li>
+                        <li><strong>관로 인입 및 타공 마감 확인:</strong> 케이블 인입 관로와 건축 벽체 타공 부위의 위치를 현장에 먹줄 표기하여 토목/건축 감리원과 사전 현장 확인합니다.</li>
+                    </ul>
+                </div>
+
+                <!-- STEP 3 HOW -->
+                <div class="bg-white p-6 rounded-2xl border border-cyan-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-cyan-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">콘크리트 타설 전 슬리브 매설 방법 (HOW TO INSTALL)</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li><strong>철근 용접 및 거푸집 고정:</strong> 콘크리트 거푸집 가설 시, 통신 전용 강관/PVC 슬리브를 철근 지지대(Support Bracket)에 용접 및 결속선으로 3중 고정하여 타설 시 이탈을 방지합니다.</li>
+                        <li><strong>수밀 캡 착용 및 유입 차단:</strong> 콘크리트 페이스트 유입을 차단하기 위해 슬리브 양단에 고무 수밀 캡을 강하게 마감 착용합니다.</li>
+                        <li><strong>타설 후 레이저 오차 검측:</strong> 콘크리트 경화 후 슬리브 관통 도통 시험을 실시하고 오차(±10mm 이내)를 현장 사진 찍어 검측대장에 수록합니다.</li>
+                    </ul>
+                </div>
+
+                <!-- STEP 4 HOW -->
+                <div class="bg-white p-6 rounded-2xl border border-teal-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-teal-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">방화 구속 & 관로 밀폐 시공 방법 (HOW TO SEAL)</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li><strong>Fire-Stop 내화 씰링 관입:</strong> 벽체 및 슬라브 관통 부위에 내화 2시간 이상 공인 인증을 받은 방화 충전재(Fire-Stop Calking)를 틈새 없이 치밀하게 관입 시공합니다.</li>
+                        <li><strong>수밀/가스밀 패드 마감:</strong> 침수 및 유해가스 유입을 방지하기 위해 케이블 인입 관로 입구에 수밀/가스밀 밀폐형 코킹 및 방화 패드를 2중 씰링 마감합니다.</li>
+                        <li><strong>방화 검측 사진 채증:</strong> 방화 충전재 시공 전/중/후 상태를 각 3도 각도에서 사진 촬영하여 감리원 서류로 제출합니다.</li>
+                    </ul>
+                </div>
+
+                <!-- STEP 5 HOW -->
+                <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 5 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">3자 합동 검측 및 결과서 체결 방법 (HOW TO SIGN & SIGN-OFF)</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li><strong>3자 합동 현장 검측:</strong> 통신/토목/건축 3자 책임 엔지니어 및 감리원이 현장에 동시 입석하여 체크리스트 12대 항목을 1:1 대조 점검합니다.</li>
+                        <li><strong>인터페이스 회의록 서명:</strong> 이견 사항 조율 후 최신화된 회의록에 현장대리인, 토목/건축 엔지니어 및 책임감리원의 서명/날인을 체결합니다.</li>
+                        <li><strong>종합 관리대장 실시간 연동:</strong> 체결된 서류 및 증빙 사진을 동탄트램 1,2공구 통합 관리대장에 실시간 등재하여 최종 승인을 완수합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">3.</span> 2D Visual 기술 도식 (Enriched 2D SVG)
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r3_14', '[WBS 9000-2-14] 본공사 전 선행공정 인수인계 점검 2D Visual 정밀 도식')">
+                <svg id="svg_r3_14" viewBox="0 0 550 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="550" height="180" fill="#f8fafc"/>
+                    <rect x="30" y="20" width="220" height="120" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+                    <text x="140" y="45" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">🧱 사전 도면대조 & 슬리브 매설</text>
+                    <text x="50" y="75" font-size="11" font-weight="bold" fill="#334155">• 타설 전 통신관 매설 위치 1:1</text>
+                    <text x="50" y="98" font-size="11" font-weight="bold" fill="#334155">• 오차 ±10mm 이내 레이저 검측</text>
+
+                    <path d="M 260 80 L 290 80" stroke="#2563eb" stroke-width="3"/>
+                    <polygon points="290,75 300,80 290,85" fill="#2563eb"/>
+
+                    <rect x="305" y="20" width="215" height="120" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                    <text x="412" y="45" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🏢 현장 층고 실측 & 3자 서명</text>
+                    <text x="325" y="75" font-size="11" font-weight="bold" fill="#334155">• 기계실/관제실 층고 ≥ 3.0m</text>
+                    <text x="325" y="98" font-size="11" font-weight="bold" fill="#334155">• Fire-Stop 2시간 씰링 체결</text>
+                    <text x="275" y="162" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">본공사 전 선행공정 인수인계 점검 회의록 및 1,2공구 종합 관리대장 등재 완료</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'sleeve_penetration': {
+        title: '🧱 콘크리트 타설 전 관통 슬리브 매설 수칙',
+        desc: '동탄트램 본선 및 정거장 골조 타설 전 72-Core 광케이블 및 전원선 관입용 슬리브(ø100~ø150mm)를 철근 지지대에 용접 고정하여 오차 ±10mm 이내로 정밀 매설하는 수칙입니다.'
+    },
+    'equipment_room_height': {
+        title: '🏢 통신기계실·관제실·TPS실 마감 층고 실측',
+        desc: '통신 랙(Height 2200mm) 및 상부 트레이 적재 공간 확보를 위해 레이저 측정기로 천장 마감 층고 최소 3.0m 이상 확보 및 이중바닥(Access Floor H=300mm) 규격을 검증합니다.'
+    },
+    'fire_stop_seal': {
+        title: '🔥 방화 구속(Fire-Stop) 밀폐 씰링',
+        desc: '벽체 및 슬라브 관통 부위에 내화 2시간 이상의 인증 방화재료(Fire-Stop Calking)를 치밀하게 관입하고 수밀/가스밀 패드로 밀폐 시공하는 필수 안전 수칙입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

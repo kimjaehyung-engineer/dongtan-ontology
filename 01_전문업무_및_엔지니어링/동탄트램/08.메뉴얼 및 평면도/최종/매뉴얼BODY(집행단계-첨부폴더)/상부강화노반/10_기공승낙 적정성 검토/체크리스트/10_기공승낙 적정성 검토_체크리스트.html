@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상부강화노반 - 기공승낙 적정성 검토 리스크 체크리스트</title>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --accent-red: #dc2626;
+            --accent-orange: #ea580c;
+            --accent-green: #16a34a;
+            --border-color: #cbd5e1;
+        }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            padding: 30px 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .header {
+            border-bottom: 2px solid var(--text-primary);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin: 0;
+            color: #1e3a8a;
+        }
+        .meta {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--accent-orange);
+        }
+        .summary-box {
+            background: #fdf2f8;
+            border: 1px solid #fbcfe8;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            color: #9d174d;
+        }
+        table {
+            width: 100% !important;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: bold;
+            text-align: center;
+        }
+        .category {
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            width: 18%;
+        }
+        .pre-row { color: #0f172a; }
+        .ing-row { color: #0f172a; }
+        .post-row { color: #0f172a; }
+        .label-pre { color: var(--accent-orange); font-weight: bold; }
+        .label-ing { color: var(--accent-red); font-weight: bold; }
+        .label-post { color: var(--accent-green); font-weight: bold; }
+        .check-cell {
+            text-align: center;
+            vertical-align: middle;
+            width: 15%;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 class="title">기공승낙 적정성 검토 내부 리스크 체크리스트</h1>
+        <span class="meta">WBS Code 9000-7-10 | 내부 품질·안전 관리용</span>
+    </div>
+
+    <div class="summary-box">
+        <h4 style="margin: 0 0 6px 0; color: #9d174d;">🚨 WBS 연동 체크리스트 핵심 요약</h4>
+        <div style="font-weight: bold; line-height: 1.6;">임시 사용 기공승낙서 100% 확보, 지적 편집도 기준 경계 실측, 미승낙 필지 차단 펜스</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th style="width: 18%;">구분</th>
+                <th style="width: 67%;">예방할 품질 및 안전 리스크 위해 요소 (KCS 47 10 25 규격 연동)</th>
+                <th style="width: 15%;">점검 결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="pre-row">
+                <td class="category"><span class="label-pre">⚠️ 사전 리스크</span><br>(착수 전)</td>
+                <td>
+                    <div style="margin-bottom: 8px;">• [설계/조사 리스크] 가설 도로 및 임시 침사지 부지의 기공승낙서(인감증명서 첨부) 미확보 리스크</div>
+                    <div style="margin-bottom: 8px;">• [인터페이스 누락] 선행 공정 인수 상태 실측 확인 및 부지 사용권 적정성 검속 여부</div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr class="ing-row">
+                <td class="category"><span class="label-ing">⚡ 공사중 리스크</span><br>(시공 중)</td>
+                <td>
+                    <div style="margin-bottom: 8px;">• [시공 불량 리스크] 지적도 경계 착오로 미승낙 필지 무단 침범 및 지주 민원 제기에 의한 공기 지연 리스크</div>
+                    <div style="margin-bottom: 8px;">• [다짐 및 배수 미비] 1층 포설 다짐 두께 30cm 이하 엄격 관리, 다짐도 95% 이상 및 최적함수비 OMC 범위 유지 여부</div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr class="post-row">
+                <td class="category"><span class="label-post">✅ 공사후 리스크</span><br>(완공 후)</td>
+                <td>
+                    <div style="margin-bottom: 8px;">• [인수 지연 리스크] 임시 토지 반환 시 원상복구 합의 각서 미비로 인한 추가 토지 복구비용 지출 리스크</div>
+                    <div style="margin-bottom: 8px;">• [인계 불능 예방] 노반 완성면 표고 오차 ±10mm 이내 준수, 종횡단 배수구배 2.0% 만족, PBT K30 ≥ 110 MN/m³ 및 PFWD Ev2 ≥ 120 MPa 확보 검속 여부</div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer">
+        동탄도시철도(트램) 시공사·협력사 합동 내부 리스크 대장 | 상부강화노반
+    </div>
+</div>
+</body>
+</html>

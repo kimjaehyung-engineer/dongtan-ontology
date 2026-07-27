@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사전토공사 - 착수전 Big Room 회의 작업 수행지침서</title>
+    <style>
+        :root {
+            --primary-color: #059669;
+            --primary-light: #ECFDF5;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --danger-color: #EF4444;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .title {
+            font-size: 1.8rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        .meta-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #6B7280;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        h2 {
+            font-size: 1.25rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 25px;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .bullet-list li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .risk-box {
+            background-color: #FEF2F2;
+            border-left: 4px solid var(--danger-color);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 25px 0;
+            font-size: 0.9rem;
+            color: #991B1B;
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-5-8 Guideline</div>
+        <h1 class="title">착수전 Big Room 회의 작업 수행지침서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 사전토공사 / 토공</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장소장</span>
+            <span>|</span>
+            <span><span class="badge">현장 시공 관리 지침</span></span>
+        </div>
+    </div>
+
+    <h2>1. 작업 개요 및 준비사항 (Preparation)</h2>
+    <p><strong>주요 목적:</strong> 수행시 선후행 간섭사항과 지원사항 도출 / 수행 시 예상 가능한 Risk 검토</p>
+    <p><strong>수행 방법:</strong> - 공정계획 검토: 태풍, 우기 기간에 공기지연 방지위한 공정계획 수립, Zone별 소요 좌표에 따른 사토장 선별, 운반 계획 수립, 계측기 설치계획 확인
+- 선후행 공종 R&R: 지장물 이설, 도로 교통신호 연결, Main: 터파기/궤도/시스템 공동구
+- 공종별 Risk hedge 방안 검토: 트램부지구간 노상토 지지력 사전 확인(재하시험), 후속공정 장비 반입 여건 확인 (궤도 설치, 케이블 포설 장비)</p>
+    <p><strong>최종 산출물:</strong> Big Room 회의록(참석자 전원 서명)</p>
+
+    <h2>2. 작업 절차 및 세부 지침 (Procedures)</h2>
+    <ul class='bullet-list'>
+<li>주요 리스크 기본설계단계서부터 도출, 실시설계 및 현장준비팀 예상 리스크 및 헷지방안 정리</li>
+<li>선·후행 공종 협력사 및 본사 유관부서 전문가가 참여하여 주요 간섭 사항을 토의한다.</li>
+<li>도출된 리스크 요인별 예방책을 Big Room 회의록에 기록하여 승인을 득한다.</li>
+</ul>
+
+    <h2>3. 하자 예방 및 위험요인 관리 (Risk Management)</h2>
+    <div class="risk-box">
+        <strong>[집행단계 리스크 검토사항]</strong><br>
+        <p class='empty-text'>● 사전 시공성 검토 및 안전 관리 수칙 준수</p>
+    </div>
+
+    
+        
+<div class="subcontractor-advisory-box" style="background-color: #FFFBEB; border: 1.5px solid #F59E0B; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #B45309; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>👷</span> [협력업체 실무 자문] 사전토공 및 차로점용 수행지침 (정주건설·트리폴건설)
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #78350F; font-size: 0.92rem; line-height: 1.7;">
+                <li><strong>노선 구간 전폭 점용 수칙:</strong> 상/하선 별도 시공 시에도 단일 노선 기준 전폭 차선 통제 수칙을 적용하여 시공 안정성 확보</li>
+                <li><strong>지장물 우선 처리 수칙:</strong> 한전/통신/가스관 위탁 지장물 이설이 완전히 종료된 후 굴착 및 본 토공 장비 투입</li>
+            </ul>
+        </div>
+        
+<div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 수행지침서 | WBS 9000-5-8
+    </div>
+</div>
+</body>
+</html>

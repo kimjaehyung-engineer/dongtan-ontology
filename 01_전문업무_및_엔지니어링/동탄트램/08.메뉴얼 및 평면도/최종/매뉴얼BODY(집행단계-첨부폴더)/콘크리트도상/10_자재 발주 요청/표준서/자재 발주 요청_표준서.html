@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 자재 발주 요청 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    /* Glossary Modal Styles - Minimal Injection */
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .scene-link {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        color: #059669 !important;
+        font-weight: 700 !important;
+        background: #ecfdf5 !important;
+        border: 1px solid #10b981 !important;
+        border-radius: 6px !important;
+        padding: 2px 8px !important;
+        font-size: 0.8rem !important;
+        cursor: pointer !important;
+        margin-left: 8px !important;
+        transition: all 0.2s ease !important;
+        text-decoration: none !important;
+    }
+    .scene-link:hover {
+        background: #d1fae5 !important;
+        color: #065f46 !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 520px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+        text-align: left;
+    }
+    @keyframes modalFadeIn {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover {
+        color: #334155;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-10 Standard</span>
+                <span class="bg-emerald-50 text-slate-950 text-xs font-bold px-3 py-1 rounded-full">KDS 47 30 00 & EN 규격</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">자재 발주 요청 기술 표준서</h1>
+            <p class="text-slate-300 mt-2 text-sm sm:text-base">"지급자재 청구서(M/R), 공급원 승인 요청 및 선적 전 FAT 품질 규정"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-8">
+        <!-- 1. 과업 개요 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 과업 개요 및 수행 목적 (Overview & Scope)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">WBS 공정명 / 주관</span>
+                    <p class="font-bold text-slate-800 mt-1">콘크리트도상 / 자재 발주 요청 (현장 공무팀 주관)</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">최종 품질 산출물</span>
+                    <p class="font-bold text-slate-800 mt-1">자재청구서(M/R) | 공급원 승인요청서</p>
+                </div>
+            </div>
+            <div class="mt-4 bg-blue-50/60 p-5 rounded-xl border border-blue-100 text-sm space-y-2">
+                <p><strong>🎯 과업 목적:</strong> 설계도서 및 표준시방서(KDS 47 30 00)에 부합하는 자재 사양과 수량을 산정하여 지급자재 청약 및 공급원 검토 승인 절차를 적기에 이행함</p>
+                <p><strong>⚙️ 발주 및 청구 채널:</strong> 본사 <span class="term-highlight" onclick="openGlossary('gp_srm')">GP/SRM 시스템</span> 연동을 통한 구매 주문서 발급</p>
+            </div>
+        </div>
+
+        <!-- 2. 정량적 자재 발주 표준 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 자재 발주서 승인 및 공급원 검토 기준
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs sm:text-sm text-left border-collapse border border-slate-200 rounded-lg">
+                    <thead class="bg-blue-900 text-white">
+                        <tr>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">표준 항목</th>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">절대 공학 규격</th>
+                            <th class="p-3 border border-slate-300 w-1/2 text-center">자재 발주 조건 및 품질보증 표준</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">수입 홈레일 규격</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">EN 14811 규격 준수</td>
+                            <td class="p-3 border text-slate-600">• 매설 궤도에 최적화된 51R1/60R2 홈레일 단면 규격 준수.<br>• 성분 분석 및 경도 시험성적서 필수 요구</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">자재 발주 로스율</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">레일류 <span class="term-highlight" onclick="openGlossary('loss_factor')">2% ~ 3%</span> 가산</td>
+                            <td class="p-3 border text-slate-600">• 시공 시 발생하는 절단 및 가공 마진을 상쇄하기 위해 순설계량 대비 2%~3%의 할증률 적용</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">선적전 공장 검수</td>
+                            <td class="p-3 border text-center font-bold text-red-600">FAT 입회 검수 필수</td>
+                            <td class="p-3 border text-slate-600">• 주요 자재 선적 전 제조공장에 시공사/감리단 파견.<br>• <span class="term-highlight" onclick="openGlossary('fat_test')">FAT(공장수락시험)</span> 성적서 실시간 교부 명시</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. 공급원 승인 프로세스 모식도 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">3.</span> 공급원 검토 승인 및 자재 청약 업무 프로세스
+            </h2>
+            <div class="svg-container bg-white border border-slate-200 rounded-xl p-4 text-center">
+                <svg viewBox="0 0 900 130" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="900" height="130" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+                    
+                    <!-- Nodes -->
+                    <!-- 1. 자재 수량 산출 -->
+                    <rect x="30" y="35" width="150" height="60" rx="6" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="1"/>
+                    <text x="105" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">1. 소요 자재 산출</text>
+                    <text x="105" y="80" text-anchor="middle" font-size="9" fill="#93c5fd">설계량 + 로스율(2~3%)</text>
+                    
+                    <!-- Arrow 1 -->
+                    <path d="M 190 65 L 220 65" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- 2. 자재청구서(M/R) 제출 -->
+                    <rect x="230" y="35" width="150" height="60" rx="6" fill="#0284c7" stroke="#0284c7" stroke-width="1"/>
+                    <text x="305" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">2. 청구서 및 서류 구비</text>
+                    <text x="305" y="80" text-anchor="middle" font-size="9" fill="#bae6fd">FAT 계약 조건 명시</text>
+                    
+                    <!-- Arrow 2 -->
+                    <path d="M 390 65 L 420 65" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- 3. 공급원 승인 요청 -->
+                    <rect x="430" y="35" width="150" height="60" rx="6" fill="#ea580c" stroke="#ea580c" stroke-width="1"/>
+                    <text x="505" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">3. 공급원 승인 요청</text>
+                    <text x="505" y="80" text-anchor="middle" font-size="9" fill="#ffedd5">감리단 검토 공문 제출</text>
+                    
+                    <!-- Arrow 3 -->
+                    <path d="M 590 65 L 620 65" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- 4. GP/SRM 발주 실행 -->
+                    <rect x="630" y="35" width="140" height="60" rx="6" fill="#16a34a" stroke="#16a34a" stroke-width="1"/>
+                    <text x="700" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">4. GP/SRM 최종 발주</text>
+                    <text x="700" y="80" text-anchor="middle" font-size="9" fill="#dcfce7">본사 PO 승인 완료</text>
+                    
+                    <!-- Arrow 4 -->
+                    <path d="M 780 65 L 810 65" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- 5. 납품 확보 -->
+                    <rect x="820" y="35" width="60" height="60" rx="6" fill="#475569" stroke="#475569" stroke-width="1"/>
+                    <text x="850" y="60" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">5. 입고</text>
+                    <text x="850" y="80" text-anchor="middle" font-size="9" fill="#cbd5e1">납품 개시</text>
+                    
+                    <!-- SVG marker defs -->
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 9000-6-10 | 콘크리트도상
+    </div>
+</div>
+
+
+<!-- Glossary & Scene Popup Modal Layer -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시공장면 해설</h3>
+        <div class="modal-body">
+            <img id="modalImage" src="" style="width:100%; border-radius:10px; display:none; margin-bottom:15px; border: 1px solid #cbd5e1;" />
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'fat_test': {
+        title: '🏭 공장 수락 검사 (FAT, Factory Acceptance Test)',
+        desc: '자재 선적 전 제조업체의 공장에서 발주처, 감리단, 시공사 검사원이 참석하여 정밀 품질/성능 시험을 수행하고 성적서를 확인하는 제도입니다. 홈레일의 경우 단면 치수, 인장 강도 등을 FAT 단계에서 검수합니다.'
+    },
+    'gp_srm': {
+        title: '💻 GP/SRM 시스템 (Global Procurement & Supplier Relationship Management)',
+        desc: '회사의 전사적 자원 조달 및 공급망 관리 시스템입니다. 공급원 검본 요청, 자재 청구, 구매 주문(PO) 승인 프로세스가 통합 관리되며, 발주 요청 시 필수 품질 요건(성적서/FAT 조건)을 시스템 상에 필수 입력해야 합니다.'
+    },
+    'loss_factor': {
+        title: '📈 자재 로스율 (Material Loss Factor)',
+        desc: '시공 중 절단, 연마, 용접 부위 가공 등으로 불가피하게 손실되는 자재 수량을 고려하여 설계량에 가산해주는 가산 분율입니다. 트램용 레일의 경우 통상 2~3%의 로스율을 가산합니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    
+    const imgEl = document.getElementById('modalImage');
+    if (data.img) {
+        imgEl.src = data.img;
+        imgEl.style.display = 'block';
+    } else {
+        imgEl.src = '';
+        imgEl.style.display = 'none';
+    }
+    
+    document.getElementById('glossaryModal').classList.add('active');
+}
+
+function openScene(sceneKey) {
+    openGlossary(sceneKey);
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+// Esc close key handler
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+    }
+});
+</script>
+
+
+</body>
+</html>

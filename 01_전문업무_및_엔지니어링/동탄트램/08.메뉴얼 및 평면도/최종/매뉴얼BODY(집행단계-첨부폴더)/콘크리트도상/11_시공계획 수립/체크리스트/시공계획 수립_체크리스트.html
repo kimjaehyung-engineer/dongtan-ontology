@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 시공계획 수립 체크리스트</title>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --accent-red: #dc2626;
+            --accent-orange: #ea580c;
+            --accent-green: #16a34a;
+            --border-color: #cbd5e1;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 30px 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .header {
+            border-bottom: 2px solid var(--text-primary);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin: 0;
+            color: #1e3a8a;
+        }
+        .meta {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--accent-orange);
+        }
+        .summary-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            color: #065f46;
+        }
+        table {
+            width: 100% !important;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: bold;
+            text-align: center;
+        }
+        .category {
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            width: 18%;
+        }
+        .check-cell {
+            text-align: center;
+            vertical-align: middle;
+            width: 14%;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+        .step-tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 520px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 class="title">시공계획 수립 체크리스트</h1>
+        <span class="meta">WBS Code 9000-6-11 | 콘크리트도상 품질 검측대장</span>
+    </div>
+
+    <div class="summary-box">
+        <h4 style="margin: 0 0 8px 0; color: #065f46; font-size: 1.05rem; font-weight: 800;">📋 표준서 & 수행지침 연계 5단계 실시간 검측 항목</h4>
+        <div style="font-weight: 600; line-height: 1.7; font-size: 0.9rem;">
+            본 체크리스트는 궤도공사 5대 시공 마스터 시퀀스(노반 검증 ➔ 궤광 안착 ➔ 스핀들 높이조율 ➔ 테르밋 용접 ➔ TCL 콘크리트 타설)의 오차 기준(+3/-1mm, ±2.0mm 이내)을 감리 입회 검측하기 위해 수립되었습니다.
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th style="width: 18%;">시공 단계</th>
+                <th style="width: 68%;">표준서 & 수행지침 연계 필수 검측 항목 (KDS 47 30 00 수립)</th>
+                <th style="width: 14%;">점검 결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="category" style="color:var(--accent-orange);">⚠️ 사전 준비<br>(Step 1~2 지반/안착)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#fef3c7; color:#92400e;">Step 1. 노반 다짐</span>
+                        <strong>[상부 노반 지지력 검증]</strong> <span class="term-highlight" onclick="openGlossary('hbs_test')">K30 &ge; 110 MN/m³</span> 시험 성적서 확인 및 3D CP 광파 측량 정합 여부
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#e0f2fe; color:#0369a1;">Step 2. 궤광 안착</span>
+                        <strong>[가조립 궤광 크레인 인양]</strong> 25m 홈레일+침목 궤광 뼈대 노반 상부 정밀 가설치 여부
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr>
+                <td class="category" style="color:var(--accent-red);">⚡ 본 시공<br>(Step 3~4 조율/용접)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#dcfce7; color:#166534;">Step 3. 스핀들 조율</span>
+                        <strong>[다이얼 게이지 0점 정합]</strong> 스핀들 볼트 수동 조율 후 궤간(<b>+3, -1mm</b>) 및 캔트 오차(<b>&plusmn;2.0mm 이내</b>) 락너트 고정 여부
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#ffedd5; color:#c2410c;">Step 4. 테르밋 용접</span>
+                        <strong>[2,500℃ 화학 쇳물 주입]</strong> <span class="term-highlight" onclick="openGlossary('thermit_weld')">테르밋 레일 용접</span> 시행 및 비파괴 UT 굴곡 오차(<b>&plusmn;0.2mm/m 이내</b>) 감리 입회 검측 여부
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr>
+                <td class="category" style="color:var(--accent-green);">✅ 검사 마감<br>(Step 5 타설/마감)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#f0fdf4; color:#15803d;">Step 5. TCL 타설</span>
+                        <strong>[도상 콘크리트 타설]</strong> <span class="term-highlight" onclick="openGlossary('tcl_concrete')">TCL 콘크리트(강도 &ge; 30 MPa)</span> 연속 타설 및 콜드조인트 예방 다짐 여부
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#f0fdf4; color:#15803d;">Step 5. 준공 승인</span>
+                        <strong>[시공계획서 최종 제출]</strong> 품질/안전보건 서류 감리단 최종 승인 대장 마감 여부
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align: center; font-size: 0.85rem; color: #94a3b8; margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+        동탄도시철도(트램) 건설공사 | WBS 9000-6-11 콘크리트도상 시공계획 수립 마스터 체크리스트
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시공장면 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'hbs_test': {
+        title: '🧱 HBS 지지력 검증 (Hydraulic Base Support Test)',
+        desc: '콘크리트 도상(TCL) 하부에 위치한 상부 강화 노반의 하중 지지력을 현장에서 시험하는 단계입니다. 평판재하시험(PBT)을 실시하여 노반 반력계수 K30 >= 110 MN/m3 이상을 달성했는지 시공 전 필수 검증해야 합니다.'
+    },
+    'thermit_weld': {
+        title: '🔥 테르밋 용접 (Thermit Welding, EN 14730)',
+        desc: '용접기나 전기 없이, 철가루와 알루미늄 가루를 혼합하여 화학반응 열(2,500도 이상)을 내서 벌건 쇳물을 만든 뒤, 이를 레일과 레일 사이의 틈새에 부어 굳혀서 붙이는 전통적이고 가장 강력한 철도 연결 공법입니다.'
+    },
+    'tcl_concrete': {
+        title: '🛤️ TCL 도상 콘크리트 (Track Concrete Layer)',
+        desc: '트램 레일 및 침목 궤도를 하부에서 고정해주는 핵심 무근/철근 콘크리트 슬래브 구조체입니다. 28일 기준 설계기준 압축강도가 최소 30 MPa 이상을 확보하고 연속 타설을 통해 콜드조인트를 예방해야 합니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('glossaryModal');
+        if(modal) modal.classList.remove('active');
+    }
+});
+</script>
+
+</body>
+</html>

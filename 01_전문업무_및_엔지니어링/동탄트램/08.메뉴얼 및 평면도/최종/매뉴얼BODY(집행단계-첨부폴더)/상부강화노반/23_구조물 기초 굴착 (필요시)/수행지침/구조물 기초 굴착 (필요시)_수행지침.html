@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상부강화노반 - 구조물 기초 굴착 (필요시) 작업 수행지침서</title>
+    <style>
+        :root { --primary-color: #059669; --primary-light: #ECFDF5; --text-color: #1F2937; --bg-color: #F9FAFB; --card-bg: #FFFFFF; --border-color: #E5E7EB; --danger-color: #EF4444; }
+        body { font-family: 'Inter', '맑은 고딕', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 40px 20px; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 40px; }
+        .header { border-bottom: 2px solid var(--primary-light); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: #6B7280; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+        .title { font-size: 1.8rem; color: #111827; margin: 0; font-weight: 800; }
+        .meta-info { display: flex; gap: 15px; margin-top: 12px; font-size: 0.9rem; color: #6B7280; flex-wrap: wrap; }
+        .badge { background-color: var(--primary-light); color: var(--primary-color); padding: 4px 8px; border-radius: 6px; font-weight: 600; font-size: 0.8rem; }
+        h2 { font-size: 1.25rem; color: #111827; border-left: 4px solid var(--primary-color); padding-left: 12px; margin-top: 35px; margin-bottom: 15px; }
+        .step-card { background-color: #FFFFFF; border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.03); }
+        .step-title { font-size: 1.05rem; font-weight: 700; color: var(--primary-color); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .bullet-list { list-style: none; padding-left: 0; margin-bottom: 15px; }
+        .bullet-list li { position: relative; padding-left: 20px; margin-bottom: 8px; font-size: 0.93rem; }
+        .bullet-list li::before { content: "✔"; position: absolute; left: 0; color: var(--primary-color); font-weight: 700; }
+        .risk-box { background-color: #FEF2F2; border-left: 4px solid var(--danger-color); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 25px 0; font-size: 0.9rem; color: #991B1B; }
+        .footer-note { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: #9CA3AF; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-7-23 Guideline</div>
+        <h1 class="title">구조물 기초 굴착 (필요시) 작업 수행지침서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 상부강화노반 / 토공</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 공사팀 (D+15)</span>
+            <span>|</span>
+            <span><span class="badge">현장 시공 관리 지침</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 준비사항 (Preparation)</h2>
+    <p><strong>주요 목적:</strong> 노반 내 암거, 옹벽, 배수 구조물 기초 부지 터파기 및 지지력 검증</p>
+    <p><strong>수행 방법:</strong> 기초 터파기 굴착, 기초 지반 PBT(허용지내력 qa ≥ 200 kPa) 시험, 버림콘크리트 타설</p>
+    <p><strong>최종 산출물:</strong> 기초 굴착 검측서, 기초 지반 지내력 시험성적서</p>
+
+    <h2>2. 3단계 체계별 세부 작업 수행절차 (Structured Procedure)</h2>
+    <div class="step-card">
+        <div class="step-title"><span>Step 1. 사전 준비 단계 (Preparation & Survey)</span></div>
+        <ul class="bullet-list">
+            <li>구조물 위치 측량, 지하 지장물 탐지, 규범 사면 기울기 설정을 수행한다.</li>
+            <li>GRS80 세계측지계 좌표 및 TBM 가수준점 확인, 중심선 오차 ≤ ±10mm 검증을 완료한다.</li>
+            <li>시험시공(Trial Compaction)을 시행하여 다짐 장비 조합(10t+ 진동롤러, 15t+ 타이어롤러) 및 Pass 수(6~8회)를 확정한다.</li>
+            <li>지장물 줄파기 및 가배수로, 센서/계측기 거치 상태를 사전에 점검한다.</li>
+        </ul>
+    </div>
+    <div class="step-card">
+        <div class="step-title"><span>Step 2. 본 시공 단계 (Compaction & Layer Control)</span></div>
+        <ul class="bullet-list">
+            <li>백호 터파기 굴착, 바닥 인력 정지작업, 배수 집수정 설치를 진행한다.</li>
+            <li><strong>1층 다짐 두께 준수:</strong> 敷設(포설) 시 느슨한 두께 기준 <strong>30cm 이하 (≤ 300mm)</strong>로 균일 포설한다.</li>
+            <li><strong>롤러 조합 다짐:</strong> 진동롤러(초기 다짐) 및 Pneumatic 타이어롤러(마감 전압, 접지압 ≥ 0.3MPa) 조합으로 8 pass 이상 다짐을 실시한다.</li>
+            <li><strong>함수비 및 구배 관리:</strong> 최적함수비(OMC ± 2%) 상태를 유지하며 횡단 배수 구배 <strong>2.0%</strong>를 정밀 형성한다.</li>
+        </ul>
+    </div>
+    <div class="step-card">
+        <div class="step-title"><span>Step 3. 검사 및 마감 단계 (Inspection & Handover)</span></div>
+        <ul class="bullet-list">
+            <li>기초 지내력 PBT 시험(qa ≥ 200 kPa), 버림콘크리트 타설 승인을 이행한다.</li>
+            <li><strong>평판재하시험(PBT):</strong> 강화노반 완성면 반력계수 K30 ≥ 110 MN/m³, 변형계수 Ev2 ≥ 120 MPa, Ev2/Ev1 ≤ 2.2 만족 여부를 매 200m마다 검측한다.</li>
+            <li><strong>PFWD 및 측량:</strong> 소형 핑거 평판재하시험(PFWD)과 3D 측량을 시행하여 표고 허용 공차 ± 10mm 이내임을 검증한다.</li>
+            <li>배수 시설 연결을 마무리하고 궤도 시공 부서로 인수인계 서명 및 통제를 이행한다.</li>
+        </ul>
+    </div>
+
+    <h2>3. 지반공학 리스크 및 부등침하 방지 주의사항 (Geotechnical Precautions)</h2>
+    <ul class="bullet-list">
+        <li><strong>절성토 경계부 처리:</strong> 부등침하 방지를 위해 계단식 층따기(폭 1.0m 이상, 1:4 구배) 및 맹암거(유공관 + 투수골재 + 부직포)를 설치한다.</li>
+        <li><strong>연약지반 개량 제어:</strong> 연약지반 처리(PVD, DCM, CGS 등) 구간은 잔류 침하속도 ≤ 1.0mm/월 수렴 시까지 방치기간을 확보한다.</li>
+    </ul>
+
+    <h2>4. 하자 예방 및 위험요인 관리 (Risk Management)</h2>
+    <div class="risk-box">
+        <strong>[집행단계 리스크 검토사항]</strong><br>
+        <p>• 기초 터파기 과굴착(과도한 굴착) 후 불완전 되체우기로 구조물 침하 리스크</p>
+        <p>• 기초 굴착 사면 붕괴로 인한 안전사고 및 강화노반 시공선 침범 리스크</p>
+    </div>
+
+    
+        
+<div class="subcontractor-advisory-box" style="background-color: #FFFBEB; border: 1.5px solid #F59E0B; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #B45309; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>👷</span> [협력업체 실무 자문] 강화노반 시공 수행지침 (정주건설·트리폴건설)
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #78350F; font-size: 0.92rem; line-height: 1.7;">
+                <li>강화노반 완료 후 하부 공동구 설치 시 노반 침하 및 균열이 발생하지 않도록 역순 시공 시 모래/양질 토사 채움 및 다짐 철저</li>
+            </ul>
+        </div>
+        
+<div class="footer-note">동탄도시철도(트램) 건설공사 수행지침서 | WBS 9000-7-23</div>
+</div>
+</body>
+</html>

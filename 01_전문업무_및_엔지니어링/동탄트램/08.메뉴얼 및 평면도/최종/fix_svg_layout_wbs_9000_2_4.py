@@ -1,0 +1,727 @@
+import os
+import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+base_dir = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\08.메뉴얼 및 평면도\최종\매뉴얼BODY(집행단계-첨부폴더)\통신분야"
+
+target_folder = None
+for f in os.listdir(base_dir):
+    if f.startswith("4_") or ("전기" in f and "신호" in f):
+        target_folder = os.path.join(base_dir, f)
+        break
+
+if not target_folder:
+    print("❌ ERROR: Target folder for WBS 9000-2-4 not found!")
+    sys.exit(1)
+
+print(f"Target WBS 9000-2-4 Folder: {target_folder}")
+
+zoom_modal_style = """
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+"""
+
+common_js = """
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시스템 12대 인터페이스 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'integrated_core_96c': {
+        title: '🌐 96Core 광 통신망 통합 포설 수칙',
+        desc: '통신 48Core + 전기 충전기 원격감시 2Core + 신호 전자연동 12Core(8Core)를 OF-SM-96Core×2조로 통합 포설하여 개별 포설의 효율을 높이고 통신 무결성을 확보하는 설계 수칙입니다.'
+    },
+    'kec_conduit_33': {
+        title: '🔌 KEC 전선관 점유율 33% & ELP ø150mm 6x2 배관',
+        desc: '한국전기설비규정(KEC)에 따라 전선관 내부 케이블 단면적 점유율 33% 이하를 완벽 준수하며 상/하선 ELP ø150mm×6개×2조 배치 및 지하 매설 상부 프리캐스트 콘크리트 보호판을 매설하는 수칙입니다.'
+    },
+    'shared_pole_cctv': {
+        title: '📷 교차로 CCTV & LTE-R Pole 공용화 수칙',
+        desc: 'CCTV용 12m 강관주 Pole 및 기초대 65개소를 공용화하고, CCTV 제어함체(10kg) 및 LTE-R 안테나(RRU) 공용 지지대의 구조해석 검측을 완료하는 지침입니다.'
+    },
+    'integrated_ups_10_20k': {
+        title: '🔋 통합 UPS 전원 배정 (일반역 10kVA / 연동역 20kVA)',
+        desc: '일반역사(25개소) 10kVA, 연동역사(7개소) 15~20kVA 통합 UPS 채택으로 신호 TPD 및 돌발유고장치(500VA)에 24시간 무정전 전원을 완벽히 수용하는 수칙입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+"""
+
+# GUIDELINE HTML (Fixed SVG box heights and text overflow)
+gui_html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 전기 / 신호 / 기계 / PSD / 차량 인터페이스 협의 수행지침서 (SVG 레이아웃 간섭 보정)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {{ font-family: 'Noto Sans KR', sans-serif; }}
+        {zoom_modal_style}
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Detailed Guideline (SVG 레이아웃 간섭 보정 완료)</span>
+        <h1 class="text-3xl font-black mt-2">전기 / 신호 / 기계 / PSD / 차량 인터페이스 초정밀 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-4 | 주관: 현장 시스템팀 / 통신·전기·신호·차량 협업업체 | "Step별 1:1 2D Visual 그림 완벽 수록"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 💡 친절한 개요 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 시스템 12대 인터페이스 현장 실무 개요</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                제공된 동탄트램 1단계 시스템 분야 설계 인터페이스 도서(12대 핵심 항목)에 준하여 현장 엔지니어가 작업 단계별로 <strong>어떻게(HOW) 96Core 광통신망을 포설하고, ELP ø150mm 관로를 검측하며, CCTV/LTE-R 12m Pole 공용화 및 통합 UPS 10~20kVA 배전</strong>을 수행해야 하는지 <strong>Step별 1:1 직관적 2D Visual 기술 도식(그림)</strong>을 함께 수록하였습니다.
+                각 그림은 <strong><span class="term-highlight" onclick="openDiagramZoom('svg_step1', 'STEP 1 KEC 33% & 96Core 도식')">클릭 시 대형 확대보기</span></strong>를 지원합니다.
+            </p>
+        </div>
+
+        <!-- ☀️ 라이트 테마 특화 카드 섹션 -->
+        <div class="bg-blue-50/70 border border-blue-200 p-7 rounded-2xl shadow-md space-y-6">
+            <div class="border-b border-blue-200 pb-4">
+                <span class="bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase">SPECIAL FOCUS</span>
+                <h3 class="text-xl font-black text-blue-950 mt-2">📋 PDF 12대 시스템 인터페이스 실무 검토 가이드</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🌐</span> 1. 96Core 광통신망 (통합 포설 수칙)</span>
+                    <p class="text-slate-700 text-xs">통신 48C + 전기 2C + 신호 12C를 OF-SM-96Core×2조로 통합 포설.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🔌</span> 2. KEC 33% & ELP ø150mm 배관</span>
+                    <p class="text-slate-700 text-xs">KEC 점유율 33% 이하 준수, 상/하선 ELP ø150mm×6개×2조 배치.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>📷</span> 3. CCTV & LTE-R Pole (공용화 수칙)</span>
+                    <p class="text-slate-700 text-xs">12m 강관주 Pole 65개소 공용화, CCTV(10kg) 및 LTE-R 안테나 하중 검측.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🔋</span> 4. 통합 UPS (일반 10kVA/연동 20kVA)</span>
+                    <p class="text-slate-700 text-xs">일반역 10kVA, 연동역 20kVA 통합 UPS 채택 수칙.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. FLEXIBLE 5-STEP ARCHITECTURE -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 5단계 수행 마스터 프로세스 (Flexible 5-Step Architecture)
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2">
+                <div class="bg-blue-50 p-3 rounded-xl border border-blue-200 flex flex-col justify-between">
+                    <span class="bg-blue-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded w-fit">STEP 1</span>
+                    <h4 class="font-bold text-slate-900 text-[11px] mt-1">96C망 대조</h4>
+                    <p class="text-[10px] text-blue-900 mt-1 font-medium">• KEC 33% 점유율<br">• 96Core 광망 분배</p>
+                </div>
+                <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-200 flex flex-col justify-between">
+                    <span class="bg-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded w-fit">STEP 2</span>
+                    <h4 class="font-bold text-slate-900 text-[11px] mt-1">Pole 실측</h4>
+                    <p class="text-[10px] text-indigo-900 mt-1 font-medium">• 12m 강관주 65개<br">• 하중(10kg) 검측</p>
+                </div>
+                <div class="bg-cyan-50 p-3 rounded-xl border border-cyan-200 flex flex-col justify-between">
+                    <span class="bg-cyan-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded w-fit">STEP 3</span>
+                    <h4 class="font-bold text-slate-900 text-[11px] mt-1">충전 연동</h4>
+                    <p class="text-[10px] text-cyan-900 mt-1 font-medium">• 30초 정차 충전<br">• 차상 무정전 UPS</p>
+                </div>
+                <div class="bg-teal-50 p-3 rounded-xl border border-teal-200 flex flex-col justify-between">
+                    <span class="bg-teal-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded w-fit">STEP 4</span>
+                    <h4 class="font-bold text-slate-900 text-[11px] mt-1">UPS 배전</h4>
+                    <p class="text-[10px] text-teal-900 mt-1 font-medium">• 일반 10k/연동 20k<br">• TPD 500VA 수용</p>
+                </div>
+                <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200 flex flex-col justify-between">
+                    <span class="bg-emerald-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded w-fit">STEP 5</span>
+                    <h4 class="font-bold text-slate-900 text-[11px] mt-1">TTA/배수 체결</h4>
+                    <p class="text-[10px] text-emerald-900 mt-1 font-medium">• TTA 보안성 서류<br">• 선로전환기 배수</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔥 2. 초정밀 HOW 세부 실무 가이드 (SVG 글상자 간섭 수정 완료) -->
+        <div class="space-y-8">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-indigo-600 pb-2">
+                <span class="text-indigo-600">2.</span> 초정밀 HOW(어떻게 수행하는가) Step별 1:1 visual 실무 가이드
+            </h2>
+
+            <div class="space-y-8 text-sm">
+                <!-- STEP 1 HOW + Fixed 1:1 Visual SVG -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">KEC 33% 점유율 & 96Core 통합 포설 검토 방법 (HOW TO PREPARE)</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li><strong>KEC 점유율(≤33%) 계산식 검증:</strong> 한국전기설비규정에 의거 전선관 내부 케이블 총 단면적 합계가 내경 단면적의 33% 이하(상선 통신 4.4%, 하선 4.33%)인지 공학 계산식을 대조합니다.</li>
+                        <li><strong>96Core 광통신망 코어 배분:</strong> 통신 전송망/감시(48C) + 전기 충전기 원격감시(2C×2조) + 신호 전자연동장치(12C/8C×2조) 코어를 OF-SM-96Core×2조로 분배 확정합니다.</li>
+                        <li><strong>ELP ø150mm 배관 매설:</strong> 상/하선 ELP ø150mm×6개×2조 관로를 지하 매설 후 상부에 프리캐스트 콘크리트 보호판을 배치하여 물리적 파손을 차단합니다.</li>
+                    </ul>
+                    
+                    <!-- Fixed STEP 1 Visual Diagram -->
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step1', 'STEP 1 KEC 33% 점유율 & 96Core 광케이블/ELP ø150mm 관로 2D 시공 도식')">
+                        <svg id="svg_step1" viewBox="0 0 520 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="190" fill="#f8fafc"/>
+                            <!-- 관로 프리캐스트 보호판 -->
+                            <rect x="15" y="15" width="225" height="32" fill="#e2e8f0" stroke="#64748b" stroke-width="2" rx="4"/>
+                            <text x="127" y="36" font-size="12" font-weight="black" fill="#334155" text-anchor="middle">📦 프리캐스트 콘크리트 보호판</text>
+                            
+                            <!-- ELP ø150mm 배관 6개 -->
+                            <g transform="translate(15, 60)">
+                                <circle cx="22" cy="25" r="18" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                                <circle cx="62" cy="25" r="18" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                                <circle cx="102" cy="25" r="18" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                                <circle cx="142" cy="25" r="18" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                                <circle cx="182" cy="25" r="18" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                                <text x="102" y="65" font-size="11" font-weight="bold" fill="#1e3a8a" text-anchor="middle">⚡ ELP ø150mm×6개×2조 (점유율 ≤ 33%)</text>
+                            </g>
+
+                            <!-- Fixed 96Core 광케이블 박스 (height 148, text padded) -->
+                            <rect x="255" y="15" width="250" height="155" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="8"/>
+                            <text x="380" y="42" font-size="13" font-weight="black" fill="#0369a1" text-anchor="middle">🌐 OF-SM-96Core×2조 통합 포설</text>
+                            <text x="270" y="70" font-size="11" font-weight="bold" fill="#334155">• 통신 전송망: 48Core</text>
+                            <text x="270" y="92" font-size="11" font-weight="bold" fill="#334155">• 전기 충전 원격감시: 4Core (2C×2조)</text>
+                            <text x="270" y="114" font-size="11" font-weight="bold" fill="#334155">• 신호 전자연동장치: 16Core (8C×2조)</text>
+                            <text x="270" y="136" font-size="11" font-weight="bold" fill="#0284c7">• 예비 코어(20% 이상): 28Core 확보</text>
+                            <text x="270" y="156" font-size="10" font-weight="bold" fill="#64748b">└ KEC 규정 점유율 안전성 검증 완료</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 2 HOW + Fixed Visual -->
+                <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">교차로 CCTV & LTE-R Pole 공용화 실측 방법 (HOW TO MEASURE)</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li><strong>12m 강관주 Pole 65개소 위치 측량:</strong> 교차로 감시 CCTV용 12m 강관주 및 기초대 65개소 위치를 현장 측량하고 독립 Pole 설치 대신 통합 공용으로 설계합니다.</li>
+                        <li><strong>통신 설비 하중 및 구조해석 검측:</strong> CCTV(브라켓 포함 14kg) 및 CCTV 제어함체(10kg), LTE-R RRU 안테나 공용 지지대의 풍하중 및 구조해석 검측 서류를 승인합니다.</li>
+                    </ul>
+
+                    <!-- Fixed STEP 2 Diagram -->
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2', 'STEP 2 교차로 12m 강관주 Pole & CCTV/LTE-R 하중 검측 2D 시공 도식')">
+                        <svg id="svg_step2" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <!-- 12m 강관주 Pole -->
+                            <line x1="80" y1="160" x2="80" y2="20" stroke="#475569" stroke-width="8"/>
+                            <rect x="60" y="150" width="40" height="20" fill="#94a3b8" stroke="#334155" stroke-width="2"/>
+                            
+                            <!-- CCTV 카메라 (14kg) -->
+                            <rect x="84" y="30" width="35" height="16" fill="#2563eb" rx="3"/>
+                            <text x="125" y="42" font-size="11" font-weight="black" fill="#1d4ed8">📹 CCTV (14kg)</text>
+                            
+                            <!-- LTE-R RRU 안테나 -->
+                            <rect x="84" y="65" width="30" height="25" fill="#0284c7" rx="3"/>
+                            <text x="120" y="81" font-size="11" font-weight="black" fill="#0369a1">📡 LTE-R RRU 안테나</text>
+
+                            <!-- CCTV 제어함체 (10kg) -->
+                            <rect x="84" y="105" width="28" height="30" fill="#475569" rx="3"/>
+                            <text x="120" y="124" font-size="11" font-weight="black" fill="#334155">🗄️ 제어함체 (10kg)</text>
+
+                            <!-- 오른쪽 검측 조건 박스 -->
+                            <rect x="250" y="15" width="255" height="150" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="8"/>
+                            <text x="377" y="42" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">📷 12m Pole 공용화 구조 검측</text>
+                            <text x="265" y="70" font-size="11" font-weight="bold" fill="#334155">• 12m 강관주 Pole 및 기초대 65개소</text>
+                            <text x="265" y="93" font-size="11" font-weight="bold" fill="#334155">• 기초대 규격: M24x450mm 케미컬앵커</text>
+                            <text x="265" y="116" font-size="11" font-weight="bold" fill="#334155">• 하중: CCTV(14kg) + 함체(10kg)</text>
+                            <text x="265" y="139" font-size="11" font-weight="bold" fill="#4f46e5">• 풍하중 및 구조해석 계산서 승인</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 3 HOW + Fixed Visual -->
+                <div class="bg-white p-6 rounded-2xl border border-cyan-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-cyan-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">차량 무가선 LTO & 30초 정차 충전 연동 방법 (HOW TO INSTALL & TEST)</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li><strong>30초 정차역 급속충전 인터페이스:</strong> 무가선 LTO 배터리 + 슈퍼캐패시터 차량이 정거장 30초 정차 시 (5초 집전장치 상승 ➔ 20초 충전 ➔ 5초 하강 출발) 인터페이스를 신호/전기팀과 합동 점검합니다.</li>
+                        <li><strong>차상 무정전 전원(UPS) 결속:</strong> 차량 운전대 차상 통신장치 및 차상 무선 안테나에 무정전 전원공급(UPS) 회로가 1:1 차폐 결속되었는지 현장 시험합니다.</li>
+                    </ul>
+
+                    <!-- Fixed STEP 3 Diagram -->
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step3', 'STEP 3 무가선 차량 30초 정차 충전 타임라인 & 차상 UPS 2D 시공 도식')">
+                        <svg id="svg_step3" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <!-- 트램 정차 30초 타임라인 -->
+                            <rect x="15" y="15" width="490" height="70" fill="#ffffff" stroke="#0891b2" stroke-width="2" rx="8"/>
+                            <text x="260" y="40" font-size="13" font-weight="black" fill="#0e7490" text-anchor="middle">⏱️ 정거장 30초 정차 정차역 급속충전 타임라인</text>
+                            
+                            <rect x="30" y="52" width="75" height="22" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" rx="3"/>
+                            <text x="67" y="67" font-size="10" font-weight="bold" fill="#0369a1" text-anchor="middle">5초: 상승</text>
+
+                            <rect x="115" y="52" width="290" height="22" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5" rx="3"/>
+                            <text x="260" y="67" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">⚡ 20초 급속 충전 (LTO 배터리 + 슈퍼캐패시터)</text>
+
+                            <rect x="415" y="52" width="75" height="22" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5" rx="3"/>
+                            <text x="452" y="67" font-size="10" font-weight="bold" fill="#b91c1c" text-anchor="middle">5초: 하강출발</text>
+
+                            <!-- 차상 무정전 전원 UPS 박스 -->
+                            <rect x="15" y="100" width="490" height="60" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="8"/>
+                            <text x="260" y="135" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🔋 차상 통신장치 & 차상 무선 안테나 무정전 전원공급(UPS) 1:1 결속 완료</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 4 HOW + Fixed Visual -->
+                <div class="bg-white p-6 rounded-2xl border border-teal-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-teal-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">통합 UPS (일반 10kVA / 연동 20kVA) 배전 방법 (HOW TO CONNECT)</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li><strong>역사별 통합 UPS 용량 검측:</strong> 일반역사(25개소) 10kVA, 연동역사(7개소) 15~20kVA 통합 UPS 분전반을 통신 기계실에 배치하고 최적 배전을 확인합니다.</li>
+                        <li><strong>신호 TPD & 돌발유고장치 전원 수용:</strong> 신호분야 TPD 및 돌발유고장치 전원(500VA)을 통신 통합 UPS 전원선에 결선하고 24시간 무정전 백업 여부를 시험합니다.</li>
+                    </ul>
+
+                    <!-- Fixed STEP 4 Diagram -->
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step4', 'STEP 4 통합 UPS 10~20kVA 분전반 및 TPD 전원 수용 2D 시공 도식')">
+                        <svg id="svg_step4" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <!-- 통합 UPS 기계실 함체 -->
+                            <rect x="20" y="15" width="210" height="150" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="8"/>
+                            <text x="125" y="42" font-size="13" font-weight="black" fill="#0f766e" text-anchor="middle">🔋 통합 UPS 분전함</text>
+                            <text x="35" y="70" font-size="11" font-weight="bold" fill="#334155">• 일반역사(25개소): 10kVA</text>
+                            <text x="35" y="93" font-size="11" font-weight="bold" fill="#334155">• 연동역사(7개소): 20kVA</text>
+                            <text x="35" y="116" font-size="11" font-weight="bold" fill="#334155">• 24시간 무정전 백업 제공</text>
+                            <text x="35" y="139" font-size="11" font-weight="bold" fill="#0d9488">• 축전지 정류기 1:1 이중화</text>
+
+                            <path d="M 235 90 L 265 90" stroke="#0d9488" stroke-width="3"/>
+                            <polygon points="265,85 275,90 265,95" fill="#0d9488"/>
+
+                            <!-- 수용 장비 박스 -->
+                            <rect x="280" y="15" width="225" height="150" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="392" y="42" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">⚡ 무정전 전원 공급 장치</text>
+                            <text x="295" y="70" font-size="11" font-weight="bold" fill="#334155">• 통신 전송/CCTV/PIS/PA 설비</text>
+                            <text x="295" y="93" font-size="11" font-weight="bold" fill="#334155">• 신호 TPD 장치 전원 수용</text>
+                            <text x="295" y="116" font-size="11" font-weight="bold" fill="#334155">• 돌발유고장치(500VA) 전원 수용</text>
+                            <text x="295" y="139" font-size="11" font-weight="bold" fill="#047857">• 107/201정거장 공용 배전</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 5 HOW + Fixed Visual -->
+                <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 5 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">TTA 보안성 검증 & 선로전환기 배수 체결 방법 (HOW TO SIGN-OFF)</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li><strong>TTA 상호운용성 & KCA 전파 적합성:</strong> 무선통신 TTA 보안성/상호운용성 검증서 수신 및 KCA 전파 적합성 수수료 납부 필증을 확인합니다.</li>
+                        <li><strong>선로전환기 & 차축검지기 4자 배수 서명:</strong> 선로전환기(노반 배수 파이프) 및 차축검지기(궤도 배수 모듈, 신호 배수 파이프, 토목 횡단 배수관) 4자 책임 서명 회의록을 작성·체결합니다.</li>
+                    </ul>
+
+                    <!-- Fixed STEP 5 Diagram -->
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step5', 'STEP 5 TTA 보안성 검증서 & 4자 배수 체결 2D 시공 도식')">
+                        <svg id="svg_step5" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <!-- TTA 서류 박스 -->
+                            <rect x="20" y="15" width="230" height="150" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="135" y="42" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📄 TTA & KCA 검증 완료</text>
+                            <text x="35" y="70" font-size="11" font-weight="bold" fill="#334155">• 무선통신 TTA 보안성/상호운용성</text>
+                            <text x="35" y="93" font-size="11" font-weight="bold" fill="#334155">• KCA 전파 적합성 수수료 완료</text>
+                            <text x="35" y="116" font-size="11" font-weight="bold" fill="#334155">• TTA 3GPP 표준 인증 확보</text>
+                            <text x="35" y="139" font-size="11" font-weight="bold" fill="#047857">• 법정 검수 서류 100% 확보</text>
+
+                            <!-- 선로전환기 배수 4자 체결 박스 -->
+                            <rect x="270" y="15" width="230" height="150" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="385" y="42" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🌧️ 선로전환기 4자 배수 체결</text>
+                            <text x="285" y="70" font-size="11" font-weight="bold" fill="#334155">• 선로전환기: 노반 배수 파이프</text>
+                            <text x="285" y="93" font-size="11" font-weight="bold" fill="#334155">• 차축검지기: 궤도/신호/토목 4자</text>
+                            <text x="285" y="116" font-size="11" font-weight="bold" fill="#334155">• 트램용 배수 모듈 연동 확인</text>
+                            <text x="285" y="139" font-size="11" font-weight="bold" fill="#047857">• 5대 분야 서명 관리대장 등재</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 종합 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">3.</span> 종합 2D Visual 기술 도식 (Enriched 2D SVG)
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r4', '[WBS 9000-2-4] PDF 12대 시스템 인터페이스 2D Visual 도식')">
+                <svg id="svg_r4" viewBox="0 0 550 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="550" height="190" fill="#f8fafc"/>
+                    <rect x="25" y="15" width="230" height="145" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+                    <text x="140" y="42" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">🌐 96Core 광망 & KEC 33%</text>
+                    <text x="40" y="70" font-size="11" font-weight="bold" fill="#334155">• OF-SM-96Core×2조 통합 포설</text>
+                    <text x="40" y="93" font-size="11" font-weight="bold" fill="#334155">• ELP ø150mm×6개×2조 배관</text>
+                    <text x="40" y="116" font-size="11" font-weight="bold" fill="#334155">• 프리캐스트 보호판 지하 매설</text>
+                    <text x="40" y="139" font-size="11" font-weight="bold" fill="#1d4ed8">• KEC 점유율 ≤ 33% 충족</text>
+
+                    <path d="M 265 85 L 295 85" stroke="#2563eb" stroke-width="3"/>
+                    <polygon points="295,80 305,85 295,90" fill="#2563eb"/>
+
+                    <rect x="310" y="15" width="215" height="145" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                    <text x="417" y="42" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📷 12m Pole 공용 & 통합 UPS</text>
+                    <text x="325" y="70" font-size="11" font-weight="bold" fill="#334155">• 12m 강관주 65개소 공용화</text>
+                    <text x="325" y="93" font-size="11" font-weight="bold" fill="#334155">• 통합 UPS 10~20kVA 배전</text>
+                    <text x="325" y="116" font-size="11" font-weight="bold" fill="#334155">• TPD 및 500VA 무정전 수용</text>
+                    <text x="325" y="139" font-size="11" font-weight="bold" fill="#047857">• 30초 정차 충전 인터페이스</text>
+                    <text x="275" y="175" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">PDF 12대 시스템 인터페이스 회의록 및 1,2공구 종합 관리대장 완료</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+{common_js}
+</body>
+</html>
+"""
+
+# CHECKLIST HTML (Fixed SVG box height)
+chk_html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기 / 신호 / 기계 / PSD / 차량 인터페이스 협의 마스터 체크리스트 (현장 점검용 Step 1~3 그림 수록)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {{ font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }}
+        .step-header {{ background-color: #ffffff; text-align: center; font-weight: 800; color: #1e3a8a; border-right: 1px solid #e2e8f0; }}
+        .result-box {{ background-color: #ffffff; text-align: center; font-weight: 700; color: #2563eb; border-left: 1px solid #e2e8f0; }}
+        {zoom_modal_style}
+    </style>
+</head>
+<body class="p-6 sm:p-10 text-slate-800">
+<div class="max-w-5xl mx-auto space-y-6">
+
+    <!-- 대제목 & WBS 코드 -->
+    <div class="flex justify-between items-end border-b-2 border-slate-900 pb-4">
+        <div>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">전기 / 신호 / 기계 / PSD / 차량 인터페이스 협의 마스터 체크리스트</h1>
+        </div>
+        <div class="text-right">
+            <span class="text-blue-600 font-bold text-sm">WBS Code 9000-2-4 | 통신 검측대장</span>
+        </div>
+    </div>
+
+    <!-- 📋 상단 안내 상자 (Notice Box) -->
+    <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-6 shadow-sm space-y-2">
+        <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+            <span>📋</span> 현장 점검용 Step별 2D Visual 도식 연동 12대 정밀 검측대장
+        </h3>
+        <p class="text-xs text-blue-900 leading-relaxed font-medium">
+            본 체크리스트는 시스템 인터페이스(96Core 광망, KEC 점유율, 12m Pole 공용, 통합 UPS) 점검 시 현장 엔지니어가 <strong>[🔍 시공 도식 열기]</strong>를 클릭하면 <strong>대형 고화질 팝업 모달</strong>이 열려 도식을 직접 보며 <strong>~하였는가? (100%)</strong> 점검을 진행할 수 있도록 연동되었습니다.
+        </p>
+    </div>
+
+    <!-- 숨겨진 현장 점검용 Step 1~3 2D Visual SVG 소스 (Fixed Box Heights) -->
+    <div style="display:none;">
+        <svg id="svg_chk_step1" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+            <rect x="15" y="15" width="225" height="32" fill="#e2e8f0" stroke="#64748b" stroke-width="2" rx="4"/>
+            <text x="127" y="36" font-size="12" font-weight="black" fill="#334155" text-anchor="middle">📦 프리캐스트 콘크리트 보호판</text>
+            <circle cx="45" cy="85" r="18" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+            <circle cx="85" cy="85" r="18" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+            <circle cx="125" cy="85" r="18" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+            <text x="125" y="130" font-size="11" font-weight="bold" fill="#1e3a8a" text-anchor="middle">⚡ ELP ø150mm (KEC 33%)</text>
+            <rect x="255" y="15" width="250" height="150" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="8"/>
+            <text x="380" y="42" font-size="13" font-weight="black" fill="#0369a1" text-anchor="middle">🌐 OF-SM-96Core×2조 통합 포설</text>
+            <text x="270" y="70" font-size="11" font-weight="bold" fill="#334155">• 통신(48C) + 전기(4C) + 신호(16C)</text>
+            <text x="270" y="93" font-size="11" font-weight="bold" fill="#334155">• 예비 코어: 28Core 이상 확보</text>
+            <text x="270" y="116" font-size="11" font-weight="bold" fill="#334155">• 12m 강관주 65개소 공용화 도식</text>
+            <text x="270" y="139" font-size="11" font-weight="bold" fill="#0284c7">• KEC 규정 점유율 안전 검증 완료</text>
+        </svg>
+
+        <svg id="svg_chk_step2" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+            <rect x="15" y="15" width="490" height="70" fill="#ffffff" stroke="#0891b2" stroke-width="2" rx="8"/>
+            <text x="260" y="40" font-size="13" font-weight="black" fill="#0e7490" text-anchor="middle">⏱️ 무가선 차량 30초 정차 급속충전 인터페이스</text>
+            <text x="260" y="65" font-size="11" font-weight="bold" fill="#15803d" text-anchor="middle">5초 상승 ➔ 20초 충전 ➔ 5초 하강 / 차상 UPS 1:1 결속</text>
+            <rect x="15" y="95" width="490" height="70" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="8"/>
+            <text x="260" y="125" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🔋 이격거리 ≥300mm & TTA 무선통신 보안성 검증서 확인</text>
+            <text x="260" y="148" font-size="11" font-weight="bold" fill="#64748b" text-anchor="middle">KCA 전파 적합성 수수료 반영 완료</text>
+        </svg>
+
+        <svg id="svg_chk_step3" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+            <rect x="20" y="15" width="230" height="150" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+            <text x="135" y="42" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📻 PSD 비상통화 3초 연동</text>
+            <text x="35" y="70" font-size="11" font-weight="bold" fill="#334155">• 스크린도어 버튼 1:1 시험</text>
+            <text x="35" y="93" font-size="11" font-weight="bold" fill="#334155">• PA/PIS 방송 지연 ≤ 0.5초</text>
+            <text x="35" y="116" font-size="11" font-weight="bold" fill="#334155">• 모의운전실 13.6m×7.7m 확보</text>
+            <text x="35" y="139" font-size="11" font-weight="bold" fill="#047857">• 승강장 인터페이스 시험 통과</text>
+
+            <rect x="270" y="15" width="230" height="150" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+            <text x="385" y="42" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🌧️ 선로전환기 4자 배수 체결</text>
+            <text x="285" y="70" font-size="11" font-weight="bold" fill="#334155">• 선로전환기: 노반 배수 파이프</text>
+            <text x="285" y="93" font-size="11" font-weight="bold" fill="#334155">• 차축검지기: 궤도/신호/토목 4자</text>
+            <text x="285" y="116" font-size="11" font-weight="bold" fill="#334155">• 트램용 배수 모듈 연동 확인</text>
+            <text x="285" y="139" font-size="11" font-weight="bold" fill="#047857">• 5자 서명 종합대장 등재 완료</text>
+        </svg>
+    </div>
+
+    <!-- 3-Column 마스터 검측 테이블 -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-slate-100 text-slate-700 text-sm font-extrabold border-b border-slate-200">
+                    <th class="py-4 px-6 text-center w-48 border-r border-slate-200">시공 단계</th>
+                    <th class="py-4 px-6 text-center">필수 검측 항목 (PDF 12대 정밀 검토 수칙)</th>
+                    <th class="py-4 px-6 text-center w-36 border-l border-slate-200">점검 결과</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+                <!-- STEP 1 Group -->
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td rowspan="4" class="step-header p-6 w-48 align-middle bg-slate-50/50 border-r border-slate-200">
+                        <div class="space-y-2">
+                            <span class="text-amber-500 text-base">⚠️</span>
+                            <div class="text-sm font-black text-slate-900">사전 준비</div>
+                            <div class="text-xs text-blue-600 font-bold">(Step 1 도면&Pool)</div>
+                            <button onclick="openDiagramZoom('svg_chk_step1', 'Step 1 사전준비 시공 도식')" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-2 py-1 rounded shadow transition mt-1">🔍 시공 도식 열기</button>
+                        </div>
+                    </td>
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">1. 96Core 광망</span><strong class="text-slate-900">[통합 포설]</strong> 통신(48C)+전기(2C)+신호(12C)를 OF-SM-96Core×2조 통합 포설로 확정<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                    <td rowspan="4" class="result-box p-6 w-36 align-middle bg-slate-50/30 text-blue-600 font-bold text-sm">☐ 확인완료</td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">2. KEC 점유율</span><strong class="text-slate-900">[KEC 33%]</strong> 전선관 내부 단면적 점유율 33% 이하 및 ELP ø150mm×6개×2조 배관을 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">3. Pole 공용화</span><strong class="text-slate-900">[12m 강관주]</strong> 교차로 감시 CCTV Pole 65개소 공용화 및 함체(10kg) 하중을 검측<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">4. 통합 UPS</span><strong class="text-slate-900">[10~20kVA]</strong> 일반역 10kVA, 연동역 20kVA 통합 UPS 채택 및 TPD(500VA) 전원을 수용<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+
+                <!-- STEP 2 Group -->
+                <tr class="hover:bg-slate-50 transition-colors border-t-2 border-slate-200">
+                    <td rowspan="4" class="step-header p-6 w-48 align-middle bg-slate-50/50 border-r border-slate-200">
+                        <div class="space-y-2">
+                            <span class="text-blue-500 text-base">📋</span>
+                            <div class="text-sm font-black text-slate-900">8대 조건</div>
+                            <div class="text-xs text-blue-600 font-bold">(Step 2 조건 검증)</div>
+                            <button onclick="openDiagramZoom('svg_chk_step2', 'Step 2 8대조건 시공 도식')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold px-2 py-1 rounded shadow transition mt-1">🔍 시공 도식 열기</button>
+                        </div>
+                    </td>
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">5. 30초 정차충전</span><strong class="text-slate-900">[차량 집전]</strong> LTO 배터리 차량 정차역 30초 정차 중 20초 충전 인터페이스를 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                    <td rowspan="4" class="result-box p-6 w-36 align-middle bg-slate-50/30 text-blue-600 font-bold text-sm">☐ 확인완료</td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">6. 이격 거리</span><strong class="text-slate-900">[회로 분리]</strong> 전력선과 통신 광케이블 간 최소 이격거리(≥300mm) 및 회로 분리를 점검<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">7. TTA 검증</span><strong class="text-slate-900">[보안성 평가]</strong> 무선통신 단말기 TTA 보안성/상호운용성 검증서 수신을 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">8. KCA 수수료</span><strong class="text-slate-900">[전파 사용료]</strong> 전파법에 의거 KCA 기술기준 적합 수수료 반영 여부를 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+
+                <!-- STEP 3 Group -->
+                <tr class="hover:bg-slate-50 transition-colors border-t-2 border-slate-200">
+                    <td rowspan="4" class="step-header p-6 w-48 align-middle bg-slate-50/50 border-r border-slate-200">
+                        <div class="space-y-2">
+                            <span class="text-emerald-500 text-base">🤝</span>
+                            <div class="text-sm font-black text-slate-900">마감 승인</div>
+                            <div class="text-xs text-blue-600 font-bold">(Step 3 결과 체결)</div>
+                            <button onclick="openDiagramZoom('svg_chk_step3', 'Step 3 마감승인 시공 도식')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded shadow transition mt-1">🔍 시공 도식 열기</button>
+                        </div>
+                    </td>
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">9. PSD 비상통화</span><strong class="text-slate-900">[스크린도어]</strong> 승강장 PSD 비상통화버튼 조작 시 관제실 3초 착신 연동을 시험<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                    <td rowspan="4" class="result-box p-6 w-36 align-middle bg-slate-50/30 text-blue-600 font-bold text-sm">☐ 확인완료</td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">10. 4자 배수</span><strong class="text-slate-900">[선로전환기]</strong> 선로전환기 배수 파이프 및 차축검지기 4자 배수 협의를 완료<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">11. 모의 운전실</span><strong class="text-slate-900">[교육 공간]</strong> 시뮬레이터 공간(13.6m×7.7m) 및 장비 Layout 반영을 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">12. 결과서 체결</span><strong class="text-slate-900">[5자 서명]</strong> 현장소장 및 5대 분야 엔지니어 서명이 포함된 회의록을 확정<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{common_js}
+</body>
+</html>
+"""
+
+sub_dirs = {
+    "수행지침": gui_html,
+    "체크리스트": chk_html
+}
+
+for s_n, content in sub_dirs.items():
+    sp = os.path.join(target_folder, s_n)
+    if os.path.exists(sp):
+        for fn in os.listdir(sp):
+            if fn.endswith('.html'):
+                with open(os.path.join(sp, fn), 'w', encoding='utf-8') as f_out:
+                    f_out.write(content)
+                print(f"   ✓ [FIXED SVG BOX OVERFLOW] {s_n} -> {fn}")
+
+print("\n🎉 SUCCESSFULLY FIXED ALL SVG TEXT OVERFLOW AND BOX HEIGHT ISSUES IN WBS 9000-2-4 HTMLs!")

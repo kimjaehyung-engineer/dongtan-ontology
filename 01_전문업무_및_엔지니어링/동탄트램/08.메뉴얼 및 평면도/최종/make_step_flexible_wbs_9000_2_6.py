@@ -1,0 +1,490 @@
+import os
+import sys
+import openpyxl
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+base_dir = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\08.메뉴얼 및 평면도\최종\매뉴얼BODY(집행단계-첨부폴더)\통신분야"
+
+target_folder = None
+for f in os.listdir(base_dir):
+    if f.startswith("6_") or ("관제" in f and "운영사" in f):
+        target_folder = os.path.join(base_dir, f)
+        break
+
+if not target_folder:
+    print("❌ ERROR: Target folder for WBS 9000-2-6 not found!")
+    sys.exit(1)
+
+print(f"Target WBS 9000-2-6 Folder: {target_folder}")
+
+zoom_modal_style = """
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+"""
+
+common_js = """
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 관제 인터페이스 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+    }
+});
+</script>
+"""
+
+# 2. GUIDELINE HTML WITH FLEXIBLE 4-STEP ARCHITECTURE
+gui_html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 관제 및 운영사 인터페이스 유연 4단계 수행지침서 (WBS 9000-2-6)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {{ font-family: 'Noto Sans KR', sans-serif; }}
+        {zoom_modal_style}
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Flexible Guideline (WBS 9000-2-6)</span>
+        <h1 class="text-3xl font-black mt-2">관제 및 운영사 인터페이스 초직관 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-6 | 주관: 현장 시스템팀 / 통신 협업업체 | "사안에 부합하는 4단계 유연 프로세스 수록"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 💡 친절한 개요 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 한눈에 읽는 유연한 실무 가이드 (Flexible 4-Step)</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                본 지침서는 고정된 5단계 틀에 억지로 맞추지 않고, <strong>관제센터 및 운영사 인터페이스 업무의 직관적 구분에 부합하는 "4단계 유연 프로세스(Flexible 4-Step Architecture)"</strong>로 구성되었습니다.
+                아래의 <strong>Step별 1:1 직관적 2D Visual 그림</strong>을 보며 차근차근 점검을 수행하십시오.
+                모든 그림은 <strong><span class="term-highlight" onclick="openDiagramZoom('svg_step1', 'STEP 1 관제실 모니터 배치 도식')">클릭하면 커다란 모달 창으로 크게 연동</span></strong>됩니다.
+            </p>
+        </div>
+
+        <!-- ☀️ 4대 유연 핵심 프로세스 카드 -->
+        <div class="bg-blue-50/70 border border-blue-200 p-7 rounded-2xl shadow-md space-y-6">
+            <div class="border-b border-blue-200 pb-4">
+                <span class="bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase">FLEXIBLE PROCESS</span>
+                <h3 class="text-xl font-black text-blue-950 mt-2">📋 관제 및 운영사 4단계 유연 프로세스</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🖥️</span> 1. OCC 모니터 & 4K 카메라 65개소</span>
+                    <p class="text-slate-700 text-xs">관제실 모니터 화면을 배치하고 4K 카메라 65개소 사각지대 제로 자리 확정.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🚦</span> 2. 수원·화성 시교통관제 신호 연동</span>
+                    <p class="text-slate-700 text-xs">수원/화성 도로교통관제센터와 트램 우대 신호등 신호선을 통신선으로 연결.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>📺</span> 3. 방송·CCTV·비상벨 통합 연동시험</span>
+                    <p class="text-slate-700 text-xs">승강장 전광판·스피커·관제 모니터 0.5초 동시 표출 및 비상 벨 3초 관제 연결 시험.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>📄</span> 4. 무선 필증(TTA/KCA) & 서명 날인</span>
+                    <p class="text-slate-700 text-xs">무선통신 성능검증서(TTA/KCA 필증) 확보 및 관제·운영사·감리원 서명 체결.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. FLEXIBLE 4-STEP ARCHITECTURE -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 4단계 핵심 수행 마스터 프로세스 (Flexible Architecture)
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 flex flex-col justify-between">
+                    <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-0.5 rounded w-fit">STEP 1</span>
+                    <h4 class="font-bold text-slate-900 text-xs mt-2">OCC 모니터 배치</h4>
+                    <p class="text-[11px] text-blue-900 mt-1 font-medium">• 관제 화면 배치<br">• 4K 카메라 65개소</p>
+                </div>
+                <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-200 flex flex-col justify-between">
+                    <span class="bg-indigo-600 text-white text-[10px] font-black px-2 py-0.5 rounded w-fit">STEP 2</span>
+                    <h4 class="font-bold text-slate-900 text-xs mt-2">시교통 신호연동</h4>
+                    <p class="text-[11px] text-indigo-900 mt-1 font-medium">• 수원/화성 관제센터<br">• 트램 우대 신호등</p>
+                </div>
+                <div class="bg-cyan-50 p-4 rounded-xl border border-cyan-200 flex flex-col justify-between">
+                    <span class="bg-cyan-600 text-white text-[10px] font-black px-2 py-0.5 rounded w-fit">STEP 3</span>
+                    <h4 class="font-bold text-slate-900 text-xs mt-2">통합 연동 시험</h4>
+                    <p class="text-[11px] text-cyan-900 mt-1 font-medium">• 전광판+스피커 0.5초<br">• 비상 벨 3초 관제 연결</p>
+                </div>
+                <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200 flex flex-col justify-between">
+                    <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded w-fit">STEP 4</span>
+                    <h4 class="font-bold text-slate-900 text-xs mt-2">무선필증&서명</h4>
+                    <p class="text-[11px] text-emerald-900 mt-1 font-medium">• TTA/KCA 필증 확보<br">• 관제/운영사 서명 날인</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔥 2. 초정밀 HOW 세부 실무 가이드 (STEP 1~4 1:1 직관적 2D VISUAL SVG) -->
+        <div class="space-y-8">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-indigo-600 pb-2">
+                <span class="text-indigo-600">2.</span> 유연 4단계 HOW 세부 실무 가이드 & 1:1 2D 그림
+            </h2>
+
+            <div class="space-y-8 text-sm">
+                <!-- STEP 1 HOW + VISUAL SVG -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1</span>
+                        <h3 class="font-bold text-base text-slate-900">종합관제실(OCC) 모니터 화면 배치 & 4K CCTV 카메라 65개소 명당 자리 정하기</h3>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
+                        <p><strong>💡 쉬운 실무 설명:</strong> 동탄 종합관제실(OCC)과 수원·화성 도로교통관제센터 모니터에 트램 운행 상황이 한눈에 들어오도록 화면 위치를 맞추고, 교차로 4K CCTV 카메라 65개소가 사각지대 없이 잘 보이도록 위치를 정합니다.</p>
+                    </div>
+                    
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step1', 'STEP 1 OCC 관제실 모니터 배치 & 4K 카메라 65개소 2D 시공 도식')">
+                        <svg id="svg_step1" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+                            <text x="130" y="48" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">🖥️ 동탄 OCC 종합관제실 모니터</text>
+                            <g transform="translate(35, 62)">
+                                <rect x="0" y="0" width="55" height="35" fill="#e0f2fe" stroke="#2563eb" stroke-width="1.5" rx="3"/>
+                                <text x="27" y="22" font-size="9" font-weight="black" fill="#1d4ed8" text-anchor="middle">트램 1호</text>
+
+                                <rect x="65" y="0" width="55" height="35" fill="#e0f2fe" stroke="#2563eb" stroke-width="1.5" rx="3"/>
+                                <text x="92" y="22" font-size="9" font-weight="black" fill="#1d4ed8" text-anchor="middle">트램 2호</text>
+
+                                <rect x="130" y="0" width="55" height="35" fill="#e0f2fe" stroke="#2563eb" stroke-width="1.5" rx="3"/>
+                                <text x="157" y="22" font-size="9" font-weight="black" fill="#1d4ed8" text-anchor="middle">전력/신호</text>
+
+                                <rect x="0" y="42" width="185" height="20" fill="#dcfce7" stroke="#15803d" stroke-width="1.5" rx="3"/>
+                                <text x="92" y="56" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">종합 운행 상황판 100% 연결 완료</text>
+                            </g>
+
+                            <path d="M 245 90 L 285 90" stroke="#2563eb" stroke-width="3"/>
+                            <polygon points="285,85 295,90 285,95" fill="#2563eb"/>
+
+                            <rect x="305" y="25" width="195" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="402" y="48" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📹 4K CCTV 65개소 배치</text>
+                            <circle cx="402" cy="85" r="22" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+                            <text x="402" y="90" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">65개소</text>
+                            <text x="402" y="125" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">12m Pole 사각지대 제로 배치</text>
+                            <text x="402" y="142" font-size="10" font-weight="bold" fill="#047857" text-anchor="middle">✔ 관제실 화질 승인 완료</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 2 HOW + VISUAL SVG -->
+                <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
+                        <h3 class="font-bold text-base text-slate-900">수원·화성시 도로교통 관제센터와 신호등 신호 연동 방법</h3>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
+                        <p><strong>💡 쉬운 실무 설명:</strong> 수원시 및 화성시 도로교통관제센터와 트램 우대 신호(신호등을 트램이 올 때 푸른불로 바꿔주는 장치) 신호를 통신선으로 연결하여 신호가 막힘없이 연동되는지 대조합니다.</p>
+                    </div>
+
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2', 'STEP 2 수원/화성 시교통관제센터 신호 연동 2D 시공 도식')">
+                        <svg id="svg_step2" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <rect x="20" y="25" width="140" height="130" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="8"/>
+                            <text x="90" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">🚦 트램 우대 신호등</text>
+                            <g transform="translate(45, 68)">
+                                <circle cx="15" cy="15" r="10" fill="#ef4444"/>
+                                <circle cx="45" cy="15" r="10" fill="#f59e0b"/>
+                                <circle cx="75" cy="15" r="12" fill="#10b981" stroke="#047857" stroke-width="2"/>
+                            </g>
+                            <text x="90" y="120" font-size="10" font-weight="bold" fill="#15803d" text-anchor="middle">트램 진입 시 푸른불 켜짐</text>
+                            <text x="90" y="140" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">교차로 제어기(PPC) 연동</text>
+
+                            <path d="M 160 90 L 250 90" stroke="#4f46e5" stroke-width="3"/>
+                            <polygon points="250,85 260,90 250,95" fill="#4f46e5"/>
+                            <text x="205" y="80" font-size="10" font-weight="black" fill="#4f46e5" text-anchor="middle">광통신선 전송</text>
+
+                            <rect x="265" y="25" width="235" height="130" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="8"/>
+                            <text x="382" y="50" font-size="13" font-weight="black" fill="#0369a1" text-anchor="middle">🏢 수원/화성 시교통관제센터</text>
+                            <rect x="285" y="68" width="195" height="32" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" rx="4"/>
+                            <text x="382" y="88" font-size="11" font-weight="black" fill="#0369a1" text-anchor="middle">🚦 트램 우선신호 제어 100% 연동</text>
+                            <text x="382" y="122" font-size="11" font-weight="bold" fill="#15803d" text-anchor="middle">✔ 신호 지연 없는 실시간 제어 승인</text>
+                            <text x="382" y="142" font-size="10" font-weight="bold" fill="#64748b" text-anchor="middle">교통 제어 패킷 정상 수신 확인</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 3 HOW (통합 연동 시험) + VISUAL SVG -->
+                <div class="bg-white p-6 rounded-2xl border border-cyan-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-cyan-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3</span>
+                        <h3 class="font-bold text-base text-slate-900">전광판·스피커·관제 모니터 0.5초 동시 표출 & 비상 벨 3초 관제 연결 시험</h3>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
+                        <p><strong>💡 쉬운 실무 설명:</strong> 트램이 역에 들어올 때 승강장 전광판의 '도착' 글자, 스피커 안내방송, 관제실 모니터 운행 정보가 0.5초 만에 동시에 작동하며, 승강장 안전문 비상 벨 조작 시 3초 안에 관제실로 소리가 전달되는지 3중 통합 시험합니다.</p>
+                    </div>
+
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step3', 'STEP 3 전광판·스피커 0.5초 & 비상 벨 3초 관제 연결 2D 시공 도식')">
+                        <svg id="svg_step3" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <g transform="translate(15, 25)">
+                                <rect x="0" y="0" width="240" height="60" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="6"/>
+                                <text x="120" y="25" font-size="11" font-weight="black" fill="#1d4ed8" text-anchor="middle">📺 전광판 + 🔊 스피커 (0.5초)</text>
+                                <text x="120" y="45" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">"열차 도착" 글자 & 안내방송 동시 표출</text>
+
+                                <rect x="0" y="70" width="240" height="60" fill="#ffffff" stroke="#ef4444" stroke-width="2" rx="6"/>
+                                <text x="120" y="95" font-size="11" font-weight="black" fill="#b91c1c" text-anchor="middle">🚨 승강장 비상 벨 (3초 관제연결)</text>
+                                <text x="120" y="115" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">버튼 조작 시 3초 관제 벨 울림 & 통화</text>
+                            </g>
+
+                            <path d="M 265 90 L 295 90" stroke="#0891b2" stroke-width="3"/>
+                            <polygon points="295,85 305,90 295,95" fill="#0891b2"/>
+
+                            <rect x="315" y="25" width="190" height="130" fill="#ffffff" stroke="#0e7490" stroke-width="2" rx="8"/>
+                            <text x="410" y="55" font-size="13" font-weight="black" fill="#0e7490" text-anchor="middle">🎧 OCC 종합관제 콘솔</text>
+                            <text x="410" y="85" font-size="11" font-weight="bold" fill="#334155">• 위치 맵 0.5초 동시 갱신</text>
+                            <text x="410" y="108" font-size="11" font-weight="bold" fill="#334155">• 비상 벨 3초 착신 소리 연결</text>
+                            <text x="410" y="135" font-size="11" font-weight="bold" fill="#15803d" text-anchor="middle">✔ 3중 통합 연동 합격</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 4 HOW (무선필증 & 서명날인) + VISUAL SVG -->
+                <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4</span>
+                        <h3 class="font-bold text-base text-slate-900">무선통신 성능검증서(TTA/KCA 필증) 확보 및 관제·운영사 최종 서명 체결 방법</h3>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
+                        <p><strong>💡 쉬운 실무 설명:</strong> 무선 장비 전파 성능 및 보안성이 검증된 국가 공인 필증(TTA/KCA)을 최종 확보하고, 현장 감리원과 종합관제실·운영사 담당자가 한자리에 모여 최종 서명 회의록을 체결합니다.</p>
+                    </div>
+
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step4', 'STEP 4 국가 공인 무선전파 적합필증 & 관제/운영사 서명 날인 2D 시공 도식')">
+                        <svg id="svg_step4" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="130" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📑 국가 공인 무선전파 적합필증</text>
+                            <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 무선통신 전파성능 및 보안검증 (TTA)</text>
+                            <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 전파법 최종 전파 적합 필증 (KCA)</text>
+                            <text x="35" y="122" font-size="11" font-weight="bold" fill="#047857">• 법정 승인 서류 100% 확보 완료</text>
+
+                            <rect x="260" y="25" width="240" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="380" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🖊️ 관제·운영사·감리원 서명 날인</text>
+                            <g transform="translate(295, 68)">
+                                <circle cx="25" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                                <text x="25" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">관제</text>
+
+                                <circle cx="85" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                                <text x="85" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">운영사</text>
+
+                                <circle cx="145" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                                <text x="145" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">감리원</text>
+                            </g>
+                            <text x="380" y="122" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 종합 관리대장 최종 체결 완료</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 종합 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">3.</span> 종합 2D Visual 기술 도식 (Enriched 2D SVG)
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r4', '[WBS 9000-2-6] 관제 및 운영사 인터페이스 초직관 종합 도식')">
+                <svg id="svg_r4" viewBox="0 0 550 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="550" height="190" fill="#f8fafc"/>
+                    <rect x="25" y="15" width="230" height="145" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+                    <text x="140" y="42" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">🖥️ OCC 모니터 & 시교통 신호</text>
+                    <text x="40" y="70" font-size="11" font-weight="bold" fill="#334155">• OCC 관제실 모니터 화면 배치</text>
+                    <text x="40" y="93" font-size="11" font-weight="bold" fill="#334155">• 4K CCTV 65개소 사각지대 제로</text>
+                    <text x="40" y="116" font-size="11" font-weight="bold" fill="#334155">• 수원/화성 시교통관제 신호 연동</text>
+                    <text x="40" y="139" font-size="11" font-weight="bold" fill="#1d4ed8">• 트램 우대 신호등 푸른불 제어</text>
+
+                    <path d="M 265 85 L 295 85" stroke="#2563eb" stroke-width="3"/>
+                    <polygon points="295,80 305,85 295,90" fill="#2563eb"/>
+
+                    <rect x="310" y="15" width="215" height="145" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                    <text x="417" y="42" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📺 0.5초 연동 & 관제 도장</text>
+                    <text x="325" y="70" font-size="11" font-weight="bold" fill="#334155">• 전광판+스피커+관제 0.5초 동시</text>
+                    <text x="325" y="93" font-size="11" font-weight="bold" fill="#334155">• 승강장 비상 벨 3초 관제 소리</text>
+                    <text x="325" y="116" font-size="11" font-weight="bold" fill="#334155">• 국가 공인 전파 필증(TTA/KCA) 확보</text>
+                    <text x="325" y="139" font-size="11" font-weight="bold" fill="#047857">• 관제·운영사·감리원 서명 날인</text>
+                    <text x="275" y="175" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">WBS 9000-2-6 관제 및 운영사 인터페이스 100% 확정</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+{common_js}
+</body>
+</html>
+"""
+
+# Update Guideline Files
+for fn in os.listdir(os.path.join(target_folder, "수행지침")):
+    if fn.endswith('.html'):
+        fp = os.path.join(target_folder, "수행지침", fn)
+        with open(fp, 'w', encoding='utf-8') as f:
+            f.write(gui_html)
+        print(f"   ✓ [FLEXIBLE 4-STEP APPLIED] Guideline -> {fn}")
+
+# Excel Sync for Row 6 (WBS 9000-2-6) with Flexible 4-Step Summary
+excel_path = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\08.메뉴얼 및 평면도\최종\매뉴얼 BODY (집행단계)v4.xlsx"
+if os.path.exists(excel_path):
+    try:
+        wb = openpyxl.load_workbook(excel_path)
+        if "통신분야" in wb.sheetnames:
+            ws = wb["통신분야"]
+            
+            gui_summary_flex = "1) OCC 모니터 배치 & 4K 카메라 65개소: 관제실 모니터 화면 배치 및 4K 카메라 65개소 사각지대 제로 명당 배치\n2) 유연 4단계 시공 가이드: ① OCC 모니터배치 ➔ ② 수원/화성 시교통 신호연동 ➔ ③ 전광판·스피커 0.5초 동시 표출 & 비상 벨 3초 관제 연결 ➔ ④ 무선통신 성능검증서(TTA/KCA 필증) 확보 및 관제·운영사 서명 날인 3단계 visual 가이드"
+
+            ws.cell(row=6, column=12, value=gui_summary_flex) # Col L
+
+            wb.save(excel_path)
+            print("   ✓ [EXCEL V4 FLEXIBLE SYNC COMPLETE] Successfully updated Row 6 (WBS 9000-2-6) Col L in 매뉴얼 BODY (집행단계)v4.xlsx")
+    except Exception as e:
+        print(f"   ⚠️ Excel Sync Note: {e}")
+
+print("\n🎉 SUCCESSFULLY REBUILT WBS 9000-2-6 WITH FLEXIBLE 4-STEP ARCHITECTURE!")

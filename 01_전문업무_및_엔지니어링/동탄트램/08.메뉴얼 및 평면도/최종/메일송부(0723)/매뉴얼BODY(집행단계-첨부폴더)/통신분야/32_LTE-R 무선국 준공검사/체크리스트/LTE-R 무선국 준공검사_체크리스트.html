@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통신분야 - LTE-R 무선국 준공검사 완료 검측 체크리스트</title>
+    <style>
+        :root {
+            --primary-color: #D97706;
+            --primary-light: #FEF3C7;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .title {
+            font-size: 1.8rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        .meta-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #6B7280;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        h2 {
+            font-size: 1.25rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 25px;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .bullet-list li::before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-2-32 Checklist</div>
+        <h1 class="title">LTE-R 무선국 준공검사 완료 검측 체크리스트</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 통신분야 / </span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 발주처</span>
+            <span>|</span>
+            <span><span class="badge">완료 검측 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 완료 검측 세부 체크리스트 (Inspection Items)</h2>
+    <p class='empty-text'>☐ 설계도서 및 표준 시방 기준 준수 여부 확인
+☐ 품질 검측 성과표 작성 및 승인 여부 확인</p>
+
+    <h2>2. 집행단계 리스크 점검사항 (LLBS Risk Checklist)</h2>
+    <p class='empty-text'>☐ 공종 간 인터페이스 및 주요 하자 리스크 사전 검토 이행 완료</p>
+
+    <h2>3. 협력사 공사관리 검측 확인사항 (Subcontractor Verification)</h2>
+
+        <ul class="bullet-list" style="margin-top: 10px;">
+            <li>☐ <strong></strong> 700MHz LTE-R 전 구간 무선 수신강도(RSSI ≥ -95dBm) 및 핸드오버(≥99.5%) 시험을 완료했는가?</li>
+            <li>☐ <strong></strong> 72-Core 광백본 이중화 링 망의 OTDR 접속 손실(≤0.05dB/splice) 성과표를 검측했는가?</li>
+            <li>☐ <strong></strong> 통신관로 이설 시 전력선 유도장해 차폐 트레이 및 30cm 이격 시방을 준수했는가?</li>
+        </ul>
+        
+
+        <ul class="bullet-list" style="margin-top: 10px;">
+            <li>☐ <strong>[협력업체 자문]</strong> 통신 케이블 차폐 트레이 적용 및 전력선 이격 거리를 확인하였는가?</li>
+        </ul>
+        
+    <p class='empty-text'>☐ 협력사 자문 내용 확인 완료</p>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 체크리스트 | WBS 9000-2-32
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신호분야 - 운영자 교육시행 기술 표준서</title>
+    <style>
+        :root {
+            --primary-color: #2563EB;
+            --primary-light: #EFF6FF;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .title {
+            font-size: 1.8rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        .meta-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #6B7280;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        h2 {
+            font-size: 1.25rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+        }
+        th {
+            background-color: var(--primary-light);
+            color: #1E3A8A;
+            font-weight: 700;
+            width: 25%;
+        }
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 25px;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+        .empty-text {
+            color: #9CA3AF;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-1-19 Standard</div>
+        <h1 class="title">운영자 교육시행 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 신호분야 / </span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 시스템팀</span>
+            <span>|</span>
+            <span><span class="badge">설계 기술 표준 규격</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr>
+                <th>과업 목적</th>
+                <td>운영요원(기관사 및 안전관리)을 위한 주행/유지 교육시행</td>
+            </tr>
+            <tr>
+                <th>수행 방법</th>
+                <td>- 시스템안전 교육(철도차량 안전점검 요령)
+- 차량, 신호, 통신 시스템간 인터페이스 사용방법 및 조작 교육
+- 관제센터와의 연계 기계실/차량내 장치(DID 보드 등) 운영 및 테스트</td>
+            </tr>
+            <tr>
+                <th>주요 산출물</th>
+                <td>운영자훈련 및 기술단계에서 운영지침서</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>2. 정량적 기술 표준 (Technical Specifications)</h2>
+    <p class='empty-text'>● 국가철도공단 설계지침 및 관련 법령 절대 기준 준수</p>
+
+    <h2>3. 상세 기술 설계기준 (Design Criteria)</h2>
+
+    <div class="designer-criteria-box" style="background-color: #F0F9FF; border: 1px solid #BAE6FD; border-radius: 8px; padding: 18px; margin-top: 15px;">
+        <h4 style="color: #0369A1; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem;">📄 신호 및 제어 시스템 설계기준 (분야별설계기준 검토서)</h4>
+        <ul style="margin: 0; padding-left: 20px; color: #1E293B; font-size: 0.92rem; line-height: 1.7;">
+            <li><strong>안전성 검증 규격:</strong> IEC 61508 / IEC 62278 / IEC 62425 규격 준수 전자연동장치(CBI) SIL 4 (Safety Integrity Level 4) 적용</li>
+            <li><strong>축차계수기 및 선로전환기:</strong> Axle Counter 듀얼 센서 레일 체결 토크 45~50 Nm, 선로전환기 전환력 4.5~6.0 kN, 밀착 유격 ≤ 1.5mm</li>
+            <li><strong>교차로 트램 우선신호:</strong> PPC 보드 및 LTE 모뎀 연동 신호 처리 지연시간 ≤ 100ms, TOD 연동 트램 전용 우선 녹색 현시 보장</li>
+            <li><strong>인터페이스 표준:</strong> 신호-궤도-전량-차량 간 SIL 4 통합 시험 및 비상 정지 안전 인터록 시방 준수</li>
+        </ul>
+    </div>
+    
+    <ul class='bullet-list'>
+<li>관련분야 설계기준서 준수</li>
+</ul>
+
+    <h2>4. 협력사 시공/공사관리 자문 (Subcontractor Advisory)</h2>
+    <p class='empty-text'>● 협력사 자문 내용 없음 또는 해당사항 없음</p>
+
+    
+        
+<div class="subcontractor-advisory-box" style="background-color: #FFFBEB; border: 1.5px solid #F59E0B; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #B45309; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>👷</span> [협력업체 실무 자문] 위례선 트램 신호·우선신호 자문 (정주/트리폴건설)
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #78350F; font-size: 0.92rem; line-height: 1.7;">
+                <li><strong>교차로 신호 우선 제어:</strong> PPC 보드/LTE 모뎀 함체 위치를 도로 횡단부 굴착 작업선에서 최소 5m 이상 이격 가설하여 손상 방지</li>
+            </ul>
+        </div>
+        
+
+        <div class="manual-v1-integration-box" style="background-color: #F0FDF4; border: 1.5px solid #22C55E; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #15803D; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>📖</span> 신호 분야 기술 표준 수칙
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #166534; font-size: 0.92rem; line-height: 1.7;">
+                <li><strong>CBI SIL 4 및 루프 센서 보호:</strong> 전자연동장치(CBI) SIL 4 (IEC 61508/62425) 안전성 100% 확보 및 매립형 궤도 슬래브 타설 시 신호 루프 센서(Loop Coil) 매설 파손 방지 시방 준수</li>
+                <li><strong>교차로 트램 우선신호(PPC):</strong> 트램 차량 접근 시 LTE-R 무선 단말과 도로교통공단 제어기 간 연동 응답시간 ≤ 100ms 확보 및 TOD 녹색 현시 보장</li>
+                <li><strong>축차계수기 & 선로전환기:</strong> 분기기 궤도 선시공 후 축차계수기 듀얼 센서 토크(45~50 Nm) 및 선로전환기 전환력(4.5~6.0 kN), 밀착유격(≤ 1.5mm) 연동 검측</li>
+            </ul>
+        </div>
+        
+<div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 9000-1-19
+    </div>
+</div>
+</body>
+</html>

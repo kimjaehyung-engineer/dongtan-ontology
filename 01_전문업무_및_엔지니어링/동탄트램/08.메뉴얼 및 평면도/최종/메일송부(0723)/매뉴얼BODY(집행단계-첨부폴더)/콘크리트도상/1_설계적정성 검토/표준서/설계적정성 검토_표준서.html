@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 설계적정성 검토 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Noto Sans KR', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-1 Standard</span>
+                <span class="bg-emerald-500 text-slate-950 text-xs font-bold px-3 py-1 rounded-full">KDS 47 30 00 & KCS 47 30 00</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">설계적정성 검토 기술 표준서</h1>
+            <p class="text-slate-300 mt-2 text-sm sm:text-base">"동탄도시철도 콘크리트도상 궤도공학 절대 시방 및 정량적 기술 기준 규격집"</p>
+        </div>
+    </div>
+    <div class="p-6 sm:p-10 space-y-8">
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 과업 개요 및 수행 목적 (Overview & Scope)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">공종 / 담당부서</span>
+                    <p class="font-bold text-slate-800 mt-1">궤도 / 설계 | 기술지원팀 / 궤도검토팀</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">핵심 정밀 공차</span>
+                    <p class="font-bold text-slate-800 mt-1">궤간 1435mm (+3,-1mm) | 직선도 ±0.2mm/1m</p>
+                </div>
+            </div>
+            <div class="mt-4 bg-blue-50/60 p-5 rounded-xl border border-blue-100 text-sm space-y-2">
+                <p><strong>🎯 과업 목적:</strong> 동탄트램 콘크리트도상 궤도 구조, 곡선부 R값, 캔트, 확폭량 및 매설궤도/슬래브도상 인터페이스의 설계 적정성 철저 검토</p>
+                <p><strong>⚙️ 수행 방법:</strong> KDS 47 30 00(철도 궤도 설계기준) 및 KCS 47 30 00(궤도공사 시방서) 비교 검토, 3D BIM 궤도 선형 및 장대레일 신축 이음매 위치 검증</p>
+                <p><strong>📑 주요 산출물:</strong> 설계적정성 검토 보고서, 궤도 선형 오차 보정서, 도상 타입별(매설/PST/TCL) 인터페이스 검토서</p>
+            </div>
+        </div>
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> KDS 47 30 00 & KCS 47 30 00 궤도공사 정량적 기술 표준
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs sm:text-sm text-left border-collapse border border-slate-200 rounded-lg">
+                    <thead class="bg-blue-900 text-white">
+                        <tr>
+                            <th class="p-3 border border-slate-300">구분 (Category)</th>
+                            <th class="p-3 border border-slate-300">공학 규격 (Engineering Spec)</th>
+                            <th class="p-3 border border-slate-300">정량적 허용 공차 (Tolerance)</th>
+                            <th class="p-3 border border-slate-300">관련 시방서 (Reference)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border">표준 궤간 (Track Gauge)</td>
+                            <td class="p-3 border">1,435 mm (트램 표준궤)</td>
+                            <td class="p-3 border font-extrabold text-blue-700">+3.0 mm, -1.0 mm</td>
+                            <td class="p-3 border">KDS 47 30 00 (궤도설계)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border">캔트 (Cant / Superelevation)</td>
+                            <td class="p-3 border">최대 160 mm (곡선 R-속도 연동)</td>
+                            <td class="p-3 border font-extrabold text-blue-700">설계 캔트 ±2.0 mm 이내</td>
+                            <td class="p-3 border">KCS 47 30 00 (궤도공사)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border">확폭량 (Slack)</td>
+                            <td class="p-3 border">곡선반경 R &lt; 250m 구간 궤간 확폭</td>
+                            <td class="p-3 border font-extrabold text-blue-700">S = 10 ~ 15 mm</td>
+                            <td class="p-3 border">KDS 47 30 00</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border">레일 규격 (Rail Profile)</td>
+                            <td class="p-3 border">매설궤도: 51R1/60R2 홈레일<br>개활/슬래브: 60kg/m Vignole 레일</td>
+                            <td class="p-3 border font-extrabold text-blue-700">단면 마모/변형 공차 엄수</td>
+                            <td class="p-3 border">EN 14811 / KS R 9106</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border">레일 용접 (Rail Welding)</td>
+                            <td class="p-3 border">테르밋 용접(EN 14730)<br>가스압접/플래시버트(EN 14587)</td>
+                            <td class="p-3 border font-extrabold text-blue-700">직선도 1m당 ±0.2 mm (수직/수평)</td>
+                            <td class="p-3 border">EN 14730 / EN 14587</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border">비파괴 검사 (NDT Inspection)</td>
+                            <td class="p-3 border">UT(초음파), MT(자분), PT(침투), RT(방사선)</td>
+                            <td class="p-3 border font-extrabold text-blue-700">100% 무결함 (No Defect)</td>
+                            <td class="p-3 border">EN 14730 NDT 기준</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border">도상 콘크리트 (TCL)</td>
+                            <td class="p-3 border">Track Concrete Layer 28일 압축강도</td>
+                            <td class="p-3 border font-extrabold text-blue-700">f_ck ≥ 30 MPa</td>
+                            <td class="p-3 border">KCS 47 30 00 (콘크리트도상)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border">PST 슬래브 충전재</td>
+                            <td class="p-3 border">전단 앵커 무수축 그라우트 28일 강도</td>
+                            <td class="p-3 border font-extrabold text-blue-700">f_ck ≥ 45 MPa</td>
+                            <td class="p-3 border">Pre-cast Slab Spec</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">3.</span> [설계적정성 검토] 세부 시방 및 품질 관리 수칙
+            </h2>
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm space-y-3">
+                <div class="flex items-start gap-2">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded mt-0.5">핵심포인트</span>
+                    <p class="text-slate-700"><strong>표준궤 1435mm (+3/-1mm), 캔트 Max 160mm, 곡선 확폭량(Slack), 51R1/60R2 홈레일 및 60kg/m 레일 적용성 검토</strong></p>
+                </div>
+                <ul class="space-y-2 text-slate-600 list-disc list-inside">
+                    <li>KDS 47 30 00 궤도 설계기준 및 국토교통부 트램 건설 규칙을 엄격히 준수한다.</li>
+                    <li>모든 시공 단계에서 1,435mm 정밀 궤간 유지와 스핀들 게이지 미세 조정을 통한 캔트/수평 정밀도를 확보한다.</li>
+                    <li>도상 콘크리트 타설 시 고주파 바이브레이터 다짐을 실시하되 스핀들 기둥 및 매설 센서에 직접 접촉을 금지한다.</li>
+                    <li>용접 작업 시 EN 14730 / EN 14587 규격에 따른 예열 및 반응온도(~2500℃) 제어를 철저히 이행한다.</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">4.</span> 협력사 시공 / 공사관리 자문 (Subcontractor Advisory)
+            </h2>
+            <div class="bg-amber-50 p-5 rounded-xl border border-amber-200 text-sm text-slate-700 space-y-2">
+                <p>📌 <strong>협력사 필수 이행 사항:</strong></p>
+                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                    <li>궤도 정밀 측량사 및 테르밋 용접 전문 자격증(EN ISO 14730) 보유자 현장 전담 배치</li>
+                    <li>자재 반입 시 공장 시험성적서 및 KCS 시방 규격 적합성 사전에 검수 승인 획득</li>
+                    <li>콘크리트 타설 전 스핀들 게이지 이탈 방지 락킹 장치 확인 및 거푸집 측압 보강 검측 필수</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 9000-6-1 | 궤도공학 콘크리트도상
+    </div>
+</div>
+</body>
+</html>

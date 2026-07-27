@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건축 - 인터페이스 회의(매주) 기술 표준서</title>
+    <style>
+        :root { --primary-color: #2563EB; --primary-light: #EFF6FF; --text-color: #1F2937; --bg-color: #F9FAFB; --card-bg: #FFFFFF; --border-color: #E5E7EB; --warn-bg: #FEF2F2; --warn-border: #EF4444; }
+        body { font-family: 'Inter', '맑은 고딕', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 40px 20px; line-height: 1.6; }
+        .container { max-width: 950px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 40px; }
+        .header { border-bottom: 2px solid var(--primary-light); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: #6B7280; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+        .title { font-size: 1.8rem; color: #111827; margin: 0; font-weight: 800; }
+        .meta-info { display: flex; gap: 15px; margin-top: 12px; font-size: 0.9rem; color: #6B7280; flex-wrap: wrap; }
+        .badge { background-color: var(--primary-light); color: var(--primary-color); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; }
+        h2 { font-size: 1.25rem; color: #111827; border-left: 4px solid var(--primary-color); padding-left: 12px; margin-top: 35px; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 0.9rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; }
+        th { background-color: var(--primary-light); color: #1E3A8A; font-weight: 700; width: 25%; }
+        .bullet-list { list-style: none; padding-left: 0; margin-bottom: 25px; }
+        .bullet-list li { position: relative; padding-left: 20px; margin-bottom: 10px; font-size: 0.95rem; }
+        .bullet-list li::before { content: "•"; position: absolute; left: 0; color: var(--primary-color); font-weight: 700; }
+        .defect-box { background-color: var(--warn-bg); border-left: 4px solid var(--warn-border); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; font-size: 0.9rem; }
+        .footer-note { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: #9CA3AF; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-4-18 Standard</div>
+        <h1 class="title">인터페이스 회의(매주) 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 건축 / 공정인터페이스</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 기술지원팀 / CSD팀</span>
+            <span>|</span>
+            <span><span class="badge">주간 인터페이스 표준</span></span>
+        </div>
+    </div>
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th>과업 목적</th><td>동탄트램 건축-MEP-궤도-전기-통신 주간 인터페이스 회의 정례화를 통한 현장 관통 슬리브, 앵커, 장비 반입 이슈 실시간 해결</td></tr>
+            <tr><th>관련 법령 및 규격</th><td>건설기술진흥법 시행령 제89조, CSD 3D BIM 간섭 관리 규정</td></tr>
+            <tr><th>수행 방법</th><td>- 주간 공정 현황 및 향후 2주간 예정 시공 부위 인터페이스 안건 집계<br>- 관통 슬리브, 개구부, 패드, 앵커 매립 현황 현장 수밀/위치 합동 점검<br>- 회의록 작성 및 이슈 조치 대장 100% 등록 관리</td></tr>
+            <tr><th>주요 산출물</th><td>주간 인터페이스 회의록, 이슈 조치 현황표, CSD 도면 보완본</td></tr>
+        </tbody>
+    </table>
+    <h2>2. 하자사례 기반 정량적 기술 표준 (Defect History & Technical Specifications)</h2>
+    <div class="defect-box">
+        <strong>⚠️ 과거 주요 하자사례 (Lessons Learned)</strong>
+        <ul>
+            <li><strong>주간 인터페이스 회의 누락으로 슬리브 미반영:</strong> 소방 가스계 배관 관통구 슬리브 누락 후 골조 타설되어 코어 뚫기 후가공 발생.</li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>구분</th><th>정량적 기술 기준 수치</th><th>품질 관리 및 제어 방안</th></tr></thead>
+        <tbody>
+            <tr><td>회의 정률 준수율</td><td>주 1회 100% 정례화 개최</td><td>전 공종 책임 엔지니어 참석 의무화</td></tr>
+            <tr><td>이슈 조치 기한</td><td>발생 이슈 7일 이내 현장 처리</td><td>이슈 조치 완료 확인 후 골조 타설 승인</td></tr>
+        </tbody>
+    </table>
+    <h2>3. 상세 기술 설계기준 (Design Criteria)</h2>
+
+    <div class="designer-criteria-box" style="background-color: #F0F9FF; border: 1px solid #BAE6FD; border-radius: 8px; padding: 18px; margin-top: 15px;">
+        <h4 style="color: #0369A1; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem;">📄 건축구조 및 기계·소방 분야 설계기준 (분야별설계기준 검토서)</h4>
+        <ul style="margin: 0; padding-left: 20px; color: #1E293B; font-size: 0.92rem; line-height: 1.7;">
+            <li><strong>건축구조 설계기준 (KDS 41 00 00):</strong> 건축물 내진설계기준, 풍하중 및 차량기지 검수고 피트(Pit) 수밀 방수 시방 적용</li>
+            <li><strong>크레인 및 하중 조건:</strong> 검수고 5~10t 천장 크레인(Trolley Crane) 동적 하중 반영, OCC 관제실 Access Floor 내진 앵커링 준수</li>
+            <li><strong>소방시설 설계기준:</strong> 소방시설공사업법 및 국가화재안전기술기준(NFSC 101/102/103) 준수, 관제실/변전소 가스계 소화설비 룸인티그리티(N50) 적용</li>
+            <li><strong>인터페이스 CSD 3D BIM:</strong> 건축 구조체 슬리브 및 개구부에 대한 MEP, 토목, 궤도, 전기, 신호, 통신 사전 3D BIM 검토 수칙 적용</li>
+        </ul>
+    </div>
+    
+    <ul class="bullet-list">
+        <li><strong>CSD 지침:</strong> 주간 단위 3D BIM 간섭점 갱신 및 배포 체계 가동</li>
+    </ul>
+    <h2>4. 협력사 시공/공사관리 자문 (Subcontractor Advisory)</h2>
+    <p>● 주간 인터페이스 회의 결정 사항에 미참석 공종도 구속력을 갖도록 관리.</p>
+    
+        
+<div class="subcontractor-advisory-box" style="background-color: #FFFBEB; border: 1.5px solid #F59E0B; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #B45309; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>👷</span> [협력업체 실무 자문] 위례선 트램 차량기지 건축 자문 (정주/트리폴건설)
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #78350F; font-size: 0.92rem; line-height: 1.7;">
+                <li><strong>검수고 피트 궤도 연결부:</strong> 검수고 피트 레일과 본선 궤도 연결부 부등침하 예방을 위한 조강 콘크리트 및 이중 앵커 시방 적용</li>
+            </ul>
+        </div>
+        
+<div class="footer-note">동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 9000-4-18</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>용지 사용 Risk 검토 현장 검측 체크리스트</title>
+    <style>
+        :root {
+            --primary-color: #3B82F6;
+            --primary-light: #EFF6FF;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --success-color: #10B981;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 2rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .check-card {
+            background-color: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+        .check-card.checked {
+            border-color: var(--success-color);
+            background-color: #F0FDF4;
+        }
+        .check-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .check-header input[type="checkbox"] {
+            margin-top: 5px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--success-color);
+        }
+        .check-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #111827;
+            cursor: pointer;
+        }
+        .check-card.checked .check-title {
+            color: #166534;
+            text-decoration: line-through;
+        }
+        .explanation-box {
+            margin-top: 12px;
+            padding-left: 30px;
+            font-size: 0.9rem;
+            color: #4B5563;
+        }
+        .guide-badge {
+            display: inline-block;
+            background-color: #FEF3C7;
+            color: #92400E;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 6px;
+        }
+        .guide-text {
+            background-color: #F9FAFB;
+            border: 1px dashed #CBD5E1;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-7-1 Checklist</div>
+        <h1 class="title">용지 사용 Risk 검토 현장 검측 체크리스트</h1>
+    </div>
+
+    <h2>현장 대조 검측 카드</h2>
+
+    <!-- Card 1 -->
+    <div class="check-card" id="card-1">
+        <div class="check-header">
+            <input type="checkbox" id="chk-1" onclick="toggleCard(1)">
+            <label for="chk-1" class="check-title">1. 미보상 용지의 활용 조건 사전 검토 완료 여부</label>
+        </div>
+        <div class="explanation-box">
+            <span class="guide-badge">💡 쉽게 이해하기</span>
+            <div class="guide-text">
+                토지 수용 보상이 끝나지 않은 필지에 공사장 가설 휀스를 치거나 진입로로 쓰면 법적 고발을 당합니다. 보상 진행 상태를 문서로 확인했는지 검증합니다.
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="check-card" id="card-2">
+        <div class="check-header">
+            <input type="checkbox" id="chk-2" onclick="toggleCard(2)">
+            <label for="chk-2" class="check-title">2. 기공승낙 합의서 및 사용권 조항의 적정성 검토 여부</label>
+        </div>
+        <div class="explanation-box">
+            <span class="guide-badge">💡 쉽게 이해하기</span>
+            <div class="guide-text">
+                토지 소유주와의 기공승낙서 작성 시, 복구 조건이나 민원 책임 주체가 당사에 불리하게 명시되어 있지 않은지 법무팀 검토 후 도장을 날인했는지 확인합니다.
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="check-card" id="card-3">
+        <div class="check-header">
+            <input type="checkbox" id="chk-3" onclick="toggleCard(3)">
+            <label for="chk-3" class="check-title">3. 사토장 및 토취장 관련 계약 수량/노선 Risk 검토 여부</label>
+        </div>
+        <div class="explanation-box">
+            <span class="guide-badge">💡 쉽게 이해하기</span>
+            <div class="guide-text">
+                사토장 계약 용량이 굴착량보다 모자라면 토사를 반출하지 못해 공사가 중단됩니다. 계약 잔여 용량 및 반출 노선의 축중 제약 도로를 체크합니다.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleCard(id) {
+            const card = document.getElementById('card-' + id);
+            const checkbox = document.getElementById('chk-' + id);
+            if (checkbox.checked) {
+                card.classList.add('checked');
+            } else {
+                card.classList.remove('checked');
+            }
+        }
+    </script>
+    <div class="footer-note">
+        동탄도시철도(트램) 1공구 엔지니어링 체크리스트 | 주관: 현장 공사팀 / 관리팀
+    </div>
+</div>
+</body>
+</html>

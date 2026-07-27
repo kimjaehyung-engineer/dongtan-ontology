@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지장물이설 - 민원 저감 대책 수립 기술 표준서</title>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-blue: #1e3a8a;
+            --accent-cyan: #0284c7;
+            --border-color: #e2e8f0;
+        }
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            margin: 0; padding: 30px 20px;
+            background: var(--bg-primary); color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px; margin: 0 auto; background: var(--bg-card);
+            padding: 40px; border-radius: 16px; border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+        }
+        .header { border-bottom: 3px solid var(--accent-blue); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px; }
+        .title { font-size: 2.1rem; font-weight: 900; color: var(--text-primary); margin: 0; }
+        .meta-info { display: flex; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); margin-top: 12px; }
+        .badge { background: #dbeafe; color: #1e40af; font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
+        h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent-blue); border-left: 5px solid var(--accent-cyan); padding-left: 12px; margin-top: 35px; margin-bottom: 18px; }
+        table { width: 100% !important; max-width: 100% !important; border-collapse: collapse; margin: 12px 0 20px 0; font-size: 0.92rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; text-align: left; vertical-align: middle; }
+        th { background: #f1f5f9; color: #1e293b; font-weight: 700; }
+        .svg-container { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .diagram-explanation { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-top: 15px; font-size: 0.9rem; color: #334155; text-align: left; }
+        .key-takeaway { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-top: 15px; color: #166534; font-size: 0.9rem; }
+        .footer-note { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid var(--border-color); padding-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 2000-1-11 Standard</div>
+        <h1 class="title">민원 저감 대책 수립 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 지장물이설 / 지장물이설</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 공사팀 / 공무팀</span>
+            <span>|</span>
+            <span><span class="badge">현장 맞춤 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th style="width: 20%;">과업 목적</th><td>동탄트램 지장물이설 시 발생하는 소음, 진동, 비산먼지 및 교통 통제 민원 저감 대책 수립 및 주민 소통 관리</td></tr>
+            <tr><th>수행 방법</th><td>이동식 에어 방음벽 설치, 저소음·저진동 공법 적용, 실시간 계측 및 24시간 민원 핫라인 전담 운영</td></tr>
+            <tr><th>주요 산출물</th><td>민원 저감 대책 수립 보고서, 소음·진동 실시간 계측 성과표, 민원 처리 관리 대장</td></tr>
+            <tr><th>관련 법령/기준</th><td>소음·진동관리법, 대기환경보전법, 화성시 환경보전 조례</td></tr>
+        </tbody>
+    </table>
+
+    
+    <!-- 동탄트램 공사장 소음·진동 및 환경 민원 저감 정량 기술 시방 수칙 -->
+    <h2>2. 동탄트램 공사장 소음·진동 및 환경 민원 저감 정량 기술 시방 수칙</h2>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 22px; border-radius: 12px; margin-bottom: 25px;">
+        <h4 style="margin: 0 0 12px 0; color: #1e3a8a; font-size: 1.05rem;">🔇 주거지역 공사장 소음·진동 및 주민 민원 관리 정량 기술 시방</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem;">
+            <thead>
+                <tr style="background: #e2e8f0; color: #0f172a;">
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 20%;">민원 관리 항목</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 25%;">관련 법령 및 규정</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 55%;">핵심 정량 기술 수칙 및 소음·진동 제어 기준</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">공사장 생활 소음</td>
+                    <td style="text-align: center;">소음·진동관리법 시행규칙</td>
+                    <td>• 주거지역 공사장 생활 소음 규제 기준 준수 (<strong>주간 ≤ 65dB, 야간 ≤ 50dB</strong>)<br>• 이동식 에어 방음벽(높이 H ≥ 3.0m) 설치 및 저소음 장비 사용</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">건축물 영향 진동</td>
+                    <td style="text-align: center;">소음·진동관리법 / KCS 토공</td>
+                    <td>• 인근 아파트 및 상가 건물 진동속도 <strong>v ≤ 0.2cm/sec (65dB(V))</strong> 이내 제어<br>• 굴착/파쇄 시 무진동 암파쇄 공법 적용 및 실시간 진동계 측량</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">비산먼지 및 차폐</td>
+                    <td style="text-align: center;">대기환경보전법 제44조</td>
+                    <td>• 공사장 경계 가설 휀스(높이 H ≥ 1.8m) 및 자동 살수포 100% 가동<br>• 토사 운반 덤프트럭 덮개 착용 및 차륜 자동 세륜기 운영</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">주민 사전 안내</td>
+                    <td style="text-align: center;">화성시 환경과 / 공무팀</td>
+                    <td>• 공사 착수 7일 전 인근 주민 설명회 및 안내 현수막 게시<br>• 야간 및 주말 공사 시 사전 서면 통지 및 동의서 획득</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">민원 핫라인 운영</td>
+                    <td style="text-align: center;">현장 전담 민원 수습팀</td>
+                    <td>• 24시간 민원 접수 전담 핫라인(Hot-line) 및 민원 수림 대장 작성<br>• 민원 발생 시 <strong>2시간 이내 현장 출동</strong> 및 당일 처리 결과 통보</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 15px; background: #eff6ff; padding: 12px 16px; border-radius: 8px; border: 1px solid #bfdbfe; font-size: 0.88rem; color: #1e40af;">
+            <strong>📐 동탄트램 민원 저감 절대 수칙:</strong> 본 과업은 주민 생활 환경 보호를 위해 <strong>소음 규제(주간 65dB 이내), 진동 제어(0.2cm/sec 이내) 및 24시간 핫라인</strong>을 상시 가동합니다.
+        </div>
+    </div>
+
+
+    <h2>3. 민원 저감 대책 수립 핵심 프로세스 모식도</h2>
+    <div class="svg-container">
+        <svg viewBox="0 0 900 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="320" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+            <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">민원 저감 대책 수립 핵심 프로세스 및 엔지니어링 절차</text>
+
+            <g transform="translate(30, 60)">
+                <rect width="180" height="170" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                <rect width="180" height="35" rx="8" fill="#dbeafe"/>
+                <text x="90" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">① 사전 영향 평가</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">주민 설명회 개최</text>
+            </g>
+
+            <text x="225" y="145" font-size="20" fill="#2563eb">➔</text>
+
+            <g transform="translate(245, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#ffedd5"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a3412">② 소음·진동 제어</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">에어 방음벽 H≥3.0m</text>
+            </g>
+
+            <text x="450" y="145" font-size="20" fill="#ea580c">➔</text>
+
+            <g transform="translate(470, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#dcfce7"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a3412">② 소음·진동 제어</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">주간 소음 ≤ 65dB</text>
+            </g>
+
+            <text x="675" y="145" font-size="20" fill="#059669">➔</text>
+
+            <g transform="translate(695, 60)">
+                <rect width="175" height="170" rx="8" fill="#ffffff" stroke="#1e3a8a" stroke-width="2"/>
+                <rect width="175" height="35" rx="8" fill="#e0e7ff"/>
+                <text x="87" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e1b4b">④ 24시간 핫라인</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">2시간 이내 현출</text>
+            </g>
+
+            <rect x="30" y="250" width="840" height="45" rx="8" fill="#1e3a8a"/>
+            <text x="450" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">🚨 주거지역 소음(주간 65dB 이내) 및 진동 기준 엄수로 공사장 집단 민원 및 공사 지연 사전 차단</text>
+        </svg>
+    </div>
+
+    <div class="diagram-explanation">
+        <h4 style="margin: 0 0 8px 0; color: #0f172a;">🔍 민원 저감 대책 수립 엔지니어링 시스템 해설</h4>
+        <p style="margin: 0; line-height: 1.7;">본 과업은 주거지역 소음·진동 규제 기준 준수와 24시간 민원 핫라인 수습망을 작동하여 민원 분쟁을 예방하는 절차입니다.</p>
+    </div>
+
+    <div class="key-takeaway">
+        <strong>💡 핵심 요약:</strong> 주간 소음 65dB, 진동 0.2cm/s 제어 및 2시간 이내 현장 출동 핫라인 운영으로 주민 생활권을 보호하는 핵심 단계입니다!
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 2000-1-11 | 지장물이설
+    </div>
+</div>
+</body>
+</html>

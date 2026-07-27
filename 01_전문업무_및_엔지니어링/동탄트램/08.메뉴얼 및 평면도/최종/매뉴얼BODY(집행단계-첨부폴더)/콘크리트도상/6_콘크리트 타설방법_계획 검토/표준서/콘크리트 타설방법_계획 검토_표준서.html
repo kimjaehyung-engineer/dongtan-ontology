@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 콘크리트 타설방법 계획검토 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    /* Glossary Modal Styles - Minimal Injection */
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .scene-link {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        color: #059669 !important;
+        font-weight: 700 !important;
+        background: #ecfdf5 !important;
+        border: 1px solid #10b981 !important;
+        border-radius: 6px !important;
+        padding: 2px 8px !important;
+        font-size: 0.8rem !important;
+        cursor: pointer !important;
+        margin-left: 8px !important;
+        transition: all 0.2s ease !important;
+        text-decoration: none !important;
+    }
+    .scene-link:hover {
+        background: #d1fae5 !important;
+        color: #065f46 !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 520px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+        text-align: left;
+    }
+    @keyframes modalFadeIn {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover {
+        color: #334155;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-6 Standard</span>
+                <span class="bg-emerald-50 text-slate-950 text-xs font-bold px-3 py-1 rounded-full">도심지 차도 통제 적용</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">콘크리트 타설방법 계획검토 표준서</h1>
+            <p class="text-slate-300 mt-2 text-sm sm:text-base">"기존 차량 운행 도로 중앙의 콘크리트도상(TCL) 정밀 타설 차도 통제 시방 규격"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-8">
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 과업 개요 및 수행 목적 (Overview & Scope)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">WBS 공정명 / WBS 코드</span>
+                    <p class="font-bold text-slate-800 mt-1">콘크리트도상 / 콘크리트 타설방법_계획 검토 (9000-6-6)</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">도심지 안전 규격</span>
+                    <p class="font-bold text-slate-800 mt-1">기존 주행로 안전 이격 | 펌프카 붐 간섭 예방 | 도로점용 승인</p>
+                </div>
+            </div>
+            <div class="mt-4 bg-blue-50/60 p-5 rounded-xl border border-blue-100 text-sm space-y-2">
+                <p><strong>🎯 과업 목적:</strong> 트램 노선 시공 구간인 도심지 기존 차도 중앙에서 운행 차량의 통행권을 보호하고 시공품질을 확보하는 차도 통제 타설 계획 수립</p>
+                <p><strong>⚙️ 수행 방법:</strong> 도로점용/교통처리 인허가 승인, 안전 방벽 배비, 펌프카/레미콘 진입 동선 설계 및 주행 차량에 의한 초기 양생 진동 균열 관리대책 적용</p>
+                <p><strong>📑 주요 산출물:</strong> 궤도 도상 콘크리트 타설 및 교통 소통 대책 계획서, 도로점용승인 공문</p>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 도심지 차도 통제 타설 정량 기술 표준
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs sm:text-sm text-left border-collapse border border-slate-200 rounded-lg">
+                    <thead class="bg-blue-900 text-white">
+                        <tr>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">기술 검속 항목</th>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">관련 시방 및 검사 기준</th>
+                            <th class="p-3 border border-slate-300 w-1/2 text-center">핵심 정량 기술 수칙 및 허용 공차</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">교통 가시설 배치</td>
+                            <td class="p-3 border text-center">우회 유도 및 경계 안전벽</td>
+                            <td class="p-3 border font-semibold text-slate-700">• 차량 충돌 방지용 PE 드럼 간격 10m 이내 조밀 배치. 신호수 주야간 2인 이상 항시 상주 및 야간 싸인카 운용</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">진동 균열 통제</td>
+                            <td class="p-3 border text-center">도상 양생 초기 거동 관리</td>
+                            <td class="p-3 border font-semibold text-slate-700">• TCL 초기 양생 기간 중 인접 통과 차량 속도 30km/h 이하 감속 표지판 유도. 방진 가설 턱 조율</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">레미콘 수급 관리</td>
+                            <td class="p-3 border text-center">수송 차량 진입 유도</td>
+                            <td class="p-3 border font-semibold text-slate-700">• 도심지 차량 정체 시 레미콘 연속 타설을 위한 공급처 배송망 검토 및 수송 차량의 차도 통제 구역 내 안전 정차 동선 설계</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">3.</span> 도심지 궤도 타설 공정 교통 통제 프로세스
+            </h2>
+            <div class="svg-container bg-white border border-slate-200 rounded-xl p-4 text-center">
+                <svg viewBox="0 0 900 240" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="900" height="240" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+                    <text x="450" y="35" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">도심지 차도 통제 하의 궤도 타설 프로세스</text>
+
+                    <g transform="translate(50, 60)">
+                        <rect width="220" height="100" rx="8" fill="#ffffff" stroke="#1e3a8a" stroke-width="2"/>
+                        <rect width="220" height="30" rx="8" fill="#e0e7ff"/>
+                        <text x="110" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e3a8a">① 사전 교통 허가 및 차단</text>
+                        <text x="15" y="55" font-size="11" fill="#334155">• 우회로 확보 및 안전 인허가</text>
+                        <text x="15" y="75" font-size="11" fill="#334155">• PE 드럼 및 싸인카 배치 완료</text>
+                    </g>
+
+                    <text x="300" y="115" font-size="24" fill="#1e3a8a">➔</text>
+
+                    <g transform="translate(340, 60)">
+                        <rect width="220" height="100" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+                        <rect width="220" height="30" rx="8" fill="#ffedd5"/>
+                        <text x="110" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#9a3412">② 운행중 차선점용 타설</text>
+                        <text x="15" y="55" font-size="11" fill="#334155">• 타설 펌프카 작업 구획 확보</text>
+                        <text x="15" y="75" font-size="11" fill="#334155">• 양생 초기 거동 차 주행 진동 관리</text>
+                    </g>
+
+                    <text x="590" y="115" font-size="24" fill="#ea580c">➔</text>
+
+                    <g transform="translate(630, 60)">
+                        <rect width="220" height="100" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+                        <rect width="220" height="30" rx="8" fill="#dcfce7"/>
+                        <text x="110" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#14532d">③ 차도 정상 복구 및 확인</text>
+                        <text x="15" y="55" font-size="11" fill="#334155">• 잔재물 청소 및 안전펜스 철거</text>
+                        <text x="15" y="75" font-size="11" fill="#334155">• 틀어짐 허용오차 합동점검</text>
+                    </g>
+
+                    <rect x="50" y="185" width="800" height="35" rx="8" fill="#1e3a8a"/>
+                    <text x="450" y="207" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">⚠️ 도심지 공사 중 기존 주행 차량의 전방 시야 및 안전 보호 대책을 사전에 의무 반영할 것</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 9000-6-6 | 콘크리트도상
+    </div>
+</div>
+
+
+<!-- Glossary & Scene Popup Modal Layer -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시공장면 해설</h3>
+        <div class="modal-body">
+            <img id="modalImage" src="" style="width:100%; border-radius:10px; display:none; margin-bottom:15px; border: 1px solid #cbd5e1;" />
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'kcs_47_30_00': {
+        title: '📑 KCS 47 30 00 (궤도공사 표준시방)',
+        desc: '국토교통부 제정 국가건설기준으로서 궤도재료(레일, 침목, 체결장치, 도상 콘크리트)의 규격, 시험법, 조립공차 및 품질 기준을 정밀 규정한 궤도공사 시공 마스터 시방서입니다.'
+    },
+    'traffic_control': {
+        title: '🚧 도심지 차도 통제 (Urban Traffic Control)',
+        desc: '기존 차량이 주행 중인 도심지 차도 중앙에서 트램 궤도를 안전하게 타설하기 위해 도로 점용 인허가를 획득하고 방호벽, 라바콘, 신호수 등을 조밀 배치하여 차량 진입을 안전하게 차단/우회시키는 시공 교통안전 대책입니다.'
+    },
+    'tcl': {
+        title: '🧱 도상 콘크리트 (TCL, Track Concrete Layer)',
+        desc: '트램 궤도 하부의 침목 & 레일을 일체형으로 고정시켜 열차 하중을 균등하게 지반으로 지지해주는 핵심 무근/철근 콘크리트 구조체(28일 설계 압축강도 fck ≥ 30 MPa)입니다.'
+    },
+    'grooved_rail': {
+        title: '🛤️ 외산 홈레일 (Grooved Rail)',
+        desc: '트램 매설궤도 구간에 주행로와 매설 도로 간 단차 극복을 위해 단면 내에 유도 홈(Groove)이 일체형으로 압연된 특수 레일입니다. 국내 제철소에서는 생산되지 않아 전량 오스트리아(Voestalpine) 등 유럽 현지에서 주문 제작 수입되므로 긴 리드타임(6개월 이상) 대응 전략이 필수적입니다.'
+    },
+    'q_agreement': {
+        title: '🤝 품질 보증 합의서 (Quality Assurance Agreement)',
+        desc: '하도급 협력사와 궤도 자재 조달 및 시공 시 준수해야 할 기하학 오차 편차와 품질 요구 사항을 확약하고, 하자 발생 시 책임 소소 및 무상 보수 의무를 정밀 명문화한 합동 보증 계약 문서입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    
+    const imgEl = document.getElementById('modalImage');
+    if (data.img) {
+        imgEl.src = data.img;
+        imgEl.style.display = 'block';
+    } else {
+        imgEl.src = '';
+        imgEl.style.display = 'none';
+    }
+    
+    document.getElementById('glossaryModal').classList.add('active');
+}
+
+function openScene(sceneKey) {
+    openGlossary(sceneKey);
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+// Esc close key handler
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+    }
+});
+</script>
+
+
+</body>
+</html>

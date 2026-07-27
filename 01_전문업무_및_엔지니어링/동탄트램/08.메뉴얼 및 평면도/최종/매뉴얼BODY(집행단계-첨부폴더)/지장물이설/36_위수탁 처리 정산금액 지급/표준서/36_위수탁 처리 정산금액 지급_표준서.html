@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지장물이설 - 위수탁 처리 정산금액 지급 기술 표준서</title>
+    <style>
+        :root { --bg-primary: #f8fafc; --bg-card: #ffffff; --text-primary: #0f172a; --text-secondary: #475569; --accent-blue: #1e3a8a; --accent-cyan: #0284c7; --border-color: #e2e8f0; }
+        body { font-family: 'Pretendard', 'Noto Sans KR', sans-serif; margin: 0; padding: 30px 20px; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08); }
+        .header { border-bottom: 3px solid var(--accent-blue); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px; }
+        .title { font-size: 2.1rem; font-weight: 900; color: var(--text-primary); margin: 0; }
+        .meta-info { display: flex; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); margin-top: 12px; }
+        .badge { background: #dbeafe; color: #1e40af; font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
+        h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent-blue); border-left: 5px solid var(--accent-cyan); padding-left: 12px; margin-top: 35px; margin-bottom: 18px; }
+        table { width: 100% !important; max-width: 100% !important; border-collapse: collapse; margin: 12px 0 20px 0; font-size: 0.92rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; text-align: left; vertical-align: middle; }
+        th { background: #f1f5f9; color: #1e293b; font-weight: 700; }
+        .svg-container { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .diagram-explanation { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-top: 15px; font-size: 0.9rem; color: #334155; text-align: left; }
+        .key-takeaway { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-top: 15px; color: #166534; font-size: 0.9rem; }
+        .footer-note { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid var(--border-color); padding-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 2000-1-29 Standard</div>
+        <h1 class="title">위수탁 처리 정산금액 지급 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 사전토공 / 지장물이설 (위수탁 지급)</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 공무팀 / 발주처 회계과 / 5대 위탁기관</span>
+            <span>|</span>
+            <span><span class="badge">위수탁 정산지급 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th style="width: 20%;">과업 목적</th><td>5대 위탁기관(가스, 난방, 통신, 전력, 광역상수) 이설 완료에 따라 최종 확정된 정산금액을 지방재정법에 의거 적기에 지급하고 계약 이행을 완결</td></tr>
+            <tr><th>수행 방법</th><td>기관별 정산 청구서 검속, 위수탁 협약 금액 증감 확정, 14일 이내 발주처 회계 처리 및 정산금 지급 완료 통보</td></tr>
+            <tr><th>주요 산출물</th><td>위수탁 정산금 지불 결재서, 정산 이체 영수증, 위탁기관 정산 완료 통보서</td></tr>
+            <tr><th>관련 법령/기준</th><td>지방재정법 제64조, 화성시 지장물 위수탁 처리 조례</td></tr>
+        </tbody>
+    </table>
+
+    <h2>2. 위수탁 처리 정산금액 지급 고유 정량 행정/재무 수칙 및 정량 내역 표</h2>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 22px; border-radius: 12px; margin-bottom: 25px;">
+        <h4 style="margin: 0 0 12px 0; color: #1e3a8a; font-size: 1.05rem;">💳 5대 위탁기관 정산금액 지불 처리 정량 수칙</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem;">
+            <thead>
+                <tr style="background: #e2e8f0; color: #0f172a;">
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 20%;">지급 절차 항목</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 25%;">관련 법령 및 관할 부서</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 55%;">핵심 정량 행정 수칙 및 지불 기한 준수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">5대 기관 청구 접수</td>
+                    <td style="text-align: center;">5대 위탁기관 / 공무팀</td>
+                    <td>• 삼천리, 난방공사, KT/SKT/LGU+, 한전, K-water 정산 청구서 접수<br>• 기관 준공 승인 공문 및 준공 성적서 첨부 확인 100% 이행</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">협약 금액 증감 검속</td>
+                    <td style="text-align: center;">지방계약법 / 협약서</td>
+                    <td>• 당초 위수탁 협약 금액과 최종 실 정산 집계표 간 정산 내역 검속<br>• 정산 금액 확정 결재서 발주처 회계과 상정 이행</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">14일 이내 지불 처리</td>
+                    <td style="text-align: center;">지방재정법 제64조</td>
+                    <td>• 발주처 지출 원인 행위 승인 후 <strong>14일 이내 정산금 이체 지불</strong><br>• 지연 이자 발생 리스크 근본 차단 및 회계 처리 완료</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">정산 완결 공문 통보</td>
+                    <td style="text-align: center;">화성시 발주처 회계과</td>
+                    <td>• 정산금 지불 입금 영수증 구비 및 5대 위탁기관 정산 완료 통보<br>• 위수탁 이설 협약 계약 종결 및 회계 마감 이행</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 15px; background: #eff6ff; padding: 12px 16px; border-radius: 8px; border: 1px solid #bfdbfe; font-size: 0.88rem; color: #1e40af;">
+            <strong>📐 위수탁 지급 절대 수칙:</strong> 본 과업은 위탁기관 회계 분쟁을 차단하기 위해 <strong>준공 승인 확인 후 14일 이내 지불 이행</strong>을 준수합니다.
+        </div>
+    </div>
+
+    <h2>3. 위수탁 처리 정산금액 지급 핵심 프로세스 모식도</h2>
+    <div class="svg-container">
+        <svg viewBox="0 0 900 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="320" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+            <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">5대 위탁기관 정산금액 지불 결재 및 회계 마감 절차</text>
+
+            <g transform="translate(30, 60)">
+                <rect width="180" height="170" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                <rect width="180" height="35" rx="8" fill="#dbeafe"/>
+                <text x="90" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">① 정산 청구 접수</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">5대 기관 성적서/청구서</text>
+            </g>
+
+            <text x="225" y="145" font-size="20" fill="#2563eb">➔</text>
+
+            <g transform="translate(245, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#ffedd5"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a3412">② 협약 증감 검속</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">당초 협약 대비 증감 확인</text>
+            </g>
+
+            <text x="450" y="145" font-size="20" fill="#ea580c">➔</text>
+
+            <g transform="translate(470, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#dcfce7"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">③ 14일 내 지불 결재</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">지방재정법 14일 내 지급</text>
+            </g>
+
+            <text x="675" y="145" font-size="20" fill="#059669">➔</text>
+
+            <g transform="translate(695, 60)">
+                <rect width="175" height="170" rx="8" fill="#ffffff" stroke="#1e3a8a" stroke-width="2"/>
+                <rect width="175" height="35" rx="8" fill="#e0e7ff"/>
+                <text x="87" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e1b4b">④ 정산 종결 통보</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">이체 영수증 구비 & 마감</text>
+            </g>
+
+            <rect x="30" y="250" width="840" height="45" rx="8" fill="#1e3a8a"/>
+            <text x="450" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">🚨 위수탁 정산금 지불 지연 시 가산 이자 발생 및 행정 소송 위험 전면 차단</text>
+        </svg>
+    </div>
+
+    <div class="diagram-explanation">
+        <h4 style="margin: 0 0 8px 0; color: #0f172a;">🔍 위수탁 처리 정산금액 지급 엔지니어링 시스템 해설</h4>
+        <p style="margin: 0; line-height: 1.7;">본 과업은 5대 위탁기관 정산 청구서를 검속하고 지방재정법에 따라 14일 이내 지불을 이행하여 위수탁 계정을 완료하는 절차입니다.</p>
+    </div>
+
+    <div class="key-takeaway">
+        <strong>💡 핵심 요약:</strong> 5대 기관 청구서 검속, 협약 증감 산출 및 지방재정법 14일 내 지불로 정산 계약을 최종 완료하는 단계입니다!
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 2000-1-29 | 지장물이설
+    </div>
+</div>
+</body>
+</html>

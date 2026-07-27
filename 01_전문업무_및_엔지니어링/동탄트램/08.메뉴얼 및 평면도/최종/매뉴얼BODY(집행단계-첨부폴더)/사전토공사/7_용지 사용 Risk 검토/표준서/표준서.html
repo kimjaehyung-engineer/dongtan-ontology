@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>용지 사용 Risk 검토 기술 표준서</title>
+    <style>
+        :root {
+            --primary-color: #2563EB;
+            --primary-light: #EFF6FF;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 2rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 25px 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--primary-light);
+            color: #1E3A8A;
+            font-weight: 700;
+        }
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 25px;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .bullet-list.numbered li:nth-child(1)::before { content: "1)"; }
+        .bullet-list.numbered li:nth-child(2)::before { content: "2)"; }
+        .bullet-list.numbered li:nth-child(3)::before { content: "3)"; }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-7-1 Standard</div>
+        <h1 class="title">용지 사용 Risk 검토 기술 표준서</h1>
+    </div>
+
+    <h2>1. 용지 및 부지 사용성 검토 표준 개요</h2>
+    <p>본 표준서는 트램 건설공사의 노반 및 가설 토공 공정 착수 전, <strong>용지(본선 및 정거장 부지), 사토장, 토취장</strong> 등의 소요 부지 확보 및 인허가 리스크를 사전에 예방하고 적기에 공사를 착수하기 위한 법적·계약적 기술 표준을 정의합니다.</p>
+
+    <h2>2. 대상 용지별 리스크 관리 표준 규격</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>소요 부지 구분</th>
+                <th>주요 리스크 요인</th>
+                <th>표준 조치 기준 및 관리 한계</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>미보상 용지</strong></td>
+                <td>토지주 무단점유 고발, 시공구간 강제 중단 및 공기 지연 리스크</td>
+                <td>토지 수용 재결 전 가사용 시, <strong>기공승낙 합의서 100% 확보</strong> 및 사용 조건 확인</td>
+            </tr>
+            <tr>
+                <td><strong>사토장 (Spoils Pit)</strong></td>
+                <td>토사 반출량 초과, 사토장 조기 포화, 반출 노선 과적 단속 리스크</td>
+                <td>반출 허용량 사전 배정 한도 검토, 단거리 진입 교량/도로 축중 단속 강도 체크</td>
+            </tr>
+            <tr>
+                <td><strong>토취장 (Borrow Pit)</strong></td>
+                <td>양질의 노반 성토용 흙(토사/골재) 적기 공급 실패 및 품질 리스크</td>
+                <td>성토 재료 품질 적합성 시험성적서(체가름, 다짐도) 공인 기관 승인 필 확인</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. 기공승낙 합의서 필수 조항 표준</h2>
+    <ul class="bullet-list numbered">
+        <li><strong>용지 사용 한계 범위 및 기간 명시</strong>: 가설 작업장의 폭원 및 복구 완료 시기 조항이 명문화되어야 합니다.</li>
+        <li><strong>민원 책임 주체 조항</strong>: 토공 시 발생하는 소음, 분진, 진동 민원 해결 주체가 시공사 또는 시행청(화성시) 중 어디에 귀속되는지 명확히 분담 설정되어야 합니다.</li>
+        <li><strong>원상복구 조건 설정</strong>: 임시 점용 완료 후 지반 복구 및 조경 환원 수준이 구체적으로 합의되어야 분쟁을 방지할 수 있습니다.</li>
+    </ul>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 1공구 엔지니어링 표준서 | 주관: 현장 공사팀 / 보상지원팀
+    </div>
+</div>
+</body>
+</html>

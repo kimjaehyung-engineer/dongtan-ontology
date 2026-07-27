@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - [반-PC 슬래브] 패널반입 및 설치 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-15 Standard</span>
+                <span class="bg-emerald-50 text-slate-950 text-xs font-bold px-3 py-1 rounded-full">패널 평탄성 &plusmn;3mm & 3D 얼라인먼트 규격</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">[반-PC 슬래브] 패널반입 및 설치 기술 표준서</h1>
+            <p class="text-slate-300 mt-2 text-sm sm:text-base">"궤광지지체 구간 급속시공: PC 슬래브 균열/오염 검수, 받침목(1/4, 3/4 지점) 배치, Screw Jack 고정 및 평탄성 오차(&plusmn;3mm) 관리"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-8">
+        <!-- 💡 핵심 안내 박스 -->
+        <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-xs sm:text-sm text-amber-900">
+            <h4 class="font-bold text-amber-950 mb-1">💡 [반-PC 슬래브] 패널반입 및 설치 과업 정의</h4>
+            <p class="leading-relaxed">
+                본 공종은 교차로 및 교량 구간의 급속 시공을 위해 <strong><span class="term-highlight" onclick="openGlossary('half_pc')">반-PC 슬래브 패널</span></strong>을 현장에 반입 및 거치하는 기술입니다. 반입 시 균열 및 캔트 제작 치수 검수, 적재 시 <strong><span class="term-highlight" onclick="openGlossary('support_timber')">패널 길이 1/4, 3/4 지점 받침목 4개소 배치</span></strong>, 광파 토탈스테이션 연동 3D 얼라인먼트, <strong><span class="term-highlight" onclick="openGlossary('screw_jack')">Screw Jack 레벨 고정</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('flatness_spec')">패널 평탄성 오차 &plusmn;3mm 이내</span></strong> 거치 표준을 준수합니다.
+            </p>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 과업 개요 및 수행 목적
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">WBS 공정명</span>
+                    <p class="font-bold text-slate-800 mt-1">콘크리트도상 / [반-PC 슬래브] 패널반입 및 설치 (현장 공사팀)</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">최종 품질 산출물</span>
+                    <p class="font-bold text-slate-800 mt-1">PC슬래브 거치 수준 실측표 | 평탄성 대장 | 3D 얼라인먼트 측량표</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 반-PC 슬래브 패널 정량 기술 시방 절대 기준
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs sm:text-sm text-left border-collapse border border-slate-200 rounded-lg">
+                    <thead class="bg-blue-900 text-white">
+                        <tr>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">품질 관리 항목</th>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">절대 공학 기준</th>
+                            <th class="p-3 border border-slate-300 w-1/2 text-center">수행 조건 및 상세 기술 표준 (KCS 시방 연동)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">패널 상면 평탄성 오차</td>
+                            <td class="p-3 border text-center font-bold text-red-600">&plusmn;3.0mm 이내</td>
+                            <td class="p-3 border text-slate-600">• 3m 직선자를 이용한 상면 고저 凹凸 오차 &plusmn;3.0mm 제어.<br>• 규격 초과 패널 반출 및 재제작 조치 수립</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">받침목 배치 위치</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">길이 1/4, 3/4 지점<br>(좌우 4개소)</td>
+                            <td class="p-3 border text-slate-600">• 적재 및 임시 거치 시 모서리부 휨 응력 파손 방지.<br>• 고무 침목 패드를 패널 길이에 맞춰 정밀 세팅 후 하차</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">3D 측량 얼라인먼트</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">광파 3D 좌표 100% 일치</td>
+                            <td class="p-3 border text-slate-600">• 광파 토탈스테이션 연동 보조도상 표시 정위치 거치.<br>• 설계 캔트 및 곡선반경에 맞춰 정밀 위치 안착</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">Screw Jack 레벨 고정</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">수평 오차 &plusmn;0.5mm 이내</td>
+                            <td class="p-3 border text-slate-600">• 거치 직후 Screw Jack 미세 수직 조정 나사 정위치 고정.<br>• 콘크리트 2차 타설 유동성에 따른 수평 침하 방지 조치</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 공학 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'half_pc': {
+        title: '🧱 반-PC 슬래브 (Precast Slab Panel)',
+        desc: '공장에서 사전 제작되어 현장 반입되는 궤도용 슬래브 구조체입니다. 교차로 및 교량 구간 궤공지지체 공사 시 현장 타설 거푸집 작업을 생략하고 급속 시공을 구현합니다.'
+    },
+    'support_timber': {
+        title: '🪵 받침목 모서리 배치 (패널 1/4, 3/4 지점)',
+        desc: 'PC 슬래브 적재 및 임시 거치 시 자중 휨 응력 집중으로 인한 균열을 예방하기 위해, 패널 전체 길이에 대해 모서리부 1/4 및 3/4 지점 좌우 4개소에 고무 받침목을 정밀 배치하는 수칙입니다.'
+    },
+    'screw_jack': {
+        title: '⚙️ Screw Jack 레벨 고정',
+        desc: '패널 거치 후 선로 계획고 및 캔트에 맞추어 높낮이를 0.5mm 단위로 조율하는 수직 조정 나사 장치입니다. 정위치 고정 후 콘크리트 2차 타설 전까지 변형을 방지합니다.'
+    },
+    'flatness_spec': {
+        title: '📐 평탄성 오차 ±3mm 이내 & 3D 얼라인먼트',
+        desc: '광파 토탈스테이션으로 3차원 노선 좌표를 정합하고, 패널 상면 평탄성을 3m 직선자로 실측하여 오차 ±3mm 이내 달성 시에만 하차 승인하는 표준 수칙입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '520px');
+        innerSvg.style.maxWidth = '1000px';
+    }
+    
+    const innerImg = zoomBody.querySelector('img');
+    if (innerImg) {
+        innerImg.style.maxHeight = '70vh';
+        innerImg.style.width = 'auto';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

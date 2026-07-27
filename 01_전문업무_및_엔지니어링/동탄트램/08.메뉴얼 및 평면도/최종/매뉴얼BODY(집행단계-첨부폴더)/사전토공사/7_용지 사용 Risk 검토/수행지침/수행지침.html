@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>용지 사용 Risk 검토 작업 수행지침서</title>
+    <style>
+        :root {
+            --primary-color: #059669;
+            --primary-light: #ECFDF5;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 2rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .step-box {
+            background-color: #FAFAFA;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .step-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #065F46;
+            margin-bottom: 8px;
+        }
+        .diagram-container {
+            margin: 25px 0;
+            text-align: center;
+        }
+        .diagram-explanation {
+            font-size: 0.85rem;
+            color: #4B5563;
+            margin-top: 8px;
+            background-color: #F3F4F6;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-7-1 Guideline</div>
+        <h1 class="title">용지 사용 Risk 검토 작업 수행지침서</h1>
+    </div>
+
+    <h2>1. 목적 및 범위 (Purpose)</h2>
+    <p>본 지침서는 시공 계획 단계에서 미보상 토지 및 가설 사토장/토취장 활용 시 발생할 수 있는 소송 민원 및 계약 미이행 리스크를 사전에 식별하고 우회 대안 경로를 설정하기 위한 실무 운영 매뉴얼입니다.</p>
+
+    <h2>2. 용지 및 반출/반입지 공간 리스크 모식도</h2>
+    <div class="diagram-container">
+        <!-- SVG Land and Spoils Site Risk Map -->
+        <svg viewBox="0 0 800 220" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background-color:#1E293B; border:1px solid #475569; border-radius:8px;">
+            <!-- Background grids -->
+            <rect x="10" y="10" width="780" height="200" fill="#0F172A" rx="4"/>
+            
+            <!-- Road connecting construction to spoils/borrow pit -->
+            <path d="M 100 130 Q 300 130 500 90 T 700 90" stroke="#475569" stroke-width="24" fill="none" opacity="0.6"/>
+            <text x="350" y="105" font-family="sans-serif" font-size="10" fill="#94A3B8" font-weight="bold">덤프트럭 반출입 노선</text>
+            
+            <!-- Construction Site (Left) -->
+            <rect x="50" y="50" width="160" height="120" fill="#1E3A8A" opacity="0.8" rx="6" stroke="#3B82F6" stroke-width="2"/>
+            <text x="130" y="75" font-family="sans-serif" font-size="11" fill="#93C5FD" font-weight="bold" text-anchor="middle">트램 시공 본선부</text>
+            
+            <!-- Unacquired Parcel within Site -->
+            <rect x="110" y="90" width="80" height="60" fill="#EF4444" opacity="0.3" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="3,3"/>
+            <text x="150" y="120" font-family="sans-serif" font-size="9" fill="#F87171" font-weight="bold" text-anchor="middle">미보상 필지</text>
+            <text x="150" y="135" font-family="sans-serif" font-size="8" fill="#F87171" text-anchor="middle">(기공승낙 필요)</text>
+            
+            <!-- Spoils Pit (Middle-Right) -->
+            <rect x="420" y="40" width="130" height="80" fill="#065F46" opacity="0.8" rx="6" stroke="#10B981" stroke-width="2"/>
+            <text x="485" y="65" font-family="sans-serif" font-size="11" fill="#A7F3D0" font-weight="bold" text-anchor="middle">사토장 (토사반출)</text>
+            <text x="485" y="85" font-family="sans-serif" font-size="9" fill="#D1FAE5" text-anchor="middle">계약량 초과 체크</text>
+            <text x="485" y="100" font-family="sans-serif" font-size="9" fill="#D1FAE5" text-anchor="middle">진입로 축중 리스크</text>
+
+            <!-- Borrow Pit (Right) -->
+            <rect x="610" y="100" width="130" height="80" fill="#78350F" opacity="0.8" rx="6" stroke="#F59E0B" stroke-width="2"/>
+            <text x="675" y="125" font-family="sans-serif" font-size="11" fill="#FDE68A" font-weight="bold" text-anchor="middle">토취장 (성토재공급)</text>
+            <text x="675" y="145" font-family="sans-serif" font-size="9" fill="#FEF3C7" text-anchor="middle">골재 품질 성적서</text>
+            <text x="675" y="160" font-family="sans-serif" font-size="9" fill="#FEF3C7" text-anchor="middle">적기 공급망 체크</text>
+        </svg>
+    </div>
+    <div class="diagram-explanation">
+        <strong>[용지 및 가설부지 리스크 매핑]</strong> 공사 착공 전 반드시 3대 요소인 시공구간 내 미보상 필지(기공승낙), 반출 사토장(진입로 규격 및 한도), 성토 토취장(품질) 요건의 계약 한계를 파악해야 합니다.
+    </div>
+
+    <h2>3. 리스크 검토 프로세스 지침 (Operational Guide)</h2>
+    
+    <div class="step-box">
+        <div class="step-title">1단계: 미보상 용지 및 기공승낙 확보 여부 확인</div>
+        <div>
+            - 토공 노반 시공구간 중 보상이 완료되지 않은 지적 필지를 정밀 추출하여 시공 경계면 상에 오버레이 맵핑합니다.<br>
+            - 강제 수용 재결 전 조기 굴착이 필요한 경우, 보상법 및 민사상 문제가 없도록 토지 소유자로부터 <strong>기공승낙 합의서</strong>를 작성하고 사용료 지급 등의 조건 조항을 완비합니다.
+        </div>
+    </div>
+
+    <div class="step-box">
+        <div class="step-title">2단계: 사토장 관련 계약 및 진입로 축중 리스크 검토</div>
+        <div>
+            - 사토장 계약 수량과 현장 토공 굴착 계획 수량을 대조하여 계약 한도 초과 리스크를 체크합니다.<br>
+            - 덤프트럭 반출 경로에 교량 안전 축중 제약(예: 총중량 40톤, 축중 10톤 제한)이 있는지, 과적 단속 구간과 우회 노선을 확인하여 물류 지연을 차단합니다.
+        </div>
+    </div>
+
+    <div class="step-box">
+        <div class="step-title">3단계: 토취장 성토용 토사 품질 검증</div>
+        <div>
+            - 노반 성토용 흙으로 적합한 양질의 토사인지를 확인하기 위해 공급원 신청 전 토취장의 입도분포, 함수비, 최대건조밀도 시험 성적서를 검토합니다.<br>
+            - 공급 중단 사태를 예방하기 위해 예비 토취장 1개소 이상을 사전 등록하여 예비 공급 대안을 마련합니다.
+        </div>
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 1공구 엔지니어링 수행지침서 | 주관: 현장 공사팀
+    </div>
+</div>
+</body>
+</html>

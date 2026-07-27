@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지장물이설 - 광역상수관 이설 공사 기술 표준서</title>
+    <style>
+        :root { --bg-primary: #f8fafc; --bg-card: #ffffff; --text-primary: #0f172a; --text-secondary: #475569; --accent-blue: #1e3a8a; --accent-cyan: #0284c7; --border-color: #e2e8f0; }
+        body { font-family: 'Pretendard', 'Noto Sans KR', sans-serif; margin: 0; padding: 30px 20px; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08); }
+        .header { border-bottom: 3px solid var(--accent-blue); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px; }
+        .title { font-size: 2.1rem; font-weight: 900; color: var(--text-primary); margin: 0; }
+        .meta-info { display: flex; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); margin-top: 12px; }
+        .badge { background: #dbeafe; color: #1e40af; font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
+        h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent-blue); border-left: 5px solid var(--accent-cyan); padding-left: 12px; margin-top: 35px; margin-bottom: 18px; }
+        table { width: 100% !important; max-width: 100% !important; border-collapse: collapse; margin: 12px 0 20px 0; font-size: 0.92rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; text-align: left; vertical-align: middle; }
+        th { background: #f1f5f9; color: #1e293b; font-weight: 700; }
+        .svg-container { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .diagram-explanation { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-top: 15px; font-size: 0.9rem; color: #334155; text-align: left; }
+        .key-takeaway { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-top: 15px; color: #166534; font-size: 0.9rem; }
+        .footer-note { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid var(--border-color); padding-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 2000-1-18 Standard</div>
+        <h1 class="title">광역상수관 이설 공사 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 사전토공 / 지장물이설 (광역상수관 이설)</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 배관팀 / K-water</span>
+            <span>|</span>
+            <span><span class="badge">광역상수관 이설 기술 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th style="width: 20%;">과업 목적</th><td>한국수자원공사 관리 D800mm 이상 광역상수관을 무단수 Tapping 분기 및 수압 15kg/cm² 조인트로 이설 완료</td></tr>
+            <tr><th>수행 방법</th><td>K-water 무단수 천공, 이탈방지 압륜 체결, 24시간 잔류염소 소독 및 궤도 이격 H ≥ 1.5m 준수</td></tr>
+            <tr><th>주요 산출물</th><td>광역상수관 이설 성과표, 수압시험(15kg) 성적서, K-water 통수 승인 공문</td></tr>
+            <tr><th>관련 법령/기준</th><td>관련 기술 시방서, 5대 위탁기관 표준 규정 및 동탄트램 궤도 시방서</td></tr>
+        </tbody>
+    </table>
+
+    <h2>2. 광역상수관 이설 공사 정량 공학/시방 기술 수칙</h2>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 22px; border-radius: 12px; margin-bottom: 25px;">
+        <h4 style="margin: 0 0 12px 0; color: #1e3a8a; font-size: 1.05rem;">⚙️ 광역상수관 이설 공사 핵심 정량 검속 시방 기준</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem;">
+            <thead>
+                <tr style="background: #e2e8f0; color: #0f172a;">
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 20%;">검속 항목</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 25%;">적용 기관 및 기준</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 55%;">핵심 정량 기술 수칙 및 안전 기준</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="font-weight:bold;text-align:center;">D800mm+ 무단수 탭</td><td style="text-align:center;">K-water 광역 시방</td><td>• 광역 대형 수관 D800mm 이상 무단수 천공 100% 이행<br>• 수압 15kg/cm² 이탈방지 압륜 조인트 체결</td></tr>
+<tr><td style="font-weight:bold;text-align:center;">수압 15kg 시험</td><td style="text-align:center;">수도법 / K-water</td><td>• 시험 수압 <strong>15kg/cm² 1시간 유지 Zero 누수</strong> 확인<br>• 24시간 잔류염소 소독 및 수질 검증 필증 획득</td></tr>
+<tr><td style="font-weight:bold;text-align:center;">궤도 이격 H≥1.5m</td><td style="text-align:center;">동탄트램 궤도 시방</td><td>• 트램 궤도 구조물과 <strong>최소 이격거리 H ≥ 1.5m</strong> 준수<br>• 이설관 보호 콘크리트 패드(Saddle) 시공</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>3. 광역상수관 이설 공사 핵심 프로세스 모식도</h2>
+    <div class="svg-container">
+        <svg viewBox="0 0 900 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="320" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+            <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">광역상수도관(D800mm+) 정밀 이설 및 통수 절차</text>
+
+            <g transform="translate(30, 60)">
+                <rect width="180" height="170" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                <rect width="180" height="35" rx="8" fill="#dbeafe"/>
+                <text x="90" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">① 무단수 Tapping</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">D800mm+ 무단수 천공</text>
+            </g>
+
+            <text x="225" y="145" font-size="20" fill="#2563eb">➔</text>
+
+            <g transform="translate(245, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#ffedd5"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a3412">② 광역관 부설</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">이탈방지 압륜 체결</text>
+            </g>
+
+            <text x="450" y="145" font-size="20" fill="#ea580c">➔</text>
+
+            <g transform="translate(470, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#dcfce7"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">③ 수압 15kg 검속</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">1시간 Zero 누수 확인</text>
+            </g>
+
+            <text x="675" y="145" font-size="20" fill="#059669">➔</text>
+
+            <g transform="translate(695, 60)">
+                <rect width="175" height="170" rx="8" fill="#ffffff" stroke="#1e3a8a" stroke-width="2"/>
+                <rect width="175" height="35" rx="8" fill="#e0e7ff"/>
+                <text x="87" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e1b4b">④ 소독 통수 승인</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">K-water 잔류염소 승인</text>
+            </g>
+
+            <rect x="30" y="250" width="840" height="45" rx="8" fill="#1e3a8a"/>
+            <text x="450" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">🚨 광역상수관 이설 누수 발생 시 수도권 대규모 단수 재난 전면 차단</text>
+        </svg>
+    </div>
+
+    <div class="diagram-explanation">
+        <h4 style="margin: 0 0 8px 0; color: #0f172a;">🔍 광역상수관 이설 공사 엔지니어링 시스템 해설</h4>
+        <p style="margin: 0; line-height: 1.7;">본 과업은 K-water D800mm 이상 광역수관을 무단수 천공 후 수압 15kg/cm² 시험 및 잔류염소 소독을 거쳐 이설하는 절차입니다.</p>
+    </div>
+
+    <div class="key-takeaway">
+        <strong>💡 핵심 요약:</strong> K-water 무단수 탭, 수압 15kg/cm² Zero 누수 및 궤도 이격 1.5m 준수로 광역관 이설을 완료하는 단계입니다!
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 2000-1-18 | 지장물이설
+    </div>
+</div>
+</body>
+</html>

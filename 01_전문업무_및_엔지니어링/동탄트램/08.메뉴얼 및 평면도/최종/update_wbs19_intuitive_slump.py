@@ -1,0 +1,455 @@
+import os
+import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+base_dir = r"C:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\08.메뉴얼 및 평면도\최종\매뉴얼BODY(집행단계-첨부폴더)\콘크리트도상"
+
+folder_with_space = os.path.join(base_dir, "19_[TCL] 콘크리트 타설 및 양생")
+folder_no_space = os.path.join(base_dir, "19_[TCL] 콘크리트타설및양생")
+
+zoom_modal_style = """
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+"""
+
+common_modal_html = """
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 공학 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'tcl_strength': {
+        title: '🏋️ TCL 콘크리트 강도 (fck ≥ 35 MPa)',
+        desc: '트램 차륜 하중 및 열차 반복 주행 응력에 견디기 위해 콘크리트 28일 압축강도를 최소 35 MPa 이상 확보하는 공학 설계 기준입니다.'
+    },
+    'slump_control': {
+        title: '🧪 슬럼프 시험 (≤ 10cm) & 원깔때기 측정',
+        desc: '높이 30cm의 원깔때기(Slump Cone) 몰드에 콘크리트 반죽을 채운 후 위로 쏙 빼내었을 때 반죽이 스스로 내려앉은 높이를 자로 잽니다. 내려앉은 높이가 10cm 이하이어야 물이 너무 묽지 않고 짱짱하다는 합격 기준입니다.'
+    },
+    'gauge_bar_tuning': {
+        title: '📏 궤간척 (Track Gauge Bar) & 실시간 캔트 오차 (± 2.0mm)',
+        desc: '양쪽 레일 위에 올려놓고 레일 사이의 거리(1,435mm)와 좌우 높이차(캔트)를 다이얼/디지털 수평계로 실시간 측량하는 전용 자입니다. 콘크리트 타설 시 측압에 의해 레일이 벌어지거나 비틀리지 않도록 캔트 오차를 ±2.0mm 이내로 조율합니다.'
+    },
+    'wet_curing': {
+        title: '💧 7일 이상 습윤 양생 & 부직포 포설',
+        desc: '콘크리트 수화열 균열을 방지하고 소정의 강도를 발현하기 위해 타설 직후 부직포를 포설하고 최소 7일 이상 수분을 유지 살수하는 양생 수칙입니다.'
+    },
+    'groove_drain': {
+        title: '🌧️ 그루브 드레인 (Groove Drain) 홈 세척 & 치수 검측',
+        desc: '매설 궤도 표면 우수 배수를 위해 형성된 그루브 드레인 홈 부분의 콘크리트 잔여물을 세척하고 배수 홈 치수를 정밀 검측하는 과정입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '520px');
+        innerSvg.style.maxWidth = '1000px';
+    }
+    
+    const innerImg = zoomBody.querySelector('img');
+    if (innerImg) {
+        innerImg.style.maxHeight = '70vh';
+        innerImg.style.width = 'auto';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+"""
+
+# Restructured Intuitive Slump WBS 19 Guideline
+gui_intuitive_slump_html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - [TCL] 콘크리트 타설 및 양생 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {{ font-family: 'Noto Sans KR', sans-serif; }}
+        {zoom_modal_style}
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-sky-950 to-slate-900 opacity-80"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-sky-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-19 Guideline</span>
+                <span class="bg-white text-slate-950 text-xs font-bold px-3 py-1 rounded-full">슬럼프(Slump Test) & 궤간척 직관적 2D 매뉴얼</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">[TCL] 콘크리트 타설 및 양생 수행지침서</h1>
+            <p class="text-sky-200 mt-2 text-sm sm:text-base">"fck ≥ 35 MPa, 타설 중 실시간 궤간척 캔트 오차 ±2mm 보정 & 7일 습윤양생 매뉴얼"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 💡 작업 안내 박스 (슬럼프 & 궤간척 직관적 해설) -->
+        <div class="bg-sky-50 border border-sky-200 p-5 rounded-xl text-xs sm:text-sm text-sky-900 shadow-sm space-y-3">
+            <h4 class="font-bold text-sky-950 text-base flex items-center gap-2">
+                <span>💡</span> [TCL] 레미콘 슬럼프 시험(Slump Test) & 궤간척 개념 해설
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <div class="bg-white p-3 rounded-lg border border-amber-300">
+                    🧪 <strong>'슬럼프 시험(Slump Test)'이란?</strong><br>
+                    높이 30cm 원깔때기 용기(Slump Cone)에 반죽을 채운 후 위로 쏙 뺐을 때 <strong>반죽이 스스로 내려앉은 높이</strong>를 잽니다. 내려앉은 높이가 <strong>10cm 이하</strong>이어야 물이 너무 묽지 않고 반죽이 짱짱하다는 합격 표시입니다.
+                </div>
+                <div class="bg-white p-3 rounded-lg border border-sky-300">
+                    📏 <strong>'궤간척(Track Gauge Bar)'이란?</strong><br>
+                    양쪽 레일 위에 턱 올려놓고 <strong>두 레일 사이의 거리(1,435mm)와 좌우 높이차(캔트)를 실시간 재어주는 막대자</strong>입니다. 타설 중 레일이 벌어지지 않게 <strong>캔트 오차(±2.0mm 이내)를 실시간 조율</strong>합니다.
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. 4단계 시공 마스터 흐름 요약 (Flow Architecture) -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-sky-600 pb-2">
+                <span class="text-sky-600">1.</span> 4단계 시공 마스터 프로세스 (Flow Architecture)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-amber-500 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 1</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">직전 측량 & 슬럼프 시험</h4>
+                    </div>
+                    <p class="text-[11px] text-amber-900 mt-2 font-medium">슬럼프 &le; 10cm & 공기량 4.5%</p>
+                </div>
+
+                <div class="bg-sky-50 p-4 rounded-xl border border-sky-200 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-sky-500 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 2</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">실시간 궤간척 모니터링</h4>
+                    </div>
+                    <p class="text-[11px] text-sky-900 mt-2 font-medium">타설 중 캔트 오차 &plusmn;2.0mm 보정</p>
+                </div>
+
+                <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 3</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">고주파 다짐 & 습윤양생</h4>
+                    </div>
+                    <p class="text-[11px] text-emerald-900 mt-2 font-medium">7일 이상 부직포 포설 습윤양생</p>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 flex flex-col justify-between">
+                    <div>
+                        <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 4</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">도상세척 & 드레인 검측</h4>
+                    </div>
+                    <p class="text-[11px] text-blue-900 mt-2 font-medium">그루브 드레인 배수 홈 검측</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 3단계 체계별 세부 작업 수행절차 (직관적 2D visual 도식 수록) -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">2.</span> 3단계 체계별 세부 작업 수행절차 (Structured 3-Step Procedure & Intuitive Diagrams)
+            </h2>
+            
+            <div class="space-y-8 relative pl-6 border-l-4 border-emerald-500">
+                <!-- STEP 1 CARD (★ [개정] 슬럼프 시험 콘 + 내려앉은 반죽 + 측정한 자 + 스핀들 측량 직관 도식) -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md relative space-y-4">
+                    <div class="absolute -left-[37px] top-5 bg-amber-500 text-white rounded-full w-9 h-9 flex items-center justify-center font-black text-base shadow-md">1</div>
+                    <span class="bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">STEP 1. 사전 준비 단계</span>
+                    <h3 class="text-lg font-bold text-slate-900 mt-1">타설 직전 스핀들 측량 & 레미콘 슬럼프 현장 시험</h3>
+                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                        콘크리트 타설 직전 스핀들 궤간 및 캔트 최종 상태를 측량하고, 현장 도착 레미콘의 <span class="term-highlight" onclick="openGlossary('slump_control')">슬럼프 값(≤ 10cm)과 공기량(4.5 ± 1.5%)을 시험</span>하여 품질 시방 적합 여부를 확인합니다.
+                    </p>
+                    
+                    <!-- STEP 1 2D Visual Diagram (★ 획기적 개정: 원깔때기 몰드 + 내려앉은 콘크리트 + 측정 자 + 스핀들 레벨) -->
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl flex justify-center items-center shadow-inner border border-amber-200" onclick="openDiagramZoom('svgStep1_Card', '[사전 준비] 레미콘 슬럼프 시험(원깔때기 내려앉음 측정 ≤ 10cm) & 스핀들 정밀 측량 도면')">
+                        <svg id="svgStep1_Card" viewBox="0 0 520 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="220" fill="#f8fafc"/>
+                            
+                            <!-- 좌측: 레미콘 슬럼프 시험 시각화 -->
+                            <g transform="translate(40, 20)">
+                                <!-- 바닥 철판 평판 -->
+                                <rect x="10" y="160" width="200" height="15" fill="#64748b" stroke="#334155" stroke-width="1.5" rx="3"/>
+                                
+                                <!-- 슬럼프 콘 몰드 (점선 잔상) -->
+                                <path d="M 60 160 L 80 40 L 140 40 L 160 160 Z" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="4,3"/>
+                                <text x="110" y="30" font-size="11" font-weight="black" fill="#b45309" text-anchor="middle">원깔때기 (Slump Cone 30cm)</text>
+
+                                <!-- 내려앉은 콘크리트 반죽 덩어리 -->
+                                <path d="M 55 160 Q 60 85 110 85 Q 160 85 165 160 Z" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+                                <text x="110" y="125" font-size="11" font-weight="bold" fill="#1e293b" text-anchor="middle">콘크리트 반죽</text>
+
+                                <!-- 수직 측정 자 (Ruler) -->
+                                <line x1="185" y1="40" x2="185" y2="160" stroke="#dc2626" stroke-width="3"/>
+                                <line x1="175" y1="40" x2="195" y2="40" stroke="#dc2626" stroke-width="2"/>
+                                <line x1="175" y1="85" x2="195" y2="85" stroke="#dc2626" stroke-width="2.5"/>
+                                
+                                <text x="195" y="65" font-size="12" font-weight="black" fill="#dc2626">내려앉은 높이 (Slump)</text>
+                                <text x="195" y="82" font-size="13" font-weight="black" fill="#dc2626">&le; 10cm (합격)</text>
+                            </g>
+
+                            <!-- 우측: 타설 직전 스핀들 레벨 측량 -->
+                            <g transform="translate(300, 40)">
+                                <rect x="40" y="140" width="140" height="15" fill="#cbd5e1"/>
+                                <rect x="70" y="90" width="12" height="50" fill="#475569"/>
+                                <rect x="130" y="90" width="12" height="50" fill="#475569"/>
+                                <line x1="60" y1="90" x2="160" y2="90" stroke="#0284c7" stroke-width="4"/>
+                                <text x="110" y="75" font-size="11" font-weight="black" fill="#0284c7" text-anchor="middle">스핀들 높이 조절 궤광</text>
+                                
+                                <!-- 레벨 측량 레이저 빔 -->
+                                <line x1="0" y1="50" x2="200" y2="50" stroke="#059669" stroke-width="2" stroke-dasharray="5,3"/>
+                                <text x="100" y="38" font-size="11" font-weight="black" fill="#059669" text-anchor="middle">3D 광학 레벨 레이저 측량 빔</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 2 CARD -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md relative space-y-4">
+                    <div class="absolute -left-[37px] top-5 bg-sky-600 text-white rounded-full w-9 h-9 flex items-center justify-center font-black text-base shadow-md">2</div>
+                    <span class="bg-sky-100 text-sky-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">STEP 2. 본 시공 단계</span>
+                    <h3 class="text-lg font-bold text-slate-900 mt-1">콘크리트 타설, 실시간 궤간척 모니터링 & 고주파 다짐</h3>
+                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                        콘크리트 타설 시 측압에 따른 변위를 막기 위해 <span class="term-highlight" onclick="openGlossary('gauge_bar_tuning')">실시간 궤간척(Track Gauge Bar)으로 캔트 오차(±2.0mm 이내)를 모니터링</span>하고, 고주파 다짐을 실시하되 피니셔 정지 시 진동 다짐을 즉시 중지합니다.
+                    </p>
+
+                    <!-- STEP 2 2D Visual Diagram (레일 + 궤간척 + 디지털 계측기) -->
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl flex justify-center items-center shadow-inner border border-sky-200" onclick="openDiagramZoom('svgStep2_Card', '[본 시공] 궤간척(Gauge Bar) 실시간 캔트 오차(±2.0mm) 측량 & 고주파 다짐 정밀 도면')">
+                        <svg id="svgStep2_Card" viewBox="0 0 520 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="220" fill="#f8fafc"/>
+                            
+                            <rect x="40" y="140" width="440" height="60" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+                            <text x="260" y="175" font-size="12" font-weight="black" fill="#334155" text-anchor="middle">TCL 타설 콘크리트 슬래브 (fck &ge; 35 MPa)</text>
+
+                            <!-- 좌측 레일 -->
+                            <g transform="translate(80, 80)">
+                                <path d="M 0 0 L 30 0 L 25 15 L 20 15 L 20 40 L 30 50 L 30 60 L -10 60 L -10 50 L 0 40 L 0 15 L -5 15 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+                                <text x="10" y="-10" font-size="11" font-weight="black" fill="#1e293b" text-anchor="middle">좌측 레일</text>
+                            </g>
+
+                            <!-- 우측 레일 -->
+                            <g transform="translate(410, 80)">
+                                <path d="M 0 0 L 30 0 L 25 15 L 20 15 L 20 40 L 30 50 L 30 60 L -10 60 L -10 50 L 0 40 L 0 15 L -5 15 Z" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+                                <text x="10" y="-10" font-size="11" font-weight="black" fill="#1e293b" text-anchor="middle">우측 레일</text>
+                            </g>
+
+                            <!-- 궤간척 막대자 -->
+                            <rect x="75" y="68" width="370" height="14" rx="3" fill="#0284c7" stroke="#0369a1" stroke-width="2"/>
+                            <rect x="70" y="65" width="20" height="20" fill="#f59e0b" stroke="#d97706" stroke-width="1.5" rx="2"/>
+                            <rect x="430" y="65" width="20" height="20" fill="#f59e0b" stroke="#d97706" stroke-width="1.5" rx="2"/>
+
+                            <!-- 디지털/다이얼 계측 디스플레이 -->
+                            <g transform="translate(260, 45)">
+                                <rect x="-65" y="-20" width="130" height="40" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
+                                <text x="0" y="-3" font-size="10" font-weight="extrabold" fill="#38bdf8" text-anchor="middle">DIGITAL GAUGE</text>
+                                <text x="0" y="13" font-size="12" font-weight="black" fill="#10b981" text-anchor="middle">오차 &plusmn;0.3mm (합격)</text>
+                            </g>
+
+                            <line x1="95" y1="100" x2="425" y2="100" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,2"/>
+                            <text x="260" y="115" font-size="13" font-weight="black" fill="#0284c7" text-anchor="middle">표준 궤간 거리 1,435mm (실시간 캔트 오차 &plusmn;2.0mm 이내 조율)</text>
+
+                            <line x1="470" y1="40" x2="470" y2="160" stroke="#dc2626" stroke-width="4"/>
+                            <rect x="462" y="130" width="16" height="30" fill="#ef4444" rx="3"/>
+                            <text x="470" y="25" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">고주파 다짐 봉</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 3 CARD -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md relative space-y-4">
+                    <div class="absolute -left-[37px] top-5 bg-emerald-600 text-white rounded-full w-9 h-9 flex items-center justify-center font-black text-base shadow-md">3</div>
+                    <span class="bg-emerald-100 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">STEP 3. 검사 및 확정 단계</span>
+                    <h3 class="text-lg font-bold text-slate-900 mt-1">7일 습윤 양생, 도상 이물질 세척 & 그루브 드레인 검측</h3>
+                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+                        타설 직후 부직포를 포설하고 <span class="term-highlight" onclick="openGlossary('wet_curing')">최소 7일 이상 습윤 양생</span>을 실시한 후, 양생 완료 시 콘크리트 도상 내 이물질을 세척하고 <span class="term-highlight" onclick="openGlossary('groove_drain')">그루브 드레인(Groove Drain) 배수 홈 치수</span>를 최종 검측 승인합니다.
+                    </p>
+
+                    <!-- STEP 3 2D Visual Diagram (Clickable Lightbox Zoom) -->
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl flex justify-center items-center shadow-inner border border-emerald-200" onclick="openDiagramZoom('svgStep3_Card', '[검사 마감] 7일 부직포 습윤양생 & 그루브 드레인 배수 홈 세척/치수 검측 도면')">
+                        <svg id="svgStep3_Card" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <rect x="40" y="85" width="440" height="65" fill="#94a3b8"/>
+                            <rect x="40" y="73" width="440" height="14" fill="#059669"/>
+                            <text x="260" y="62" font-size="12" font-weight="black" fill="#059669" text-anchor="middle">부직포 포설 & 7일 이상 지속 습윤 양생 (살수)</text>
+                            
+                            <!-- 그루브 드레인 홈 -->
+                            <rect x="190" y="85" width="28" height="45" fill="#334155"/>
+                            <text x="204" y="148" font-size="11" font-weight="black" fill="#0369a1" text-anchor="middle">그루브 드레인 홈 세척 & 치수 검측 합격</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{common_modal_html}
+</body>
+</html>
+"""
+
+# Force update all Guideline HTML files across both directories
+for folder_path in [folder_with_space, folder_no_space]:
+    gui_dir = os.path.join(folder_path, "수행지침")
+    os.makedirs(gui_dir, exist_ok=True)
+    
+    for fname in ["[TCL] 콘크리트 타설 및 양생_수행지침.html", "19_[TCL] 콘크리트 타설 및 양생_수행지침.html", "[TCL] 콘크리트타설및양생_수행지침.html", "19_[TCL] 콘크리트타설및양생_수행지침.html"]:
+        fpath = os.path.join(gui_dir, fname)
+        with open(fpath, 'w', encoding='utf-8') as f:
+            f.write(gui_intuitive_slump_html)
+        print(f"✏️ Updated WBS 19 Guideline with Intuitive Slump Visuals: {fpath}")
+
+print("\n🎉 SUCCESSFULLY UPDATED WBS 19 GUIDELINE WITH INTUITIVE SLUMP TEST VISUAL DIAGRAMS!")

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 장비,자재 반입로/반입구 간섭 검토 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    /* Glossary Modal Styles - Minimal Injection */
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .scene-link {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        color: #059669 !important;
+        font-weight: 700 !important;
+        background: #ecfdf5 !important;
+        border: 1px solid #10b981 !important;
+        border-radius: 6px !important;
+        padding: 2px 8px !important;
+        font-size: 0.8rem !important;
+        cursor: pointer !important;
+        margin-left: 8px !important;
+        transition: all 0.2s ease !important;
+        text-decoration: none !important;
+    }
+    .scene-link:hover {
+        background: #d1fae5 !important;
+        color: #065f46 !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 520px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+        text-align: left;
+    }
+    @keyframes modalFadeIn {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover {
+        color: #334155;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-emerald-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-8 Guideline</span>
+                <span class="bg-white text-emerald-950 text-xs font-bold px-3 py-1 rounded-full">세부 공사 지침</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">장비·자재 반입로/반입구 간섭 검토 수행지침서</h1>
+            <p class="text-emerald-200 mt-2 text-sm sm:text-base">"대형 트레일러(25m 이상) R=15m 선회 및 H=5m 상부 지장물 간섭 해제 실무 수칙"</p>
+        </div>
+    </div>
+    <div class="p-6 sm:p-10 space-y-8">
+        <!-- 1. 개요 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">1.</span> 작업 개요 및 수행 목적 (Overview & Scope)
+            </h2>
+            <div class="bg-emerald-50/50 p-5 rounded-xl border border-emerald-100 text-sm space-y-2">
+                <p><strong>🎯 수행 목적:</strong> 대형 장대레일(L&ge;25m) 트레일러의 선회 반경 R=15m를 확보하고 상부 전선 등 지장 시설물과의 물리 충돌을 방지함</p>
+                <p><strong>⚙️ 수행 주체:</strong> 현장공사팀 주관 하에 전담 신호수 배치 및 도로 점용 구역 통제</p>
+            </div>
+        </div>
+        
+        <!-- 2. 세부 절차 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">2.</span> 반입 간섭 검토 3단계 세부 수행 프로세스
+            </h2>
+            <div class="space-y-6 relative pl-6 border-l-4 border-emerald-500">
+                <!-- STEP 1 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative">
+                    <div class="absolute -left-[35px] top-4 bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">1</div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded uppercase">Step 1. 사전 현장 조사 및 실측 단계</span>
+                    <h3 class="text-base font-bold text-slate-900 mt-2 mb-3">상부 고압 전선 높이 정밀 실측 및 가설 간섭물 분석</h3>
+                    
+                    <div class="space-y-4 text-xs sm:text-sm text-slate-600">
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">1.1. 장대레일 수송 차량 제원 분석</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">반입될 <span class="term-highlight" onclick="openGlossary('long_rail')">장대레일</span> 수송 특수 트레일러(길이 25m 이상, 총중량 40톤급)의 최소 전장, 선회 내륜차(Off-tracking) 제원을 입수한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">1.2. 상부 지장 가설물 수직 이격거리 실측</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">도로 상부에 위치한 가공 고압 전선(한전 특고압선) 및 안내 표지판, 신호등 하부 높이를 실측하여 차량 최상단과의 수직 <span class="term-highlight" onclick="openGlossary('clearance')">이격거리 5.0m 이상</span>을 충족하는지 측량기로 확인한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">1.3. 주행 반경 내 가설 지장물 간섭 분석</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">선회 예정 교차로 주변에 설치된 타공종 <span class="term-highlight" onclick="openGlossary('scaffolding')">가공 비계</span>, 임시 방호 펜스, 도로 가드레일 등의 한계 돌출 영역을 측량하여 수평 간섭 반경을 도출한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">1.4. 행정 인허가 합동 실사</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">관할 구청 도로과 및 관할 경찰서 교통안전계에 야간 차도 점용 및 통제를 위한 인허가 신청서와 통제 계획도를 사전에 제출 조율한다.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- STEP 2 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative">
+                    <div class="absolute -left-[35px] top-4 bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">2</div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded uppercase">Step 2. 반입 승인 및 주행 제어 단계</span>
+                    <h3 class="text-base font-bold text-slate-900 mt-2 mb-3">선회 시뮬레이션 보고서 의결 및 전담 신호수 초저속 유도</h3>
+                    
+                    <div class="space-y-4 text-xs sm:text-sm text-slate-600">
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">2.1. 회전 선회 궤적 시뮬레이션 최종 승인</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">시뮬레이션 프로그램(AutoTURN 등)을 활용해 장대레일 트레일러의 회전 반경 <span class="term-highlight" onclick="openGlossary('rotation_radius')">R=15m</span> 선회 궤적도를 분석하여, 도로 연석이나 가설 비계와의 간섭이 0%임을 합동 의결한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">2.2. 도로점용 허가 구역 표지 및 라인 마킹</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">도로점용 허가 구역 경계선 내에 통제 바리케이드, 안전 띠, 라바콘을 설치하고 일반 차량용 싸인카 및 우회 안내판을 사전 작동한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">2.3. 전담 신호수 병목 교차로 배치 및 차량 유도</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">무전기를 지참한 전담 신호수를 교차로 4개 코너 및 반입구 게이트에 최소 4명 이상 배치하여 일반 차량 차단 및 신호 조율 하에 트레일러의 우회 선회를 돕는다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">2.4. 임시 지장 비계 후퇴 철거 및 초저속 인입</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">수평/수직 이격 기준에 따라 선행 공종 협력사로 하여금 돌출 가설 비계 파이프의 일시 철거/후퇴를 완료받은 뒤, 신호수 유도 하에 시속 10km 이하로 안전하게 차량을 인입시킨다.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- STEP 3 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative">
+                    <div class="absolute -left-[35px] top-4 bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">3</div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded uppercase">Step 3. 도로 복구 및 마감 단계</span>
+                    <h3 class="text-base font-bold text-slate-900 mt-2 mb-3">차도 복구 합동 점검 및 공학 자료 보존</h3>
+                    
+                    <div class="space-y-4 text-xs sm:text-sm text-slate-600">
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">3.1. 차도 점용구간 원상 복구 및 도로 파손 실사</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">트레일러 퇴거 즉시 라바콘 및 교통통제 시설을 수거하고, 대형 차륜 하중으로 인한 아스팔트 소성 변형이나 인도 경계석 파손 여부를 정밀 전경 실사하여 원상 복구한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">3.2. 점용 인허가 완료서 및 시뮬레이션 보고서 보존</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">도로점용 완료 보고서와 선회 궤적 검증이 수행된 반입로 시뮬레이션 최종 데이터를 영구 파일화하여 본사 설계·공정 담당팀에 송부 대장화한다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800">
+        동탄도시철도(트램) 수행지침서 | WBS 9000-6-8 | 콘크리트도상
+    </div>
+</div>
+
+
+<!-- Glossary & Scene Popup Modal Layer -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시공장면 해설</h3>
+        <div class="modal-body">
+            <img id="modalImage" src="" style="width:100%; border-radius:10px; display:none; margin-bottom:15px; border: 1px solid #cbd5e1;" />
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'long_rail': {
+        title: '🛤️ 장대레일 (Long Welded Rail)',
+        desc: '트램 시공을 위해 250m 이상의 길이로 연속 용접된 일체형 레일입니다. 현장 반입을 위해 최소 25m 이상의 특수 트레일러(트레일러+레일 거치대) 수송 차량이 도로 주행을 해야 하므로 고난도의 회전각 조율이 필요합니다.'
+    },
+    'rotation_radius': {
+        title: '📐 최소 회전 반경 R=15m (Minimum Turning Radius)',
+        desc: '길이 25m 이상의 장대레일 수송용 대형 트레일러가 도로 교차로 또는 진출입로를 회전할 때 앞바퀴와 뒷바퀴의 선회 궤적이 그리는 기하학적 최소 반경입니다. R=15m 이상을 충족해야 타이어 걸림 및 중앙선 침범 충돌을 피할 수 있습니다.'
+    },
+    'clearance': {
+        title: '⚡ 상부 이격거리 5m (Vertical Clearance)',
+        desc: '자재 수송 트레일러 상단 또는 운반물 상단 끝단과 주행 도로 상부에 매설/가설된 교통 신호등, 도로 안내 표지판, 한전 가공 고압 전선과의 수직 여유 거리입니다. 감전 및 물리적 파손을 예방하기 위해 최소 5m 이상 확보해야 합니다.'
+    },
+    'scaffolding': {
+        title: '🧱 가공 비계 (Overhead Scaffolding)',
+        desc: '철도 공사 중인 도로 중앙 궤도 부지 주변에 설치된 외부 작업용 비계 파이프 구조물입니다. 차량 주행 반경 내에 비계 끝단이 돌출되는 경우 선회하는 트레일러 적재함과의 충돌 리스크가 있어 사전 철거가 필요합니다.'
+    },
+    'traffic_control': {
+        title: '🚧 도심지 교통 소통 통제 (Traffic Control)',
+        desc: '기존 차량이 다니는 도로에서 트램 공사를 수행하기 위해 차도를 안전하게 우회 및 부분 차단하고 안전펜스와 표지판을 조밀 배치하여 차량 정체와 안전사고를 동시 예방하는 공사 관리 지침입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    
+    const imgEl = document.getElementById('modalImage');
+    if (data.img) {
+        imgEl.src = data.img;
+        imgEl.style.display = 'block';
+    } else {
+        imgEl.src = '';
+        imgEl.style.display = 'none';
+    }
+    
+    document.getElementById('glossaryModal').classList.add('active');
+}
+
+function openScene(sceneKey) {
+    openGlossary(sceneKey);
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+// Esc close key handler
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+    }
+});
+</script>
+
+
+</body>
+</html>

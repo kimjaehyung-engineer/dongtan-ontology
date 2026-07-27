@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - [TCL] 콘크리트 타설 및 양생 체크리스트</title>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --accent-blue: #0284c7;
+            --border-color: #cbd5e1;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 30px 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .header {
+            border-bottom: 2px solid var(--text-primary);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin: 0;
+            color: #0369a1;
+        }
+        .meta {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #0284c7;
+        }
+        .summary-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            color: #0369a1;
+        }
+        table {
+            width: 100% !important;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: bold;
+            text-align: center;
+        }
+        .category {
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            width: 18%;
+        }
+        .check-cell {
+            text-align: center;
+            vertical-align: middle;
+            width: 14%;
+            font-weight: bold;
+            color: #0369a1;
+        }
+        .step-tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 class="title">[TCL] 콘크리트 타설 및 양생 체크리스트</h1>
+        <span class="meta">WBS Code 9000-6-19 | 콘크리트도상 품질 검측대장</span>
+    </div>
+
+    <div class="summary-box">
+        <h4 style="margin: 0 0 8px 0; color: #0369a1; font-size: 1.05rem; font-weight: 800;">📋 4단계 실시간 O/X 검측 및 시방 기준</h4>
+        <div style="font-weight: 600; line-height: 1.7; font-size: 0.9rem;">
+            본 체크리스트는 TCL 강도(35MPa), 슬럼프(≤10cm), 타설 중 실시간 궤간척 캔트 오차(±2mm), 7일 습윤양생 및 그루브 드레인 홈 세척을 검측하기 위해 작성되었습니다.
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th style="width: 18%;">시공 단계</th>
+                <th style="width: 68%;">필수 검측 항목 (KDS 47 30 00 공학 규격)</th>
+                <th style="width: 14%;">점검 결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="category" style="color:#b45309;">⚠️ 사전 준비<br>(Step 1 레미콘시험)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#fef3c7; color:#92400e;">Step 1. 스핀들 측량</span>
+                        <strong>[직전 측량]</strong> 타설 직전 스핀들 궤간/캔트 레벨 정밀 상태 측량하였는가?
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#fef3c7; color:#92400e;">Step 1. 레미콘 시험</span>
+                        <strong>[슬럼프 시험]</strong> <span class="term-highlight" onclick="openGlossary('slump_control')">슬럼프 값 &le; 10cm</span> 및 공기량(4.5%) 시험하였는가?
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr>
+                <td class="category" style="color:#0369a1;">📏 타설 & 다짐<br>(Step 2 궤간모니터)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#e0f2fe; color:#0369a1;">Step 2. 궤간척 모니터ing</span>
+                        <strong>[실시간 보정]</strong> <span class="term-highlight" onclick="openGlossary('gauge_bar_tuning')">타설 중 실시간 궤간척(Gauge Bar) 캔트 오차 &plusmn;2.0mm</span> 미세 조율하였는가?
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#e0f2fe; color:#0369a1;">Step 2. 진동 다짐</span>
+                        <strong>[다짐 제어]</strong> 고주파 다짐 실시 및 피니셔 진행 정지 시 진동 다짐 중지하였는가?
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr>
+                <td class="category" style="color:#15803d;">💧 양생 & 세척<br>(Step 3 습윤양생)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#dcfce7; color:#166534;">Step 3. 습윤 양생</span>
+                        <strong>[7일 습윤양생]</strong> <span class="term-highlight" onclick="openGlossary('wet_curing')">부직포 포설 및 최소 7일 이상 습윤 양생</span> 실시하였는가?
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#dcfce7; color:#166534;">Step 3. 홈 세척</span>
+                        <strong>[그루브 드레인]</strong> <span class="term-highlight" onclick="openGlossary('groove_drain')">양생 후 도상 세척 및 그루브 드레인 홈 배수 치수</span> 검측하였는가?
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr>
+                <td class="category" style="color:#1e3a8a;">📡 품질 & 승인<br>(Step 4 품질대장)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#dbeafe; color:#1e40af;">Step 4. 강도 시험</span>
+                        <strong>[28일 강도]</strong> TCL 도상 콘크리트 <span class="term-highlight" onclick="openGlossary('tcl_strength')">압축강도 fck &ge; 35 MPa</span> 시험 성적서하였는가?
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#dbeafe; color:#1e40af;">Step 4. 서명 승인</span>
+                        <strong>[품질 대장]</strong> TCL 콘크리트 품질대장 및 게이지 보정원지 감리원 최종 승인
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align: center; font-size: 0.85rem; color: #94a3b8; margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+        동탄도시철도(트램) 건설공사 | WBS 9000-6-19 [TCL] 콘크리트 타설 및 양생 마스터 체크리스트
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 공학 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'tcl_strength': {
+        title: '🏋️ TCL 콘크리트 강도 (fck ≥ 35 MPa)',
+        desc: '트램 차륜 하중 및 열차 반복 주행 응력에 견디기 위해 콘크리트 28일 압축강도를 최소 35 MPa 이상 확보하는 공학 설계 기준입니다.'
+    },
+    'slump_control': {
+        title: '🧪 슬럼프 시험 (≤ 10cm) & 공기량 (4.5 ± 1.5%)',
+        desc: '타설 시 콘크리트 유동성 과다에 의한 재료분리를 방지하기 위해 슬럼프 값을 10cm 이하 저슬럼프로 엄격 통제하고 공기량을 시험하는 기준입니다.'
+    },
+    'gauge_bar_tuning': {
+        title: '📏 실시간 궤간척 (Gauge Bar) 캔트 오차 (± 2.0mm)',
+        desc: '콘크리트 타설 유체 측압에 의해 레일 궤간이나 캔트가 변형되지 않도록 타설 중 실시간 궤간척으로 측정하여 캔트 오차를 ±2.0mm 이내로 조율하는 수칙입니다.'
+    },
+    'wet_curing': {
+        title: '💧 7일 이상 습윤 양생 & 부직포 포설',
+        desc: '콘크리트 수화열 균열을 방지하고 소정의 강도를 발현하기 위해 타설 직후 부직포를 포설하고 최소 7일 이상 수분을 유지 살수하는 양생 수칙입니다.'
+    },
+    'groove_drain': {
+        title: '🌧️ 그루브 드레인 (Groove Drain) 홈 세척 & 치수 검측',
+        desc: '매설 궤도 표면 우수 배수를 위해 형성된 그루브 드레인 홈 부분의 콘크리트 잔여물을 세척하고 배수 홈 치수를 정밀 검측하는 과정입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '520px');
+        innerSvg.style.maxWidth = '1000px';
+    }
+    
+    const innerImg = zoomBody.querySelector('img');
+    if (innerImg) {
+        innerImg.style.maxHeight = '70vh';
+        innerImg.style.width = 'auto';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>
