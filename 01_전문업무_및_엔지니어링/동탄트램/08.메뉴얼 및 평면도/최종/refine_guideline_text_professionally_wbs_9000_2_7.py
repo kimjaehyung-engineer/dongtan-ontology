@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동탄트램 통신분야 - 발주처 품질 요구사항 검토 전문 수행지침서 (WBS 9000-2-7)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Noto Sans KR', sans-serif; }
-        
+import os
+import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+gui_folder = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\08.메뉴얼 및 평면도\최종\매뉴얼BODY(집행단계-첨부폴더)\통신분야\7_발주처 품질 요구사항 검토\수행지침"
+
+if not os.path.exists(gui_folder):
+    print("❌ ERROR: Guideline folder for WBS 9000-2-7 not found!")
+    sys.exit(1)
+
+zoom_modal_style = """
     .term-highlight {
         color: #0284c7 !important;
         font-weight: 700 !important;
@@ -107,7 +108,81 @@
     .glossary-close:hover, .zoom-close:hover {
         color: #ef4444;
     }
+"""
 
+common_js = """
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 품질 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+    }
+});
+</script>
+"""
+
+# HIGHLY PROFESSIONAL GUIDELINE HTML
+gui_prof_html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 발주처 품질 요구사항 검토 전문 수행지침서 (WBS 9000-2-7)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {{ font-family: 'Noto Sans KR', sans-serif; }}
+        {zoom_modal_style}
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
@@ -373,65 +448,17 @@
         </div>
     </div>
 </div>
-
-<div class="glossary-modal" id="glossaryModal">
-    <div class="glossary-modal-content">
-        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
-        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 품질 기술 해설</h3>
-        <div class="modal-body">
-            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
-        </div>
-    </div>
-</div>
-
-<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
-    <div class="zoom-modal-content" onclick="event.stopPropagation()">
-        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
-        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
-        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
-        </div>
-        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
-            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
-        </div>
-    </div>
-</div>
-
-<script>
-function openDiagramZoom(elementId, titleText) {
-    const srcEl = document.getElementById(elementId);
-    if (!srcEl) return;
-    
-    const zoomBody = document.getElementById('zoomBody');
-    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
-    
-    zoomBody.innerHTML = srcEl.outerHTML;
-    
-    const innerSvg = zoomBody.querySelector('svg');
-    if (innerSvg) {
-        innerSvg.setAttribute('width', '100%');
-        innerSvg.setAttribute('height', '550px');
-        innerSvg.style.maxWidth = '1050px';
-    }
-    
-    document.getElementById('zoomModal').classList.add('active');
-}
-
-function closeZoomModal() {
-    document.getElementById('zoomModal').classList.remove('active');
-}
-
-function closeZoomModalOutside(event) {
-    if (event.target.id === 'zoomModal') {
-        closeZoomModal();
-    }
-}
-
-window.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeZoomModal();
-    }
-});
-</script>
-
+{common_js}
 </body>
 </html>
+"""
+
+# Update Guideline Files
+for fn in os.listdir(gui_folder):
+    if fn.endswith('.html'):
+        fp = os.path.join(gui_folder, fn)
+        with open(fp, 'w', encoding='utf-8') as f:
+            f.write(gui_prof_html)
+        print(f"   ✓ [PROFESSIONALLY REFINED] Guideline -> {fn}")
+
+print("\n🎉 SUCCESSFULLY REFINED WBS 9000-2-7 GUIDELINE HTMLs WITH HIGH-LEVEL ENGINEERING TONE!")
