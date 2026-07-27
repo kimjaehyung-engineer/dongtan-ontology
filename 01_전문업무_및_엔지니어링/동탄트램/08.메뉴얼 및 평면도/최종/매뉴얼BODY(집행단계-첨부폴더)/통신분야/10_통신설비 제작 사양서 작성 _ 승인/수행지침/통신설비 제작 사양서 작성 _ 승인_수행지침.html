@@ -97,7 +97,7 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Detailed Guideline (WBS 9000-2-10)</span>
         <h1 class="text-3xl font-black mt-2">통신설비 제작 사양서 작성 및 승인 초정밀 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-10 | 주관: 현장 시스템팀 | "통신 랙 5대 핵심 장비 초쉬운 1:1 역할 탑재"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-10 | 주관: 현장 시스템팀 | "전체 9대 통신 서브시스템 제작사양서 승인 종합 안내"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
@@ -106,8 +106,113 @@
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
             <h4 class="font-bold text-base flex items-center gap-2">💡 통신설비 제작사양서 작성 및 승인 실무 개요</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                본 지침서는 현장 엔지니어가 <strong><span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('shop_drawing')">제작 도면(Shop Drawing)</span></strong>을 작성하고, <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span>를 검증하여 감리단/발주처 승인을 수득하는 실무 가이드입니다. **통신 랙 내 5대 주요 장비(PDU, OTN, Cable Ring, L3 Switch, OFD)의 1:1 초쉬운 역할 카드**를 탑재하였습니다.
+                본 지침서는 현장 엔지니어가 <strong><span class="term-highlight" onclick="openGlossary('manufacturing_spec')">제작 사양서</span></strong> 및 <strong><span class="term-highlight" onclick="openGlossary('shop_drawing')">제작 도면(Shop Drawing)</span></strong>을 작성하고, <span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사(FAT) 절차서</span>를 검증하여 감리단/발주처 승인을 수득하는 실무 가이드입니다. <strong>동탄트램 공사에 투입되는 전체 9대 통신 서브시스템 제작 승인 대상</strong> 및 5대 핵심 랙 장비의 1:1 역할 해설을 수록하였습니다.
             </p>
+        </div>
+
+        <!-- 📡📡📡📡📡 [NEW] 동탄트램 전체 9대 통신 서브시스템 제작사양서 승인 대상 종합 카드 📡📡📡📡📡 -->
+        <div class="bg-slate-900 text-white p-7 rounded-2xl shadow-xl space-y-5">
+            <div class="border-b border-slate-700 pb-3 flex items-center justify-between">
+                <div>
+                    <span class="bg-sky-500 text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase">COMPREHENSIVE TELECOM SUB-SYSTEMS</span>
+                    <h3 class="text-xl font-black text-white mt-1">📡 동탄트램 전체 9대 통신 서브시스템 제작사양서 승인 대상</h3>
+                </div>
+                <span class="text-xs text-sky-300 font-bold bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">총 9개 핵심 분야</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                
+                <!-- 1. 광전송 -->
+                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700 hover:border-sky-400 transition cursor-pointer space-y-1" onclick="openGlossary('sub_1')">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-400">01. 광전송 설비</span>
+                        <span class="text-[9px] bg-sky-950 text-sky-300 border border-sky-800 px-1.5 py-0.5 rounded">OTN / PTN</span>
+                    </div>
+                    <p class="font-bold text-slate-100 text-xs">🌐 백본망 광전송 랙 & 광모듈</p>
+                    <p class="text-[10px] text-slate-400">정거장-관제 간 초고속 데이터 전송 망 구축</p>
+                </div>
+
+                <!-- 2. LTE-R -->
+                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700 hover:border-sky-400 transition cursor-pointer space-y-1" onclick="openGlossary('sub_2')">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-400">02. 철도무선 설비</span>
+                        <span class="text-[9px] bg-sky-950 text-sky-300 border border-sky-800 px-1.5 py-0.5 rounded">LTE-R</span>
+                    </div>
+                    <p class="font-bold text-slate-100 text-xs">📻 기지국(DU/RU) & 차재 통신기</p>
+                    <p class="text-[10px] text-slate-400">기관사-관제사 간 24H 철도 전용 무선통신</p>
+                </div>
+
+                <!-- 3. CCTV -->
+                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700 hover:border-sky-400 transition cursor-pointer space-y-1" onclick="openGlossary('sub_3')">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-400">03. 영상감시 설비</span>
+                        <span class="text-[9px] bg-sky-950 text-sky-300 border border-sky-800 px-1.5 py-0.5 rounded">CCTV / VMS</span>
+                    </div>
+                    <p class="font-bold text-slate-100 text-xs">📹 4K 지능형 IP 카메라 & NVR</p>
+                    <p class="text-[10px] text-slate-400">승강장/궤도 4K 실시간 감시 및 화재 객체 감지</p>
+                </div>
+
+                <!-- 4. PIS / PAS -->
+                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700 hover:border-sky-400 transition cursor-pointer space-y-1" onclick="openGlossary('sub_4')">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-400">04. 승객안내 & 방송</span>
+                        <span class="text-[9px] bg-sky-950 text-sky-300 border border-sky-800 px-1.5 py-0.5 rounded">PIS / PAS</span>
+                    </div>
+                    <p class="font-bold text-slate-100 text-xs">📢 행선안내게시기 & 정거장 앰프</p>
+                    <p class="text-[10px] text-slate-400">열차 도착 안내 메시지 표시 및 비상 방송</p>
+                </div>
+
+                <!-- 5. 비상전화 -->
+                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700 hover:border-sky-400 transition cursor-pointer space-y-1" onclick="openGlossary('sub_5')">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-400">05. 비상전화 설비</span>
+                        <span class="text-[9px] bg-sky-950 text-sky-300 border border-sky-800 px-1.5 py-0.5 rounded">IP-PBX / SOS</span>
+                    </div>
+                    <p class="font-bold text-slate-100 text-xs">📞 SOS 비상통화장치 & 인터폰</p>
+                    <p class="text-[10px] text-slate-400">승객 긴급 비상 상황 시 관제실 직통 통화</p>
+                </div>
+
+                <!-- 6. 시계동기 -->
+                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700 hover:border-sky-400 transition cursor-pointer space-y-1" onclick="openGlossary('sub_6')">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-400">06. 디지털 시계 동기</span>
+                        <span class="text-[9px] bg-sky-950 text-sky-300 border border-sky-800 px-1.5 py-0.5 rounded">Master Clock</span>
+                    </div>
+                    <p class="font-bold text-slate-100 text-xs">⏰ GPS 자시계 & 디지털 모시계</p>
+                    <p class="text-[10px] text-slate-400">전 정거장-열차-관제 간 0.01초 오차 시각 동기</p>
+                </div>
+
+                <!-- 7. 전원설비 -->
+                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700 hover:border-sky-400 transition cursor-pointer space-y-1" onclick="openGlossary('sub_7')">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-400">07. 무정전 전원 설비</span>
+                        <span class="text-[9px] bg-sky-950 text-sky-300 border border-sky-800 px-1.5 py-0.5 rounded">UPS / Battery</span>
+                    </div>
+                    <p class="font-bold text-slate-100 text-xs">🔋 UPS 무정전 전원 & 정류기</p>
+                    <p class="text-[10px] text-slate-400">한전 정전 시에도 통신망 2시간 이상 전원 유지</p>
+                </div>
+
+                <!-- 8. 통신선로 -->
+                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700 hover:border-sky-400 transition cursor-pointer space-y-1" onclick="openGlossary('sub_8')">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-400">08. 통신선로 & 케이블</span>
+                        <span class="text-[9px] bg-sky-950 text-sky-300 border border-sky-800 px-1.5 py-0.5 rounded">72/144-Core Optic</span>
+                    </div>
+                    <p class="font-bold text-slate-100 text-xs">🧵 Single-Mode 광케이블 & 트레이</p>
+                    <p class="text-[10px] text-slate-400">정거장과 선로를 물리적으로 연결하는 광 전송로</p>
+                </div>
+
+                <!-- 9. 기계실 랙 -->
+                <div class="bg-slate-800/90 p-3.5 rounded-xl border border-slate-700 hover:border-sky-400 transition cursor-pointer space-y-1" onclick="openGlossary('sub_9')">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-400">09. 기계실 랙 & 부대</span>
+                        <span class="text-[9px] bg-sky-950 text-sky-300 border border-sky-800 px-1.5 py-0.5 rounded">19" Rack / PDU</span>
+                    </div>
+                    <p class="font-bold text-slate-100 text-xs">🗄️ 19인치 표준 랙 & PDU / OFD</p>
+                    <p class="text-[10px] text-slate-400">통신 장비를 안착하고 온습도 먼지로부터 보호</p>
+                </div>
+
+            </div>
         </div>
 
         <!-- ☀️ 5단계 마스터 프로세스 -->
@@ -301,7 +406,7 @@
                     </p>
                 </div>
 
-                <!-- 🌟🌟🌟🌟🌟 [NEW] 통신 랙 내 5대 주요 장비 1:1 초쉬운 역할 안내 카드 🌟🌟🌟🌟🌟 -->
+                <!-- 통신 랙 내 5대 주요 장비 1:1 초쉬운 역할 안내 카드 -->
                 <div class="bg-white border-2 border-indigo-200 p-5 rounded-xl space-y-3 mt-3 shadow-sm">
                     <h4 class="font-black text-sm text-indigo-950 flex items-center gap-2 border-b border-indigo-100 pb-2">
                         <span>🗄️</span> <strong>통신 랙 내부 5대 핵심 장비별 초쉬운 1:1 역할 해설 (일상 비유)</strong>
@@ -309,7 +414,6 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-2 text-xs">
                         
-                        <!-- 1. PDU -->
                         <div class="bg-red-50 p-3 rounded-lg border border-red-200 space-y-1 cursor-pointer hover:bg-red-100 transition" onclick="openGlossary('pdu')">
                             <span class="bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">1U 장비</span>
                             <h5 class="font-black text-red-950 text-xs flex items-center gap-1">⚡ PDU (전원부)</h5>
@@ -317,7 +421,6 @@
                             <p class="text-[10px] text-slate-600 leading-snug">랙 안의 모든 장비에 전원(AC220V/DC48V)을 나눠 켜주는 전원 분배기</p>
                         </div>
 
-                        <!-- 2. OTN -->
                         <div class="bg-blue-50 p-3 rounded-lg border border-blue-200 space-y-1 cursor-pointer hover:bg-blue-100 transition" onclick="openGlossary('otn')">
                             <span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">2U 장비</span>
                             <h5 class="font-black text-blue-950 text-xs flex items-center gap-1">🌐 OTN (광전송)</h5>
@@ -325,7 +428,6 @@
                             <p class="text-[10px] text-slate-600 leading-snug">CCTV 영상 데이터를 빛으로 바꿔 관제센터까지 초고속 실어나르는 장비</p>
                         </div>
 
-                        <!-- 3. Cable Ring -->
                         <div class="bg-slate-100 p-3 rounded-lg border border-slate-300 space-y-1 cursor-pointer hover:bg-slate-200 transition" onclick="openGlossary('cable_ring')">
                             <span class="bg-slate-700 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">1U 가이드</span>
                             <h5 class="font-black text-slate-900 text-xs flex items-center gap-1">🧵 Cable Ring</h5>
@@ -333,7 +435,6 @@
                             <p class="text-[10px] text-slate-600 leading-snug">수십 가닥 선이 꼬이거나 꺾여 끊기지 않도록 예쁘게 묶어주는 정돈 고리</p>
                         </div>
 
-                        <!-- 4. L3 Switch -->
                         <div class="bg-green-50 p-3 rounded-lg border border-green-200 space-y-1 cursor-pointer hover:bg-green-100 transition" onclick="openGlossary('l3_switch')">
                             <span class="bg-green-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">1U 스위치</span>
                             <h5 class="font-black text-green-950 text-xs flex items-center gap-1">🔀 L3 Switch</h5>
@@ -341,7 +442,6 @@
                             <p class="text-[10px] text-slate-600 leading-snug">들어오는 데이터 IP주소를 확인해 올바른 목적지 길로 안내하는 메인 스위치</p>
                         </div>
 
-                        <!-- 5. OFD -->
                         <div class="bg-amber-50 p-3 rounded-lg border border-amber-200 space-y-1 cursor-pointer hover:bg-amber-100 transition" onclick="openGlossary('ofd')">
                             <span class="bg-amber-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">2U 패널</span>
                             <h5 class="font-black text-amber-950 text-xs flex items-center gap-1">🔌 OFD (광패치)</h5>
@@ -587,8 +687,17 @@ const glossaryData = {
     "pdu": "<b>PDU (Power Distribution Unit - 전원공급기)</b><br>💡 <i>비유: 스마트 멀티탭</i><br><br>• 통신 랙 안의 모든 장비들에 메인 전기(AC 220V / DC 48V)를 안전하게 나누어 공급해 주는 전원 분배기 장비입니다.",
     "otn": "<b>OTN (Optical Transport Network - 광전송장비)</b><br>💡 <i>비유: 광통신 고속도로</i><br><br>• 대용량 CCTV 영상과 데이터를 '빛(Optic)'으로 변환하여 관제센터까지 초고속으로 실어나르는 핵심 광 전송장비입니다.",
     "cable_ring": "<b>Cable Guide Ring (케이블 정리 링)</b><br>💡 <i>비유: 전선 정리 고리</i><br><br>• 랙 내부에 연결된 수십 가닥의 통신·광 케이블이 꼬이거나 꺾이지 않도록 예쁘게 정돈해 주는 케이블 가이드입니다.",
-    "l3_switch": "<b>L3 Backbone Switch (백본 스위치)</b><br>💡 <i>비유: 데이터 교통경찰관</i><br><br>• CCTV, 방송, 열차 신호 등 들어오는 수많은 데이터의 IP 주소를 확인하고 올바른 목적지 길로 보내주는 메인 데이터 스위치 장비입니다.",
-    "ofd": "<b>OFD (Optical Distribution Frame - 광패치패널)</b><br>💡 <i>비유: 광케이블 전용 콘센트</i><br><br>• 땅속에서 들어오는 두꺼운 72코어 광케이블을 단단히 고정하고 장비와 쉽게 잭을 꽂아 연결할 수 있도록 만든 광 소켓 패널입니다."
+    "l3_switch": "<b>L3 Backbone Switch (백본 스위치)</b><br>💡 <i>비유: 데이터 교통경찰관</i><br><br>• CCTV, 방송, 열차 신호 등 들어오는 수많은 데이터의 IP 주소를 확인하고 올바른 목적지 길로 안내하는 메인 데이터 스위치 장비입니다.",
+    "ofd": "<b>OFD (Optical Distribution Frame - 광패치패널)</b><br>💡 <i>비유: 광케이블 전용 콘센트</i><br><br>• 땅속에서 들어오는 두꺼운 72코어 광케이블을 단단히 고정하고 장비와 쉽게 잭을 꽂아 연결할 수 있도록 만든 광 소켓 패널입니다.",
+    "sub_1": "<b>1. 광전송 설비 (OTN / PTN)</b><br>• 제작 승인 대상: 백본 전송 랙, Node 유닛, 10G/100G 광모듈<br>• 역할: 정거장과 OCC 관제센터 간 대용량 데이터 광 고속도로 망 구축",
+    "sub_2": "<b>2. LTE-R 철도무선 설비</b><br>• 제작 승인 대상: 기지국(DU/RU), 안테나, 차재 통신기, 결합기<br>• 역할: 열차 기관사-관제사-현장요원 간 24시간 철도 전용 무선통신",
+    "sub_3": "<b>3. CCTV 영상감시 설비</b><br>• 제작 승인 대상: 4K 지능형 IP 카메라, NVR 저장장치, VMS 관제 서버<br>• 역할: 승강장, 궤도, 기지 실시간 영상 감시 및 화재/객체 자동 감지",
+    "sub_4": "<b>4. PIS / PAS (승객안내 & 방송 설비)</b><br>• 제작 승인 대상: 행선안내게시기(LED/LCD), 앰프, 스피커, 방송서버<br>• 역할: 열차 도착 안내 메시지 표시 및 비상 음향 방송 송출",
+    "sub_5": "<b>5. 비상전화 설비 (IP-PBX)</b><br>• 제작 승인 대상: 승강장 SOS 비상통화장치, 교환기, 인터폰<br>• 역할: 긴급 상황 발생 시 승객과 관제실 간 즉시 비상 직통 통화",
+    "sub_6": "<b>6. 디지털 시계 동기 설비</b><br>• 제작 승인 대상: GPS 자시계, 디지털 모시계(Master Clock)<br>• 역할: 전 정거장, 열차, 관제 시스템 간 0.01초 오차 없는 시각 동기",
+    "sub_7": "<b>7. 전원 설비 (UPS / 배터리)</b><br>• 제작 승인 대상: UPS 무정전 전원장치, Rectifier 정류기, 축전지<br>• 역할: 한전 정전 시에도 통신 시스템이 2시간 이상 비상 동작하도록 전원 유지",
+    "sub_8": "<b>8. 통신선로 & 케이블</b><br>• 제작 승인 대상: 72/144코어 Single-Mode 광케이블, 트레이, 관로<br>• 역할: 정거장과 선로 통신 장비 간을 물리적으로 잇는 통신 전송 통로",
+    "sub_9": "<b>9. 통신기계실 랙 & 부대설비</b><br>• 제작 승인 대상: 19인치 표준 랙, PDU, OFD, 항온항습기<br>• 역할: 주요 통신 장비를 안착하고 온습도 및 먼지로부터 보호하는 수용 함체"
 };
 
 function openGlossary(term) {
