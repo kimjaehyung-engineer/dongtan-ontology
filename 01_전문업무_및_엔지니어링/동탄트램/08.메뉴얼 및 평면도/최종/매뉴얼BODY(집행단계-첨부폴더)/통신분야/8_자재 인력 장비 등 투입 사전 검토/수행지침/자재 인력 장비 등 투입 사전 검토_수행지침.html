@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 자재 / 인력 / 장비 등 투입 사전 검토 수행지침서 (WBS 9000-2-8)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .zoom-modal, .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .zoom-modal.active, .glossary-modal.active {
+        display: flex;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 580px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-close, .glossary-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .zoom-close:hover, .glossary-close:hover {
+        color: #ef4444;
+    }
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-8)</span>
+        <h1 class="text-3xl font-black mt-2">자재 / 인력 / 장비 등 투입 사전 검토 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-8 | 주관: 현장 시스템팀 / 협력업체 / 감리단 | "숙련 인력 & 장비 검교정 실무 가이드"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 💡 개요 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 한눈에 읽는 전문 실무 가이드 (Flexible 4-Step Architecture)</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                본 지침서는 공정별 통신 인력 수급, 광융착기/OTDR 시험 장비의 <span class="term-highlight" onclick="openGlossary('검교정')">검교정</span> 상태(1년 유효기간), 자재 <span class="term-highlight" onclick="openGlossary('야적장보관')">야적장 보관</span> 및 도로 굴착 교통통제 대책을 사전 심사·승인하는 4단계 실무 가이드입니다.
+            </p>
+        </div>
+
+        <!-- ☀️ 4대 유연 핵심 프로세스 카드 -->
+        <div class="bg-blue-50/70 border border-blue-200 p-7 rounded-2xl shadow-md space-y-6">
+            <div class="border-b border-blue-200 pb-4">
+                <span class="bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase">FLEXIBLE PROCESS</span>
+                <h3 class="text-xl font-black text-blue-950 mt-2">📋 자원 투입 사전 검토 4단계 유연 프로세스</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>📋</span> 1. 자원 투입 사전 계획</span>
+                    <p class="text-slate-700 text-xs">공정별 통신 인력, 장비 수급 및 자재 수량 사전 정밀 대조.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>⚡</span> 2. 인력 숙련도 & 장비 검교정</span>
+                    <p class="text-slate-700 text-xs">숙련 기술자 자격증 및 광융착기/OTDR 검교정 성적서(1년 이내) 검측.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>📦</span> 3. 야적장 & 안전/민원 대책</span>
+                    <p class="text-slate-700 text-xs">자재 야적장 방수/방범 및 도로 굴착시 교통통제/민원 처리 대책 수립.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🖊️</span> 4. 투입 승인서 최종 체결</span>
+                    <p class="text-slate-700 text-xs">발주처·감리원 3자 서명 날인으로 자원 투입 계획서 최종 승인.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔥 세부 실무 가이드 & 1:1 2D Visual SVG -->
+        <div class="space-y-8">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-indigo-600 pb-2">엔지니어링 세부 실무 가이드 & 1:1 2D 그림</h2>
+            
+            <!-- STEP 2 Card with Image -->
+            <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
+                    <h3 class="font-bold text-base text-slate-900"><span class="term-highlight" onclick="openGlossary('숙련기술자')">숙련 기술자</span> 자격 및 정밀 장비 검교정 필증 확인</h3>
+                </div>
+
+                <!-- 📖 초심자 해설 박스 -->
+                <div class="bg-indigo-50 border border-indigo-300 p-5 rounded-xl text-xs text-slate-800 space-y-3 shadow-inner">
+                    <h4 class="font-black text-sm text-indigo-950 flex items-center gap-1.5">📖 [초심자 해설] 장비 검교정(Calibration)과 숙련 기술자 배치의 중요성</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-4 rounded-lg border border-indigo-200">
+                        <div>
+                            <span class="font-bold text-indigo-900 block mb-1">⚡ 1. 장비 검교정(1년 주기)이란?</span>
+                            <p class="text-slate-700 leading-relaxed">
+                                광융착기나 OTDR 측정기가 국가 표준 오차 기준 내에서 정확히 작동하는지 공인 기관에서 검사받는 필수 필증입니다. 검교정이 안 된 장비로 측정 시 <b>잘못된 접속 손실 수치가 출력되어 정밀 하자가 발생</b>합니다.
+                            </p>
+                        </div>
+                        <div>
+                            <span class="font-bold text-indigo-900 block mb-1">👤 2. 숙련 기술자 배치의 목적</span>
+                            <p class="text-slate-700 leading-relaxed">
+                                72-Core 가느다란 유리선을 녹이는 작업은 숙련된 기술자만이 오차 없이 수행할 수 있으며, 불량 접속으로 인한 재작업 비용 및 공기 지연을 사전에 예방합니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 📸 실제 장비 사진 -->
+                <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-indigo-900 block mb-2">📸 실무 사진: 광융착기 및 OTDR 측정 장비 검교정 필증 실물 사진</span>
+                    <img src="./fusion_splicer_calib.jpg" alt="광융착기 및 OTDR 검교정 장비 실물 사진" class="w-full h-52 object-cover rounded-lg border border-slate-300 shadow-sm cursor-pointer" onclick="openDiagramZoom('img_step2_tag', 'STEP 2 광융착기 및 OTDR 검교정 장비 현장 사진')">
+                    <img id="img_step2_tag" src="./fusion_splicer_calib.jpg" alt="광융착기 검교정 장비" class="hidden">
+                </div>
+
+                <!-- 2D SVG Diagram -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2', 'STEP 2 자원 투입 검교정 승인 2D 시공 도식')">
+                    <svg id="svg_step2" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="8"/>
+                        <text x="130" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">👤 인력 & 장비 서류 검토</text>
+                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 특급/고급 기술자 자격증</text>
+                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 광융착기/OTDR 검교정 필증</text>
+                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 유효기간 1년 이내 확인</text>
+
+                        <path d="M 245 90 L 285 90" stroke="#4f46e5" stroke-width="3"/>
+                        <polygon points="285,85 295,90 285,95" fill="#4f46e5"/>
+
+                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📑 현장 투입 최종 승인</text>
+                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 자재 야적장 보관 대책 통과</text>
+                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 교통통제 신호수 배치 완료</text>
+                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 자원 투입 서명 승인</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 품질 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    "검교정": "<b>검교정 (Calibration)</b><br><br>• 정밀 시험 측정 장비(광융착기, OTDR 등)가 국가 표준 기준과 일치하는 정확한 오차범위 내에서 작동하는지 공인기관에서 <b>1년 마다 검사받고 승인받는 절차</b>입니다.",
+    "숙련기술자": "<b>숙련 통신 기술자 (Professional Engineer)</b><br><br>• 정보통신공사업법에 의거한 고급/특급 기술자 자격증 보유자로, 72-Core 광케이블 접속 및 고난도 장비 세팅 실무 경력 5년 이상인 전문 인력입니다.",
+    "야적장보관": "<b>자재 야적장 자원 관리</b><br><br>• 광케이블, CCTV, 전광판 등 고가 자재가 비, 습기, 도난으로부터 보호되도록 방수 천막, 방염 덮개 및 현장 도난방지 펜스를 설치하여 보관하는 수칙입니다."
+};
+
+function openGlossary(term) {
+    const modal = document.getElementById('glossaryModal');
+    const titleEl = document.getElementById('modalTitle');
+    const descEl = document.getElementById('modalDescription');
+    
+    if (glossaryData[term]) {
+        titleEl.innerHTML = "📖 용어 해설: " + term;
+        descEl.innerHTML = glossaryData[term];
+        modal.classList.add('active');
+    }
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function closeGlossaryModalOutside(event) {
+    if (event.target.id === 'glossaryModal') {
+        closeGlossaryModal();
+    }
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+        closeGlossaryModal();
+    }
+});
+</script>
+
+</body>
+</html>
