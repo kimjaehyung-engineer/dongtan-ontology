@@ -74,7 +74,7 @@
         padding: 24px;
         border: 1px solid #e2e8f0;
         width: 90%;
-        max-width: 550px;
+        max-width: 580px;
         border-radius: 16px;
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         position: relative;
@@ -115,7 +115,7 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-7)</span>
         <h1 class="text-3xl font-black mt-2">발주처 품질 요구사항 검토 엔지니어링 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-7 | 주관: 현장 시스템팀 / 통신 감리단 | "초심자를 위한 전계강도 & RSRP 개념 완벽 수록"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-7 | 주관: 현장 시스템팀 / 통신 감리단 | "72-Core 광 접속 & 헷지방안 완벽 수록"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
@@ -124,7 +124,7 @@
             <h4 class="font-bold text-base flex items-center gap-2">💡 한눈에 읽는 전문 실무 가이드 (Flexible 4-Step Architecture)</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
                 본 지침서는 발주처 품질검사 지침(<span class="term-highlight" onclick="openGlossary('ITP')">ITP</span>/<span class="term-highlight" onclick="openGlossary('ITC')">ITC</span>)에 맞춰 <strong>품질 계획 사전검토, 광 접속 정밀측정, LTE-R 전파검증, ITC 서명체결 4단계 유연 프로세스</strong>로 체계화되었습니다.
-                본문 속 <span class="term-highlight" onclick="openGlossary('전계강도')">전계강도</span>, <span class="term-highlight" onclick="openGlossary('RSRP')">RSRP</span>, <span class="term-highlight" onclick="openGlossary('OTDR')">OTDR</span> 등의 전문 용어를 클릭하면 <strong>친절한 용어 팝업 해설 창</strong>이 뜹니다.
+                본문 속 <span class="term-highlight" onclick="openGlossary('전계강도')">전계강도</span>, <span class="term-highlight" onclick="openGlossary('RSRP')">RSRP</span>, <span class="term-highlight" onclick="openGlossary('OTDR')">OTDR</span>, <span class="term-highlight" onclick="openGlossary('융착접속')">융착접속</span>, <span class="term-highlight" onclick="openGlossary('헷지방안')">헷지방안</span> 용어를 클릭하면 <strong>친절한 용어 팝업 해설 창</strong>이 뜹니다.
             </p>
         </div>
 
@@ -237,17 +237,57 @@
                     </div>
                 </div>
 
-                <!-- STEP 2 HOW + VISUAL SVG -->
+                <!-- STEP 2 HOW + VISUAL SVG (72-Core 광 접속 & 헷지방안 초심자 해설 수록) -->
                 <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
                     <div class="flex items-center gap-3">
                         <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
-                        <h3 class="font-bold text-base text-slate-900">72-Core 메인 광케이블 접속 손실 0.05dB 이하 정밀 측정 시험</h3>
+                        <h3 class="font-bold text-base text-slate-900">72-Core 메인 광케이블 <span class="term-highlight" onclick="openGlossary('융착접속')">융착 접속</span> 손실 0.05dB 이하 정밀 측정 시험</h3>
                     </div>
+
+                    <!-- 📖 초심자를 위한 72-Core 광 접속의 의미, 불량 시 하자 위험, 접속 손실 원인 및 헷지 방안 해설 박스 -->
+                    <div class="bg-indigo-50 border border-indigo-300 p-5 rounded-xl text-xs text-slate-800 space-y-3 shadow-inner">
+                        <h4 class="font-black text-sm text-indigo-950 flex items-center gap-1.5">📖 [초심자 해설] 72-Core 광 접속의 의미, 하자 위험, 손실 원인 & 헷지(Hedge / 대책) 방안</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-4 rounded-lg border border-indigo-200">
+                            <div>
+                                <span class="font-bold text-indigo-900 block mb-1">⚡ 1. 72-Core & 융착 접속(Fusion Splicing)이란?</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    • <b>72-Core:</b> 머리카락만큼 가느다란 유리 파이버 72가닥이 들어있는 <b>트램의 메인 통신 고속도로(핏줄)</b>입니다.<br>
+                                    • <b>융착 접속:</b> 두 유리 단면을 <b>2,000℃ 고온 전기 불꽃으로 녹여서 하나로 완벽히 붙이는 정밀 공정</b>입니다.
+                                </p>
+                            </div>
+                            <div>
+                                <span class="font-bold text-indigo-900 block mb-1">🚨 2. 융착 불량 시 발생하는 하자 위험</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    • <b>화면 끊김/멈춤:</b> 유리 연결부 불량으로 빛이 새어나가 4K CCTV 및 승강장 안내 전광판 화면이 멈춥니다.<br>
+                                    • <b>통신 블랙아웃:</b> 융착이 나쁘면 열차 제어 통신이 차단되어 <b>대형 통신 장애</b>가 발생합니다.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-4 rounded-lg border border-indigo-200">
+                            <div>
+                                <span class="font-bold text-amber-900 block mb-1">🔍 3. 1개 코어당 접속 손실(Optical Loss) 원인</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    ① <b>단면 오염:</b> 유리선 끝에 묻은 미세 먼지/기름때<br>
+                                    ② <b>절단 각도 불량:</b> 칼날(Cleaver)로 자를 때 단면이 삐뚤어짐<br>
+                                    ③ <b>중심축 불일치:</b> 두 유리선의 빛 통로 중심축이 미세 편심 발생
+                                </p>
+                            </div>
+                            <div>
+                                <span class="font-bold text-emerald-900 block mb-1">🛡️ 4. 기준 초과(>0.05dB) 시 현장 <span class="term-highlight" onclick="openGlossary('헷지방안')">헷지(Hedge)</span> 방안</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    • <b>1단계 (즉시 재접속):</b> 접속 부위 절단 후 정밀 절삭기 재정리 및 자동 융착 재시행<br>
+                                    • <b>2단계 (예비 Core 전환):</b> 72가닥 중 손실된 코어 대신 <b>여분의 예비 코어(Spare Core)</b>로 우회 포트 교체<br>
+                                    • <b>3단계 (함체 재정비):</b> 접속 함체 알코올 클리닝 및 습기 재포장
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="bg-slate-50 p-5 rounded-xl text-xs text-slate-700 space-y-3 leading-relaxed border border-slate-200">
                         <p><strong>💡 핵심 실무 지침:</strong></p>
                         <ul class="list-disc pl-5 space-y-1.5 text-slate-800">
                             <li><strong>광 접속 검측:</strong> 72-Core 메인 광케이블 융착 접속 완료 후, <span class="term-highlight" onclick="openGlossary('OTDR')">OTDR</span>(광파동 측정기) 및 광파워미터(1310/1550nm)를 통해 측정합니다.</li>
-                            <li><strong>품질 기준 검증:</strong> 1개 Core당 접속 손실이 <strong>≤0.05dB(현장 관리 목표: 0.01 ~ 0.04dB)</strong>를 만족하는지 전수 검측하고 측정 결과 리포트를 제출합니다.</li>
+                            <li><strong>품질 기준 검증:</strong> 1개 Core당 <span class="term-highlight" onclick="openGlossary('접속손실')">접속 손실</span>이 <strong>≤0.05dB(현장 관리 목표: 0.01 ~ 0.04dB)</strong>를 만족하는지 전수 검측하고 측정 결과 리포트를 제출합니다.</li>
                         </ul>
                     </div>
 
@@ -443,11 +483,14 @@
 
 <script>
 const glossaryData = {
-    "RSRP": "<b>RSRP (Reference Signal Received Power: 기준 신호 수신 파워)</b><br><br>• <b>약어 풀이:</b> Reference Signal Received Power<br>• <b>개념:</b> LTE-R 기지국 안테나에서 쏘아주는 무선 신호 중 기준이 되는 신호를 스마트폰이나 트램 무전 장치가 얼마나 세게 받고 있는지를 나타내는 객관적 측정 수치입니다.<br>• <b>안전 의미:</b> <b>-95dBm 이상</b>을 유지해야 트램 운행 중 음영지역 없이 관제실과 24시간 끊김 없는 긴급 무전 및 열차 제어 데이터를 주고받아 사고를 예방할 수 있습니다.",
-    "전계강도": "<b>전계강도 (Field Strength)</b><br><br>• <b>개념:</b> 공기 중으로 전파되는 무선 신호의 세기(Power)를 의미합니다. 스마트폰 상단의 안테나 막대 개수와 동일한 의미입니다.<br>• <b>단위 (dBm):</b> 전파 세기는 dBm 단위를 사용하며 음수(-값)로 표기됩니다. 0에 가까울수록 신호가 강하고, -100dBm 이하로 작아지면 통신이 끊어지고 먹통이 됩니다.",
-    "OTDR": "<b>OTDR (Optical Time Domain Reflectometer: 광파동 측정기)</b><br><br>• 광케이블에 파장(1310/1550nm)의 빛을 쏘아 보낸 뒤 돌아오는 빛의 시간차를 분석하여, 광선 접속 부위의 광 손실(≤0.05dB) 및 절단 지점을 1cm 오차 없이 정밀 측정하는 전문 테스트 장비입니다.",
-    "ITP": "<b>ITP (Inspection and Test Plan: 품질검사 계획서)</b><br><br>• 발주처 및 시방서 기준에 따라 현장 자재 입고부터 시공 완료까지 어떤 품질 검사(Hold Point / Witness Point)를 시행할지 정의한 표준 품질 계획 문서입니다.",
-    "ITC": "<b>ITC (Inspection Certificate: 품질 검측 승인서)</b><br><br>• 발주처 품질감독관, 현장 총괄 감리원, 통신 책임자 3인이 시험 성적서를 최종 검증하고 합격을 공식 승인하는 결재 서류입니다."
+    "RSRP": "<b>RSRP (Reference Signal Received Power: 기준 신호 수신 파워)</b><br><br>• <b>약어 풀이:</b> Reference Signal Received Power<br>• <b>개념:</b> LTE-R 기지국 안테나에서 쏘아주는 무선 신호 중 기준이 되는 신호를 트램 무전 장치가 얼마나 세게 받고 있는지 나타내는 객관적 수치입니다.<br>• <b>안전 의미:</b> <b>-95dBm 이상</b>을 유지해야 음영지역 없이 관제실과 24시간 끊김 없는 긴급 무전 및 열차 제어 데이터를 주고받아 대형 사고를 예방합니다.",
+    "전계강도": "<b>전계강도 (Field Strength)</b><br><br>• <b>개념:</b> 공기 중으로 전파되는 무선 신호의 세기(Power)를 의미합니다. 스마트폰 안테나 막대 개수와 같은 개념입니다. (단위: dBm)",
+    "OTDR": "<b>OTDR (Optical Time Domain Reflectometer: 광파동 측정기)</b><br><br>• 광케이블에 파장(1310/1550nm)의 빛을 쏘아 접속 손실(≤0.05dB) 및 절단 지점을 1cm 오차 없이 정밀 측정하는 전문 테스트 장비입니다.",
+    "ITP": "<b>ITP (Inspection and Test Plan: 품질검사 계획서)</b><br><br>• 발주처 및 시방서 기준에 따라 자재 입고부터 시공 완료까지 시행할 품질 검사를 정의한 표준 서류입니다.",
+    "ITC": "<b>ITC (Inspection Certificate: 품질 검측 승인서)</b><br><br>• 발주처 품질감독관, 현장 총괄 감리원, 통신 책임자 3인이 합격을 최종 승인하는 결재 서류입니다.",
+    "융착접속": "<b>융착 접속 (Fusion Splicing)</b><br><br>• 머리카락만큼 가느다란 유리선 두 가닥을 2,000℃ 고온 전기 불꽃으로 녹여서 하나로 완벽히 붙이는 정밀 광케이블 연결 작업입니다.",
+    "접속손실": "<b>접속 손실 (Optical Loss)</b><br><br>• 유리선 접속 부위의 먼지, 불완전 절단, 미세한 중심축 불일치로 인해 빛 신호가 밖으로 새어나가는 현상입니다. <b>≤0.05dB 이하</b>가 합격 수치입니다.",
+    "헷지방안": "<b>손실 초과 시 현장 헷지(Hedge / 대책) 방안</b><br><br>• <b>1단계:</b> 접속 부위 즉시 절단 후 절삭기(Cleaver)로 단면 재정리 및 자동 융착 재시행<br>• <b>2단계:</b> 72가닥 중 손실이 발생하는 코어 대신 여분의 예비 코어(Spare Core) 채널로 즉시 우회 전환<br>• <b>3단계:</b> 접속 함체 알코올 세척 및 방수 재포장 조치"
 };
 
 function openGlossary(term) {
