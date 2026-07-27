@@ -96,15 +96,15 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-8)</span>
         <h1 class="text-3xl font-black mt-2">자재 / 인력 / 장비 등 투입 사전 검토 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-8 | 주관: 현장 시스템팀 / 협력업체 / 감리단 | "현장 실무 엔지니어링 수행 가이드"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-8 | 주관: 현장 시스템팀 / 협력업체 / 감리단 | "1:1 STEP별 직관적 2D 그림 수록 가이드"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
         <!-- 💡 개요 박스 -->
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
-            <h4 class="font-bold text-base flex items-center gap-2">💡 한눈에 읽는 현장 엔지니어링 실무 가이드</h4>
+            <h4 class="font-bold text-base flex items-center gap-2">💡 한눈에 읽는 현장 엔지니어링 실무 가이드 (1:1 그림 연동)</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                본 수행지침서는 공정별 숙련 기술자 자격 검수, 정밀 측정 장비(광융착기/OTDR)의 <span class="term-highlight" onclick="openGlossary('검교정')">검교정</span> 유효성(1년 이내), 자재 <span class="term-highlight" onclick="openGlossary('야적장보관')">야적장 5대 환경</span> 및 도로 굴착 현장 <span class="term-highlight" onclick="openGlossary('민원헷지')">민원 헷지 수칙</span>을 현장 엔지니어가 차질 없이 사전 검토·승인할 수 있도록 만든 실무 가이드입니다.
+                본 수행지침서는 공정별 숙련 기술자 자격 검수, 정밀 측정 장비(광융착기/OTDR)의 <span class="term-highlight" onclick="openGlossary('검교정')">검교정</span> 유효성(1년 이내), 자재 <span class="term-highlight" onclick="openGlossary('야적장보관')">야적장 5대 환경</span> 및 도로 굴착 현장 <span class="term-highlight" onclick="openGlossary('민원헷지')">민원 헷지 수칙</span>을 현장 엔지니어가 한눈에 이해할 수 있도록 <strong>모든 절차 카드마다 1:1 직관적 2D Visual SVG 도식 및 팝업 확대 기능</strong>을 결합하였습니다.
             </p>
         </div>
 
@@ -134,11 +134,11 @@
             </div>
         </div>
 
-        <!-- 🔥 세부 실무 가이드 & 사진 & 2D SVG -->
+        <!-- 🔥 세부 실무 가이드 & 1:1 2D Visual SVG 도식 -->
         <div class="space-y-8">
-            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-indigo-600 pb-2">엔지니어링 상세 실무 지침 & 1:1 2D 그림</h2>
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-indigo-600 pb-2">엔지니어링 상세 실무 지침 & 1:1 직관적 2D 그림</h2>
             
-            <!-- STEP 1 Card -->
+            <!-- STEP 1 Card with 2D SVG -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1</span>
@@ -148,9 +148,30 @@
                     <p>• <strong>자격 증명 대조:</strong> 정보통신공사업법 자격 기준에 따른 고급/특급 기술자 자격증 원본, 72-Core 광 접속 실무 경력증명서(3년 이상) 및 4대 보험 가입 증명서를 100% 사전에 대조합니다.</p>
                     <p>• <strong>안전교육 이수:</strong> 트램 궤도 선로 출입 안전교육, 고소작업차(CCTV/PIS/안테나 설치) 특별 안전교육 이수증을 검수하고 현장 투입 명단을 작성합니다.</p>
                 </div>
+
+                <!-- 1:1 STEP 1 2D SVG Diagram -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step1', 'STEP 1 숙련 기술자 자격증 대조 및 궤도 선로 안전교육 2D 도식')">
+                    <svg id="svg_step1" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+                        <text x="130" y="50" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">📋 통신 기술자 자격 검증</text>
+                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 고급/특급 기술자 자격증 대조</text>
+                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 72-Core 광접속 경력 3년이상</text>
+                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 자격 서류 100% 적합</text>
+
+                        <path d="M 245 90 L 285 90" stroke="#2563eb" stroke-width="3"/>
+                        <polygon points="285,85 295,90 285,95" fill="#2563eb"/>
+
+                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🦺 궤도/선로 안전교육 이수</text>
+                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 트램 선로 출입 안전 이수증</text>
+                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 고소작업차 특별 안전교육</text>
+                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 현장 투입 명단 승인</text>
+                    </svg>
+                </div>
             </div>
 
-            <!-- STEP 2 Card with Image -->
+            <!-- STEP 2 Card with Image & 2D SVG -->
             <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
@@ -164,13 +185,13 @@
                         <div>
                             <span class="font-bold text-indigo-900 block mb-1">⚡ 1. S/N 일치 검증 수칙</span>
                             <p class="text-slate-700 leading-relaxed">
-                                검교정 성적서에 기재된 일련번호(Serial No.)와 실제 투입되는 광융착기 및 OTDR 명판의 S/N가 일치하는지 대조해야 서류 위조나 타 장비 투입을 막을 수 있습니다.
+                                검교정 성적서에 기재된 일련번호(Serial No.)와 실제 투입되는 광융착기 및 OTDR 명판의 S/N가 일치하는지 대조하여 유효성을 보증합니다.
                             </p>
                         </div>
                         <div>
                             <span class="font-bold text-indigo-900 block mb-1">🔪 2. 광절단기 刃(날) 마모 점검</span>
                             <p class="text-slate-700 leading-relaxed">
-                                광케이블 접속 불량의 80%는 절단기 刃 마모로 발생합니다. 절단 각도(90°±0.5°) 유지 여부와 예비 배터리 팩 충전을 사전 확인해야 합니다.
+                                광케이블 접속 불량의 80%는 절단기 刃 마모로 발생합니다. 절단 각도(90°±0.5°) 유지 여부와 예비 배터리 팩 충전을 사전 확인합니다.
                             </p>
                         </div>
                     </div>
@@ -183,29 +204,29 @@
                     <img id="img_step2_tag" src="./fusion_splicer_calib.jpg" alt="광융착기 검교정 장비" class="hidden">
                 </div>
 
-                <!-- 2D SVG Diagram -->
-                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2', 'STEP 2 자원 투입 검교정 승인 2D 시공 도식')">
+                <!-- 1:1 STEP 2 2D SVG Diagram -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2', 'STEP 2 계측기 S/N 대조 및 검교정 필증 2D 시공 도식')">
                     <svg id="svg_step2" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
                         <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
                         <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="8"/>
-                        <text x="130" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">👤 인력 & 장비 서류 검토</text>
-                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 특급/고급 기술자 자격증</text>
-                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 광융착기/OTDR 검교정 필증</text>
-                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 유효기간 1년 이내 확인</text>
+                        <text x="130" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">⚡ 정밀 계측기 S/N 대조</text>
+                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 광융착기/OTDR 명판 S/N 일치</text>
+                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• KOLAS 1년이내 검교정 필증</text>
+                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 계측기 오차 오차범위 합격</text>
 
                         <path d="M 245 90 L 285 90" stroke="#4f46e5" stroke-width="3"/>
                         <polygon points="285,85 295,90 285,95" fill="#4f46e5"/>
 
                         <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📑 현장 투입 사전 승인</text>
-                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 자재 야적장 5대 환경 통과</text>
-                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 교통통제 신호수 2인 배치</text>
-                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 자원 투입 검토 완료</text>
+                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🔪 소모품 & 예비 전원 점검</text>
+                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 광절단기 刃 절단각 90°±0.5°</text>
+                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• OTDR 런치케이블/배터리 완충</text>
+                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 정밀 측정 준비 완료</text>
                     </svg>
                 </div>
             </div>
 
-            <!-- STEP 3 Card -->
+            <!-- STEP 3 Card with 2D SVG -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-cyan-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3</span>
@@ -215,9 +236,30 @@
                     <p>• <strong>광케이블 드럼 보관:</strong> 반입 시 드럼 외피 손상 및 찌그러짐을 점검하고, 최소 허용 곡률 반경(드럼 외경 20배 이상) 보관 상태를 검수합니다.</p>
                     <p>• <strong>야적장 5대 환경 표준:</strong> ① 지면 10cm 이상 이격 팔레트, ② 방수/방습 덮개, ③ 방염 천막, ④ 도난 방지 잠금 펜스, ⑤ 24시간 감시 CCTV 가동 조건을 갖춥니다.</p>
                 </div>
+
+                <!-- 1:1 STEP 3 2D SVG Diagram -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step3', 'STEP 3 광케이블 드럼 보관 및 야적장 5대 환경 2D 도식')">
+                    <svg id="svg_step3" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#0891b2" stroke-width="2" rx="8"/>
+                        <text x="130" y="50" font-size="13" font-weight="black" fill="#0e7490" text-anchor="middle">📦 광케이블 드럼 보관</text>
+                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 외피 찌그러짐/손상 정밀점검</text>
+                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 허용 곡률 반경 (R ≥ 20D) 준수</text>
+                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 자재 유실/손상 방지</text>
+
+                        <path d="M 245 90 L 285 90" stroke="#0891b2" stroke-width="3"/>
+                        <polygon points="285,85 295,90 285,95" fill="#0891b2"/>
+
+                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">⛺ 야적장 5대 안전 환경</text>
+                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 지면이격 팔레트 + 방수/방염천막</text>
+                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 잠금 펜스 + 24시간 CCTV 가동</text>
+                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 야적 보관 승인 완료</text>
+                    </svg>
+                </div>
             </div>
 
-            <!-- STEP 4 Card -->
+            <!-- STEP 4 Card with 2D SVG -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4</span>
@@ -226,6 +268,27 @@
                 <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
                     <p>• <strong>교통통제 신호수:</strong> 도로 굴착 및 지관 가설 작업 시 안전 형광 조끼와 점멸등을 착용한 전담 신호수 2인을 배치하고 안전 펜스를 설치합니다.</p>
                     <p>• <strong>24시간 민원 헷지 방안:</strong> 현장 소음/진동 민원 접수 시 2시간 이내 현장 출동 및 우회 가설재 설치 헷지 수칙을 철저히 운용합니다.</p>
+                </div>
+
+                <!-- 1:1 STEP 4 2D SVG Diagram -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step4', 'STEP 4 도로 굴착 안전 신호수 배치 및 민원 헷지 2D 도식')">
+                    <svg id="svg_step4" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="130" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🚧 도로 굴착 교통통제</text>
+                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 안전 신호수 2인 전담 배치</text>
+                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 안전 가황 펜스 & 야간 점멸등</text>
+                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 교통 사고 Zero 준수</text>
+
+                        <path d="M 245 90 L 285 90" stroke="#059669" stroke-width="3"/>
+                        <polygon points="285,85 295,90 285,95" fill="#059669"/>
+
+                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🛡️ 24H 민원 헷지 대책</text>
+                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 민원 발생 시 2시간 이내 출동</text>
+                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 우회 작업 & 방음 가설 조치</text>
+                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 현장 헷지 대응 완료</text>
+                    </svg>
                 </div>
             </div>
         </div>
