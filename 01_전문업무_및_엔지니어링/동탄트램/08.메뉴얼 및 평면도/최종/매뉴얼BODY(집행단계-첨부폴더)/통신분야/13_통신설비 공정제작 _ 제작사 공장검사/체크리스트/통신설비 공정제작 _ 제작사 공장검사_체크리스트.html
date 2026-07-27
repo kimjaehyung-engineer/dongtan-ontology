@@ -61,7 +61,7 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Inspection Checklist (WBS 9000-2-13)</span>
         <h1 class="text-3xl font-black mt-2">통신설비 공정제작 및 공장검사(FAT) 체크리스트</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "15대 대상 장비 & 4대 필수과제 도식연동 서식"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "15대 대상 장비 세부 파라미터 도식연동 서식"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-8">
@@ -173,27 +173,27 @@
                         </td>
                     </tr>
 
-                    <!-- GROUP 3: 15대 통신 장비 성능검사 시뮬레이션 -->
+                    <!-- GROUP 3: 15대 통신 장비 파라미터 성능검사 시뮬레이션 -->
                     <tr class="hover:bg-slate-50/80 transition">
                         <td class="p-6 text-center align-middle bg-slate-50/50 border-r border-slate-200 space-y-3">
                             <div class="text-2xl">🧪</div>
-                            <h4 class="font-black text-slate-900 text-sm">공장 내 성능시험</h4>
-                            <p class="text-[11px] text-slate-500 font-medium">(Step 3 장비시뮬)</p>
-                            <button type="button" onclick="openDiagramZoom('svg_step3_fat', 'STEP 3 공장 성능시험실 15대 장비 시뮬레이션 도식')" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full transition shadow-sm">
+                            <h4 class="font-black text-slate-900 text-sm">파라미터 성능시험</h4>
+                            <p class="text-[11px] text-slate-500 font-medium">(Step 3 수치검증)</p>
+                            <button type="button" onclick="openDiagramZoom('svg_step3_fat', 'STEP 3 공장 성능시험실 15대 장비 파라미터 시뮬레이션 도식')" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full transition shadow-sm">
                                 <span class="w-2 h-2 bg-indigo-300 rounded-full"></span> 시공 도식 열기
                             </button>
                         </td>
                         <td class="p-4 space-y-4">
                             <div class="space-y-1">
-                                <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded">5. 15대 장비 기능 구동</span>
+                                <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded">5. 15대 장비 파라미터</span>
                                 <p class="text-slate-800 font-medium leading-relaxed pl-1">
-                                    <strong>[성능 시험]</strong> OTN 광전송 Ring 절체(≤50ms), LTE-R 무선, CCTV 4K, PIS 표지판 등 15대 핵심 장비의 공장 시험실 시뮬레이션을 실시하였는가?
+                                    <strong>[정량 수치 검증]</strong> OTN 광 절체(≤50ms), LTE-R VSWR(≤1.5), 광케이블 감쇄계수(≤0.35dB/km), CCTV 4K(30fps) 수치를 계측·검증하였는가?
                                 </p>
                             </div>
                             <div class="space-y-1 border-t border-slate-100 pt-3">
                                 <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded">6. PAS 비상 방송 연동</span>
                                 <p class="text-slate-800 font-medium leading-relaxed pl-1">
-                                    <strong>[화재 연동]</strong> PAS 방송 앰프 화재 수신기 비상 차단 회로 시뮬레이션으로 자동 안내 방송 전환을 검증하였는가?
+                                    <strong>[화재 연동]</strong> PAS 방송 앰프 화재 수신기 비상 차단 회로 시뮬레이션으로 0.5초 이내 자동 안내 방송 전환을 확인하였는가?
                                 </p>
                             </div>
                         </td>
@@ -301,7 +301,7 @@
             <rect x="25" y="45" width="190" height="95" fill="#fffbebe" stroke="#f59e0b" stroke-width="1"/>
             <text x="35" y="65" font-size="9.5" font-weight="bold" fill="#92400e">• 장소: 통신자재 제조 공장</text>
             <text x="35" y="85" font-size="9.5" font-weight="bold" fill="#92400e">• 참석: 감리원 + 현장 시스템팀</text>
-            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#92400e">• 15대 장비 시뮬 준비 완료</text>
+            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#92400e">• 15대 장비 파라미터 시뮬 준비</text>
             <text x="120" y="152" font-size="10" font-weight="black" fill="#b45309" text-anchor="middle">✔ 입회 준비 완료</text>
         </g>
     </svg>

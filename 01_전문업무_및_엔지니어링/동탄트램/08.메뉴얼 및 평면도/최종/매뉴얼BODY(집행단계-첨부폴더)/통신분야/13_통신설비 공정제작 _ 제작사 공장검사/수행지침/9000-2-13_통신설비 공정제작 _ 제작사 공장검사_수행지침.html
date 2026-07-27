@@ -95,16 +95,16 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-13)</span>
         <h1 class="text-3xl font-black mt-2">통신설비 공정제작 및 제작사 공장검사(FAT) 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "초심자를 위한 15대 장비 해설 & 4대 검사절차 완벽 매뉴얼"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "15대 대상 장비별 핵심 검증 파라미터 & 판정 기준 상세 수록"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
         
         <!-- 💡 개념 해설 박스 -->
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
-            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 공장검사(FAT) 개념 안내</h4>
+            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 공장검사(FAT) 개념 및 검증 원칙</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                공장검사(FAT, Factory Acceptance Test)는 제작사에 주문한 통신 장비가 현장에 반입되기 전, <strong>제조 공장 성능시험실</strong>에서 미리 <span class="term-highlight" onclick="openGlossary('delivery_check')">Delivery 반입일정</span>, <span class="term-highlight" onclick="openGlossary('drawings_check')">제작도면 1:1 일치 여부</span>, <span class="term-highlight" onclick="openGlossary('insulation_test')">절연·전원 성능</span> 및 <span class="term-highlight" onclick="openGlossary('subsystem_sim')">기능 시뮬레이션</span>을 확인하여 결함 제품의 현장 반입을 완벽히 차단하는 품질 검수 절차입니다.
+                공장검사(FAT, Factory Acceptance Test)는 제작사에 주문한 통신 장비가 현장에 반입되기 전, <strong>제조 공장 성능시험실</strong>에서 미리 <span class="term-highlight" onclick="openGlossary('delivery_check')">Delivery 반입일정</span>, <span class="term-highlight" onclick="openGlossary('drawings_check')">제작도면 1:1 일치 여부</span>, <span class="term-highlight" onclick="openGlossary('insulation_test')">절연·전원 성능</span> 및 <span class="term-highlight" onclick="openGlossary('subsystem_sim')">15대 장비별 핵심 검증 파라미터</span>를 실측하여 결함 제품의 현장 반입을 완벽히 차단하는 품질 검수 절차입니다.
             </p>
         </div>
 
@@ -154,11 +154,14 @@
             </div>
         </div>
 
-        <!-- 📡 15대 공장검사 대상 장비 백과사전 및 초심자 해설 가이드 -->
+        <!-- 📡 15대 공장검사 대상 장비별 세부 확인 & 핵심 검증 파라미터 Deep-Dive -->
         <div class="space-y-6">
             <div class="border-b-2 border-blue-600 pb-2 flex items-center justify-between">
-                <h3 class="text-xl font-black text-slate-900">📡 공장검사 대상 15대 통신 장비별 역할 및 초심자 검수 가이드</h3>
-                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">장비별 역할 & 검수 포인트</span>
+                <div>
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">EQUIPMENT DEEP-DIVE VERIFICATION</span>
+                    <h3 class="text-xl font-black text-slate-900 mt-0.5">📡 15대 통신 장비별 주로 확인·검증해야 하는 세부 파라미터 및 판정 기준</h3>
+                </div>
+                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">정량적 수치 기준</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
@@ -171,11 +174,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">📹 영상감시장치 (CCTV)</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 승강장, 역사, 선로변 영상을 24시간 실시간 촬영하여 지능형 감시 서버로 송신하는 4K 카메라 및 NVR 랙 장비입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • IP66 방수방진 & IK10 내충격 성적서 1:1 대조<br>
+                        • 4K(3840x2160) @ 30fps 비디오 스트림 품질<br>
+                        • PoE (IEEE 802.3at) 소모 전력 실측
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• IP66 방수방진 하우징 검수<br">• 4K 30fps 영상 해상도 & PoE 시험</p>
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 영상 스트리밍 지연시간 ≤ 200 ms<br">• NVR 랙 30일 영상 저장 핫스왑 이중화</p>
                     </div>
                 </div>
 
@@ -187,11 +193,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">🖥️ 행선안내장치 (PIS)</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 정거장 승강장 및 대합실에 설치되어 트램 도착 시간, 행선지, 열차 위치 정보를 표시하는 LED/LCD 표지판입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • SMD LED 표지판 모듈 발광 휘도 및 시야각<br>
+                        • PIS 제어기(Controller) TCP/IP 및 RS-485 통신<br>
+                        • 야간 자동 감광(Auto Dimming) 센서 구동
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• LED 모듈 휘도(휘도 1500cd/㎡)<br">• 제어기(PIS Controller) 데이터 시뮬</p>
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 표지판 휘도 ≥ 1,500 cd/㎡ (광시야각 160°)<br">• 데이터 수신 시 문자 깨짐 0.00%</p>
                     </div>
                 </div>
 
@@ -203,11 +212,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">📢 구내방송장치 (PAS)</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 역사 내 승객 안내 방송, 화재 발생 시 비상 대피 방송을 출력하는 디지털 파워 앰프 및 음원 제어반 랙입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • D급 디지털 파워 앰프 신호 대 잡음비(S/N)<br>
+                        • THD 전고조파 왜곡률 계측기 실측<br>
+                        • 화재 수신기 연동 비상 차단 릴레이 회로
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• 화재 수신기 비상 차단 연동 회로<br">• 앰프 출력 S/N비(≥80dB) 검측</p>
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• S/N비 ≥ 80 dB, THD ≤ 1.0%<br">• 화재 신호 수신 시 0.5초 이내 비상 방송 전환</p>
                     </div>
                 </div>
 
@@ -219,11 +231,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">🌐 전송설비 (OTN 장치)</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 전 노선 통신 데이터를 100Gbps 대용량 광케이블로 고속 전송하는 트램 백본 광전송 시스템 랙입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • 100Gbps OTN 백본 트랜스폰더 광 파워<br>
+                        • Optical Ring 절단 시 주/예비 자동 절체<br>
+                        • BERT(Bit Error Rate Test) 패킷 오차 측정
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• 광 Ring 절체 시간(≤50ms) 시뮬<br">• OTN 카놀 모듈 이중화 테스트</p>
+                    <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-200 space-y-1">
+                        <span class="font-bold text-indigo-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-indigo-900 text-[10px] font-bold">• Ring 보호 절체 시간 ≤ 50 ms<br">• 비트 오류율 BERT = 0.00% (Zero Error)</p>
                     </div>
                 </div>
 
@@ -235,11 +250,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">💳 역무자동화설비 (AFC)</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 승객 요금 수납, 게이트 통과 제어, 교통카드 태그 정산을 담당하는 자동 게이트 및 제어 단말기입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • 자동 게이트 플랩 도어 모터 속도<br>
+                        • 교통카드 RF 리더기(13.56MHz) 응답성<br>
+                        • 역무 컴퓨터(TOM) 데이터 수납 이중화
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• 게이트 도어 동작 속도(0.5초)<br">• 카드 인식 응답시간(≤0.2초) 검증</p>
+                    <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-200 space-y-1">
+                        <span class="font-bold text-indigo-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-indigo-900 text-[10px] font-bold">• 게이트 도어 개폐 0.5초 이내<br">• RF 교통카드 태그 응답시간 ≤ 0.2초</p>
                     </div>
                 </div>
 
@@ -251,11 +269,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">📻 열차무선안내장치</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 트램 차량 내 차상 장치와 승강장 서버 간 무선 데이터 통신으로 열차 진입 수신을 전달하는 장비입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • 차상-승강장 무선 수신기 RF 차폐 커넥터<br>
+                        • 열차 위치 수신 데이터 패킷 손실률<br>
+                        • 무선 수신 이득 편차 측정
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• 무선 송수신 패킷 수신율(100%)<br">• RF 차폐 커넥터 조임검사</p>
+                    <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-200 space-y-1">
+                        <span class="font-bold text-indigo-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-indigo-900 text-[10px] font-bold">• 무선 패킷 수신 성공률 100%<br">• RF 이득 공차 ± 0.5 dB 이내</p>
                     </div>
                 </div>
 
@@ -267,11 +288,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">🗣️ 여객자동안내장치</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 열차 진입 시 음성 자동 안내 및 시각장애인용 음성 신호기를 통합 제어하는 자동 음성 서버입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • TTS(Text-to-Speech) 자동 음성 합성 음질<br>
+                        • 시각장애인용 음성 신호기 출력 음압<br>
+                        • 표지판-음성 안내 문장 동기화
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• 음성 파일 자동 재생 알고리즘<br">• 비상 음성 동기화 테스트</p>
+                    <div class="bg-teal-50 p-2.5 rounded-lg border border-teal-200 space-y-1">
+                        <span class="font-bold text-teal-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-teal-900 text-[10px] font-bold">• 음성 음압 레벨 75 dB ~ 85 dB<br">• 문자-음성 표출 지연시간 ≤ 0.1초</p>
                     </div>
                 </div>
 
@@ -283,11 +307,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">📡 열차무선설비 (LTE-R)</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 관제실(OCC)과 트램 운전사 간 철도 전용 무선 통화 및 열차 제어 데이터를 송수신하는 LTE-R 기지국 랙입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • 700MHz 기지국(DU/RRU) RF 출력 전력<br>
+                        • VSWR(정합수동비) 정밀 계측기 실측<br>
+                        • 관제-운전사 무선 통화 호(Call) 끊김 시험
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• RF 출력 전력 및 VSWR(≤1.5) 검측<br">• 무선 통화 호 끊김(Handover) 시험</p>
+                    <div class="bg-teal-50 p-2.5 rounded-lg border border-teal-200 space-y-1">
+                        <span class="font-bold text-teal-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-teal-900 text-[10px] font-bold">• 안테나 정합수동비 VSWR ≤ 1.5<br">• Handover 절체 성공률 100% (호 끊김 0%)</p>
                     </div>
                 </div>
 
@@ -299,11 +326,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">📻 재난방송수신설비</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 터널 및 지하 구간에서 FM 라디오 및 지상파 DMB 재난 방송 신호를 재중계하는 수신기 중계 랙입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • FM 라디오(88~108MHz) & DMB 수신 감도<br>
+                        • 지하 터널 중계 앰프 이득 계측<br>
+                        • 재난 자막/음성 비상 절체 응답성
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• FM/DMB 신호 증폭 이득 측정<br">• 재난 신호 비상 절체 응답 검증</p>
+                    <div class="bg-teal-50 p-2.5 rounded-lg border border-teal-200 space-y-1">
+                        <span class="font-bold text-teal-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-teal-900 text-[10px] font-bold">• FM 수신 감도 ≥ 60 dBμV<br">• 재난 방송 인가 시 1.0초 이내 자동 절체</p>
                     </div>
                 </div>
 
@@ -315,11 +345,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">🗄️ 선로변 통합인터페이스 함체</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 정거장 및 궤도변에 설치되는 옥외용 3.2m / 1.6m 통합 함체로, KEC 파이프 및 전원/통신 분출구를 포함합니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • Stainless 3.2m/1.6m 옥외 함체 IP66 방수<br>
+                        • KEC 전기설비규정 파이프 채움률 산출<br>
+                        • 함체 분청/도장 방청 막 두께 측정
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• IP66 방수성적서 및 KEC 33% 채움률<br">• 옥외용 방청 도장 두께 측정</p>
+                    <div class="bg-cyan-50 p-2.5 rounded-lg border border-cyan-200 space-y-1">
+                        <span class="font-bold text-cyan-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-cyan-900 text-[10px] font-bold">• KEC 전선관 내 파이프 채움률 ≤ 33%<br">• 방청 도장 두께 ≥ 80 ㎛ (수밀 100%)</p>
                     </div>
                 </div>
 
@@ -331,11 +364,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">☎️ 역무용통신설비 (IP-PBX)</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 역무실, 구원 인터폰, 승강장 비상 전화(SOS)를 통합 제어하는 IP 기반 교환기 장비입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • IP 교환기 내선 전화 호출 응답 속도<br>
+                        • 승강장 비상 전화(SOS) 인터폰 신호 회로<br>
+                        • POE 모듈 이중화 공급 테스트
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• 비상 통화 내선 연결 루프 시험<br">• POE 전원 이중화 공급 확인</p>
+                    <div class="bg-cyan-50 p-2.5 rounded-lg border border-cyan-200 space-y-1">
+                        <span class="font-bold text-cyan-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-cyan-900 text-[10px] font-bold">• SOS 버튼 누름 시 0.5초 이내 벨鳴<br">• 통화 음성 명료도 MOS 점수 ≥ 4.0</p>
                     </div>
                 </div>
 
@@ -347,11 +383,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">🔀 백본스위치 (L4/L3 Backbone)</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 차량기지 OCC 관제실에 위치하여 트램 전체 데이터 네트워크 통신 경로를 제어하는 코어 스위치 랙입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • OCC 관제실 코어 스위치 패킷 용량 실측<br>
+                        • CPU 및 파워 모듈 1+1 핫스왑 장애 수용<br>
+                        • L3 라우팅 테이블(OSPF/BGP) 생성 속도
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• 처리 용량(Thruput 1Gbps+) 시험<br">• CPU/파워 1+1 핫스왑 장애 절체</p>
+                    <div class="bg-cyan-50 p-2.5 rounded-lg border border-cyan-200 space-y-1">
+                        <span class="font-bold text-cyan-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-cyan-900 text-[10px] font-bold">• 데이터 패킷 전송 지연 ≤ 1.0 ms<br">• 파워 1개 수동 제거 시 무중단 연쇄 작동</p>
                     </div>
                 </div>
 
@@ -363,11 +402,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">🔌 L3스위치 / L2스위치</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 각 정거장 및 통신 함체 내부에서 단말 장비(CCTV, PIS)를 백본망에 접속시켜주는 네트워크 스위치입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • 정거장 field switch VLAN 포트 보안 격리<br>
+                        • QoS 우선순위 (CCTV/PAS/LTE-R)<br>
+                        • 산업용 동작 온도(-20℃ ~ 60℃) 하드웨어
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• VLAN 포트 설정 상태 확인<br">• 동작 온도(-20℃~60℃) 하드웨어 검증</p>
+                    <div class="bg-emerald-50 p-2.5 rounded-lg border border-emerald-200 space-y-1">
+                        <span class="font-bold text-emerald-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-emerald-900 text-[10px] font-bold">• 포트 링크 다운 시 STP 재구성 ≤ 1.0초<br">• 패킷 손실율 0.00% (Zero Packet Loss)</p>
                     </div>
                 </div>
 
@@ -379,11 +421,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">🧵 광케이블 (96Core / 48Core)</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 정거장과 OCC 간 통신 데이터를 빛의 신호로 전달하는 싱글모드 광섬유 케이블 드럼입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • Single-mode 광섬유 케이블 드럼 OTDR 파형<br>
+                        • 1310nm / 1550nm 광 파장별 감쇄계수 측정<br>
+                        • 광 융착 접속점 접속 손실 실측
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• OTDR 광 손실 파형(≤0.35dB/km)<br">• 케이블 피복 외경 & 드럼 포장 상태</p>
+                    <div class="bg-emerald-50 p-2.5 rounded-lg border border-emerald-200 space-y-1">
+                        <span class="font-bold text-emerald-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-emerald-900 text-[10px] font-bold">• 광감쇄계수 ≤ 0.35 dB/km (1310nm)<br">• 광 융착 접속 손실 ≤ 0.05 dB/접속점</p>
                     </div>
                 </div>
 
@@ -395,11 +440,14 @@
                     </div>
                     <h4 class="font-black text-slate-900 text-sm">🏗️ 케이블 · 안테나 · CCTV Pole</h4>
                     <p class="text-slate-600 leading-relaxed">
-                        <strong>[역할 및 정의]</strong> 정거장 승강장 및 선로변에 CCTV 및 LTE-R 안테나를 고정 취부하기 위한 용융아연도금 Pole 구조물입니다.
+                        <strong>[주요 확인 및 검증 파라미터]</strong><br>
+                        • 옥외 용융아연도금 Pole 도금 두께 막 실측<br>
+                        • Base Plate 용접 접합부 비파괴 검사(MT)<br>
+                        • 풍속 40m/s 내풍하중 내구성 성적서
                     </p>
-                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
-                        <p class="text-slate-600 text-[10px]">• Pole 도금 두께(≥60㎛) 검사<br">• Base Plate 용접 및 앵커 구멍 치수</p>
+                    <div class="bg-emerald-50 p-2.5 rounded-lg border border-emerald-200 space-y-1">
+                        <span class="font-bold text-emerald-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-emerald-900 text-[10px] font-bold">• 아연도금 두께 ≥ 60 ㎛ 이상<br">• 앵커 볼트 구멍 치수 공차 ± 1.0mm</p>
                     </div>
                 </div>
 
@@ -429,7 +477,7 @@
                 </div>
                 <div class="bg-white p-4 rounded-xl border-2 border-teal-300 shadow-sm space-y-2">
                     <span class="bg-teal-600 text-white text-[10px] font-black px-2 py-0.5 rounded">3단계: SIMULATION</span>
-                    <h4 class="font-black text-teal-950 text-xs">15대 장비 시뮬레이션</h4>
+                    <h4 class="font-black text-teal-950 text-xs">15대 장비 파라미터 시뮬</h4>
                     <p class="text-[10px] text-slate-600 leading-snug">• OTN 光절체 & LTE-R 무선<br">• CCTV 4K & PAS 방송 연동</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl border-2 border-emerald-400 shadow-sm space-y-2">
@@ -479,7 +527,7 @@
                             <rect x="25" y="45" width="190" height="95" fill="#fffbebe" stroke="#f59e0b" stroke-width="1"/>
                             <text x="35" y="65" font-size="9.5" font-weight="bold" fill="#92400e">• 장소: 통신자재 제조 공장</text>
                             <text x="35" y="85" font-size="9.5" font-weight="bold" fill="#92400e">• 참석: 감리원 + 현장 시스템팀</text>
-                            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#92400e">• 15대 장비 시뮬 준비 완료</text>
+                            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#92400e">• 15대 장비 파라미터 시뮬 준비</text>
                             <text x="120" y="152" font-size="10" font-weight="black" fill="#b45309" text-anchor="middle">✔ 입회 준비 완료</text>
                         </g>
                     </svg>
@@ -555,7 +603,7 @@
             <div class="bg-white p-6 rounded-2xl border border-teal-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-teal-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3</span>
-                    <h3 class="font-bold text-base text-slate-900">공장 내 시험실 15대 서브시스템 기능 시뮬레이션 구동</h3>
+                    <h3 class="font-bold text-base text-slate-900">공장 내 시험실 15대 서브시스템 정량적 파라미터 기능 시뮬레이션</h3>
                 </div>
                 <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
                     <li><strong>기능 시뮬레이션:</strong> 공장 성능 시험실에서 OTN 100G 광전송 Ring 절체(≤50ms), LTE-R 무선 통화 품질, CCTV 4K 30fps 지능형 감지 기능을 시뮬레이터로 구동합니다.</li>
@@ -687,10 +735,10 @@
 
 <script>
 const glossaryData = {
-    "delivery_check": "<b>Delivery 반입일정 확인</b><br><br>• 수입 광모듈, 스위치 칩셋 등 외산자재의 선적 및 통관 서류(B/L)를 검수하여 현장 기계실 반입 주공정표(CPM) 대비 납기 지연을 방지하는 확인 절칙입니다.",
+    "delivery_check": "<b>Delivery 반입일정 확인</b><br><br>• 수입 광모듈, 스위치 칩셋 등 외산자재의 선적 및 통관 서류(B/L)를 검수하여 현장 기계실 반입 주공정표(CPM) 대비 납기 지연을 방지하는 확인 절차입니다.",
     "drawings_check": "<b>제작도면 1:1 일치 여부 확인</b><br><br>• 승인된 자재승인도면과 실물 랙 내부의 결선 번호, Terminal Block 라벨링, DC -48V 전원 극성을 1:1 맞춤 대조하는 검수입니다.",
     "insulation_test": "<b>절연 저항 측정 (Megger)</b><br><br>• 절연저항계를 활용하여 DC -48V 전원선과 랙 외함 간 절연 상태(≥100MΩ) 및 접지저항(≤10Ω)을 실측하는 전원 안전 검측입니다.",
-    "subsystem_sim": "<b>15대 서브시스템 기능 시뮬레이션</b><br><br>• 현장 설치 전 공장 성능 시험실에서 OTN 광전송, LTE-R 무선통화, CCTV 4K, PAS 화재 방송 비상 차단 기능을 연동 테스트하는 시험입니다."
+    "subsystem_sim": "<b>15대 서브시스템 세부 파라미터 검증</b><br><br>• 공장 성능 시험실에서 OTN 광전송 절체(≤50ms), LTE-R 무선 VSWR(≤1.5), CCTV 4K(30fps), PAS 비상 방송 0.5초 차단 등 정량적 수치를 시뮬레이션하는 기능 검사입니다."
 };
 
 function openGlossary(term) {
