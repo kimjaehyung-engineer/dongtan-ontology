@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동탄트램 통신분야 - 발주처 품질 요구사항 검토 마스터 체크리스트 (WBS 9000-2-7)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Noto Sans KR', sans-serif; }
-        
+import os
+import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+chk_folder = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\08.메뉴얼 및 평면도\최종\매뉴얼BODY(집행단계-첨부폴더)\통신분야\7_발주처 품질 요구사항 검토\체크리스트"
+
+if not os.path.exists(chk_folder):
+    print("❌ ERROR: Checklist folder for WBS 9000-2-7 not found!")
+    sys.exit(1)
+
+zoom_modal_style = """
     .clickable-diagram {
         cursor: zoom-in !important;
         transition: all 0.25s ease !important;
@@ -62,7 +63,134 @@
     .zoom-close:hover {
         color: #ef4444;
     }
+"""
 
+common_js = """
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const svgStore = {
+    'step1': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+                <text x="130" y="48" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">📋 ITP/ITC 품질검사 지침서</text>
+                <g transform="translate(35, 62)">
+                    <rect x="0" y="0" width="190" height="25" fill="#e0f2fe" stroke="#2563eb" stroke-width="1.5" rx="3"/>
+                    <text x="95" y="17" font-size="10" font-weight="bold" fill="#1d4ed8" text-anchor="middle">✔ 자재 성적서 사전 검토 승인</text>
+                    <rect x="0" y="32" width="190" height="25" fill="#e0f2fe" stroke="#2563eb" stroke-width="1.5" rx="3"/>
+                    <text x="95" y="49" font-size="10" font-weight="bold" fill="#1d4ed8" text-anchor="middle">✔ 감리 입회점(Hold Point) 지정</text>
+                </g>
+                <path d="M 245 90 L 285 90" stroke="#2563eb" stroke-width="3"/>
+                <polygon points="285,85 295,90 285,95" fill="#2563eb"/>
+                <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                <text x="400" y="48" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📑 검측 시험 항목 확정</text>
+                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 광 손실 ≤ 0.05dB 검사</text>
+                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• LTE-R 전파 커버리지 검사</text>
+                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 사전 승인 완료</text>
+            </svg>`,
+    'step2': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="8"/>
+                <text x="130" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">⚡ OTDR 광파워미터 측정</text>
+                <rect x="40" y="65" width="180" height="40" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5" rx="4"/>
+                <text x="130" y="85" font-size="11" font-weight="black" fill="#3730a3" text-anchor="middle">접속 손실: 0.03 dB</text>
+                <text x="130" y="98" font-size="9" font-weight="bold" fill="#15803d" text-anchor="middle">(기준 0.05dB 이하 최상급 합격)</text>
+                <text x="130" y="135" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">72-Core 전수 파장 측정 통과</text>
+                <path d="M 245 90 L 285 90" stroke="#4f46e5" stroke-width="3"/>
+                <polygon points="285,85 295,90 285,95" fill="#4f46e5"/>
+                <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📊 광 성적서 승인</text>
+                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 1Core ~ 72Core 무결점</text>
+                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 광파장 1310/1550nm 합격</text>
+                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ ITP 승인 필증 획득</text>
+            </svg>`,
+    'step3': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#0891b2" stroke-width="2" rx="8"/>
+                <text x="130" y="50" font-size="13" font-weight="black" fill="#0e7490" text-anchor="middle">📶 LTE-R 전파 전계 측정</text>
+                <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 수신 전계강도: ≥ -95dBm</text>
+                <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 음영지역 커버리지 100%</text>
+                <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 무선 커버리지 통과</text>
+                <path d="M 245 90 L 285 90" stroke="#0891b2" stroke-width="3"/>
+                <polygon points="285,85 295,90 285,95" fill="#0891b2"/>
+                <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📑 무선국 준공 검증</text>
+                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 주파수 편차 적합</text>
+                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 법정 합격 필증 확보</text>
+                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 발주처 보고 완료</text>
+            </svg>`,
+    'step4': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                <text x="130" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🔴 ITP/ITC 합격 승인인</text>
+                <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 광/무선 품질 검측 통과</text>
+                <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 시방 규격 100% 만족</text>
+                <text x="130" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 품질 검측 승인 완료</text>
+                <rect x="260" y="25" width="240" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                <text x="380" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🖊️ 발주처·감리원 서명 체결</text>
+                <g transform="translate(295, 68)">
+                    <circle cx="25" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                    <text x="25" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">발주처</text>
+                    <circle cx="85" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                    <text x="85" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">감리원</text>
+                    <circle cx="145" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                    <text x="145" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">시스템</text>
+                </g>
+                <text x="380" y="122" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 품질 대장 최종 확정 완료</text>
+            </svg>`
+};
+
+function openDiagramZoomByKey(stepKey, titleText) {
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "시공 도식 대형 정밀 보기");
+    
+    if (svgStore[stepKey]) {
+        zoomBody.innerHTML = svgStore[stepKey];
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+    }
+});
+</script>
+"""
+
+# MASTER 3-COLUMN CHECKLIST HTML
+chk_master_3col_html = f"""<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 발주처 품질 요구사항 검토 마스터 체크리스트 (WBS 9000-2-7)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {{ font-family: 'Noto Sans KR', sans-serif; }}
+        {zoom_modal_style}
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
@@ -244,118 +372,17 @@
         </div>
     </div>
 </div>
-
-<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
-    <div class="zoom-modal-content" onclick="event.stopPropagation()">
-        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
-        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
-        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
-        </div>
-        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
-            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
-        </div>
-    </div>
-</div>
-
-<script>
-const svgStore = {
-    'step1': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
-                <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
-                <text x="130" y="48" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">📋 ITP/ITC 품질검사 지침서</text>
-                <g transform="translate(35, 62)">
-                    <rect x="0" y="0" width="190" height="25" fill="#e0f2fe" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-                    <text x="95" y="17" font-size="10" font-weight="bold" fill="#1d4ed8" text-anchor="middle">✔ 자재 성적서 사전 검토 승인</text>
-                    <rect x="0" y="32" width="190" height="25" fill="#e0f2fe" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-                    <text x="95" y="49" font-size="10" font-weight="bold" fill="#1d4ed8" text-anchor="middle">✔ 감리 입회점(Hold Point) 지정</text>
-                </g>
-                <path d="M 245 90 L 285 90" stroke="#2563eb" stroke-width="3"/>
-                <polygon points="285,85 295,90 285,95" fill="#2563eb"/>
-                <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                <text x="400" y="48" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📑 검측 시험 항목 확정</text>
-                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 광 손실 ≤ 0.05dB 검사</text>
-                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• LTE-R 전파 커버리지 검사</text>
-                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 사전 승인 완료</text>
-            </svg>`,
-    'step2': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
-                <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="8"/>
-                <text x="130" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">⚡ OTDR 광파워미터 측정</text>
-                <rect x="40" y="65" width="180" height="40" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5" rx="4"/>
-                <text x="130" y="85" font-size="11" font-weight="black" fill="#3730a3" text-anchor="middle">접속 손실: 0.03 dB</text>
-                <text x="130" y="98" font-size="9" font-weight="bold" fill="#15803d" text-anchor="middle">(기준 0.05dB 이하 최상급 합격)</text>
-                <text x="130" y="135" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">72-Core 전수 파장 측정 통과</text>
-                <path d="M 245 90 L 285 90" stroke="#4f46e5" stroke-width="3"/>
-                <polygon points="285,85 295,90 285,95" fill="#4f46e5"/>
-                <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📊 광 성적서 승인</text>
-                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 1Core ~ 72Core 무결점</text>
-                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 광파장 1310/1550nm 합격</text>
-                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ ITP 승인 필증 획득</text>
-            </svg>`,
-    'step3': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
-                <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#0891b2" stroke-width="2" rx="8"/>
-                <text x="130" y="50" font-size="13" font-weight="black" fill="#0e7490" text-anchor="middle">📶 LTE-R 전파 전계 측정</text>
-                <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 수신 전계강도: ≥ -95dBm</text>
-                <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 음영지역 커버리지 100%</text>
-                <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 무선 커버리지 통과</text>
-                <path d="M 245 90 L 285 90" stroke="#0891b2" stroke-width="3"/>
-                <polygon points="285,85 295,90 285,95" fill="#0891b2"/>
-                <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📑 무선국 준공 검증</text>
-                <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 주파수 편차 적합</text>
-                <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 법정 합격 필증 확보</text>
-                <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 발주처 보고 완료</text>
-            </svg>`,
-    'step4': `<svg viewBox="0 0 520 180" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
-                <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                <text x="130" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🔴 ITP/ITC 합격 승인인</text>
-                <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 광/무선 품질 검측 통과</text>
-                <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 시방 규격 100% 만족</text>
-                <text x="130" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 품질 검측 승인 완료</text>
-                <rect x="260" y="25" width="240" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
-                <text x="380" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🖊️ 발주처·감리원 서명 체결</text>
-                <g transform="translate(295, 68)">
-                    <circle cx="25" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
-                    <text x="25" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">발주처</text>
-                    <circle cx="85" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
-                    <text x="85" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">감리원</text>
-                    <circle cx="145" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
-                    <text x="145" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">시스템</text>
-                </g>
-                <text x="380" y="122" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 품질 대장 최종 확정 완료</text>
-            </svg>`
-};
-
-function openDiagramZoomByKey(stepKey, titleText) {
-    const zoomBody = document.getElementById('zoomBody');
-    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "시공 도식 대형 정밀 보기");
-    
-    if (svgStore[stepKey]) {
-        zoomBody.innerHTML = svgStore[stepKey];
-    }
-    
-    document.getElementById('zoomModal').classList.add('active');
-}
-
-function closeZoomModal() {
-    document.getElementById('zoomModal').classList.remove('active');
-}
-
-function closeZoomModalOutside(event) {
-    if (event.target.id === 'zoomModal') {
-        closeZoomModal();
-    }
-}
-
-window.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeZoomModal();
-    }
-});
-</script>
-
+{common_js}
 </body>
 </html>
+"""
+
+# Update Checklist Files
+for fn in os.listdir(chk_folder):
+    if fn.endswith('.html'):
+        fp = os.path.join(chk_folder, fn)
+        with open(fp, 'w', encoding='utf-8') as f:
+            f.write(chk_master_3col_html)
+        print(f"   ✓ [3-COLUMN MASTER REBUILT] Checklist -> {fn}")
+
+print("\n🎉 SUCCESSFULLY REBUILT WBS 9000-2-7 CHECKLIST HTMLs INTO 3-COLUMN MASTER STYLE WITH ZOOM MODALS & '~하였는가?' 100% PHRASING!")
