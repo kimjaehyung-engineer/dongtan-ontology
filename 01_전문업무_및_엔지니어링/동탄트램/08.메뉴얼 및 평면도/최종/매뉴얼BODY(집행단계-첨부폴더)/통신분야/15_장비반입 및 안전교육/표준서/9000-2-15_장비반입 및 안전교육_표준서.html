@@ -3,47 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동탄트램 통신분야 - 장비반입 및 안전교육 표준서</title>
+    <title>동탄트램 통신분야 - 장비반입 및 안전교육 표준서 (WBS 9000-2-15)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Noto Sans KR', sans-serif; }</style>
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
 <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
-    <div class="bg-slate-900 text-white p-8">
-        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Standard</span>
-        <h1 class="text-3xl font-black mt-2">장비반입 및 안전교육 표준서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-15 | 주관: 현장 시스템팀 / 안전팀</p>
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Technical Standard (WBS 9000-2-15)</span>
+        <h1 class="text-3xl font-black mt-2">장비반입 및 안전교육 기술 표준서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-15 | 주관: 현장 시스템팀 / 안전팀 | "통신장비 운송·양중 하중 파라미터 & 특별안전교육 시방 규정"</p>
     </div>
     
-    <div class="p-8 space-y-8">
-        <div class="bg-blue-50 border border-blue-200 p-6 rounded-xl">
-            <h3 class="text-base font-bold text-blue-950 mb-2">🎯 표준 목적 (Objective)</h3>
-            <p class="text-slate-700 text-sm font-medium leading-relaxed">장비 반입 준비 및 안전교육 완료</p>
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 표준서 명세 안내 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 장비반입 및 특별안전교육 기술 표준서 명세 개요</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                본 표준서는 동탄도시철도(트램) 통신설비 본공사를 위해 <strong>19인치 통신 랙, OTN 전송 장비, LTE-R 기지국, 광케이블 드럼, PIS/PAS 앰프</strong> 등 고가·정밀 통신장비/자재를 현장 기계실 및 궤도변에 안전하게 운송·양중 반입하고, 작업자에 대한 특별안전교육을 집행하기 위한 엔지니어링 및 산안법 표준 규정입니다.
+            </p>
         </div>
 
-        <div>
-            <h3 class="text-lg font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">📜 시공 및 품질 검토 시방 수칙 (Methodology)</h3>
-            <ul class="space-y-3">
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 자재반입 경로, 적치장소에 대한 사전확인 및 타분야 일정, 간섭사항 협의/확인</span>
-                </li>
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 장비 Spec확인, 장비상태 점검</span>
-                </li>
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 작업원 안전교육 실시</span>
-                </li>
-            </ul>
+        <!-- 📄 1. 관련 기술 시방서 및 관할 법령 기준 -->
+        <div class="space-y-4">
+            <div class="border-b-2 border-blue-600 pb-2">
+                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">ENGINEERING SPECIFICATIONS</span>
+                <h3 class="text-xl font-black text-slate-900 mt-0.5">📄 1. 관련 기술 시방서 & 산업안전보건 관할 법령</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">시방 기준 01</span>
+                    <h4 class="font-bold text-slate-900">KCS 47 10 00 철도통신설비 공사시방서</h4>
+                    <p class="text-slate-600 leading-relaxed">• 통신장비 반입 시 정밀 전자 기기 충격 방지(≤15G) 포장 유지<br">• 광케이블 드럼 반입 시 곡률 반지름(R ≥ 20D) 수칙 준수</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">시방 기준 02</span>
+                    <h4 class="font-bold text-slate-900">KCS 11 00 00 가설 및 안전관리 시방서</h4>
+                    <p class="text-slate-600 leading-relaxed">• 크레인/리프트 등 양중 장비 정격하중(SWL) 및 아웃트리거 받침목 필수<br">• 양중 와이어 로프 및 샤클 안전율(Safety Factor) ≥ 5 적용</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded">관할 법령 01</span>
+                    <h4 class="font-bold text-slate-900">산업안전보건법 제29조 (안전보건교육)</h4>
+                    <p class="text-slate-600 leading-relaxed">• 양중 및 고소작업 착수 전 특별안전보건교육 2시간 이상 필수 이수<br">• 안전교육 일지 및 서명부 작성 보관 관리</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded">관할 법령 02</span>
+                    <h4 class="font-bold text-slate-900">KOSHA GUIDE (양중 작업 안전지침)</h4>
+                    <p class="text-slate-600 leading-relaxed">• 반입 이동 동선 내 전담 신호수 2인 배치 및 통제 구역 펜스 설치<br">• 양중용 걸이구 훅 해지장치 100% 가동 점검</p>
+                </div>
+            </div>
         </div>
 
-        <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-xl">
-            <h3 class="text-base font-bold text-emerald-950 mb-2">📦 증빙 산출물 (Deliverables)</h3>
-            <p class="text-emerald-900 text-sm font-bold">안전교육 결과서, 측량기록지</p>
+        <!-- 📊 2. 주요 통신장비/자재별 중량 & 운송/양중 정량 파라미터 기준표 -->
+        <div class="space-y-4">
+            <div class="border-b-2 border-blue-600 pb-2">
+                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">EQUIPMENT WEIGHT & HOISTING PARAMETERS</span>
+                <h3 class="text-xl font-black text-slate-900 mt-0.5">📊 2. 통신 주요 장비/자재별 운송 및 양중 정량 파라미터</h3>
+            </div>
+            
+            <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
+                            <th class="p-3 font-bold text-center w-12">번호</th>
+                            <th class="p-3 font-bold w-36">통신 장비/자재 명칭</th>
+                            <th class="p-3 font-bold">단위 중량 / 규격</th>
+                            <th class="p-3 font-bold">양중 및 운송 하중 조건</th>
+                            <th class="p-3 font-bold">정량적 합격 판정 한계 기준</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white text-slate-800">
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold text-slate-500">01</td>
+                            <td class="p-3 font-bold text-blue-900">19인치 통신 랙 (2200H)</td>
+                            <td class="p-3">자중 180 ~ 250 kg / 랙</td>
+                            <td class="p-3">양중 하중 0.5 ton / 틸팅 방지 래싱</td>
+                            <td class="p-3 font-bold text-blue-950">전도 방지 4점 체결 | 충격 ≤ 15G Pass</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold text-slate-500">02</td>
+                            <td class="p-3 font-bold text-blue-900">OTN 전송 랙 & 백본스위치</td>
+                            <td class="p-3">자중 120 ~ 160 kg / 랙</td>
+                            <td class="p-3">정밀 계측기 충격 방지 포장</td>
+                            <td class="p-3 font-bold text-blue-950">충격 15G 이하 | 정밀수평 오차 ±1.0mm</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold text-slate-500">03</td>
+                            <td class="p-3 font-bold text-blue-900">LTE-R 기지국 (RU/DU) 랙</td>
+                            <td class="p-3">자중 150 kg / 랙 (IP65)</td>
+                            <td class="p-3">양중 와이어 로프 안전율 ≥ 5</td>
+                            <td class="p-3 font-bold text-blue-950">방수 IP65 무결성 | 안전고리 해지장치 100%</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold text-slate-500">04</td>
+                            <td class="p-3 font-bold text-indigo-900">광케이블 드럼 (Optical Drum)</td>
+                            <td class="p-3">자중 450 ~ 600 kg / 드럼</td>
+                            <td class="p-3">회전축 앙카 롤러 운송 고정</td>
+                            <td class="p-3 font-bold text-indigo-950">곡률 반지름 R ≥ 20D | 외피 긁힘 0mm</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-3 text-center font-bold text-slate-500">05</td>
+                            <td class="p-3 font-bold text-indigo-900">PIS / PAS 앰프 및 제어 랙</td>
+                            <td class="p-3">자중 130 kg / 랙</td>
+                            <td class="p-3">하부 고무 완충 패드 고정</td>
+                            <td class="p-3 font-bold text-indigo-950">하부 고무 패드 | 절연저항 ≥ 100MΩ Pass</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        <!-- 🛡️ 3. 양중 장비 안전 점검 & 특별안전교육 실행 표준 -->
+        <div class="bg-gradient-to-r from-slate-900 to-blue-950 text-white p-7 rounded-2xl space-y-4">
+            <div class="border-b border-blue-800 pb-2">
+                <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">SAFETY MANAGEMENT CODE</span>
+                <h3 class="text-lg font-black text-white mt-1">🛡️ 3. 양중 장비 안전 점검 & 특별안전교육 지침</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-1.5">
+                    <span class="text-blue-400 font-bold text-[11px]">🏗️ 크레인/리프트 양중 장비 안전</span>
+                    <p class="text-slate-200 leading-relaxed">• 이동식 크레인 아웃트리거(Outrigger) 100% 인출 및 받침목(50mm 이상) 설치<br">• 권상 와이어 로프 소선 단선율 ≤ 10%, 훅 해지장치 가동 확인</p>
+                </div>
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-1.5">
+                    <span class="text-blue-400 font-bold text-[11px]">👷 작업자 특별안전교육 체계</span>
+                    <p class="text-slate-200 leading-relaxed">• 신호수 지정 및 무전기 수신 주파수 100% 사전 대조<br">• 개인 보호구(안전모, 안전화, 2줄 턱끈, 안전대) 착용 점검 후 서명부 확립</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>
