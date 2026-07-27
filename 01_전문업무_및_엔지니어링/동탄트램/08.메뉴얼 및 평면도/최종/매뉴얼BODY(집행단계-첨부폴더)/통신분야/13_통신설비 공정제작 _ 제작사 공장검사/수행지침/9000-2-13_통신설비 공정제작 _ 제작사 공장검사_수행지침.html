@@ -54,7 +54,7 @@
             padding: 24px;
             border: 1px solid #e2e8f0;
             width: 90%;
-            max-width: 580px;
+            max-width: 620px;
             border-radius: 16px;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             position: relative;
@@ -95,51 +95,314 @@
     <div class="bg-slate-900 text-white p-8 relative">
         <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-13)</span>
         <h1 class="text-3xl font-black mt-2">통신설비 공정제작 및 제작사 공장검사(FAT) 수행지침서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "FAT 공장검사 4단계 마스터 프로세스 탑재"</p>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "초심자를 위한 15대 장비 해설 & 4대 검사절차 완벽 매뉴얼"</p>
     </div>
     
     <div class="p-6 sm:p-10 space-y-10">
         
         <!-- 💡 개념 해설 박스 -->
         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
-            <h4 class="font-bold text-base flex items-center gap-2">💡 공장검사(FAT) 및 공정제작 검수 실무 개요</h4>
+            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 공장검사(FAT) 개념 안내</h4>
             <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
-                본 지침서는 제조 공장에서 통신 랙 및 장비가 완성된 후, 현장 반입 전 <strong><span class="term-highlight" onclick="openGlossary('fat_procedure')">공장검사 절차서(ITP)</span></strong>에 따라 <span class="term-highlight" onclick="openGlossary('insulation_test')">절연·전원 검사</span> 및 <span class="term-highlight" onclick="openGlossary('subsystem_sim')">9대 서브시스템 기능 시뮬레이션</span>을 실시하여 감리 승인을 수득하는 절차서입니다.
+                공장검사(FAT, Factory Acceptance Test)는 제작사에 주문한 통신 장비가 현장에 반입되기 전, <strong>제조 공장 성능시험실</strong>에서 미리 <span class="term-highlight" onclick="openGlossary('delivery_check')">Delivery 반입일정</span>, <span class="term-highlight" onclick="openGlossary('drawings_check')">제작도면 1:1 일치 여부</span>, <span class="term-highlight" onclick="openGlossary('insulation_test')">절연·전원 성능</span> 및 <span class="term-highlight" onclick="openGlossary('subsystem_sim')">기능 시뮬레이션</span>을 확인하여 결함 제품의 현장 반입을 완벽히 차단하는 품질 검수 절차입니다.
             </p>
         </div>
 
-        <!-- 🎯 엔지니어 필수 숙지 배경 카드 -->
-        <div class="bg-gradient-to-br from-amber-50 via-orange-50/60 to-yellow-50 border-2 border-amber-300 p-7 rounded-2xl shadow-md space-y-5">
-            <div class="border-b border-amber-300 pb-3 flex items-center justify-between">
+        <!-- ⚙️ 공장검사 4대 필수 확인 과제 카드 -->
+        <div class="bg-gradient-to-br from-blue-50 via-indigo-50/70 to-sky-50 border-2 border-indigo-300 p-7 rounded-2xl shadow-md space-y-5">
+            <div class="border-b border-indigo-300 pb-3 flex items-center justify-between">
                 <div>
-                    <span class="bg-amber-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase">ENGINEERING BACKGROUND & ESSENTIALS</span>
-                    <h3 class="text-xl font-black text-amber-950 mt-1">🎯 현장 엔지니어 필수 숙지: 왜 공장검사(FAT)가 현장 결함을 막는 최종 관문인가?</h3>
+                    <span class="bg-indigo-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase">4-CORE FAT TASKS</span>
+                    <h3 class="text-xl font-black text-indigo-950 mt-1">⚙️ 공장검사 현장에서 반드시 수행해야 하는 4대 핵심 과제</h3>
                 </div>
-                <span class="text-xs text-amber-900 font-black bg-white px-3 py-1.5 rounded-lg border border-amber-400 shadow-sm">실무 핵심 배경</span>
+                <span class="text-xs text-indigo-900 font-black bg-white px-3 py-1.5 rounded-lg border border-indigo-400 shadow-sm">현장 점검 필수</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="bg-white p-5 rounded-xl border border-indigo-200 space-y-2 shadow-sm">
+                    <span class="bg-blue-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">과제 1</span>
+                    <h4 class="font-black text-slate-900 text-sm">📦 1. 외산자재 등 Delivery 반입 일정 확인</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px]">
+                        • 수입 칩셋, Optical Module, 백본 스위치 등 외산 자재의 B/L(선적증명서) 및 수입 통관 서류 확인<br>
+                        • 트램 기계실 반입 주공정표(CPM) 대비 제작 납기 지연 여부를 사전 산출하여 공정 차질 예방
+                    </p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-indigo-200 space-y-2 shadow-sm">
+                    <span class="bg-indigo-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">과제 2</span>
+                    <h4 class="font-black text-slate-900 text-sm">📐 2. 제작도서 기준 최종 제작 상태 확인</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px]">
+                        • 승인받은 자재승인서 대비 랙 외함(2200H), 메쉬도어, 도장 상태, 부품 고정 정밀도 검수<br>
+                        • 랙 내부 접지 단자대 및 전원 분배기(PDU)의 볼트 체결 조임 상태 1:1 육안 검측
+                    </p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-indigo-200 space-y-2 shadow-sm">
+                    <span class="bg-teal-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">과제 3</span>
+                    <h4 class="font-black text-slate-900 text-sm">📑 3. 제작도면과 1:1 일치 여부 상세 대조</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px]">
+                        • 승인된 Shop Drawing(상세 제작도면)을 도면에 펼치고 Internal Wiring 결선 번호 1:1 맞춤 대조<br>
+                        • DC -48V 전원 극성, Terminal Block 번호 표기 및 케이블 라벨링(Tagging) 정확도 확인
+                    </p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-indigo-200 space-y-2 shadow-sm">
+                    <span class="bg-emerald-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">과제 4</span>
+                    <h4 class="font-black text-slate-900 text-sm">🧪 4. 공장 내 성능검사 시험실시 (FAT 구동)</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px]">
+                        • 절연저항계(Megger)로 전원선-외함 간 절연저항(≥100MΩ) 및 접지저항(≤10Ω) 실측<br>
+                        • 공장 시험실 시뮬레이터에 연결하여 15대 통신 서브시스템 기능 시뮬레이션 및 데이터 패킷 테스트
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📡 15대 공장검사 대상 장비 백과사전 및 초심자 해설 가이드 -->
+        <div class="space-y-6">
+            <div class="border-b-2 border-blue-600 pb-2 flex items-center justify-between">
+                <h3 class="text-xl font-black text-slate-900">📡 공장검사 대상 15대 통신 장비별 역할 및 초심자 검수 가이드</h3>
+                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">장비별 역할 & 검수 포인트</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                <div class="bg-white p-4 rounded-xl border border-amber-300 space-y-2 shadow-sm">
-                    <span class="bg-amber-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">핵심 이유 1</span>
-                    <h4 class="font-black text-amber-950 text-xs">⚙️ 현장 반입 후 수정 불가능한 하드웨어 결함 사전 도출</h4>
-                    <p class="text-slate-700 leading-relaxed text-[11px] font-medium">
-                        랙 치수 불일치, 전원 극성 오류, 내부 배선 단선 등 공장에서 미리 수정할 수 있어 현장 재작업 손실을 예방합니다.
+                
+                <!-- 1. 영상감시장치 (CCTV) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 01</span>
+                        <span class="text-[11px] font-bold text-blue-900">CCTV 설비</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📹 영상감시장치 (CCTV)</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 승강장, 역사, 선로변 영상을 24시간 실시간 촬영하여 지능형 감시 서버로 송신하는 4K 카메라 및 NVR 랙 장비입니다.
                     </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• IP66 방수방진 하우징 검수<br">• 4K 30fps 영상 해상도 & PoE 시험</p>
+                    </div>
                 </div>
-                <div class="bg-white p-4 rounded-xl border border-amber-300 space-y-2 shadow-sm">
-                    <span class="bg-orange-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">핵심 이유 2</span>
-                    <h4 class="font-black text-orange-950 text-xs">🔌 9대 통신 서브시스템 소프트웨어 연동 사전 검증</h4>
-                    <p class="text-slate-700 leading-relaxed text-[11px] font-medium">
-                        광전송(OTN), LTE-R 무선망, CCTV 지능형 모듈이 공장 시뮬레이터 환경에서 정상 작동하는지 사전 확인합니다.
+
+                <!-- 2. 행선안내장치 (PIS) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 02</span>
+                        <span class="text-[11px] font-bold text-blue-900">PIS 표지판</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🖥️ 행선안내장치 (PIS)</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 정거장 승강장 및 대합실에 설치되어 트램 도착 시간, 행선지, 열차 위치 정보를 표시하는 LED/LCD 표지판입니다.
                     </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• LED 모듈 휘도(휘도 1500cd/㎡)<br">• 제어기(PIS Controller) 데이터 시뮬</p>
+                    </div>
                 </div>
-                <div class="bg-white p-4 rounded-xl border border-amber-300 space-y-2 shadow-sm">
-                    <span class="bg-yellow-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">핵심 이유 3</span>
-                    <h4 class="font-black text-yellow-950 text-xs">📄 현장 반입 허가 공문 수득의 기준</h4>
-                    <p class="text-slate-700 leading-relaxed text-[11px] font-medium">
-                        감리원의 입회 서명이 완료된 FAT 결과보고서 없이는 현장에 자재를 반입하거나 기계실 배선을 개시할 수 없습니다.
+
+                <!-- 3. 구내방송장치 (PAS) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 03</span>
+                        <span class="text-[11px] font-bold text-blue-900">PAS 방송설비</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📢 구내방송장치 (PAS)</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 역사 내 승객 안내 방송, 화재 발생 시 비상 대피 방송을 출력하는 디지털 파워 앰프 및 음원 제어반 랙입니다.
                     </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• 화재 수신기 비상 차단 연동 회로<br">• 앰프 출력 S/N비(≥80dB) 검측</p>
+                    </div>
                 </div>
+
+                <!-- 4. 전송설비 (OTN) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 04</span>
+                        <span class="text-[11px] font-bold text-indigo-900">OTN 광전송</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🌐 전송설비 (OTN 장치)</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 전 노선 통신 데이터를 100Gbps 대용량 광케이블로 고속 전송하는 트램 백본 광전송 시스템 랙입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• 광 Ring 절체 시간(≤50ms) 시뮬<br">• OTN 카놀 모듈 이중화 테스트</p>
+                    </div>
+                </div>
+
+                <!-- 5. 역무자동화설비 (AFC) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 05</span>
+                        <span class="text-[11px] font-bold text-indigo-900">AFC 요금설비</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">💳 역무자동화설비 (AFC)</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 승객 요금 수납, 게이트 통과 제어, 교통카드 태그 정산을 담당하는 자동 게이트 및 제어 단말기입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• 게이트 도어 동작 속도(0.5초)<br">• 카드 인식 응답시간(≤0.2초) 검증</p>
+                    </div>
+                </div>
+
+                <!-- 6. 열차무선안내장치 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 06</span>
+                        <span class="text-[11px] font-bold text-indigo-900">열차무선안내</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📻 열차무선안내장치</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 트램 차량 내 차상 장치와 승강장 서버 간 무선 데이터 통신으로 열차 진입 수신을 전달하는 장비입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• 무선 송수신 패킷 수신율(100%)<br">• RF 차폐 커넥터 조임검사</p>
+                    </div>
+                </div>
+
+                <!-- 7. 여객자동안내장치 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 07</span>
+                        <span class="text-[11px] font-bold text-teal-900">여객안내</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🗣️ 여객자동안내장치</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 열차 진입 시 음성 자동 안내 및 시각장애인용 음성 신호기를 통합 제어하는 자동 음성 서버입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• 음성 파일 자동 재생 알고리즘<br">• 비상 음성 동기화 테스트</p>
+                    </div>
+                </div>
+
+                <!-- 8. 열차무선설비 (LTE-R) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 08</span>
+                        <span class="text-[11px] font-bold text-teal-900">LTE-R 무선망</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📡 열차무선설비 (LTE-R)</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 관제실(OCC)과 트램 운전사 간 철도 전용 무선 통화 및 열차 제어 데이터를 송수신하는 LTE-R 기지국 랙입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• RF 출력 전력 및 VSWR(≤1.5) 검측<br">• 무선 통화 호 끊김(Handover) 시험</p>
+                    </div>
+                </div>
+
+                <!-- 9. 재난방송수신설비 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 09</span>
+                        <span class="text-[11px] font-bold text-teal-900">재난방송</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📻 재난방송수신설비</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 터널 및 지하 구간에서 FM 라디오 및 지상파 DMB 재난 방송 신호를 재중계하는 수신기 중계 랙입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• FM/DMB 신호 증폭 이득 측정<br">• 재난 신호 비상 절체 응답 검증</p>
+                    </div>
+                </div>
+
+                <!-- 10. 선로변 통합인터페이스 통신설비 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-cyan-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 10</span>
+                        <span class="text-[11px] font-bold text-cyan-900">통합함체</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🗄️ 선로변 통합인터페이스 함체</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 정거장 및 궤도변에 설치되는 옥외용 3.2m / 1.6m 통합 함체로, KEC 파이프 및 전원/통신 분출구를 포함합니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• IP66 방수성적서 및 KEC 33% 채움률<br">• 옥외용 방청 도장 두께 측정</p>
+                    </div>
+                </div>
+
+                <!-- 11. 역무용통신설비 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-cyan-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 11</span>
+                        <span class="text-[11px] font-bold text-cyan-900">역무통신</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">☎️ 역무용통신설비 (IP-PBX)</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 역무실, 구원 인터폰, 승강장 비상 전화(SOS)를 통합 제어하는 IP 기반 교환기 장비입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• 비상 통화 내선 연결 루프 시험<br">• POE 전원 이중화 공급 확인</p>
+                    </div>
+                </div>
+
+                <!-- 12. 백본스위치 (L4/L3) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-cyan-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 12</span>
+                        <span class="text-[11px] font-bold text-cyan-900">백본스위치</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🔀 백본스위치 (L4/L3 Backbone)</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 차량기지 OCC 관제실에 위치하여 트램 전체 데이터 네트워크 통신 경로를 제어하는 코어 스위치 랙입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• 처리 용량(Thruput 1Gbps+) 시험<br">• CPU/파워 1+1 핫스왑 장애 절체</p>
+                    </div>
+                </div>
+
+                <!-- 13. L3스위치 / L2스위치 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 13</span>
+                        <span class="text-[11px] font-bold text-emerald-900">현장 스위치</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🔌 L3스위치 / L2스위치</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 각 정거장 및 통신 함체 내부에서 단말 장비(CCTV, PIS)를 백본망에 접속시켜주는 네트워크 스위치입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• VLAN 포트 설정 상태 확인<br">• 동작 온도(-20℃~60℃) 하드웨어 검증</p>
+                    </div>
+                </div>
+
+                <!-- 14. 광케이블 (96C/48C) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 14</span>
+                        <span class="text-[11px] font-bold text-emerald-900">광케이블</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🧵 광케이블 (96Core / 48Core)</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 정거장과 OCC 간 통신 데이터를 빛의 신호로 전달하는 싱글모드 광섬유 케이블 드럼입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• OTDR 광 손실 파형(≤0.35dB/km)<br">• 케이블 피복 외경 & 드럼 포장 상태</p>
+                    </div>
+                </div>
+
+                <!-- 15. 케이블 / 안테나 / CCTV용 Pole -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 15</span>
+                        <span class="text-[11px] font-bold text-emerald-900">옥외 Pole & 안테나</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🏗️ 케이블 · 안테나 · CCTV Pole</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        <strong>[역할 및 정의]</strong> 정거장 승강장 및 선로변에 CCTV 및 LTE-R 안테나를 고정 취부하기 위한 용융아연도금 Pole 구조물입니다.
+                    </p>
+                    <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                        <span class="font-bold text-slate-800 text-[10px]">🔎 공장검사 핵심 포인트</span>
+                        <p class="text-slate-600 text-[10px]">• Pole 도금 두께(≥60㎛) 검사<br">• Base Plate 용접 및 앵커 구멍 치수</p>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -148,31 +411,31 @@
             <div class="border-b border-indigo-200 pb-3 flex items-center justify-between">
                 <div>
                     <span class="bg-indigo-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase">LOGICAL ARCHITECTURE FRAMEWORK</span>
-                    <h3 class="text-xl font-black text-indigo-950 mt-1">🧠 공장검사(FAT) 4단계 완벽 공학 논리 흐름도 (Logical Flow Map)</h3>
+                    <h3 class="text-xl font-black text-indigo-950 mt-1">🧠 초심자를 위한 Step-by-Step 공장검사 4단계 순서 매뉴얼</h3>
                 </div>
-                <span class="text-xs font-bold text-indigo-800 bg-white px-3 py-1.5 rounded-lg border border-indigo-300 shadow-sm">체계적 FAT 입회 검사</span>
+                <span class="text-xs font-bold text-indigo-800 bg-white px-3 py-1.5 rounded-lg border border-indigo-300 shadow-sm">실무 가이드</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
                 <div class="bg-white p-4 rounded-xl border-2 border-sky-300 shadow-sm space-y-2">
                     <span class="bg-sky-600 text-white text-[10px] font-black px-2 py-0.5 rounded">1단계: PREPARATION</span>
-                    <h4 class="font-black text-sky-950 text-xs">FAT 절차서 사전승인</h4>
-                    <p class="text-[10px] text-slate-600 leading-snug">• ITP 시험절차서 감리 승인<br">• 공장 입회 일정 확정</p>
+                    <h4 class="font-black text-sky-950 text-xs">FAT 사전 준비 & 서류 챙기기</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• ITP 시험절차서 출력<br">• 계측기 교정증명서 확인</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl border-2 border-indigo-300 shadow-sm space-y-2">
                     <span class="bg-indigo-600 text-white text-[10px] font-black px-2 py-0.5 rounded">2단계: VISUAL & POWER</span>
-                    <h4 class="font-black text-indigo-950 text-xs">외관 · 전원 · 절연 저항</h4>
-                    <p class="text-[10px] text-slate-600 leading-snug">• 랙 2200H 치수/도장 검사<br">• DC -48V 절연저항 (≥100MΩ)</p>
+                    <h4 class="font-black text-indigo-950 text-xs">외관 · 도면 1:1 대조</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 랙 2200H 외관/도장 검사<br">• DC -48V 절연저항 (≥100MΩ)</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl border-2 border-teal-300 shadow-sm space-y-2">
                     <span class="bg-teal-600 text-white text-[10px] font-black px-2 py-0.5 rounded">3단계: SIMULATION</span>
-                    <h4 class="font-black text-teal-950 text-xs">9대 시스템 연동 시험</h4>
-                    <p class="text-[10px] text-slate-600 leading-snug">• OTN 100G 광전송 Ring 시험<br">• CCTV 4K & PAS 방송 연동</p>
+                    <h4 class="font-black text-teal-950 text-xs">15대 장비 시뮬레이션</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• OTN 光절체 & LTE-R 무선<br">• CCTV 4K & PAS 방송 연동</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl border-2 border-emerald-400 shadow-sm space-y-2">
                     <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded">4단계: APPROVAL</span>
-                    <h4 class="font-black text-emerald-950 text-xs">결과보고서 & 공식승인</h4>
-                    <p class="text-[10px] text-slate-600 leading-snug">• FAT 결과보고서 서명<br">• 현장 반입 허가 공문 수득</p>
+                    <h4 class="font-black text-emerald-950 text-xs">결과보고서 & 승인 공문</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 감리원 서명 수득<br">• 현장 반입 승인 공문 발송</p>
                 </div>
             </div>
         </div>
@@ -185,11 +448,11 @@
             <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1</span>
-                    <h3 class="font-bold text-base text-slate-900">FAT 공장검사 시험절차서(ITP) 사전 감리 승인 및 공장 입회 준비</h3>
+                    <h3 class="font-bold text-base text-slate-900">FAT 공장검사 사전 준비 (Delivery 일정 & 계측기 증명서 검수)</h3>
                 </div>
                 <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
-                    <li><strong>절차서 승인:</strong> 제조사 공장검사 항목 및 양식이 담긴 FAT 시험절차서(ITP)를 사전에 감리단에 제출하여 승인받습니다.</li>
-                    <li><strong>입회 일정 수립:</strong> 책임감리원 및 현장 시스템팀 엔지니어의 공장 방문 입회 검사 일정을 조율합니다.</li>
+                    <li><strong>Delivery 일정 확인:</strong> 수입 부품(외산 자재)의 선적/통관 서류(B/L)를 검수하여 현장 기계실 반입 납기 공정률(CPM)과 1:1 대조합니다.</li>
+                    <li><strong>계측기 검교정 증명:</strong> 절연저항계(Megger), OTDR, 스펙트럼 분석기의 유효기간 내 검교정 증명서를 사전에 제출받아 검사 신뢰성을 보장합니다.</li>
                 </ul>
 
                 <!-- STEP 1 SVG Graphic -->
@@ -203,8 +466,8 @@
                             
                             <rect x="25" y="45" width="190" height="95" fill="#f0f9ff" stroke="#38bdf8" stroke-width="1"/>
                             <text x="35" y="65" font-size="9.5" font-weight="bold" fill="#0369a1">• 검사 서식: KCS 31 10 00 준수</text>
-                            <text x="35" y="85" font-size="9.5" font-weight="bold" fill="#0369a1">• 절연/기능 시뮬레이션 항목</text>
-                            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#0369a1">• 불합격 NCR 조치 기준 포함</text>
+                            <text x="35" y="85" font-size="9.5" font-weight="bold" fill="#0369a1">• 외산자재 Delivery 일정 확인</text>
+                            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#0369a1">• 계측기 교정증명서 첨부</text>
                             <text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ ITP 사전 승인 완수</text>
                         </g>
 
@@ -216,7 +479,7 @@
                             <rect x="25" y="45" width="190" height="95" fill="#fffbebe" stroke="#f59e0b" stroke-width="1"/>
                             <text x="35" y="65" font-size="9.5" font-weight="bold" fill="#92400e">• 장소: 통신자재 제조 공장</text>
                             <text x="35" y="85" font-size="9.5" font-weight="bold" fill="#92400e">• 참석: 감리원 + 현장 시스템팀</text>
-                            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#92400e">• 측정기: 계측기 교정 증명서</text>
+                            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#92400e">• 15대 장비 시뮬 준비 완료</text>
                             <text x="120" y="152" font-size="10" font-weight="black" fill="#b45309" text-anchor="middle">✔ 입회 준비 완료</text>
                         </g>
                     </svg>
@@ -227,7 +490,7 @@
                         <span>💡</span> <strong>[초심자 그림 해설 - STEP 1 ITP 사전승인 & 입회 준비]</strong>
                     </span>
                     <p class="text-slate-700 leading-relaxed pl-5 font-medium">
-                        좌측 공장검사 시험절차서(ITP)를 사전에 감리단 승인을 받아 두고, 우측 책임감리원과 함께 제조 공장에 방문하여 검사할 입회 일정을 확정하는 단계입니다.
+                        좌측 공장검사 시험절차서(ITP)를 사전에 감리단 승인을 받아 두고, 외산 자재 Delivery 일정 및 계측기 유효기간 증명서를 챙겨 공장에 입회하는 단계입니다.
                     </p>
                 </div>
             </div>
@@ -236,11 +499,11 @@
             <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
-                    <h3 class="font-bold text-base text-slate-900">통신 랙 외관·치수 검사 및 DC -48V 전원·절연 저항 측정</h3>
+                    <h3 class="font-bold text-base text-slate-900">제작도면 1:1 일치 여부 및 랙 외관·DC -48V 절연저항 검사</h3>
                 </div>
                 <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
-                    <li><strong>외관 및 치수:</strong> 19인치 표준 랙 치수(600x1000x2200H), 메쉬 도어, 기계 가공 상태를 검측합니다.</li>
-                    <li><strong>전원 및 절연 저항:</strong> 절연저항계(Megger)를 사용하여 DC -48V 전원 모듈 간 절연저항(≥100MΩ) 및 접지저항(≤10Ω)을 측정합니다.</li>
+                    <li><strong>도면 1:1 대조:</strong> 승인 도면을 펼치고 19인치 랙 internal wiring 결선 단자 번호, PDU 극성 라벨링을 1:1 실물 대조합니다.</li>
+                    <li><strong>외관 & 절연저항:</strong> 랙 외함 치수(2200H), 도장 상태를 육안 검측하고, 절연저항계(Megger)로 DC -48V 전원선 절연저항(≥100MΩ) 및 접지저항(≤10Ω)을 실측합니다.</li>
                 </ul>
 
                 <!-- STEP 2 SVG Graphic -->
@@ -260,7 +523,7 @@
                             <text x="175" y="90" font-size="9" font-weight="bold" fill="#334155">• 깊이: 1000 mm</text>
                             <text x="175" y="110" font-size="9" font-weight="bold" fill="#334155">• 높이: 2200 mm</text>
                             
-                            <text x="125" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 랙 외관 치수 적합</text>
+                            <text x="125" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 도면 1:1 일치 적합</text>
                         </g>
 
                         <g transform="translate(280, 15)">
@@ -280,10 +543,10 @@
 
                 <div class="bg-indigo-50/90 border-l-4 border-indigo-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
                     <span class="font-bold text-indigo-900 flex items-center gap-1.5 text-xs">
-                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 2 랙 치수 & 절연저항 측정]</strong>
+                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 2 도면대조 & 절연저항 측정]</strong>
                     </span>
                     <p class="text-slate-700 leading-relaxed pl-5 font-medium">
-                        좌측 19인치 통신 랙의 외형 치수(높이 2.2m)를 실측하고, 우측 절연저항계(Megger)로 DC -48V 전원부 절연저항(500MΩ)을 측정하여 감전/누전 이상이 없는지 확인하는 단계입니다.
+                        좌측 19인치 통신 랙의 외형 치수(높이 2.2m)와 internal wiring 도면을 1:1 대조하고, 우측 절연저항계(Megger)로 DC -48V 전원부 절연저항(500MΩ)을 측정하여 감전/누전 이상이 없는지 확인하는 단계입니다.
                     </p>
                 </div>
             </div>
@@ -292,11 +555,11 @@
             <div class="bg-white p-6 rounded-2xl border border-teal-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-teal-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3</span>
-                    <h3 class="font-bold text-base text-slate-900">통신 9대 서브시스템 기능 시뮬레이션 및 연동 통신 시험</h3>
+                    <h3 class="font-bold text-base text-slate-900">공장 내 시험실 15대 서브시스템 기능 시뮬레이션 구동</h3>
                 </div>
                 <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
-                    <li><strong>기능 시험:</strong> OTN 100G 광전송 Ring 절체(≤50ms), LTE-R 무선 통화, CCTV 4K 30fps 객체 감지 기능을 시뮬레이터로 검증합니다.</li>
-                    <li><strong>비상 연동:</strong> PAS 방송 앰프 화재 수신기 연동 자동 비상방송 차단 회로를 시뮬레이션 테스트합니다.</li>
+                    <li><strong>기능 시뮬레이션:</strong> 공장 성능 시험실에서 OTN 100G 광전송 Ring 절체(≤50ms), LTE-R 무선 통화 품질, CCTV 4K 30fps 지능형 감지 기능을 시뮬레이터로 구동합니다.</li>
+                    <li><strong>비상 방송 연동:</strong> PAS 구내방송 앰프에 화재 신호를 인가하여 일반 음원 출력이 즉시 차단되고 비상 방송으로 자동 전환되는지 확인합니다.</li>
                 </ul>
 
                 <!-- STEP 3 SVG Graphic -->
@@ -346,11 +609,11 @@
             <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-4">
                 <div class="flex items-center gap-3">
                     <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4</span>
-                    <h3 class="font-bold text-base text-slate-900">공장검사(FAT) 합격 결과보고서 작성 및 감리단/발주처 공식 승인 공문 수득</h3>
+                    <h3 class="font-bold text-base text-slate-900">FAT 합격 보고서 서명 수득 및 감리단/발주처 반입 승인 공문 발송</h3>
                 </div>
                 <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
-                    <li><strong>결과보고서 서명:</strong> FAT 검사 항목별 판정 결과를 수록한 합격 결과보고서에 입회 감리원 및 엔지니어가 서명합니다.</li>
-                    <li><strong>공식 승인 수득:</strong> 감리단 및 발주처로부터 공식 공장검사 승인 공문을 수득하여 현장 반입을 공식 개시합니다.</li>
+                    <li><strong>합격 서명:</strong> FAT 검사 항목별 판정 결과를 수록한 결과보고서에 책임감리원 및 현장 엔지니어가 명확히 입회 서명합니다.</li>
+                    <li><strong>공문 발송:</strong> 감리단 및 발주처에 공장검사 합격 승인 공문을 발송하여 현장 기계실 및 선로변 반입을 공식 개시합니다.</li>
                 </ul>
 
                 <!-- STEP 4 SVG Graphic -->
@@ -364,7 +627,7 @@
                             <text x="170" y="21" font-size="13" font-weight="black" fill="#ffffff" text-anchor="middle">📄 통신설비 공장검사(FAT) 합격 승인서</text>
                             
                             <text x="25" y="52" font-size="10" font-weight="bold" fill="#1e293b">품 명: 동탄트램 통신 랙 & 광전송/CCTV 장비</text>
-                            <text x="25" y="70" font-size="9" fill="#475569">• 검사 결과: 외관, 절연저항, 9대 시스템 기능 시뮬 적합</text>
+                            <text x="25" y="70" font-size="9" fill="#475569">• 검사 결과: 외관, 절연저항, 15대 장비 시뮬 적합</text>
                             <text x="25" y="85" font-size="9" fill="#475569">• 검토 의견: 시방 및 ITP 준수, FAT 합격 및 현장 반입 승인함.</text>
                             
                             <line x1="25" y1="98" x2="315" y2="98" stroke="#cbd5e1" stroke-width="1"/>
@@ -390,7 +653,7 @@
                         <span>💡</span> <strong>[초심자 그림 해설 - STEP 4 FAT 합격서 작성 & 반입 승인]</strong>
                     </span>
                     <p class="text-slate-700 leading-relaxed pl-5 font-medium">
-                        모든 검사 항목을 합격한 후 책임감리원과 함께 FAT 결과보고서에 명확히 서인받고, 현장 반입을 공식 개시하도록 승인 공문을 확득하는 단계입니다.
+                        모든 검사 항목을 합격한 후 책임감리원과 함께 FAT 결과보고서에 명확히 서명받고, 현장 반입을 공식 개시하도록 승인 공문을 발송하는 단계입니다.
                     </p>
                 </div>
             </div>
@@ -424,9 +687,10 @@
 
 <script>
 const glossaryData = {
-    "fat_procedure": "<b>공장검사 절차서 (FAT Procedure / ITP)</b><br><br>• 통신자재 제조 공장에서 입회 검사를 수행하기 전, 검사 항목, 시험 기준, 합격 판정 규격을 정의하여 감리 승인을 받는 입회 검사 지침서입니다.",
-    "insulation_test": "<b>절연 저항 측정 (Insulation Resistance Test)</b><br><br>• 절연저항계(Megger)를 이용하여 통신 랙의 DC -48V 전원선과 랙 외함 간 절연 상태(≥100MΩ)를 검측하여 누전 및 누전 화재를 방지하는 시험입니다.",
-    "subsystem_sim": "<b>9대 서브시스템 기능 시뮬레이션 (Subsystem Function Simulation)</b><br><br>• 현장 설치 전 광전송(OTN), LTE-R 무선망, CCTV, PAS 방송 등의 소프트웨어 연동 및 비상 신호 시뮬레이션을 수행하는 공장 기능 검사입니다."
+    "delivery_check": "<b>Delivery 반입일정 확인</b><br><br>• 수입 광모듈, 스위치 칩셋 등 외산자재의 선적 및 통관 서류(B/L)를 검수하여 현장 기계실 반입 주공정표(CPM) 대비 납기 지연을 방지하는 확인 절칙입니다.",
+    "drawings_check": "<b>제작도면 1:1 일치 여부 확인</b><br><br>• 승인된 자재승인도면과 실물 랙 내부의 결선 번호, Terminal Block 라벨링, DC -48V 전원 극성을 1:1 맞춤 대조하는 검수입니다.",
+    "insulation_test": "<b>절연 저항 측정 (Megger)</b><br><br>• 절연저항계를 활용하여 DC -48V 전원선과 랙 외함 간 절연 상태(≥100MΩ) 및 접지저항(≤10Ω)을 실측하는 전원 안전 검측입니다.",
+    "subsystem_sim": "<b>15대 서브시스템 기능 시뮬레이션</b><br><br>• 현장 설치 전 공장 성능 시험실에서 OTN 광전송, LTE-R 무선통화, CCTV 4K, PAS 화재 방송 비상 차단 기능을 연동 테스트하는 시험입니다."
 };
 
 function openGlossary(term) {
