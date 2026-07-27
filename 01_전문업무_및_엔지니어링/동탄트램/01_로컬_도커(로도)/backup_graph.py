@@ -1,16 +1,22 @@
-from neo4j import GraphDatabase
-import os
+from importlib import import_module
+from pathlib import Path
+import sys
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+runtime = import_module("dongtan_runtime")
 
 def backup_graph():
-    # Corrected Connection Info from ai_graph_agent.py
-    uri = "bolt+ssc://3.70.13.61:7687"
-    user = "skjh0717@gmail.com"
-    password = "ssmg25rk$12#"
+    config = runtime.load_cloud_database_config()
+    GraphDatabase = import_module("neo4j").GraphDatabase
     backup_file = "dongtan_tram_backup_20260516.cypher"
 
-    print(f"Connecting to Memgraph at {uri}...")
+    print(f"Connecting to Memgraph at {config.uri}...")
     try:
-        driver = GraphDatabase.driver(uri, auth=(user, password))
+        driver = GraphDatabase.driver(config.uri, **config.driver_kwargs())
         with driver.session() as session:
             with open(backup_file, "w", encoding="utf-8") as f:
                 f.write("// Dongtan Tram Knowledge Graph Backup - 2026-05-16\n")

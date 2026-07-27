@@ -21,6 +21,11 @@ env/
 venv/
 ENV/
 
+# Local environment files (the example remains tracked)
+.env
+.env.*
+!.env.example
+
 # System files
 .DS_Store
 Thumbs.db
