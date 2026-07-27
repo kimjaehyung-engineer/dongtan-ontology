@@ -3,51 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동탄트램 통신분야 - 자재공급원 검토 및 승인 표준서</title>
+    <title>동탄트램 통신분야 - 자재공급원 검토 및 승인 표준서 (WBS 9000-2-12)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>body { font-family: 'Noto Sans KR', sans-serif; }</style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
 <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
-    <div class="bg-slate-900 text-white p-8">
-        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Standard</span>
-        <h1 class="text-3xl font-black mt-2">자재공급원 검토 및 승인 표준서</h1>
-        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-12 | 주관: 현장 시스템팀</p>
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Technical Standard (WBS 9000-2-12)</span>
+        <h1 class="text-3xl font-black mt-2">통신자재 자재공급원 검토 및 승인 표준서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-12 | 주관: 현장 시스템팀 | "통신설비 시공성, 품질 및 기능 확보를 위한 자재 검증 표준"</p>
     </div>
     
     <div class="p-8 space-y-8">
-        <div class="bg-blue-50 border border-blue-200 p-6 rounded-xl">
-            <h3 class="text-base font-bold text-blue-950 mb-2">🎯 표준 목적 (Objective)</h3>
-            <p class="text-slate-700 text-sm font-medium leading-relaxed">통신설비의 시공성과 품질, 기능 확보를 위한 자재 공급원 검토 및 승인</p>
+        
+        <!-- 🎯 표준 목적 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl space-y-2">
+            <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">🎯 표준 목적 (Objective)</h3>
+            <p class="text-slate-800 text-sm font-medium leading-relaxed">
+                동탄도시철도(트램) 건설공사 통신분야 자재 투입 전, <strong>건설기술진흥법 시행령 제91조(자재 품질관리)</strong> 및 <strong>KCS 31 10 00 통신공사 표준시방서</strong> 규정에 따라 통신 자재/장비 제조사의 품질 및 생산능력을 철저히 검토하여 감리단/발주처 공식 승인을 득하고 불량 자재 투입을 원천 차단하기 위한 기술 기준입니다.
+            </p>
         </div>
 
-        <div>
-            <h3 class="text-lg font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">📜 시공 및 품질 검토 시방 수칙 (Methodology)</h3>
-            <ul class="space-y-3">
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 통신자재제작능력, 유사사례 납품실적 확인</span>
-                </li>
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 성능보증 가능한 통신자재 업체 Pool 검토</span>
-                </li>
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 통신자재 설치 실적 및 설계능력 확인</span>
-                </li>
-                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙</span>
-                    <span class="text-slate-800 text-sm font-medium leading-relaxed">- 보안성검토 결과 확인</span>
-                </li>
-            </ul>
+        <!-- 📜 관련 시방서 및 법령 기준 -->
+        <div class="space-y-4">
+            <h3 class="text-lg font-bold text-slate-900 border-b-2 border-blue-600 pb-2">📜 자재공급원 승인 관련 시방서 및 법적 규정</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">관할 법령 1</span>
+                    <h4 class="font-bold text-slate-900">건설기술진흥법 시행령 제91조</h4>
+                    <p class="text-slate-600 leading-relaxed">공사용 자재 및 부재의 품질확인 및 자재공급원 검토 승인</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">시방 기준 2</span>
+                    <h4 class="font-bold text-slate-900">KCS 31 10 00 / KDS 47 00 00</h4>
+                    <p class="text-slate-600 leading-relaxed">통신설비 표준시방서 및 KS/KC 인증 제품 사용 의무 규정</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">품질 관리 3</span>
+                    <h4 class="font-bold text-slate-900">공인시험기관 시험성적서</h4>
+                    <p class="text-slate-600 leading-relaxed">KOLAS 인정 공인시험기관 1년 이내 정품 시험성적서 첨부</p>
+                </div>
+            </div>
         </div>
 
-        <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-xl">
-            <h3 class="text-base font-bold text-emerald-950 mb-2">📦 증빙 산출물 (Deliverables)</h3>
-            <p class="text-emerald-900 text-sm font-bold">자재공급원/제작도서 승인 서류, 보안성검토 결과서</p>
+        <!-- 📑 자재공급원 승인신청서 필수 6대 첨부서류 -->
+        <div class="space-y-4">
+            <h3 class="text-lg font-bold text-slate-900 border-b-2 border-blue-600 pb-2">📑 자재공급원 승인신청서 필수 제출 6대 첨부서류 규격</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="bg-blue-50/70 p-4 rounded-xl border border-blue-200 space-y-1.5">
+                    <span class="font-bold text-blue-900 text-xs">1) 제조사 사업자등록증 & 공장등록증</span>
+                    <p class="text-slate-700 leading-relaxed">• 제조사의 합법적 공장 가동 여부 및 법인 정보 검증<br">• 통신설비 직접 생산 증명서 확인</p>
+                </div>
+                <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-200 space-y-1.5">
+                    <span class="font-bold text-indigo-900 text-xs">2) KS / KC 인증서 & 공인 시험성적서</span>
+                    <p class="text-slate-700 leading-relaxed">• KC 적합인증, KS 표시허가증 사본<br">• KOLAS 인정 공인시험기관(1년 이내) 시험성적서</p>
+                </div>
+                <div class="bg-cyan-50/70 p-4 rounded-xl border border-cyan-200 space-y-1.5">
+                    <span class="font-bold text-cyan-900 text-xs">3) 납품실적증명서 (유사 트램/철도 실적)</span>
+                    <p class="text-slate-700 leading-relaxed">• 철도/도시철도/트램 납품실적 증명서 첨부<br">• 주요 기계실 및 노선 투입 운용 실적 검증</p>
+                </div>
+                <div class="bg-teal-50/70 p-4 rounded-xl border border-teal-200 space-y-1.5">
+                    <span class="font-bold text-teal-900 text-xs">4) 제품 카탈로그 & 시방대조표</span>
+                    <p class="text-slate-700 leading-relaxed">• 카탈로그 및 상세 제안 사양서<br">• 설계도서 수치 대비 1:1 시방대조표 작성</p>
+                </div>
+                <div class="bg-emerald-50/70 p-4 rounded-xl border border-emerald-200 space-y-1.5">
+                    <span class="font-bold text-emerald-900 text-xs">5) 공장 생산능력 평가서 & Q.C 공정표</span>
+                    <p class="text-slate-700 leading-relaxed">• 월별 최대 생산량 및 품질관리 조직도<br">• 자재 공장검사(FAT) 자체 수입 검사 기준</p>
+                </div>
+                <div class="bg-sky-50/70 p-4 rounded-xl border border-sky-200 space-y-1.5">
+                    <span class="font-bold text-sky-900 text-xs">6) 품질보증 확약서 & 긴급 A/S 대책</span>
+                    <p class="text-slate-700 leading-relaxed">• 하자보수 보증기간(최소 2년 이상) 확약서<br">• 비상시 2시간 이내 현장 자재 긴급 지원 체계</p>
+                </div>
+            </div>
         </div>
+
+        <!-- 📦 증빙 산출물 -->
+        <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl space-y-2">
+            <h3 class="text-base font-bold text-emerald-950 flex items-center gap-2">📦 필수 제출 증빙 산출물 (Deliverables)</h3>
+            <p class="text-emerald-900 text-sm font-bold">
+                1) 자재공급원 승인신청서 및 6대 첨부서류 세트 5부<br>
+                2) 감리단/발주처 자재공급원 공식 승인 통보 공문<br>
+                3) 자재 수급 및 공급원 관리 대장 (현장 대장 등록)
+            </p>
+        </div>
+
     </div>
 </div>
 </body>
