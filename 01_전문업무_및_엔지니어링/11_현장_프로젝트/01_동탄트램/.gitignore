@@ -1,0 +1,42 @@
+# Database data and logs
+01_로컬_도커(로도)/mg_data/
+01_로컬_도커(로도)/neo4j_data/
+01_로컬_도커(로도)/neo4j_logs/
+01_로컬_도커(로도)/logs/
+data/
+
+# Large documents and binaries
+*.pdf
+*.zip
+*.7z
+*.rar
+*.tar.gz
+
+# Python cache and environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# System files
+.DS_Store
+Thumbs.db
+
+*.pdf
+sobang/마스터/
+
+
+# Ignore large binary build artifacts and node_modules
+*.exe
+*.zip
+*.asar
+*.pak
+node_modules/
+release/
+dist_exe/
+dist/
+win-unpacked/
+win-unpacked.tmp/
