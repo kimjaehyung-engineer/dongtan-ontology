@@ -1,0 +1,986 @@
+[
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)1-1-301정거장-(P)",
+    "startM": 0.0,
+    "endM": 128.809,
+    "distM": 128.809
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)1-2",
+    "startM": 166.896,
+    "endM": 317.611,
+    "distM": 150.715
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)1-3-(P)",
+    "startM": 354.073,
+    "endM": 441.585,
+    "distM": 87.512
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)1-4-(P)",
+    "startM": 466.927,
+    "endM": 623.421,
+    "distM": 156.49400000000003
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)1-5-(P)",
+    "startM": 667.056,
+    "endM": 818.996,
+    "distM": 151.93999999999994
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)1-6",
+    "startM": 871.931,
+    "endM": 1133.445,
+    "distM": 261.5139999999999
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)1-7-(P)",
+    "startM": 1159.604,
+    "endM": 1266.049,
+    "distM": 106.44499999999994
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 2구간",
+    "sectionName": "(기교)1-7/8-벌말교-(P)",
+    "startM": 1266.049,
+    "endM": 1741.489,
+    "distM": 475.44000000000005
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 2구간",
+    "sectionName": "(본)1-8-(P)",
+    "startM": 1741.489,
+    "endM": 1802.239,
+    "distM": 60.75
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 2구간",
+    "sectionName": "(기차)1-8/9-능동-(P)",
+    "startM": 1802.239,
+    "endM": 2721.394,
+    "distM": 919.1549999999997
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 3구간",
+    "sectionName": "(본)1-9",
+    "startM": 2721.394,
+    "endM": 2828.172,
+    "distM": 106.77800000000025
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 3구간",
+    "sectionName": "(본)1-10",
+    "startM": 2863.077,
+    "endM": 3141.192,
+    "distM": 278.1149999999998
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 3구간",
+    "sectionName": "(본)1-11-302정거장",
+    "startM": 3183.729,
+    "endM": 3471.707,
+    "distM": 287.97800000000007
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 3구간",
+    "sectionName": "(본)1-12-303정거장",
+    "startM": 3504.547,
+    "endM": 3732.634,
+    "distM": 228.087
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 3구간",
+    "sectionName": "(본)1-13",
+    "startM": 3787.666,
+    "endM": 3936.882,
+    "distM": 149.2159999999999
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 4구간",
+    "sectionName": "(본)1-14",
+    "startM": 3970.649,
+    "endM": 4381.349,
+    "distM": 410.7000000000003
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 4구간",
+    "sectionName": "(본)1-15-(P)",
+    "startM": 4423.119,
+    "endM": 4584.716,
+    "distM": 161.59700000000066
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 4구간",
+    "sectionName": "(본)1-16-304정거장",
+    "startM": 4636.047,
+    "endM": 5325.139,
+    "distM": 689.0920000000006
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 5구간",
+    "sectionName": "(본)1-17-305정거장",
+    "startM": 5383.245,
+    "endM": 5533.301,
+    "distM": 150.0560000000005
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 5구간",
+    "sectionName": "(본)1-18",
+    "startM": 5573.382,
+    "endM": 6045.746,
+    "distM": 472.3640000000005
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 5구간",
+    "sectionName": "(본)1-18-1",
+    "startM": 6096.51,
+    "endM": 6205.688,
+    "distM": 109.17799999999988
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 5구간",
+    "sectionName": "(본)1-19-306정거장",
+    "startM": 6227.557,
+    "endM": 6334.617,
+    "distM": 107.0600000000004
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 5구간",
+    "sectionName": "(본)1-19-1",
+    "startM": 6381.56,
+    "endM": 6575.972,
+    "distM": 194.41199999999935
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 6구간",
+    "sectionName": "(본)1-20",
+    "startM": 6620.146,
+    "endM": 6686.162,
+    "distM": 66.01600000000053
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 6구간",
+    "sectionName": "(기교)1-20/21-나루교",
+    "startM": 6686.162,
+    "endM": 6821.332,
+    "distM": 135.17000000000007
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 6구간",
+    "sectionName": "(본)1-21",
+    "startM": 6821.332,
+    "endM": 6958.583,
+    "distM": 137.2509999999993
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 6구간",
+    "sectionName": "(본)1-21-1",
+    "startM": 6985.821,
+    "endM": 7195.007,
+    "distM": 209.1859999999997
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 6구간",
+    "sectionName": "(본)1-22-307정거장",
+    "startM": 7265.083,
+    "endM": 7604.661,
+    "distM": 339.57800000000043
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 7구간",
+    "sectionName": "(본)1-23",
+    "startM": 7660.734,
+    "endM": 8059.169,
+    "distM": 398.4349999999995
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 7구간",
+    "sectionName": "(본)1-24-(P)",
+    "startM": 8110.594,
+    "endM": 8345.141,
+    "distM": 234.54699999999957
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 7구간",
+    "sectionName": "(본)1-25-(P)-201(107)정거장-건축우선",
+    "startM": 8381.709,
+    "endM": 8667.233,
+    "distM": 285.52399999999943
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "일반부지 7구간",
+    "sectionName": "(본)1-26",
+    "startM": 8703.747,
+    "endM": 8873.119,
+    "distM": 169.3720000000012
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 1구간",
+    "sectionName": "(본)1-27-(TS)-(P)",
+    "startM": 8926.951,
+    "endM": 9233.442,
+    "distM": 306.491
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 1구간",
+    "sectionName": "(본)1-28-(TS)-(P)",
+    "startM": 9293.764,
+    "endM": 9330.547,
+    "distM": 36.783000000001266
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 1구간",
+    "sectionName": "(기차)1-28/29-치동천2교",
+    "startM": 9330.547,
+    "endM": 9414.467,
+    "distM": 83.92000000000007
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 1구간",
+    "sectionName": "(본)1-29-(TS)-(P)",
+    "startM": 9414.467,
+    "endM": 9542.075,
+    "distM": 127.60800000000017
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 1구간",
+    "sectionName": "(본)1-30-(TS)-(P)-202정거장",
+    "startM": 9582.179,
+    "endM": 9744.654,
+    "distM": 162.47500000000036
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 2구간",
+    "sectionName": "(본)1-31-(TS)-(P)",
+    "startM": 9802.139,
+    "endM": 10152.303,
+    "distM": 350.16400000000067
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 2구간",
+    "sectionName": "(본)1-32-(TS)-(P)",
+    "startM": 10205.054,
+    "endM": 10512.868,
+    "distM": 307.8140000000003
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 2구간",
+    "sectionName": "(본)1-33-(TS)-(P)",
+    "startM": 10557.031,
+    "endM": 10759.023,
+    "distM": 201.99199999999837
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 3구간",
+    "sectionName": "(본)1-34-(TS)-(P)-203정거장",
+    "startM": 10804.501,
+    "endM": 11034.907,
+    "distM": 230.40599999999904
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 3구간",
+    "sectionName": "(본)1-35-(TS)-(P)",
+    "startM": 11072.369,
+    "endM": 11256.987,
+    "distM": 184.61799999999857
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 3구간",
+    "sectionName": "(기교)1-35/36-치동천5교",
+    "startM": 11256.987,
+    "endM": 11316.957,
+    "distM": 59.970000000001164
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 3구간",
+    "sectionName": "(본)1-36-(TS)-(P)",
+    "startM": 11316.957,
+    "endM": 11329.265,
+    "distM": 12.307999999999083
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 3구간",
+    "sectionName": "(본)1-37-(TS)",
+    "startM": 11388.429,
+    "endM": 11896.238,
+    "distM": 507.8089999999993
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 4구간",
+    "sectionName": "(본)1-38-(TS)-(P)-204정거장",
+    "startM": 11958.413,
+    "endM": 12380.499,
+    "distM": 422.08599999999933
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 4구간",
+    "sectionName": "(본)1-39-(TS)-(P)",
+    "startM": 12420.794,
+    "endM": 12653.433,
+    "distM": 232.63900000000103
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 4구간",
+    "sectionName": "(기터)1-39/40-동탄숲",
+    "startM": 12653.433,
+    "endM": 12743.433,
+    "distM": 90.0
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 4구간",
+    "sectionName": "(본)1-40-(TS)-(P)",
+    "startM": 12743.433,
+    "endM": 13118.243,
+    "distM": 374.8099999999995
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 5구간",
+    "sectionName": "(본)1-41-(TS)-(P)-205정거장",
+    "startM": 13162.978,
+    "endM": 13571.804,
+    "distM": 408.82600000000093
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 5구간",
+    "sectionName": "(본)1-42-(TS)-(P)-206정거장",
+    "startM": 13610.768,
+    "endM": 13897.836,
+    "distM": 287.0679999999993
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(본)1-43-(TS)-(P)",
+    "startM": 13965.753,
+    "endM": 14126.883,
+    "distM": 161.1299999999992
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(기교)1-43/44-신리천5교",
+    "startM": 14126.883,
+    "endM": 14206.036,
+    "distM": 79.15300000000025
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(본)1-44-(TS)-(P)",
+    "startM": 14206.036,
+    "endM": 14298.004,
+    "distM": 91.96800000000076
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(기교)1-44/45-오리교",
+    "startM": 14298.004,
+    "endM": 14318.504,
+    "distM": 20.5
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(본)1-45-(TS)-(P)",
+    "startM": 14318.504,
+    "endM": 14380.38,
+    "distM": 61.875999999998385
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(기터)1-45/46-산척",
+    "startM": 14380.38,
+    "endM": 14733.38,
+    "distM": 353.0
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(본)1-46구간-(TS)-(P)",
+    "startM": 14733.38,
+    "endM": 14867.455,
+    "distM": 134.07500000000073
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 7구간",
+    "sectionName": "(본)1-47구간-(TS)-(P)-207정거장",
+    "startM": 14926.366,
+    "endM": 15180.81,
+    "distM": 254.4439999999995
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 7구간",
+    "sectionName": "(본)1-48-(TS)-(P)",
+    "startM": 15241.548,
+    "endM": 15439.82,
+    "distM": 198.27199999999903
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 7구간",
+    "sectionName": "(기교)1-48/49-송방천5교",
+    "startM": 15484.807,
+    "endM": 15603.979,
+    "distM": 119.17199999999866
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 7구간",
+    "sectionName": "(본)1-49-(TS)-(P)",
+    "startM": 15640.48,
+    "endM": 15929.744,
+    "distM": 289.26400000000103
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 8구간",
+    "sectionName": "(본)1-50-(TS)-(P)-208정거장",
+    "startM": 15972.893,
+    "endM": 16344.446,
+    "distM": 371.5529999999999
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 8구간",
+    "sectionName": "(본)1-51-(TS)-(P)",
+    "startM": 16385.759,
+    "endM": 16652.909,
+    "distM": 267.15000000000146
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 8구간",
+    "sectionName": "(본)1-52-(TS)-(P)-209정거장",
+    "startM": 16716.703,
+    "endM": 16970.12,
+    "distM": 253.41699999999764
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 9구간",
+    "sectionName": "(본)1-53-(TS)-(P)-210정거장",
+    "startM": 17019.753,
+    "endM": 17354.049,
+    "distM": 334.29599999999846
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 9구간",
+    "sectionName": "(본)1-54-(TS)-(P)",
+    "startM": 17390.617,
+    "endM": 17524.574,
+    "distM": 133.95700000000215
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 9구간",
+    "sectionName": "(기교)1-54/55-장지천4교",
+    "startM": 17524.574,
+    "endM": 17572.289,
+    "distM": 47.715000000000146
+  },
+  {
+    "zone": "1공구",
+    "splitGroup": "트램부지 9구간",
+    "sectionName": "(본)1-55-(TS)-(P)",
+    "startM": 17634.507,
+    "endM": 17703.948,
+    "distM": 69.4409999999989
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)2-1-Su-S01정거장",
+    "startM": 0.0,
+    "endM": 195.116,
+    "distM": 195.116
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)2-2-Su",
+    "startM": 244.371,
+    "endM": 501.1,
+    "distM": 256.72900000000004
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)2-3-Su",
+    "startM": 542.947,
+    "endM": 621.892,
+    "distM": 78.94500000000005
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)2-4-Su",
+    "startM": 646.326,
+    "endM": 718.666,
+    "distM": 72.34000000000003
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)2-5-Su-S02상선정거장",
+    "startM": 745.859,
+    "endM": 829.369,
+    "distM": 83.50999999999999
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)2-6-Su-S02하선정거장",
+    "startM": 844.036,
+    "endM": 942.206,
+    "distM": 98.17000000000007
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)2-7-Su",
+    "startM": 985.513,
+    "endM": 1133.664,
+    "distM": 148.15099999999995
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 1구간",
+    "sectionName": "(본)2-8-Su",
+    "startM": 1176.802,
+    "endM": 1358.467,
+    "distM": 181.6650000000002
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 2구간",
+    "sectionName": "(본)2-9-Su",
+    "startM": 1391.136,
+    "endM": 1425.552,
+    "distM": 34.41599999999994
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 2구간",
+    "sectionName": "(본)2-10-Hw",
+    "startM": 1459.942,
+    "endM": 1619.746,
+    "distM": 159.8040000000001
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 2구간",
+    "sectionName": "(본)2-11-Hw",
+    "startM": 1646.635,
+    "endM": 1727.463,
+    "distM": 80.82799999999997
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 2구간",
+    "sectionName": "(본)2-12-Hw",
+    "startM": 1757.264,
+    "endM": 1949.395,
+    "distM": 192.13100000000009
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 2구간",
+    "sectionName": "(본)2-13-Hw-101정거장",
+    "startM": 2007.581,
+    "endM": 2229.541,
+    "distM": 221.96000000000026
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 2구간",
+    "sectionName": "(본)2-14-Hw",
+    "startM": 2269.235,
+    "endM": 2547.676,
+    "distM": 278.4409999999998
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 3구간",
+    "sectionName": "(본)2-15-하1-Hw",
+    "startM": 2581.622,
+    "endM": 2949.096,
+    "distM": 367.47400000000016
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 3구간",
+    "sectionName": "(본)2-15-하2-Hw",
+    "startM": 2978.621,
+    "endM": 3121.257,
+    "distM": 142.63599999999997
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 3구간",
+    "sectionName": "(본)2-16-Hw-102정거장",
+    "startM": 3151.84,
+    "endM": 3438.005,
+    "distM": 292.48499999999996
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 3구간",
+    "sectionName": "(본)2-17-Hw",
+    "startM": 3485.659,
+    "endM": 3665.777,
+    "distM": 180.11799999999994
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 4구간",
+    "sectionName": "(본)2-18-Hw",
+    "startM": 3710.41,
+    "endM": 4037.498,
+    "distM": 327.0880000000002
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 4구간",
+    "sectionName": "(본)2-19-Hw-103정거장",
+    "startM": 4099.874,
+    "endM": 4472.21,
+    "distM": 372.33600000000024
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 4구간",
+    "sectionName": "(본)2-20-Hw-104정거장",
+    "startM": 4539.437,
+    "endM": 4872.615,
+    "distM": 333.1779999999999
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 5구간",
+    "sectionName": "(본)2-21-Hw",
+    "startM": 4920.815,
+    "endM": 5124.566,
+    "distM": 203.7510000000002
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 5구간",
+    "sectionName": "(본)2-22-Hw-105정거장",
+    "startM": 5156.617,
+    "endM": 5390.6,
+    "distM": 233.98300000000017
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 5구간",
+    "sectionName": "(기교)2-22/23(P)",
+    "startM": 5390.6,
+    "endM": 5597.15,
+    "distM": 206.54999999999927
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 5구간",
+    "sectionName": "(본)2-23-Hw",
+    "startM": 5597.15,
+    "endM": 5768.799,
+    "distM": 171.64900000000034
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "일반부지 5구간",
+    "sectionName": "(본)2-24-Hw-106정거장",
+    "startM": 5824.883,
+    "endM": 6171.325,
+    "distM": 346.442
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 1구간",
+    "sectionName": "(본)2-25-Hw(TS)",
+    "startM": 6223.947,
+    "endM": 6431.285,
+    "distM": 207.33799999999974
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 1구간",
+    "sectionName": "(본)2-27-Hw(TS)",
+    "startM": 6735.63,
+    "endM": 7036.456,
+    "distM": 300.826
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 1구간",
+    "sectionName": "(본)2-28-Hw(TS)(P)",
+    "startM": 7084.411,
+    "endM": 7330.91,
+    "distM": 246.4989999999998
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 1구간",
+    "sectionName": "(본)2-30-Hw",
+    "startM": 7686.383,
+    "endM": 7856.638,
+    "distM": 170.2550000000001
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 2구간",
+    "sectionName": "(본)2-26-Hw(TS)(P)",
+    "startM": 6457.757,
+    "endM": 6573.37,
+    "distM": 115.61300000000028
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 2구간",
+    "sectionName": "(기교)2-26/27",
+    "startM": 6573.37,
+    "endM": 6670.778,
+    "distM": 97.40800000000036
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 2구간",
+    "sectionName": "(본)2-29-Hw-107정거장(P)",
+    "startM": 7365.251,
+    "endM": 7656.532,
+    "distM": 291.28099999999995
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 2구간",
+    "sectionName": "(본)2-31-Hw(TS)(P)",
+    "startM": 7906.016,
+    "endM": 8028.725,
+    "distM": 122.70900000000074
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 2구간",
+    "sectionName": "(본)2-32-Hw(TS)-108정거장(TS)(P)",
+    "startM": 8070.922,
+    "endM": 8304.538,
+    "distM": 233.6160000000009
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 3구간",
+    "sectionName": "(기교)2-32/33(TS)(P)",
+    "startM": 8372.78,
+    "endM": 8435.28,
+    "distM": 62.5
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 3구간",
+    "sectionName": "(본)2-33-Hw(TS)(P)",
+    "startM": 8435.28,
+    "endM": 8833.661,
+    "distM": 398.3809999999994
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 3구간",
+    "sectionName": "(본)2-34-Hw(TS)(P)",
+    "startM": 8882.163,
+    "endM": 9243.208,
+    "distM": 361.0450000000001
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 3구간",
+    "sectionName": "(본)2-35-Hw(TS)-109정거장(P)",
+    "startM": 9295.66,
+    "endM": 9490.81,
+    "distM": 195.14999999999964
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 4구간",
+    "sectionName": "(기교)2-35/36(TS)(P)",
+    "startM": 9490.81,
+    "endM": 9611.33,
+    "distM": 120.52000000000044
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 4구간",
+    "sectionName": "(본)2-36-Hw(TS)(P)",
+    "startM": 9611.33,
+    "endM": 9826.461,
+    "distM": 215.1309999999994
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 4구간",
+    "sectionName": "(본)2-37-Hw(TS)-110정거장(P)",
+    "startM": 9872.64,
+    "endM": 10535.824,
+    "distM": 663.1840000000011
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 5구간",
+    "sectionName": "(본)2-38-Hw(TS)(P)",
+    "startM": 10582.205,
+    "endM": 10853.087,
+    "distM": 270.8819999999996
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 5구간",
+    "sectionName": "(본)2-39-Hw(TS)-111정거장(P)",
+    "startM": 10919.105,
+    "endM": 11146.75,
+    "distM": 227.64500000000044
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 5구간",
+    "sectionName": "(기교)2-39/40(TS)(P)",
+    "startM": 11146.75,
+    "endM": 11308.02,
+    "distM": 161.27000000000044
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 5구간",
+    "sectionName": "(본)2-40-Hw(TS)-112정거장(P)",
+    "startM": 11308.02,
+    "endM": 11614.274,
+    "distM": 306.253999999999
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(본)2-41-Hw(TS)(P)",
+    "startM": 11668.085,
+    "endM": 11885.095,
+    "distM": 217.01000000000022
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(본)2-42-Hw(TS)(P)",
+    "startM": 11920.751,
+    "endM": 12212.408,
+    "distM": 291.65699999999924
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(본)2-43-Hw(TS)(P)",
+    "startM": 12254.748,
+    "endM": 12503.953,
+    "distM": 249.20499999999993
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 6구간",
+    "sectionName": "(본)2-44-Hw(TS)-113정거장(P)",
+    "startM": 12547.94,
+    "endM": 12792.951,
+    "distM": 245.0109999999986
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 7구간",
+    "sectionName": "(본)2-45-Hw(TS)(P)",
+    "startM": 12834.008,
+    "endM": 12940.05,
+    "distM": 106.04199999999946
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 7구간",
+    "sectionName": "(기지)2-45/46(P)",
+    "startM": 12940.05,
+    "endM": 13115.07,
+    "distM": 175.02000000000044
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 7구간",
+    "sectionName": "(본)2-46-Hw(P)",
+    "startM": 13115.07,
+    "endM": 13303.124,
+    "distM": 188.0540000000001
+  },
+  {
+    "zone": "2공구",
+    "splitGroup": "트램부지 7구간",
+    "sectionName": "(본)2-47-Hw-114정거장",
+    "startM": 13357.045,
+    "endM": 13710.977,
+    "distM": 353.9320000000007
+  }
+]
