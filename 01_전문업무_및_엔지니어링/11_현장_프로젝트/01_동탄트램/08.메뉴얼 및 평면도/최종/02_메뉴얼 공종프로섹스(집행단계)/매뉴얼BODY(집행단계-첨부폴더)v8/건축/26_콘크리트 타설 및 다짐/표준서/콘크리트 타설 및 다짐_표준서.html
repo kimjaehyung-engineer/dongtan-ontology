@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄도시철도 - 콘크리트 타설 및 다짐 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto space-y-8">
+        
+        <!-- Header Banner -->
+        <div class="bg-slate-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 space-y-4">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="bg-amber-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">WBS 9000-2-26</span>
+                    <span class="bg-slate-800 text-slate-300 font-bold text-xs px-3 py-1 rounded-full">건축공사 기술 표준서</span>
+                    <span class="bg-emerald-500/20 text-emerald-400 font-bold text-xs px-3 py-1 rounded-full">동탄도시철도 건설사업</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black tracking-tight">콘크리트 타설 및 다짐 기술 표준서</h1>
+                <p class="text-slate-400 text-sm max-w-3xl leading-relaxed">레미콘 반입 품질검사(슬럼프, 공기량, 염분, 온도), 펌프카 타설속도, 고주파 봉진동기 다짐 및 블리딩 관리</p>
+            </div>
+        </div>
+
+        <!-- 4대 관리 KPI Summary Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-amber-600 uppercase tracking-wider">품질 관리 (Q)</div>
+                <div class="text-sm font-black text-slate-900">레미콘 반입 품질시험(슬럼프 ±25mm, 공기량 4.5±1.5%, 염분 ≤0.30kg/㎥) 100% 합격</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-emerald-600 uppercase tracking-wider">안전 관리 (S)</div>
+                <div class="text-sm font-black text-slate-900">봉진동기(Vibrator) 수직 500mm 간격 삽입(10~15초) 및 과다진동 방지</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">공정 관리 (T)</div>
+                <div class="text-sm font-black text-slate-900">자유낙하 높이(≤1.5m) 및 1회 타설두께(≤500mm) 준수</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider">원가/행정 관리 (C)</div>
+                <div class="text-sm font-black text-slate-900">콜드조인트(Cold Joint) 방지 (이어치기 시간 한도: 하절기 2.0hr, 외기 25℃ 미만 2.5hr)</div>
+            </div>
+        </div>
+
+        <!-- 기술사양 및 설계 기준 테이블 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-6">
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
+                <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+                <h2 class="font-bold text-lg text-slate-900">기술사양 및 설계 시방 기준</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <tbody>
+
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">적용 기준</td>
+                        <td class="px-6 py-4 text-slate-600">KCS 14 20 10 콘크리트공사 표준시방서, KS F 4009 레디믹스트 콘크리트</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">배합 강도</td>
+                        <td class="px-6 py-4 text-slate-600">fck = 24 MPa (슬라브/벽체), fck = 30 MPa (기둥/기초), 굵은골재 25mm, 슬럼프 150mm</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">반입 검사</td>
+                        <td class="px-6 py-4 text-slate-600">슬럼프: 150±25mm, 공기량: 4.5±1.5%, 염화물: ≤0.30kg/㎥, 콘크리트 온도: 10~35℃</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">공시체 채취</td>
+                        <td class="px-6 py-4 text-slate-600">150㎥ 마다 1조(9개) 채취 (7일 3개, 28일 3개, 구조체관리용 3개)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3단계 표준 작업 프로세스 (Phases) -->
+        <div class="space-y-4">
+            <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-slate-900"></div>
+                <h2 class="font-bold text-lg text-slate-900">3단계 표준 작업 프로세스 (Standard Procedure)</h2>
+            </div>
+            <div class="space-y-4">
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 1</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 1: 레미콘 차량 현장 반입 검사</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">송장 확인, 슬럼프/공기량/염화물/온도 현장 시험, 7일/28일 압축강도 공시체 몰드 제작</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 2</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 2: 펌프카 압송 및 분할 타설</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">자유낙하 1.5m 이내, 1회 타설높이 40~50cm 수평 분할 타설, 콜드조인트 방지</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 3</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 3: 고주파 진동기 밀실 다짐</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">진동기 50cm 간격 수직 삽입, 하부층 콘크리트 10cm 관입, 블리딩수 제거 및 상부 고름질</p>
+            </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-xs text-slate-400 py-4 border-t border-slate-200">
+            동탄도시철도(트램) 건설사업 건축분야 공종 프로세스 관리 매뉴얼 | WBS 9000-2-26
+        </div>
+    </div>
+</body>
+</html>

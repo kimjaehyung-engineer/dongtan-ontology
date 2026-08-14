@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - [레일연마] 레일연마 or 밀링 체크리스트</title>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --accent-teal: #0d9488;
+            --border-color: #cbd5e1;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 30px 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .header {
+            border-bottom: 2px solid var(--text-primary);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin: 0;
+            color: #0f766e;
+        }
+        .meta {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #0d9488;
+        }
+        .summary-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            color: #166534;
+        }
+        table {
+            width: 100% !important;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: bold;
+            text-align: center;
+        }
+        .category {
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            width: 18%;
+        }
+        .check-cell {
+            text-align: center;
+            vertical-align: middle;
+            width: 14%;
+            font-weight: bold;
+            color: #0d9488;
+        }
+        .step-tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+
+    </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 class="title">[레일연마] 레일연마 or 밀링 체크리스트</h1>
+        <span class="meta">WBS Code 9000-6-22 | 레일 연마/밀링 검측대장</span>
+    </div>
+
+    <div class="summary-box">
+        <h4 style="margin: 0 0 8px 0; color: #15803d; font-size: 1.05rem; font-weight: 800;">📋 레일 연마/밀링 O/X 필수 검측대장</h4>
+        <div style="font-weight: 600; line-height: 1.7; font-size: 0.9rem;">
+            본 체크리스트는 장비 점검, 절삭유 분사(열응력 방지), 연마깊이(절삭량) 측정, 표면 조도 Ra ≤ 10㎛ 및 마무리면 1m당 ±0.2mm 평탄성 검측을 위해 작성되었습니다.
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th style="width: 18%;">시공 단계</th>
+                <th style="width: 68%;">필수 검측 항목 (KDS 47 30 00 / KR C-14030 규격)</th>
+                <th style="width: 14%;">점검 결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="category" style="color:#0f766e;">⚠️ 사전 준비<br>(Step 1 단차조사)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#ccfbf1; color:#0f766e;">Step 1. 단차 조사</span>
+                        <strong>[표면 조사]</strong> 장대레일 구간 용접부 및 이음매 표면 단차를 사전 실측 조사**하였는가?**
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#ccfbf1; color:#0f766e;">Step 1. 장비 점검</span>
+                        <strong>[장비 점검]</strong> <span class="term-highlight" onclick="openGlossary('rail_grinding_milling')">연마차/밀링 장비 구동 상태</span> 및 투입 스케줄을 확인**하였는가?**
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr>
+                <td class="category" style="color:#0284c7;">⚙️ 본 시공<br>(Step 2 절삭유분사)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#e0f2fe; color:#0369a1;">Step 2. 절삭유 분사</span>
+                        <strong>[열응력 방지]</strong> 과열에 의한 레일 열응력 크랙 방지용 <span class="term-highlight" onclick="openGlossary('thermal_stress_cooling')">절삭유/냉각수를 적절히 분사</span>**하였는가?**
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#e0f2fe; color:#0369a1;">Step 2. 환경 관리</span>
+                        <strong>[분진 집진]</strong> 연마 작업 시 발생 스파크, 분진, 냉각수 유출 방지 조치**하였는가?**
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr>
+                <td class="category" style="color:#15803d;">📡 검사 마감<br>(Step 3 조도 & 평탄도)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#dcfce7; color:#166534;">Step 3. 표면 조도</span>
+                        <strong>[조도 판정]</strong> 디지털 조도계 측정 결과 <span class="term-highlight" onclick="openGlossary('roughness_test')">표면 조도 Ra &le; 10&mu;m 이하</span>로 판정**하였는가?**
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#dcfce7; color:#166534;">Step 3. 평탄성 검측</span>
+                        <strong>[직선도 검측]</strong> 마무리면 1m 기준 직선도 오차 <strong>&plusmn;0.2mm 이내</strong>로 정밀 밀착 연마**하였는가?**
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#dcfce7; color:#166534;">Step 3. 절삭량 실측</span>
+                        <strong>[깊이 실측]</strong> <span class="term-highlight" onclick="openGlossary('depth_measurement')">연마차 압축기 및 마이크로미터</span>로 연마깊이(절삭량)를 실측**하였는가?**
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align: center; font-size: 0.85rem; color: #94a3b8; margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+        동탄도시철도(트램) 건설공사 | WBS 9000-6-22 [레일연마] 레일연마 or 밀링 마스터 체크리스트
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 공학 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'rail_grinding_milling': {
+        title: '⚙️ 레일 연마 or 밀링 (Rail Grinding & Milling)',
+        desc: '레일 용접 후 발생하는 표면 단차나 잔물결, 녹을 회전 연마석 또는 밀링 컷터로 정밀 절삭하여 선로 평탄성을 확보하고 차륜 승차감 및 레일 수명을 대폭 향상시키는 시방 공법입니다.'
+    },
+    'flatness_control': {
+        title: '📐 레일 마무리면 평탄성 (1m당 ±0.2mm 이내)',
+        desc: '레일 주행면 마무리면 1m 기준 직선도 오차를 ±0.2mm 이내로 정밀 연마하여 차량 주행 시 소음 및 궤도 진동을 최소화하는 정량 수칙입니다.'
+    },
+    'roughness_test': {
+        title: '📊 표면 조도 기준 (Ra ≤ 10㎛ 이하)',
+        desc: '디지털 표면 조도계로 연마면 미세 거칠기를 실측하여 Ra 10㎛ 이하의 매끈한 거칠기 정밀도를 획정하는 평가 시험입니다.'
+    },
+    'thermal_stress_cooling': {
+        title: '❄️ 절삭유 적절 분사 & 과열 열응력 크랙 방지',
+        desc: '연마/밀링 시 고속 마찰열로 인해 레일 금속 표면이 과열 및 경화되는 열응력(Thermal Stress) 및 미세 균열(Micro-crack)을 방지하기 위해 절삭유/냉각수를 최적 분사하는 방지 수칙입니다.'
+    },
+    'depth_measurement': {
+        title: '📏 연마 깊이(절삭량) 압축기 및 선로 실측',
+        desc: '연마 완료 후 연마차 센서 및 마이크로미터/디지털 레일 측정 압축기를 설치하여 레일두부 절삭 깊이를 정밀 실측하는 검측 절차입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '520px');
+        innerSvg.style.maxWidth = '1000px';
+    }
+    
+    const innerImg = zoomBody.querySelector('img');
+    if (innerImg) {
+        innerImg.style.maxHeight = '70vh';
+        innerImg.style.width = 'auto';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - [HBS] 콘크리트 타설 및 양생 체크리스트</title>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --accent-red: #dc2626;
+            --accent-orange: #ea580c;
+            --accent-green: #16a34a;
+            --border-color: #cbd5e1;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 30px 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .header {
+            border-bottom: 2px solid var(--text-primary);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin: 0;
+            color: #1e3a8a;
+        }
+        .meta {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--accent-orange);
+        }
+        .summary-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            color: #065f46;
+        }
+        table {
+            width: 100% !important;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: bold;
+            text-align: center;
+        }
+        .category {
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            width: 18%;
+        }
+        .check-cell {
+            text-align: center;
+            vertical-align: middle;
+            width: 14%;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+        .step-tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 class="title">[HBS] 콘크리트 타설 및 양생 체크리스트</h1>
+        <span class="meta">WBS Code 9000-6-14 | 콘크리트도상 품질 검측대장</span>
+    </div>
+
+    <div class="summary-box">
+        <h4 style="margin: 0 0 8px 0; color: #065f46; font-size: 1.05rem; font-weight: 800;">📋 표준서 & 수행지침 연계 HBR 콘크리트 필수 검측 항목</h4>
+        <div style="font-weight: 600; line-height: 1.7; font-size: 0.9rem;">
+            본 체크리스트는 레미콘 공장 이격거리(4.8km 이내/60분 이내 도착), 거푸집 시멘트풀 유출 방지 테이핑, 현장 슬럼프(10cm 이하), 연속 타설 고주파 다짐 및 7일 습윤 부직포 양생, 28일 압축강도(≥ 21 MPa)를 현장 감리 입회 검측하기 위해 수립되었습니다.
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th style="width: 18%;">시공 단계</th>
+                <th style="width: 68%;">표준서 & 수행지침 연계 필수 검측 항목 (KCS 14 20 10 수립)</th>
+                <th style="width: 14%;">점검 결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="category" style="color:var(--accent-orange);">⚠️ 사전 준비<br>(Step 1~2 운반/테이핑)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#fef3c7; color:#92400e;">Step 1. 이격거리 통제</span>
+                        <strong>[레미콘 이격거리 & 시간]</strong> 인근 <span class="term-highlight" onclick="openGlossary('plant_distance')">4.8km 이내 배치플랜트</span> 배정 및 레미콘 출하 후 <b>60분 이내</b> 현장 도착 타설 완료하였는가?
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#e0f2fe; color:#0369a1;">Step 2. 거푸집 & 슬럼프</span>
+                        <strong>[거푸집 테이핑 & 슬럼프]</strong> 시멘트풀 유출 방지 거푸집 테이핑 마감 및 현장 <span class="term-highlight" onclick="openGlossary('slump_strength')">슬럼프 10cm 이하</span> 시험 통과하였는가?
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr>
+                <td class="category" style="color:var(--accent-red);">⚡ 본 타설<br>(Step 3 연속타설/다짐)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#dcfce7; color:#166534;">Step 3. 연속 타설</span>
+                        <strong>[콜드조인트 예방]</strong> 펌프카 중단 없는 연속 타설 시행 및 콜드조인트 발생 차단 관리하였는가?
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#dbeafe; color:#1e40af;">Step 3. 고주파 다짐</span>
+                        <strong>[바이브레이터 밀실 다짐]</strong> 고주파 꽂힘 바이브레이터 투입을 통한 콘크리트 내부 공극 제거 및 밀실 다짐하였는가?
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr>
+                <td class="category" style="color:var(--accent-green);">✅ 양생 마감<br>(Step 4 습윤양생/강도)</td>
+                <td>
+                    <div style="margin-bottom: 10px;">
+                        <span class="step-tag" style="background:#f0fdf4; color:#15803d;">Step 4. 두께 & 습윤양생</span>
+                        <strong>[타설 두께 & 7일 습윤양생]</strong> 타설 두께 오차(<b>&plusmn;10mm 이내</b>) 및 <span class="term-highlight" onclick="openGlossary('curing_7days')">7일 연속 습윤 부직포</span> 포설 살수 양생 상태하였는가?
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        <span class="step-tag" style="background:#f0fdf4; color:#15803d;">Step 4. 강도 성적서</span>
+                        <strong>[28일 압축강도 승인]</strong> HBR 콘크리트 현장 몰드 28일 압축강도 <b>&ge; 21 MPa</b> 확보 및 감리 승인 대장 마감하였는가?
+                    </div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align: center; font-size: 0.85rem; color: #94a3b8; margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+        동탄도시철도(트램) 건설공사 | WBS 9000-6-14 콘크리트도상 [HBS] 콘크리트 타설 및 양생 마스터 체크리스트
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시방 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'hbr': {
+        title: '🏗️ HBR 기초 콘크리트 (Hydraulic Base Concrete)',
+        desc: '강화노반 상부에 타설되는 궤도 기초 콘크리트 레이어입니다. TCL도상 및 반-PC 슬래브 패널의 하중을 균일하게 받쳐주어 트램 궤도의 구조적 안정성을 확보합니다.'
+    },
+    'plant_distance': {
+        title: '🚚 레미콘 이격거리 4.8km & 운반 60분 이내',
+        desc: '콘크리트 슬럼프 로스 및 초기 경화 유출을 방지하기 위해 레미콘 배치 플랜트와 현장 이격거리를 4.8km 이내로 지정하고, 출하 후 60분 이내 현장 타설을 완료하는 표준 시방 수칙입니다.'
+    },
+    'slump_strength': {
+        title: '📊 슬럼프 10cm 이하 & 28일 강도 ≥ 21 MPa',
+        desc: 'HBR 콘크리트 워커빌리티와 밀실 다짐을 확보하기 위한 슬럼프 값 10cm 이하 시방 기준과 28일 경화 압축강도 21 MPa 이상(최소 18 MPa 이상) 확보 지수입니다.'
+    },
+    'curing_7days': {
+        title: '💧 7일 습윤 부직포 양생',
+        desc: '콘크리트 타설 직후 수분 급속 증발에 따른 건조수축 균열을 차단하기 위해 부직포를 덮고 7일 이상 지속적인 분무 살수 양생을 수행하는 수칙입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('glossaryModal');
+        if(modal) modal.classList.remove('active');
+    }
+});
+</script>
+
+
+<div id="zoomModal" class="fixed inset-0 z-[9999] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
+    <div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="document.getElementById('zoomModal').classList.add('hidden')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm hover:bg-slate-700">✕ 닫기</button>
+        <h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3>
+        <div id="zoomContent" class="flex justify-center items-center"></div>
+    </div>
+</div>
+<script>
+function openDiagramZoom(htmlContent, title) {
+    var modal = document.getElementById('zoomModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'zoomModal';
+        modal.className = 'fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4';
+        modal.onclick = function() { modal.classList.add('hidden'); };
+        modal.innerHTML = '<div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()"><button onclick="document.getElementById(\'zoomModal\').classList.add(\'hidden\')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm">✕ 닫기</button><h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3><div id="zoomContent" class="flex justify-center items-center"></div></div>';
+        document.body.appendChild(modal);
+    }
+    document.getElementById('zoomTitle').innerText = title || '2D 시공 도식 확대보기';
+    document.getElementById('zoomContent').innerHTML = htmlContent;
+    modal.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

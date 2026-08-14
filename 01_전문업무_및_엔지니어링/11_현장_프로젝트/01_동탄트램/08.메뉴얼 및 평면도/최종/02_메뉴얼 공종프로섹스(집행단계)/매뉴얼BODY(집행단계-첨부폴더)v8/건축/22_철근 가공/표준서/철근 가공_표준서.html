@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄도시철도 - 철근 가공 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto space-y-8">
+        
+        <!-- Header Banner -->
+        <div class="bg-slate-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 space-y-4">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="bg-amber-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">WBS 9000-2-22</span>
+                    <span class="bg-slate-800 text-slate-300 font-bold text-xs px-3 py-1 rounded-full">건축공사 기술 표준서</span>
+                    <span class="bg-emerald-500/20 text-emerald-400 font-bold text-xs px-3 py-1 rounded-full">동탄도시철도 건설사업</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black tracking-tight">철근 가공 기술 표준서</h1>
+                <p class="text-slate-400 text-sm max-w-3xl leading-relaxed">건축 구조물용 이형철근의 반입 검수, 밀시트 대조, 가공형상(유해 굽힘 방지) 및 가공오차 관리</p>
+            </div>
+        </div>
+
+        <!-- 4대 관리 KPI Summary Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-amber-600 uppercase tracking-wider">품질 관리 (Q)</div>
+                <div class="text-sm font-black text-slate-900">철근 KS D 3504 규격 밀시트(Mill Sheet) 100% 대조</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-emerald-600 uppercase tracking-wider">안전 관리 (S)</div>
+                <div class="text-sm font-black text-slate-900">가공오차(길이 ±5mm, 굽힘 각도 ±1.5°) 100% 준수</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">공정 관리 (T)</div>
+                <div class="text-sm font-black text-slate-900">철근 가공장 내 방청 및 빗물받침대(지상 100mm 이격) 관리</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider">원가/행정 관리 (C)</div>
+                <div class="text-sm font-black text-slate-900">철근 절단/절곡 시 균열 및 유해한 결함 제로</div>
+            </div>
+        </div>
+
+        <!-- 기술사양 및 설계 기준 테이블 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-6">
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
+                <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+                <h2 class="font-bold text-lg text-slate-900">기술사양 및 설계 시방 기준</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <tbody>
+
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">적용 기준</td>
+                        <td class="px-6 py-4 text-slate-600">KCS 14 20 11 철근공사, KS D 3504 철근 콘크리트용 봉강</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">철근 강종</td>
+                        <td class="px-6 py-4 text-slate-600">SD400 (fy=400MPa), SD500 (fy=500MPa), SD600 고강도 철근</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">가공 허용오차</td>
+                        <td class="px-6 py-4 text-slate-600">전체 길이 ±5mm, 후크/굽힘 치수 ±5mm, 절곡 각도 ±1.5°</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">구부림 내면 반지름</td>
+                        <td class="px-6 py-4 text-slate-600">주철근 D16 이하: 3d, D19~D25: 4d, D29 이상: 5d (d=철근 공칭지름)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3단계 표준 작업 프로세스 (Phases) -->
+        <div class="space-y-4">
+            <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-slate-900"></div>
+                <h2 class="font-bold text-lg text-slate-900">3단계 표준 작업 프로세스 (Standard Procedure)</h2>
+            </div>
+            <div class="space-y-4">
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 1</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 1: 철근 반입 및 품질 검사</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">원산지/규격 확인, 공장 인장/굴곡 시험성적서(Mill Sheet) 대조, 시편 채취 현장 품질시험</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 2</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 2: 철근 배근도(Bar Schedule) 작성</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">구조도면 기반 철근 가공조립도(Bar Schedule) 작성 및 감리원 사전 승인</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 3</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 3: 기계식 가공 및 부재별 태그 부착</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">자동 절단기/절곡기 정밀 가공, 부재별(기초, 기둥, 보, 슬라브) 규격 식별표 부착 및 보관</p>
+            </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-xs text-slate-400 py-4 border-t border-slate-200">
+            동탄도시철도(트램) 건설사업 건축분야 공종 프로세스 관리 매뉴얼 | WBS 9000-2-22
+        </div>
+    </div>
+</body>
+</html>

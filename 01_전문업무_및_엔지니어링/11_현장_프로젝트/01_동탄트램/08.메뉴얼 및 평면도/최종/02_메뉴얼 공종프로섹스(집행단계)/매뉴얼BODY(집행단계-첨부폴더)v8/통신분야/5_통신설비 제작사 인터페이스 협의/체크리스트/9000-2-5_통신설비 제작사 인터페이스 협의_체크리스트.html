@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통신설비 제작사 인터페이스 협의 마스터 체크리스트 (WBS 9000-2-5 초직관 개편)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }
+        .step-header { background-color: #ffffff; text-align: center; font-weight: 800; color: #1e3a8a; border-right: 1px solid #e2e8f0; }
+        .result-box { background-color: #ffffff; text-align: center; font-weight: 700; color: #2563eb; border-left: 1px solid #e2e8f0; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+
+    </style>
+</head>
+<body class="p-6 sm:p-10 text-slate-800">
+<div class="max-w-5xl mx-auto space-y-6">
+
+    <!-- 대제목 & WBS 코드 -->
+    <div class="flex justify-between items-end border-b-2 border-slate-900 pb-4">
+        <div>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">통신설비 제작사 인터페이스 협의 마스터 체크리스트</h1>
+        </div>
+        <div class="text-right">
+            <span class="text-blue-600 font-bold text-sm">WBS Code 9000-2-5 | 통신 검측대장</span>
+        </div>
+    </div>
+
+    <!-- 📋 상단 안내 상자 (Notice Box) -->
+    <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-6 shadow-sm space-y-2">
+        <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+            <span>📋</span> 쉽게 풀어쓴 12대 현장 점검 체크리스트
+        </h3>
+        <p class="text-xs text-blue-900 leading-relaxed font-medium">
+            본 체크리스트는 통신설비 제작사 간 핀 구멍 대조, 광선 꽂기, 전광판 0.5초 연동, 비상 벨 3초 관제 연결 점검 시 현장 엔지니어가 <strong>[🔍 시공 도식 열기]</strong>를 클릭하면 <strong>대형 고화질 팝업 모달</strong>이 열려 도식을 직접 보며 <strong>~하였는가? (100%)</strong> 점검을 진행할 수 있도록 연동되었습니다.
+        </p>
+    </div>
+
+    <!-- 숨겨진 현장 점검용 Step 1~3 2D Visual SVG 소스 -->
+    <div style="display:none;">
+        <svg id="svg_chk_step1" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+            <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+            <text x="130" y="50" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">🔌 핀 구멍 대조 & 전원 확인</text>
+            <text x="35" y="75" font-size="11" font-weight="bold" fill="#334155">• 선 구멍(Pin) 위치 1:1 대조 완료</text>
+            <text x="35" y="98" font-size="11" font-weight="bold" fill="#334155">• 220V / 48V 전원 잭 1:1 준비</text>
+            <text x="35" y="121" font-size="11" font-weight="bold" fill="#1d4ed8">• 무정전 UPS 분전함 결선 완료</text>
+
+            <rect x="270" y="25" width="230" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+            <text x="385" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📡 안테나 광선 1:1 꽂기</text>
+            <text x="285" y="75" font-size="11" font-weight="bold" fill="#334155">• 지하 광케이블선에 1:1 정확히 꽂음</text>
+            <text x="285" y="98" font-size="11" font-weight="bold" fill="#334155">• 신호 신선도 측정기(파워미터) 검사</text>
+            <text x="285" y="121" font-size="11" font-weight="bold" fill="#047857">• 빛 신호 손실 0.2dB 이하 최상급</text>
+        </svg>
+
+        <svg id="svg_chk_step2" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+            <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#0891b2" stroke-width="2" rx="8"/>
+            <text x="130" y="50" font-size="13" font-weight="black" fill="#0e7490" text-anchor="middle">📺 0.5초 동시 작동 시험</text>
+            <text x="35" y="75" font-size="11" font-weight="bold" fill="#334155">• 전광판 글자 + 스피커 0.5초 방송</text>
+            <text x="35" y="98" font-size="11" font-weight="bold" fill="#334155">• 4K 카메라 화질 선명하게 켜짐</text>
+            <text x="35" y="121" font-size="11" font-weight="bold" fill="#0e7490">• 영상 패킷 끊김 0.01% 이하 합격</text>
+
+            <rect x="270" y="25" width="230" height="130" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="8"/>
+            <text x="385" y="50" font-size="13" font-weight="black" fill="#0f766e" text-anchor="middle">🚨 비상 벨 3초 관제 소리 연결</text>
+            <text x="285" y="75" font-size="11" font-weight="bold" fill="#334155">• 승강장 비상 벨 눌러서 시험</text>
+            <text x="285" y="98" font-size="11" font-weight="bold" fill="#334155">• 3초 안에 관제실 벨 울리고 연결</text>
+            <text x="285" y="121" font-size="11" font-weight="bold" fill="#0f766e">• 전력 잡음 없는 깨끗한 통화</text>
+        </svg>
+
+        <svg id="svg_chk_step3" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+            <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+            <text x="130" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📄 국가 공인 무선전파 적합필증 (TTA/KCA)</text>
+            <text x="35" y="75" font-size="11" font-weight="bold" fill="#334155">• 무전기 잘 터짐 인증서 (TTA)</text>
+            <text x="35" y="98" font-size="11" font-weight="bold" fill="#334155">• 무선 해킹 방지 인증서 완료 (TTA)</text>
+            <text x="35" y="121" font-size="11" font-weight="bold" fill="#047857">• 전파법 최종 전파 합격증 확보 (KCA)</text>
+
+            <rect x="270" y="25" width="230" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+            <text x="385" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🖊️ 5개 회사 서명 날인</text>
+            <text x="285" y="75" font-size="11" font-weight="bold" fill="#334155">• 통신/전기/신호/차량/PSD 도장</text>
+            <text x="285" y="98" font-size="11" font-weight="bold" fill="#334155">• 현장 시스템팀 감리원 최종 승인</text>
+            <text x="285" y="121" font-size="11" font-weight="bold" fill="#047857">• 1,2공구 종합대장 등재 완료</text>
+        </svg>
+    </div>
+
+    <!-- 3-Column 마스터 검측 테이블 -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-slate-100 text-slate-700 text-sm font-extrabold border-b border-slate-200">
+                    <th class="py-4 px-6 text-center w-48 border-r border-slate-200">시공 단계</th>
+                    <th class="py-4 px-6 text-center">필수 검측 항목 (쉬운 질문형 12대 수칙)</th>
+                    <th class="py-4 px-6 text-center w-36 border-l border-slate-200">점검 결과</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+                <!-- STEP 1 Group -->
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td rowspan="4" class="step-header p-6 w-48 align-middle bg-slate-50/50 border-r border-slate-200">
+                        <div class="space-y-2">
+                            <span class="text-amber-500 text-base">⚠️</span>
+                            <div class="text-sm font-black text-slate-900">사전 준비</div>
+                            <div class="text-xs text-blue-600 font-bold">(Step 1 핀구멍맞추기)</div>
+                            <button onclick="openDiagramZoom('svg_chk_step1', 'Step 1 핀맞추기 시공 도식')" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-2 py-1 rounded shadow transition mt-1">🔍 시공 도식 열기</button>
+                        </div>
+                    </td>
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">1. 핀 구멍 대조</span><strong class="text-slate-900">[연결선 대조]</strong> A회사와 B회사 장비 연결선 핀(Pin) 구멍 위치가 똑맞는지 1:1 도면으로 대조<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                    <td rowspan="4" class="result-box p-6 w-36 align-middle bg-slate-50/30 text-blue-600 font-bold text-sm">☐ 확인완료</td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">2. 전원 잭 확인</span><strong class="text-slate-900">[코드 잭 준비]</strong> 각 장비에 220V 코드를 꽂을지 48V 전기를 줄지 전원 잭을 사전에 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">3. 광선 꽂기</span><strong class="text-slate-900">[1:1 꽂기]</strong> 트램 안테나 기지국 광선을 지하 메인 광케이블선에 1:1로 정확히 꽂았는가?</td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">4. 신호 신선도</span><strong class="text-slate-900">[측정기 검사]</strong> 빛 신호가 약해지거나 새지 않는지 측정기(파워미터)로 신선도를 측정<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+
+                <!-- STEP 2 Group -->
+                <tr class="hover:bg-slate-50 transition-colors border-t-2 border-slate-200">
+                    <td rowspan="4" class="step-header p-6 w-48 align-middle bg-slate-50/50 border-r border-slate-200">
+                        <div class="space-y-2">
+                            <span class="text-blue-500 text-base">📋</span>
+                            <div class="text-sm font-black text-slate-900">8대 조건</div>
+                            <div class="text-xs text-blue-600 font-bold">(Step 2 방송/CCTV)</div>
+                            <button onclick="openDiagramZoom('svg_chk_step2', 'Step 2 방송/CCTV 시공 도식')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold px-2 py-1 rounded shadow transition mt-1">🔍 시공 도식 열기</button>
+                        </div>
+                    </td>
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">5. 전광판 0.5초</span><strong class="text-slate-900">[글자 띄우기]</strong> 트램 진입 시 승강장 전광판 글자가 0.5초 만에 작동하는지 시험<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                    <td rowspan="4" class="result-box p-6 w-36 align-middle bg-slate-50/30 text-blue-600 font-bold text-sm">☐ 확인완료</td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">6. 스피커 방송</span><strong class="text-slate-900">[안내 방송]</strong> 트램 진입 시 스피커 안내방송이 0.5초 만에 동시에 울리는지 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">7. 4K 카메라</span><strong class="text-slate-900">[화면 켜기]</strong> 4K 카메라 화면이 끊김 없이 맑고 선명하게 관제실에 켜지는지 검측<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">8. 비상 벨 3초</span><strong class="text-slate-900">[관제실 소리]</strong> 승강장 비상 벨 조작 시 3초 안에 관제실로 벨이 울리고 소리가 연결되는지 시험<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+
+                <!-- STEP 3 Group -->
+                <tr class="hover:bg-slate-50 transition-colors border-t-2 border-slate-200">
+                    <td rowspan="4" class="step-header p-6 w-48 align-middle bg-slate-50/50 border-r border-slate-200">
+                        <div class="space-y-2">
+                            <span class="text-emerald-500 text-base">🤝</span>
+                            <div class="text-sm font-black text-slate-900">마감 승인</div>
+                            <div class="text-xs text-blue-600 font-bold">(Step 3 결과 체결)</div>
+                            <button onclick="openDiagramZoom('svg_chk_step3', 'Step 3 마감승인 시공 도식')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold px-2 py-1 rounded shadow transition mt-1">🔍 시공 도식 열기</button>
+                        </div>
+                    </td>
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">9. 통화 잡음차단</span><strong class="text-slate-900">[깨끗한 목소리]</strong> 비상 통화 시 전력 유도 잡음 없이 깨끗한 목소리가 들리는지 검측<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                    <td rowspan="4" class="result-box p-6 w-36 align-middle bg-slate-50/30 text-blue-600 font-bold text-sm">☐ 확인완료</td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">10. 무선성능 검증</span><strong class="text-slate-900">[TTA 인증]</strong> 무전기 안테나가 잘 터지고 해킹 안 된다는 정부 인증서(TTA)를 챙겼는가?</td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">11. 전파 합격증</span><strong class="text-slate-900">[KCA 필증]</strong> 전파법 기준에 맞는 최종 전파 합격증(KCA 필증) 서류를 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+                </tr>
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">12. 5개 회사 도장</span><strong class="text-slate-900">[합격 서명]</strong> 통신/전기/신호/차량/PSD 5개 회사 담당자가 모여 서명 날인을 찍었는가?</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 제작사 연동 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'lter_du_rru': {
+        title: '📡 통신선 핀 맞추기 & 전원 잭 확인',
+        desc: 'A회사 장비와 B회사 장비를 케이블로 꽂을 때, 선 구멍(Pin) 위치가 똑맞는지 도면으로 대조하고 220V/48V 전원 잭을 사전에 정확히 확인하는 가이드입니다.'
+    },
+    'pis_pa_cctv': {
+        title: '📺 전광판·스피커·4K 카메라 0.5초 만에 동시에 띄우기',
+        desc: '트램 진입 시 승강장 전광판 글자, 스피커 방송이 0.5초 만에 동시에 작동하고 4K 카메라 화면이 끊김 없이 켜지는지 확인하는 가이드입니다.'
+    },
+    'psd_emergency_call': {
+        title: '📻 승강장 안전문 비상 벨 누르면 3초 만에 관제실 소리 연결하기',
+        desc: '승강장 안전문에 붙어있는 빨간색 비상 벨을 누르면, 3초 안에 관제실로 벨이 울리고 깨끗한 목소리로 비상 통화가 연결되는지 눌러서 시험하는 수칙입니다.'
+    },
+    'tta_kca_certified': {
+        title: '📄 무선통신 성능 검증 합격증 (TTA/KCA) 챙기기 & 5개 회사 도장 찍기',
+        desc: '무선 장비 전파 성능 및 보안성이 검증된 국가 공인 인증서(TTA/KCA)를 확보하고, 5개 회사(통신/전기/신호/차량/PSD) 담당자가 모여 최종 서명 도장을 찍는 지침입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

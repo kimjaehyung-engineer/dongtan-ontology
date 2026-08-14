@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기분야 - 관제 및 운영사 인터페이스 협의 마스터 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Noto Sans KR', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-950 to-slate-900 opacity-80"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-3-6 Standard</span>
+                <span class="bg-white text-slate-950 text-xs font-bold px-3 py-1 rounded-full">전기설비 & 전철전력 엔지니어링 표준서</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">관제 및 운영사 인터페이스 협의 마스터 표준서</h1>
+            <p class="text-blue-200 mt-2 text-sm sm:text-base">"SCADA 관제 HMI 화면, 비상단전(EPO) 절차, 사고 복구 시퀀스 및 유지보수 운영 협의"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 개요 카드 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl">
+            <h3 class="text-lg font-bold text-blue-950 mb-2">📌 공종 개요 및 업무 관할</h3>
+            <p class="text-sm text-blue-900 leading-relaxed">
+                동탄트램 통합관제센터 전력 관제 콘솔과 현장 변전소/전차선 간 실시간 원격 제어 및 비상 운용 인터페이스 표준입니다.
+            </p>
+        </div>
+
+        <!-- KPI 그리드 -->
+        <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-4 border-l-4 border-blue-600 pl-3">핵심 엔지니어링 관리 지표 (KPI)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                <span class="text-xs font-bold text-slate-500 block uppercase">HMI 제어 응답속도</span>
+                <span class="text-sm font-bold text-blue-900 mt-1 block">원격 차단기 제어 명령 응답 ≤ 1.0초</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                <span class="text-xs font-bold text-slate-500 block uppercase">EPO 비상단전</span>
+                <span class="text-sm font-bold text-blue-900 mt-1 block">비상 버튼 작동 시 전 구간 단전 ≤ 0.5초</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                <span class="text-xs font-bold text-slate-500 block uppercase">알람 전송 신뢰도</span>
+                <span class="text-sm font-bold text-blue-900 mt-1 block">고장 경보 수신 누락율 0%</span>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                <span class="text-xs font-bold text-slate-500 block uppercase">운영사 승인율</span>
+                <span class="text-sm font-bold text-blue-900 mt-1 block">유지보수 매뉴얼 운영사 합의 100%</span>
+            </div>
+            </div>
+        </div>
+
+        <!-- 기술 기준 및 사양 테이블 -->
+        <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-4 border-l-4 border-blue-600 pl-3">기술 기준 및 품질 사양</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse border border-slate-200 text-xs sm:text-sm">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-700">
+                            <th class="border border-slate-200 p-3">표준 항목</th>
+                            <th class="border border-slate-200 p-3">설계 및 공학 기준치</th>
+                            <th class="border border-slate-200 p-3 text-center">점검 주기</th>
+                            <th class="border border-slate-200 p-3 text-center">허용 오차</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr class="hover:bg-slate-50">
+                <td class="border border-slate-200 p-3 font-semibold text-slate-900">SCADA 관제 서버</td>
+                <td class="border border-slate-200 p-3 font-medium text-slate-700">이중화 핫스탠바이(Hot-Standby) 구조</td>
+                <td class="border border-slate-200 p-3 text-center text-slate-600">구축 시</td>
+                <td class="border border-slate-200 p-3 text-center font-bold text-blue-600">가동률 99.99%</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+                <td class="border border-slate-200 p-3 font-semibold text-slate-900">비상단전반(EPO)</td>
+                <td class="border border-slate-200 p-3 font-medium text-slate-700">하드와이어드 독립 비상 차단 회로</td>
+                <td class="border border-slate-200 p-3 text-center text-slate-600">현장 설치 시</td>
+                <td class="border border-slate-200 p-3 text-center font-bold text-blue-600">오동작 0건</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+                <td class="border border-slate-200 p-3 font-semibold text-slate-900">전력 모니터링 HMI</td>
+                <td class="border border-slate-200 p-3 font-medium text-slate-700">단선도 기반 그래픽 화면, 색상 표준화</td>
+                <td class="border border-slate-200 p-3 text-center text-slate-600">소프트웨어 검수</td>
+                <td class="border border-slate-200 p-3 text-center font-bold text-blue-600">오차 0%</td>
+            </tr>
+            <tr class="hover:bg-slate-50">
+                <td class="border border-slate-200 p-3 font-semibold text-slate-900">음성 통신 연동</td>
+                <td class="border border-slate-200 p-3 font-medium text-slate-700">관제-현장 직통 지령 전화기 설치</td>
+                <td class="border border-slate-200 p-3 text-center text-slate-600">통신 연계 시</td>
+                <td class="border border-slate-200 p-3 text-center font-bold text-blue-600">통화품질 100%</td>
+            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 표준 작업 절차 가이드 -->
+        <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-4 border-l-4 border-blue-600 pl-3">표준 시공 및 검측 프로세스</h3>
+            <div class="space-y-3">
+                <div class="flex items-start gap-4 p-4 rounded-xl border border-slate-200 bg-slate-50">
+                    <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">PHASE 1</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">사전 도서 대조 & 인터페이스 회의</h4>
+                        <p class="text-xs text-slate-600 mt-1">KEC 규정, 수전 계획, 토목/건축 슬리브 위치 및 3자 합동 인터페이스 사전 검토 완료</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 rounded-xl border border-slate-200 bg-slate-50">
+                    <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">PHASE 2</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">현장 정밀 실측 & 기자재 반입 검수</h4>
+                        <p class="text-xs text-slate-600 mt-1">패드 수평도(±2mm), 충전부 이격거리 확보 및 공인기관 시험성적서 원본 대조 검측</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 rounded-xl border border-slate-200 bg-slate-50">
+                    <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">PHASE 3</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">표준 시공 & 3자 합동 검측 날인</h4>
+                        <p class="text-xs text-slate-600 mt-1">규정 토크 체결, 절연/접지저항 측정 및 책임감리원 서명/날인 후 PMIS 등재 완료</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

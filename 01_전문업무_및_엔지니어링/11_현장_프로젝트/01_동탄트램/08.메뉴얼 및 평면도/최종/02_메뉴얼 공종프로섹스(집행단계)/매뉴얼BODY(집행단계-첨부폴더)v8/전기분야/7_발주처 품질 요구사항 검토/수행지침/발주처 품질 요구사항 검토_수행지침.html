@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>발주처 품질 요구사항 검토 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal-content, .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border-radius: 20px;
+        width: 92%;
+        max-width: 720px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border: 1px solid #cbd5e1;
+        position: relative;
+        animation: modalFadeIn 0.25s ease-out;
+    }
+    .zoom-modal-content {
+        max-width: 1100px !important;
+        width: 95% !important;
+    }
+    @keyframes modalFadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .glossary-close, .zoom-close {
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        color: #64748b;
+        font-size: 28px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #0f172a;
+    }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-950 to-slate-900 opacity-80"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-3-7 Guideline</span>
+                <span class="bg-white text-slate-950 text-xs font-bold px-3 py-1 rounded-full">전기설비 마스터 작업 수행지침</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">발주처 품질 요구사항 검토 수행지침서</h1>
+            <p class="text-blue-200 mt-2 text-sm sm:text-base">"화성시 특기시방서, KRSA 철도표준자재 규격, 고효율 몰드변압기 및 친환경 기자재 검증"</p>
+        </div>
+    </div>
+
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 1. 핵심 수행 원칙 및 배경 -->
+        <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-6 shadow-sm space-y-3">
+            <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+                <span>📘</span> 발주처 품질 요구사항 검토 엔지니어링 수행 원칙
+            </h3>
+            <p class="text-xs text-blue-900 leading-relaxed font-medium">
+                본 지침서는 동탄트램 현장 기술자가 실무에서 즉시 적용할 수 있도록 <span class="term-highlight" onclick="openGlossary('krsa_standard')">📜 철도표준규격 (KRSA - Korea Railway Standards)</span>, <span class="term-highlight" onclick="openGlossary('eco_gis')">🌱 친환경 절연 배전반 (Eco-GIS)</span> 및 <span class="term-highlight" onclick="openGlossary('hf_cable')">🔥 저독성 난연 케이블 (HF-CO Cable)</span> 수칙을 1:1 맞춤형으로 체계화한 엔지니어링 가이드입니다.
+            </p>
+        </div>
+
+        <!-- 2. 단계별 마스터 절차 카드 -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 단계별 마스터 절차 (Step-by-Step Execution Guide)
+            </h2>
+            <div class="space-y-4">
+                
+                <!-- STEP 1 WHAT -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1 WHAT</span>
+                        <h3 class="font-bold text-base text-slate-900">발주처 특기시방서 품질 요구조건 전수 추출 및 대조</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>화성시 트램 사업 특기시방서 내 전기분야 특화 요구사항을 100% 추출하여 목록화합니다.</li><li>국가철도공단 철도표준자재(KRSA) 및 KEC 상위 규격 일치 여부를 대조합니다.</li><li>에너지이용합리화법에 따른 고효율 기자재 의무 사용 품목을 확정합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 2 WHEN -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2 WHEN</span>
+                        <h3 class="font-bold text-base text-slate-900">자재공급원 승인 신청 전 1단계 품질 적합성 심사</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>자재 발주 60일 전 발주처 품질 체크리스트를 기반으로 사전 자체 심사를 진행합니다.</li><li>제조사의 품질경영시스템(ISO 9001/14001) 및 최근 3개년 품질하자 현황을 실사합니다.</li><li>미충족 항목 도출 시 대체 친환경/고효율 규격으로 설계 보완을 완료합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 3 WHO -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3 WHO</span>
+                        <h3 class="font-bold text-base text-slate-900">발주처 감독관, 전기 책임감리원, 품질관리 책임엔지니어</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>발주처 전기 감독관 입석 하에 품질 사양 검토 보고회를 개최합니다.</li><li>감리원 주관으로 주요 자재의 친환경 인증서 및 시험성적서 원본을 대조합니다.</li><li>품질 검토 결과를 품질관리계획서에 정식 등재하고 승인을 득합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 4 WHERE -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4 WHERE</span>
+                        <h3 class="font-bold text-base text-slate-900">자재 시험 연구소 및 제조 공장 품질 시험실</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>공인 시험기관(KTR, KCL 등)에서 발행한 공인 시험성적서의 진위 여부를 전산 조회합니다.</li><li>제조사 품질 시험실의 계측기 교정검정(KOLAS) 유효기간을 실측 확인합니다.</li><li>현장 반입 자재의 환경성선언(EPD) 및 녹색기술인증 마크를 점검합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 5 HOW -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 5 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">발주처 품질 적합성 보고서 제출 및 승인 완료</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>12대 품질 검측 대장에 의거하여 적합/부적합 여부를 100% 대조 판정합니다.</li><li>발주처 특기시방 요구사항 대비 충족 표를 첨부하여 최종 승인 결재를 받습니다.</li><li>승인된 품질 문서를 PMIS 품질문서함에 영구 보존 등록합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">3.</span> 2D Visual 기술 도식 (Enriched 2D SVG)
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r3_7', '[9000-3-7] 발주처 품질 요구사항 검토 2D Visual 정밀 공학 도식')">
+                <svg id="svg_r3_7" viewBox="0 0 550 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="550" height="180" fill="#f8fafc"/>
+    <rect x="25" y="20" width="230" height="120" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+    <text x="140" y="45" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">📋 발주처 특기시방 & KRSA 100% 대조</text>
+    <text x="45" y="75" font-size="11" font-weight="bold" fill="#334155">• 화성시 특기시방서, KRSA 철도표준자재 규...</text>
+    <text x="45" y="98" font-size="11" font-weight="bold" fill="#334155">• KEC & 설계도서 100% 대조 완료</text>
+    <path d="M 260 80 L 290 80" stroke="#2563eb" stroke-width="3"/>
+    <polygon points="290,75 300,80 290,85" fill="#2563eb"/>
+    <rect x="295" y="20" width="230" height="120" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+    <text x="410" y="45" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🌱 고효율 몰드변압기 & 저독성 케이블</text>
+    <text x="315" y="75" font-size="11" font-weight="bold" fill="#334155">• 정밀 계측(절연/접지/토크) 1:1 검측</text>
+    <text x="315" y="98" font-size="11" font-weight="bold" fill="#334155">• 3자 합동 서명 & PMIS 즉시 등재</text>
+    <text x="275" y="162" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">발주처 품질 요구사항 검토 표준 실무 공정 완료 및 감리원 승인 완수</text>
+</svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 용어 사전 모달 -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<!-- 대형 도식 확대 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'krsa_standard': {
+        title: '📜 철도표준규격 (KRSA - Korea Railway Standards)',
+        desc: '국가철도공단에서 제정한 철도 전철전력, 신호, 통신 분야 기자재의 신뢰성과 호환성을 보장하는 최고 수준의 기술 규격입니다.'
+    },
+    'eco_gis': {
+        title: '🌱 친환경 절연 배전반 (Eco-GIS)',
+        desc: '지구온난화 지수(GWP)가 높은 SF6 가스 대신 건조공기(Dry Air)나 친환경 가스를 사용하여 탄소 배출을 획기적으로 줄인 변전 설비입니다.'
+    },
+    'hf_cable': {
+        title: '🔥 저독성 난연 케이블 (HF-CO Cable)',
+        desc: '화재 발생 시 유독가스 및 염화수소 가스 배출이 없어 질식 사고를 방지하고 연기 발생을 최소화하는 철도 특화 케이블입니다.'
+    },
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄도시철도 - 거푸집 해체 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto space-y-8">
+        
+        <!-- Header Banner -->
+        <div class="bg-slate-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 space-y-4">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="bg-amber-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">WBS 9000-2-27</span>
+                    <span class="bg-slate-800 text-slate-300 font-bold text-xs px-3 py-1 rounded-full">건축공사 기술 표준서</span>
+                    <span class="bg-emerald-500/20 text-emerald-400 font-bold text-xs px-3 py-1 rounded-full">동탄도시철도 건설사업</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black tracking-tight">거푸집 해체 기술 표준서</h1>
+                <p class="text-slate-400 text-sm max-w-3xl leading-relaxed">건축 구조체 거푸집 및 동바리 해체 시기 판정, 압축강도(≥5MPa, ≥14MPa) 시험 및 존치기간 관리</p>
+            </div>
+        </div>
+
+        <!-- 4대 관리 KPI Summary Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-amber-600 uppercase tracking-wider">품질 관리 (Q)</div>
+                <div class="text-sm font-black text-slate-900">수직 거푸집(벽/기둥) 해체 압축강도(≥5.0MPa) 100% 확인</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-emerald-600 uppercase tracking-wider">안전 관리 (S)</div>
+                <div class="text-sm font-black text-slate-900">수평 거푸집(보밑/슬라브) 해체 압축강도(≥14.0MPa 또는 설계기준강도의 2/3) 확인</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">공정 관리 (T)</div>
+                <div class="text-sm font-black text-slate-900">동바리 재설치(Re-shoring) 규정 100% 준수</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider">원가/행정 관리 (C)</div>
+                <div class="text-sm font-black text-slate-900">해체 시 충격 하중 및 구조체 모서리 파손 제로</div>
+            </div>
+        </div>
+
+        <!-- 기술사양 및 설계 기준 테이블 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-6">
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
+                <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+                <h2 class="font-bold text-lg text-slate-900">기술사양 및 설계 시방 기준</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <tbody>
+
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">적용 기준</td>
+                        <td class="px-6 py-4 text-slate-600">KCS 21 50 00 거푸집 및 동바리공사 표준시방서, 콘크리트구조기준</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">수직부재 해체강도</td>
+                        <td class="px-6 py-4 text-slate-600">기둥, 벽체, 보 측면: 현장 양생 공시체 압축강도 fcu ≥ 5.0 MPa</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">수평부재 해체강도</td>
+                        <td class="px-6 py-4 text-slate-600">슬라브, 보 밑면: fcu ≥ 14.0 MPa 또는 설계기준강도 fck의 2/3 이상</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">동바리 존치기간</td>
+                        <td class="px-6 py-4 text-slate-600">설계강도 100% 발현 시까지 존치 원칙, 상부 타설 시 2개 층 이상 동바리 유지</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3단계 표준 작업 프로세스 (Phases) -->
+        <div class="space-y-4">
+            <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-slate-900"></div>
+                <h2 class="font-bold text-lg text-slate-900">3단계 표준 작업 프로세스 (Standard Procedure)</h2>
+            </div>
+            <div class="space-y-4">
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 1</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 1: 현장관리용 공시체 강도시험</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">현장과 동일 조건으로 양생된 공시체 압축강도 시험(5MPa / 14MPa 이상 달성 확인)</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 2</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 2: 감리원 해체 승인 및 안전구역 설정</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">강도 시험성적서 첨부 해체 승인 요청, 하부 낙하물 위험구역 통제선 설치</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 3</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 3: 순차적 해체 및 동바리 재설치</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">수직재 -> 보 측면 -> 슬라브 순 해체, 충격 방지, 3개 층 릴리프 동바리(Re-shoring) 시공</p>
+            </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-xs text-slate-400 py-4 border-t border-slate-200">
+            동탄도시철도(트램) 건설사업 건축분야 공종 프로세스 관리 매뉴얼 | WBS 9000-2-27
+        </div>
+    </div>
+</body>
+</html>

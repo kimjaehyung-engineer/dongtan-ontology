@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기설비 제작사 인터페이스 협의 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal-content, .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border-radius: 20px;
+        width: 92%;
+        max-width: 720px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border: 1px solid #cbd5e1;
+        position: relative;
+        animation: modalFadeIn 0.25s ease-out;
+    }
+    .zoom-modal-content {
+        max-width: 1100px !important;
+        width: 95% !important;
+    }
+    @keyframes modalFadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .glossary-close, .zoom-close {
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        color: #64748b;
+        font-size: 28px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #0f172a;
+    }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-950 to-slate-900 opacity-80"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-3-5 Guideline</span>
+                <span class="bg-white text-slate-950 text-xs font-bold px-3 py-1 rounded-full">전기설비 마스터 작업 수행지침</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">전기설비 제작사 인터페이스 협의 수행지침서</h1>
+            <p class="text-blue-200 mt-2 text-sm sm:text-base">"22.9kV GIS, 수배전반, 정류기반, SCADA RTU 제작사 기술 사양 및 단자대 결선 표준화"</p>
+        </div>
+    </div>
+
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 1. 핵심 수행 원칙 및 배경 -->
+        <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-6 shadow-sm space-y-3">
+            <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+                <span>📘</span> 전기설비 제작사 인터페이스 협의 엔지니어링 수행 원칙
+            </h3>
+            <p class="text-xs text-blue-900 leading-relaxed font-medium">
+                본 지침서는 동탄트램 현장 기술자가 실무에서 즉시 적용할 수 있도록 <span class="term-highlight" onclick="openGlossary('tb_pinmap')">🔌 제어 단자대(TB) 핀맵 표준화</span>, <span class="term-highlight" onclick="openGlossary('dual_interlock')">🔒 기계적/전기적 2중 인터록 (Interlock)</span> 및 <span class="term-highlight" onclick="openGlossary('battery_limit')">📐 인터페이스 책임 한계점 (Battery Limit)</span> 수칙을 1:1 맞춤형으로 체계화한 엔지니어링 가이드입니다.
+            </p>
+        </div>
+
+        <!-- 2. 단계별 마스터 절차 카드 -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 단계별 마스터 절차 (Step-by-Step Execution Guide)
+            </h2>
+            <div class="space-y-4">
+                
+                <!-- STEP 1 WHAT -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1 WHAT</span>
+                        <h3 class="font-bold text-base text-slate-900">제작사별 제어 회로도 및 단자대 핀맵 1:1 대조</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>GIS, 변압기, 정류기반, 배전반 제작사의 제어 인터페이스 결선도를 통합 오버레이합니다.</li><li>보호계전기 트립 신호 및 상태 감시 접점(A/B접점)의 전압 규격(DC 110V)을 일치시킵니다.</li><li>SCADA RTU와 지능형 전자장치(IED) 간 통신 맵(Modbus/IEC 61850)을 사전 확정합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 2 WHEN -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2 WHEN</span>
+                        <h3 class="font-bold text-base text-slate-900">기자재 상세 도면 승인 전 1차 제작사 기술회의 소집</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>공장 제작 착수 30일 전 모든 제작사 엔지니어를 소집하여 인터페이스 워크숍을 개최합니다.</li><li>큐비클 간 모선(Bus-Duct) 연결 부위의 치수(W/H/D) 및 볼트 홀 위치를 확정합니다.</li><li>도면 불일치 사항은 제작 승인도면에 즉시 반영하여 수정 출도를 완료합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 3 WHO -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3 WHO</span>
+                        <h3 class="font-bold text-base text-slate-900">전기 감리원 주관 하에 각 제작사 수석 설계자 입석</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>전기 책임감리원, 시공사 전기팀장, 각 기기 제작사 수석 설계 엔지니어가 참여합니다.</li><li>공동 인터페이스 책임 한계점(Battery Limit)을 명문화하여 분쟁을 사전 예방합니다.</li><li>회의 결과는 제작사 인터페이스 합의서에 공동 날인하여 관리합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 4 WHERE -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4 WHERE</span>
+                        <h3 class="font-bold text-base text-slate-900">주요 제작사 공장 방문 및 현장 큐비클 레이아웃 실측</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>주 기기 제작 공장을 직접 방문하여 판넬 베이스 치수 및 내부 배선 상태를 실사합니다.</li><li>현장 변전실 내 큐비클 배열 순서(GIS -> 변압기 -> 정류기 -> 배전반)를 1:1 시뮬레이션합니다.</li><li>판넬 후면 유지보수 공간(최소 1,000mm 이상) 확보 상태를 점검합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 5 HOW -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 5 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">인터페이스 적합성 시험 및 공장 출하 승인 체결</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>공장 검사 시 제작사 간 모의 연동 신호(Trip/Close, Alarm)를 100% 계측 검증합니다.</li><li>큐비클 연결 부스바 절연 저항(≥1,000MΩ) 및 내전압 시험을 통과시킵니다.</li><li>합격 판정된 기기에 대해 감리원 공장 출하 승인서를 발부합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">3.</span> 2D Visual 기술 도식 (Enriched 2D SVG)
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r3_5', '[9000-3-5] 전기설비 제작사 인터페이스 협의 2D Visual 정밀 공학 도식')">
+                <svg id="svg_r3_5" viewBox="0 0 550 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="550" height="180" fill="#f8fafc"/>
+    <rect x="25" y="20" width="230" height="120" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+    <text x="140" y="45" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">🔌 제어 단자대(TB) 핀맵 & 모선 연결</text>
+    <text x="45" y="75" font-size="11" font-weight="bold" fill="#334155">• 22.9kV GIS, 수배전반, 정류기반, ...</text>
+    <text x="45" y="98" font-size="11" font-weight="bold" fill="#334155">• KEC & 설계도서 100% 대조 완료</text>
+    <path d="M 260 80 L 290 80" stroke="#2563eb" stroke-width="3"/>
+    <polygon points="290,75 300,80 290,85" fill="#2563eb"/>
+    <rect x="295" y="20" width="230" height="120" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+    <text x="410" y="45" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🔒 2중 인터록 & 큐비클 볼팅 검측</text>
+    <text x="315" y="75" font-size="11" font-weight="bold" fill="#334155">• 정밀 계측(절연/접지/토크) 1:1 검측</text>
+    <text x="315" y="98" font-size="11" font-weight="bold" fill="#334155">• 3자 합동 서명 & PMIS 즉시 등재</text>
+    <text x="275" y="162" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">전기설비 제작사 인터페이스 협의 표준 실무 공정 완료 및 감리원 승인 완수</text>
+</svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 용어 사전 모달 -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<!-- 대형 도식 확대 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'tb_pinmap': {
+        title: '🔌 제어 단자대(TB) 핀맵 표준화',
+        desc: '이종 제작사 간 수배전반 제어 신호(차단기 상태, 트립, 경보)를 오결선 없이 연결하기 위해 번호와 기능을 1:1로 통일하는 작업입니다.'
+    },
+    'dual_interlock': {
+        title: '🔒 기계적/전기적 2중 인터록 (Interlock)',
+        desc: '오조작으로 인한 단락 사고를 방지하기 위해 차단기가 열려있지 않으면 단로기가 동작하지 않도록 기계 장치와 전기 신호로 2중 쇄정하는 안전 시스템입니다.'
+    },
+    'battery_limit': {
+        title: '📐 인터페이스 책임 한계점 (Battery Limit)',
+        desc: '각 설비 제작사가 공급 및 결선 책임을 지는 물리적/전기적 경계 지점을 명확히 규정하여 시공 상 누락을 방지하는 기준선입니다.'
+    },
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

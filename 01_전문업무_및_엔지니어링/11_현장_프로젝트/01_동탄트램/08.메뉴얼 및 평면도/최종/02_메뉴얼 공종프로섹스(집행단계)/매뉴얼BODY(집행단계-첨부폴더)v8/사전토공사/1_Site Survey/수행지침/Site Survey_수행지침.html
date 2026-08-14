@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=device-width, initial-scale=1.0">
+    <title>사전토공사 - Site Survey 작업 수행지침서</title>
+    <style>
+        :root {
+            --primary-color: #059669;
+            --primary-light: #ECFDF5;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --info-color: #3B82F6;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 2rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        .meta-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .step-box {
+            background-color: #FAFAFA;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .step-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #065F46;
+            margin-bottom: 8px;
+        }
+        .diagram-container {
+            margin: 25px 0;
+            text-align: center;
+        }
+        .diagram-explanation {
+            font-size: 0.85rem;
+            color: #4B5563;
+            margin-top: 8px;
+            background-color: #F3F4F6;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+    </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-5-1 Guideline</div>
+        <h1 class="title">Site Survey 작업 수행지침서</h1>
+        <div class="meta-info">
+            <span><strong>분야:</strong> 사전토공사 / 토공</span>
+            <span>|</span>
+            <span><strong>최종 개정일:</strong> 2026년 7월 22일</span>
+        </div>
+    </div>
+
+    <h2>1. 목적 및 개요 (Purpose)</h2>
+    <p>본 지침서는 도심지 트램 건설 사업의 착공 전 시공 측량 및 현장 정밀 조사를 성공적으로 완수하고 오시공 및 지하 매설물 파손 사고를 사전에 근절하기 위한 표준 현장 실행 가이드입니다.</p>
+
+    <h2>2. 단계별 세부 수행 가이드 (Step-by-Step Guide)</h2>
+    
+    <div class="step-box">
+        <div class="step-title">1단계: 국가 통합기준점 연결 및 GPS 정지측위</div>
+        <div>
+            국가 통합기준점(U용인42, U남양09 등)을 기준으로 현장 기지점을 확인합니다. 정밀도 확보를 위해 반드시 <strong>최소 2대 이상의 GPS 수신기를 이용해 1시간 이상 스타틱(정지측위법) 동시 관측</strong>을 수행하여 기하 구조 오차를 분산시킵니다.
+        </div>
+    </div>
+
+    <div class="diagram-container">
+        <!-- SVG Diagram -->
+        <svg viewBox="0 0 800 380" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background-color:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px;">
+          <!-- Satellites -->
+          <g transform="translate(150, 40)">
+            <circle cx="0" cy="0" r="12" fill="#EF4444"/>
+            <text x="0" y="25" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#475569">GPS 위성 A</text>
+          </g>
+          <g transform="translate(400, 30)">
+            <circle cx="0" cy="0" r="12" fill="#EF4444"/>
+            <text x="0" y="25" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#475569">GPS 위성 B</text>
+          </g>
+          <g transform="translate(650, 45)">
+            <circle cx="0" cy="0" r="12" fill="#EF4444"/>
+            <text x="0" y="25" font-family="sans-serif" font-size="11" text-anchor="middle" fill="#475569">GPS 위성 C</text>
+          </g>
+          
+          <!-- Signal Lines -->
+          <line x1="150" y1="40" x2="280" y2="210" stroke="#EF4444" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="400" y1="30" x2="280" y2="210" stroke="#EF4444" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="400" y1="30" x2="520" y2="230" stroke="#EF4444" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="650" y1="45" x2="520" y2="230" stroke="#EF4444" stroke-width="1" stroke-dasharray="3,3"/>
+
+          <!-- Ground Line -->
+          <line x1="0" y1="300" x2="800" y2="300" stroke="#64748B" stroke-width="3"/>
+          
+          <!-- Ground Fill -->
+          <rect x="0" y="300" width="800" height="80" fill="#F1F5F9"/>
+
+          <!-- Base Station (통합기준점) -->
+          <g transform="translate(280, 210)">
+            <line x1="0" y1="0" x2="-15" y2="90" stroke="#334155" stroke-width="2"/>
+            <line x1="0" y1="0" x2="15" y2="90" stroke="#334155" stroke-width="2"/>
+            <line x1="0" y1="0" x2="0" y2="90" stroke="#334155" stroke-width="2"/>
+            <circle cx="0" cy="0" r="8" fill="#2563EB"/>
+            <text x="0" y="-12" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold" fill="#1E3A8A">통합기준점(용인/남양)</text>
+          </g>
+
+          <!-- Rover Station (현장 수신기) -->
+          <g transform="translate(520, 230)">
+            <line x1="0" y1="0" x2="0" y2="70" stroke="#334155" stroke-width="2"/>
+            <circle cx="0" cy="0" r="7" fill="#10B981"/>
+            <text x="0" y="-12" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold" fill="#065F46">현장 수신기(Static)</text>
+          </g>
+          
+          <!-- Sync Line -->
+          <line x1="280" y1="210" x2="520" y2="230" stroke="#2563EB" stroke-width="2" stroke-dasharray="5,5"/>
+          <text x="400" y="200" font-family="sans-serif" font-size="11" text-anchor="middle" font-weight="bold" fill="#2563EB">동시 관측 (1시간 이상)</text>
+
+          <!-- Tram Center Pegs -->
+          <g transform="translate(50, 310)">
+            <path d="M 0 10 L 700 10" stroke="#CBD5E1" stroke-width="4"/>
+            <rect x="100" y="0" width="6" height="10" fill="#F59E0B"/>
+            <text x="103" y="-5" font-family="sans-serif" font-size="9" text-anchor="middle" fill="#78350F">No.0 (20m)</text>
+            <rect x="300" y="0" width="6" height="10" fill="#F59E0B"/>
+            <text x="303" y="-5" font-family="sans-serif" font-size="9" text-anchor="middle" fill="#78350F">No.1 (40m)</text>
+            <rect x="500" y="0" width="6" height="10" fill="#F59E0B"/>
+            <text x="503" y="-5" font-family="sans-serif" font-size="9" text-anchor="middle" fill="#78350F">No.2 (60m)</text>
+          </g>
+        </svg>
+        <div class="diagram-explanation">
+            <strong>[시각 모식도]</strong> 국가 통합기준점과 현장 GPS 수신기가 연계하여 동시 스타틱 측량을 진행하는 메커니즘을 나타냅니다.
+        </div>
+    </div>
+
+    <div class="step-box">
+        <div class="step-title">2단계: 중심선 및 종·횡단 측량 시행</div>
+        <div>
+            1:1,000 지형 현황도 중심선 좌표를 활용하여 현지 측량을 시작합니다. <strong>중심선 말뚝은 20m 간격을 표준으로 포설</strong>하되, 변곡점이나 곡선 시·종점부에는 보조 깃발 및 말뚝을 추가 배치합니다. 종단측량은 기존 수준점을 기준으로 <strong>반드시 왕복하여 왕복 오차가 기준 내에 수렴</strong>하도록 확인합니다.
+        </div>
+    </div>
+
+    <div class="step-box">
+        <div class="step-title">3단계: 지장물 노출 및 가설 보호 확인</div>
+        <div>
+            설계 도면상 노출이 확인된 상수/하수도 및 고압 가스관 간섭 구역은 <strong>중장비(포크레인) 사용을 엄격히 제한하고 인력 굴착으로 노출</strong>시킵니다. 노출된 관로는 매달기 가설 공법을 시공하고 일일 침하 계측 변위를 관리합니다.
+        </div>
+    </div>
+
+    
+        
+<div class="subcontractor-advisory-box" style="background-color: #FFFBEB; border: 1.5px solid #F59E0B; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #B45309; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>👷</span> [협력업체 실무 자문] 사전토공 및 차로점용 수행지침 (정주건설·트리폴건설)
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #78350F; font-size: 0.92rem; line-height: 1.7;">
+                <li><strong>노선 구간 전폭 점용 수칙:</strong> 상/하선 별도 시공 시에도 단일 노선 기준 전폭 차선 통제 수칙을 적용하여 시공 안정성 확보</li>
+                <li><strong>지장물 우선 처리 수칙:</strong> 한전/통신/가스관 위탁 지장물 이설이 완전히 종료된 후 굴착 및 본 토공 장비 투입</li>
+            </ul>
+        </div>
+        
+<div class="footer-note">
+        동탄도시철도(트램) 1공구 엔지니어링 수행지침서 | 주관: 현장 공사팀
+    </div>
+</div>
+
+<div id="zoomModal" class="fixed inset-0 z-[9999] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
+    <div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="document.getElementById('zoomModal').classList.add('hidden')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm hover:bg-slate-700">✕ 닫기</button>
+        <h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3>
+        <div id="zoomContent" class="flex justify-center items-center"></div>
+    </div>
+</div>
+<script>
+function openDiagramZoom(htmlContent, title) {
+    var modal = document.getElementById('zoomModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'zoomModal';
+        modal.className = 'fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4';
+        modal.onclick = function() { modal.classList.add('hidden'); };
+        modal.innerHTML = '<div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()"><button onclick="document.getElementById(\'zoomModal\').classList.add(\'hidden\')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm">✕ 닫기</button><h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3><div id="zoomContent" class="flex justify-center items-center"></div></div>';
+        document.body.appendChild(modal);
+    }
+    document.getElementById('zoomTitle').innerText = title || '2D 시공 도식 확대보기';
+    document.getElementById('zoomContent').innerHTML = htmlContent;
+    modal.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

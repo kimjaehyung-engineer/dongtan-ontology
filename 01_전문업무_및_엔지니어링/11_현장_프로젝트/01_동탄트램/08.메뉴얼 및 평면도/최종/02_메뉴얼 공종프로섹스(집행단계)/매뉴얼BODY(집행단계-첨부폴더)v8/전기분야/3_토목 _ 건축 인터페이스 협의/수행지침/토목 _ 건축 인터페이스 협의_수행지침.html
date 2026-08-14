@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>토목 _ 건축 인터페이스 협의 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal-content, .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border-radius: 20px;
+        width: 92%;
+        max-width: 720px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border: 1px solid #cbd5e1;
+        position: relative;
+        animation: modalFadeIn 0.25s ease-out;
+    }
+    .zoom-modal-content {
+        max-width: 1100px !important;
+        width: 95% !important;
+    }
+    @keyframes modalFadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .glossary-close, .zoom-close {
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        color: #64748b;
+        font-size: 28px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #0f172a;
+    }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-950 to-slate-900 opacity-80"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-3-3 Guideline</span>
+                <span class="bg-white text-slate-950 text-xs font-bold px-3 py-1 rounded-full">전기설비 마스터 작업 수행지침</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">토목 _ 건축 인터페이스 협의 수행지침서</h1>
+            <p class="text-blue-200 mt-2 text-sm sm:text-base">"변전실 기초 바닥하중(≥8.5ton), 케이블 피트 깊이(≥800mm), 슬리브(ø150mm) 매설 및 방수 인터페이스"</p>
+        </div>
+    </div>
+
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 1. 핵심 수행 원칙 및 배경 -->
+        <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-6 shadow-sm space-y-3">
+            <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+                <span>📘</span> 토목 _ 건축 인터페이스 협의 엔지니어링 수행 원칙
+            </h3>
+            <p class="text-xs text-blue-900 leading-relaxed font-medium">
+                본 지침서는 동탄트램 현장 기술자가 실무에서 즉시 적용할 수 있도록 <span class="term-highlight" onclick="openGlossary('water_stop_sleeve')">💧 지수판 부착 강관 슬리브 (Water-Stop)</span>, <span class="term-highlight" onclick="openGlossary('pad_level_tolerance')">📏 장비 기초 패드 수평도 (±2mm)</span> 및 <span class="term-highlight" onclick="openGlossary('equipment_hatch')">🚪 변전실 장비 반입 해치 (Equipment Hatch)</span> 수칙을 1:1 맞춤형으로 체계화한 엔지니어링 가이드입니다.
+            </p>
+        </div>
+
+        <!-- 2. 단계별 마스터 절차 카드 -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 단계별 마스터 절차 (Step-by-Step Execution Guide)
+            </h2>
+            <div class="space-y-4">
+                
+                <!-- STEP 1 WHAT -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1 WHAT</span>
+                        <h3 class="font-bold text-base text-slate-900">변전소 장비 중량 및 바닥 하중 구조검토서 교차 검증</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>변압기(8.5ton), GIS(6.0ton), 정류기(4.5ton)의 집중 하중을 토목/건축 구조설계팀에 공식 통보합니다.</li><li>슬래브 두께 및 철근 배근 보강 규격이 변전 장비의 동적 진동 하중을 견디는지 구조 계산서를 확인합니다.</li><li>장비 베이스 채널 매설 위치 및 앵커볼트 매립 깊이(≥150mm)를 1:1 대조합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 2 WHEN -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2 WHEN</span>
+                        <h3 class="font-bold text-base text-slate-900">콘크리트 타설 전 슬리브 및 접지 단자 매설 입회</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>벽체 및 바닥 타설 3일 전 전기 케이블 인입용 강관 슬리브(ø150mm) 설치 위치를 레이저로 실측합니다.</li><li>토목 구조체 철근과 연결되는 기초 접지 단자(Earth Boss) 접속 상태를 전기 감리원과 입회 검측합니다.</li><li>슬리브 주위 지수판(Water-Stop Ring) 용접 상태를 확인하여 누수 경로를 차단합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 3 WHO -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3 WHO</span>
+                        <h3 class="font-bold text-base text-slate-900">전기/토목/건축 3자 책임 기술자 현장 협의체 운영</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>전기, 토목, 건축 분야 책임기술자 및 감리원이 참여하는 주간 인터페이스 회의를 소집합니다.</li><li>배관 트렌치와 건축 마감재(방진 바닥재, 트렌치 커버) 간 레벨 간섭을 현장 조율합니다.</li><li>상충 사항 발생 시 3자 합의 회의록을 작성하고 책임감리원 결재를 득합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 4 WHERE -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4 WHERE</span>
+                        <h3 class="font-bold text-base text-slate-900">변전실 출입문, 반입구 셔터 및 천장 층고 실측</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>장비 반입구(W≥3.0m, H≥4.0m)와 외부 진입 램프의 회전 반경(R≥12m)을 현장 실측합니다.</li><li>천장 트레이 설치를 위한 유효 층고(H≥3.5m) 및 조명/소방 배관과의 상하 이격거리를 확인합니다.</li><li>변전실 출입문에 방화/방음(차음성능 45dB) 및 방진 턱(H=100mm) 설치 사양을 점검합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 5 HOW -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 5 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">토목/건축 인터페이스 인수인계서 체결</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>패드 수평도, 트렌치 청결 상태, 슬리브 방수 씰링 12대 항목을 전수 검측합니다.</li><li>합격 판정 후 전기-토목-건축 3자 서명 인수인계서를 체결하고 사진 대장을 첨부합니다.</li><li>체결된 도서 및 실측 데이터를 PMIS에 등록하여 후속 전기 기기 반입을 승인합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 2D VISUAL SVG DIAGRAM -->
+        
+        <!-- 💡 [인터랙티브 시뮬레이터] 변전실 바닥하중 및 지반 지지력 검증기 -->
+        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-300 p-6 rounded-2xl shadow-lg space-y-4">
+            <div class="flex items-center justify-between border-b border-emerald-200 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded">실시간 구조 계산기</span>
+                    <h3 class="font-bold text-base text-slate-900">🧱 변전실 장비 기초 바닥하중 및 지반 지지력 검증기</h3>
+                </div>
+                <span id="sim3_badge" class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full">적합 (PASS)</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-semibold text-slate-700">
+                <div>
+                    <label class="block mb-1">장비 총중량 (W, ton)</label>
+                    <input type="number" id="sim3_w" value="8.5" step="0.5" class="w-full bg-white border border-slate-300 rounded-lg p-2 font-bold text-emerald-900" oninput="calcSim3()">
+                </div>
+                <div>
+                    <label class="block mb-1">패드 가로폭 (A, m)</label>
+                    <input type="number" id="sim3_a" value="2.2" step="0.1" class="w-full bg-white border border-slate-300 rounded-lg p-2 font-bold text-emerald-900" oninput="calcSim3()">
+                </div>
+                <div>
+                    <label class="block mb-1">패드 세로길이 (B, m)</label>
+                    <input type="number" id="sim3_b" value="3.0" step="0.1" class="w-full bg-white border border-slate-300 rounded-lg p-2 font-bold text-emerald-900" oninput="calcSim3()">
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-emerald-200 flex flex-wrap justify-between items-center text-xs">
+                <div>
+                    <span class="text-slate-500">단위면적당 바닥하중:</span>
+                    <span id="sim3_load" class="font-black text-sm text-emerald-600 ml-1">1.29 ton/㎡</span>
+                    <span class="text-slate-400 ml-1">(허용 지지력: ≥ 8.5 ton/㎡)</span>
+                </div>
+                <div>
+                    <span class="text-slate-500">구조 안전율:</span>
+                    <span id="sim3_safe" class="font-black text-sm text-teal-600 ml-1">6.59 (안전)</span>
+                </div>
+            </div>
+        </div>
+        <script>
+        function calcSim3() {
+            const w = parseFloat(document.getElementById('sim3_w').value) || 0;
+            const a = parseFloat(document.getElementById('sim3_a').value) || 0;
+            const b = parseFloat(document.getElementById('sim3_b').value) || 0;
+            const area = Math.max(a * b, 0.1);
+            const load = w / area;
+            const safe = 8.5 / load;
+            document.getElementById('sim3_load').innerText = load.toFixed(2) + " ton/㎡";
+            document.getElementById('sim3_safe').innerText = safe.toFixed(2) + (safe >= 1.5 ? " (안전)" : " (위험)");
+            const isPass = safe >= 1.5;
+            const badge = document.getElementById('sim3_badge');
+            badge.innerText = isPass ? "적합 (PASS)" : "지지력 부족 (FAIL)";
+            badge.className = isPass ? "bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full" : "bg-rose-600 text-white text-xs font-bold px-3 py-1 rounded-full";
+        }
+        </script>
+    
+
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">3.</span> 2D Visual 기술 도식 (Enriched 2D SVG)
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r3_3', '[9000-3-3] 토목 _ 건축 인터페이스 협의 2D Visual 정밀 공학 도식')">
+                <svg id="svg_r3_3" viewBox="0 0 550 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="550" height="180" fill="#f8fafc"/>
+    <rect x="25" y="20" width="230" height="120" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+    <text x="140" y="45" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">🧱 변전실 바닥하중 & 패드 수평도</text>
+    <text x="45" y="75" font-size="11" font-weight="bold" fill="#334155">• 변전실 기초 바닥하중(≥8.5ton), 케이...</text>
+    <text x="45" y="98" font-size="11" font-weight="bold" fill="#334155">• KEC & 설계도서 100% 대조 완료</text>
+    <path d="M 260 80 L 290 80" stroke="#2563eb" stroke-width="3"/>
+    <polygon points="290,75 300,80 290,85" fill="#2563eb"/>
+    <rect x="295" y="20" width="230" height="120" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+    <text x="410" y="45" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">💧 트렌치 배수 & 관통부 방수</text>
+    <text x="315" y="75" font-size="11" font-weight="bold" fill="#334155">• 정밀 계측(절연/접지/토크) 1:1 검측</text>
+    <text x="315" y="98" font-size="11" font-weight="bold" fill="#334155">• 3자 합동 서명 & PMIS 즉시 등재</text>
+    <text x="275" y="162" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">토목 _ 건축 인터페이스 협의 표준 실무 공정 완료 및 감리원 승인 완수</text>
+</svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 용어 사전 모달 -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<!-- 대형 도식 확대 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'water_stop_sleeve': {
+        title: '💧 지수판 부착 강관 슬리브 (Water-Stop)',
+        desc: '지하 변전실 외벽을 관통하는 케이블 배관 주위에 강재 지수판을 용접하여 지하수 누수를 완벽히 차단하는 토목-전기 인터페이스 자재입니다.'
+    },
+    'pad_level_tolerance': {
+        title: '📏 장비 기초 패드 수평도 (±2mm)',
+        desc: '중량 전기기기의 수평 틀어짐으로 인한 내부 모선 스트레스 및 절연 파괴를 방지하기 위해 무근 콘크리트 상단을 정밀 레이저 레벨링하는 기준입니다.'
+    },
+    'equipment_hatch': {
+        title: '🚪 변전실 장비 반입 해치 (Equipment Hatch)',
+        desc: '대형 변압기 및 배전반의 신설 및 교체 시 반입/반출이 가능하도록 건축 구조체에 설치하는 분리형 대형 개구부입니다.'
+    },
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

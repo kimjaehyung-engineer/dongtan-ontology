@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄도시철도 - 거푸집 조립 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto space-y-8">
+        
+        <!-- Header Banner -->
+        <div class="bg-slate-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 space-y-4">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="bg-amber-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">WBS 9000-2-25</span>
+                    <span class="bg-slate-800 text-slate-300 font-bold text-xs px-3 py-1 rounded-full">건축공사 기술 표준서</span>
+                    <span class="bg-emerald-500/20 text-emerald-400 font-bold text-xs px-3 py-1 rounded-full">동탄도시철도 건설사업</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black tracking-tight">거푸집 조립 기술 표준서</h1>
+                <p class="text-slate-400 text-sm max-w-3xl leading-relaxed">건축 구조체 형상 유지를 위한 유로폼/갱폼 조립, 박리제 도포, 폼타이 체결 및 수직도 관리</p>
+            </div>
+        </div>
+
+        <!-- 4대 관리 KPI Summary Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-amber-600 uppercase tracking-wider">품질 관리 (Q)</div>
+                <div class="text-sm font-black text-slate-900">거푸집 수직도/수평도 오차(±3mm 이내) 100% 준수</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-emerald-600 uppercase tracking-wider">안전 관리 (S)</div>
+                <div class="text-sm font-black text-slate-900">폼타이(Form Tie) 체결 간격(가로 600mm, 세로 600mm) 및 볼트 토크 100% 관리</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">공정 관리 (T)</div>
+                <div class="text-sm font-black text-slate-900">콘크리트 타설 시 측압에 의한 거푸집 터짐(Blow-out) 제로</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider">원가/행정 관리 (C)</div>
+                <div class="text-sm font-black text-slate-900">수밀성 확보 및 면귀(Chamfer) 마감 100% 시공</div>
+            </div>
+        </div>
+
+        <!-- 기술사양 및 설계 기준 테이블 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-6">
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
+                <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+                <h2 class="font-bold text-lg text-slate-900">기술사양 및 설계 시방 기준</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <tbody>
+
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">적용 기준</td>
+                        <td class="px-6 py-4 text-slate-600">KCS 21 50 00 거푸집 및 동바리공사 표준시방서</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">주요 자재</td>
+                        <td class="px-6 py-4 text-slate-600">유로폼(Euro-Form), 알루미늄폼, 합판거푸집, 플랫타이, 폼타이볼트, 면귀(수밀테이프)</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">허용 오차</td>
+                        <td class="px-6 py-4 text-slate-600">부재 단면 치수: -6mm ~ +13mm, 수직도 오차: 높이 3m 당 6mm 이내 (최대 10mm)</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">측압 관리</td>
+                        <td class="px-6 py-4 text-slate-600">타설속도 1.5~2.0m/hr 준수, 타설고 0.5m씩 층별 분할 타설</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3단계 표준 작업 프로세스 (Phases) -->
+        <div class="space-y-4">
+            <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-slate-900"></div>
+                <h2 class="font-bold text-lg text-slate-900">3단계 표준 작업 프로세스 (Standard Procedure)</h2>
+            </div>
+            <div class="space-y-4">
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 1</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 1: 먹매김 및 박리제 도포</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">바닥 먹매김선 확인, 거푸집 표면 친환경 수성 박리제 균일 도포</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 2</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 2: 거푸집 조립 및 긴결재 체결</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">패널 조립, 폼타이 및 와셔 볼트 규정 토크 체결, 코너 앵글 보강</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 3</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 3: 수직도 검측 및 청소구 확인</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">레이저 레벨 수직도 검측, 최하부 청소구(Clean-out)를 통한 이물질 에어 청소</p>
+            </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-xs text-slate-400 py-4 border-t border-slate-200">
+            동탄도시철도(트램) 건설사업 건축분야 공종 프로세스 관리 매뉴얼 | WBS 9000-2-25
+        </div>
+    </div>
+</body>
+</html>

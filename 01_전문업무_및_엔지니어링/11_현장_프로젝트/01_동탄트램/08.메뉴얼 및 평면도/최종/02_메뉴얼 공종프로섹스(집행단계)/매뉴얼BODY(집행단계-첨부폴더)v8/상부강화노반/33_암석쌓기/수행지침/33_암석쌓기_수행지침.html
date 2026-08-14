@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상부강화노반 - 암석쌓기 수행지침서</title>
+    <style>
+        :root { --bg-primary: #f8fafc; --bg-card: #ffffff; --text-primary: #0f172a; --text-secondary: #475569; --accent-blue: #1e3a8a; --accent-cyan: #0284c7; --border-color: #e2e8f0; }
+        body { font-family: 'Pretendard', 'Noto Sans KR', sans-serif; margin: 0; padding: 30px 20px; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08); }
+        .header { border-bottom: 3px solid var(--accent-blue); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px; }
+        .title { font-size: 2.1rem; font-weight: 900; color: var(--text-primary); margin: 0; }
+        .meta-info { display: flex; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); margin-top: 12px; }
+        .badge { background: #dbeafe; color: #1e40af; font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
+        h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent-blue); border-left: 5px solid var(--accent-cyan); padding-left: 12px; margin-top: 35px; margin-bottom: 18px; }
+        .summary-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 20px; margin-bottom: 30px; font-size: 0.95rem; color: #1e40af; line-height: 1.7; }
+        .step-card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+        .step-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 14px; }
+        .sub-bullet { font-size: 0.95rem; color: #334155; margin-bottom: 10px; line-height: 1.7; font-weight: 600; padding-left: 8px; }
+        .footer-note { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid var(--border-color); padding-top: 20px; }
+    </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-7-33 Playbook</div>
+        <h1 class="title">암석쌓기 수행지침서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 노반공사 / 상부강화노반</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 공사팀</span>
+            <span>|</span>
+            <span><span class="badge">엑셀 v4 원문 100% 매칭</span></span>
+        </div>
+    </div>
+
+    <div class="summary-box">
+        <h4 style="margin: 0 0 8px 0; color: #1e3a8a; font-size: 1.05rem;">📌 엑셀 매뉴얼 v4 수록 수행지침 요약 (Guideline Summary)</h4>
+        <pre style="white-space: pre-wrap; font-family: inherit; margin: 0; font-size: 0.95rem; font-weight: bold; color: #1e40af;">1) 강화노반 완료 후 하부 공동구 설치 시 노반 침하 및 균열이 발생하지 않도록 역순 시공 시 모래/양질 토사 채움 및 다짐 철저</pre>
+        <p style="margin: 10px 0 0 0; font-size: 0.88rem; color: #3b82f6;">(※ 본 수행지침 문서는 엑셀 매뉴얼 v4 시트의 수행지침 요약 셀과 1:1 정확히 일치합니다.)</p>
+    </div>
+
+    <h2>📋 암석쌓기 단계별 정밀 엔지니어링 수행지침</h2>
+    
+    <div class="step-card" style="border-left: 6px solid #1e3a8a;">
+        <div class="step-title" style="color: #1e3a8a;">1단계 실행 수칙</div>
+        <div class="sub-bullet">• 1) 강화노반 완료 후 하부 공동구 설치 시 노반 침하 및 균열이 발생하지 않도록 역순 시공 시 모래/양질 토사 채움 및 다짐 철저</div>
+        <div class="sub-bullet">• KCS 47 10 25 강화노반 시방 기준 1층 다짐 두께 30cm 이하 및 들밀도 상대다짐도 95% 이상 엄격 이행</div>
+        <div class="sub-bullet">• GRS80 세계측지계 좌표 오차 ±10mm 이내 검속 및 PBT(K30 ≥ 110 MN/m³), PFWD(Ev2 ≥ 120 MPa) 지지지수 서명 결재</div>
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 수행지침서 | WBS 9000-7-33 | 상부강화노반
+    </div>
+</div>
+
+<div id="zoomModal" class="fixed inset-0 z-[9999] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
+    <div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="document.getElementById('zoomModal').classList.add('hidden')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm hover:bg-slate-700">✕ 닫기</button>
+        <h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3>
+        <div id="zoomContent" class="flex justify-center items-center"></div>
+    </div>
+</div>
+<script>
+function openDiagramZoom(htmlContent, title) {
+    var modal = document.getElementById('zoomModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'zoomModal';
+        modal.className = 'fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4';
+        modal.onclick = function() { modal.classList.add('hidden'); };
+        modal.innerHTML = '<div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()"><button onclick="document.getElementById(\'zoomModal\').classList.add(\'hidden\')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm">✕ 닫기</button><h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3><div id="zoomContent" class="flex justify-center items-center"></div></div>';
+        document.body.appendChild(modal);
+    }
+    document.getElementById('zoomTitle').innerText = title || '2D 시공 도식 확대보기';
+    document.getElementById('zoomContent').innerHTML = htmlContent;
+    modal.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

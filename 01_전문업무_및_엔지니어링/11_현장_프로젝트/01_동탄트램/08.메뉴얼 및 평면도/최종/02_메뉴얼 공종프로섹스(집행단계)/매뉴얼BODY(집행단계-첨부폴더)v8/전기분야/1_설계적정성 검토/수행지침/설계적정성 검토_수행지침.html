@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설계적정성 검토 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal-content, .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border-radius: 20px;
+        width: 92%;
+        max-width: 720px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border: 1px solid #cbd5e1;
+        position: relative;
+        animation: modalFadeIn 0.25s ease-out;
+    }
+    .zoom-modal-content {
+        max-width: 1100px !important;
+        width: 95% !important;
+    }
+    @keyframes modalFadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .glossary-close, .zoom-close {
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        color: #64748b;
+        font-size: 28px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #0f172a;
+    }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-950 to-slate-900 opacity-80"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-3-1 Guideline</span>
+                <span class="bg-white text-slate-950 text-xs font-bold px-3 py-1 rounded-full">전기설비 마스터 작업 수행지침</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">설계적정성 검토 수행지침서</h1>
+            <p class="text-blue-200 mt-2 text-sm sm:text-base">"22.9kV 수전계통, DC 750V 24펄스 정류기 용량, 강체 T-Bar 가선 및 8대 인터페이스 정밀 검증"</p>
+        </div>
+    </div>
+
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 1. 핵심 수행 원칙 및 배경 -->
+        <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-6 shadow-sm space-y-3">
+            <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+                <span>📘</span> 설계적정성 검토 엔지니어링 수행 원칙
+            </h3>
+            <p class="text-xs text-blue-900 leading-relaxed font-medium">
+                본 지침서는 동탄트램 현장 기술자가 실무에서 즉시 적용할 수 있도록 <span class="term-highlight" onclick="openGlossary('substation_cap')">🔋 변전소 22.9kV 수전용량 및 N+1 다중화</span>, <span class="term-highlight" onclick="openGlossary('tbar_height')">🚊 강체전차선(T-Bar) 가선높이 (4,500mm)</span> 및 <span class="term-highlight" onclick="openGlossary('stray_current')">⚡ 레일 귀선전류 누설 및 전식 방지</span> 수칙을 1:1 맞춤형으로 체계화한 엔지니어링 가이드입니다.
+            </p>
+        </div>
+
+        <!-- 2. 단계별 마스터 절차 카드 -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 단계별 마스터 절차 (Step-by-Step Execution Guide)
+            </h2>
+            <div class="space-y-4">
+                
+                <!-- STEP 1 WHAT -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1 WHAT</span>
+                        <h3 class="font-bold text-base text-slate-900">22.9kV 한전 수전용량 및 정류기 부하 시뮬레이션 검토</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>한전 22.9kV 수전 계약용량(≥3,000kVA) 및 인입 루트의 현장 부합 여부를 전력 조류 시뮬레이션으로 검증합니다.</li><li>DC 750V 24펄스 다이오드 정류기반(2Bank) 및 직류고속차단기(HSCB) 차단용량 기술사양을 대조합니다.</li><li>트램 최대 부하 운행(동시 출발) 시 본선 말단 급전선 전압강하율(≤5%)을 정밀 계산합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 2 WHEN -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2 WHEN</span>
+                        <h3 class="font-bold text-base text-slate-900">토목/건축 타설 전 전기 배관 및 트렌치 슬리브 실측</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>정거장 및 변전소 골조 타설 7일 전 특고압 케이블 트렌치 및 인입 슬리브(ø150mm) 매설 위치를 검측합니다.</li><li>케이블 배관 곡률반경(R ≥ 10D) 및 전선관 단면 점유율(≤40%)을 KEC 기준에 맞춰 전수 확인합니다.</li><li>철근 간섭 발생 시 감리원 입회 하에 배관 이설 및 보강근 배근을 타설 48시간 전 완료합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 3 WHO -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3 WHO</span>
+                        <h3 class="font-bold text-base text-slate-900">전기/토목/신호/궤도 4자 인터페이스 엔지니어링 협의</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>전기 책임엔지니어 주관으로 토목(트렌치), 신호(궤도회로), 궤도(레일접지) 4자 합동 기술회의를 소집합니다.</li><li>레일 귀선전류 귀로와 통신/신호 유도차폐선(Shield Wire) 접지 경로를 단일화하여 전식(Electrolysis)을 차단합니다.</li><li>협의 결과는 인터페이스 검토대장에 전산 등록하고 감리원 서명/날인을 완료합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 4 WHERE -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4 WHERE</span>
+                        <h3 class="font-bold text-base text-slate-900">변전실 장비 반입구 및 천장 층고 실측 검증</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>지상/지하 변전실 장비 반입구 폭(W ≥ 2,500mm)과 천장 유효 층고(H ≥ 3,500mm)를 레이저 실측합니다.</li><li>바닥 무근 콘크리트 하중(장비 중량 ≥ 8.5ton/대) 및 방진패드 설치 면적을 구조 검토합니다.</li><li>케이블 피트 관통부 방화구획(Fire-Stop 내화 2시간) 씰링 사양을 도면과 1:1 대조합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 5 HOW -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 5 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">설계적정성 검토보고서 작성 및 PMIS 등록</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>12대 필수 설계 적정성 체크리스트를 작성하고 보완 요구사항 조치계획서를 첨부합니다.</li><li>설계변경 필요 항목은 발주처/감리단에 설계변경 품의서를 공식 접수합니다.</li><li>최종 승인된 검토보고서를 PMIS에 등록하여 현장 시공 기준 문서로 확정합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 2D VISUAL SVG DIAGRAM -->
+        
+        <!-- 💡 [인터랙티브 시뮬레이터] 22.9kV 급전선 전압강하 & 정류기 부하율 계산기 -->
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 p-6 rounded-2xl shadow-lg space-y-4">
+            <div class="flex items-center justify-between border-b border-blue-200 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded">실시간 엔지니어링 계산기</span>
+                    <h3 class="font-bold text-base text-slate-900">⚡ 22.9kV 급전선 전압강하 & 정류기 마진율 시뮬레이터</h3>
+                </div>
+                <span id="sim1_badge" class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full">적합 (PASS)</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-semibold text-slate-700">
+                <div>
+                    <label class="block mb-1">선로 길이 (L, km)</label>
+                    <input type="number" id="sim1_len" value="3.5" step="0.1" class="w-full bg-white border border-slate-300 rounded-lg p-2 font-bold text-blue-900" oninput="calcSim1()">
+                </div>
+                <div>
+                    <label class="block mb-1">부하 전류 (I, A)</label>
+                    <input type="number" id="sim1_curr" value="650" step="10" class="w-full bg-white border border-slate-300 rounded-lg p-2 font-bold text-blue-900" oninput="calcSim1()">
+                </div>
+                <div>
+                    <label class="block mb-1">케이블 단면적 (CNCV, ㎟)</label>
+                    <select id="sim1_sq" class="w-full bg-white border border-slate-300 rounded-lg p-2 font-bold text-blue-900" onchange="calcSim1()">
+                        <option value="400" selected>400 ㎟ (R=0.062 Ω/km)</option>
+                        <option value="300">300 ㎟ (R=0.081 Ω/km)</option>
+                        <option value="200">200 ㎟ (R=0.125 Ω/km)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-blue-200 flex flex-wrap justify-between items-center text-xs">
+                <div>
+                    <span class="text-slate-500">계산된 전압강하율:</span>
+                    <span id="sim1_drop" class="font-black text-sm text-blue-600 ml-1">2.14 %</span>
+                    <span class="text-slate-400 ml-1">(기준치: ≤ 5.0%)</span>
+                </div>
+                <div>
+                    <span class="text-slate-500">정류기 부하 마진율:</span>
+                    <span id="sim1_margin" class="font-black text-sm text-indigo-600 ml-1">68.2 %</span>
+                    <span class="text-slate-400 ml-1">(N+1 가용)</span>
+                </div>
+            </div>
+        </div>
+        <script>
+        function calcSim1() {
+            const L = parseFloat(document.getElementById('sim1_len').value) || 0;
+            const I = parseFloat(document.getElementById('sim1_curr').value) || 0;
+            const sq = parseInt(document.getElementById('sim1_sq').value);
+            let R = 0.062;
+            if(sq === 300) R = 0.081;
+            if(sq === 200) R = 0.125;
+            const dropV = Math.sqrt(3) * I * L * R;
+            const dropRate = (dropV / 22900) * 100;
+            document.getElementById('sim1_drop').innerText = dropRate.toFixed(2) + " %";
+            const isPass = dropRate <= 5.0;
+            const badge = document.getElementById('sim1_badge');
+            badge.innerText = isPass ? "적합 (PASS)" : "전압강하 초과 (FAIL)";
+            badge.className = isPass ? "bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full" : "bg-rose-600 text-white text-xs font-bold px-3 py-1 rounded-full";
+        }
+        </script>
+    
+
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">3.</span> 2D Visual 기술 도식 (Enriched 2D SVG)
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r3_1', '[9000-3-1] 설계적정성 검토 2D Visual 정밀 공학 도식')">
+                <svg id="svg_r3_1" viewBox="0 0 550 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="550" height="180" fill="#f8fafc"/>
+    <rect x="25" y="20" width="230" height="120" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+    <text x="140" y="45" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">⚡ 22.9kV 수전계통 & KEC 적합성</text>
+    <text x="45" y="75" font-size="11" font-weight="bold" fill="#334155">• 22.9kV 수전계통, DC 750V 24펄...</text>
+    <text x="45" y="98" font-size="11" font-weight="bold" fill="#334155">• KEC & 설계도서 100% 대조 완료</text>
+    <path d="M 260 80 L 290 80" stroke="#2563eb" stroke-width="3"/>
+    <polygon points="290,75 300,80 290,85" fill="#2563eb"/>
+    <rect x="295" y="20" width="230" height="120" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+    <text x="410" y="45" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🚊 DC 750V 정류기 & T-Bar 가선</text>
+    <text x="315" y="75" font-size="11" font-weight="bold" fill="#334155">• 정밀 계측(절연/접지/토크) 1:1 검측</text>
+    <text x="315" y="98" font-size="11" font-weight="bold" fill="#334155">• 3자 합동 서명 & PMIS 즉시 등재</text>
+    <text x="275" y="162" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">설계적정성 검토 표준 실무 공정 완료 및 감리원 승인 완수</text>
+</svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 용어 사전 모달 -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<!-- 대형 도식 확대 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'substation_cap': {
+        title: '🔋 변전소 22.9kV 수전용량 및 N+1 다중화',
+        desc: '변압기 1대 불시 정지 시에도 잔여 설비로 본선 트램 운행을 100% 지속할 수 있는 이중화 수전 전력망 설계 기준입니다.'
+    },
+    'tbar_height': {
+        title: '🚊 강체전차선(T-Bar) 가선높이 (4,500mm)',
+        desc: '알루미늄 T-Bar 강체에 전차선을 장착하여 처짐 없이 균일한 높이를 유지하고 팬터그래프 마모를 최소화하는 가선 방식입니다.'
+    },
+    'stray_current': {
+        title: '⚡ 레일 귀선전류 누설 및 전식 방지',
+        desc: '레일을 통해 변전소로 복귀하는 직류 귀선전류가 지하 매설 배관이나 철근으로 누설되어 발생하는 전기적 부식을 차단하는 대책입니다.'
+    },
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

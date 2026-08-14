@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신호분야 - 설계적정성 검토 작업 수행지침서</title>
+    <style>
+        :root {
+            --primary-color: #059669;
+            --primary-light: #ECFDF5;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --danger-color: #EF4444;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .title {
+            font-size: 1.8rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        .meta-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #6B7280;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        h2 {
+            font-size: 1.25rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .proc-box {
+            background-color: #F3F4F6;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 0.93rem;
+            white-space: pre-wrap;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        .risk-box {
+            background-color: #FEF2F2;
+            border-left: 4px solid var(--danger-color);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 25px 0;
+            font-size: 0.9rem;
+            color: #991B1B;
+            white-space: pre-wrap;
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+    </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-1-1 Execution Guideline</div>
+        <h1 class="title">설계적정성 검토 작업 수행지침서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 신호분야 / 현장 공무·시공팀</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 엔지니어링팀</span>
+            <span>|</span>
+            <span><span class="badge">현장 작업 실행 표준 절차서</span></span>
+        </div>
+    </div>
+
+    <h2>1. 작업 개요 및 기본 방침 (Overview)</h2>
+    <p><strong>주요 목적:</strong> 신호분야 전자연동장치(CBI), 축차계수기, 선로전환기, 교차로 트램 우선신호 제어기(PPC) 등 신호 시스템의 설계 정밀성 및 실질적 시공성 검토</p>
+    <p><strong>수행 방법:</strong> KCS 42 00 00 시방 및 IEC 62425 SIL 4 검증 기준에 준하여 3단계 수행절차 이행</p>
+    <p><strong>최종 산출물:</strong> 설계적정성 검토 보고서, 인터페이스 협의서, SIL 4 안전성 종합검토서</p>
+
+    <h2>2. 3단계 작업 절차 및 세부 행동 지침 (Procedures)</h2>
+    <div class="proc-box">[Step 1: 사전 준비 & 인터페이스 체크]
+1) 입찰 요구도서와 신호 기본/실시 설계도서의 진로수, 선로전환기 개수, 정거장 및 유치선 배선도 일치성 검토.
+2) 도로교통공단 및 지자체 교통신호 제어기와 트램 PPC(우선신호제어기) 간 물리적/논리적 인터페이스(RS-485 / Ethernet) 사전 조사.
+3) 전자연동장치(CBI) 수용 기능실(OCC/정거장 신호기계실)의 항온항습(22±2℃, 50±10%) 및 전원(AC 220V/DC 110V UPS 2시간) 환경 검토.
+
+[Step 2: 설비 검토 & 기술 규격 검증]
+1) CBI 중앙처리장치(CPU), 입출력(I/O) 모듈, Vital Relay 접점 수량 및 SIL 4 인증서 유효성 검증.
+2) 축차계수기(Axle Counter) 평가장치(Evaluator Board)와 지상 센서 간 임피던스 매칭 및 케이블(Shielded Twisted Pair) 감쇄량 검토.
+3) 선로전환기(Point Machine) 쇄정 기커버, 내부 밀착 스위치 접점 정밀도 및 스트로크(110mm/140mm) 검토.
+
+[Step 3: 시험, 시운전 & SIL 검증]
+1) CBI 연동도표(Interlocking Table) 시뮬레이션 시험으로 과주 방지(Overlap), 쇄정(Locking), 수동 해제 기능 검증.
+2) 우선신호 제어기(PPC)와 LTE 모뎀 간 TOD 연동 테스트 시행 및 신호 현시 응답속도(≤ 100ms) 데이터 측정.
+3) 최종 설계적정성 검토보고서를 작성하여 감리단 및 발주처 승인 득함.</div>
+
+    <h2>3. 하자 예방 및 위험요인 관리 (Risk Management - LLBS)</h2>
+    <div class="risk-box"><strong>[집행단계 주요 리스크 및 하자 방지 대책]</strong>
+
+● [LLBS 리스크 1] 교차로 일반차량 신호제어기와 트램 우선신호 제어기 간 통신 프로토콜 미동기화로 신호 딜레이 및 트램 정지 발생 (대책: PPC 프로토콜 사전 100% 팩토리 연동시험 실시)
+● [LLBS 리스크 2] 유치선 선로전환기 밀착검지 갭 허용 오차(1.5mm) 초과로 인한 연동 불능 및 쇄정 오류 (대책: 시공 전 쇄정 간격 1.0mm 이내 정밀 정렬 수칙 적용)</div>
+
+    
+        
+<div class="subcontractor-advisory-box" style="background-color: #FFFBEB; border: 1.5px solid #F59E0B; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #B45309; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>👷</span> [협력업체 실무 자문] 신호설비 수행지침 (정주/트리폴건설)
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #78350F; font-size: 0.92rem; line-height: 1.7;">
+                <li>선로전환기 및 축차계수기 설치 위치를 분기기 궤도 선시공 직후 통합 검측 시행</li>
+            </ul>
+        </div>
+        
+
+        <div class="manual-v1-integration-box" style="background-color: #F0FDF4; border: 1.5px solid #22C55E; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #15803D; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>📖</span> 신호설비 시공 수행지침
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #166534; font-size: 0.92rem; line-height: 1.7;">
+                <li><strong>매립 궤도 타설 시 센서 타격 금지:</strong> 바이브레이터 고주파 다짐 수행 시 신호 루프 코일 및 스핀들 게이지 지지대에 직접 타격이 가해지지 않도록 5cm 이상 이격 다짐 수칙 준수</li>
+                <li><strong>패스트트랙 120일 인터페이스 검토:</strong> 토목·궤도·전기·신호 간 사전 인터페이스 붕괴 방지를 위해 착수 후 120일 이내 CSD 3D BIM 상세 검토 완료</li>
+            </ul>
+        </div>
+        
+<div class="footer-note">
+        동탄도시철도(트램) 건설공사 철도시스템 엔지니어링 수행지침서 | WBS 9000-1-1
+    </div>
+</div>
+
+<div id="zoomModal" class="fixed inset-0 z-[9999] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
+    <div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="document.getElementById('zoomModal').classList.add('hidden')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm hover:bg-slate-700">✕ 닫기</button>
+        <h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3>
+        <div id="zoomContent" class="flex justify-center items-center"></div>
+    </div>
+</div>
+<script>
+function openDiagramZoom(htmlContent, title) {
+    var modal = document.getElementById('zoomModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'zoomModal';
+        modal.className = 'fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4';
+        modal.onclick = function() { modal.classList.add('hidden'); };
+        modal.innerHTML = '<div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()"><button onclick="document.getElementById(\'zoomModal\').classList.add(\'hidden\')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm">✕ 닫기</button><h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3><div id="zoomContent" class="flex justify-center items-center"></div></div>';
+        document.body.appendChild(modal);
+    }
+    document.getElementById('zoomTitle').innerText = title || '2D 시공 도식 확대보기';
+    document.getElementById('zoomContent').innerHTML = htmlContent;
+    modal.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

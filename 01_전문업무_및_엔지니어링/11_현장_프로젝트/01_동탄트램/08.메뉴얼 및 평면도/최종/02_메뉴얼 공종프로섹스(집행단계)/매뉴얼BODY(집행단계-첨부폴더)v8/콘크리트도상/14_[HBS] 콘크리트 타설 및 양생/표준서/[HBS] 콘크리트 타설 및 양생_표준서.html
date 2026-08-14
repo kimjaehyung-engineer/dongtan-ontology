@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - [HBS] 콘크리트 타설 및 양생 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-14 Standard</span>
+                <span class="bg-emerald-50 text-slate-950 text-xs font-bold px-3 py-1 rounded-full">HBR 압축강도 &ge; 21 MPa 품질 규격</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">[HBS] 콘크리트 타설 및 양생 기술 표준서</h1>
+            <p class="text-slate-300 mt-2 text-sm sm:text-base">"강화노반 상부 기초콘크리트(HBR): 이격거리 4.8km 이내, 슬럼프 10cm 이하, 28일 압축강도 &ge; 21 MPa 및 7일 습윤 양생"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-8">
+        <!-- 💡 핵심 안내 박스 -->
+        <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-xs sm:text-sm text-amber-900">
+            <h4 class="font-bold text-amber-950 mb-1">💡 [HBS] 기초콘크리트 타설 및 양생 수칙 개요</h4>
+            <p class="leading-relaxed">
+                본 공종은 강화노반 상부에 <strong><span class="term-highlight" onclick="openGlossary('hbr')">HBR 기초콘크리트</span></strong>를 타설하여 TCL 도상 및 반-PC 슬래브의 구조적 안정성을 확보하는 핵심 공종입니다. 레미콘 공장과의 <strong><span class="term-highlight" onclick="openGlossary('plant_distance')">이격거리 4.8km 이내(60분 타설)</span></strong> 확보, <strong><span class="term-highlight" onclick="openGlossary('slump_strength')">슬럼프 10cm 이하 및 28일 강도 21 MPa 이상</span></strong>, 거푸집 테이핑 시멘트풀 유출 방지 및 <strong><span class="term-highlight" onclick="openGlossary('curing_7days')">7일 습윤 부직포 양생</span></strong>을 준수합니다.
+            </p>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 과업 개요 및 수행 목적
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">WBS 공정명</span>
+                    <p class="font-bold text-slate-800 mt-1">콘크리트도상 / [HBS] 콘크리트 타설 및 양생 (현장 공사팀)</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">최종 품질 산출물</span>
+                    <p class="font-bold text-slate-800 mt-1">HBR 콘크리트 품질시험표 | 양생온도일지 | 28일 강도시험 성적서</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> HBR 기초콘크리트 타설 정량 기술 표준 (KCS 14 20 10 연동)
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs sm:text-sm text-left border-collapse border border-slate-200 rounded-lg">
+                    <thead class="bg-blue-900 text-white">
+                        <tr>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">품질 관리 항목</th>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">절대 공학 기준</th>
+                            <th class="p-3 border border-slate-300 w-1/2 text-center">수행 조건 및 상세 기술 표준 (KCS 시방 연동)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">레미콘 공장 이격거리</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">이격거리 &le; 4.8km 이내<br>(운반 60분 이내)</td>
+                            <td class="p-3 border text-slate-600">• 현장 인근 4.8km 이내 배치플랜트 지정.<br>• 출하 후 60분 이내 현장도착 타설 완료하여 슬럼프 로스 차단</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">슬럼프 및 공기량</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">슬럼프 &le; 10cm 이하<br>공기량 4.5 &plusmn; 1.5%</td>
+                            <td class="p-3 border text-slate-600">• 반창/펌프카 타설 시 슬럼프 10cm 이하 유지.<br>• 현장 도착 즉시 시공 직전 슬럼프 및 공기량 시험 필치</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">28일 압축강도</td>
+                            <td class="p-3 border text-center font-bold text-red-600">&ge; 21 MPa 확보<br>(최소 18 MPa 이상)</td>
+                            <td class="p-3 border text-slate-600">• 현장 몰드 시편 28일 압축강도 21 MPa 이상 확인.<br>• 미달 시 감리단 현장 봉인 및 재시험 조치 수립</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">양생 조건 및 두께 오차</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">습윤 부직포 7일 양생<br>두께 오차 &plusmn;10mm 이내</td>
+                            <td class="p-3 border text-slate-600">• 타설 직후 습윤 부직포 포설 및 7일 이상 지속 살수.<br>• 거푸집 테이핑 시멘트풀 유출 방지 및 타설 두께 &plusmn;10mm 유지</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시방 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'hbr': {
+        title: '🏗️ HBR 기초 콘크리트 (Hydraulic Base Concrete)',
+        desc: '강화노반 상부에 타설되는 궤도 기초 콘크리트 레이어입니다. TCL도상 및 반-PC 슬래브 패널의 하중을 균일하게 받쳐주어 트램 궤도의 구조적 안정성을 확보합니다.'
+    },
+    'plant_distance': {
+        title: '🚚 레미콘 이격거리 4.8km & 운반 60분 이내',
+        desc: '콘크리트 슬럼프 로스 및 초기 경화 유출을 방지하기 위해 레미콘 배치 플랜트와 현장 이격거리를 4.8km 이내로 지정하고, 출하 후 60분 이내 현장 타설을 완료하는 표준 시방 수칙입니다.'
+    },
+    'slump_strength': {
+        title: '📊 슬럼프 10cm 이하 & 28일 강도 ≥ 21 MPa',
+        desc: 'HBR 콘크리트 워커빌리티와 밀실 다짐을 확보하기 위한 슬럼프 값 10cm 이하 시방 기준과 28일 경화 압축강도 21 MPa 이상(최소 18 MPa 이상) 확보 지수입니다.'
+    },
+    'curing_7days': {
+        title: '💧 7일 습윤 부직포 양생',
+        desc: '콘크리트 타설 직후 수분 급속 증발에 따른 건조수축 균열을 차단하기 위해 부직포를 덮고 7일 이상 지속적인 분무 살수 양생을 수행하는 수칙입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('glossaryModal');
+        if(modal) modal.classList.remove('active');
+    }
+});
+</script>
+
+
+<div id="zoomModal" class="fixed inset-0 z-[9999] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
+    <div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="document.getElementById('zoomModal').classList.add('hidden')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm hover:bg-slate-700">✕ 닫기</button>
+        <h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3>
+        <div id="zoomContent" class="flex justify-center items-center"></div>
+    </div>
+</div>
+<script>
+function openDiagramZoom(htmlContent, title) {
+    var modal = document.getElementById('zoomModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'zoomModal';
+        modal.className = 'fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4';
+        modal.onclick = function() { modal.classList.add('hidden'); };
+        modal.innerHTML = '<div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()"><button onclick="document.getElementById(\'zoomModal\').classList.add(\'hidden\')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm">✕ 닫기</button><h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3><div id="zoomContent" class="flex justify-center items-center"></div></div>';
+        document.body.appendChild(modal);
+    }
+    document.getElementById('zoomTitle').innerText = title || '2D 시공 도식 확대보기';
+    document.getElementById('zoomContent').innerHTML = htmlContent;
+    modal.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

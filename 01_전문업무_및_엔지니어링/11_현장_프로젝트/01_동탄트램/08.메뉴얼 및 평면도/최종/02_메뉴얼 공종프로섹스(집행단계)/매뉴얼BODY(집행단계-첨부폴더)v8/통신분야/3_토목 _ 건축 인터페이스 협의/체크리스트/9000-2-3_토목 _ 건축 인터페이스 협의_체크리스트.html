@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>토목 / 건축 인터페이스 협의 마스터 체크리스트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }
+        .step-header { background-color: #ffffff; text-align: center; font-weight: 800; color: #1e3a8a; border-right: 1px solid #e2e8f0; }
+        .result-box { background-color: #ffffff; text-align: center; font-weight: 700; color: #2563eb; border-left: 1px solid #e2e8f0; }
+    </style>
+</head>
+<body class="p-6 sm:p-10 text-slate-800">
+<div class="max-w-5xl mx-auto space-y-6">
+
+    <!-- 대제목 & WBS 코드 -->
+    <div class="flex justify-between items-end border-b-2 border-slate-900 pb-4">
+        <div>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">토목 / 건축 인터페이스 협의 마스터 체크리스트</h1>
+        </div>
+        <div class="text-right">
+            <span class="text-blue-600 font-bold text-sm">WBS Code 9000-2-3 | 통신 검측대장</span>
+        </div>
+    </div>
+
+    <!-- 📋 상단 안내 상자 (Notice Box) -->
+    <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-6 shadow-sm space-y-2">
+        <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+            <span>📋</span> 토목 / 건축 인터페이스 협의 12대 정밀 검측대장
+        </h3>
+        <p class="text-xs text-blue-900 leading-relaxed font-medium">
+            본 체크리스트는 엑셀 시방의 8대 현장조건 및 발주 검토 수칙을 12개 정밀 점검 항목으로 확장 구성하였으며, 모든 항목의 문장 끝은 예외 없이 질문형 어미(<strong class="text-blue-700">~하였는가?</strong>)로 100% 정형화되었습니다.
+        </p>
+    </div>
+
+    <!-- 3-Column 마스터 검측 테이블 -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-slate-100 text-slate-700 text-sm font-extrabold border-b border-slate-200">
+                    <th class="py-4 px-6 text-center w-48 border-r border-slate-200">시공 단계</th>
+                    <th class="py-4 px-6 text-center">필수 검측 항목 (12대 정밀 검토 수칙)</th>
+                    <th class="py-4 px-6 text-center w-36 border-l border-slate-200">점검 결과</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+                
+        <!-- STEP 1 Group -->
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td rowspan="4" class="step-header p-6 w-48 align-middle bg-slate-50/50 border-r border-slate-200">
+                <div class="space-y-1">
+                    <span class="text-amber-500 text-base">⚠️</span>
+                    <div class="text-sm font-black text-slate-900">사전 준비</div>
+                    <div class="text-xs text-blue-600 font-bold">(Step 1 도면&Pool)</div>
+                </div>
+            </td>
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">1. 시방 대조</span><strong class="text-slate-900">[도면 및 여건]</strong> 자재 반입 동선/공동구/케이블 인입구 등 확인, 기능실마감 및 출입문 확인 수칙을 사전 대조 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+            <td rowspan="4" class="result-box p-6 w-36 align-middle bg-slate-50/30 text-blue-600 font-bold text-sm">☐ 확인완료</td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">2. 업체 Pool</span><strong class="text-slate-900">[적격 업체]</strong> 철도/트램 시공 및 영업운행 실적이 입증된 적격 업체 Pool을 검토<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">3. 제작 기간</span><strong class="text-slate-900">[자재 수급]</strong> 토목 / 건축 인터페이스 협의 주요 자재의 제작 및 현장 수급 기간을 계상<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">4. 유경험 인력</span><strong class="text-slate-900">[기술 인력]</strong> 철도/트램 유경험 전문 기술자 투입 계획을 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+        </tr>
+
+        <!-- STEP 2 Group -->
+        <tr class="hover:bg-slate-50 transition-colors border-t-2 border-slate-200">
+            <td rowspan="4" class="step-header p-6 w-48 align-middle bg-slate-50/50 border-r border-slate-200">
+                <div class="space-y-1">
+                    <span class="text-blue-500 text-base">📋</span>
+                    <div class="text-sm font-black text-slate-900">8대 조건</div>
+                    <div class="text-xs text-blue-600 font-bold">(Step 2 예산 검증)</div>
+                </div>
+            </td>
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">5. 대관 업무</span><strong class="text-slate-900">[대관 및 소모품]</strong> 관할 지자체 대관업무 및 현장 소모품 지원 계획을 검토<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+            <td rowspan="4" class="result-box p-6 w-36 align-middle bg-slate-50/30 text-blue-600 font-bold text-sm">☐ 확인완료</td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">6. 사용전검사</span><strong class="text-slate-900">[교육 지원비]</strong> 사용전검사 통신설비 운용 및 교육 지원 비용이 예산에 반영되었는지 확인<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">7. 내역 누락</span><strong class="text-slate-900">[내역서 재검토]</strong> 공사 예산내역서 상 누락 항목이 없는지 정밀 재검토<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">8. 창고 비용</span><strong class="text-slate-900">[창고 비용]</strong> 현장 자재 보관 창고 임대 비용을 내역서에 포함<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+        </tr>
+
+        <!-- STEP 3 Group -->
+        <tr class="hover:bg-slate-50 transition-colors border-t-2 border-slate-200">
+            <td rowspan="4" class="step-header p-6 w-48 align-middle bg-slate-50/50 border-r border-slate-200">
+                <div class="space-y-1">
+                    <span class="text-emerald-500 text-base">🤝</span>
+                    <div class="text-sm font-black text-slate-900">마감 승인</div>
+                    <div class="text-xs text-blue-600 font-bold">(Step 3 결과 체결)</div>
+                </div>
+            </td>
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">9. 유틸리티</span><strong class="text-slate-900">[공사용 시설]</strong> 공사용 전기, 용수, 오수 처리 시설 확보 계획을 수립<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+            <td rowspan="4" class="result-box p-6 w-36 align-middle bg-slate-50/30 text-blue-600 font-bold text-sm">☐ 확인완료</td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">10. 상주 인력</span><strong class="text-slate-900">[기술 지원비]</strong> 가동 후 현장 상주 기술지원 인력 기간 및 비용을 계상<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">11. 법정 일정</span><strong class="text-slate-900">[인허가 일정]</strong> 무선국 허가 및 사용전검사 준공 일정을 종합 반영<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+        </tr>
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="p-4 border-b border-slate-200 text-sm font-medium text-slate-800 leading-relaxed"><span class="inline-block bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded text-xs mr-2">12. 결과서 체결</span><strong class="text-slate-900">[소장 서명]</strong> 현장소장 결재가 포함된 인터페이스 회의록 및 관리대장 결과서를 확정<strong class="text-blue-600 font-bold">하였는가?</strong></td>
+        </tr>
+    
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div id="zoomModal" class="fixed inset-0 z-[9999] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
+    <div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="document.getElementById('zoomModal').classList.add('hidden')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm hover:bg-slate-700">✕ 닫기</button>
+        <h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3>
+        <div id="zoomContent" class="flex justify-center items-center"></div>
+    </div>
+</div>
+<script>
+function openDiagramZoom(htmlContent, title) {
+    var modal = document.getElementById('zoomModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'zoomModal';
+        modal.className = 'fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4';
+        modal.onclick = function() { modal.classList.add('hidden'); };
+        modal.innerHTML = '<div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()"><button onclick="document.getElementById(\'zoomModal\').classList.add(\'hidden\')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm">✕ 닫기</button><h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3><div id="zoomContent" class="flex justify-center items-center"></div></div>';
+        document.body.appendChild(modal);
+    }
+    document.getElementById('zoomTitle').innerText = title || '2D 시공 도식 확대보기';
+    document.getElementById('zoomContent').innerHTML = htmlContent;
+    modal.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

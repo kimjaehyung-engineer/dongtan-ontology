@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 상부강화노반 - 폐기물처리계획 수립 수행지침</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .theme-font-toolbar { position: fixed; bottom: 24px; right: 24px; z-index: 1000; display: flex; align-items: center; gap: 8px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); padding: 8px 14px; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .toolbar-btn { background: transparent; color: #f8fafc; border: none; font-size: 14px; font-weight: 700; padding: 4px 10px; cursor: pointer; border-radius: 9999px; transition: all 0.2s; }
+        .toolbar-btn:hover { background: rgba(255, 255, 255, 0.2); }
+        .toolbar-btn.active { background: #3b82f6; color: #fff; }
+        body.dark-theme { background-color: #0f172a; color: #f8fafc; }
+        body.dark-theme .bg-white { background-color: #1e293b !important; color: #f8fafc !important; }
+        body.dark-theme .border-slate-200 { border-color: #334155 !important; }
+        body.dark-theme .text-slate-900 { color: #f8fafc !important; }
+        body.dark-theme .text-slate-700 { color: #cbd5e1 !important; }
+        body.dark-theme .text-slate-600 { color: #94a3b8 !important; }
+        body.fs-small { font-size: 0.875rem; }
+        body.fs-medium { font-size: 1rem; }
+        body.fs-large { font-size: 1.125rem; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased py-10 px-4 sm:px-8 fs-medium">
+
+    <div class="theme-font-toolbar">
+        <button id="btn-theme" class="toolbar-btn" title="테마 변경">☀️</button>
+        <span style="color:rgba(255,255,255,0.2); font-size:12px;">|</span>
+        <button id="btn-fs-small" class="toolbar-btn" title="글자 작게">A-</button>
+        <button id="btn-fs-medium" class="toolbar-btn active" title="글자 보통">A</button>
+        <button id="btn-fs-large" class="toolbar-btn" title="글자 크게">A+</button>
+    </div>
+
+    <div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200/80 p-8 sm:p-12 space-y-8">
+        <!-- 🔵 헤더 영역 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">
+            <div>
+                <span class="text-xs font-black text-indigo-700 bg-indigo-50 border border-indigo-100 px-3.5 py-1.5 rounded-full mb-2 inline-block">
+                    Dongtan Tram Playbook | WBS 9000-7-11 현장 검토 수행방침
+                </span>
+                <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                    폐기물처리계획 수립 수행지침서
+                </h1>
+            </div>
+            <div class="shrink-0 text-right text-xs font-bold text-slate-500">
+                공종분야: <span class="text-indigo-600 font-extrabold">상부강화노반</span>
+            </div>
+        </div>
+
+        <!-- 📋 개요 카드 -->
+        <div class="bg-blue-50/60 border border-blue-100 rounded-2xl p-6 space-y-4">
+            <h3 class="text-base font-black text-blue-950 flex items-center gap-2">
+                <span>📌</span> 업무 목적 및 개요
+            </h3>
+            <p class="text-slate-700 text-sm leading-relaxed font-medium">
+                본 과업은 건설 굴착 시 발생하는 토사, 아스콘, 콘크리트 폐기물의 성상을 분류하고 관련 법령에 따른 적정 처리 절차를 수립하여, 환경 오염 예방 및 법적 위반 리스크를 차단하는 것을 목적으로 함.
+            </p>
+        </div>
+
+        <!-- 💡 수행 방법 및 절차 -->
+        <div class="space-y-4">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <span>💡</span> 업무 수행 절차 및 공학적 핵심 지침
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+        <div class="clickable-diagram cursor-pointer transition transform hover:scale-[1.02] hover:shadow-lg bg-slate-50 border border-slate-200 rounded-xl p-3 mb-3" onclick="openDiagramZoom(this.outerHTML, 'STEP 01: 토사 30cm 층포설 시공 2D 도식')">
+    <div class="text-[11px] font-bold text-slate-500 mb-1 flex items-center justify-between">
+        <span>🔍 클릭 시 대형 팝업 확대</span>
+        <span class="text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 font-extrabold">2D 시공 도식</span>
+    </div>
+    <svg viewBox="0 0 480 180" class="w-full h-auto rounded bg-white border border-slate-200">
+        <rect width="480" height="180" fill="#F8FAFC"/>
+        <!-- Sky & Grid -->
+        <line x1="0" y1="130" x2="480" y2="130" stroke="#94A3B8" stroke-width="2"/>
+        <!-- Base Subgrade -->
+        <rect x="0" y="130" width="480" height="50" fill="#CBD5E1"/>
+        <text x="20" y="155" font-size="12" font-weight="bold" fill="#475569">원지반 (Existing Ground)</text>
+        
+        # Spreading Layer 30cm
+        <rect x="120" y="100" width="340" height="30" fill="#FDE68A" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4,2"/>
+        <text x="220" y="120" font-size="13" font-weight="900" fill="#92400E">성토 토사 층포설 (H = 30cm)</text>
+        
+        # Height Gauge Marker
+        <line x1="440" y1="100" x2="440" y2="130" stroke="#DC2626" stroke-width="2.5"/>
+        <line x1="435" y1="100" x2="445" y2="100" stroke="#DC2626" stroke-width="2.5"/>
+        <line x1="435" y1="130" x2="445" y2="130" stroke="#DC2626" stroke-width="2.5"/>
+        <text x="400" y="118" font-size="12" font-weight="900" fill="#DC2626">30cm</text>
+        
+        # 2D Dump Truck Body
+        <rect x="20" y="75" width="75" height="40" rx="4" fill="#EAB308" stroke="#CA8A04" stroke-width="2"/>
+        <polygon points="10,115 20,85 45,85 45,115" fill="#3B82F6" opacity="0.8"/>
+        <circle cx="35" cy="125" r="10" fill="#1E293B"/>
+        <circle cx="75" cy="125" r="10" fill="#1E293B"/>
+        <text x="22" y="100" font-size="11" font-weight="bold" fill="#0F172A">덤프트럭</text>
+    </svg>
+</div><div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-4"><div class="flex items-center gap-3 mb-2"><span class="text-xs font-black text-indigo-700 bg-indigo-100 px-3 py-1 rounded-full">STEP 01</span><h4 class="text-base font-bold text-slate-900">단계별 세부 업무 절차 1</h4></div><p class="text-slate-600 text-sm leading-relaxed">1) 석산 공급원 사전 승인 수속</p></div>
+        <div class="clickable-diagram cursor-pointer transition transform hover:scale-[1.02] hover:shadow-lg bg-sky-50 border border-sky-200 rounded-xl p-3 mb-3" onclick="openDiagramZoom(this.outerHTML, 'STEP 02: 살수차 최적함수비 살수 2D 도식')">
+    <div class="text-[11px] font-bold text-sky-700 mb-1 flex items-center justify-between">
+        <span>🔍 클릭 시 대형 팝업 확대</span>
+        <span class="text-sky-700 bg-sky-100 px-2 py-0.5 rounded border border-sky-300 font-extrabold">2D 살수 도식</span>
+    </div>
+    <svg viewBox="0 0 480 180" class="w-full h-auto rounded bg-white border border-sky-200">
+        <rect width="480" height="180" fill="#F0F9FF"/>
+        <line x1="0" y1="130" x2="480" y2="130" stroke="#0284C7" stroke-width="2"/>
+        <rect x="0" y="130" width="480" height="50" fill="#BAE6FD"/>
+        
+        # Moisture Layer
+        <rect x="60" y="110" width="400" height="20" fill="#7DD3FC" opacity="0.6"/>
+        <text x="210" y="125" font-size="13" font-weight="900" fill="#0369A1">최적함수비 (OMC ±1.5%) 침투층</text>
+        
+        # Water Tank Truck 2D
+        <rect x="40" y="70" width="100" height="45" rx="10" fill="#0284C7" stroke="#0369A1" stroke-width="2"/>
+        <rect x="140" y="85" width="30" height="30" rx="3" fill="#38BDF8"/>
+        <circle cx="65" cy="125" r="10" fill="#0F172A"/>
+        <circle cx="125" cy="125" r="10" fill="#0F172A"/>
+        <text x="60" y="98" font-size="12" font-weight="bold" fill="#FFFFFF">살수차 (Water Tank)</text>
+        
+        # Water Droplets
+        <path d="M 140 115 L 170 130 M 150 115 L 180 130 M 160 115 L 190 130" stroke="#0284C7" stroke-width="3" stroke-dasharray="3,3"/>
+    </svg>
+</div><div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-4"><div class="flex items-center gap-3 mb-2"><span class="text-xs font-black text-indigo-700 bg-indigo-100 px-3 py-1 rounded-full">STEP 02</span><h4 class="text-base font-bold text-slate-900">단계별 세부 업무 절차 2</h4></div><p class="text-slate-600 text-sm leading-relaxed">2) 쇄석 입도(Dmax 50mm) 체가름 시험</p></div>
+        <div class="clickable-diagram cursor-pointer transition transform hover:scale-[1.02] hover:shadow-lg bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3" onclick="openDiagramZoom(this.outerHTML, 'STEP 03: 10t 진동롤러 다짐 2D 도식')">
+    <div class="text-[11px] font-bold text-amber-800 mb-1 flex items-center justify-between">
+        <span>🔍 클릭 시 대형 팝업 확대</span>
+        <span class="text-amber-800 bg-amber-100 px-2 py-0.5 rounded border border-amber-300 font-extrabold">2D 다짐 도식</span>
+    </div>
+    <svg viewBox="0 0 480 180" class="w-full h-auto rounded bg-white border border-amber-200">
+        <rect width="480" height="180" fill="#FEF3C7"/>
+        <line x1="0" y1="130" x2="480" y2="130" stroke="#D97706" stroke-width="2"/>
+        <rect x="0" y="130" width="480" height="50" fill="#FDE68A"/>
+        
+        # Roller Machine 2D
+        <circle cx="100" cy="115" r="25" fill="#94A3B8" stroke="#475569" stroke-width="4"/>
+        <circle cx="180" cy="120" r="20" fill="#64748B" stroke="#334155" stroke-width="3"/>
+        <rect x="100" y="70" width="80" height="40" rx="5" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+        <text x="108" y="93" font-size="11" font-weight="black" fill="#78350F">10t 진동롤러</text>
+        
+        # Compaction Gauge Dial
+        <circle cx="360" cy="85" r="35" fill="#FFFFFF" stroke="#D97706" stroke-width="3"/>
+        <path d="M 360 85 L 380 65" stroke="#DC2626" stroke-width="3"/>
+        <text x="330" y="138" font-size="12" font-weight="900" fill="#B45309">다짐도 ≥ 90% (KDS 기준)</text>
+        <text x="333" y="153" font-size="11" font-weight="bold" fill="#0369A1">Ev2 ≥ 120 MPa</text>
+    </svg>
+</div><div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-4"><div class="flex items-center gap-3 mb-2"><span class="text-xs font-black text-indigo-700 bg-indigo-100 px-3 py-1 rounded-full">STEP 03</span><h4 class="text-base font-bold text-slate-900">단계별 세부 업무 절차 3</h4></div><p class="text-slate-600 text-sm leading-relaxed">3) 수정다짐 CBR(≥30%) 성적 산출</p></div>
+        <div class="clickable-diagram cursor-pointer transition transform hover:scale-[1.02] hover:shadow-lg bg-emerald-50 border border-emerald-200 rounded-xl p-3 mb-3" onclick="openDiagramZoom(this.outerHTML, 'STEP 04: 성토 다짐 성과표 감리 승인 2D 도식')">
+    <div class="text-[11px] font-bold text-emerald-800 mb-1 flex items-center justify-between">
+        <span>🔍 클릭 시 대형 팝업 확대</span>
+        <span class="text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-300 font-extrabold">2D 승인 도식</span>
+    </div>
+    <svg viewBox="0 0 480 180" class="w-full h-auto rounded bg-white border border-emerald-200">
+        <rect width="480" height="180" fill="#ECFDF5"/>
+        
+        # Surveying Instrument 2D
+        <polygon points="60,140 40,170 80,170" fill="#64748B"/>
+        <rect x="50" y="110" width="20" height="30" fill="#F59E0B"/>
+        <circle cx="60" cy="100" r="12" fill="#0284C7"/>
+        <text x="30" y="90" font-size="11" font-weight="bold" fill="#0F172A">광학/토탈스테이션 실측</text>
+        
+        # Inspection Document Paper
+        <rect x="220" y="25" width="180" height="135" rx="4" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+        <line x1="240" y1="45" x2="380" y2="45" stroke="#059669" stroke-width="2"/>
+        <line x1="240" y1="65" x2="360" y2="65" stroke="#94A3B8" stroke-width="1.5"/>
+        <line x1="240" y1="85" x2="370" y2="85" stroke="#94A3B8" stroke-width="1.5"/>
+        <line x1="240" y1="105" x2="340" y2="105" stroke="#94A3B8" stroke-width="1.5"/>
+        <text x="245" y="40" font-size="12" font-weight="900" fill="#047857">성토 다짐 검측 성과표</text>
+        
+        # Approval Seal Stamp
+        <circle cx="350" cy="120" r="22" fill="#FEF2F2" stroke="#DC2626" stroke-width="2.5"/>
+        <text x="333" y="125" font-size="12" font-weight="900" fill="#DC2626">감리 승인</text>
+    </svg>
+</div><div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-4"><div class="flex items-center gap-3 mb-2"><span class="text-xs font-black text-indigo-700 bg-indigo-100 px-3 py-1 rounded-full">STEP 04</span><h4 class="text-base font-bold text-slate-900">단계별 세부 업무 절차 4</h4></div><p class="text-slate-600 text-sm leading-relaxed">4) 노반 재료 입도 DB 감리 승인</p></div>
+            </div>
+        </div>
+
+        <!-- 📦 산출물 결과 카드 -->
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-6 space-y-2">
+            <h3 class="text-base font-black text-emerald-950 flex items-center gap-2">
+                <span>📂</span> 최종 산출물 및 결재 서류
+            </h3>
+            <p class="text-emerald-900 text-sm leading-relaxed font-medium">
+                본 과업은 건설 굴착 시 발생하는 토사, 아스콘, 콘크리트 폐기물의 성상을 분류하고 관련 법령에 따른 적정 처리 절차를 수립하여, 환경 오염 예방 및 법적 위반 리스크를 차단하는 것을 목적으로 함.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const btnTheme = document.getElementById('btn-theme');
+        const btnFsSmall = document.getElementById('btn-fs-small');
+        const btnFsMedium = document.getElementById('btn-fs-medium');
+        const btnFsLarge = document.getElementById('btn-fs-large');
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+                btnTheme.textContent = '🌙';
+            } else {
+                document.body.classList.remove('dark-theme');
+                btnTheme.textContent = '☀️';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        function applyFontSize(size) {
+            document.body.classList.remove('fs-small', 'fs-medium', 'fs-large');
+            document.body.classList.add('fs-' + size);
+            [btnFsSmall, btnFsMedium, btnFsLarge].forEach(btn => btn.classList.remove('active'));
+            if (size === 'small') btnFsSmall.classList.add('active');
+            else if (size === 'medium') btnFsMedium.classList.add('active');
+            else if (size === 'large') btnFsLarge.classList.add('active');
+            localStorage.setItem('fontSize', size);
+        }
+
+        applyTheme(localStorage.getItem('theme') || 'light');
+        applyFontSize(localStorage.getItem('fontSize') || 'medium');
+
+        btnTheme.addEventListener('click', () => applyTheme(document.body.classList.contains('dark-theme') ? 'light' : 'dark'));
+        btnFsSmall.addEventListener('click', () => applyFontSize('small'));
+        btnFsMedium.addEventListener('click', () => applyFontSize('medium'));
+        btnFsLarge.addEventListener('click', () => applyFontSize('large'));
+    </script>
+
+<div id="zoomModal" class="fixed inset-0 z-[9999] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
+    <div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="document.getElementById('zoomModal').classList.add('hidden')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm hover:bg-slate-700">✕ 닫기</button>
+        <h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3>
+        <div id="zoomContent" class="flex justify-center items-center"></div>
+    </div>
+</div>
+<script>
+function openDiagramZoom(htmlContent, title) {
+    var modal = document.getElementById('zoomModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'zoomModal';
+        modal.className = 'fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4';
+        modal.onclick = function() { modal.classList.add('hidden'); };
+        modal.innerHTML = '<div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()"><button onclick="document.getElementById(\'zoomModal\').classList.add(\'hidden\')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm">✕ 닫기</button><h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3><div id="zoomContent" class="flex justify-center items-center"></div></div>';
+        document.body.appendChild(modal);
+    }
+    document.getElementById('zoomTitle').innerText = title || '2D 시공 도식 확대보기';
+    document.getElementById('zoomContent').innerHTML = htmlContent;
+    modal.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

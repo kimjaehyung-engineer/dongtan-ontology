@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 착수 전 Big Room 회의 표준서 (WBS 9000-2-9)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .zoom-modal, .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .zoom-modal.active, .glossary-modal.active {
+        display: flex;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 580px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-close, .glossary-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .zoom-close:hover, .glossary-close:hover {
+        color: #ef4444;
+    }
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Standard (WBS 9000-2-9)</span>
+        <h1 class="text-3xl font-black mt-2">착수 전 Big Room 회의 마스터 표준서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-9 | 주관: 현장소장 | "8대 착수 회의 의제 및 Risk Hedge 표준 규정"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 💡 표준 개요 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 본 표준서의 개요 및 8대 착수 회의 심사 표준</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                본 표준서는 건설기술 진흥법, KCS 47 10 00, KDS 47 10 00 시방서에 의거하여, 통신공사 착수 전 본사·현장·협력사 3자 Big Room 협의체를 구축하고 <strong><span class="term-highlight" onclick="openGlossary('interface_check')">5대 공종 간섭(노반/전기/신호/기계/차량)</span></strong>, 자재 반입구 및 야적장 5대 환경, 성능보증, <span class="term-highlight" onclick="openGlossary('defect_prevention')">타 프로젝트 하자 재발방지</span>, 양중장비 안전검사 및 <span class="term-highlight" onclick="openGlossary('risk_hedge')">안전/품질/민원 Risk Hedge</span> 대책을 사전에 검증·확정하는 기술 표준입니다.
+            </p>
+        </div>
+
+        <!-- 📜 8대 착수전 회의 심사 의제 규정 -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-blue-600 pb-2">1. 착수 전 Big Room 회의 8대 핵심 심사 규정</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">🤝 1. 본사/현장/협력사 협의체 구축</span>
+                    <p class="text-slate-700 text-xs">현장소장 주관 3자 합동 Big Room 협의체를 구축하고 착수 세부 실행계획 1:1 대조 검토.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">📐 2. 5대 공종 간섭 사항 사전 검토</span>
+                    <p class="text-slate-700 text-xs">노반(궤도)/전기/신호/기계/차량 인터페이스 및 관통 경로, 층고(≥3.0m) 간섭점 사전 검출.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">📦 3. 자재 반입동선 & 야적장/공장</span>
+                    <p class="text-slate-700 text-xs">통신 랙(H=2200mm) 반입구, 야적장 5대 안전 환경 및 제작사 공장검사 계획 확인.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">💎 4. 자재 성능보증 & 유사실적 대조</span>
+                    <p class="text-slate-700 text-xs">광케이블, CCTV, PIS 등 자재 성능보증 조건 및 타 철도/트램 적용 실적 사전 검증.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">🛡️ 5. 타 프로젝트 하자 재발방지</span>
+                    <p class="text-slate-700 text-xs">과거 철도/트램 하자 사례(광손실, 침수, 방화충전) 분석 및 현장 재발 방지 대책 수립.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">🏗️ 6. 인원/자재/장비 & 양중 운영</span>
+                    <p class="text-slate-700 text-xs">숙련 기술자 자격증, 계측기(KOLAS 1년 검교정), 크레인/양중장비 안전 운영 계획 검토.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">⚡ 7. 장비 안전검사 기준 공유</span>
+                    <p class="text-slate-700 text-xs">당사 현장 장비 안전검사 기준 공유 및 양중/고소 작업 장비 검사 필증 사전 확인.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">🚧 8. 공종별 Risk Hedge 방안 검토</span>
+                    <p class="text-slate-700 text-xs">안전/품질 Risk(궤도/고소작업/광접속) 및 도로 굴착 소음/진동 민원 2시간 출동 헷지 수칙 확정.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 착수 회의 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    "interface_check": "<b>5대 공종 간섭검토 (Interface Control)</b><br><br>• 노반(궤도), 전기, 신호, 기계, 차량 등 5대 이종 공종과 통신 설비 간 관통 관로, 층고, 양중 공간 및 전파 간섭 지점을 사전에 도출하고 조율하는 절차입니다.",
+    "defect_prevention": "<b>타 프로젝트 하자 재발방지 (Defect Prevention)</b><br><br>• 과거 유사 철도/트램 프로젝트에서 발생했던 광케이블 접속 손실, 침수, 방화 충전 불량 등의 하자 사례를 분석하여 현장에 재발 방지 대책을 수립하는 수칙입니다.",
+    "risk_hedge": "<b>공종별 Risk Hedge 방안</b><br><br>• 궤도 선로 작업 안전, 고소작업 낙하, 광 접속 품질 하자 및 도로 굴착 소음/진동 민원(2시간 이내 출동)에 대해 사전에 수립하는 종합 리스크 예방 대책입니다."
+};
+
+function openGlossary(term) {
+    const modal = document.getElementById('glossaryModal');
+    const titleEl = document.getElementById('modalTitle');
+    const descEl = document.getElementById('modalDescription');
+    
+    if (glossaryData[term]) {
+        titleEl.innerHTML = "📖 용어 해설: " + term;
+        descEl.innerHTML = glossaryData[term];
+        modal.classList.add('active');
+    }
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function closeGlossaryModalOutside(event) {
+    if (event.target.id === 'glossaryModal') {
+        closeGlossaryModal();
+    }
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+        closeGlossaryModal();
+    }
+});
+</script>
+
+</body>
+</html>

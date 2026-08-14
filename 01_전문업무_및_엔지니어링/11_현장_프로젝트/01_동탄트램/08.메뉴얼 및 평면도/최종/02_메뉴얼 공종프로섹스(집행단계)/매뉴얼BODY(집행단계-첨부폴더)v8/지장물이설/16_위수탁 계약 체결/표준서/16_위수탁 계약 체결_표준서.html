@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지장물이설 - 위수탁 계약 체결 기술 표준서</title>
+    <style>
+        :root { --bg-primary: #f8fafc; --bg-card: #ffffff; --text-primary: #0f172a; --text-secondary: #475569; --accent-blue: #1e3a8a; --accent-cyan: #0284c7; --border-color: #e2e8f0; }
+        body { font-family: 'Pretendard', 'Noto Sans KR', sans-serif; margin: 0; padding: 30px 20px; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08); }
+        .header { border-bottom: 3px solid var(--accent-blue); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px; }
+        .title { font-size: 2.1rem; font-weight: 900; color: var(--text-primary); margin: 0; }
+        .meta-info { display: flex; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); margin-top: 12px; }
+        .badge { background: #dbeafe; color: #1e40af; font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
+        h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent-blue); border-left: 5px solid var(--accent-cyan); padding-left: 12px; margin-top: 35px; margin-bottom: 18px; }
+        table { width: 100% !important; max-width: 100% !important; border-collapse: collapse; margin: 12px 0 20px 0; font-size: 0.92rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; text-align: left; vertical-align: middle; }
+        th { background: #f1f5f9; color: #1e293b; font-weight: 700; }
+        .svg-container { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .diagram-explanation { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-top: 15px; font-size: 0.9rem; color: #334155; text-align: left; }
+        .key-takeaway { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-top: 15px; color: #166534; font-size: 0.9rem; }
+        .footer-note { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid var(--border-color); padding-top: 20px; }
+    </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 2000-1-9 Standard</div>
+        <h1 class="title">위수탁 계약 체결 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 사전토공 / 지장물이설 (위수탁 계약)</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 공무팀 / 발주처 / 5대 위탁기관</span>
+            <span>|</span>
+            <span><span class="badge">위수탁 계약 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th style="width: 20%;">과업 목적</th><td>5대 위탁기관(가스, 난방, 통신, 전력, 광역상수) 이설 사업비 및 이설 소요 공기에 대해 법적 효력을 갖는 정식 위수탁 이설 계약 체결</td></tr>
+            <tr><th>수행 방법</th><td>지방계약법 규정 준수, 관종별 추정 이설 공비 확정, 궤도 최소 이격거리(H ≥ 1.5m) 및 정산 조항 포함 계약 체결</td></tr>
+            <tr><th>주요 산출물</th><td>위수탁 이설 계약서 원본, 이설 사업비 산출서, 기관별 소요 공기 협약서</td></tr>
+            <tr><th>관련 법령/기준</th><td>지방자치단체를 당사자로 하는 계약에 관한 법률, 화성시 지장물 위수탁 처리 조례</td></tr>
+        </tbody>
+    </table>
+
+    <h2>2. 위수탁 이설 계약 정량 행정/기술 시방 수칙</h2>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 22px; border-radius: 12px; margin-bottom: 25px;">
+        <h4 style="margin: 0 0 12px 0; color: #1e3a8a; font-size: 1.05rem;">📜 위수탁 계약 조건 및 5대 기관별 이설 소요 공기 기준</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem;">
+            <thead>
+                <tr style="background: #e2e8f0; color: #0f172a;">
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 20%;">위수탁 계약 항목</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 25%;">적용 법령 및 규정</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 55%;">핵심 정량 기준 및 법정 소요 공기 준수 수칙</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">계약 법률 준수</td>
+                    <td style="text-align: center;">지방계약법 / 화성시 조례</td>
+                    <td>• 화성시 발주처 결재 후 5대 위탁기관과 정식 서명 날인 계약<br>• 추정 이설 공사비 내역서 및 정산 조항 명시 체결</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">전력관 이설 공기</td>
+                    <td style="text-align: center;">한국전력공사 협약</td>
+                    <td>• 특고압 전력관로 이설 표준 소요 공기 <strong>255일</strong> 계약 명시<br>• 22.9kV 지중관로 내전압/절연저항 시방 반영</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">광역상수도 공기</td>
+                    <td style="text-align: center;">한국수자원공사 협약</td>
+                    <td>• 광역상수도관 이설 표준 소요 공기 <strong>160일</strong> 계약 명시<br>• D800mm 이상 무단수 Tapping 및 15kg/cm² 이탈방지 반영</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">통신관로 공기</td>
+                    <td style="text-align: center;">KT / SKT / LGU+ 협약</td>
+                    <td>• 통신관로 및 광케이블 이설 표준 소요 공기 <strong>150일</strong> 계약 명시<br>• OTDR ≤ 0.05dB 및 심야 시간대 Cut-over 이행 명시</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">난방 / 가스 공기</td>
+                    <td style="text-align: center;">난방공사 / 삼천리 협약</td>
+                    <td>• 지역난방관 이설 <strong>80일</strong>, 도시가스관 이설 <strong>62일</strong> 공기 반영<br>• 난방 NDT 100% / 가스 RT 100% 1급 시방 준수 명시</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 15px; background: #eff6ff; padding: 12px 16px; border-radius: 8px; border: 1px solid #bfdbfe; font-size: 0.88rem; color: #1e40af;">
+            <strong>📐 위수탁 계약 이행 절대 수칙:</strong> 본 과업은 위탁기관 공기 지연을 예방하기 위해 <strong>기관별 표준 소요 공기(255일~62일) 및 궤도 이격 1.5m</strong>를 계약서에 명시합니다.
+        </div>
+    </div>
+
+    <h2>3. 위수탁 계약 체결 핵심 프로세스 모식도</h2>
+    <div class="svg-container">
+        <svg viewBox="0 0 900 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="320" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+            <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">위수탁 이설 계약 체결 및 이설 공기 협약 절차</text>
+
+            <g transform="translate(30, 60)">
+                <rect width="180" height="170" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                <rect width="180" height="35" rx="8" fill="#dbeafe"/>
+                <text x="90" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">① 이설 사업비 산정</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">기관별 예산 검토</text>
+            </g>
+
+            <text x="225" y="145" font-size="20" fill="#2563eb">➔</text>
+
+            <g transform="translate(245, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#ffedd5"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a3412">② 협약 조항 검토</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">궤도 이격 1.5m 명시</text>
+            </g>
+
+            <text x="450" y="145" font-size="20" fill="#ea580c">➔</text>
+
+            <g transform="translate(470, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#dcfce7"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">③ 위수탁 계약 체결</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">발주처/기관 날인 체결</text>
+            </g>
+
+            <text x="675" y="145" font-size="20" fill="#059669">➔</text>
+
+            <g transform="translate(695, 60)">
+                <rect width="175" height="170" rx="8" fill="#ffffff" stroke="#1e3a8a" stroke-width="2"/>
+                <rect width="175" height="35" rx="8" fill="#e0e7ff"/>
+                <text x="87" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e1b4b">④ 마스터 공정 반영</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">소요 공기 255~62일 관리</text>
+            </g>
+
+            <rect x="30" y="250" width="840" height="45" rx="8" fill="#1e3a8a"/>
+            <text x="450" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">🚨 위수탁 계약 미체결 시 기관 이설 시공 착수 불허 및 공정 지연 리스크 전면 차단</text>
+        </svg>
+    </div>
+
+    <div class="diagram-explanation">
+        <h4 style="margin: 0 0 8px 0; color: #0f172a;">🔍 위수탁 계약 체결 엔지니어링 시스템 해설</h4>
+        <p style="margin: 0; line-height: 1.7;">본 과업은 5대 위탁기관 이설 사업비 및 소요 공기(전력 255일~가스 62일)에 대한 법적 위수탁 계약을 체결하여 정산 및 시공권을 확보하는 절차입니다.</p>
+    </div>
+
+    <div class="key-takeaway">
+        <strong>💡 핵심 요약:</strong> 지방계약법에 의거 5대 위탁기관과 이설 사업비 및 표준 소요 공기를 계약 체결하여 이설을 이행하는 단계입니다!
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 2000-1-9 | 지장물이설
+    </div>
+</div>
+
+<div id="zoomModal" class="fixed inset-0 z-[9999] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
+    <div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()">
+        <button onclick="document.getElementById('zoomModal').classList.add('hidden')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm hover:bg-slate-700">✕ 닫기</button>
+        <h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3>
+        <div id="zoomContent" class="flex justify-center items-center"></div>
+    </div>
+</div>
+<script>
+function openDiagramZoom(htmlContent, title) {
+    var modal = document.getElementById('zoomModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'zoomModal';
+        modal.className = 'fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4';
+        modal.onclick = function() { modal.classList.add('hidden'); };
+        modal.innerHTML = '<div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()"><button onclick="document.getElementById(\'zoomModal\').classList.add(\'hidden\')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm">✕ 닫기</button><h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3><div id="zoomContent" class="flex justify-center items-center"></div></div>';
+        document.body.appendChild(modal);
+    }
+    document.getElementById('zoomTitle').innerText = title || '2D 시공 도식 확대보기';
+    document.getElementById('zoomContent').innerHTML = htmlContent;
+    modal.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자재 _ 인원 _ 장비 등 투입 사전 검토 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal-content, .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border-radius: 20px;
+        width: 92%;
+        max-width: 720px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border: 1px solid #cbd5e1;
+        position: relative;
+        animation: modalFadeIn 0.25s ease-out;
+    }
+    .zoom-modal-content {
+        max-width: 1100px !important;
+        width: 95% !important;
+    }
+    @keyframes modalFadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .glossary-close, .zoom-close {
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        color: #64748b;
+        font-size: 28px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #0f172a;
+    }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-950 to-slate-900 opacity-80"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-3-8 Guideline</span>
+                <span class="bg-white text-slate-950 text-xs font-bold px-3 py-1 rounded-full">전기설비 마스터 작업 수행지침</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">자재 _ 인원 _ 장비 등 투입 사전 검토 수행지침서</h1>
+            <p class="text-blue-200 mt-2 text-sm sm:text-base">"특급 전기기술자 선임, 특고압 활선작업 자격증, 절연 가선작업차 안전검사증 및 보호구 내전압 성적서 사전 승인"</p>
+        </div>
+    </div>
+
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 1. 핵심 수행 원칙 및 배경 -->
+        <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-6 shadow-sm space-y-3">
+            <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+                <span>📘</span> 자재 _ 인원 _ 장비 등 투입 사전 검토 엔지니어링 수행 원칙
+            </h3>
+            <p class="text-xs text-blue-900 leading-relaxed font-medium">
+                본 지침서는 동탄트램 현장 기술자가 실무에서 즉시 적용할 수 있도록 <span class="term-highlight" onclick="openGlossary('hotline_qual')">⚡ 특고압 활선작업 자격 (Hotline Work)</span>, <span class="term-highlight" onclick="openGlossary('insulated_tower_car')">🚜 절연 가선작업차 (Insulated Tower Car)</span> 및 <span class="term-highlight" onclick="openGlossary('ptw_system')">📋 안전작업허가제 (PTW - Permit To Work)</span> 수칙을 1:1 맞춤형으로 체계화한 엔지니어링 가이드입니다.
+            </p>
+        </div>
+
+        <!-- 2. 단계별 마스터 절차 카드 -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 단계별 마스터 절차 (Step-by-Step Execution Guide)
+            </h2>
+            <div class="space-y-4">
+                
+                <!-- STEP 1 WHAT -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1 WHAT</span>
+                        <h3 class="font-bold text-base text-slate-900">기술인력 자격수첩 및 안전교육 이수증 원본 대조</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>전기 특급기술자 선임계 및 국가기술자격수첩 원본을 1:1 대조 확인합니다.</li><li>특고압 활선작업 종사자의 건강진단서 및 특수안전교육 이수증을 검증합니다.</li><li>협력업체 전기공사업 면허 및 시공능력평가액 적격 여부를 심사합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 2 WHEN -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2 WHEN</span>
+                        <h3 class="font-bold text-base text-slate-900">공사 착수 14일 전 장비 및 기구 반입 사전 검사</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>절연 가선작업차의 한국산업안전보건공단 안전인증서 및 절연내력(30kV) 성적서를 점검합니다.</li><li>크레인, 윈치, 케이블 텐셔너의 정기 안전검사 유효기간을 확인합니다.</li><li>특고압 절연 보호구(장갑, 장화, 헬멧) 내전압 시험 유효기간(6개월)을 전수 조사합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 3 WHO -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3 WHO</span>
+                        <h3 class="font-bold text-base text-slate-900">안전관리자, 전기책임기술자, 감리원 합동 자격 심사</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>안전보건총괄책임자 주관으로 기술인력 적격성 심사위원회를 개최합니다.</li><li>공종별 작업팀장(가선팀, 변전팀, 케이블팀)의 실무 경력을 1:1 면접 확인합니다.</li><li>감리원의 사전 검토 확인을 받아 현장 출입증(ID)을 정식 발급합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 4 WHERE -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4 WHERE</span>
+                        <h3 class="font-bold text-base text-slate-900">현장 안전교육장 및 장비 집결 야적장 실사</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>현장 안전교육장에서 특고압 감전사고 예방 특별 VR 교육을 이수시킵니다.</li><li>장비 야적장에서 가선작업차 버킷 절연 저항(≥1,000MΩ)을 현장 계측합니다.</li><li>개인보호구 보관함 내 습기 침투 방지 및 온습도 상태를 점검합니다.</li>
+                    </ul>
+                </div>
+                <!-- STEP 5 HOW -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 5 HOW</span>
+                        <h3 class="font-bold text-base text-slate-900">투입 승인서 발급 및 작업전 위험성평가(TBM) 연동</h3>
+                    </div>
+                    <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                        <li>12대 인원/장비/자재 점검표에 전수 서명하고 감리원 최종 투입 승인서를 발부받습니다.</li><li>매일 작업 착수 전 TBM(Tool Box Meeting)에서 안전작업허가서(PTW)를 교부합니다.</li><li>투입 현황 데이터를 PMIS 노무/장비 관리 시스템에 실시간 등록합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">3.</span> 2D Visual 기술 도식 (Enriched 2D SVG)
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r3_8', '[9000-3-8] 자재 _ 인원 _ 장비 등 투입 사전 검토 2D Visual 정밀 공학 도식')">
+                <svg id="svg_r3_8" viewBox="0 0 550 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="550" height="180" fill="#f8fafc"/>
+    <rect x="25" y="20" width="230" height="120" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+    <text x="140" y="45" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">👷 특급기술자 및 활선자격 선임</text>
+    <text x="45" y="75" font-size="11" font-weight="bold" fill="#334155">• 특급 전기기술자 선임, 특고압 활선작업 자격...</text>
+    <text x="45" y="98" font-size="11" font-weight="bold" fill="#334155">• KEC & 설계도서 100% 대조 완료</text>
+    <path d="M 260 80 L 290 80" stroke="#2563eb" stroke-width="3"/>
+    <polygon points="290,75 300,80 290,85" fill="#2563eb"/>
+    <rect x="295" y="20" width="230" height="120" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+    <text x="410" y="45" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🚜 가선작업차 절연안전검사</text>
+    <text x="315" y="75" font-size="11" font-weight="bold" fill="#334155">• 정밀 계측(절연/접지/토크) 1:1 검측</text>
+    <text x="315" y="98" font-size="11" font-weight="bold" fill="#334155">• 3자 합동 서명 & PMIS 즉시 등재</text>
+    <text x="275" y="162" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">자재 _ 인원 _ 장비 등 투입 사전 검토 표준 실무 공정 완료 및 감리원 승인 완수</text>
+</svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 용어 사전 모달 -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<!-- 대형 도식 확대 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'hotline_qual': {
+        title: '⚡ 특고압 활선작업 자격 (Hotline Work)',
+        desc: '22.9kV 특고압 충전부 인접 구역에서 작업할 수 있도록 지정 교육기관에서 특수안전교육을 이수한 전문 기술자 자격입니다.'
+    },
+    'insulated_tower_car': {
+        title: '🚜 절연 가선작업차 (Insulated Tower Car)',
+        desc: '전차선 가선 및 조정 작업 시 작업대(Bucket)와 붐대가 30kV 이상의 고전압을 절연하여 작업자를 감전으로부터 보호하는 특수 차량입니다.'
+    },
+    'ptw_system': {
+        title: '📋 안전작업허가제 (PTW - Permit To Work)',
+        desc: '정전 작업, 활선 근접 작업, 중량물 양중 등 고위험 작업 착수 전 안전 대책을 검토하여 감리원과 안전관리자가 승인하는 법정 허가 제도입니다.'
+    },
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

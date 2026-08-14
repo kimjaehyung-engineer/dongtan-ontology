@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄도시철도 - 터파기_지반 정리 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto space-y-8">
+        
+        <!-- Header Banner -->
+        <div class="bg-slate-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden">
+            <div class="absolute right-0 top-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 space-y-4">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="bg-amber-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">WBS 9000-2-16</span>
+                    <span class="bg-slate-800 text-slate-300 font-bold text-xs px-3 py-1 rounded-full">건축공사 기술 표준서</span>
+                    <span class="bg-emerald-500/20 text-emerald-400 font-bold text-xs px-3 py-1 rounded-full">동탄도시철도 건설사업</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black tracking-tight">터파기_지반 정리 기술 표준서</h1>
+                <p class="text-slate-400 text-sm max-w-3xl leading-relaxed">정거장 및 차량기지 건축 구조물 기초 터파기, 굴착면 기울기, 흙막이 지보공 및 지반 지지력 관리</p>
+            </div>
+        </div>
+
+        <!-- 4대 관리 KPI Summary Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-amber-600 uppercase tracking-wider">품질 관리 (Q)</div>
+                <div class="text-sm font-black text-slate-900">지반 평판재하시험(PBT) 지내력 지지력(≥200kN/㎡) 100% 확보</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-emerald-600 uppercase tracking-wider">안전 관리 (S)</div>
+                <div class="text-sm font-black text-slate-900">굴착 저면 잉여굴착(Over-excavation) 방지 (±20mm 이내)</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">공정 관리 (T)</div>
+                <div class="text-sm font-black text-slate-900">굴착 사면 안전기울기(암반 1:0.5, 토사 1:1.0) 100% 준수</div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                <div class="text-xs font-bold text-purple-600 uppercase tracking-wider">원가/행정 관리 (C)</div>
+                <div class="text-sm font-black text-slate-900">지하수위 저하 및 배수 트렌치 설치로 굴착면 건조상태 유지</div>
+            </div>
+        </div>
+
+        <!-- 기술사양 및 설계 기준 테이블 -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-6">
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
+                <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
+                <h2 class="font-bold text-lg text-slate-900">기술사양 및 설계 시방 기준</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <tbody>
+
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">적용 기준</td>
+                        <td class="px-6 py-4 text-slate-600">KCS 11 20 00 토공사, KCS 41 10 00 건축토공사 표준시방서</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">굴착 장비</td>
+                        <td class="px-6 py-4 text-slate-600">0.7~1.0㎥ 백호, 덤프트럭 15~25ton, 로드롤러/콤팩터</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">품질 기준</td>
+                        <td class="px-6 py-4 text-slate-600">지지력 시험(PBT) 허용지지력 qa ≥ 200kN/㎡, 다짐도 ≥ 95%</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="px-6 py-4 font-bold text-slate-800 bg-slate-50/50 w-1/4">안전 기준</td>
+                        <td class="px-6 py-4 text-slate-600">굴착 깊이 1.5m 이상 시 흙막이 지보공 또는 계단식 굴착, 가설 난간대 설치</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3단계 표준 작업 프로세스 (Phases) -->
+        <div class="space-y-4">
+            <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-slate-900"></div>
+                <h2 class="font-bold text-lg text-slate-900">3단계 표준 작업 프로세스 (Standard Procedure)</h2>
+            </div>
+            <div class="space-y-4">
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 1</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 1: 지하시설물 탐사 및 규준틀 설치</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">지하 매설물(가스, 통신, 전력) 줄파기 확인, 건축물 중심선 및 터파기 경계 규준틀 설치</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 2</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 2: 단계별 터파기 및 배수 처리</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">지하수위 저하용 집수정 및 가설 배수로 설치, 설계 지반고까지 단계별 굴착</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex items-center gap-3">
+                    <span class="bg-slate-800 text-amber-400 font-bold text-xs px-2.5 py-1 rounded">PHASE 3</span>
+                    <h3 class="font-bold text-base text-slate-900">Phase 3: 굴착 저면 지지력 검측 및 정리</h3>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">굴착 바닥면 불교란 상태 유지, 지반 평판재하시험(PBT) 실시 및 감리원 승인</p>
+            </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-xs text-slate-400 py-4 border-t border-slate-200">
+            동탄도시철도(트램) 건설사업 건축분야 공종 프로세스 관리 매뉴얼 | WBS 9000-2-16
+        </div>
+    </div>
+</body>
+</html>
