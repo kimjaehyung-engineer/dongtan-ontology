@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-상부강화노반 36개 액티비티 총 108개 파일 전수 생성 스크립트
-(기존 폴더 완전 초기화 후 정규 108개 파일 단일 생성 보장)
+상부강화노반 36개 액티비티 1:1 맞춤형 고유 2D SVG 도식 적용 마스터 생성 엔진
+(36종 전용 도식 + Tailwind CSS + Light Theme + 줌 모달 + 계산기 + 용어사전 완벽 탑재)
 """
 
 import os
@@ -11,9 +11,11 @@ import shutil
 sys.path.append(os.path.abspath("scratch"))
 from subballast_part1 import ALL_TASKS as PART1_TASKS
 from subballast_part2 import PART2_TASKS
+from subballast_custom_svgs_part1 import get_svg_1_to_18
+from subballast_custom_svgs_part2 import get_svg_19_to_36
 
 TOTAL_TASKS = PART1_TASKS + PART2_TASKS
-print(f"총 {len(TOTAL_TASKS)}개 상부강화노반 태스크 로드 완료!")
+print(f"총 {len(TOTAL_TASKS)}개 상부강화노반 태스크 및 36개 1:1 전용 도식 로드 완료!")
 
 BASE_DIR = os.path.abspath(r"08.메뉴얼 및 평면도\최종\02_메뉴얼 공종프로섹스(집행단계)\매뉴얼BODY(집행단계-첨부폴더)v8\4.상부강화노반")
 
@@ -22,70 +24,12 @@ def sanitize_filename(name):
         name = name.replace(ch, '_')
     return name
 
-def generate_svg_diagram(task_num, title, wbs_code):
-    """라이트 테마 전용 고해상도 2D 기술 다이어그램 SVG 생성"""
-    return f'''<svg viewBox="0 0 800 420" class="w-full h-auto bg-slate-50 border border-slate-300 rounded-xl shadow-inner font-sans" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="grad_sub_{task_num}" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#059669" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.15"/>
-    </linearGradient>
-    <linearGradient id="grad_bar_{task_num}" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#047857"/>
-    </linearGradient>
-    <pattern id="hatch_{task_num}" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="0" x2="0" y2="10" stroke="#cbd5e1" stroke-width="1.5" />
-    </pattern>
-  </defs>
-
-  <!-- 배경 그리드 & 베이스 -->
-  <rect x="0" y="0" width="800" height="420" fill="#f8fafc"/>
-  <rect x="20" y="20" width="760" height="380" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-
-  <!-- 헤더 바 -->
-  <rect x="20" y="20" width="760" height="46" rx="12" fill="#0f172a"/>
-  <rect x="20" y="54" width="760" height="12" fill="#0f172a"/>
-  <circle cx="45" cy="43" r="6" fill="#10b981"/>
-  <circle cx="65" cy="43" r="6" fill="#38bdf8"/>
-  <circle cx="85" cy="43" r="6" fill="#f59e0b"/>
-  <text x="110" y="48" fill="#ffffff" font-size="14" font-weight="bold">동탄도시철도 상부강화노반 엔지니어링 표준 단면도 - WBS {wbs_code}</text>
-  <rect x="660" y="30" width="105" height="26" rx="6" fill="#047857"/>
-  <text x="672" y="47" fill="#ffffff" font-size="11" font-weight="bold">KCS 47 10 25</text>
-
-  <!-- 2D 구조 단면 렌더링 -->
-  <!-- 1. 원지반층 (G.L) -->
-  <rect x="60" y="310" width="680" height="65" fill="url(#hatch_{task_num})" stroke="#94a3b8" stroke-width="1.5"/>
-  <text x="75" y="348" fill="#475569" font-size="13" font-weight="bold">원지반 (Natural Ground) [ N ≥ 15, K30 ≥ 110 MN/m³ ]</text>
-  <line x1="60" y1="310" x2="740" y2="310" stroke="#475569" stroke-width="2" stroke-dasharray="6,3"/>
-
-  <!-- 2. 하부노반 (Subgrade Lower, 60cm) -->
-  <rect x="60" y="235" width="680" height="75" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
-  <text x="75" y="278" fill="#334155" font-size="13" font-weight="bold">하부노반층 (Lower Subgrade) [ D_max ≤ 150mm, 다짐도 ≥ 90% ]</text>
-  <rect x="580" y="250" width="140" height="45" rx="6" fill="#e2e8f0" stroke="#94a3b8"/>
-  <text x="592" y="277" fill="#1e293b" font-size="12" font-weight="bold">K30 ≥ 110 MN/m³</text>
-
-  <!-- 3. 상부노반 (Subgrade Upper, 60cm) -->
-  <rect x="60" y="160" width="680" height="75" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
-  <text x="75" y="203" fill="#0369a1" font-size="13" font-weight="bold">상부노반층 (Upper Subgrade) [ CBR ≥ 10%, 다짐도 ≥ 95%, Evd ≥ 45 MPa ]</text>
-  <rect x="580" y="175" width="140" height="45" rx="6" fill="#bae6fd" stroke="#0284c7"/>
-  <text x="592" y="202" fill="#0369a1" font-size="12" font-weight="bold">K30 ≥ 150 MN/m³</text>
-
-  <!-- 4. 상부강화노반층 (Subballast, 30cm) -->
-  <rect x="60" y="90" width="680" height="70" fill="url(#grad_sub_{task_num})" stroke="#059669" stroke-width="2.5"/>
-  <text x="75" y="132" fill="#065f46" font-size="14" font-weight="900">★ 상부강화노반 (Subballast SB-1, 0~30mm) [ 두께 30cm, K30 ≥ 190 MN/m³, Evd ≥ 65 MPa ]</text>
-  <rect x="580" y="102" width="140" height="46" rx="6" fill="url(#grad_bar_{task_num})"/>
-  <text x="592" y="130" fill="#ffffff" font-size="12" font-weight="bold">K30 ≥ 190 MN/m³</text>
-
-  <!-- 좌측 치수선 (두께 표시) -->
-  <line x1="45" y1="90" x2="45" y2="160" stroke="#059669" stroke-width="2"/>
-  <path d="M45,90 L42,98 L48,98 Z M45,160 L42,152 L48,152 Z" fill="#059669"/>
-  <text x="25" y="130" fill="#065f46" font-size="12" font-weight="bold" transform="rotate(-90 25 130)">30cm</text>
-
-  <!-- 우측 횡단 배수구배 2% 표시 -->
-  <path d="M480,95 L560,99 L480,99 Z" fill="#047857" opacity="0.3"/>
-  <text x="495" y="92" fill="#065f46" font-size="11" font-weight="bold">횡단구배 i=2.0% ➔</text>
-</svg>'''
+def get_custom_svg(task_num, wbs_code, act_name):
+    """36개 공종 1:1 전용 2D 기술 도식 라우팅"""
+    if task_num <= 18:
+        return get_svg_1_to_18(task_num, wbs_code, act_name)
+    else:
+        return get_svg_19_to_36(task_num, wbs_code, act_name)
 
 def build_standard_html(task_tuple):
     num, folder_name, wbs_code, act_name, quote, summary, kpis, specs, steps, diag_title, terms = task_tuple
@@ -199,7 +143,9 @@ def build_standard_html(task_tuple):
 
 def build_guideline_html(task_tuple):
     num, folder_name, wbs_code, act_name, quote, summary, kpis, specs, steps, diag_title, terms = task_tuple
-    svg_diag = generate_svg_diagram(num, act_name, wbs_code)
+    
+    # 1:1 맞춤형 전용 SVG 도식 호출
+    svg_diag = get_custom_svg(num, wbs_code, act_name)
 
     step_cards = ""
     for s_idx, (s_title, s_head, s_items) in enumerate(steps, 1):
@@ -231,19 +177,6 @@ def build_guideline_html(task_tuple):
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         body {{ font-family: 'Noto Sans KR', sans-serif; }}
-        .term-highlight {{
-            color: #059669 !important;
-            font-weight: 700 !important;
-            border-bottom: 2px dashed #059669 !important;
-            cursor: pointer !important;
-            transition: all 0.2s ease !important;
-            padding: 0 2px !important;
-        }}
-        .term-highlight:hover {{
-            background: #ecfdf5 !important;
-            color: #047857 !important;
-            border-radius: 4px !important;
-        }}
         .clickable-diagram {{
             cursor: zoom-in;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -270,12 +203,12 @@ def build_guideline_html(task_tuple):
         </div>
     </div>
 
-    <!-- 1:1 필수 2D 기술 도식 (Light Theme Zoomable) -->
+    <!-- 1:1 맞춤형 2D 기술 도식 (Light Theme Zoomable) -->
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
         <div class="flex justify-between items-center mb-4">
             <div class="flex items-center gap-2">
                 <span class="w-2.5 h-6 bg-emerald-600 rounded"></span>
-                <h2 class="text-lg font-bold text-slate-900">상부강화노반 표준 횡단 기술도식 ({diag_title})</h2>
+                <h2 class="text-lg font-bold text-slate-900">{act_name} 1:1 전용 기술도식 ({diag_title})</h2>
             </div>
             <span class="text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full font-bold">🔍 클릭하여 고해상도 확대</span>
         </div>
@@ -345,7 +278,7 @@ def build_guideline_html(task_tuple):
 <div id="zoomModal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4" onclick="closeDiagramZoom()">
     <div class="bg-white rounded-2xl max-w-5xl w-full p-6 relative overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
         <div class="flex justify-between items-center mb-4">
-            <h3 class="font-bold text-slate-900 text-lg">상부강화노반 고해상도 기술도식</h3>
+            <h3 class="font-bold text-slate-900 text-lg">{act_name} 고해상도 기술도식 확대</h3>
             <button onclick="closeDiagramZoom()" class="p-2 hover:bg-slate-100 rounded-full font-bold text-slate-700">✕ 닫기</button>
         </div>
         <div class="max-h-[80vh] overflow-auto">
@@ -508,7 +441,7 @@ function calcScore() {{
 </body>
 </html>'''
 
-# 기존 디렉토리 전면 정비 후 108개 파일 생성
+# 108개 파일 생성 실행
 success_count = 0
 
 for t in TOTAL_TASKS:
@@ -537,7 +470,7 @@ for t in TOTAL_TASKS:
         f.write(build_standard_html(t))
     success_count += 1
 
-    # 2. 수행지침 파일
+    # 2. 수행지침 파일 (1:1 맞춤형 고유 2D SVG 도식 탑재)
     guide_path = os.path.join(guide_dir, f"{safe_act}_수행지침.html")
     with open(guide_path, "w", encoding="utf-8") as f:
         f.write(build_guideline_html(t))
@@ -549,8 +482,8 @@ for t in TOTAL_TASKS:
         f.write(build_checklist_html(t))
     success_count += 1
 
-    print(f"[{num:02d}/36] {safe_act} -> 3종 HTML 깔끔 생성 완료!")
+    print(f"[{num:02d}/36] {safe_act} -> 1:1 고유 맞춤형 도식 탑재 3종 HTML 생성 완료!")
 
-print(f"\n=======================================================")
-print(f"상부강화노반 총 {success_count}개 고품질 HTML 파일 완벽 생성 완료!")
-print(f"=======================================================")
+print(f"\n==========================================================================")
+print(f"상부강화노반 총 {success_count}개 고품질 HTML 파일 (36종 1:1 맞춤형 도식) 생성 완료!")
+print(f"==========================================================================")
