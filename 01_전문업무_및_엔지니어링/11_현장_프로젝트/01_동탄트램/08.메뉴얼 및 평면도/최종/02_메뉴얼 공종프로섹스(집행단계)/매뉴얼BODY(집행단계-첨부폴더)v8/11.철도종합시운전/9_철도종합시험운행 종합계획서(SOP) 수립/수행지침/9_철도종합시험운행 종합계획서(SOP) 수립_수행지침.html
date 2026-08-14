@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄도시철도 - 철도종합시험운행 종합계획서 수립 수행지침</title>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; margin:0; padding:24px; color:#0f172a; line-height:1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px; border: 1px solid #e2e8f0; }
+    .header { border-bottom: 2px solid #0284c7; padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { display: inline-block; background: #0284c7; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0; }
+    .subtitle { font-size: 14px; color: #475569; margin: 0; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #0284c7; padding-left: 10px; margin: 24px 0 12px 0; }
+    .diagram-container { background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin:16px 0; text-align:center; cursor:pointer; transition:0.2s; }
+    .diagram-container:hover { border-color:#0284c7; box-shadow:0 4px 12px rgba(2,132,199,0.15); }
+    .diagram-hint { font-size:12px; color:#0284c7; font-weight:600; margin-top:8px; display:inline-block; }
+    .nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .nav-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+    .btn-std { background: #0f172a; color: #ffffff; }
+    .btn-chk { background: #d97706; color: #ffffff; }
+    .btn-std:hover { background: #1e293b; }
+    .btn-chk:hover { background: #b45309; }
+    /* Zoom Modal */
+    #zoomModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.75); z-index:9999; justify-content:center; align-items:center; padding:20px; box-sizing:border-box; }
+    .modal-content { background:#ffffff; border-radius:12px; max-width:1100px; width:100%; max-height:90vh; overflow:auto; padding:24px; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+    .close-btn { position:absolute; top:16px; right:16px; background:#f1f5f9; border:none; font-size:20px; font-weight:bold; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">9000-9-9 | 동탄트램 철도종합시운전 수행지침</span>
+      <h1 class="title">철도종합시험운행 종합계획서 수립 수행지침서</h1>
+      <p class="subtitle">철도종합시험운행 표준운영절차(SOP) 및 사전점검·시설물검증·영업시운전 종합계획서 편찬</p>
+    </div>
+
+    <div class="section-title">1. 엔지니어링 2D 기술 도식 (클릭 시 확대)</div>
+    <div class="diagram-container" onclick="openDiagramZoom()">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">철도종합시험운행 종합계획서(SOP) 및 3단계 시험 세부 구성도</text>
+
+  <rect x="60" y="75" width="210" height="115" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="165" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">1. 사전점검 계획</text>
+  <text x="75" y="125" font-size="10" fill="#334155">• 12개 분야 체크리스트</text>
+  <text x="75" y="145" font-size="10" fill="#334155">• 시공 상태 및 기술기준 점검</text>
+  <text x="75" y="165" font-size="10" fill="#334155">• 지적사항 조치 절차 규정</text>
+
+  <rect x="295" y="75" width="210" height="115" rx="6" fill="#fefce8" stroke="#eab308" stroke-width="1.5"/>
+  <text x="400" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#a16207">2. 시설물검증시험 계획</text>
+  <text x="310" y="125" font-size="10" fill="#334155">• 10~70km/h 증속 다이아</text>
+  <text x="310" y="145" font-size="10" fill="#334155">• 28개 E&amp;M 연동 실측표</text>
+  <text x="310" y="165" font-size="10" fill="#334155">• 데이터로거 계측 항목</text>
+
+  <rect x="530" y="75" width="210" height="115" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="635" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">3. 영업시운전 계획</text>
+  <text x="545" y="125" font-size="10" fill="#334155">• 실제 영업 다이아(120회/일)</text>
+  <text x="545" y="145" text-anchor="middle" font-size="10" fill="#334155">• 정시율(≥99%) 평가표</text>
+  <text x="545" y="165" text-anchor="middle" font-size="10" fill="#334155">• 8대 비상대응훈련 시나리오</text>
+
+  <rect x="60" y="210" width="680" height="65" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <text x="400" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">■ 국토교통부 표준 양식 100% 충족 종합계획서(SOP) 편찬 완료</text>
+  <text x="400" y="255" text-anchor="middle" font-size="10" fill="#334155">총괄사업단장 최종 결재 및 책임감리원 기술검토의견서 첨부 완료</text>
+</svg>
+      <div class="diagram-hint">🔍 도식을 클릭하면 고해상도 대형 팝업으로 확대됩니다.</div>
+    </div>
+
+    <div class="section-title">2. 단계별 마스터 수행 절차 (Step-by-Step)</div>
+    
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 1</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">철도종합시험운행 종합계획서(SOP) 기본 골격 수립</span>
+          </div>
+          <ul style="margin:10px 0 0 0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>동탄트램 사업 개요, 시험운행 목적, 추진 기간, 분야별 시험 조직도 및 R&R을 명확히 규정합니다.</li><li style='margin-bottom:6px;'>사전점검(60일) ⟶ 시설물검증시험(30일) ⟶ 영업시운전(30일)의 3단계 추진 로드맵을 확정합니다.</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 2</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">단계별 세부 시험계획서(사전점검/시설물검증/영업시운전) 작성</span>
+          </div>
+          <ul style="margin:10px 0 0 0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>사전점검 12개 분야 체크리스트 및 현장 확인 항목을 편찬합니다.</li><li style='margin-bottom:6px;'>시설물검증시험 속도 단계별(10km/h ⟶ 30km/h ⟶ 50km/h ⟶ 최고속도 70km/h) 주행 시험표를 수립합니다.</li><li style='margin-bottom:6px;'>영업시운전 열차 운행 횟수(일일 120회 이상), 배차간격(출퇴근 4분, 평시 8분) 및 비상훈련 시나리오를 작성합니다.</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 3</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">책임감리원 검토의견서 첨부 및 종합계획서 승인</span>
+          </div>
+          <ul style="margin:10px 0 0 0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>각 분야 책임감리원의 기술 검토 서명을 완료하고 총괄사업단장의 최종 승인을 득합니다.</li>
+          </ul>
+        </div>
+        
+
+    <div class="section-title">3. 핵심 엔지니어링 및 법령 용어 해설</div>
+    <div style="margin-top:12px;">
+      
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 종합계획서(SOP):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">철도종합시험운행의 목표, 조직, 안전관리대책, 단계별 시험항목 및 일정을 총괄 규정한 마스터 문서.</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 시설물검증시험:</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">열차를 투입하여 철도시설물과 차량 간의 물리적·전기적 연계 상태 및 안전성을 속도별로 검증하는 시험.</span>
+      </div>
+    
+    </div>
+
+    <div class="section-title">4. 시운전 속도별 비상제동거리 및 안전 판정기 (Interactive Calculator)</div>
+    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin-top:12px;">
+      <div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:10px;">트램 주행 속도별 비상제동 정지거리 계산 및 적합성 판정</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+        <label style="font-size:12px; color:#334155;">주행 속도 (km/h): <input type="number" id="testSpeed" value="70" step="5" style="width:70px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <label style="font-size:12px; color:#334155;">실측 제동거리 (m): <input type="number" id="testDist" value="142" style="width:70px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <button onclick="calculateBrake()" style="background:#0284c7; color:#fff; border:none; padding:6px 14px; border-radius:4px; font-size:12px; font-weight:700; cursor:pointer;">적합성 판정</button>
+        <span id="calcResult" style="font-size:13px; font-weight:700; color:#15803d; margin-left:10px;"></span>
+      </div>
+    </div>
+
+    <div class="nav-box">
+      <a href="../표준서/9_철도종합시험운행 종합계획서(SOP) 수립_표준서.html" class="nav-btn btn-std">📄 [연계] 철도종합시험운행 종합계획서 수립 표준서 열기 ➔</a>
+      <a href="../체크리스트/9_철도종합시험운행 종합계획서(SOP) 수립_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 철도종합시험운행 종합계획서 수립 체크리스트 열기 ➔</a>
+    </div>
+  </div>
+
+  <!-- Zoom Modal -->
+  <div id="zoomModal" onclick="closeDiagramZoom(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeDiagramZoom(event)">&times;</button>
+      <h3 style="margin-top:0; font-size:18px; color:#0f172a;">철도종합시험운행 종합계획서 수립 - 고해상도 기술 도식</h3>
+      <div style="margin-top:16px;">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">철도종합시험운행 종합계획서(SOP) 및 3단계 시험 세부 구성도</text>
+
+  <rect x="60" y="75" width="210" height="115" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="165" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">1. 사전점검 계획</text>
+  <text x="75" y="125" font-size="10" fill="#334155">• 12개 분야 체크리스트</text>
+  <text x="75" y="145" font-size="10" fill="#334155">• 시공 상태 및 기술기준 점검</text>
+  <text x="75" y="165" font-size="10" fill="#334155">• 지적사항 조치 절차 규정</text>
+
+  <rect x="295" y="75" width="210" height="115" rx="6" fill="#fefce8" stroke="#eab308" stroke-width="1.5"/>
+  <text x="400" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#a16207">2. 시설물검증시험 계획</text>
+  <text x="310" y="125" font-size="10" fill="#334155">• 10~70km/h 증속 다이아</text>
+  <text x="310" y="145" font-size="10" fill="#334155">• 28개 E&amp;M 연동 실측표</text>
+  <text x="310" y="165" font-size="10" fill="#334155">• 데이터로거 계측 항목</text>
+
+  <rect x="530" y="75" width="210" height="115" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="635" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">3. 영업시운전 계획</text>
+  <text x="545" y="125" font-size="10" fill="#334155">• 실제 영업 다이아(120회/일)</text>
+  <text x="545" y="145" text-anchor="middle" font-size="10" fill="#334155">• 정시율(≥99%) 평가표</text>
+  <text x="545" y="165" text-anchor="middle" font-size="10" fill="#334155">• 8대 비상대응훈련 시나리오</text>
+
+  <rect x="60" y="210" width="680" height="65" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <text x="400" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">■ 국토교통부 표준 양식 100% 충족 종합계획서(SOP) 편찬 완료</text>
+  <text x="400" y="255" text-anchor="middle" font-size="10" fill="#334155">총괄사업단장 최종 결재 및 책임감리원 기술검토의견서 첨부 완료</text>
+</svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openDiagramZoom() {
+      document.getElementById('zoomModal').style.display = 'flex';
+    }
+    function closeDiagramZoom(e) {
+      document.getElementById('zoomModal').style.display = 'none';
+    }
+    function calculateBrake() {
+      const v = parseFloat(document.getElementById('testSpeed').value);
+      const d = parseFloat(document.getElementById('testDist').value);
+      const res = document.getElementById('calcResult');
+      // 법정 비상제동 한계거리 식: S_max = v^2 / (2 * 1.3 * 9.81 * 0.1) approx 160m at 70km/h
+      let limit = 160;
+      if (v <= 30) limit = 40;
+      else if (v <= 50) limit = 90;
+      else limit = 160;
+
+      if (d <= limit) {
+        res.innerHTML = "✔ [합격] 법정 허용 제동거리 이내 (속도 " + v + "km/h 기준 " + limit + "m 이하 만족)";
+        res.style.color = "#15803d";
+      } else {
+        res.innerHTML = "❌ [불합격] 허용 제동거리 초과 (기준: " + limit + "m 이하)";
+        res.style.color = "#dc2626";
+      }
+    }
+  </script>
+</body>
+</html>
