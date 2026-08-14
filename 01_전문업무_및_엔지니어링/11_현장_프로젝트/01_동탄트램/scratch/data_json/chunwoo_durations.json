@@ -1,0 +1,366 @@
+{
+  "(본)1-2": {
+    "zone": "1공구",
+    "novanDays": 19,
+    "gwedoDays": 30,
+    "pojangDays": 9,
+    "totalDays": 58
+  },
+  "(본)1-6": {
+    "zone": "1공구",
+    "novanDays": 25,
+    "gwedoDays": 38,
+    "pojangDays": 14,
+    "totalDays": 77
+  },
+  "(본)1-9": {
+    "zone": "1공구",
+    "novanDays": 16,
+    "gwedoDays": 27,
+    "pojangDays": 7,
+    "totalDays": 50
+  },
+  "(본)1-10": {
+    "zone": "1공구",
+    "novanDays": 26,
+    "gwedoDays": 40,
+    "pojangDays": 15,
+    "totalDays": 81
+  },
+  "(본)1-11-302정거장": {
+    "zone": "1공구",
+    "novanDays": 28,
+    "gwedoDays": 41,
+    "pojangDays": 17,
+    "totalDays": 86
+  },
+  "(본)1-12-303정거장": {
+    "zone": "1공구",
+    "novanDays": 24,
+    "gwedoDays": 36,
+    "pojangDays": 14,
+    "totalDays": 74
+  },
+  "(본)1-13": {
+    "zone": "1공구",
+    "novanDays": 18,
+    "gwedoDays": 30,
+    "pojangDays": 8,
+    "totalDays": 56
+  },
+  "(본)1-14": {
+    "zone": "1공구",
+    "novanDays": 35,
+    "gwedoDays": 51,
+    "pojangDays": 21,
+    "totalDays": 107
+  },
+  "(본)1-17-305정거장": {
+    "zone": "1공구",
+    "novanDays": 20,
+    "gwedoDays": 30,
+    "pojangDays": 10,
+    "totalDays": 60
+  },
+  "(본)1-18": {
+    "zone": "1공구",
+    "novanDays": 39,
+    "gwedoDays": 56,
+    "pojangDays": 24,
+    "totalDays": 119
+  },
+  "(본)1-18-1": {
+    "zone": "1공구",
+    "novanDays": 17,
+    "gwedoDays": 27,
+    "pojangDays": 7,
+    "totalDays": 51
+  },
+  "(본)1-19-306정거장": {
+    "zone": "1공구",
+    "novanDays": 18,
+    "gwedoDays": 27,
+    "pojangDays": 7,
+    "totalDays": 52
+  },
+  "(본)1-19-1": {
+    "zone": "1공구",
+    "novanDays": 21,
+    "gwedoDays": 34,
+    "pojangDays": 11,
+    "totalDays": 66
+  },
+  "(본)1-20": {
+    "zone": "1공구",
+    "novanDays": 13,
+    "gwedoDays": 23,
+    "pojangDays": 5,
+    "totalDays": 41
+  },
+  "(기교)1-20/21-나루교": {
+    "zone": "1공구",
+    "novanDays": 11,
+    "gwedoDays": 20,
+    "pojangDays": 6,
+    "totalDays": 37
+  },
+  "(본)1-21": {
+    "zone": "1공구",
+    "novanDays": 17,
+    "gwedoDays": 29,
+    "pojangDays": 8,
+    "totalDays": 54
+  },
+  "(본)1-21-1": {
+    "zone": "1공구",
+    "novanDays": 22,
+    "gwedoDays": 35,
+    "pojangDays": 11,
+    "totalDays": 68
+  },
+  "(본)1-22-307정거장": {
+    "zone": "1공구",
+    "novanDays": 31,
+    "gwedoDays": 45,
+    "pojangDays": 19,
+    "totalDays": 95
+  },
+  "(본)1-23": {
+    "zone": "1공구",
+    "novanDays": 34,
+    "gwedoDays": 50,
+    "pojangDays": 20,
+    "totalDays": 104
+  },
+  "(본)1-26": {
+    "zone": "1공구",
+    "novanDays": 19,
+    "gwedoDays": 31,
+    "pojangDays": 10,
+    "totalDays": 60
+  },
+  "(본)1-37-(TS)": {
+    "zone": "1공구",
+    "novanDays": 41,
+    "gwedoDays": 59,
+    "pojangDays": 26,
+    "totalDays": 126
+  },
+  "(본)1-50-(TS)-(P)-208정거장": {
+    "zone": "1공구",
+    "novanDays": 35,
+    "gwedoDays": 48,
+    "pojangDays": 22,
+    "totalDays": 105
+  },
+  "(본)1-54-(TS)-(P)": {
+    "zone": "1공구",
+    "novanDays": 18,
+    "gwedoDays": 29,
+    "pojangDays": 9,
+    "totalDays": 56
+  },
+  "(본)2-1-Su-S01정거장": {
+    "zone": "2공구",
+    "novanDays": 21,
+    "gwedoDays": 34,
+    "pojangDays": 11,
+    "totalDays": 66
+  },
+  "(본)2-2-Su": {
+    "zone": "2공구",
+    "novanDays": 25,
+    "gwedoDays": 38,
+    "pojangDays": 14,
+    "totalDays": 77
+  },
+  "(본)2-3-Su": {
+    "zone": "2공구",
+    "novanDays": 14,
+    "gwedoDays": 24,
+    "pojangDays": 6,
+    "totalDays": 44
+  },
+  "(본)2-4-Su": {
+    "zone": "2공구",
+    "novanDays": 14,
+    "gwedoDays": 24,
+    "pojangDays": 5,
+    "totalDays": 43
+  },
+  "(본)2-5-Su-S02상선정거장": {
+    "zone": "2공구",
+    "novanDays": 14,
+    "gwedoDays": 25,
+    "pojangDays": 6,
+    "totalDays": 45
+  },
+  "(본)2-6-Su-S02하선정거장": {
+    "zone": "2공구",
+    "novanDays": 16,
+    "gwedoDays": 26,
+    "pojangDays": 6,
+    "totalDays": 48
+  },
+  "(본)2-7-Su": {
+    "zone": "2공구",
+    "novanDays": 18,
+    "gwedoDays": 30,
+    "pojangDays": 8,
+    "totalDays": 56
+  },
+  "(본)2-8-Su": {
+    "zone": "2공구",
+    "novanDays": 20,
+    "gwedoDays": 32,
+    "pojangDays": 10,
+    "totalDays": 62
+  },
+  "(본)2-9-Su": {
+    "zone": "2공구",
+    "novanDays": 11,
+    "gwedoDays": 21,
+    "pojangDays": 4,
+    "totalDays": 36
+  },
+  "(본)2-10-Hw": {
+    "zone": "2공구",
+    "novanDays": 19,
+    "gwedoDays": 31,
+    "pojangDays": 9,
+    "totalDays": 59
+  },
+  "(본)2-11-Hw": {
+    "zone": "2공구",
+    "novanDays": 14,
+    "gwedoDays": 24,
+    "pojangDays": 6,
+    "totalDays": 44
+  },
+  "(본)2-12-Hw": {
+    "zone": "2공구",
+    "novanDays": 21,
+    "gwedoDays": 33,
+    "pojangDays": 11,
+    "totalDays": 65
+  },
+  "(본)2-13-Hw-101정거장": {
+    "zone": "2공구",
+    "novanDays": 24,
+    "gwedoDays": 36,
+    "pojangDays": 13,
+    "totalDays": 73
+  },
+  "(본)2-14-Hw": {
+    "zone": "2공구",
+    "novanDays": 25,
+    "gwedoDays": 40,
+    "pojangDays": 15,
+    "totalDays": 80
+  },
+  "(본)2-15-하1-Hw": {
+    "zone": "2공구",
+    "novanDays": 30,
+    "gwedoDays": 40,
+    "pojangDays": 17,
+    "totalDays": 87
+  },
+  "(본)2-15-하2-Hw": {
+    "zone": "2공구",
+    "novanDays": 17,
+    "gwedoDays": 26,
+    "pojangDays": 7,
+    "totalDays": 50
+  },
+  "(본)2-16-Hw-102정거장": {
+    "zone": "2공구",
+    "novanDays": 29,
+    "gwedoDays": 41,
+    "pojangDays": 19,
+    "totalDays": 89
+  },
+  "(본)2-17-Hw": {
+    "zone": "2공구",
+    "novanDays": 20,
+    "gwedoDays": 32,
+    "pojangDays": 10,
+    "totalDays": 62
+  },
+  "(본)2-18-Hw": {
+    "zone": "2공구",
+    "novanDays": 29,
+    "gwedoDays": 44,
+    "pojangDays": 18,
+    "totalDays": 91
+  },
+  "(본)2-19-Hw-103정거장": {
+    "zone": "2공구",
+    "novanDays": 35,
+    "gwedoDays": 49,
+    "pojangDays": 21,
+    "totalDays": 105
+  },
+  "(본)2-20-Hw-104정거장": {
+    "zone": "2공구",
+    "novanDays": 30,
+    "gwedoDays": 45,
+    "pojangDays": 19,
+    "totalDays": 94
+  },
+  "(본)2-21-Hw": {
+    "zone": "2공구",
+    "novanDays": 22,
+    "gwedoDays": 35,
+    "pojangDays": 11,
+    "totalDays": 68
+  },
+  "(본)2-22-Hw-105정거장": {
+    "zone": "2공구",
+    "novanDays": 26,
+    "gwedoDays": 36,
+    "pojangDays": 16,
+    "totalDays": 78
+  },
+  "(본)2-23-Hw": {
+    "zone": "2공구",
+    "novanDays": 19,
+    "gwedoDays": 31,
+    "pojangDays": 10,
+    "totalDays": 60
+  },
+  "(본)2-24-Hw-106정거장": {
+    "zone": "2공구",
+    "novanDays": 32,
+    "gwedoDays": 46,
+    "pojangDays": 20,
+    "totalDays": 98
+  },
+  "(본)2-25-Hw(TS)": {
+    "zone": "2공구",
+    "novanDays": 22,
+    "gwedoDays": 35,
+    "pojangDays": 11,
+    "totalDays": 68
+  },
+  "(본)2-27-Hw(TS)": {
+    "zone": "2공구",
+    "novanDays": 32,
+    "gwedoDays": 43,
+    "pojangDays": 18,
+    "totalDays": 93
+  },
+  "(본)2-30-Hw": {
+    "zone": "2공구",
+    "novanDays": 19,
+    "gwedoDays": 31,
+    "pojangDays": 10,
+    "totalDays": 60
+  },
+  "(본)2-47-Hw-114정거장": {
+    "zone": "2공구",
+    "novanDays": 32,
+    "gwedoDays": 46,
+    "pojangDays": 19,
+    "totalDays": 97
+  }
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>절성토경계부 배수구조물 시공 마스터 체크리스트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Noto Sans KR', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto space-y-6">
+
+    <!-- Header -->
+    <div class="flex justify-between items-end border-b-2 border-slate-900 pb-4">
+        <div>
+            <div class="flex items-center gap-2 mb-1">
+                <span class="bg-emerald-600 text-white text-xs font-black px-2.5 py-0.5 rounded">WBS 9000-7-32</span>
+                <span class="text-xs font-bold text-slate-500">상부강화노반 검측대장</span>
+            </div>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">절성토경계부 배수구조물 시공 마스터 체크리스트</h1>
+        </div>
+        <div class="text-right">
+            <div id="score_box" class="text-2xl font-black text-emerald-600">0 / 12 합격 (0%)</div>
+            <span class="text-xs text-slate-500">KCS 47 10 25 기준 감리 검측</span>
+        </div>
+    </div>
+
+    <!-- 검측 테이블 -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <table class="w-full text-left text-sm">
+            <thead class="bg-slate-900 text-white font-bold">
+                <tr>
+                    <th class="p-3.5 w-1/5 text-center">검측 구분</th>
+                    <th class="p-3.5 w-2/5">점검 항목</th>
+                    <th class="p-3.5 w-1/4">판정 기준 (시방서 기준)</th>
+                    <th class="p-3.5 text-center w-1/6">검사 방법</th>
+                    <th class="p-3.5 text-center w-16">적합</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                <td rowspan="3" class="p-3.5 font-bold text-slate-900 bg-slate-50 border-r border-slate-200 text-center align-middle">착수 전 사전점검</td>
+                <td class="p-3.5 font-semibold text-slate-800">설계도서 및 지반조사 주상도 대조 확인</td>
+                <td class="p-3.5 text-slate-600 text-sm">시추 N치 및 암반선 심도 일치 여부</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">도면/성적서 검토</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_1" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                
+                <td class="p-3.5 font-semibold text-slate-800">토공량 및 운반 동선 검토</td>
+                <td class="p-3.5 text-slate-600 text-sm">사토장/토취장 인허가 및 운반거리 적정성</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">현장 확인</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_2" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                
+                <td class="p-3.5 font-semibold text-slate-800">3D GPR 지하지장물 탐사 및 줄파기</td>
+                <td class="p-3.5 text-slate-600 text-sm">한전/통신/가스관로 이격거리 확보</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">합동 입회</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_3" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                <td rowspan="3" class="p-3.5 font-bold text-slate-900 bg-slate-50 border-r border-slate-200 text-center align-middle">시공 중 공정점검</td>
+                <td class="p-3.5 font-semibold text-slate-800">층별 포설 두께(30cm 이하) 준수</td>
+                <td class="p-3.5 text-slate-600 text-sm">규준틀 눈금 대조 및 그레이더 평탄성</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">레벨 측량</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_4" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                
+                <td class="p-3.5 font-semibold text-slate-800">최적함수비(OMC ±2%) 관리</td>
+                <td class="p-3.5 text-slate-600 text-sm">살수차 가동 및 현장 함수비 측정</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">Speedy Tester</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_5" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                
+                <td class="p-3.5 font-semibold text-slate-800">12ton 진동롤러 규정 횟수 다짐</td>
+                <td class="p-3.5 text-slate-600 text-sm">진동 4회 + 무진동 2회 전압 패턴</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">롤러 주행 기록</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_6" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                <td rowspan="3" class="p-3.5 font-bold text-slate-900 bg-slate-50 border-r border-slate-200 text-center align-middle">품질시험 및 검측</td>
+                <td class="p-3.5 font-semibold text-slate-800">들밀도시험(KS F 2311) 다짐도 검측</td>
+                <td class="p-3.5 text-slate-600 text-sm">다짐도 ≥ 95% (강화노반 98%) 만족</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">1,000m²당 1회</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_7" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                
+                <td class="p-3.5 font-semibold text-slate-800">평판재하시험(K30) 지반지지력</td>
+                <td class="p-3.5 text-slate-600 text-sm">강화노반 K30 ≥ 190 MN/m³ 만족</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">500m²당 1회</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_8" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                
+                <td class="p-3.5 font-semibold text-slate-800">동적변형계수(Evd) LFWD 시험</td>
+                <td class="p-3.5 text-slate-600 text-sm">강화노반 Evd ≥ 65 MPa 만족</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">10m 간격 연속</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_9" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                <td rowspan="3" class="p-3.5 font-bold text-slate-900 bg-slate-50 border-r border-slate-200 text-center align-middle">안전 및 환경관리</td>
+                <td class="p-3.5 font-semibold text-slate-800">중앙분리대 신호수 2인 1조 배치</td>
+                <td class="p-3.5 text-slate-600 text-sm">작업구간 PE드럼 및 LED 경광등</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">상시 점검</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_10" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                
+                <td class="p-3.5 font-semibold text-slate-800">출차 덤프트럭 세륜 100% 이행</td>
+                <td class="p-3.5 text-slate-600 text-sm">자동세륜기 및 적재함 덮개 밀폐</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">게이트 입회</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_11" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                
+                <td class="p-3.5 font-semibold text-slate-800">임시 배수로 및 3단 침사지 상태</td>
+                <td class="p-3.5 text-slate-600 text-sm">강우 시 토사 유출 차단 상태</td>
+                <td class="p-3.5 text-center text-slate-500 text-sm">일일 점검</td>
+                <td class="p-3.5 text-center">
+                    <input type="checkbox" id="chk_12" class="w-5 h-5 accent-emerald-600 rounded cursor-pointer" onchange="calcScore()">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 서명란 -->
+    <div class="grid grid-cols-2 gap-4 bg-white p-5 rounded-2xl border border-slate-200">
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
+            <span class="text-xs text-slate-500 block mb-2 font-bold">시공사 현장책임자</span>
+            <div class="h-10 flex items-center justify-center font-bold text-slate-700">서명: __________________ (인)</div>
+        </div>
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
+            <span class="text-xs text-slate-500 block mb-2 font-bold">책임감리원 (검측확인)</span>
+            <div class="h-10 flex items-center justify-center font-bold text-emerald-700">서명: __________________ (인)</div>
+        </div>
+    </div>
+</div>
+
+<script>
+const TOTAL_ITEMS = 12;
+function calcScore() {
+    let checked = 0;
+    for (let i = 1; i <= TOTAL_ITEMS; i++) {
+        const el = document.getElementById('chk_' + i);
+        if (el && el.checked) checked++;
+    }
+    const pct = Math.round((checked / TOTAL_ITEMS) * 100);
+    const box = document.getElementById('score_box');
+    box.innerText = checked + ' / ' + TOTAL_ITEMS + ' 합격 (' + pct + '%)';
+    if (pct === 100) {
+        box.className = 'text-2xl font-black text-emerald-600';
+    } else {
+        box.className = 'text-2xl font-black text-amber-600';
+    }
+}
+</script>
+</body>
+</html>
