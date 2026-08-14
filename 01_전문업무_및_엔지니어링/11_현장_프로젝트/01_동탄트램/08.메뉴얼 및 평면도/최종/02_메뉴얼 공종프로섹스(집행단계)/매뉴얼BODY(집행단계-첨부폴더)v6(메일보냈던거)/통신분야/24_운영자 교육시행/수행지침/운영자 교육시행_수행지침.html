@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 운영자 교육시행 수행지침서 (WBS 9000-2-24)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .clickable-diagram {
+            cursor: zoom-in !important;
+            transition: all 0.25s ease !important;
+            position: relative !important;
+        }
+        .clickable-diagram:hover {
+            transform: scale(1.01) !important;
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+        }
+        .clickable-diagram::after {
+            content: "🔍 클릭하여 대형 확대보기";
+            position: absolute; bottom: 12px; right: 16px;
+            background: rgba(15, 23, 42, 0.8); color: #ffffff;
+            font-size: 11px; font-weight: 700; padding: 4px 12px;
+            border-radius: 20px; backdrop-filter: blur(4px);
+            pointer-events: none; opacity: 0.9;
+        }
+        .zoom-modal {
+            display: none; position: fixed; z-index: 9999;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px); align-items: center; justify-content: center;
+        }
+        .zoom-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff; margin: auto; padding: 28px;
+            border: 1px solid #cbd5e1; width: 95%; max-width: 1100px; max-height: 90vh;
+            border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow-y: auto; text-align: center;
+        }
+        .zoom-close {
+            color: #64748b; position: absolute; right: 20px; top: 16px;
+            font-size: 32px; font-weight: bold; cursor: pointer;
+        }
+        .zoom-close:hover { color: #ef4444; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-24)</span>
+        <h1 class="text-3xl font-black mt-2">운영자 교육시행 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-24 | 주관: 현장 시스템팀 | "통신 4대 계통 제작사 매뉴얼 기반 이론/실습 교육 실무 지침"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 개념 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 운영자 교육시행 현장 실무 개요</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed text-xs sm:text-sm">
+                본 지침서는 철도종합시험운행 시행지침 제5조에 의거하여, 동탄트램 운영기관(관제 운용자 및 현장 유지관리요원)을 대상으로 통신 4대 계통(교환, 무선, PIS/PA, CCTV)의 <strong>제작사 매뉴얼 교재 작성, 이론 강의, 관제 서버 조작 및 현장 통신 랙 모듈 교체 실습을 가이드하고 최종 운영자 교육 결과서를 체결하는 실무 지침</strong>입니다.
+            </p>
+        </div>
+
+        <!-- 🚀 4대 운영자 교육 세부 수행 카드 (Why + Where, How, Criteria 수록) -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-blue-600 pb-2 flex items-center gap-2">
+                <span class="text-blue-600">📋</span> 4대 운영자 교육 정밀 수행지침
+            </h2>
+
+            <div class="grid grid-cols-1 gap-6">
+                
+                <!-- CARD 1 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 01</span>
+                        <h3 class="font-bold text-base text-slate-900">[교재 작성] 통신 4대 계통(교환, 무선, PIS/PA, CCTV) 제작사 매뉴얼 교재 준비</h3>
+                        <span class="text-xs font-semibold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full">교재/매뉴얼 준비</span>
+                    </div>
+
+                    <!-- ❓ 왜 이 시험을 하는가? -->
+                    <div class="bg-blue-100/70 border border-blue-300 p-4 rounded-xl">
+                        <h4 class="font-black text-xs text-blue-950 flex items-center gap-1.5 mb-1">
+                            <span>❓</span> 왜 이 시험을 하는가? (이유 & 중요성)
+                        </h4>
+                        <p class="text-xs text-blue-900 font-medium leading-relaxed">
+                            동탄트램 현장에 포설·설치된 실제 통신 4대 계통 설비의 사양, 구성도 및 비상 조치 매뉴얼을 사전 교재화하여 <strong>운영요원의 체계적인 학습 기반을 마련하기 위함</strong>입니다.
+                        </p>
+                    </div>
+
+                    <!-- Where, How, Criteria -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📍 Where (어느 부위를 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">통신 4대 계통(전송/교환, LTE-R 무선, PIS/PA 방송, CCTV 감시) 제작사 기술 자료</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">⚙️ How (어떻게 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">현장 시스템팀 및 제작사 합동으로 조작 매뉴얼, 비상 장애 복구 절차서 및 실습 가이드 제본</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📏 Criteria (정량적 판정 한계 기준)</span>
+                            <p class="text-slate-800 font-medium">통신 4대 계통 교재 인쇄 및 교육 개시 3일 전 교육생 100% 배포 완료</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <span class="bg-indigo-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 02</span>
+                        <h3 class="font-bold text-base text-slate-900">[이론 교육] 운영자/유지관리요원 대상 통신 시스템 구조 및 조작 이론 교육</h3>
+                        <span class="text-xs font-semibold text-indigo-700 bg-indigo-100 px-2.5 py-0.5 rounded-full">이론 강의 진행</span>
+                    </div>
+
+                    <!-- ❓ 왜 이 시험을 하는가? -->
+                    <div class="bg-indigo-100/70 border border-indigo-300 p-4 rounded-xl">
+                        <h4 class="font-black text-xs text-indigo-950 flex items-center gap-1.5 mb-1">
+                            <span>❓</span> 왜 이 시험을 하는가? (이유 & 중요성)
+                        </h4>
+                        <p class="text-xs text-indigo-900 font-medium leading-relaxed">
+                            영업시운전 및 개통 후 통신 시스템 조작 미숙으로 인한 <strong>오작동 및 관제 응답 지연 위험을 사전 완벽 차단하기 위함</strong>입니다.
+                        </p>
+                    </div>
+
+                    <!-- Where, How, Criteria -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📍 Where (어느 부위를 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">동탄트램 종합관제센터 대회의실 및 시공 현장 교육장</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">⚙️ How (어떻게 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">제작사 전문 엔지니어에 의한 PPT 및 모형 시뮬레이션을 통해 계통별 기능/설정 방법 이론 강의</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📏 Criteria (정량적 판정 한계 기준)</span>
+                            <p class="text-slate-800 font-medium">운영기관 지정 교육 대상자 출석률 100% 및 이론 서면 평가 전원 통과</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <span class="bg-emerald-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 03</span>
+                        <h3 class="font-bold text-base text-slate-900">[실습 교육] 관제 센터 통신 서버 조작 및 현장 장애 모듈 교체 실습</h3>
+                        <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">실습 중심 교육</span>
+                    </div>
+
+                    <!-- ❓ 왜 이 시험을 하는가? -->
+                    <div class="bg-emerald-100/70 border border-emerald-300 p-4 rounded-xl">
+                        <h4 class="font-black text-xs text-emerald-950 flex items-center gap-1.5 mb-1">
+                            <span>❓</span> 왜 이 시험을 하는가? (이유 & 중요성)
+                        </h4>
+                        <p class="text-xs text-emerald-900 font-medium leading-relaxed">
+                            영업 중 장비 고장 시 유지관리요원이 <strong>현장 통신 랙 모듈을 10분 이내에 수동 교체하고 장애를 즉시 복구할 수 있는 실무 숙련도를 확보하기 위함</strong>입니다.
+                        </p>
+                    </div>
+
+                    <!-- Where, How, Criteria -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📍 Where (어느 부위를 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">관제센터 통신 서버실, LTE-R 관제 콘솔 및 정거장 통신 기계실 통신 랙</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">⚙️ How (어떻게 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">1:1 실습 훈련으로 관제 콘솔 소프트웨어 제어, PA 비상 방송 송출, CCTV 줌 조작 및 모듈 교체 실습</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📏 Criteria (정량적 판정 한계 기준)</span>
+                            <p class="text-slate-800 font-medium">1:1 실습 수행 평가 100% 완료 및 장애 복구 실습 정상 수행 확인</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <span class="bg-teal-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 04</span>
+                        <h3 class="font-bold text-base text-slate-900">[결과서 승인] 참석자 이수 서명 및 운영자 교육 결과서 승인 제출</h3>
+                        <span class="text-xs font-semibold text-teal-700 bg-teal-100 px-2.5 py-0.5 rounded-full">결과서 승인 체결</span>
+                    </div>
+
+                    <!-- ❓ 왜 이 시험을 하는가? -->
+                    <div class="bg-teal-100/70 border border-teal-300 p-4 rounded-xl">
+                        <h4 class="font-black text-xs text-teal-950 flex items-center gap-1.5 mb-1">
+                            <span>❓</span> 왜 이 시험을 하는가? (이유 & 중요성)
+                        </h4>
+                        <p class="text-xs text-teal-900 font-medium leading-relaxed">
+                            지침 제5조 규정에 의거하여 운영자 교육실적을 공식 결과보고서로 체계화하고 <strong>운영기관 이수 서명을 수령하여 영업시운전 필수 관문을 최종 통과하기 위함</strong>입니다.
+                        </p>
+                    </div>
+
+                    <!-- Where, How, Criteria -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📍 Where (어느 부위를 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">현장 시스템팀 및 동탄트램 운영기관 종합 관리 사무소</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">⚙️ How (어떻게 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">교육생 자필 출석부, 사진 대장, 평가표 수록 후 운영자 교육 결과서 종합 작성/제출</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📏 Criteria (정량적 판정 한계 기준)</span>
+                            <p class="text-slate-800 font-medium">운영기관 책임자 및 현장 시스템팀장 이수 자필 서명 체결 완수</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 🖼️ 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-blue-600 pb-2 flex items-center gap-2">
+                <span class="text-blue-600">🖼️</span> 운영자 교육시행 2D Visual 기술 도식
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r24', '[WBS 9000-2-24] 운영자 교육시행 2D Visual 정밀 도식')">
+                <svg id="svg_r24" viewBox="0 0 550 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="550" height="200" fill="#f8fafc" rx="8"/>
+                    <rect x="15" y="15" width="520" height="170" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                    <text x="275" y="38" font-size="13" font-weight="black" fill="#0369a1" text-anchor="middle">🎓 동탄트램 통신설비 운영자 매뉴얼 교재 및 실습 교육 모식도</text>
+                    <line x1="25" y1="46" x2="525" y2="46" stroke="#e2e8f0" stroke-width="1.5"/>
+                    
+                    <g transform="translate(25, 55)">
+                        <rect x="0" y="0" width="145" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5" rx="6"/>
+                        <text x="72.5" y="22" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">📚 교재 작성 &amp; 이론</text>
+                        <text x="12" y="42" font-size="8" font-weight="bold" fill="#0f172a">• 통신 4대 계통 매뉴얼</text>
+                        <text x="12" y="58" font-size="8" font-weight="bold" fill="#0f172a">• 비상조치 절차서 교재</text>
+                        <text x="12" y="74" font-size="8" font-weight="bold" fill="#0f172a">• 이론 강의 100% 이수</text>
+                    </g>
+                    
+                    <line x1="170" y1="97.5" x2="210" y2="97.5" stroke="#0284c7" stroke-width="2"/>
+                    <polygon points="210,93.5 218,97.5 210,101.5" fill="#0284c7"/>
+
+                    <g transform="translate(220, 55)">
+                        <rect x="0" y="0" width="140" height="85" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5" rx="6"/>
+                        <text x="70" y="22" font-size="10" font-weight="black" fill="#6b21a8" text-anchor="middle">💻 관제 &amp; 현장 실습</text>
+                        <text x="10" y="42" font-size="8" font-weight="bold" fill="#0f172a">• 관제 서버 콘솔 조작</text>
+                        <text x="10" y="58" font-size="8" font-weight="bold" fill="#0f172a">• 현장 통신 랙 실습</text>
+                        <text x="10" y="74" font-size="8" font-weight="bold" fill="#0f172a">• 장애 모듈 교체 10분</text>
+                    </g>
+
+                    <line x1="360" y1="97.5" x2="390" y2="97.5" stroke="#9333ea" stroke-width="2"/>
+                    <polygon points="390,93.5 398,97.5 390,101.5" fill="#9333ea"/>
+
+                    <g transform="translate(400, 55)">
+                        <rect x="0" y="0" width="125" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5" rx="6"/>
+                        <text x="62.5" y="22" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">📋 교육 결과서 승인</text>
+                        <text x="10" y="42" font-size="8" font-weight="bold" fill="#15803d">• 참석자 서명 대장</text>
+                        <text x="10" y="58" font-size="8" font-weight="bold" fill="#15803d">• 실습 성과 평가표</text>
+                        <text x="10" y="74" font-size="8" font-weight="bold" fill="#15803d">• 결과서 제출 승인</text>
+                    </g>
+
+                    <rect x="30" y="152" width="490" height="24" fill="#0f172a" rx="4"/>
+                    <text x="275" y="168" font-size="9" font-weight="black" fill="#ffffff" text-anchor="middle">✔ 통신설비 조작·유지관리 이론 및 실습 교육 완수 후 결과서 체결</text>
+                </svg>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🟣 시공 도식 확대 팝업 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 운영자 교육시행 2D Visual 도식 확대 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+    </div>
+</div>
+
+<script>
+    function openDiagramZoom(elementId, titleText) {
+        const srcEl = document.getElementById(elementId);
+        if (!srcEl) return;
+        
+        const zoomBody = document.getElementById('zoomBody');
+        document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "운영자 교육 도식 대형 확대 보기");
+        zoomBody.innerHTML = srcEl.outerHTML;
+        
+        const innerSvg = zoomBody.querySelector('svg');
+        if (innerSvg) {
+            innerSvg.setAttribute('width', '100%');
+            innerSvg.setAttribute('height', '520px');
+            innerSvg.style.maxWidth = '1050px';
+        }
+        document.getElementById('zoomModal').classList.add('active');
+    }
+
+    function closeZoomModal() {
+        document.getElementById('zoomModal').classList.remove('active');
+    }
+
+    function closeZoomModalOutside(event) {
+        if (event.target.id === 'zoomModal') closeZoomModal();
+    }
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeZoomModal();
+    });
+</script>
+</body>
+</html>

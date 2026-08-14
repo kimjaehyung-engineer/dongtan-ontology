@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄도시철도(트램) 차량 투입 전 점검 상세확인검토항목 시험·검측 절차서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Noto Sans KR', sans-serif; } </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased py-10 px-4 sm:px-8">
+
+<div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200/80 p-8 sm:p-12 space-y-10">
+
+    <!-- 🔵 헤더 영역 -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b-2 border-slate-900 gap-4">
+        <div>
+            <span class="text-xs font-black text-indigo-700 bg-indigo-50 border border-indigo-100 px-3.5 py-1.5 rounded-full mb-2 inline-block">
+                Dongtan Tram Verification Standard | 차량 투입 전 점검 상세확인검토항목 정밀 절차서
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                🔍 차량 투입 전 점검 시험·검측 기술 절차서
+            </h1>
+        </div>
+        <div class="text-right">
+            <span class="text-xs font-bold text-slate-400 block">문서번호: DTT-SIG-TP-9016</span>
+            <span class="text-xs font-black text-indigo-600">동탄트램 신호·인터페이스 정밀 검측</span>
+        </div>
+    </div>
+
+    <!-- 💡 개요 안내 카드 -->
+    <div class="bg-indigo-50/60 border border-indigo-100 rounded-2xl p-6 space-y-2">
+        <h3 class="text-lg font-black text-indigo-950 flex items-center gap-2">
+            <span>📌</span> 본 과업(차량 투입 전 점검) 기술 절차서의 목적
+        </h3>
+        <p class="text-slate-700 text-sm leading-relaxed font-medium">
+            본 매뉴얼은 동탄도시철도(트램) <strong>차량 투입 전 점검</strong> 수행지침 카드 내 <strong><code>🔍 상세 확인검토항목 (Verification Checkpoints)</code></strong>에 명시된 4대 핵심 확인항목에 대해 <strong>필요 계측기, 정밀 시험 단계, 구체적 시험 방법 및 합격 판정 기준</strong>을 맞춤형으로 체계화한 공식 표준 기술 지침서입니다.
+        </p>
+    </div>
+
+    
+    <!-- 🔹 [시험 01] 본선 및 차량기지 신호기 점등 및 쇄정 점검 -->
+    <section class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <span class="text-indigo-600">[시험 01]</span> 본선 및 차량기지 신호기 점등 및 쇄정 점검
+            </h3>
+            <span class="text-xs font-bold text-indigo-600">정밀 검측 가이드라인</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">1. 시험 목적 및 설명</h4>
+                <p class="text-xs text-slate-700 font-semibold leading-relaxed">
+                    지상 신호기 적색 정지 신호 점등 및 전자연동장치 선로전환기 정위 쇄정 점검
+                </p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">2. 필요 시험 장비 및 계측기</h4>
+                <ul class="text-xs text-slate-700 font-semibold space-y-1">
+                    <li>• <strong>신호기 점등 측정기</strong></li><li>• <strong>쇄정도표 대조표</strong></li>
+                </ul>
+            </div>
+            <div class="bg-emerald-50/80 p-5 rounded-2xl border border-emerald-200 space-y-2">
+                <h4 class="text-xs font-black text-emerald-800 uppercase">3. 합격 판정 기준</h4>
+                <ul class="text-xs text-emerald-950 font-bold space-y-1">
+                    <li>• <strong>적색 정지 정상 점등</strong></li><li>• <strong>선로전환기 정위 쇄정</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                <span>📝</span> 정밀 시험 순서 및 검측 절차
+            </h4>
+            <ol class="text-xs text-slate-700 font-medium space-y-2 pl-4 list-decimal">
+                <li><strong>사전 구성 및 준비:</strong> 승인된 시험절차서 및 정밀 계측기(교정 유효기간 1년)를 세팅하고 대상 설비를 준비합니다.</li>
+                <li><strong>현장 검측 및 측정:</strong> 본선 및 차량기지 신호기 점등 및 쇄정 점검에 대한 수치 측정 및 작동 동작을 신호 정밀 기법으로 정밀 계측합니다.</li>
+                <li><strong>판정 대조 및 결과 기록:</strong> 측정된 수치를 합격 판정 기준과 1:1 대조하여 감리원 입회 성적서에 서명 기록합니다.</li>
+            </ol>
+        </div>
+    </section>
+    <!-- 🔹 [시험 02] 차축검지기/발리스 건축한계 이격 점검 -->
+    <section class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <span class="text-indigo-600">[시험 02]</span> 차축검지기/발리스 건축한계 이격 점검
+            </h3>
+            <span class="text-xs font-bold text-indigo-600">정밀 검측 가이드라인</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">1. 시험 목적 및 설명</h4>
+                <p class="text-xs text-slate-700 font-semibold leading-relaxed">
+                    차축검지기 및 발리스 건축한계(폭3.1m, 높이3.8m) 이격 및 낙하물 제로 확인
+                </p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">2. 필요 시험 장비 및 계측기</h4>
+                <ul class="text-xs text-slate-700 font-semibold space-y-1">
+                    <li>• <strong>건축한계 측량 게이지</strong></li><li>• <strong>선로 점검표</strong></li>
+                </ul>
+            </div>
+            <div class="bg-emerald-50/80 p-5 rounded-2xl border border-emerald-200 space-y-2">
+                <h4 class="text-xs font-black text-emerald-800 uppercase">3. 합격 판정 기준</h4>
+                <ul class="text-xs text-emerald-950 font-bold space-y-1">
+                    <li>• <strong>건축한계 침범 0mm</strong></li><li>• <strong>낙하물/장애물 0건</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                <span>📝</span> 정밀 시험 순서 및 검측 절차
+            </h4>
+            <ol class="text-xs text-slate-700 font-medium space-y-2 pl-4 list-decimal">
+                <li><strong>사전 구성 및 준비:</strong> 승인된 시험절차서 및 정밀 계측기(교정 유효기간 1년)를 세팅하고 대상 설비를 준비합니다.</li>
+                <li><strong>현장 검측 및 측정:</strong> 차축검지기/발리스 건축한계 이격 점검에 대한 수치 측정 및 작동 동작을 신호 정밀 기법으로 정밀 계측합니다.</li>
+                <li><strong>판정 대조 및 결과 기록:</strong> 측정된 수치를 합격 판정 기준과 1:1 대조하여 감리원 입회 성적서에 서명 기록합니다.</li>
+            </ol>
+        </div>
+    </section>
+    <!-- 🔹 [시험 03] 비상 차상 신호 수신 및 기계실 LCP 점검 -->
+    <section class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <span class="text-indigo-600">[시험 03]</span> 비상 차상 신호 수신 및 기계실 LCP 점검
+            </h3>
+            <span class="text-xs font-bold text-indigo-600">정밀 검측 가이드라인</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">1. 시험 목적 및 설명</h4>
+                <p class="text-xs text-slate-700 font-semibold leading-relaxed">
+                    신호 기계실 비상 제어반(LCP) 수동 제어 준비 및 관제 TTC 열차 감시 준비
+                </p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">2. 필요 시험 장비 및 계측기</h4>
+                <ul class="text-xs text-slate-700 font-semibold space-y-1">
+                    <li>• <strong>LCP 수동 제어반</strong></li><li>• <strong>TTC 감시 모니터</strong></li>
+                </ul>
+            </div>
+            <div class="bg-emerald-50/80 p-5 rounded-2xl border border-emerald-200 space-y-2">
+                <h4 class="text-xs font-black text-emerald-800 uppercase">3. 합격 판정 기준</h4>
+                <ul class="text-xs text-emerald-950 font-bold space-y-1">
+                    <li>• <strong>LCP 수동 제어 100% 정상</strong></li><li>• <strong>TTC 열차 감시 준비 완료</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                <span>📝</span> 정밀 시험 순서 및 검측 절차
+            </h4>
+            <ol class="text-xs text-slate-700 font-medium space-y-2 pl-4 list-decimal">
+                <li><strong>사전 구성 및 준비:</strong> 승인된 시험절차서 및 정밀 계측기(교정 유효기간 1년)를 세팅하고 대상 설비를 준비합니다.</li>
+                <li><strong>현장 검측 및 측정:</strong> 비상 차상 신호 수신 및 기계실 LCP 점검에 대한 수치 측정 및 작동 동작을 신호 정밀 기법으로 정밀 계측합니다.</li>
+                <li><strong>판정 대조 및 결과 기록:</strong> 측정된 수치를 합격 판정 기준과 1:1 대조하여 감리원 입회 성적서에 서명 기록합니다.</li>
+            </ol>
+        </div>
+    </section>
+    <!-- 🔹 [시험 04] 차량 투입 전 점검 안전 승인원 제출 -->
+    <section class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <span class="text-indigo-600">[시험 04]</span> 차량 투입 전 점검 안전 승인원 제출
+            </h3>
+            <span class="text-xs font-bold text-indigo-600">정밀 검측 가이드라인</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">1. 시험 목적 및 설명</h4>
+                <p class="text-xs text-slate-700 font-semibold leading-relaxed">
+                    차량 투입 전 신호 안전 점검표 작성 및 책임감리원 차량 현장 투입 승인
+                </p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">2. 필요 시험 장비 및 계측기</h4>
+                <ul class="text-xs text-slate-700 font-semibold space-y-1">
+                    <li>• <strong>차량 투입 안전점검표</strong></li><li>• <strong>투입 승인원</strong></li>
+                </ul>
+            </div>
+            <div class="bg-emerald-50/80 p-5 rounded-2xl border border-emerald-200 space-y-2">
+                <h4 class="text-xs font-black text-emerald-800 uppercase">3. 합격 판정 기준</h4>
+                <ul class="text-xs text-emerald-950 font-bold space-y-1">
+                    <li>• <strong>점검표 작성 완료</strong></li><li>• <strong>책임감리원 투입 승인</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                <span>📝</span> 정밀 시험 순서 및 검측 절차
+            </h4>
+            <ol class="text-xs text-slate-700 font-medium space-y-2 pl-4 list-decimal">
+                <li><strong>사전 구성 및 준비:</strong> 승인된 시험절차서 및 정밀 계측기(교정 유효기간 1년)를 세팅하고 대상 설비를 준비합니다.</li>
+                <li><strong>현장 검측 및 측정:</strong> 차량 투입 전 점검 안전 승인원 제출에 대한 수치 측정 및 작동 동작을 신호 정밀 기법으로 정밀 계측합니다.</li>
+                <li><strong>판정 대조 및 결과 기록:</strong> 측정된 수치를 합격 판정 기준과 1:1 대조하여 감리원 입회 성적서에 서명 기록합니다.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- 📑 서명 및 검측 보고서 양식 -->
+    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
+        <h4 class="text-sm font-black text-slate-900">📑 차량 투입 전 점검 상세 확인검토항목 현장 검측 성적서 승인</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                <span class="font-bold text-slate-500">현장 시험검측원 (신호시공):</span>
+                <span class="font-extrabold text-slate-900">성명: ____________ (서명)</span>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                <span class="font-bold text-slate-500">책임감리원 (승인자):</span>
+                <span class="font-extrabold text-slate-900">성명: ____________ (서명)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📄 푸터 -->
+    <div class="pt-6 border-t border-slate-200 text-center text-xs text-slate-400 font-semibold">
+        동탄도시철도(트램) 건설공사 기술 절차서 | DTT-SIG-TP-9016 | 차량 투입 전 점검 상세 확인검토항목 시험·검측 지침
+    </div>
+
+</div>
+
+</body>
+</html>

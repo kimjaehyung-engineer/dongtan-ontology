@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄도시철도 - 화재연동 인터록 실부하 시험 표준서</title>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; margin:0; padding:24px; color:#0f172a; line-height:1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px; border: 1px solid #e2e8f0; }
+    .header { border-bottom: 2px solid #0f172a; padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { display: inline-block; background: #0f172a; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0; }
+    .subtitle { font-size: 14px; color: #475569; margin: 0; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #0284c7; padding-left: 10px; margin: 24px 0 12px 0; }
+    .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 14px; color: #334155; }
+    .table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+    .table th { background: #0f172a; color: #ffffff; font-weight: 700; padding: 10px 14px; text-align: left; }
+    .nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .nav-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+    .btn-guide { background: #0284c7; color: #ffffff; }
+    .btn-chk { background: #d97706; color: #ffffff; }
+    .btn-guide:hover { background: #0369a1; }
+    .btn-chk:hover { background: #b45309; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">9000-8-34 | 동탄트램 기계설비·소방설비</span>
+      <h1 class="title">화재연동 인터록 실부하 시험 표준서</h1>
+      <p class="subtitle">화재수신반 경보 시 공조기 즉시 정지, 제연팬 배연 모드 자동 전환 및 방화댐퍼 연동</p>
+    </div>
+
+    <div class="section-title">1. 표준 목적 및 적용 범위</div>
+    <div class="card">화재안전기술기준 및 철도 방재 매뉴얼에 따라 화재 발생 시 연기가 공조 덕트를 타고 다른 구역으로 확산되는 대형 참사를 막기 위해, 화재수신반 경보 발생 즉시 공조기·냉난방기 마그네틱 전원을 100% 강제 차단하고, 해당 제연구역의 제연팬을 비상 배연 모드로 가동하는 방재 인터록 실부하 시험을 수행한다.</div>
+
+    <div class="section-title">2. 핵심 품질 및 공정 관리 KPI</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-bottom:20px;">
+      
+      <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+        <div style="font-size:11px; color:#64748b; font-weight:600;">공조기 정지 응답시간</div>
+        <div style="font-size:16px; color:#0f172a; font-weight:700; margin-top:4px;">화재 감지 즉시 ≤ 3초</div>
+      </div>
+    
+      <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+        <div style="font-size:11px; color:#64748b; font-weight:600;">제연팬 배연 전환</div>
+        <div style="font-size:16px; color:#0f172a; font-weight:700; margin-top:4px;">≤ 15초 이내</div>
+      </div>
+    
+      <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+        <div style="font-size:11px; color:#64748b; font-weight:600;">방화댐퍼 차단율</div>
+        <div style="font-size:16px; color:#0f172a; font-weight:700; margin-top:4px;">100% (연기 차단)</div>
+      </div>
+    
+      <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+        <div style="font-size:11px; color:#64748b; font-weight:600;">인터록 오작동률</div>
+        <div style="font-size:16px; color:#0f172a; font-weight:700; margin-top:4px;">Zero (0.0%)</div>
+      </div>
+    
+    </div>
+
+    <div class="section-title">3. 표준 기술 시방 및 검측 요구조건 (KCS 41 / NFTC / KDS 47)</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width:20%;">검측 항목</th>
+          <th style="width:40%;">시방 기준 및 품질 요구조건</th>
+          <th style="width:20%; text-align:center;">적용 구역</th>
+          <th style="width:20%; text-align:center;">합격 기준</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr style="border-bottom:1px solid #e2e8f0;">
+        <td style="padding:10px 14px; font-weight:600; color:#0f172a; background:#f8fafc;">화재 감지기 연동</td>
+        <td style="padding:10px 14px; color:#334155;">광전식 연기감지기/차동식 열감지기 화재 신호</td>
+        <td style="padding:10px 14px; color:#475569; text-align:center;">전 구역</td>
+        <td style="padding:10px 14px; color:#047857; font-weight:600; text-align:center;">화재 구역 1:1 매핑</td>
+      </tr>
+    
+      <tr style="border-bottom:1px solid #e2e8f0;">
+        <td style="padding:10px 14px; font-weight:600; color:#0f172a; background:#f8fafc;">공조기 전원 차단</td>
+        <td style="padding:10px 14px; color:#334155;">MCC 제어반 공조기 정지용 B접점 인터록</td>
+        <td style="padding:10px 14px; color:#475569; text-align:center;">전 공조기</td>
+        <td style="padding:10px 14px; color:#047857; font-weight:600; text-align:center;">전원 즉시 차단</td>
+      </tr>
+    
+      <tr style="border-bottom:1px solid #e2e8f0;">
+        <td style="padding:10px 14px; font-weight:600; color:#0f172a; background:#f8fafc;">제연팬 자동 기동</td>
+        <td style="padding:10px 14px; color:#334155;">화재 구역 배연팬 가동 및 비화재 구역 가압팬</td>
+        <td style="padding:10px 14px; color:#475569; text-align:center;">제연구역별</td>
+        <td style="padding:10px 14px; color:#047857; font-weight:600; text-align:center;">정방향 배연 100%</td>
+      </tr>
+    
+      <tr style="border-bottom:1px solid #e2e8f0;">
+        <td style="padding:10px 14px; font-weight:600; color:#0f172a; background:#f8fafc;">방화/제연 댐퍼</td>
+        <td style="padding:10px 14px; color:#334155;">모터구동 제연댐퍼(MD/SMD) 자동 개폐</td>
+        <td style="padding:10px 14px; color:#475569; text-align:center;">전 풍도</td>
+        <td style="padding:10px 14px; color:#047857; font-weight:600; text-align:center;">개폐 신호 피드백</td>
+      </tr>
+    
+      </tbody>
+    </table>
+
+    <div class="nav-box">
+      <a href="../수행지침/34_화재연동 인터록 실부하 시험_수행지침.html" class="nav-btn btn-guide">📘 [연계] 화재연동 인터록 실부하 시험 수행지침서 열기 ➔</a>
+      <a href="../체크리스트/34_화재연동 인터록 실부하 시험_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 화재연동 인터록 실부하 시험 체크리스트 열기 ➔</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 발주처 품질 요구사항 검토 전문 수행지침서 (WBS 9000-2-7)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 580px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-7)</span>
+        <h1 class="text-3xl font-black mt-2">발주처 품질 요구사항 검토 엔지니어링 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-7 | 주관: 현장 시스템팀 / 통신 감리단 | "광파워미터 & 1310/1550nm 파장 해설 수록"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 💡 개요 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 한눈에 읽는 전문 실무 가이드 (Flexible 4-Step Architecture)</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                본 지침서는 발주처 품질검사 지침(<span class="term-highlight" onclick="openGlossary('ITP')">ITP</span>/<span class="term-highlight" onclick="openGlossary('ITC')">ITC</span>)에 맞춰 <strong>품질 계획 사전검토, 광 접속 정밀측정, LTE-R 전파검증, ITC 서명체결 4단계 유연 프로세스</strong>로 체계화되었습니다.
+                본문 속 <span class="term-highlight" onclick="openGlossary('전계강도')">전계강도</span>, <span class="term-highlight" onclick="openGlossary('RSRP')">RSRP</span>, <span class="term-highlight" onclick="openGlossary('OTDR')">OTDR</span>, <span class="term-highlight" onclick="openGlossary('광파워미터')">광파워미터</span>, <span class="term-highlight" onclick="openGlossary('1310nm/1550nm')">1310nm/1550nm</span> 용어를 클릭하면 <strong>친절한 용어 팝업 해설 창</strong>이 뜹니다.
+            </p>
+        </div>
+
+        <!-- ☀️ 4대 유연 핵심 프로세스 카드 -->
+        <div class="bg-blue-50/70 border border-blue-200 p-7 rounded-2xl shadow-md space-y-6">
+            <div class="border-b border-blue-200 pb-4">
+                <span class="bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase">FLEXIBLE PROCESS</span>
+                <h3 class="text-xl font-black text-blue-950 mt-2">📋 발주처 품질 검토 4단계 유연 프로세스</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>📋</span> 1. ITP/ITC 계획서 사전 대조</span>
+                    <p class="text-slate-700 text-xs">발주처 품질검사 계획서(ITP) 및 공사시방서의 품질 기준 사전 정밀 대조.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>⚡</span> 2. 광케이블 접속 손실 0.05dB 측정</span>
+                    <p class="text-slate-700 text-xs">OTDR 및 광파워미터(1310/1550nm)로 72가닥 전수 광 손실 0.05dB 이하 판정.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>📶</span> 3. LTE-R 무선국 준공 검증</span>
+                    <p class="text-slate-700 text-xs">스펙트럼 분석기로 전구간 수신 전계강도(RSRP ≥ -95dBm) 정밀 측정 및 필증 확보.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-700 flex items-center gap-2"><span>🖊️</span> 4. 품질 승인서(ITC) 최종 체결</span>
+                    <p class="text-slate-700 text-xs">발주처·감리원·시스템 책임자 3자 서명 날인으로 검측 승인서(ITC) 체결.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. FLEXIBLE 4-STEP ARCHITECTURE -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 4단계 핵심 수행 마스터 프로세스 (Flexible Architecture)
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 flex flex-col justify-between">
+                    <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-0.5 rounded w-fit">STEP 1</span>
+                    <h4 class="font-bold text-slate-900 text-xs mt-2">ITP/ITC 사전대조</h4>
+                    <p class="text-[11px] text-blue-900 mt-1 font-medium">• 품질계획서 대조<br">• 감리 입회점 지정</p>
+                </div>
+                <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-200 flex flex-col justify-between">
+                    <span class="bg-indigo-600 text-white text-[10px] font-black px-2 py-0.5 rounded w-fit">STEP 2</span>
+                    <h4 class="font-bold text-slate-900 text-xs mt-2">광 손실 측정</h4>
+                    <p class="text-[11px] text-indigo-900 mt-1 font-medium">• 광 손실 ≤0.05dB<br">• 72Core 전수 측정</p>
+                </div>
+                <div class="bg-cyan-50 p-4 rounded-xl border border-cyan-200 flex flex-col justify-between">
+                    <span class="bg-cyan-600 text-white text-[10px] font-black px-2 py-0.5 rounded w-fit">STEP 3</span>
+                    <h4 class="font-bold text-slate-900 text-xs mt-2">LTE-R 무선검증</h4>
+                    <p class="text-[11px] text-cyan-900 mt-1 font-medium">• 수신 전계 ≥-95dBm<br">• 무선국 준공검사</p>
+                </div>
+                <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200 flex flex-col justify-between">
+                    <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded w-fit">STEP 4</span>
+                    <h4 class="font-bold text-slate-900 text-xs mt-2">품질승인 체결</h4>
+                    <p class="text-[11px] text-emerald-900 mt-1 font-medium">• ITC 3자 서명<br">• 품질대장 확정</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔥 2. 세부 실무 가이드 (STEP 1~4 1:1 직관적 2D VISUAL SVG) -->
+        <div class="space-y-8">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-indigo-600 pb-2">
+                <span class="text-indigo-600">2.</span> 엔지니어링 세부 실무 가이드 & 1:1 2D 그림
+            </h2>
+
+            <div class="space-y-8 text-sm">
+                <!-- STEP 1 HOW + VISUAL SVG -->
+                <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1</span>
+                        <h3 class="font-bold text-base text-slate-900">발주처 품질검사 계획서(<span class="term-highlight" onclick="openGlossary('ITP')">ITP</span>/<span class="term-highlight" onclick="openGlossary('ITC')">ITC</span>) 사전 정밀 대조 & 감리 입회점 지정</h3>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl text-xs text-slate-700 space-y-3 leading-relaxed border border-slate-200">
+                        <p><strong>💡 핵심 실무 지침:</strong></p>
+                        <ul class="list-disc pl-5 space-y-1.5 text-slate-800">
+                            <li><strong>품질 계획 검토:</strong> 발주처 품질검사 계획서(ITP: Inspection and Test Plan) 및 공사시방서의 품질 기준을 사전 정밀 대조합니다.</li>
+                            <li><strong>자재 검수 체계:</strong> 광케이블, 4K CCTV, PIS/PA, LTE-R 안테나 등 주요 통신 자재 입고 시 공장시험 성적서(Mill Test Report)의 적합성을 승인합니다.</li>
+                            <li><strong>감리 입회점(Hold Point) 지정:</strong> 감리원 현장 직접 입회 검측 항목(Hold Point / Witness Point)을 사전 분류하여 검측 누락을 원천 차단합니다.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 📸 STEP 1 실제 장비 사진 -->
+                    <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs font-bold text-blue-900 block mb-2">📸 실무 자재 사진: 72-Core 광케이블, 4K IP CCTV, PIS전광판, LTE-R 안테나</span>
+                        <img src="./telecom_materials_cctv.jpg" alt="주요 통신 자재 실물 사진" class="w-full h-48 object-cover rounded-lg border border-slate-300 shadow-sm cursor-pointer" onclick="openDiagramZoom('img_step1_tag', 'STEP 1 주요 통신 자재 현장 사진')">
+                        <img id="img_step1_tag" src="./telecom_materials_cctv.jpg" alt="주요 통신 자재" class="hidden">
+                    </div>
+                    
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step1', 'STEP 1 ITP/ITC 서류 대조 2D 시공 도식')">
+                        <svg id="svg_step1" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+                            <text x="130" y="48" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">📋 ITP/ITC 품질검사 지침서</text>
+                            <g transform="translate(35, 62)">
+                                <rect x="0" y="0" width="190" height="25" fill="#e0f2fe" stroke="#2563eb" stroke-width="1.5" rx="3"/>
+                                <text x="95" y="17" font-size="10" font-weight="bold" fill="#1d4ed8" text-anchor="middle">✔ 자재 성적서 사전 검토 승인</text>
+
+                                <rect x="0" y="32" width="190" height="25" fill="#e0f2fe" stroke="#2563eb" stroke-width="1.5" rx="3"/>
+                                <text x="95" y="49" font-size="10" font-weight="bold" fill="#1d4ed8" text-anchor="middle">✔ 감리 입회점(Hold Point) 지정</text>
+                            </g>
+
+                            <path d="M 245 90 L 285 90" stroke="#2563eb" stroke-width="3"/>
+                            <polygon points="285,85 295,90 285,95" fill="#2563eb"/>
+
+                            <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="400" y="48" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📑 검측 시험 항목 확정</text>
+                            <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 광 손실 ≤ 0.05dB 검사</text>
+                            <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• LTE-R 전파 커버리지 검사</text>
+                            <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 사전 승인 완료</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 2 HOW + VISUAL SVG (72-Core 광 접속, 헷지방안 & 광파워미터 1310/1550nm 해설 수록) -->
+                <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
+                        <h3 class="font-bold text-base text-slate-900">72-Core 메인 광케이블 <span class="term-highlight" onclick="openGlossary('융착접속')">융착 접속</span> 손실 0.05dB 이하 정밀 측정 시험</h3>
+                    </div>
+
+                    <!-- 📖 초심자를 위한 72-Core 광 접속 및 헷지 방안 해설 박스 -->
+                    <div class="bg-indigo-50 border border-indigo-300 p-5 rounded-xl text-xs text-slate-800 space-y-3 shadow-inner">
+                        <h4 class="font-black text-sm text-indigo-950 flex items-center gap-1.5">📖 [초심자 해설] 72-Core 광 접속의 의미, 하자 위험, 손실 원인 & 헷지(Hedge / 대책) 방안</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-4 rounded-lg border border-indigo-200">
+                            <div>
+                                <span class="font-bold text-indigo-900 block mb-1">⚡ 1. 72-Core & 융착 접속(Fusion Splicing)이란?</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    • <b>72-Core:</b> 머리카락만큼 가느다란 유리 파이버 72가닥이 들어있는 <b>트램의 메인 통신 고속도로(핏줄)</b>입니다.<br>
+                                    • <b>융착 접속:</b> 두 유리 단면을 <b>2,000℃ 고온 전기 불꽃으로 녹여서 하나로 완벽히 붙이는 정밀 공정</b>입니다.
+                                </p>
+                            </div>
+                            <div>
+                                <span class="font-bold text-indigo-900 block mb-1">🚨 2. 융착 불량 시 발생하는 하자 위험</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    • <b>화면 끊김/멈춤:</b> 유리 연결부 불량으로 빛이 새어나가 4K CCTV 및 승강장 안내 전광판 화면이 멈춥니다.<br>
+                                    • <b>통신 블랙아웃:</b> 융착이 나쁘면 열차 제어 통신이 차단되어 <b>대형 통신 장애</b>가 발생합니다.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-4 rounded-lg border border-indigo-200">
+                            <div>
+                                <span class="font-bold text-amber-900 block mb-1">🔍 3. 1개 코어당 접속 손실(Optical Loss) 원인</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    ① <b>단면 오염:</b> 유리선 끝에 묻은 미세 먼지/기름때<br>
+                                    ② <b>절단 각도 불량:</b> 칼날(Cleaver)로 자를 때 단면이 삐뚤어짐<br>
+                                    ③ <b>중심축 불일치:</b> 두 유리선의 빛 통로 중심축이 미세 편심 발생
+                                </p>
+                            </div>
+                            <div>
+                                <span class="font-bold text-emerald-900 block mb-1">🛡️ 4. 기준 초과(>0.05dB) 시 현장 <span class="term-highlight" onclick="openGlossary('헷지방안')">헷지(Hedge)</span> 방안</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    • <b>1단계 (즉시 재접속):</b> 접속 부위 절단 후 정밀 절삭기 재정리 및 자동 융착 재시행<br>
+                                    • <b>2단계 (예비 Core 전환):</b> 72가닥 중 손실된 코어 대신 <b>여분의 예비 코어(Spare Core)</b>로 우회 포트 교체<br>
+                                    • <b>3단계 (함체 재정비):</b> 접속 함체 알코올 클리닝 및 습기 재포장
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 📖 초심자를 위한 광파워미터 및 1310/1550nm 파장 숫자 의미 해설 박스 -->
+                    <div class="bg-blue-50 border border-blue-300 p-5 rounded-xl text-xs text-slate-800 space-y-3 shadow-inner">
+                        <h4 class="font-black text-sm text-blue-950 flex items-center gap-1.5">📖 [초심자 해설] 광파워미터란 무엇이며 1310nm / 1550nm 숫자가 의미하는 바는?</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-4 rounded-lg border border-blue-200">
+                            <div>
+                                <span class="font-bold text-blue-900 block mb-1">💡 1. 광파워미터(Optical Power Meter: OPM)란?</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    광케이블 반대쪽에서 쏘아준 레이저 빛의 세기를 측정하여 <b>"빛의 파워가 줄어들지 않고 도착했는지"</b> 정밀하게 계측하는 광 통신 전용 빛 측정기입니다.
+                                </p>
+                            </div>
+                            <div>
+                                <span class="font-bold text-blue-900 block mb-1">🔍 2. 1310nm / 1550nm 숫자의 의미 (파장 길이)</span>
+                                <p class="text-slate-700 leading-relaxed">
+                                    • <b>nm (나노미터):</b> 광케이블 속을 통과하는 <b>레이저 빛의 파장(Wavelength) 길이</b>입니다.<br>
+                                    • <b>1310nm (신호 변형 최소 파장):</b> 빛의 퍼짐(분산)이 적어 데이터 전송이 깨끗합니다.<br>
+                                    • <b>1550nm (신호 손실 최소 파장):</b> 유리관을 지날 때 빛 감쇄(손실)가 가장 적습니다.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-blue-200">
+                            <span class="font-bold text-indigo-900 block mb-1">❓ 왜 1310nm와 1550nm 두 가지 파장을 다 측정하나요?</span>
+                            <p class="text-slate-700 leading-relaxed">
+                                케이블이 꺾였을 때 1550nm 빛이 손실을 크게 받고, 미세 먼지가 묻었을 때 1310nm 빛이 손실을 크게 받습니다.<br>
+                                따라서 <b>두 가지 파장 모두에서 손실이 ≤0.05dB 이하</b>임을 확인해야 어떤 환경에서도 100% 완벽한 광 통신선임이 증명됩니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-xl text-xs text-slate-700 space-y-3 leading-relaxed border border-slate-200">
+                        <p><strong>💡 핵심 실무 지침:</strong></p>
+                        <ul class="list-disc pl-5 space-y-1.5 text-slate-800">
+                            <li><strong>광 접속 검측:</strong> 72-Core 메인 광케이블 융착 접속 완료 후, <span class="term-highlight" onclick="openGlossary('OTDR')">OTDR</span>(광파동 측정기) 및 <span class="term-highlight" onclick="openGlossary('광파워미터')">광파워미터</span>(<span class="term-highlight" onclick="openGlossary('1310nm/1550nm')">1310/1550nm</span>)를 통해 측정합니다.</li>
+                            <li><strong>품질 기준 검증:</strong> 1개 Core당 <span class="term-highlight" onclick="openGlossary('접속손실')">접속 손실</span>이 <strong>≤0.05dB(현장 관리 목표: 0.01 ~ 0.04dB)</strong>를 만족하는지 전수 검측하고 측정 결과 리포트를 제출합니다.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 📸 STEP 2 실제 장비 사진 (OTDR & 광파워미터 2종 갤러리) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <span class="text-xs font-bold text-indigo-900 block mb-2">📸 실무 측정 장비 사진: OTDR(광파동 측정기)</span>
+                            <img src="./otdr_power_meter.jpg" alt="OTDR 측정 장비 실물 사진" class="w-full h-44 object-cover rounded-lg border border-slate-300 shadow-sm cursor-pointer" onclick="openDiagramZoom('img_step2_tag', 'STEP 2 OTDR 측정 장비 현장 사진')">
+                            <img id="img_step2_tag" src="./otdr_power_meter.jpg" alt="OTDR 측정 장비" class="hidden">
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                            <span class="text-xs font-bold text-blue-900 block mb-2">📸 실무 측정 장비 사진: 광파워미터(1310/1550nm 디지털 화면)</span>
+                            <img src="./optical_power_meter_1310_1550.jpg" alt="광파워미터 실물 사진" class="w-full h-44 object-cover rounded-lg border border-slate-300 shadow-sm cursor-pointer" onclick="openDiagramZoom('img_opm_tag', 'STEP 2 광파워미터(1310/1550nm) 실물 장비 사진')">
+                            <img id="img_opm_tag" src="./optical_power_meter_1310_1550.jpg" alt="광파워미터 장비" class="hidden">
+                        </div>
+                    </div>
+
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2', 'STEP 2 광케이블 접속 손실 0.05dB 측정 2D 시공 도식')">
+                        <svg id="svg_step2" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="8"/>
+                            <text x="130" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">⚡ OTDR 광파워미터 측정</text>
+                            <rect x="40" y="65" width="180" height="40" fill="#e0e7ff" stroke="#4f46e5" stroke-width="1.5" rx="4"/>
+                            <text x="130" y="85" font-size="11" font-weight="black" fill="#3730a3" text-anchor="middle">접속 손실: 0.03 dB</text>
+                            <text x="130" y="98" font-size="9" font-weight="bold" fill="#15803d" text-anchor="middle">(기준 0.05dB 이하 최상급 합격)</text>
+                            <text x="130" y="135" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">72-Core 전수 파장 측정 통과</text>
+
+                            <path d="M 245 90 L 285 90" stroke="#4f46e5" stroke-width="3"/>
+                            <polygon points="285,85 295,90 285,95" fill="#4f46e5"/>
+
+                            <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📊 광 성적서 승인</text>
+                            <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 1Core ~ 72Core 무결점</text>
+                            <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 광파장 1310/1550nm 합격</text>
+                            <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ ITP 승인 필증 획득</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 3 HOW + VISUAL SVG (RSRP & 전계강도 초심자 해설 박스 수록) -->
+                <div class="bg-white p-6 rounded-2xl border border-cyan-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-cyan-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3</span>
+                        <h3 class="font-bold text-base text-slate-900">LTE-R 안테나 수신 <span class="term-highlight" onclick="openGlossary('전계강도')">전계강도</span> & 무선국 준공검사 전파 품질 측정</h3>
+                    </div>
+                    
+                    <!-- 📖 초심자를 위한 전계강도 & RSRP 개념 및 안전적 의미 해설 박스 -->
+                    <div class="bg-cyan-50 border border-cyan-300 p-5 rounded-xl text-xs text-slate-800 space-y-3 shadow-inner">
+                        <h4 class="font-black text-sm text-cyan-950 flex items-center gap-1.5">📖 [초심자 해설] 전계강도 및 RSRP 개념과 열차 안전에서의 의미</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-white p-4 rounded-lg border border-cyan-200">
+                            <div>
+                                <span class="font-bold text-cyan-900 block mb-1">📡 1. 전계강도(Field Strength)란?</span>
+                                <p class="text-slate-700 leading-relaxed">공기 중을 날아다니는 <b>무선 전파 신호의 세기(Power)</b>입니다. 스마트폰 상단의 안테나 막대가 몇 개 채워지는지와 같은 개념입니다. (단위: dBm)</p>
+                            </div>
+                            <div>
+                                <span class="font-bold text-cyan-900 block mb-1">🔍 2. RSRP의 의미 (약어 풀이)</span>
+                                <p class="text-slate-700 leading-relaxed"><b>RSRP = Reference Signal Received Power</b> (기준 신호 수신 파워). 기지국 안테나가 쏘아주는 무선 신호를 얼마나 세게 수신하는지 나타내는 <b>객관적 정밀 수치</b>입니다.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-cyan-200">
+                            <span class="font-bold text-rose-700 block mb-1">🚨 3. 왜 필요하며 어떤 안전적 의미가 있는가?</span>
+                            <p class="text-slate-700 leading-relaxed">
+                                트램은 노선(정거장·교차로·터널)을 달리며 관제실과 <b>24시간 끊김 없이 긴급 무전 및 열차 제어 데이터</b>를 주고받아야 합니다.<br>
+                                만약 전계강도가 <b>-95dBm 밑으로 떨어지면 전파 음영지역이 생겨 무전이 끊기고 긴급 제어 명령 수신이 불가능</b>해집니다.<br>
+                                <b>RSRP ≥ -95dBm 검증</b>은 <b>"동탄트램 전구간에서 24시간 100% 무전 끊김 없이 안전하게 운행할 수 있다"</b>는 것을 입증하는 필수 검증입니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-xl text-xs text-slate-700 space-y-3 leading-relaxed border border-slate-200">
+                        <p><strong>💡 핵심 실무 지침:</strong></p>
+                        <ul class="list-disc pl-5 space-y-1.5 text-slate-800">
+                            <li><strong>전파 품질 검증:</strong> LTE-R 무선망 전파 측정 장비(스펙트럼 분석기)를 활용하여 정거장, 교차로, 터널 등 전구간 수신 전계강도를 측정합니다.</li>
+                            <li><strong>무선국 필증 확보:</strong> 수신 전계강도가 <span class="term-highlight" onclick="openGlossary('RSRP')">RSRP</span> <strong>≥ -95dBm</strong>을 만족하는지 검사하고, 전파법에 따른 국가 공인 무선국 준공검사 적합 필증을 확보합니다.</li>
+                        </ul>
+                    </div>
+
+                    <!-- 📸 STEP 3 실제 장비 사진 -->
+                    <div class="mt-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs font-bold text-cyan-900 block mb-2">📸 실무 측정 장비 사진: LTE-R 무선망 전파 측정 장비(스펙트럼 분석기)</span>
+                        <img src="./spectrum_analyzer_lter.jpg" alt="LTE-R 스펙트럼 분석기 실물 사진" class="w-full h-48 object-cover rounded-lg border border-slate-300 shadow-sm cursor-pointer" onclick="openDiagramZoom('img_step3_tag', 'STEP 3 LTE-R 무선망 스펙트럼 분석기 현장 사진')">
+                        <img id="img_step3_tag" src="./spectrum_analyzer_lter.jpg" alt="스펙트럼 분석기" class="hidden">
+                    </div>
+
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step3', 'STEP 3 LTE-R 무선국 전파 품질 측정 2D 시공 도식')">
+                        <svg id="svg_step3" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#0891b2" stroke-width="2" rx="8"/>
+                            <text x="130" y="50" font-size="13" font-weight="black" fill="#0e7490" text-anchor="middle">📶 LTE-R 전파 전계 측정</text>
+                            <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 수신 전계강도: ≥ -95dBm</text>
+                            <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 음영지역 커버리지 100%</text>
+                            <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 무선 커버리지 통과</text>
+
+                            <path d="M 245 90 L 285 90" stroke="#0891b2" stroke-width="3"/>
+                            <polygon points="285,85 295,90 285,95" fill="#0891b2"/>
+
+                            <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📑 무선국 준공 검증</text>
+                            <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 주파수 편차 적합</text>
+                            <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 법정 합격 필증 확보</text>
+                            <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 발주처 보고 완료</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- STEP 4 HOW + VISUAL SVG -->
+                <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4</span>
+                        <h3 class="font-bold text-base text-slate-900">발주처·감리원 품질 검측 승인서(<span class="term-highlight" onclick="openGlossary('ITC')">ITC</span>) 최종 체결 & 대장 확정</h3>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl text-xs text-slate-700 space-y-3 leading-relaxed border border-slate-200">
+                        <p><strong>💡 핵심 실무 지침:</strong></p>
+                        <ul class="list-disc pl-5 space-y-1.5 text-slate-800">
+                            <li><strong>ITC 승인 체결:</strong> 모든 ITP 검측 항목 통과 시, 발주처 품질감독관, 현장 총괄 감리원, 통신 책임자 3자 서명 날인으로 최종 검측 승인서(ITC)를 체결합니다.</li>
+                            <li><strong>대장 확정 관리:</strong> 지적 사항 결함 조치서를 수반하여 최종 준공 품질 관리대장에 완결 반영합니다.</li>
+                        </ul>
+                    </div>
+
+                    <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step4', 'STEP 4 품질 검측 승인서(ITC) 최종 서명 체결 2D 시공 도식')">
+                        <svg id="svg_step4" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                            <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="130" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🔴 ITP/ITC 합격 승인인</text>
+                            <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 광/무선 품질 검측 통과</text>
+                            <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 시방 규격 100% 만족</text>
+                            <text x="130" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 품질 검측 승인 완료</text>
+
+                            <rect x="260" y="25" width="240" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                            <text x="380" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🖊️ 발주처·감리원 서명 체결</text>
+                            <g transform="translate(295, 68)">
+                                <circle cx="25" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                                <text x="25" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">발주처</text>
+
+                                <circle cx="85" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                                <text x="85" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">감리원</text>
+
+                                <circle cx="145" cy="18" r="16" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                                <text x="145" y="22" font-size="10" font-weight="black" fill="#dc2626" text-anchor="middle">시스템</text>
+                            </g>
+                            <text x="380" y="122" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 품질 대장 최종 확정 완료</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 종합 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 mb-4 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">3.</span> 종합 2D Visual 기술 도식 (Enriched 2D SVG)
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r4', '[WBS 9000-2-7] 발주처 품질 요구사항 검토 초직관 종합 도식')">
+                <svg id="svg_r4" viewBox="0 0 550 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="550" height="190" fill="#f8fafc"/>
+                    <rect x="25" y="15" width="230" height="145" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+                    <text x="140" y="42" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">📋 ITP/ITC & 광 접속 검사</text>
+                    <text x="40" y="70" font-size="11" font-weight="bold" fill="#334155">• 발주처 품질 계획서(ITP) 대조</text>
+                    <text x="40" y="93" font-size="11" font-weight="bold" fill="#334155">• 72-Core 광케이블 접속 손실</text>
+                    <text x="40" y="116" font-size="11" font-weight="bold" fill="#1d4ed8">• 광 손실 ≤ 0.05dB 정밀 승인</text>
+                    <text x="40" y="139" font-size="11" font-weight="bold" fill="#334155">• OTDR 및 광파워미터 통과</text>
+
+                    <path d="M 265 85 L 295 85" stroke="#2563eb" stroke-width="3"/>
+                    <polygon points="295,80 305,85 295,90" fill="#2563eb"/>
+
+                    <rect x="310" y="15" width="215" height="145" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                    <text x="417" y="42" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📶 LTE-R & 서명 체결</text>
+                    <text x="325" y="70" font-size="11" font-weight="bold" fill="#334155">• LTE-R 무선국 준공 검증 필증</text>
+                    <text x="325" y="93" font-size="11" font-weight="bold" fill="#334155">• 무선 커버리지 100% 확보</text>
+                    <text x="325" y="116" font-size="11" font-weight="bold" fill="#334155">• ITC 최종 검측 승인서 작성</text>
+                    <text x="325" y="139" font-size="11" font-weight="bold" fill="#047857">• 발주처·감리원 3자 서명 날인</text>
+                    <text x="275" y="175" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">WBS 9000-2-7 발주처 품질 요구사항 검토 100% 확정</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 품질 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    "RSRP": "<b>RSRP (Reference Signal Received Power: 기준 신호 수신 파워)</b><br><br>• <b>약어 풀이:</b> Reference Signal Received Power<br>• <b>개념:</b> LTE-R 기지국 안테나에서 쏘아주는 무선 신호 중 기준이 되는 신호를 트램 무전 장치가 얼마나 세게 받고 있는지 나타내는 객관적 수치입니다.<br>• <b>안전 의미:</b> <b>-95dBm 이상</b>을 유지해야 음영지역 없이 관제실과 24시간 끊김 없는 긴급 무전 및 열차 제어 데이터를 주고받아 대형 사고를 예방합니다.",
+    "전계강도": "<b>전계강도 (Field Strength)</b><br><br>• <b>개념:</b> 공기 중으로 전파되는 무선 신호의 세기(Power)를 의미합니다. 스마트폰 안테나 막대 개수와 같은 개념입니다. (단위: dBm)",
+    "OTDR": "<b>OTDR (Optical Time Domain Reflectometer: 광파동 측정기)</b><br><br>• 광케이블에 파장(1310/1550nm)의 빛을 쏘아 접속 손실(≤0.05dB) 및 절단 지점을 1cm 오차 없이 정밀 측정하는 전문 테스트 장비입니다.",
+    "ITP": "<b>ITP (Inspection and Test Plan: 품질검사 계획서)</b><br><br>• 발주처 및 시방서 기준에 따라 자재 입고부터 시공 완료까지 시행할 품질 검사를 정의한 표준 서류입니다.",
+    "ITC": "<b>ITC (Inspection Certificate: 품질 검측 승인서)</b><br><br>• 발주처 품질감독관, 현장 총괄 감리원, 통신 책임자 3인이 합격을 최종 승인하는 결재 서류입니다.",
+    "융착접속": "<b>융착 접속 (Fusion Splicing)</b><br><br>• 머리카락만큼 가느다란 유리선 두 가닥을 2,000℃ 고온 전기 불꽃으로 녹여서 하나로 완벽히 붙이는 정밀 광케이블 연결 작업입니다.",
+    "접속손실": "<b>접속 손실 (Optical Loss)</b><br><br>• 유리선 접속 부위의 먼지, 불완전 절단, 미세한 중심축 불일치로 인해 빛 신호가 밖으로 새어나가는 현상입니다. <b>≤0.05dB 이하</b>가 합격 수치입니다.",
+    "헷지방안": "<b>손실 초과 시 현장 헷지(Hedge / 대책) 방안</b><br><br>• <b>1단계:</b> 접속 부위 즉시 절단 후 절삭기(Cleaver)로 단면 재정리 및 자동 융착 재시행<br>• <b>2단계:</b> 72가닥 중 손실이 발생하는 코어 대신 여분의 예비 코어(Spare Core) 채널로 즉시 우회 전환<br>• <b>3단계:</b> 접속 함체 알코올 세척 및 방수 재포장 조치",
+    "광파워미터": "<b>광파워미터 (Optical Power Meter: OPM)</b><br><br>• 광케이블 건너편에서 쏘아준 레이저 빛의 세기를 수신 받아 <b>빛이 줄어들지 않고 도착했는지 측정하는 광 통신 전용 계측기</b>입니다.",
+    "1310nm/1550nm": "<b>1310nm / 1550nm 파장 숫자의 의미</b><br><br>• <b>nm (나노미터):</b> 광케이블 내부를 지나는 레이저 빛의 파장(Wavelength) 길이입니다.<br>• <b>1310nm (신호 변형 최소 파장):</b> 데이터가 찌그러지는 분산 현상이 적어 단거리/중거리 전송에 정밀한 파장입니다.<br>• <b>1550nm (신호 손실 최소 파장):</b> 유리관을 지날 때 빛 세기가 옅어지는 감쇄가 가장 적어 장거리 전송에 최적인 파장입니다.<br>• <b>듀얼 파장 측정 이유:</b> 케이블 꺾임은 1550nm가, 미세 오염은 1310nm가 영향을 받으므로 <b>두 파장 모두 ≤0.05dB 이하</b>여야 100% 무결점으로 통과됩니다."
+};
+
+function openGlossary(term) {
+    const modal = document.getElementById('glossaryModal');
+    const titleEl = document.getElementById('modalTitle');
+    const descEl = document.getElementById('modalDescription');
+    
+    if (glossaryData[term]) {
+        titleEl.innerHTML = "📖 용어 해설: " + term;
+        descEl.innerHTML = glossaryData[term];
+        modal.classList.add('active');
+    }
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function closeGlossaryModalOutside(event) {
+    if (event.target.id === 'glossaryModal') {
+        closeGlossaryModal();
+    }
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+        closeGlossaryModal();
+    }
+});
+</script>
+
+</body>
+</html>

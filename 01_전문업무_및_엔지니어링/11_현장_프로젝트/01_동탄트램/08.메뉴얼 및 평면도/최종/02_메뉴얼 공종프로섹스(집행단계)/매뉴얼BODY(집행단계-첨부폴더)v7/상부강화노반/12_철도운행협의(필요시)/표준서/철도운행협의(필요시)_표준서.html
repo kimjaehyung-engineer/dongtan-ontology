@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상부강화노반 - 철도운행협의(필요시) 기술 표준서</title>
+    <style>
+        :root { --primary-color: #2563EB; --primary-light: #EFF6FF; --text-color: #1F2937; --bg-color: #F9FAFB; --card-bg: #FFFFFF; --border-color: #E5E7EB; }
+        body { font-family: 'Inter', '맑은 고딕', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 40px 20px; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 40px; }
+        .header { border-bottom: 2px solid var(--primary-light); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: #6B7280; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+        .title { font-size: 1.8rem; color: #111827; margin: 0; font-weight: 800; }
+        .meta-info { display: flex; gap: 15px; margin-top: 12px; font-size: 0.9rem; color: #6B7280; flex-wrap: wrap; }
+        .badge { background-color: var(--primary-light); color: var(--primary-color); padding: 4px 8px; border-radius: 6px; font-weight: 600; font-size: 0.8rem; }
+        h2 { font-size: 1.25rem; color: #111827; border-left: 4px solid var(--primary-color); padding-left: 12px; margin-top: 35px; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 0.9rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; }
+        th { background-color: var(--primary-light); color: #1E3A8A; font-weight: 700; width: 25%; }
+        .bullet-list { list-style: none; padding-left: 0; margin-bottom: 25px; }
+        .bullet-list li { position: relative; padding-left: 20px; margin-bottom: 10px; font-size: 0.95rem; }
+        .bullet-list li::before { content: "•"; position: absolute; left: 0; color: var(--primary-color); font-weight: 700; }
+        .spec-box { background-color: #F3F4F6; border: 1px solid #D1D5DB; border-radius: 8px; padding: 16px 20px; margin-bottom: 25px; font-size: 0.92rem; }
+        .spec-box h3 { margin-top: 0; font-size: 1.05rem; color: #1E40AF; }
+        .footer-note { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: #9CA3AF; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-7-12 Standard</div>
+        <h1 class="title">철도운행협의(필요시) 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 상부강화노반 / 토공</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 공사팀 (D-50)</span>
+            <span>|</span>
+            <span><span class="badge">절대 기술 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th>과업 목적</th><td>기존 운행 선로 인접 구간 시공 시 열차 안전 운행 및 작업 시간대 확보</td></tr>
+            <tr><th>수행 방법</th><td>철도운영기관(코레일, 교통공사 등)과 차단작업(선로차단, 전원차단) 및 차단 공정 협의</td></tr>
+            <tr><th>주요 산출물</th><td>철도운행 협의서, 차단작업 승인서</td></tr>
+            <tr><th>관련 기술 시방</th><td>KCS 11 00 00 (토공사), KDS 47 10 00 (철도 노반 설계기준), KCS 47 10 25 (강화노반)</td></tr>
+        </tbody>
+    </table>
+
+    <h2>2. 상부강화노반 공학적 절대 기준 (Technical Specifications)</h2>
+    <div class="spec-box">
+        <h3>📌 공통 강노반 및 핵심 공학 기술 기준</h3>
+        <ul>
+            <li><strong>노반 반력계수 (Subgrade Modulus):</strong> K30 ≥ 110 MN/m³ (평판재하시험)</li>
+            <li><strong>변형계수 (Strain Modulus):</strong> Ev2 ≥ 120 MPa, 변형비 Ev2/Ev1 ≤ 2.2</li>
+            <li><strong>다짐도 (Degree of Compaction):</strong> ≥ 95% (수정 AASHTO 다짐시험 기준)</li>
+            <li><strong>재료 입도 (Particle Size):</strong> 강화노반 쇄석 최대 입경 ≤ 100mm, 통과량(0.075mm) ≤ 15%</li>
+            <li><strong>허용 공차 (Tolerances):</strong> 종횡단 표고 오차 ± 10mm, 횡단 배수 구배 2.0%</li>
+            <li><strong>기준 좌표계 (Coordinate System):</strong> 세계측지계 GRS80 (중부원점 N 38°, E 127°)</li>
+        </ul>
+    </div>
+
+    <h2>3. 액티비티 특화 정량적 기술 기준 (Activity Specifics)</h2>
+    <ul class="bullet-list">
+        <li>야간 차단작업 시간(01:00~04:30) 엄수</li>
+        <li>철도 전차선 접촉 한계 이격거리 ≥ 2.0m 확보 및 단전 확인 후 작업</li>
+        <li>현장 철도안전원 및 운행선 작업지시자 배치 100%</li>
+    </ul>
+
+    <h2>4. 하자 실패 자산 및 관리방안 (Failure Assets & Mitigation)</h2>
+    <ul class="bullet-list">
+        <li>📍 <strong>하자/리스크 관리:</strong> 야간 차단 시간 초과로 인한 정시 열차 운행 방해 및 대형 사고 리스크</li>
+        <li>📍 <strong>하자/리스크 관리:</strong> 중장비 전차선 가해 및 감전 안전사고 리스크</li>
+    </ul>
+
+    <h2>5. 협력사 시공/공사관리 자문 (Subcontractor Advisory)</h2>
+    <ul class="bullet-list">
+        <li>작업 시작 전 철도 운행 감독자 단전 통보 확인 필수</li>
+        <li>차단 작업 완료 30분 전 자재 및 장비 선로 외곽 완전 철수</li>
+    </ul>
+
+    
+        
+<div class="subcontractor-advisory-box" style="background-color: #FFFBEB; border: 1.5px solid #F59E0B; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #B45309; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>👷</span> [협력업체 실무 자문] 위례선 트램 시공업체(정주건설·트리폴건설) 노반 자문
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #78350F; font-size: 0.92rem; line-height: 1.7;">
+                <li><strong>노반 완료 후 궤도 인계:</strong> 노반 공사가 최소 1~2km 구간 완료된 후 궤도 공정을 인계하여 연속성 확보 (정주건설 자문)</li>
+                <li><strong>배수박스 레미콘 상하중 검토:</strong> 하부 배수박스 및 하수구조물 위 레미콘/대형 토공 장비 통과 시 상부 하중 안전성 검토 (정주건설 자문)</li>
+            </ul>
+        </div>
+        
+<div class="footer-note">동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 9000-7-12</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 자재조달계획 검토 체크리스트</title>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --accent-red: #dc2626;
+            --accent-orange: #ea580c;
+            --accent-green: #16a34a;
+            --border-color: #cbd5e1;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 30px 20px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .header {
+            border-bottom: 2px solid var(--text-primary);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin: 0;
+            color: #1e3a8a;
+        }
+        .meta {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--accent-orange);
+        }
+        .summary-box {
+            background: #fdf2f8;
+            border: 1px solid #fbcfe8;
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            color: #9d174d;
+        }
+        table {
+            width: 100% !important;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+            font-weight: bold;
+            text-align: center;
+        }
+        .category {
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            width: 18%;
+        }
+        .pre-row { color: #0f172a; }
+        .ing-row { color: #0f172a; }
+        .post-row { color: #0f172a; }
+        .label-pre { color: var(--accent-orange); font-weight: bold; }
+        .label-ing { color: var(--accent-red); font-weight: bold; }
+        .label-post { color: var(--accent-green); font-weight: bold; }
+        .check-cell {
+            text-align: center;
+            vertical-align: middle;
+            width: 15%;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+        
+    /* Glossary Modal Styles - Minimal Injection */
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .scene-link {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        color: #059669 !important;
+        font-weight: 700 !important;
+        background: #ecfdf5 !important;
+        border: 1px solid #10b981 !important;
+        border-radius: 6px !important;
+        padding: 2px 8px !important;
+        font-size: 0.8rem !important;
+        cursor: pointer !important;
+        margin-left: 8px !important;
+        transition: all 0.2s ease !important;
+        text-decoration: none !important;
+    }
+    .scene-link:hover {
+        background: #d1fae5 !important;
+        color: #065f46 !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 520px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+        text-align: left;
+    }
+    @keyframes modalFadeIn {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover {
+        color: #334155;
+    }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 class="title">자재조달계획 검토 체크리스트</h1>
+        <span class="meta">WBS Code 9000-6-9 | 현장 내부 품질대장</span>
+    </div>
+
+    <div class="summary-box">
+        <h4 style="margin: 0 0 6px 0; color: #9d174d;">🚨 WBS 연동 체크리스트 핵심 요약</h4>
+        <div style="font-weight: bold; line-height: 1.6;">특수 홈레일/PST 패널 조달 마스터 일정표 수립, 해상운송 선적서류/통관승인서 확보, PST 생산 강도(45MPa 이상) 및 홈레일 단면 검수, 야적장 2차 보관 점검</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th style="width: 18%;">구분</th>
+                <th style="width: 67%;">예방할 품질 및 안전 리스크 위해 요소 (KCS 47 30 00 규격 연동)</th>
+                <th style="width: 15%;">점검 결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="pre-row">
+                <td class="category"><span class="label-pre">⚠️ 사전 리스크</span><br>(착수 전)</td>
+                <td>
+                    <div style="margin-bottom: 8px;">• <strong>[마스터 일정/수립]</strong> 특수 홈레일 수입 일정 및 PST 패널 조달 마스터 일정표 검토 수립하였는가?</div>
+                    <div style="margin-bottom: 8px;">• <strong>[소요량 매핑/노반]</strong> 선행 노반 구조물 인도(Handover) 구역 면적과 현장 소요 자재 물량의 1:1 매칭하였는가?</div>
+                    <div style="margin-bottom: 8px;">• <strong>[야적 인프라/크레인]</strong> 용접장 내 2차 보관 야적장 면적 및 중량물 인양용 크레인 규격 사전 확보하였는가?</div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr class="ing-row">
+                <td class="category"><span class="label-ing">⚡ 공사중 리스크</span><br>(시공 중)</td>
+                <td>
+                    <div style="margin-bottom: 8px;">• <strong>[선적서류/통관승인]</strong> <span class="term-highlight" onclick="openGlossary('bl_document')">선하증권(B/L)</span>, 인보이스 등 해상 선적 서류 구비 및 관세청 통관 승인 확인하였는가?</div>
+                    <div style="margin-bottom: 8px;">• <strong>[패널 강도/공장검수]</strong> <span class="term-highlight" onclick="openGlossary('pst_panel')">PST 슬래브 패널</span> 공장 생산 28일 압축강도(fck &ge; 45 MPa) 달성 및 검수 성적서 적격하였는가?</div>
+                    <div style="margin-bottom: 8px;">• <strong>[홈레일 치수/오차]</strong> 입항 수입 <span class="term-highlight" onclick="openGlossary('grooved_rail')">홈레일</span>의 단면 형상 치수 허용 오차 공차(±0.5mm 이하) 충족 여부 실측 검사</div>
+                    <div style="margin-bottom: 8px;">• <strong>[자재 승인/OMC]</strong> 품질 보증을 위한 해외 제조사 공급 적격 검증 및 <span class="term-highlight" onclick="openGlossary('omc')">OMC 품질 시방서</span> 자재 공급 승인서 확인하였는가?</div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+            <tr class="post-row">
+                <td class="category"><span class="label-post">✅ 공사후 리스크</span><br>(완공 후)</td>
+                <td>
+                    <div style="margin-bottom: 8px;">• <strong>[야적 관리/우천 보호]</strong> 국내 2차 야적장 보관 시 레일 받침대 및 방수 덮개(차광막) 포설 상태 합동 점검하였는가?</div>
+                    <div style="margin-bottom: 8px;">• <strong>[대장 갱신/ERP]</strong> 최종 합격 인수 물량의 본사 자재수급 관리 대장 시스템 실시간 기록 등록하였는가?</div>
+                </td>
+                <td class="check-cell">☐ 확인완료</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer">
+        동탄도시철도(트램) 시공사·협력사 합동 내부 리스크 대장 | 콘크리트도상
+    </div>
+</div>
+
+
+<!-- Glossary & Scene Popup Modal Layer -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시공장면 해설</h3>
+        <div class="modal-body">
+            <img id="modalImage" src="" style="width:100%; border-radius:10px; display:none; margin-bottom:15px; border: 1px solid #cbd5e1;" />
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'grooved_rail': {
+        title: '🛤️ 홈레일 (Grooved Rail, 51R1/60R2)',
+        desc: '도심지 매설 궤도에 사용되는 요(凹)자형 홈이 파여진 특수 철도 레일입니다. 트램 차량의 차륜 플랜지가 궤도를 주행할 수 있도록 유도해주는 단면 형상을 지니고 있으며, 전량 유럽 국외 수입에 의존하므로 조달 계획 관리가 생명입니다.'
+    },
+    'pst_panel': {
+        title: '🧱 PST 슬래브 패널 (Precast Slab Track Panel)',
+        desc: '공장에서 사전 일체식으로 제작하여 현장 반입하는 콘크리트 궤도 슬래브 패널입니다. 현장 조립 속도가 매우 빠르나, 28일 기준 설계기준 압축강도가 최소 45 MPa 이상을 달성해야 열차 하중을 안전하게 분산시킬 수 있습니다.'
+    },
+    'omc': {
+        title: '🤝 OMC 품질 시방 (Operation and Maintenance Agreement)',
+        desc: '국산화가 불가능한 해외 수입 특수 궤도 자재에 대해, 제작사가 품질 등급, 화학 성분, 내마모성 시험 결과 등을 보증하고 유지 보수용 특기 사양을 약정한 정식 품질보증합의서입니다.'
+    },
+    'bl_document': {
+        title: '🚢 선하증권 (B/L, Bill of Lading)',
+        desc: '해상 운송 시 선박 회사에서 화주에게 발행하는 물품 수령증이자 소유권 문서입니다. 특수 홈레일 통관 승인을 위해 B/L 원본, 상업송장(Invoice), 제작사 시험성적서 등 선적 서류 구비가 필수적입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    
+    const imgEl = document.getElementById('modalImage');
+    if (data.img) {
+        imgEl.src = data.img;
+        imgEl.style.display = 'block';
+    } else {
+        imgEl.src = '';
+        imgEl.style.display = 'none';
+    }
+    
+    document.getElementById('glossaryModal').classList.add('active');
+}
+
+function openScene(sceneKey) {
+    openGlossary(sceneKey);
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+// Esc close key handler
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+    }
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지장물이설 - 신규관로 및 연결관로 접속 기술 표준서</title>
+    <style>
+        :root { --bg-primary: #f8fafc; --bg-card: #ffffff; --text-primary: #0f172a; --text-secondary: #475569; --accent-blue: #1e3a8a; --accent-cyan: #0284c7; --border-color: #e2e8f0; }
+        body { font-family: 'Pretendard', 'Noto Sans KR', sans-serif; margin: 0; padding: 30px 20px; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08); }
+        .header { border-bottom: 3px solid var(--accent-blue); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px; }
+        .title { font-size: 2.1rem; font-weight: 900; color: var(--text-primary); margin: 0; }
+        .meta-info { display: flex; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); margin-top: 12px; }
+        .badge { background: #dbeafe; color: #1e40af; font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
+        h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent-blue); border-left: 5px solid var(--accent-cyan); padding-left: 12px; margin-top: 35px; margin-bottom: 18px; }
+        table { width: 100% !important; max-width: 100% !important; border-collapse: collapse; margin: 12px 0 20px 0; font-size: 0.92rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; text-align: left; vertical-align: middle; }
+        th { background: #f1f5f9; color: #1e293b; font-weight: 700; }
+        .svg-container { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .diagram-explanation { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-top: 15px; font-size: 0.9rem; color: #334155; text-align: left; }
+        .key-takeaway { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-top: 15px; color: #166534; font-size: 0.9rem; }
+        .footer-note { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid var(--border-color); padding-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 2000-1-16 Standard</div>
+        <h1 class="title">신규관로 및 연결관로 접속 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 사전토공 / 지장물이설 (관로 접속)</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 배관팀 / 5대 위탁기관</span>
+            <span>|</span>
+            <span><span class="badge">관로 접속 기술 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th style="width: 20%;">과업 목적</th><td>기존 지하 지장관로와 신규 이설관로 간의 최종 컷오프(Cut-off) 및 찰부 접속(Tie-in)을 안전하게 연결하여 유체/전기 통수 개시</td></tr>
+            <tr><th>수행 방법</th><td>심야 Cut-over 시간대(01:00~05:00) 준수, 수밀 플랜지 체결, 관종별 테스트(상수 10kg, 가스 RT 1급, 통신 OTDR ≤ 0.05dB) 통과</td></tr>
+            <tr><th>주요 산출물</th><td>연결관로 접속 검속 보고서, 관종별 공인 성적서, 최종 통수/수전 확인증</td></tr>
+            <tr><th>관련 법령/기준</th><td>KCS 47 10 00 배관공사 시방, 5대 위탁기관 기술 접속 규정</td></tr>
+        </tbody>
+    </table>
+
+    <h2>2. 관로 최종 찰부 접속(Tie-in) 정량 기술 시방 수칙</h2>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 22px; border-radius: 12px; margin-bottom: 25px;">
+        <h4 style="margin: 0 0 12px 0; color: #1e3a8a; font-size: 1.05rem;">🔗 5대 관종별 접속 시방 및 심야 Cut-over 정량 수칙</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem;">
+            <thead>
+                <tr style="background: #e2e8f0; color: #0f172a;">
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 20%;">관로 접속 항목</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 25%;">적용 시방 및 관종</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 55%;">핵심 정량 기술 수칙 및 시험 통과 기준</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">심야 Cut-over 준수</td>
+                    <td style="text-align: center;">통신 / 가스 / 상수도</td>
+                    <td>• 주민 이용 불편 최소화를 위해 <strong>심야 시간대(01:00~05:00)</strong> 접속 시행<br>• 사전 수용가 알림 공지 및 24시간 비상 대기조 운영</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">플랜지 수밀 접속</td>
+                    <td style="text-align: center;">DCI 상수관 / 난방관</td>
+                    <td>• 이중 수밀 가스켓 착용 및 토크 렌치 <strong>볼팅 토크 100% 균일 체결</strong><br>• 상수도 수압시험 <strong>10kg/cm² 1시간 Zero 누수</strong> 확인</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">용접 및 비파괴검사</td>
+                    <td style="text-align: center;">도시가스 / 지역난방</td>
+                    <td>• 가스관 용접부 <strong>RT(방사선) 100% 1급 판정</strong> 및 N₂ 질소 퍼지<br>• 난방 이중보온관 NDT 100% 및 감지선 도통 ≥ 100MΩ 검속</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">통신/전력 접속 시험</td>
+                    <td style="text-align: center;">KT / 한전 경기본부</td>
+                    <td>• 광케이블 접속 손실 <strong>OTDR ≤ 0.05dB 이내</strong> 100% 통과<br>• 특고압전력 22.9kV 절연저항 <strong>≥ 2,000MΩ</strong> 및 내전압 60kV 통과</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 15px; background: #eff6ff; padding: 12px 16px; border-radius: 8px; border: 1px solid #bfdbfe; font-size: 0.88rem; color: #1e40af;">
+            <strong>📐 관로 접속 절대 수칙:</strong> 본 과업은 접속부 누수 및 통신/전력 장애를 차단하기 위해 <strong>심야 Cut-over(01~05시) 및 관종별 공인 성적서</strong>를 획득합니다.
+        </div>
+    </div>
+
+    <h2>3. 신규관로 및 연결관로 접속 핵심 프로세스 모식도</h2>
+    <div class="svg-container">
+        <svg viewBox="0 0 900 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="320" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+            <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">신규관로 및 기존관 최종 Tie-in 접속 절차</text>
+
+            <g transform="translate(30, 60)">
+                <rect width="180" height="170" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                <rect width="180" height="35" rx="8" fill="#dbeafe"/>
+                <text x="90" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">① 심야 Cut-over 준비</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">01:00~05:00 절체 사전 통지</text>
+            </g>
+
+            <text x="225" y="145" font-size="20" fill="#2563eb">➔</text>
+
+            <g transform="translate(245, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#ffedd5"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a3412">② 기존관 절단 Tie-in</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">잔류 유체 드레인 후 절단</text>
+            </g>
+
+            <text x="450" y="145" font-size="20" fill="#ea580c">➔</text>
+
+            <g transform="translate(470, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#dcfce7"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">③ 수밀 플랜지 체결</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">토크 렌치 균일 조임</text>
+            </g>
+
+            <text x="675" y="145" font-size="20" fill="#059669">➔</text>
+
+            <g transform="translate(695, 60)">
+                <rect width="175" height="170" rx="8" fill="#ffffff" stroke="#1e3a8a" stroke-width="2"/>
+                <rect width="175" height="35" rx="8" fill="#e0e7ff"/>
+                <text x="87" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e1b4b">④ 성적서 검속 승인</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">수압/RT/OTDR/절연 결재</text>
+            </g>
+
+            <rect x="30" y="250" width="840" height="45" rx="8" fill="#1e3a8a"/>
+            <text x="450" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">🚨 접속 부위 누수 및 광 통신 절체 장애 발생 시 즉시 복구 핫라인 가동으로 위험 전면 차단</text>
+        </svg>
+    </div>
+
+    <div class="diagram-explanation">
+        <h4 style="margin: 0 0 8px 0; color: #0f172a;">🔍 신규관로 및 연결관로 접속 엔지니어링 시스템 해설</h4>
+        <p style="margin: 0; line-height: 1.7;">본 과업은 심야 시간대(01~05시) 기존 관로를 절단하고 수밀 플랜지 체결 및 관종별 시험(수압 10kg, RT 1급, OTDR ≤ 0.05dB)을 거쳐 최종 접속하는 절차입니다.</p>
+    </div>
+
+    <div class="key-takeaway">
+        <strong>💡 핵심 요약:</strong> 심야 Cut-over 준수, 수밀 플랜지 체결 및 관종별 검사 성적서(수압/RT/OTDR/절연) 통과로 최종 접속을 완료하는 단계입니다!
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 2000-1-16 | 지장물이설
+    </div>
+</div>
+</body>
+</html>

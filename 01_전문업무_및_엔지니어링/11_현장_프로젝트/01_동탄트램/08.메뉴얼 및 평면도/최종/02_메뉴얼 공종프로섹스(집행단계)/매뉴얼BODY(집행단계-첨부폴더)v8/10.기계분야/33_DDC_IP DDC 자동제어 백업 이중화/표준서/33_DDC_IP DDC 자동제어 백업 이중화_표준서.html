@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄도시철도 - DDC_IP DDC 자동제어 백업 이중화 표준서</title>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; margin:0; padding:24px; color:#0f172a; line-height:1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px; border: 1px solid #e2e8f0; }
+    .header { border-bottom: 2px solid #0f172a; padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { display: inline-block; background: #0f172a; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0; }
+    .subtitle { font-size: 14px; color: #475569; margin: 0; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #0284c7; padding-left: 10px; margin: 24px 0 12px 0; }
+    .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 14px; color: #334155; }
+    .table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+    .table th { background: #0f172a; color: #ffffff; font-weight: 700; padding: 10px 14px; text-align: left; }
+    .nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .nav-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+    .btn-guide { background: #0284c7; color: #ffffff; }
+    .btn-chk { background: #d97706; color: #ffffff; }
+    .btn-guide:hover { background: #0369a1; }
+    .btn-chk:hover { background: #b45309; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">9000-8-33 | 동탄트램 기계설비·소방설비</span>
+      <h1 class="title">DDC_IP DDC 자동제어 백업 이중화 표준서</h1>
+      <p class="subtitle">원격 관제 DDC 패널, BACnet 표준 통신, 메인/백업 중앙 감시 서버 무중단 절환 체계</p>
+    </div>
+
+    <div class="section-title">1. 표준 목적 및 적용 범위</div>
+    <div class="card">정거장 및 차량기지 내 모든 기계설비(공조기, 환기팬, 펌프, 댐퍼, 밸브, 저수조, 전력계)의 실시간 원격 감시 및 에너지 최적 제어를 위해 직접디지털제어(DDC/IP DDC) 패널을 가설하고, 개방형 BACnet/Modbus 프로토콜 적용 및 메인 서버 장애 시 0초 무중단 자동 절환되는 Backup Server 이중화 시스템을 완벽 구축한다.</div>
+
+    <div class="section-title">2. 핵심 품질 및 공정 관리 KPI</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-bottom:20px;">
+      
+      <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+        <div style="font-size:11px; color:#64748b; font-weight:600;">서버 무중단 절환</div>
+        <div style="font-size:16px; color:#0f172a; font-weight:700; margin-top:4px;">0초 (데이터 유실 Zero)</div>
+      </div>
+    
+      <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+        <div style="font-size:11px; color:#64748b; font-weight:600;">DDC 데이터 통신율</div>
+        <div style="font-size:16px; color:#0f172a; font-weight:700; margin-top:4px;">100% (통신 에러 Zero)</div>
+      </div>
+    
+      <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+        <div style="font-size:11px; color:#64748b; font-weight:600;">I/O 포인트 정합도</div>
+        <div style="font-size:16px; color:#0f172a; font-weight:700; margin-top:4px;">100% 일치</div>
+      </div>
+    
+      <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0;">
+        <div style="font-size:11px; color:#64748b; font-weight:600;">원격 제어 응답속도</div>
+        <div style="font-size:16px; color:#0f172a; font-weight:700; margin-top:4px;">≤ 1.0 초 이내</div>
+      </div>
+    
+    </div>
+
+    <div class="section-title">3. 표준 기술 시방 및 검측 요구조건 (KCS 41 / NFTC / KDS 47)</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width:20%;">검측 항목</th>
+          <th style="width:40%;">시방 기준 및 품질 요구조건</th>
+          <th style="width:20%; text-align:center;">적용 구역</th>
+          <th style="width:20%; text-align:center;">합격 기준</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr style="border-bottom:1px solid #e2e8f0;">
+        <td style="padding:10px 14px; font-weight:600; color:#0f172a; background:#f8fafc;">IP DDC 제어반</td>
+        <td style="padding:10px 14px; color:#334155;">32비트 고성능 마이크로프로세서 DDC 패널</td>
+        <td style="padding:10px 14px; color:#475569; text-align:center;">현장 기계실별</td>
+        <td style="padding:10px 14px; color:#047857; font-weight:600; text-align:center;">자가진단/분산제어</td>
+      </tr>
+    
+      <tr style="border-bottom:1px solid #e2e8f0;">
+        <td style="padding:10px 14px; font-weight:600; color:#0f172a; background:#f8fafc;">개방형 프로토콜</td>
+        <td style="padding:10px 14px; color:#334155;">국제표준 BACnet IP 및 Modbus RTU/TCP</td>
+        <td style="padding:10px 14px; color:#475569; text-align:center;">전 시스템</td>
+        <td style="padding:10px 14px; color:#047857; font-weight:600; text-align:center;">이종 기기 호환 100%</td>
+      </tr>
+    
+      <tr style="border-bottom:1px solid #e2e8f0;">
+        <td style="padding:10px 14px; font-weight:600; color:#0f172a; background:#f8fafc;">서버 이중화(HA)</td>
+        <td style="padding:10px 14px; color:#334155;">Main Server ↔ Backup Server 실시간 미러링</td>
+        <td style="padding:10px 14px; color:#475569; text-align:center;">중앙 관제실</td>
+        <td style="padding:10px 14px; color:#047857; font-weight:600; text-align:center;">Active-Standby 무중단</td>
+      </tr>
+    
+      <tr style="border-bottom:1px solid #e2e8f0;">
+        <td style="padding:10px 14px; font-weight:600; color:#0f172a; background:#f8fafc;">I/O 포인트 검증</td>
+        <td style="padding:10px 14px; color:#334155;">DI(상태), DO(제어), AI(측정), AO(조절) 포인트</td>
+        <td style="padding:10px 14px; color:#475569; text-align:center;">전체 포인트</td>
+        <td style="padding:10px 14px; color:#047857; font-weight:600; text-align:center;">Point-to-Point 100%</td>
+      </tr>
+    
+      </tbody>
+    </table>
+
+    <div class="nav-box">
+      <a href="../수행지침/33_DDC_IP DDC 자동제어 백업 이중화_수행지침.html" class="nav-btn btn-guide">📘 [연계] DDC_IP DDC 자동제어 백업 이중화 수행지침서 열기 ➔</a>
+      <a href="../체크리스트/33_DDC_IP DDC 자동제어 백업 이중화_체크리스트.html" class="nav-btn btn-chk">📋 [연계] DDC_IP DDC 자동제어 백업 이중화 체크리스트 열기 ➔</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 전기분야 - 토목 / 건축 인터페이스 협의 체크리스트 (WBS 9000-3-3)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .zoom-modal {
+            display: none; position: fixed; z-index: 9999;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px); align-items: center; justify-content: center;
+        }
+        .zoom-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff; margin: auto; padding: 28px;
+            border: 1px solid #cbd5e1; width: 95%; max-width: 1100px; max-height: 90vh;
+            border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow-y: auto; text-align: center;
+        }
+        .zoom-close {
+            color: #64748b; position: absolute; right: 20px; top: 16px;
+            font-size: 32px; font-weight: bold; cursor: pointer;
+        }
+        .zoom-close:hover { color: #ef4444; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-amber-500 text-slate-900 text-xs font-black px-3 py-1 rounded-full uppercase">Dongtan Tram Electrical Checklist (WBS 9000-3-3)</span>
+        <h1 class="text-3xl font-black mt-2">토목 / 건축 인터페이스 협의 체크리스트</h1>
+        <p class="text-amber-200 text-sm mt-1">L4 Code: 9000-3-3 | 주관: 현장 전철전력팀 (토목 · 건축 · 책임감리단 공조) | "16개 정밀 검측 문항 1:1 수평대응 서식 (~하였는가? 어미 100% 통일)"</p>
+    </div>
+    
+    <div class="p-6 sm:p-8 space-y-6">
+        
+        <!-- 💡 체크리스트 점검의 핵심 의미 -->
+        <div class="bg-amber-50 border-2 border-amber-300 p-5 sm:p-6 rounded-2xl text-xs text-amber-950 space-y-3 shadow-sm">
+            <div class="flex items-center justify-between border-b border-amber-200 pb-2.5">
+                <h4 class="font-black text-sm text-amber-900 flex items-center gap-2">
+                    <span class="text-base">⚠️</span> 토목 / 건축 인터페이스 체크리스트 점검의 핵심 의미
+                </h4>
+                <span class="text-[11px] font-bold bg-red-600 text-white px-2.5 py-0.5 rounded-full">시공 전 검측</span>
+            </div>
+            
+            <p class="text-slate-800 leading-relaxed font-semibold">
+                본 체크리스트는 동탄트램 전기분야 시공 착수 전 <strong>자재 반입용 동선, 변전실 개구부, 공동구/인입구 3D BIM 좌표, 전기 기능실 마감 및 토목 공사용 매립 배관의 적정성을 사전에 검측하여 구조체 타설 후 굴착/파쇄 재시공 충격을 사전에 차단하기 위한 필수 확인 서식</strong>입니다.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+                <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                    <span class="font-bold text-red-700 text-[11px] block">🚨 기자재 반입 불능 차단</span>
+                    <p class="text-slate-700 text-[11px] leading-normal">동선/개구부 미달 시 <strong>대형 정류기/변압기 반입 불능</strong> 야기.</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                    <span class="font-bold text-red-700 text-[11px] block">🚨 구조체 파쇄 굴착 차단</span>
+                    <p class="text-slate-700 text-[11px] leading-normal">슬리브 미설치 타설 시 <strong>막대한 콘크리트 파쇄 손실</strong> 초래.</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                    <span class="font-bold text-red-700 text-[11px] block">🚨 기능실 마감 하자 차단</span>
+                    <p class="text-slate-700 text-[11px] leading-normal">누수/배수 미검증 시 <strong>특고압 기기 습기 열화 및 누전</strong> 발생.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📊 1:1 정밀 수평대응 3컬럼 체크리스트 테이블 (16개 핵심 문항) -->
+        <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+            <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                    <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
+                        <th class="p-4 font-bold w-44 text-center border-r border-slate-200">검토 단계 (Procedure)</th>
+                        <th class="p-4 font-bold border-r border-slate-200">필수 검측 및 확인 항목 (Inspection Criteria)</th>
+                        <th class="p-4 font-bold w-32 text-center">점검 결과</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                    
+                    <!-- STEP 1 반입동선 & 개구부 (4개 문항) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-amber-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 1</span>
+                            <span class="font-bold text-slate-900 text-xs">반입동선 & 개구부</span>
+                            <button onclick="openChecklistDiagram('step1')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-amber-900 text-[11px] block mb-0.5">[중량물 자재 반입 동선 실측]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">1. 정류기, 변압기, ESS 대형 기자재 반입용 진입 도로 및 현장 동선을 정밀 실측하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-amber-900 text-[11px] block mb-0.5">[변전실 출입문 유효 개구부]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">2. 건축 변전실 출입문 유효 폭/높이(HxW)가 장비 최소 반입 치수 이상 확보되었는지 확인하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-amber-900 text-[11px] block mb-0.5">[양중 훅 & 하중 조건]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">3. 변전실 천장 양중 훅(Hook) 위치 및 구조 슬래브 적재 하중 조건을 건축팀과 사전 협의하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80 border-b-2 border-slate-300">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-amber-900 text-[11px] block mb-0.5">[반입 통로 방해 요소 제거]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">4. 자재 반입 경로 상의 배관, 덕트, 가설 구조물 등 통행 방해 요소를 사전 제거하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 2 공동구 & 관로 좌표 (4개 문항) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-indigo-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 2</span>
+                            <span class="font-bold text-slate-900 text-xs">공동구 & BIM좌표</span>
+                            <button onclick="openChecklistDiagram('step2')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[노반 횡단관로 3D BIM 좌표]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">5. 노반 궤도 하부 케이블 횡단관로의 3D BIM 좌표 및 시공 위치를 1:1 대조하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[케이블 곡률 반경(12D)]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">6. 특고압 케이블 곡률 반경(외경의 12배 이상)이 횡단관로 및 엘보 구간에 확보되었는지 검측하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[건물 인입구 지수판 & 방수]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">7. 건물 인입구 매립 슬리브 위치, 지수판 설치 및 지중 수압 대비 100% 수밀 방수 처리를 확인하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80 border-b-2 border-slate-300">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[공동구 케이블 트레이 행거]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">8. 토목 공동구 내 전력 케이블 트레이 행거 앵커 고정 위치를 3D BIM으로 조율하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 3 슬리브 & 파쇄방지 (4개 문항) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-emerald-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 3</span>
+                            <span class="font-bold text-slate-900 text-xs">슬리브 & 파쇄방지</span>
+                            <button onclick="openChecklistDiagram('step3')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[슬래브 타설 전 슬리브 고정]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">9. 콘크리트 슬래브 타설 전 전력 관통 슬리브 및 매립 관관의 고정 상태를 사전 검측하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[다짐 시 슬리브 변형 차단]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">10. 콘크리트 바이브레이터 다짐 작업 시 슬리브 위치 이탈, 누출 및 변형 방지 대책을 확인하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[구조체 파쇄 재시공 차단]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">11. 구조체 타설 후 굴착 및 파쇄 재시공이 발생하지 않도록 사전 매립관 적정성을 검사하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80 border-b-2 border-slate-300">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[기능실 방수 & 트렌치 배수]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">12. 변전실, 전기실 기능실 바닥 에폭시 도장 및 트렌치 배수 펌프 수위 상태를 점검하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 4 회의록 & 관리대장 승인 (4개 문항) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-teal-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 4</span>
+                            <span class="font-bold text-slate-900 text-xs">회의록 & 관리대장</span>
+                            <button onclick="openChecklistDiagram('step4')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[3D BIM 간섭 해소 완료]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">13. 토목/건축-전기 간 3D BIM 공간 간섭 및 미비점을 사전에 100% 해소하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[인터페이스 회의록 작성]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">14. 인터페이스 검토 결과에 따른 토목/건축-전기 공종 간 협의 회의록을 작성하고 서명하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[인터페이스 관리대장 작성]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">15. 공종별 미비사항 및 이행 마일스톤이 수록된 인터페이스 관리대장을 작성하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[감리단 최종 결재 승인]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">16. 인터페이스 회의록 및 관리대장에 대해 책임감리단 공학적 승인 결재를 완료받았는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🟣 시공 도식 확대 팝업 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeChecklistDiagramOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeChecklistDiagram()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 토목 / 건축 인터페이스 정밀 2D 시공 도식</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[420px]">
+        </div>
+    </div>
+</div>
+
+<script>
+    const diagramTemplates = {
+        step1: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#d97706" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#b45309" text-anchor="middle">🌐 [STEP 1] 대형 기자재 반입 동선 & 변전실 유효 개구부 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(25, 52)">
+                <rect x="0" y="0" width="115" height="85" fill="#fffbeb" stroke="#d97706" stroke-width="2" rx="6"/>
+                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#b45309" text-anchor="middle">반입 동선</text>
+                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 도로 회전 반경 파악</text>
+                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 램프 경사도 검측</text>
+                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 방해 요소 사전 제거</text>
+                <line x1="115" y1="42" x2="160" y2="42" stroke="#d97706" stroke-width="2.5"/>
+                <polygon points="160,38 168,42 160,46" fill="#d97706"/>
+                <g transform="translate(170, 0)">
+                    <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">변전실 개구부</text>
+                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#15803d">• 출입문 HxW 1:1 검측</text>
+                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#15803d">• 천장 양중 훅 위치</text>
+                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#15803d">• 바닥 하중 조건 대조</text>
+                </g>
+                <g transform="translate(295, 5)">
+                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">동선확보</text>
+                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">개구부</text>
+                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">양중훅</text>
+                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 성공</text>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#fffbeb" stroke="#d97706" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#b45309" text-anchor="middle">중량물 정류기/변압기 반입 동선 및 출입문 HxW 유효 개구부 확보 완료</text>
+        </svg>`,
+        step2: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#9333ea" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#6b21a8" text-anchor="middle">📐 [STEP 2] 공동구 & 횡단관로 3D BIM 좌표 검측 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(25, 52)">
+                <rect x="0" y="0" width="115" height="85" fill="#faf5ff" stroke="#7e22ce" stroke-width="2" rx="6"/>
+                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#6b21a8" text-anchor="middle">횡단관로 BIM좌표</text>
+                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 궤도 하부 횡단관로</text>
+                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 3D BIM 공간 좌표</text>
+                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 타 공종 간섭 조율</text>
+                <line x1="115" y1="42" x2="160" y2="42" stroke="#9333ea" stroke-width="2.5"/>
+                <polygon points="160,38 168,42 160,46" fill="#9333ea"/>
+                <g transform="translate(170, 0)">
+                    <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">곡률반경 & 인입구</text>
+                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#15803d">• 곡률 반경(12D) 확보</text>
+                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#15803d">• 인입구 지수판 방수</text>
+                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#15803d">• 공동구 트레이 행거</text>
+                </g>
+                <g transform="translate(295, 5)">
+                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">BIM좌표</text>
+                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">곡률12D</text>
+                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">지수방수</text>
+                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 조율</text>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#faf5ff" stroke="#c084fc" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#7e22ce" text-anchor="middle">노반 횡단관로 3D BIM 좌표 검측 및 곡률 반경(12D) / 지수방수 확보 완료</text>
+        </svg>`,
+        step3: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#16a34a" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#15803d" text-anchor="middle">🛡️ [STEP 3] 콘크리트 슬래브 슬리브 타공 & 파쇄방지 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(25, 52)">
+                <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">다짐 전 슬리브 검측</text>
+                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 슬래브 타설 전 고정</text>
+                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 다짐 시 변형 차단</text>
+                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 매립관 누출 방지</text>
+                <line x1="115" y1="42" x2="160" y2="42" stroke="#16a34a" stroke-width="2.5"/>
+                <polygon points="160,38 168,42 160,46" fill="#16a34a"/>
+                <g transform="translate(170, 0)">
+                    <rect x="0" y="0" width="115" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#0369a1" text-anchor="middle">구조체 파쇄 차단</text>
+                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0369a1">• 타설 후 굴착 차단</text>
+                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0369a1">• 기능실 에폭시 도장</text>
+                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0369a1">• 배수 펌프 수위 확인</text>
+                </g>
+                <g transform="translate(295, 5)">
+                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">파쇄방지</text>
+                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">슬리브고정</text>
+                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">기능실마감</text>
+                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 차단</text>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#15803d" text-anchor="middle">슬래브 콘크리트 타설 전 전력 관통 슬리브 검측 및 굴착 파쇄 방지 완료</text>
+        </svg>`,
+        step4: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#0d9488" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">📄 [STEP 4] 회의록 체결 & 인터페이스 관리대장 승인 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(30, 48)">
+                <rect x="0" y="0" width="165" height="85" fill="#f0fdf4" stroke="#0d9488" stroke-width="2" rx="4"/>
+                <text x="82" y="20" font-size="9" font-weight="black" fill="#0f766e" text-anchor="middle">인터페이스 회의록</text>
+                <text x="15" y="40" font-size="8" font-weight="bold" fill="#0f172a">• 토목/건축-전기 체결</text>
+                <text x="15" y="55" font-size="8" font-weight="bold" fill="#0f172a">• 3D BIM 간섭 해소</text>
+                <text x="15" y="70" font-size="8" font-weight="bold" fill="#0f172a">• 개구부/관로 확정</text>
+                <g transform="translate(180, 0)">
+                    <rect x="0" y="0" width="175" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="4"/>
+                    <text x="87" y="20" font-size="9" font-weight="black" fill="#0369a1" text-anchor="middle">인터페이스 관리대장</text>
+                    <text x="15" y="40" font-size="7.5" font-weight="bold" fill="#334155">• 공종별 미비사항 수록</text>
+                    <text x="15" y="55" font-size="7.5" font-weight="bold" fill="#334155">• 감리단 결재 승인</text>
+                    <g transform="translate(100, 35) rotate(-10)">
+                        <rect x="0" y="0" width="65" height="32" fill="#ffffff" stroke="#059669" stroke-width="2" rx="4"/>
+                        <text x="32" y="16" font-size="9" font-weight="900" fill="#059669" text-anchor="middle">인터페이스</text>
+                        <text x="32" y="26" font-size="6.5" font-weight="bold" fill="#059669" text-anchor="middle">승인 완료</text>
+                    </g>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#f0fdf4" stroke="#2dd4bf" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#0f766e" text-anchor="middle">토목/건축-전기 인터페이스 회의록 및 관리대장 책임감리단 승인 완수</text>
+        </svg>`
+    };
+
+    function openChecklistDiagram(stepKey) {
+        const zoomBody = document.getElementById('zoomBody');
+        const zoomModal = document.getElementById('zoomModal');
+        const zoomTitle = document.getElementById('zoomTitle');
+        if (diagramTemplates[stepKey]) {
+            zoomTitle.innerText = "🔍 " + stepKey.toUpperCase() + " 토목/건축 인터페이스 정밀 2D 시공 도식";
+            zoomBody.innerHTML = diagramTemplates[stepKey];
+            zoomModal.classList.add('active');
+        }
+    }
+
+    function closeChecklistDiagram() {
+        document.getElementById('zoomModal').classList.remove('active');
+    }
+
+    function closeChecklistDiagramOutside(e) {
+        if (e.target.id === 'zoomModal') closeChecklistDiagram();
+    }
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeChecklistDiagram();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 시공계획 수립 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 520px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-11 Standard</span>
+                <span class="bg-emerald-50 text-slate-950 text-xs font-bold px-3 py-1 rounded-full">궤간 (+3, -1mm) & 캔트 관리</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">시공계획 수립 기술 표준서</h1>
+            <p class="text-slate-300 mt-2 text-sm sm:text-base">"궤도공 전반의 시공계획서 의결, 노반 강도 검증 및 선형 오차 제어 한계선 수립"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-8">
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 과업 개요 및 수행 목적
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">WBS 공정명</span>
+                    <p class="font-bold text-slate-800 mt-1">콘크리트도상 / 시공계획 수립 (공사/공무/안전/품질 합동)</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">최종 품질 산출물</span>
+                    <p class="font-bold text-slate-800 mt-1">궤도공사 시공계획서 | 품질보증계획서 | 안전보건계획서</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 콘크리트도상 선형 및 품질보증 정량 기술 표준
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs sm:text-sm text-left border-collapse border border-slate-200 rounded-lg">
+                    <thead class="bg-blue-900 text-white">
+                        <tr>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">선형 제어 항목</th>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">절대 공학 기준</th>
+                            <th class="p-3 border border-slate-300 w-1/2 text-center">수행 조건 및 상세 기술 표준 (KDS 47 30 00)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">궤간 (Track Gauge)</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">+3mm, -1mm 이내</td>
+                            <td class="p-3 border text-slate-600">• 1,435mm 표준궤 정밀 유지 관리.<br>• 궤광 인양 및 콘크리트 타설 전 스핀들 게이지 정밀 계측</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">캔트 (Track Cant)</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">관리한계 &plusmn;2.0mm 이내</td>
+                            <td class="p-3 border text-slate-600">• 설계 캔트(곡선 외선 레일 고저차 최대 160mm) 대비 오차는 &plusmn;2mm 이내로 엄격 제어 계획 수립</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">노반 지지력 검증</td>
+                            <td class="p-3 border text-center font-bold text-red-600"><span class="term-highlight" onclick="openGlossary('hbs_test')">K30 &ge; 110 MN/m³</span></td>
+                            <td class="p-3 border text-slate-600">• TCL 콘크리트 타설 전 하부 상부 강화 노반의 평판재하시험 성적서 승인 여부 사전 점검</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시공장면 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'hbs_test': {
+        title: '🧱 HBS 지지력 검증 (Hydraulic Base Support Test)',
+        desc: '콘크리트 도상(TCL) 하부에 위치한 상부 강화 노반의 하중 지지력을 현장에서 시험하는 단계입니다. 평판재하시험(PBT)을 실시하여 노반 반력계수 K30 >= 110 MN/m3 이상을 달성했는지 시공 전 필수 검증해야 합니다.'
+    },
+    'thermit_weld': {
+        title: '🔥 테르밋 용접 (Thermit Welding, EN 14730)',
+        desc: '용접기나 전기 없이, 철가루와 알루미늄 가루를 혼합하여 화학반응 열(2,500도 이상)을 내서 벌건 쇳물을 만든 뒤, 이를 레일과 레일 사이의 틈새에 부어 굳혀서 붙이는 전통적이고 가장 강력한 철도 연결 공법입니다.'
+    },
+    'tcl_concrete': {
+        title: '🛤️ TCL 도상 콘크리트 (Track Concrete Layer)',
+        desc: '트램 레일 및 침목 궤도를 하부에서 고정해주는 핵심 무근/철근 콘크리트 슬래브 구조체입니다. 28일 기준 설계기준 압축강도가 최소 30 MPa 이상을 확보하고 연속 타설을 통해 콜드조인트를 예방해야 합니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('glossaryModal');
+        if(modal) modal.classList.remove('active');
+    }
+});
+</script>
+
+</body>
+</html>

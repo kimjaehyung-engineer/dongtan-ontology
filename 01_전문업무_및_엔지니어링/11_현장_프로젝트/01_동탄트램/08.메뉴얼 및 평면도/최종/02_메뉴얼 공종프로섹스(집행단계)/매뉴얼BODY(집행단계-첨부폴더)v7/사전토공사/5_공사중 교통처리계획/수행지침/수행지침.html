@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공사중 교통처리계획 작업 수행지침서 (동탄 기본설계 기준)</title>
+    <style>
+        :root {
+            --primary-color: #059669;
+            --primary-light: #ECFDF5;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --info-color: #3B82F6;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 2rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        .meta-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .step-box {
+            background-color: #FAFAFA;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .step-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #065F46;
+            margin-bottom: 8px;
+        }
+        .diagram-container {
+            margin: 25px 0;
+            text-align: center;
+        }
+        .diagram-explanation {
+            font-size: 0.85rem;
+            color: #4B5563;
+            margin-top: 8px;
+            background-color: #F3F4F6;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+        .info-badge {
+            background-color: #EFF6FF;
+            color: #1D4ED8;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-5-5 Guideline</div>
+        <h1 class="title">공사중 교통처리계획 작업 수행지침서</h1>
+        <div class="meta-info">
+            <span><strong>출처:</strong> 동탄도시철도 1,2공구 기본설계 보고서 및 입찰기술요구서</span>
+            <span>|</span>
+            <span><strong>최종 개정일:</strong> 2026년 7월 22일</span>
+        </div>
+    </div>
+
+    <h2>1. 목적 및 개요 (Purpose)</h2>
+    <p>본 지침서는 동탄도시철도(트램) 1·2공구 건설공사 구간 내에서 차로 점용 및 교통 전환 시, 도로 통행 차량의 지정체를 최소화하고 보행자 및 작업자의 안전을 완벽히 확보하기 위한 실무 운영 매뉴얼입니다.</p>
+
+    <h2>2. WBS 기반 9단계 교통관리계획 수립 절차</h2>
+    <div class="step-box">
+        <div>
+            공사중 교통소통대책을 수립할 때는 본사 수행 및 외주 교통처리 협의 기구를 통해 다음의 9단계 표준 워크플로우를 반드시 이행해야 합니다:<br>
+            <strong>① 자료 수집 ➡️ ② 도로점유 범위 결정 ➡️ ③ 가능대안 설정 ➡️ ④ 용량 분석 ➡️ ⑤ 용량 증대방안 검토 ➡️ ⑥ 대안 규정 ➡️ ⑦ 영향 분석 ➡️ ⑧ 공사구간 통제계획 수정 ➡️ ⑨ 최적 대안 설정</strong>
+        </div>
+    </div>
+
+    <h2>3. 교통 통제 4대 관리구간(Zone) 분할 및 설계 가이드</h2>
+    <div class="diagram-container">
+        <!-- SVG Traffic Simulation Zone Division -->
+        <svg viewBox="0 0 800 240" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background-color:#1E293B; border:1px solid #475569; border-radius:8px;">
+            <!-- Asphalt Road -->
+            <rect x="0" y="40" width="800" height="160" fill="#334155"/>
+            <!-- Lane Divider lines -->
+            <line x1="0" y1="120" x2="800" y2="120" stroke="#FDE047" stroke-width="3" stroke-dasharray="10,8"/>
+            <line x1="0" y1="40" x2="800" y2="40" stroke="#FFFFFF" stroke-width="4"/>
+            <line x1="0" y1="200" x2="800" y2="200" stroke="#FFFFFF" stroke-width="4"/>
+            
+            <!-- Zones Lines -->
+            <line x1="200" y1="40" x2="200" y2="200" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <line x1="380" y1="40" x2="380" y2="200" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <line x1="680" y1="40" x2="680" y2="200" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,4"/>
+            
+            <!-- Zone Labels -->
+            <text x="100" y="30" font-family="sans-serif" font-size="11" fill="#F8FAFC" text-anchor="middle" font-weight="bold">① 주의경고구간</text>
+            <text x="290" y="30" font-family="sans-serif" font-size="11" fill="#F8FAFC" text-anchor="middle" font-weight="bold">② 완충구간 (절대공간)</text>
+            <text x="530" y="30" font-family="sans-serif" font-size="11" fill="#F8FAFC" text-anchor="middle" font-weight="bold">③ 작업구간</text>
+            <text x="740" y="30" font-family="sans-serif" font-size="11" fill="#F8FAFC" text-anchor="middle" font-weight="bold">④ 종결구간</text>
+            
+            <!-- Construction Zone -->
+            <rect x="380" y="40" width="300" height="80" fill="#0F172A" opacity="0.8"/>
+            <line x1="380" y1="120" x2="680" y2="120" stroke="#EF4444" stroke-width="3"/>
+            <text x="530" y="85" font-family="sans-serif" font-size="11" fill="#F87171" font-weight="bold" text-anchor="middle">실제 작업활동구역</text>
+            
+            <!-- Taper in Buffer Zone -->
+            <g fill="#F97316">
+                <circle cx="210" cy="50" r="4" fill="#EF4444"/>
+                <circle cx="240" cy="60" r="4" fill="#F97316"/>
+                <circle cx="270" cy="70" r="4" fill="#F97316"/>
+                <circle cx="300" cy="80" r="4" fill="#F97316"/>
+                <circle cx="330" cy="90" r="4" fill="#F97316"/>
+                <circle cx="360" cy="100" r="4" fill="#F97316"/>
+                <circle cx="380" cy="120" r="5" fill="#EF4444"/>
+            </g>
+            <text x="290" y="70" font-family="sans-serif" font-size="9" fill="#FDBA74" text-anchor="middle">PE드럼 테이퍼 우회 유도</text>
+
+            <!-- Warning Signs in Caution Zone -->
+            <g transform="translate(60, 150)">
+                <rect x="-10" y="-20" width="20" height="15" fill="#EF4444" rx="2"/>
+                <text x="0" y="-10" font-family="sans-serif" font-size="8" fill="#FFFFFF" font-weight="bold" text-anchor="middle">60</text>
+            </g>
+            <g transform="translate(140, 150)">
+                <rect x="-10" y="-20" width="20" height="15" fill="#EF4444" rx="2"/>
+                <text x="0" y="-10" font-family="sans-serif" font-size="8" fill="#FFFFFF" font-weight="bold" text-anchor="middle">40</text>
+            </g>
+            <text x="100" y="180" font-family="sans-serif" font-size="8" fill="#94A3B8" text-anchor="middle">진입 전 60km/h ➡️ 40km/h 단계적 감속</text>
+
+            <!-- Flow arrow -->
+            <path d="M 30 80 Q 200 80 290 150 T 550 160 T 780 120" stroke="#10B981" stroke-width="3" fill="none" stroke-dasharray="5,3"/>
+        </svg>
+    </div>
+    <div class="diagram-explanation">
+        <strong>[설계 시뮬레이션] 4대 교통통제 관리구역 배분도:</strong> 운전자가 공사장 진입 전 심리적 대비(주의경고)를 하고, 제동 거리(완충구간)를 확보한 뒤, 안전 우회 차로를 통해 공사 구간을 지나 원래 차선으로 복구(종결구간)하는 표준 레이아웃입니다.
+    </div>
+
+    <div class="step-box">
+        <span class="info-badge">Zone 1: 주의경고구간</span>
+        <div>주행 차량 운전자가 전방 200m 전부터 차선 규제 및 도로 굴착 정보를 명확히 인지하도록 시점 경광등 및 안내 간판(도시가로는 20~50m 간격)을 배치합니다.</div>
+    </div>
+
+    <div class="step-box">
+        <span class="info-badge">Zone 2: 완충구간 (어떠한 자재/장비 배치도 불가)</span>
+        <div>미처 차선을 바꾸지 못한 차량이 급제동하여 안전하게 정지할 수 있는 종방향/측방향 절대 여유 공간입니다. <strong>완충구간 내부에는 어떠한 건설 장비, 철도 부재 자재, 작업 차량 및 인력도 일체 배치하거나 진입해서는 안 됩니다.</strong></div>
+    </div>
+
+    <div class="step-box">
+        <span class="info-badge">Zone 3: 작업구간 및 종결구간</span>
+        <div>실제 노반 굴착 및 거푸집 타설 공사가 일어나는 공간으로, 통과 차량과 완전히 분리하는 가설 방벽(가로 145cm × 세로 180cm)을 연속 고정하고, 끝단(종결구간)은 원래 차로로 신속히 복귀할 수 있도록 유도합니다.</div>
+    </div>
+
+    <h2>4. 도심지 교차로 '반폭 시공' 및 급속 궤도 시공 가이드</h2>
+    <div class="step-box">
+        <div class="step-title">보행자 횡단보도의 반폭 시공 (Split-half Construction)</div>
+        <div>
+            교차로 내 횡단보도와 보행 통로는 <strong>전체 폭원을 한 번에 철거하지 않고 반드시 좌·우측 절반씩 나누어 시공하는 '반폭 시공'을 의무 채택</strong>합니다. 이를 통해 보행자와 개인형 이동장치(PM)가 끊김 없이 반대편 임시 가설 보도(최소 폭 1.5m 확보)를 통해 통행할 수 있도록 유도 동선을 상시 유지합니다.
+        </div>
+    </div>
+
+    <div class="step-box">
+        <div class="step-title">사거리 혼잡 차단을 위한 급속 프리캐스트 PC 공법</div>
+        <div>
+            사거리 교차로 내부의 점용 기간을 최단으로 단축하기 위해 현장 거푸집 타설 대신 <strong>공장에서 제작된 반-PC 궤도 슬래브(Precast Concrete Slab)</strong>를 야간 시간대에 신속 인양 및 조립 배치하는 공법을 시공 계획에 반영합니다.
+        </div>
+    </div>
+
+    <h2>5. 임시 신호제어기 이설 및 정밀 연동 기준</h2>
+    <div class="step-box">
+        <div>
+            교통전환 및 임시 차로 교차 구간에는 경찰청 표준 규격의 교통신호제어기를 임시 배치해야 합니다. 함체 내부에는 <strong>LSU Board(신호구동), EXT Flash Board(신호점멸), PPC Board(트램우선신호제어), CVIB Board(신호정보 연계) 및 LTE 무선모뎀</strong>을 패키지 형태로 탑재하여 버스 및 차량 신호 주기(TOD) 최적화 상태를 상시 유지합니다.
+        </div>
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 1공구 엔지니어링 수행지침서 | 주관: 현장 공사팀
+    </div>
+</div>
+</body>
+</html>

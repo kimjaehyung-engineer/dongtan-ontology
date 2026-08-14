@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 자재조달계획 검토 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    /* Glossary Modal Styles - Minimal Injection */
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .scene-link {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        color: #059669 !important;
+        font-weight: 700 !important;
+        background: #ecfdf5 !important;
+        border: 1px solid #10b981 !important;
+        border-radius: 6px !important;
+        padding: 2px 8px !important;
+        font-size: 0.8rem !important;
+        cursor: pointer !important;
+        margin-left: 8px !important;
+        transition: all 0.2s ease !important;
+        text-decoration: none !important;
+    }
+    .scene-link:hover {
+        background: #d1fae5 !important;
+        color: #065f46 !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 520px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+        text-align: left;
+    }
+    @keyframes modalFadeIn {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover {
+        color: #334155;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-9 Standard</span>
+                <span class="bg-emerald-50 text-slate-950 text-xs font-bold px-3 py-1 rounded-full">OMC 품질보증 & 해상 물류 조달</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">자재조달계획 검토 기술 표준서</h1>
+            <p class="text-slate-300 mt-2 text-sm sm:text-base">"특수 홈레일 및 PST 패널 해상운송, 공장 강도 검수 및 야적 승인 기준"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-8">
+        <!-- 1. 과업 개요 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 과업 개요 및 수행 목적 (Overview & Scope)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">WBS 공정명 / 주관</span>
+                    <p class="font-bold text-slate-800 mt-1">콘크리트도상 / 자재조달계획 검토 (현장관리팀, 현장공사팀 주관)</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">최종 품질 산출물</span>
+                    <p class="font-bold text-slate-800 mt-1">자재수급스케줄표 | 자재 공급 승인서(OMC 서약서)</p>
+                </div>
+            </div>
+            <div class="mt-4 bg-blue-50/60 p-5 rounded-xl border border-blue-100 text-sm space-y-2">
+                <p><strong>🎯 과업 목적:</strong> 외산 특수 자재의 수입 통관 일정 지연 리스크를 사전에 헤지하고, 노반 인도(Handover) 공정에 맞추어 적정 물량을 야적 보관함</p>
+                <p><strong>⚙️ 조달 및 검수 대상:</strong> 유럽산 <span class="term-highlight" onclick="openGlossary('grooved_rail')">홈레일(51R1/60R2)</span>, 레일 체결구, 탄성 충전재 및 국내 제작 <span class="term-highlight" onclick="openGlossary('pst_panel')">PST 슬래브 패널</span></p>
+            </div>
+        </div>
+
+        <!-- 2. 정량적 자재 조달 기술 표준 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 주요 자재 공학 규격 및 통관 품질보증 표준
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs sm:text-sm text-left border-collapse border border-slate-200 rounded-lg">
+                    <thead class="bg-blue-900 text-white">
+                        <tr>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">자재 항목</th>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">공학 품질 기준</th>
+                            <th class="p-3 border border-slate-300 w-1/2 text-center">해상 운송 및 공장 검수 표준</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">유럽산 홈레일 (51R1/60R2)</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">단면 오차 ±0.5mm 이하</td>
+                            <td class="p-3 border text-slate-600">• 수입 레일의 단면 선형 정밀 측정.<br>• 화학 성분 분석 성적서 및 <span class="term-highlight" onclick="openGlossary('omc')">OMC 품질 시방</span> 확보 서명 확인</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">PST 슬래브 패널</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">fck &ge; 45 MPa 이상</td>
+                            <td class="p-3 border text-slate-600">• 패널 공장 제작 시 28일 압축강도 정밀 비파괴/공시체 파괴 시험 검수.<br>• 철근 배근 간격 및 매설 앵커 볼트 정렬 상태 확인</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">체결장치 및 탄성충전재</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">국제 SIL 인증 규격 만족</td>
+                            <td class="p-3 border text-slate-600">• 열차 하중 흡수용 탄성 충전재의 동탄성 계수 및 흡음 복원률 검증. 제작사 선적전 시험성적서 대조</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. 해상 조달 물류 프로세스 모식도 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">3.</span> 유럽산 홈레일 해상 운송 및 조달 통관 흐름도
+            </h2>
+            <div class="svg-container bg-white border border-slate-200 rounded-xl p-4 text-center">
+                <svg viewBox="0 0 900 140" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="900" height="140" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+                    
+                    <!-- Nodes -->
+                    <!-- 1. 제작 공장 출하 -->
+                    <rect x="30" y="40" width="140" height="60" rx="6" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="1"/>
+                    <text x="100" y="65" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">1. 유럽 제작처 출하</text>
+                    <text x="100" y="85" text-anchor="middle" font-size="9" fill="#93c5fd">OMC 품질 검증</text>
+                    
+                    <!-- Arrow 1 -->
+                    <path d="M 180 70 L 210 70" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- 2. 선적 및 해상운송 -->
+                    <rect x="220" y="40" width="140" height="60" rx="6" fill="#0284c7" stroke="#0284c7" stroke-width="1"/>
+                    <text x="290" y="65" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">2. 선적 및 해상수송</text>
+                    <text x="290" y="85" text-anchor="middle" font-size="9" fill="#bae6fd"><span class="term-highlight" onclick="openGlossary('bl_document')">B/L 선적 서류</span> 발행</text>
+                    
+                    <!-- Arrow 2 -->
+                    <path d="M 370 70 L 400 70" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- 3. 국내 세관 통관 -->
+                    <rect x="410" y="40" width="140" height="60" rx="6" fill="#ea580c" stroke="#ea580c" stroke-width="1"/>
+                    <text x="480" y="65" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">3. 세관 통관 검수</text>
+                    <text x="480" y="85" text-anchor="middle" font-size="9" fill="#ffedd5">관세율 및 수량 실사</text>
+                    
+                    <!-- Arrow 3 -->
+                    <path d="M 560 70 L 590 70" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- 4. 현장 2차 야적장 -->
+                    <rect x="600" y="40" width="140" height="60" rx="6" fill="#16a34a" stroke="#16a34a" stroke-width="1"/>
+                    <text x="670" y="65" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">4. 국내 야적장 보관</text>
+                    <text x="670" y="85" text-anchor="middle" font-size="9" fill="#dcfce7">부식/우천 방수 보호</text>
+                    
+                    <!-- Arrow 4 -->
+                    <path d="M 750 70 L 780 70" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- 5. 궤도 현장 가설 -->
+                    <rect x="790" y="40" width="80" height="60" rx="6" fill="#475569" stroke="#475569" stroke-width="1"/>
+                    <text x="830" y="65" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">5. 시공 투입</text>
+                    <text x="830" y="85" text-anchor="middle" font-size="9" fill="#cbd5e1">적기 공급 실현</text>
+                    
+                    <!-- SVG marker defs -->
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 9000-6-9 | 콘크리트도상
+    </div>
+</div>
+
+
+<!-- Glossary & Scene Popup Modal Layer -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시공장면 해설</h3>
+        <div class="modal-body">
+            <img id="modalImage" src="" style="width:100%; border-radius:10px; display:none; margin-bottom:15px; border: 1px solid #cbd5e1;" />
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'grooved_rail': {
+        title: '🛤️ 홈레일 (Grooved Rail, 51R1/60R2)',
+        desc: '도심지 매설 궤도에 사용되는 요(凹)자형 홈이 파여진 특수 철도 레일입니다. 트램 차량의 차륜 플랜지가 궤도를 주행할 수 있도록 유도해주는 단면 형상을 지니고 있으며, 전량 유럽 국외 수입에 의존하므로 조달 계획 관리가 생명입니다.'
+    },
+    'pst_panel': {
+        title: '🧱 PST 슬래브 패널 (Precast Slab Track Panel)',
+        desc: '공장에서 사전 일체식으로 제작하여 현장 반입하는 콘크리트 궤도 슬래브 패널입니다. 현장 조립 속도가 매우 빠르나, 28일 기준 설계기준 압축강도가 최소 45 MPa 이상을 달성해야 열차 하중을 안전하게 분산시킬 수 있습니다.'
+    },
+    'omc': {
+        title: '🤝 OMC 품질 시방 (Operation and Maintenance Agreement)',
+        desc: '국산화가 불가능한 해외 수입 특수 궤도 자재에 대해, 제작사가 품질 등급, 화학 성분, 내마모성 시험 결과 등을 보증하고 유지 보수용 특기 사양을 약정한 정식 품질보증합의서입니다.'
+    },
+    'bl_document': {
+        title: '🚢 선하증권 (B/L, Bill of Lading)',
+        desc: '해상 운송 시 선박 회사에서 화주에게 발행하는 물품 수령증이자 소유권 문서입니다. 특수 홈레일 통관 승인을 위해 B/L 원본, 상업송장(Invoice), 제작사 시험성적서 등 선적 서류 구비가 필수적입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    
+    const imgEl = document.getElementById('modalImage');
+    if (data.img) {
+        imgEl.src = data.img;
+        imgEl.style.display = 'block';
+    } else {
+        imgEl.src = '';
+        imgEl.style.display = 'none';
+    }
+    
+    document.getElementById('glossaryModal').classList.add('active');
+}
+
+function openScene(sceneKey) {
+    openGlossary(sceneKey);
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+// Esc close key handler
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+    }
+});
+</script>
+
+
+</body>
+</html>

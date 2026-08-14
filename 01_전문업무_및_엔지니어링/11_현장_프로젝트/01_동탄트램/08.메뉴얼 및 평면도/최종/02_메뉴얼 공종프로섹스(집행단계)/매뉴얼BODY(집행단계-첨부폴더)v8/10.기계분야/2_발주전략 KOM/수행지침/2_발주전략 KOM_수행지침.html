@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄도시철도 - 발주전략 KOM 수행지침</title>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; margin:0; padding:24px; color:#0f172a; line-height:1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px; border: 1px solid #e2e8f0; }
+    .header { border-bottom: 2px solid #0284c7; padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { display: inline-block; background: #0284c7; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0; }
+    .subtitle { font-size: 14px; color: #475569; margin: 0; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #0284c7; padding-left: 10px; margin: 24px 0 12px 0; }
+    .diagram-container { background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin:16px 0; text-align:center; cursor:pointer; transition:0.2s; }
+    .diagram-container:hover { border-color:#0284c7; box-shadow:0 4px 12px rgba(2,132,199,0.15); }
+    .diagram-hint { font-size:12px; color:#0284c7; font-weight:600; margin-top:8px; display:inline-block; }
+    .nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .nav-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+    .btn-std { background: #0f172a; color: #ffffff; }
+    .btn-chk { background: #d97706; color: #ffffff; }
+    .btn-std:hover { background: #1e293b; }
+    .btn-chk:hover { background: #b45309; }
+    /* Zoom Modal */
+    #zoomModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.75); z-index:9999; justify-content:center; align-items:center; padding:20px; box-sizing:border-box; }
+    .modal-content { background:#ffffff; border-radius:12px; max-width:1100px; width:100%; max-height:90vh; overflow:auto; padding:24px; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+    .close-btn { position:absolute; top:16px; right:16px; background:#f1f5f9; border:none; font-size:20px; font-weight:bold; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">9000-8-2 | 동탄트램 기계설비·소방설비 수행지침</span>
+      <h1 class="title">발주전략 KOM 수행지침서</h1>
+      <p class="subtitle">감리단-시공사-기계/소방 전문협력사 3자 착수회의(KOM) 및 공종별 핵심 마일스톤 확정</p>
+    </div>
+
+    <div class="section-title">1. 엔지니어링 2D 기술 도식 (클릭 시 확대)</div>
+    <div class="diagram-container" onclick="openDiagramZoom()">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">동탄트램 기계·소방 발주전략 킥오프 회의(KOM) 및 책임 체계도</text>
+
+  <circle cx="150" cy="130" r="55" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="150" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">발주처 / 감리단</text>
+  <text x="150" y="145" text-anchor="middle" font-size="10" fill="#334155">품질검측·공정승인</text>
+
+  <circle cx="400" cy="130" r="55" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="400" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">원도급 시공사</text>
+  <text x="400" y="145" text-anchor="middle" font-size="10" fill="#334155">공정총괄·인터페이스</text>
+
+  <circle cx="650" cy="130" r="55" fill="#fefce8" stroke="#ca8a04" stroke-width="2"/>
+  <text x="650" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#a16207">기계/소방 협력사</text>
+  <text x="650" y="145" text-anchor="middle" font-size="10" fill="#334155">정밀시공·자재조달</text>
+
+  <line x1="205" y1="130" x2="345" y2="130" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="455" y1="130" x2="595" y2="130" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <rect x="50" y="210" width="700" height="70" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="70" y="235" font-size="11" font-weight="bold" fill="#0f172a">■ 4대 핵심 마일스톤 확정</text>
+  <text x="70" y="255" font-size="11" fill="#334155">1) 3D BIM 간섭해소 ⟶ 2) 주요 장비(AHU/승강기) FAT 공장검수 ⟶ 3) 수압/기밀시험 ⟶ 4) 소방 완공검사</text>
+</svg>
+      <div class="diagram-hint">🔍 도식을 클릭하면 고해상도 대형 팝업으로 확대됩니다.</div>
+    </div>
+
+    <div class="section-title">2. 단계별 마스터 수행 절차 (Step-by-Step)</div>
+    
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 1</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 1: KOM 킥오프 회의 소집 및 R&R 확정</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">착수 협의체 가동 및 공종별 책임 범위 규정</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>발주처, 책임감리원, 시공사 소장, 기계/소방 협력사 대표 3자 회의 개최</li><li style='margin-bottom:6px;'>기계배관, 덕트공조, 소화배관, 자동제어, 승강기 5대 파트별 책임 엔지니어 지정</li><li style='margin-bottom:6px;'>공정표 상의 기계설비 Critical Path(주공정선) 공유 및 공정 인터페이스 협의</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 2</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 2: 주요 장비 제작 및 조달 계획 수립</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">공조기, 소방펌프, 인승용/화물용 승강기 납기 확정</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>장비별 제작도면(Shop Drawing) 승인 일정 및 공장 검수(FAT) 일정 수립</li><li style='margin-bottom:6px;'>외산 자재 및 특수 사양(고내열 제연팬 250℃) 수급 리드타임 3개월 전 확보</li><li style='margin-bottom:6px;'>자재 야적장 및 기계실 장비 반입 개구부 확보 일정 확정</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 3</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 3: 품질 및 안전 관리 계획 승인</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">감리 검측 절차서 및 현장 안전 수칙 결재</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>KCS 41 기준 단계별 입회 검측(용접, 수압시험, 보온, 시운전) 체크리스트 확정</li><li style='margin-bottom:6px;'>밀폐공간(집수조, 정화조, 지하덕트) 작업 프로그램 및 화기작업 안전허가제 수립</li><li style='margin-bottom:6px;'>중대재해 Zero 달성을 위한 일일 Safety TBM 및 보호구 착용 의무화</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 4</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 4: KOM 의사록 확정 및 공정 착수</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">합동 서명 및 집행단계 공식 이행 체계 가동</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>KOM 회의록 작성 및 3자 합동 서명 날인 완료</li><li style='margin-bottom:6px;'>확정 공정표 및 자재승인 마스터 스케줄 사내 ERP 및 공정관리 시스템 등록</li><li style='margin-bottom:6px;'>정기 주간/월간 공정회의를 통한 마일스톤 진척도 상시 트래킹</li>
+          </ul>
+        </div>
+        
+
+    <div class="section-title">3. 핵심 엔지니어링 용어 해설</div>
+    <div style="margin-top:12px;">
+      
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• KOM (Kick-Off Meeting):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">프로젝트 착수 전 목표와 실행계획을 공유하는 공식 착수회의</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• Critical Path:</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">전체 공사 기간을 결정하는 가장 긴 연속 작업 경로</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• FAT (Factory Acceptance Test):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">장비 출하 전 제작 공장에서 수행하는 공식 성능검수시험</span>
+      </div>
+    
+    </div>
+
+    <div class="section-title">4. 기계·소방 엔지니어링 간이 계산기 (Interactive Calculator)</div>
+    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin-top:12px;">
+      <div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:10px;">배관 압력손실 및 소화수 방수압 판정기</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+        <label style="font-size:12px; color:#334155;">시험 압력 (MPa): <input type="number" id="testPressure" value="1.5" step="0.1" style="width:80px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <label style="font-size:12px; color:#334155;">유지 시간 (분): <input type="number" id="testTime" value="60" style="width:70px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <button onclick="calculateTest()" style="background:#0284c7; color:#fff; border:none; padding:6px 14px; border-radius:4px; font-size:12px; font-weight:700; cursor:pointer;">적합성 판정</button>
+        <span id="calcResult" style="font-size:13px; font-weight:700; color:#15803d; margin-left:10px;"></span>
+      </div>
+    </div>
+
+    <div class="nav-box">
+      <a href="../표준서/2_발주전략 KOM_표준서.html" class="nav-btn btn-std">📄 [연계] 발주전략 KOM 표준서 열기 ➔</a>
+      <a href="../체크리스트/2_발주전략 KOM_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 발주전략 KOM 체크리스트 열기 ➔</a>
+    </div>
+  </div>
+
+  <!-- Zoom Modal -->
+  <div id="zoomModal" onclick="closeDiagramZoom(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeDiagramZoom(event)">&times;</button>
+      <h3 style="margin-top:0; font-size:18px; color:#0f172a;">발주전략 KOM - 고해상도 기술 도식</h3>
+      <div style="margin-top:16px;">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">동탄트램 기계·소방 발주전략 킥오프 회의(KOM) 및 책임 체계도</text>
+
+  <circle cx="150" cy="130" r="55" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="150" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">발주처 / 감리단</text>
+  <text x="150" y="145" text-anchor="middle" font-size="10" fill="#334155">품질검측·공정승인</text>
+
+  <circle cx="400" cy="130" r="55" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="400" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">원도급 시공사</text>
+  <text x="400" y="145" text-anchor="middle" font-size="10" fill="#334155">공정총괄·인터페이스</text>
+
+  <circle cx="650" cy="130" r="55" fill="#fefce8" stroke="#ca8a04" stroke-width="2"/>
+  <text x="650" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#a16207">기계/소방 협력사</text>
+  <text x="650" y="145" text-anchor="middle" font-size="10" fill="#334155">정밀시공·자재조달</text>
+
+  <line x1="205" y1="130" x2="345" y2="130" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="455" y1="130" x2="595" y2="130" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <rect x="50" y="210" width="700" height="70" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="70" y="235" font-size="11" font-weight="bold" fill="#0f172a">■ 4대 핵심 마일스톤 확정</text>
+  <text x="70" y="255" font-size="11" fill="#334155">1) 3D BIM 간섭해소 ⟶ 2) 주요 장비(AHU/승강기) FAT 공장검수 ⟶ 3) 수압/기밀시험 ⟶ 4) 소방 완공검사</text>
+</svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openDiagramZoom() {
+      document.getElementById('zoomModal').style.display = 'flex';
+    }
+    function closeDiagramZoom(e) {
+      document.getElementById('zoomModal').style.display = 'none';
+    }
+    function calculateTest() {
+      const p = parseFloat(document.getElementById('testPressure').value);
+      const t = parseFloat(document.getElementById('testTime').value);
+      const res = document.getElementById('calcResult');
+      if (p >= 1.0 && t >= 60) {
+        res.innerHTML = "✔ [합격] KCS 41 기준 충족 (1.0MPa 이상, 60분 유지 만족)";
+        res.style.color = "#15803d";
+      } else {
+        res.innerHTML = "❌ [불합격] 최소 수압(1.0MPa) 및 유지시간(60분) 미달";
+        res.style.color = "#dc2626";
+      }
+    }
+  </script>
+</body>
+</html>

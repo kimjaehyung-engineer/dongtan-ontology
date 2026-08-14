@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - LTE-R 무선국 허가 체크리스트 (WBS 9000-2-29)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .zoom-modal {
+            display: none; position: fixed; z-index: 9999;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px); align-items: center; justify-content: center;
+        }
+        .zoom-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff; margin: auto; padding: 28px;
+            border: 1px solid #cbd5e1; width: 95%; max-width: 1100px; max-height: 90vh;
+            border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow-y: auto; text-align: center;
+        }
+        .zoom-close {
+            color: #64748b; position: absolute; right: 20px; top: 16px;
+            font-size: 32px; font-weight: bold; cursor: pointer;
+        }
+        .zoom-close:hover { color: #ef4444; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Checklist (WBS 9000-2-29)</span>
+        <h1 class="text-3xl font-black mt-2">LTE-R 무선국 허가 체크리스트</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-29 | 주관: 발주처 | "16개 정밀 검측 문항 1:1 수평대응 체크박스 팝업 서식 (~하였는가? 어미 100% 통일)"</p>
+    </div>
+    
+    <div class="p-6 sm:p-8 space-y-6">
+        
+        <!-- 💡 [스킬 가이드 적용] 왜 이 체크리스트가 의미가 있고 중요하며 미체크 시 어떤 문제가 발생하는가? -->
+        <div class="bg-amber-50 border-2 border-amber-300 p-5 sm:p-6 rounded-2xl text-xs text-amber-950 space-y-3 shadow-sm">
+            <div class="flex items-center justify-between border-b border-amber-200 pb-2.5">
+                <h4 class="font-black text-sm text-amber-900 flex items-center gap-2">
+                    <span class="text-base">⚠️</span> 무선국 허가 체크리스트 점검의 핵심 의미 및 미검측 시 발생 리스크
+                </h4>
+                <span class="text-[11px] font-bold bg-red-600 text-white px-2.5 py-0.5 rounded-full">전파법 제19조 필수</span>
+            </div>
+            
+            <p class="text-slate-800 leading-relaxed font-semibold">
+                본 체크리스트는 전파법 제19조 및 동법 시행령 제29조에 의거하여, 동탄트램 LTE-R 기지국, 터널 중계기 및 이동국 무선설비의 <strong>과학기술정보통신부 관할 전파관리소 허가 신청 및 허가증 수령 무결성을 검증하기 위한 법정 서식</strong>입니다.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+                <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                    <span class="font-bold text-red-700 text-[11px] block">🚨 불법 무선국 처벌 리스크</span>
+                    <p class="text-slate-700 text-[11px] leading-normal">허가 미취득 상태 전파 송출 시 <strong>전파법 위반 형사 처벌 및 전파 송출 중지 명령</strong> 야기.</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                    <span class="font-bold text-red-700 text-[11px] block">🚨 타 기관 전파 간섭</span>
+                    <p class="text-slate-700 text-[11px] leading-normal">기술기준 미달 시 <strong>인접 700MHz 대역 재난망(PS-LTE) 전파 간섭 혼선</strong> 발생.</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                    <span class="font-bold text-red-700 text-[11px] block">🚨 본선 개공 및 시운전 지연</span>
+                    <p class="text-slate-700 text-[11px] leading-normal">허가증 수령 지연 시 <strong>본선 열차 시운전 전파 송출 불가로 개통 일정 연기</strong> 야기.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📊 1:1 정밀 수평대응 3컬럼 체크리스트 테이블 (16개 문항) -->
+        <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+            <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                    <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
+                        <th class="p-4 font-bold w-44 text-center border-r border-slate-200">시공 단계 (Procedure)</th>
+                        <th class="p-4 font-bold border-r border-slate-200">필수 검측 및 확인 항목 (Inspection Criteria)</th>
+                        <th class="p-4 font-bold w-32 text-center">점검 결과</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                    
+                    <!-- STEP 1 무선국 제원 및 안테나 커버리지 조사 (4개 문항 1:1 수평대응) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-blue-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 1</span>
+                            <span class="font-bold text-slate-900 text-xs">무선국 제원 조사</span>
+                            <button onclick="openChecklistDiagram('step1')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-blue-900 text-[11px] block mb-0.5">[700MHz 대역 주파수 확정]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">1. 철도무선통신망 700MHz 대역(718~728MHz/773~783MHz) 주파수 할당 조건을 확인하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-blue-900 text-[11px] block mb-0.5">[기지국 안테나 제원 조사]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">2. 본선 지상 기지국 안테나 설치 위치, 높이, 이득(dBi) 및 지향각 제원을 조사하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-blue-900 text-[11px] block mb-0.5">[이동국/중계기 수량 작성]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">3. 트램 차상 단말기, 터널 중계기 및 휴대 단말기 무선국 신청 수량을 정밀 산출하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80 border-b-2 border-slate-300">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-blue-900 text-[11px] block mb-0.5">[전파 간섭 시뮬레이션]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">4. 타 무선망(PS-LTE/LTE-M) 간섭 영향 평가 시뮬레이션을 완료하고 적합 판정을 받았는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 2 무선국 개설 허가 신청서 및 기술 서류 작성 (4개 문항 1:1 수평대응) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-indigo-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 2</span>
+                            <span class="font-bold text-slate-900 text-xs">신청 서류 작성</span>
+                            <button onclick="openChecklistDiagram('step2')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[전파법 시행령 서식]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">5. 전파법 시행령 제29조에 따른 법정 무선국 개설 허가 신청서를 서식에 맞춰 작성하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[무선설비 개요서 수록]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">6. 기지국 송신기 출력, 점유주파수대폭 및 주파수 허용편차 데이터를 기술서에 명시하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[공사계획서 및 도면 첨부]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">7. 안테나 설치 배치도, 구속도 및 무선설비 계통도를 첨부 서류로 통합 제본하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80 border-b-2 border-slate-300">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[발주처 직인 결재]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">8. 사업시행자(발주처) 직인 날인을 완료하고 신청 서류 최종 검인을 필하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 3 관할 중앙전파관리소 공식 제출 및 심사 (4개 문항 1:1 수평대응) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-emerald-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 3</span>
+                            <span class="font-bold text-slate-900 text-xs">전파관리소 심사</span>
+                            <button onclick="openChecklistDiagram('step3')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[전파관리소 접수 완수]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">9. 관할 중앙전파관리소 민원실(전자민원 포함)에 공식 접수증을 수령하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[기술 심사 질의 조치]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">10. 심사관의 전파 기술 기준 보완 요구 사항 발생 시 3일 이내 보완서를 작성·제출하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[전파 수수료 납부]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">11. 무선국 개설 허가 수수료 납부 고지서 확인 후 납부를 완료하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80 border-b-2 border-slate-300">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[심사 결과 적격 확정]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">12. 중앙전파관리소로부터 무선국 적합 승인 통보를 수령하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 4 무선국 허가증 발급 및 합법성 확보 (4개 문항 1:1 수평대응) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-teal-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 4</span>
+                            <span class="font-bold text-slate-900 text-xs">무선국 허가증 발급</span>
+                            <button onclick="openChecklistDiagram('step4')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[무선국 허가증 교부]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">13. 과학기술정보통신부 발행 무선국 허가증 원본을 정식 수령하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[허가 번호 및 기체 일치]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">14. 허가증상 기지국 명칭, 허가 번호, 안테나 설치 장소 기재 사항 일치를 확인하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[현장 허가 표지 비치]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">15. 기지국 기계실 및 차상 운전실 내 무선국 허가 표지판을 원본 비치하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[시험 송출 적법성 확보]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">16. 무선국 허가증 획득으로 본선 시험 전파 송출 및 개공 착수 합법성을 확보하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🟣 시공 도식 확대 팝업 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeChecklistDiagramOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeChecklistDiagram()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 무선국 허가 2D Visual 도식 확대 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[420px]">
+        </div>
+    </div>
+</div>
+
+<script>
+    const diagramTemplates = {
+        step1: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">📡 [STEP 1] LTE-R 무선국 제원 및 안테나 커버리지 조사 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(25, 52)">
+                <rect x="0" y="0" width="115" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#0369a1" text-anchor="middle">제원/출력 조사</text>
+                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 700MHz 기술기준</text>
+                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 안테나 이득/지향각</text>
+                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 송신 전력 산출</text>
+                <line x1="115" y1="42" x2="160" y2="42" stroke="#0284c7" stroke-width="2.5"/>
+                <polygon points="160,38 168,42 160,46" fill="#0284c7"/>
+                <g transform="translate(170, 0)">
+                    <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">전파 간섭 평가</text>
+                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#15803d">• PS-LTE/M 간섭 0</text>
+                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#15803d">• 커버리지 시뮬레이션</text>
+                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#15803d">• 제원 확정 완수</text>
+                </g>
+                <g transform="translate(295, 5)">
+                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">제원조사</text>
+                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">간섭 0</text>
+                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">적합성 100%</text>
+                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 완료</text>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#e0f2fe" stroke="#0284c7" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#0369a1" text-anchor="middle">전파법 700MHz 기술기준 적합성 및 전파 간섭 사전 검토 완수</text>
+        </svg>`,
+        step2: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#9333ea" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#6b21a8" text-anchor="middle">📝 [STEP 2] 무선국 개설 허가 신청서 및 기술 서류 작성 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(25, 52)">
+                <rect x="0" y="0" width="115" height="85" fill="#faf5ff" stroke="#7e22ce" stroke-width="2" rx="6"/>
+                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#6b21a8" text-anchor="middle">법정 서식 작성</text>
+                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 개설 허가 신청서</text>
+                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 무선설비 개요서</text>
+                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 공사계획/도면</text>
+                <line x1="115" y1="42" x2="160" y2="42" stroke="#9333ea" stroke-width="2.5"/>
+                <polygon points="160,38 168,42 160,46" fill="#9333ea"/>
+                <g transform="translate(170, 0)">
+                    <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">발주처 검인 날인</text>
+                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#15803d">• 시행자 직인 결재</text>
+                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#15803d">• 누락 서류 0건</text>
+                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#15803d">• 제출 준비 완료</text>
+                </g>
+                <g transform="translate(295, 5)">
+                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">신청서작성</text>
+                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">누락 0건</text>
+                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">검인 100%</text>
+                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 합격</text>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#faf5ff" stroke="#c084fc" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#7e22ce" text-anchor="middle">전파법 시행령 제29조 무선국 허가 신청 서류 검인 완수</text>
+        </svg>`,
+        step3: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#16a34a" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#15803d" text-anchor="middle">🏛️ [STEP 3] 관할 중앙전파관리소 공식 제출 및 심사 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(25, 52)">
+                <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">공식 공문 접수</text>
+                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 관할 전파관리소</text>
+                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 기술 적합성 심사</text>
+                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 수수료 납부 이행</text>
+                <line x1="115" y1="42" x2="160" y2="42" stroke="#16a34a" stroke-width="2.5"/>
+                <polygon points="160,38 168,42 160,46" fill="#16a34a"/>
+                <g transform="translate(170, 0)">
+                    <rect x="0" y="0" width="115" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#0369a1" text-anchor="middle">심사 적격 통보</text>
+                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0369a1">• 질의 조치 완료</text>
+                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0369a1">• 심사 통과 수령</text>
+                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0369a1">• 허가증 발급 대기</text>
+                </g>
+                <g transform="translate(295, 5)">
+                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">관리소심사</text>
+                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">보완 0건</text>
+                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">적격 100%</text>
+                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 합격</text>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#15803d" text-anchor="middle">중앙전파관리소 전파 심사 적격 통보 및 허가 승인 완수</text>
+        </svg>`,
+        step4: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#0d9488" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">📄 [STEP 4] 무선국 허가증 발급 및 전파 송출 합법성 확보 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(30, 48)">
+                <rect x="0" y="0" width="165" height="85" fill="#f0fdf4" stroke="#0d9488" stroke-width="2" rx="4"/>
+                <text x="82" y="20" font-size="9" font-weight="black" fill="#0f766e" text-anchor="middle">허가증 발급 수령</text>
+                <text x="15" y="40" font-size="8" font-weight="bold" fill="#0f172a">• 과기정통부 원본 수령</text>
+                <text x="15" y="55" font-size="8" font-weight="bold" fill="#0f172a">• 허가 번호/출력 일치</text>
+                <text x="15" y="70" font-size="8" font-weight="bold" fill="#0f172a">• 현장 비치 완수</text>
+                <g transform="translate(180, 0)">
+                    <rect x="0" y="0" width="175" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="4"/>
+                    <text x="87" y="20" font-size="9" font-weight="black" fill="#0369a1" text-anchor="middle">전파 송출 합법성</text>
+                    <text x="15" y="40" font-size="7.5" font-weight="bold" fill="#334155">• 시험 송출 자격 획득</text>
+                    <text x="15" y="55" font-size="7.5" font-weight="bold" fill="#334155">• 불법 전파 처벌 0%</text>
+                    <g transform="translate(100, 35) rotate(-10)">
+                        <rect x="0" y="0" width="65" height="32" fill="#ffffff" stroke="#059669" stroke-width="2" rx="4"/>
+                        <text x="32" y="16" font-size="9" font-weight="900" fill="#059669" text-anchor="middle">허가증 수령</text>
+                        <text x="32" y="26" font-size="6.5" font-weight="bold" fill="#059669" text-anchor="middle">적법 완료</text>
+                    </g>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#f0fdf4" stroke="#2dd4bf" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#0f766e" text-anchor="middle">무선국 개설 허가증 정식 교부 및 전파 송출 자격 확보 완료</text>
+        </svg>`
+    };
+
+    function openChecklistDiagram(stepKey) {
+        const zoomBody = document.getElementById('zoomBody');
+        const zoomModal = document.getElementById('zoomModal');
+        const zoomTitle = document.getElementById('zoomTitle');
+        if (diagramTemplates[stepKey]) {
+            zoomTitle.innerText = "🔍 " + stepKey.toUpperCase() + " 무선국 허가 정밀 2D 시공 도식";
+            zoomBody.innerHTML = diagramTemplates[stepKey];
+            zoomModal.classList.add('active');
+        }
+    }
+
+    function closeChecklistDiagram() {
+        document.getElementById('zoomModal').classList.remove('active');
+    }
+
+    function closeChecklistDiagramOutside(e) {
+        if (e.target.id === 'zoomModal') closeChecklistDiagram();
+    }
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeChecklistDiagram();
+    });
+</script>
+</body>
+</html>

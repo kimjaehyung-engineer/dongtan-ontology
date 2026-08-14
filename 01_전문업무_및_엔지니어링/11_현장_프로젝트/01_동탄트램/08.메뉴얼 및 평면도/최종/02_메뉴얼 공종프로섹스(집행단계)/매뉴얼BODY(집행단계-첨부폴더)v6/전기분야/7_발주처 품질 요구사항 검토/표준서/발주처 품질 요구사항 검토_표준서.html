@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 전기분야 - 발주처 품질 요구사항 검토 표준서 (WBS 9000-3-7)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Noto Sans KR', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-amber-500 text-slate-900 text-xs font-black px-3 py-1 rounded-full uppercase">Dongtan Tram Electrical Standard (WBS 9000-3-7)</span>
+        <h1 class="text-3xl font-black mt-2">발주처 품질 요구사항 검토 표준서</h1>
+        <p class="text-amber-200 text-sm mt-1">L4 Code: 9000-3-7 | 주관: 현장 전철전력팀 (책임감리단 공조) | "ITP / ITC 품질검측 절차서 수립 & 표준 수칙"</p>
+    </div>
+    
+    <div class="p-6 sm:p-8 space-y-8">
+        
+        <!-- ⚖️ 근거 법령, 국가 설계기준 및 입찰안내서 검토 기준 -->
+        <div class="bg-slate-50 border border-slate-200 p-6 rounded-2xl shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <span class="text-amber-600">⚖️</span> 근거 법령 · 국가 기준 · 업무 표준 규정 (Legal & Bidding Verification)
+                </h3>
+                <span class="text-[11px] bg-red-100 text-red-800 font-bold px-3 py-1 rounded-full border border-red-200 uppercase">업무이행 표준</span>
+            </div>
+            
+            <p class="text-slate-700 text-xs leading-relaxed font-medium">
+                본 표준서는 전기사업법, 도로법, 도로교통법, 건설기술 진흥법, KDS 47 00 00 철도설계기준 및 동탄트램 입찰안내서에 의거하여, <strong>발주처 품질 요구사항 검토에 대한 상세 기준 및 감리단 공학적 승인 수칙</strong>을 체계적으로 확정하는 표준입니다.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                
+                <div class="bg-amber-50/70 p-4 rounded-xl border border-amber-200/80 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-amber-900 text-xs">📌 ITP / ITC 품질검측 절차서 수립</span>
+                        <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded border border-amber-300">단계 1</span>
+                    </div>
+                    <p class="text-slate-800 leading-relaxed text-[11px] font-medium">
+                        <strong>"감리/감독원 입회 품질검측계획서(ITP: Inspection & Test Plan) 작성 및 Hold Point(필수정지점) / Witness Point(입회점) 구분 명시"</strong>
+                    </p>
+                </div>
+
+                <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-200/80 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-indigo-900 text-xs">📐 현장 계측기 공인 교정성적서 대장 관리</span>
+                        <span class="text-[10px] bg-indigo-200 text-indigo-900 font-bold px-2 py-0.5 rounded border border-indigo-300">단계 2</span>
+                    </div>
+                    <p class="text-slate-800 leading-relaxed text-[11px] font-medium">
+                        <strong>"Megger(절연저항계), OTDR(광시험기), 접지저항계 등 현장 사용 측정 장비 국가 공인기관 교정성적서 유효기간 1:1 검증 및 대장 관리"</strong>
+                    </p>
+                </div>
+
+                <div class="bg-emerald-50/70 p-4 rounded-xl border border-emerald-200/80 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-emerald-900 text-xs">🛡️ 불합격 자재 48시간 내 반출 & NCR 통제</span>
+                        <span class="text-[10px] bg-emerald-200 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-300">단계 3</span>
+                    </div>
+                    <p class="text-slate-800 leading-relaxed text-[11px] font-medium">
+                        <strong>"자재 검수 시 부적합 자재 발생 즉시 현장 격리 후 48시간 이내 현장 반출 처리, NCR 부적합 시정조치 요구서 발행 및 품질 보완"</strong>
+                    </p>
+                </div>
+
+                <div class="bg-sky-50/70 p-4 rounded-xl border border-sky-200/80 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-900 text-xs">📄 품질시험계획서 감리 승인 & 보고</span>
+                        <span class="text-[10px] bg-sky-200 text-sky-900 font-bold px-2 py-0.5 rounded border border-sky-300">단계 4</span>
+                    </div>
+                    <p class="text-slate-800 leading-relaxed text-[11px] font-medium">
+                        <strong>"발주처 품질 요구사항이 100% 반영된 종합 품질시험계획서 작성, 책임감리단 공학적 최종 승인 결재 및 현장 품질 관리대장 적용"</strong>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 🎯 표준 목적 -->
+        <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl">
+            <h3 class="text-base font-bold text-amber-950 mb-2 flex items-center gap-2">
+                <span>🎯</span> 표준 목적 (Objective)
+            </h3>
+            <p class="text-slate-800 text-sm font-medium leading-relaxed">
+                감리/감독원 품질검사(ITP/ITC) 항목 검토, Hold Point/Witness Point 입회점 구분 수립, 현장 계측기 교정성적서 관리 및 불합격 자재 48시간 내 반출 통제 수칙
+            </p>
+        </div>
+
+        <!-- 📜 업무수행 수칙 -->
+        <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-4 border-b-2 border-amber-600 pb-2 flex items-center gap-2">
+                <span>📜</span> 업무수행 핵심 수칙 (Execution Rules)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded">수칙 1</span>
+                        <h4 class="font-bold text-slate-900 text-sm">시방 및 규정 100% 준수 수칙</h4>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed">
+                        철도설계기준, 발주처 특기시방서 및 인허가 법정 처리기간을 사전 검측하여 적기 시공을 확보함.
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded">수칙 2</span>
+                        <h4 class="font-bold text-slate-900 text-sm">서류 대장 관리 & 감리 승인 수칙</h4>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed">
+                        모든 검측 서표, 교정성적서, 자격증, 필증 및 승인 문서는 관리대장에 수록하여 책임감리단 결재를 완수함.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📦 증빙 산출물 -->
+        <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <h3 class="text-base font-bold text-emerald-950 mb-1 flex items-center gap-2">
+                    <span>📦</span> 증빙 산출물 (Deliverables)
+                </h3>
+                <p class="text-slate-700 text-xs font-medium">발주처 품질 요구사항 검토 관련 승인서, 검측 성과표, 허가/신고 필증 사본 및 관리대장</p>
+            </div>
+            <span class="bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm text-center">
+                최종 승인 완료
+            </span>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

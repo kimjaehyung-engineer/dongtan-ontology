@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지장물이설 - 지장물 조사 (위탁기관 합동) 기술 표준서</title>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-blue: #1e3a8a;
+            --accent-cyan: #0284c7;
+            --border-color: #e2e8f0;
+        }
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            margin: 0; padding: 30px 20px;
+            background: var(--bg-primary); color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px; margin: 0 auto; background: var(--bg-card);
+            padding: 40px; border-radius: 16px; border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+        }
+        .header { border-bottom: 3px solid var(--accent-blue); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px; }
+        .title { font-size: 2.1rem; font-weight: 900; color: var(--text-primary); margin: 0; }
+        .meta-info { display: flex; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); margin-top: 12px; }
+        .badge { background: #dbeafe; color: #1e40af; font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
+        h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent-blue); border-left: 5px solid var(--accent-cyan); padding-left: 12px; margin-top: 35px; margin-bottom: 18px; }
+        table { width: 100% !important; max-width: 100% !important; border-collapse: collapse; margin: 12px 0 20px 0; font-size: 0.92rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; text-align: left; vertical-align: middle; }
+        th { background: #f1f5f9; color: #1e293b; font-weight: 700; }
+        .svg-container { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .diagram-explanation { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-top: 15px; font-size: 0.9rem; color: #334155; text-align: left; }
+        .key-takeaway { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-top: 15px; color: #166534; font-size: 0.9rem; }
+        .footer-note { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid var(--border-color); padding-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 2000-1-5 Standard</div>
+        <h1 class="title">지장물 조사 (위탁기관 합동) 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 지장물이설 / 현장조사</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 공사팀 / 유관기관 합동조사단</span>
+            <span>|</span>
+            <span><span class="badge">현장 맞춤 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th style="width: 20%;">과업 목적</th><td>6대 위탁기관 담당자 100% 현장 동행 입회 하에 지하 매설관 실치 위치 및 심도 100% 검증</td></tr>
+            <tr><th>수행 방법</th><td>GPR 지형 지하 탐지, GRS80 측량 및 인력 줄따기 시굴(폭 1.0m, 깊이 1.2m~1.5m) 시행</td></tr>
+            <tr><th>주요 산출물</th><td>위탁기관 합동 현장 조사 보고서, GPR 성과표, 측량 성과표</td></tr>
+            <tr><th>관련 법령/기준</th><td>지하안전관리에 관한 특별법 제24조, KCS 11 20 00</td></tr>
+        </tbody>
+    </table>
+
+    <h2>2. 지장물 조사 (위탁기관 합동) 고유 엔지니어링 수칙 및 정량 시방 표</h2>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 22px; border-radius: 12px; margin-bottom: 25px;">
+        <h4 style="margin: 0 0 12px 0; color: #1e3a8a; font-size: 1.05rem;">🔍 위탁기관 합동 현장 실치 조사 정밀도 및 작업 수칙</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem;">
+            <thead>
+                <tr style="background: #e2e8f0; color: #0f172a;">
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 20%;">조사 및 측량 항목</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 25%;">적용 장비 및 공법</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 55%;">핵심 정량 기술 수칙 및 허용 오차</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">6대 기관 합동 입회</td>
+                    <td style="text-align: center;">현장 동행 입회</td>
+                    <td>• 맑은물, 삼천리, 난방, KT, 한전, K-water 100% 입회<br>• 현장 입회 확인 서명부 작성</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">GPR 지하 탐지</td>
+                    <td style="text-align: center;">200~900MHz GPR</td>
+                    <td>• 탐지 심도 오차 <strong>≤ ±10cm 이내</strong> 준수<br>• 노면에 White/Yellow Paint 마킹</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">인력 줄따기 시굴</td>
+                    <td style="text-align: center;">인력 굴착 (백호 금지)</td>
+                    <td>• 시굴 폭 1.0m / 깊이 1.2m~1.5m 인력 굴착<br>• 노출관 궤도 최소 이격거리 H ≥ 1.5m 확인</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">GRS80 좌표 측량</td>
+                    <td style="text-align: center;">광학 토탈스테이션</td>
+                    <td>• 세계측지계 수평/수직 오차 <strong>≤ ±5cm 이내</strong><br>• 측량 성과표 및 사진대지 구비 제출</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 15px; background: #eff6ff; padding: 12px 16px; border-radius: 8px; border: 1px solid #bfdbfe; font-size: 0.88rem; color: #1e40af;">
+            <strong>📐 동탄트램 기술 이행 절대 수칙:</strong> 본 지장물 조사 (위탁기관 합동) 과업은 동탄트램 궤도 구조물 안전성 확보와 공기 지연 방지를 위해 <strong>상기 정량 기술 시방</strong>을 엄격히 준수합니다.
+        </div>
+    </div>
+
+    <h2>3. 지장물 조사 (위탁기관 합동) 핵심 프로세스 모식도</h2>
+    <div class="svg-container">
+        <svg viewBox="0 0 900 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="320" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+            <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">위탁기관 합동 현장 실치 조사 및 정밀 측량 절차</text>
+
+            <g transform="translate(30, 60)">
+                <rect width="180" height="170" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                <rect width="180" height="35" rx="8" fill="#dbeafe"/>
+                <text x="90" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">① 6대 기관 입회</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">6대 기관 100% 동행</text>
+            </g>
+
+            <text x="225" y="145" font-size="20" fill="#2563eb">➔</text>
+
+            <g transform="translate(245, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#ffedd5"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">③ 인력 줄따기</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">오차 ±10cm 마킹</text>
+            </g>
+
+            <text x="450" y="145" font-size="20" fill="#ea580c">➔</text>
+
+            <g transform="translate(470, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#dcfce7"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">③ 인력 줄따기</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">폭 1.0m 줄따기</text>
+            </g>
+
+            <text x="675" y="145" font-size="20" fill="#059669">➔</text>
+
+            <g transform="translate(695, 60)">
+                <rect width="175" height="170" rx="8" fill="#ffffff" stroke="#1e3a8a" stroke-width="2"/>
+                <rect width="175" height="35" rx="8" fill="#e0e7ff"/>
+                <text x="87" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e1b4b">④ 측량 서명 승인</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">조사 보고서 결재</text>
+            </g>
+
+            <rect x="30" y="250" width="840" height="45" rx="8" fill="#1e3a8a"/>
+            <text x="450" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">🚨 관리기관 동행 입회 없이 줄따기 굴착 단독 진행 시 관로 불시 파손 및 법정 책임 발생 예방</text>
+        </svg>
+    </div>
+
+    <div class="diagram-explanation">
+        <h4 style="margin: 0 0 8px 0; color: #0f172a;">🔍 지장물 조사 (위탁기관 합동) 엔지니어링 시스템 해설</h4>
+        <p style="margin: 0; line-height: 1.7;">본 과업은 6대 위탁기관 담당자 동행 하에 GPR 탐사 및 인력 시굴을 시행하여 실제 지하관로 위치를 100% 실측하는 절차입니다.</p>
+    </div>
+
+    <div class="key-takeaway">
+        <strong>💡 핵심 요약:</strong> 6대 위탁기관 동행 입회, GPR 오차 10cm, GRS80 오차 5cm 및 인력 줄따기로 위치를 확정하는 합동 조사 단계입니다!
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 2000-1-5 | 지장물이설
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - [반-PC 슬래브] 패널반입 및 설치 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-emerald-950 to-slate-900 opacity-70"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-15 Guideline</span>
+                <span class="bg-white text-slate-950 text-xs font-bold px-3 py-1 rounded-full">4단계 1:1 매칭 기술 도식 매뉴얼</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">[반-PC 슬래브] 패널반입 및 설치 수행지침서</h1>
+            <p class="text-emerald-200 mt-2 text-sm sm:text-base">"4단계 시공 프로세스별 1:1 정밀 도식(도식 1~4) 및 클릭 시 초대형 팝업 확대 가이드"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 💡 작업 안내 박스 -->
+        <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl text-xs sm:text-sm text-amber-900 shadow-sm">
+            <h4 class="font-bold text-amber-950 text-base mb-1.5 flex items-center gap-2">
+                <span>💡</span> [반-PC 슬래브] 패널반입 및 설치 4단계 1:1 실무 핵심
+            </h4>
+            <p class="leading-relaxed">
+                교차로 및 교량 구간 급속 시공을 위한 <strong><span class="term-highlight" onclick="openGlossary('half_pc')">반-PC 슬래브 패널</span></strong> 공종입니다. STEP 1부터 STEP 4까지 각 단계에 직관적으로 1:1 매칭되는 <strong>4개의 정밀 2D 기술 도식</strong>을 제공하며, 모든 도식은 클릭 시 화면 전체에 <strong>초대형 고화질 뷰(`openDiagramZoom`)</strong>로 확대되어 글자가 또렷하게 보입니다.
+            </p>
+        </div>
+
+        <!-- 1. [Flexible Step Policy 적용] 반-PC 슬래브 4단계 시공 프로세스 마스터 체계도 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">1.</span> 반-PC 슬래브 반입·설치 4단계 마스터 프로세스 (Flow Architecture)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="flow-card bg-amber-50 p-4 rounded-xl border border-amber-200 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="bg-amber-500 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 1</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">반입 & 받침목 검수</h4>
+                        <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                            패널 균열/오염 점검 & 모서리 <strong>1/4, 3/4 지점</strong> 받침목 4개소 배치 적재
+                        </p>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-amber-100 text-[10px] text-amber-800 font-bold">
+                        🪵 [도식 1] 연동 참조
+                    </div>
+                </div>
+
+                <div class="flow-card bg-sky-50 p-4 rounded-xl border border-sky-200 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="bg-sky-500 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 2</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">노반청소 & 3D 측량</h4>
+                        <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                            보조도상 이물질 청소 & 광파 토탈스테이션 <strong>3D 정밀 좌표계</strong> 셋팅
+                        </p>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-sky-100 text-[10px] text-sky-800 font-bold">
+                        📐 [도식 2] 연동 참조
+                    </div>
+                </div>
+
+                <div class="flow-card bg-emerald-50 p-4 rounded-xl border border-emerald-200 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 3</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">정인양빔 & 스크류잭</h4>
+                        <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                            정 인양 빔(Spreader Beam) 거치 & <strong>Screw Jack 레벨</strong> 수평 정위치 고정
+                        </p>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-emerald-100 text-[10px] text-emerald-800 font-bold">
+                        ⚙️ [도식 3] 연동 참조
+                    </div>
+                </div>
+
+                <div class="flow-card bg-blue-50 p-4 rounded-xl border border-blue-200 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 4</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">평탄성 오차 &plusmn;3mm 검측</h4>
+                        <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                            패널 상면 평탄성 오차 <strong>&plusmn;3.0mm 이내</strong> 3m 직선자 실측 서명
+                        </p>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-blue-100 text-[10px] text-blue-800 font-bold">
+                        📏 [도식 4] 연동 참조
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 4단계 1:1 매칭 4대 정밀 공학 기술 도식 (Light Theme & Clickable Zoom) -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">2.</span> 4단계 1:1 매칭 정밀 공학 기술 도식 (🔍 도식 클릭 시 대형 팝업 확대)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- STEP 1 -> 도식 1: 패널 반입 검수 & 받침목(1/4, 3/4 지점 4개소) 배치 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                            <h3 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                                <span class="w-3 h-3 bg-amber-500 rounded-full inline-block"></span>
+                                [도식 1] (STEP 1) 패널 반입 & 받침목 배치
+                            </h3>
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">1/4, 3/4 받침목</span>
+                        </div>
+                        
+                        <div class="clickable-diagram bg-slate-50 p-4 rounded-xl flex justify-center items-center shadow-inner border border-slate-200" onclick="openDiagramZoom('svgDiagram15_STEP1', '[도식 1] 패널 반입 & 받침목(1/4, 3/4지점) 배치 도면')">
+                            <svg id="svgDiagram15_STEP1" viewBox="0 0 420 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="420" height="220" fill="#f8fafc"/>
+                                
+                                <rect x="30" y="165" width="360" height="40" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                                <text x="210" y="188" font-size="11" font-weight="bold" fill="#78350f" text-anchor="middle">운반 트럭 적재함 하부</text>
+
+                                <!-- 받침목 (1/4, 3/4 지점) -->
+                                <rect x="110" y="145" width="20" height="20" fill="#b45309" stroke="#78350f" stroke-width="1.5"/>
+                                <rect x="290" y="145" width="20" height="20" fill="#b45309" stroke="#78350f" stroke-width="1.5"/>
+                                <text x="120" y="140" font-size="11" font-weight="black" fill="#b45309" text-anchor="middle">1/4 받침목</text>
+                                <text x="300" y="140" font-size="11" font-weight="black" fill="#b45309" text-anchor="middle">3/4 받침목</text>
+
+                                <!-- PC 슬래브 패널 -->
+                                <rect x="50" y="90" width="320" height="55" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+                                <text x="210" y="122" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">반-PC 슬래브 패널 (균열/모서리 파손 전수 검수)</text>
+                                
+                                <circle cx="65" cy="118" r="8" fill="#10b981"/>
+                                <text x="65" y="121" font-size="10" font-weight="black" fill="#ffffff" text-anchor="middle">OK</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="bg-amber-50 p-3.5 rounded-xl border border-amber-100 text-xs text-amber-900 leading-relaxed">
+                        <strong>🪵 STEP 1 핵심:</strong> PC 슬래브 반입 즉시 모서리 균열을 조사하고, 휨 응력 방지를 위해 <strong>길이 1/4 및 3/4 지점 4개소에 고무 받침목</strong>을 정밀배치합니다.
+                    </div>
+                </div>
+
+                <!-- STEP 2 -> 도식 2: 보조도상 이물질 청소 & 광파 토탈스테이션 3D 측량 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                            <h3 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                                <span class="w-3 h-3 bg-sky-500 rounded-full inline-block"></span>
+                                [도식 2] (STEP 2) 노반 청소 & 3D 광파 측량
+                            </h3>
+                            <span class="bg-sky-100 text-sky-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">3D 좌표 정합</span>
+                        </div>
+                        
+                        <div class="clickable-diagram bg-slate-50 p-4 rounded-xl flex justify-center items-center shadow-inner border border-slate-200" onclick="openDiagramZoom('svgDiagram15_STEP2', '[도식 2] 노반 청소 & 3D 광파 측량 셋팅 도면')">
+                            <svg id="svgDiagram15_STEP2" viewBox="0 0 420 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="420" height="220" fill="#f8fafc"/>
+                                
+                                <rect x="30" y="140" width="360" height="65" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                                <text x="210" y="178" font-size="12" font-weight="black" fill="#78350f" text-anchor="middle">보조도상 지층 (고압 수쇄 이물질 청소 완료)</text>
+
+                                <!-- 수쇄 살수 노즐 -->
+                                <line x1="50" y1="95" x2="130" y2="95" stroke="#0284c7" stroke-width="3"/>
+                                <circle cx="100" cy="115" r="4" fill="#38bdf8"/>
+                                <circle cx="120" cy="125" r="4" fill="#38bdf8"/>
+                                <text x="90" y="85" font-size="10" font-weight="black" fill="#0284c7" text-anchor="middle">고압 수쇄 세척</text>
+
+                                <!-- 광파 토탈스테이션 삼각대 및 레이저 -->
+                                <polygon points="320,135 340,75 360,135" fill="none" stroke="#334155" stroke-width="2"/>
+                                <rect x="332" y="55" width="16" height="20" fill="#0284c7" rx="2"/>
+                                <line x1="332" y1="65" x2="150" y2="140" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,2"/>
+                                <text x="340" y="45" font-size="11" font-weight="black" fill="#0369a1" text-anchor="middle">광파 3D 측량기</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="bg-sky-50 p-3.5 rounded-xl border border-sky-100 text-xs text-sky-900 leading-relaxed">
+                        <strong>📐 STEP 2 핵심:</strong> 보조도상 부스러기를 고압 살수 청소하고, <strong>광파 토탈스테이션을 투입하여 3차원 설계 좌표계 및 캔트 기준점</strong>을 정밀 셋팅합니다.
+                    </div>
+                </div>
+
+                <!-- STEP 3 -> 도식 3: 4점 정 인양 빔(Spreader Beam) 거치 & Screw Jack 고정 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                            <h3 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                                <span class="w-3 h-3 bg-emerald-600 rounded-full inline-block"></span>
+                                [도식 3] (STEP 3) 정인양빔 거치 & Screw Jack
+                            </h3>
+                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">Screw Jack 고정</span>
+                        </div>
+                        
+                        <div class="clickable-diagram bg-slate-50 p-4 rounded-xl flex justify-center items-center shadow-inner border border-slate-200" onclick="openDiagramZoom('svgDiagram15_STEP3', '[도식 3] 정인양빔 거치 & Screw Jack 레벨 고정 도면')">
+                            <svg id="svgDiagram15_STEP3" viewBox="0 0 420 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="420" height="220" fill="#f8fafc"/>
+                                
+                                <rect x="30" y="170" width="360" height="35" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                                
+                                <!-- Screw Jack 수직 조절 나사 (좌우) -->
+                                <rect x="75" y="145" width="16" height="25" fill="#059669" rx="1"/>
+                                <rect x="329" y="145" width="16" height="25" fill="#059669" rx="1"/>
+                                <text x="83" y="138" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">Screw Jack</text>
+                                <text x="337" y="138" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">Screw Jack</text>
+
+                                <!-- PC 슬래브 패널 -->
+                                <rect x="50" y="100" width="320" height="45" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+
+                                <!-- 4점 정 인양 빔 (Spreader Beam) -->
+                                <line x1="210" y1="15" x2="210" y2="40" stroke="#0284c7" stroke-width="5"/>
+                                <rect x="100" y="40" width="220" height="12" fill="#0284c7" rx="2"/>
+                                <line x1="120" y1="52" x2="80" y2="100" stroke="#0369a1" stroke-width="2.5"/>
+                                <line x1="160" y1="52" x2="150" y2="100" stroke="#0369a1" stroke-width="2.5"/>
+                                <line x1="260" y1="52" x2="270" y2="100" stroke="#0369a1" stroke-width="2.5"/>
+                                <line x1="300" y1="52" x2="340" y2="100" stroke="#0369a1" stroke-width="2.5"/>
+                                <text x="210" y="32" font-size="11" font-weight="black" fill="#0284c7" text-anchor="middle">4점 Spreader Beam 정인양 거치</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="bg-emerald-50 p-3.5 rounded-xl border border-emerald-100 text-xs text-emerald-900 leading-relaxed">
+                        <strong>⚙️ STEP 3 핵심:</strong> 크레인 <strong>4점 정 인양 빔(Spreader Beam)</strong>으로 수평 하차 안착하고, <strong>Screw Jack 수직 나사를 조율하여 계획고 레벨에 고정</strong>합니다.
+                    </div>
+                </div>
+
+                <!-- STEP 4 -> 도식 4: 3m 직선자 상면 평탄성 오차(±3.0mm 이내) 정밀 검측 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                            <h3 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                                <span class="w-3 h-3 bg-blue-600 rounded-full inline-block"></span>
+                                [도식 4] (STEP 4) 평탄성 오차(&plusmn;3.0mm) 검측
+                            </h3>
+                            <span class="bg-blue-100 text-blue-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">평탄성 &plusmn;3mm</span>
+                        </div>
+                        
+                        <div class="clickable-diagram bg-slate-50 p-4 rounded-xl flex justify-center items-center shadow-inner border border-slate-200" onclick="openDiagramZoom('svgDiagram15_STEP4', '[도식 4] 3m 직선자 상면 평탄성 오차(±3.0mm 이내) 검측 도면')">
+                            <svg id="svgDiagram15_STEP4" viewBox="0 0 420 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="420" height="220" fill="#f8fafc"/>
+                                
+                                <rect x="30" y="170" width="360" height="35" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+                                <text x="210" y="192" font-size="11" font-weight="bold" fill="#78350f" text-anchor="middle">기초 보조도상 지층</text>
+
+                                <!-- PC 슬래브 패널 -->
+                                <rect x="50" y="110" width="320" height="45" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+                                <text x="210" y="137" font-size="13" font-weight="black" fill="#0f172a" text-anchor="middle">PC 슬래브 패널 상면 정밀 안착</text>
+
+                                <!-- 3m 직선 자 밀착 -->
+                                <line x1="60" y1="98" x2="360" y2="98" stroke="#dc2626" stroke-width="4"/>
+                                <text x="210" y="88" font-size="12" font-weight="black" fill="#dc2626" text-anchor="middle">3m 직선자 밀착 고저 凹凸 실측</text>
+
+                                <!-- 오차 수치 핀아웃 -->
+                                <rect x="150" y="30" width="120" height="35" fill="#1e293b" rx="4"/>
+                                <text x="210" y="52" font-size="12" font-weight="black" fill="#38bdf8" text-anchor="middle">오차: &plusmn;1.2mm (합격)</text>
+                                <line x1="210" y1="65" x2="210" y2="98" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2,2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-3.5 rounded-xl border border-blue-100 text-xs text-blue-900 leading-relaxed">
+                        <strong>📏 STEP 4 핵심:</strong> 3m 직선자를 패널 상면에 밀착하여 <strong>평탄성 오차 &plusmn;3.0mm 이내</strong>임을 감리 입회 하에 실측 검측하고 실측표 서명 등록합니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 상세 세부 수행 수칙 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">3.</span> 4단계 실무 엔지니어링 수행 수칙
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="bg-amber-500 text-white font-black text-xs px-3 py-1.5 rounded-lg shrink-0 mt-0.5">STEP 1</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">PC 슬래브 반입 검수 & 받침목(1/4, 3/4 지점 4개소) 배치 수칙</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            패널 현장 반입 시 표면 균열 및 모서리 파손 유무를 전수 조사하고, 휨 응력 파손 방지를 위해 <span class="term-highlight" onclick="openGlossary('support_timber')">패널 길이 1/4, 3/4 지점 좌우 4개소에 받침목</span>을 정밀 배치하여 적재합니다. (상기 [도식 1] 참조)
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="bg-sky-500 text-white font-black text-xs px-3 py-1.5 rounded-lg shrink-0 mt-0.5">STEP 2</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">노반 표면 고압 청소 & 3D 광파 토탈스테이션 측량 셋팅 수칙</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            보조도상 상부의 돌가루 및 이물질을 고압 수쇄 청소하고, 광파 토탈스테이션을 투입하여 <span class="term-highlight" onclick="openGlossary('flatness_spec')">3차원 노선 설계 좌표계 및 캔트 기준점</span>을 현장에 정밀 셋팅합니다. (상기 [도식 2] 참조)
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="bg-emerald-600 text-white font-black text-xs px-3 py-1.5 rounded-lg shrink-0 mt-0.5">STEP 3</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">4점 정 인양 빔(Spreader Beam) 거치 & Screw Jack 수평 고정 수칙</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            4점 정 인양 빔(Spreader Beam)을 결합하여 패널을 기울임 없이 수평 안착시키며, <span class="term-highlight" onclick="openGlossary('screw_jack')">Screw Jack 레벨 수직 조정 나사</span>를 회전시켜 계획고 레벨 정위치에 단단히 고정합니다. (상기 [도식 3] 참조)
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="bg-blue-600 text-white font-black text-xs px-3 py-1.5 rounded-lg shrink-0 mt-0.5">STEP 4</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">패널 상면 평탄성 오차(±3.0mm) 실측 & 인수 서명 마감 수칙</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            3m 직선자를 패널 상면에 밀착하여 고저 凹凸 <span class="term-highlight" onclick="openGlossary('flatness_spec')">평탄성 오차가 ±3.0mm 이내</span>임을 감리 입회 하에 측량 확인하고, PC슬래브 거치 수준 실측표에 서명 등록 마감합니다. (상기 [도식 4] 참조)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 공학 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'half_pc': {
+        title: '🧱 반-PC 슬래브 (Precast Slab Panel)',
+        desc: '공장에서 사전 제작되어 현장 반입되는 궤도용 슬래브 구조체입니다. 교차로 및 교량 구간 궤공지지체 공사 시 현장 타설 거푸집 작업을 생략하고 급속 시공을 구현합니다.'
+    },
+    'support_timber': {
+        title: '🪵 받침목 모서리 배치 (패널 1/4, 3/4 지점)',
+        desc: 'PC 슬래브 적재 및 임시 거치 시 자중 휨 응력 집중으로 인한 균열을 예방하기 위해, 패널 전체 길이에 대해 모서리부 1/4 및 3/4 지점 좌우 4개소에 고무 받침목을 정밀 배치하는 수칙입니다.'
+    },
+    'screw_jack': {
+        title: '⚙️ Screw Jack 레벨 고정',
+        desc: '패널 거치 후 선로 계획고 및 캔트에 맞추어 높낮이를 0.5mm 단위로 조율하는 수직 조정 나사 장치입니다. 정위치 고정 후 콘크리트 2차 타설 전까지 변형을 방지합니다.'
+    },
+    'flatness_spec': {
+        title: '📐 평탄성 오차 ±3mm 이내 & 3D 얼라인먼트',
+        desc: '광파 토탈스테이션으로 3차원 노선 좌표를 정합하고, 패널 상면 평탄성을 3m 직선자로 실측하여 오차 ±3mm 이내 달성 시에만 하차 승인하는 표준 수칙입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '520px');
+        innerSvg.style.maxWidth = '1000px';
+    }
+    
+    const innerImg = zoomBody.querySelector('img');
+    if (innerImg) {
+        innerImg.style.maxHeight = '70vh';
+        innerImg.style.width = 'auto';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 자재 반입 및 검수 체크리스트 (WBS 9000-2-16)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto;
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+        .zoom-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 28px;
+            border: 1px solid #cbd5e1;
+            width: 95%; max-width: 1100px; max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow-y: auto; text-align: center;
+        }
+        .zoom-close {
+            color: #64748b;
+            position: absolute; right: 20px; top: 16px;
+            font-size: 32px; font-weight: bold; cursor: pointer;
+        }
+        .zoom-close:hover { color: #ef4444; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Checklist (WBS 9000-2-16)</span>
+        <h1 class="text-3xl font-black mt-2">자재 반입 및 검수 체크리스트</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-16 | 주관: 현장소장 및 발주청/공동감리단 | "16개 정밀 검측 문항 3컬럼 도식연동 팝업 서식 (~하였는가? 어미 100% 통일)"</p>
+    </div>
+    
+    <div class="p-6 sm:p-8 space-y-6">
+        
+        <!-- 💡 체크리스트 안내 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-5 rounded-2xl text-xs text-blue-950 space-y-2">
+            <h4 class="font-bold text-sm text-blue-900 flex items-center gap-2">📜 쉽게 풀어쓴 16개 정밀 현장 검측 체크리스트 안내</h4>
+            <p class="text-slate-700 leading-relaxed font-medium">
+                본 체크리스트는 주요 통신 자재(OTN 광전송 랙, 19인치 랙, LTE-R 기지국, CCTV NVR, 광케이블, UPS 축전지) 반입 시 <strong>자재공급원 승인원 서류 일치성, Serial Number 전수 대조, 외관 흠집/Shock Watch 5G 및 KS/KC 마크 점검, 하차 지게차/크레인 안전, 감리 입회 자재검수서 및 수불대장 서명 체결</strong>의 적정성을 현장 검측하기 위한 서식입니다. 각 단계별 <span class="bg-purple-100 text-purple-800 font-bold px-1.5 py-0.5 rounded">🟣 시공 도식 열기</span> 버튼을 누르면 2D 표준 지침 도식을 팝업으로 직접 확인하실 수 있습니다.
+            </p>
+        </div>
+
+        <!-- 📊 3컬럼 정밀 체크리스트 테이블 (16개 문항) -->
+        <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+            <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                    <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
+                        <th class="p-4 font-bold w-44 text-center">시공 단계 (Procedure)</th>
+                        <th class="p-4 font-bold">필수 검측 및 확인 항목 (Inspection Criteria)</th>
+                        <th class="p-4 font-bold w-32 text-center">점검 결과</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                    
+                    <!-- STEP 1 자재승인원 & Serial No. 100% 대조 검수 -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-4 align-top text-center bg-slate-50/50">
+                            <span class="bg-blue-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 1</span>
+                            <span class="font-bold text-slate-900 text-xs">승인 서류 & 시리얼 대조</span>
+                            <button onclick="openChecklistDiagram('step1')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-4 space-y-3">
+                            <div class="space-y-1">
+                                <span class="font-bold text-blue-900 text-[11px]">[승인원 1:1 대조]</span>
+                                <p class="text-slate-800 font-medium">1. 현장 반입 자재의 제조사, 모델명, 규격이 자재공급원 승인 서류와 1:1로 정확히 일치하는지 확인하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-blue-900 text-[11px]">[Serial No. 매핑]</span>
+                                <p class="text-slate-800 font-medium">2. 광전송 랙, LTE-R 기지국, NVR 서버 등 주요 장비의 Serial Number 일련번호를 전수 바코드 스캔하여 대조하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-blue-900 text-[11px]">[공인 성적서 유효성]</span>
+                                <p class="text-slate-800 font-medium">3. 공인 시험기관 성적서(KS/KC/TTA)의 유효 기간 및 원본 인증 상태를 확인하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-blue-900 text-[11px]">[반입 수량 대조]</span>
+                                <p class="text-slate-800 font-medium">4. 송장(Packing List) 상의 수량과 실제 입고 수량이 도면 내 필요 수량과 오차 없이 일치하는지 검측하였는가?</p>
+                            </div>
+                        </td>
+                        <td class="p-4 align-middle text-center">
+                            <div class="space-y-3">
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 2 외관 파손 & Shock Watch/KS/KC 마크 점검 -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-4 align-top text-center bg-slate-50/50">
+                            <span class="bg-indigo-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 2</span>
+                            <span class="font-bold text-slate-900 text-xs">외관 파손 & 센서 점검</span>
+                            <button onclick="openChecklistDiagram('step2')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-4 space-y-3">
+                            <div class="space-y-1">
+                                <span class="font-bold text-indigo-900 text-[11px]">[외관 흠집 점검]</span>
+                                <p class="text-slate-800 font-medium">5. 반입 장비 섀시 도장의 긁힘, 변형, 부식 및 도어 래치 작동 무결성을 육안 검측하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-indigo-900 text-[11px]">[Shock Watch 5G]</span>
+                                <p class="text-slate-800 font-medium">6. Class S 초정밀 OTN 랙의 충격 센서(Shock Watch 5G) 부착 상태 및 적색 변색 유무를 확인하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-indigo-900 text-[11px]">[인증 표찰 각인]</span>
+                                <p class="text-slate-800 font-medium">7. 제품 표찰에 KC/KS 인증 마크 및 IP65 방수 가스켓이 정상 결합되어 있는지 확인하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-indigo-900 text-[11px]">[UPS 전액 누수]</span>
+                                <p class="text-slate-800 font-medium">8. UPS 비상 축전지 셀 전해액 누액 유무 및 각 셀별 단자 전압(12V±0.1V)을 멀티미터로 측정하였는가?</p>
+                            </div>
+                        </td>
+                        <td class="p-4 align-middle text-center">
+                            <div class="space-y-3">
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 3 하차 동선 & 지게차/크레인 안전 양중 -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-4 align-top text-center bg-slate-50/50">
+                            <span class="bg-teal-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 3</span>
+                            <span class="font-bold text-slate-900 text-xs">하차동선 & 안전양중</span>
+                            <button onclick="openChecklistDiagram('step3')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-4 space-y-3">
+                            <div class="space-y-1">
+                                <span class="font-bold text-teal-900 text-[11px]">[지게차 포크 커버]</span>
+                                <p class="text-slate-800 font-medium">9. 하차용 지게차 포크에 고무 보호 커버를 부착하고 양중 반경 통제 펜스 설치를 확인하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-teal-900 text-[11px]">[드럼 앙카 롤러]</span>
+                                <p class="text-slate-800 font-medium">10. 600kg 광케이블 드럼 이동 시 수동 굴림을 금지하고 전용 앙카 롤러 받침대를 사용하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-teal-900 text-[11px]">[야적장 받침목]</span>
+                                <p class="text-slate-800 font-medium">11. 야적장 지표면 습기 차단용 방진 받침목(H≥100mm)을 고르고 배수 경사(2%) 상태를 점검하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-teal-900 text-[11px]">[방수 덮개 밀봉]</span>
+                                <p class="text-slate-800 font-medium">12. 우천 및 직사광선 보호용 방수 천막 덮개를 100% 씌우고 결속 끈으로 고정하였는가?</p>
+                            </div>
+                        </td>
+                        <td class="p-4 align-middle text-center">
+                            <div class="space-y-3">
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 4 감리단 입회 자재검수서 & 수불대장 서명 체결 -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-4 align-top text-center bg-slate-50/50">
+                            <span class="bg-cyan-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 4</span>
+                            <span class="font-bold text-slate-900 text-xs">감리입회 & 서명체결</span>
+                            <button onclick="openChecklistDiagram('step4')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-4 space-y-3">
+                            <div class="space-y-1">
+                                <span class="font-bold text-cyan-900 text-[11px]">[감리 입회 검측]</span>
+                                <p class="text-slate-800 font-medium">13. 발주청 및 공동감리단 입회 하 자재 반입 현장 입고 검측을 완수하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-cyan-900 text-[11px]">[검수서 자필 서명]</span>
+                                <p class="text-slate-800 font-medium">14. 자재검수서 서식에 현장대리인 및 담당 감리원 자필 서명을 완료 체결하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-cyan-900 text-[11px]">[수불대장 전산 등재]</span>
+                                <p class="text-slate-800 font-medium">15. 반입 당일 자재 모델명, 수량, Serial No.를 자재 수불대장 시스템에 즉시 등록하였는가?</p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-2">
+                                <span class="font-bold text-cyan-900 text-[11px]">[불합격자재 격리]</span>
+                                <p class="text-slate-800 font-medium">16. 불합격 자재 발생 시 '불합격 식별 표지'를 부착하고 전용 구획에 격리 야적하여 즉시 반품 처리하였는가?</p>
+                            </div>
+                        </td>
+                        <td class="p-4 align-middle text-center">
+                            <div class="space-y-3">
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                                <label class="flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer border-t border-slate-100 pt-2">
+                                    <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" onchange="updateSummary()"/> 확인완료
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 📈 현장 검측 요약 바 -->
+        <div class="bg-slate-100 p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+            <span class="font-bold text-xs text-slate-800">총 검측 문항: 16 문항</span>
+            <span id="summaryText" class="font-black text-blue-900 text-xs">현재 완료: 0 / 16 문항 (0%)</span>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🔍 시공 도식 팝업 모달 -->
+<div class="zoom-modal" id="checklistZoomModal" onclick="closeChecklistZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeChecklistZoomModal()">&times;</span>
+        <h3 id="checklistZoomTitle" style="font-size: 1.25rem; font-weight: 900; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #a855f7; padding-bottom: 8px; text-align: left;">🔍 자재 반입 및 입고 검수 시공 표준 도식</h3>
+        <div id="checklistZoomBody" class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex justify-center items-center overflow-auto min-h-[380px]">
+        </div>
+    </div>
+</div>
+
+<script>
+    const stepDiagrams = {
+        'step1': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#ffffff" rx="8"/><g transform="translate(20, 15)"><rect x="0" y="0" width="240" height="160" fill="#faf5ff" stroke="#7e22ce" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#6b21a8" text-anchor="middle">📑 1. 자재승인원 1:1 대조</text><line x1="15" y1="35" x2="225" y2="35" stroke="#e9d5ff" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#ffffff" stroke="#c084fc" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#6b21a8">• 승인 제조사/모델명 대조</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#6b21a8">• 공인 성적서 KS/KC/TTA</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#6b21a8">• 반입 수량 도면 비교</text><text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 승인 규격 검측 완료</text></g><g transform="translate(280, 15)"><rect x="0" y="0" width="240" height="160" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🏷️ Serial No. 바코드 매핑</text><line x1="15" y1="35" x2="225" y2="35" stroke="#bae6fd" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#ffffff" stroke="#38bdf8" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#0369a1">• 시리얼 번호 전수 스캔</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#0369a1">• 정품 일련번호 매핑</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#0369a1">• 이력 전산 관리 연동</text><text x="120" y="152" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">✔ 시리얼 검측 완수</text></g></svg>`,
+        'step2': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#ffffff" rx="8"/><g transform="translate(20, 15)"><rect x="0" y="0" width="240" height="160" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🔍 2. 외관 흠집 &amp; 파손 점검</text><line x1="15" y1="35" x2="225" y2="35" stroke="#bae6fd" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#ffffff" stroke="#38bdf8" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#0369a1">• 섀시 도장 긁힘/변형 육안</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#0369a1">• KC/KS 인증 표찰 확인</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#0369a1">• 방수 IP65 가스켓 검측</text><text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 외관 상태 합격</text></g><g transform="translate(280, 15)"><rect x="0" y="0" width="240" height="160" fill="#fff8f0" stroke="#d97706" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#9a3412" text-anchor="middle">⚡ Shock Watch 5G &amp; UPS 셀</text><line x1="15" y1="35" x2="225" y2="35" stroke="#fde68a" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#ffffff" stroke="#f59e0b" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#92400e">• Shock Watch 5G 변색 유무</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#92400e">• UPS 셀 누액/단자 산화</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#92400e">• 셀 전압 12V±0.1V 측정</text><text x="120" y="152" font-size="10" font-weight="black" fill="#9a3412" text-anchor="middle">✔ 센서/전압 검측 완수</text></g></svg>`,
+        'step3': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#ffffff" rx="8"/><g transform="translate(20, 15)"><rect x="0" y="0" width="240" height="160" fill="#f0f5ff" stroke="#4f46e5" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">🏗️ 3. 하차 동선 &amp; 안전 양중</text><line x1="15" y1="35" x2="225" y2="35" stroke="#c7d2fe" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#ffffff" stroke="#6366f1" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#3730a3">• 지게차 포크 고무 커버</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#3730a3">• 600kg 드럼 앙카 롤러</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#3730a3">• 하차 반경 펜스 &amp; 신호수</text><text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 안전 하차 양중 완수</text></g><g transform="translate(280, 15)"><rect x="0" y="0" width="240" height="160" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/><text x="120" y="25" font-size="12" font-weight="black" fill="#15803d" text-anchor="middle">📦 야적장 지반 &amp; 받침목</text><line x1="15" y1="35" x2="225" y2="35" stroke="#bbf7d0" stroke-width="1"/><rect x="25" y="45" width="190" height="95" fill="#ffffff" stroke="#22c55e" stroke-width="1"/><text x="35" y="65" font-size="9.5" font-weight="bold" fill="#15803d">• 받침목 H ≥ 100mm 이격</text><text x="35" y="85" font-size="9.5" font-weight="bold" fill="#15803d">• 배수 경사 2% 이상 확보</text><text x="35" y="105" font-size="9.5" font-weight="bold" fill="#15803d">• 방수 천막 덮개 100% 밀봉</text><text x="120" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 야적 보관 통제 합격</text></g></svg>`,
+        'step4': `<svg viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="540" height="190" fill="#ffffff" rx="8"/><g transform="translate(100, 10)"><rect x="0" y="0" width="340" height="170" fill="#f0fdf4" stroke="#059669" stroke-width="2" rx="6"/><rect x="0" y="0" width="340" height="32" fill="#059669" rx="6"/><text x="170" y="21" font-size="13" font-weight="black" fill="#ffffff" text-anchor="middle">📝 감리 입회 자재검수서 &amp; 수불대장</text><text x="25" y="52" font-size="10" font-weight="bold" fill="#1e293b">입회: 발주청 &amp; 공동감리단 현장 입고 검측</text><text x="25" y="70" font-size="9" font-weight="bold" fill="#1e293b">• 자재검수서: 현장대리인 &amp; 감리원 자필 서명</text><text x="25" y="85" font-size="9" font-weight="bold" fill="#1e293b">• 수불대장: 입고 당일 시리얼/수량 전산 등재</text><line x1="25" y1="98" x2="315" y2="98" stroke="#cbd5e1" stroke-width="1"/><text x="25" y="118" font-size="9" font-weight="bold" fill="#0f172a">담당 감리원 / 현장대리인:</text><text x="150" y="118" font-size="9.5" font-weight="bold" fill="#1e3a8a">최종 검수 체결</text><g transform="translate(210, 95) rotate(-12)"><rect x="0" y="0" width="110" height="50" fill="#ffffff" stroke="#059669" stroke-width="3" rx="6"/><rect x="3" y="3" width="104" height="44" fill="none" stroke="#059669" stroke-width="1" rx="4"/><text x="55" y="26" font-size="14" font-weight="900" fill="#059669" text-anchor="middle">검수 승인</text><text x="55" y="40" font-size="9" font-weight="700" font-weight="bold" fill="#059669" text-anchor="middle">자재검수서 체결</text></g><text x="170" y="160" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 입고 검수 증빙 완수</text></g></svg>`
+    };
+
+    function openChecklistDiagram(stepKey) {
+        const zoomBody = document.getElementById('checklistZoomBody');
+        if (stepDiagrams[stepKey]) {
+            zoomBody.innerHTML = stepDiagrams[stepKey];
+            document.getElementById('checklistZoomModal').classList.add('active');
+        }
+    }
+
+    function closeChecklistZoomModal() {
+        document.getElementById('checklistZoomModal').classList.remove('active');
+    }
+
+    function closeChecklistZoomModalOutside(event) {
+        if (event.target.id === 'checklistZoomModal') {
+            closeChecklistZoomModal();
+        }
+    }
+
+    function updateSummary() {
+        const total = document.querySelectorAll('.chk-item').length;
+        const checked = document.querySelectorAll('.chk-item:checked').length;
+        const pct = Math.round((checked / total) * 100);
+        document.getElementById('summaryText').innerText = `현재 완료: ${checked} / ${total} 문항 (${pct}%)`;
+    }
+</script>
+</body>
+</html>

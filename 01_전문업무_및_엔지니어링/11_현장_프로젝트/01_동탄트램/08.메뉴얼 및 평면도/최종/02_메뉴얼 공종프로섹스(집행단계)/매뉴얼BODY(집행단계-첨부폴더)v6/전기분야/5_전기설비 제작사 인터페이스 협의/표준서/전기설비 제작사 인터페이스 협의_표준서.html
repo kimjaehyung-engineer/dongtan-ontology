@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 전기분야 - 전기설비 제작사 인터페이스 협의 표준서 (WBS 9000-3-5)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Noto Sans KR', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-amber-500 text-slate-900 text-xs font-black px-3 py-1 rounded-full uppercase">Dongtan Tram Electrical Standard (WBS 9000-3-5)</span>
+        <h1 class="text-3xl font-black mt-2">전기설비 제작사 인터페이스 협의 표준서</h1>
+        <p class="text-amber-200 text-sm mt-1">L4 Code: 9000-3-5 | 주관: 현장 전철전력팀 (책임감리단 공조) | "이종 제작사 프로토콜 & 핀 맵 대조 & 표준 수칙"</p>
+    </div>
+    
+    <div class="p-6 sm:p-8 space-y-8">
+        
+        <!-- ⚖️ 근거 법령, 국가 설계기준 및 입찰안내서 검토 기준 -->
+        <div class="bg-slate-50 border border-slate-200 p-6 rounded-2xl shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <span class="text-amber-600">⚖️</span> 근거 법령 · 국가 기준 · 인터페이스 표준 (Legal & Bidding Verification)
+                </h3>
+                <span class="text-[11px] bg-red-100 text-red-800 font-bold px-3 py-1 rounded-full border border-red-200 uppercase">인터페이스 표준</span>
+            </div>
+            
+            <p class="text-slate-700 text-xs leading-relaxed font-medium">
+                본 표준서는 전기공사업법, 건설기술 진흥법, KDS 47 00 00 철도설계기준 및 동탄트램 입찰안내서에 의거하여, <strong>전기설비 제작사 인터페이스 협의 분야의 핵심 요구사항 및 감리단 공학적 승인 절차</strong>를 체계적으로 확정하는 표준입니다.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                
+                <div class="bg-amber-50/70 p-4 rounded-xl border border-amber-200/80 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-amber-900 text-xs">📌 이종 제작사 프로토콜 & 핀 맵 대조</span>
+                        <span class="text-[10px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded border border-amber-300">단계 1</span>
+                    </div>
+                    <p class="text-slate-800 leading-relaxed text-[11px] font-medium">
+                        <strong>"SCADA RTU, 변전소 GIS, 정류기, ESS 릴레이 간 IEC 61850 및 Modbus 통신 핀 맵/신호 주소 1:1 검증"</strong>
+                    </p>
+                </div>
+
+                <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-200/80 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-indigo-900 text-xs">📐 제어반 랙 치수 & 부스바 피치 조율</span>
+                        <span class="text-[10px] bg-indigo-200 text-indigo-900 font-bold px-2 py-0.5 rounded border border-indigo-300">단계 2</span>
+                    </div>
+                    <p class="text-slate-800 leading-relaxed text-[11px] font-medium">
+                        <strong>"제어반 19인치 랙 배열, 대전류 동판 부스바 관통 피치 및 현장 케이블 인입 위치 제작사간 조율"</strong>
+                    </p>
+                </div>
+
+                <div class="bg-emerald-50/70 p-4 rounded-xl border border-emerald-200/80 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-emerald-900 text-xs">🛡️ 공인 성적서 & KESC 시험 항목 사전 검토</span>
+                        <span class="text-[10px] bg-emerald-200 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-300">단계 3</span>
+                    </div>
+                    <p class="text-slate-800 leading-relaxed text-[11px] font-medium">
+                        <strong>"KTR/KTL 공인기관 시험성적서 및 KESC 사용전검사 필수 시험 항목 제작 사양서 100% 포함 확인"</strong>
+                    </p>
+                </div>
+
+                <div class="bg-sky-50/70 p-4 rounded-xl border border-sky-200/80 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-sky-900 text-xs">📄 제작사양서 & 관리대장 감리 승인</span>
+                        <span class="text-[10px] bg-sky-200 text-sky-900 font-bold px-2 py-0.5 rounded border border-sky-300">단계 4</span>
+                    </div>
+                    <p class="text-slate-800 leading-relaxed text-[11px] font-medium">
+                        <strong>"제작사 인터페이스 종합 회의록, 확정 제작사양서 작성 후 책임감리단 공학적 최종 승인 완수"</strong>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 🎯 표준 목적 -->
+        <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl">
+            <h3 class="text-base font-bold text-amber-950 mb-2 flex items-center gap-2">
+                <span>🎯</span> 표준 목적 (Objective)
+            </h3>
+            <p class="text-slate-800 text-sm font-medium leading-relaxed">
+                전기설비(변압기, 정류기, ESS, GIS, SCADA RTU) 제작사 사양 사전 반영, 이종 제작사 간 통신 프로토콜(IEC 61850, Modbus) 핀 맵/제어 랙 치수 조율 및 제작사양서 확정
+            </p>
+        </div>
+
+        <!-- 📜 업무수행 수칙 -->
+        <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-4 border-b-2 border-amber-600 pb-2 flex items-center gap-2">
+                <span>📜</span> 업무수행 핵심 수칙 (Execution Rules)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded">수칙 1</span>
+                        <h4 class="font-bold text-slate-900 text-sm">인터페이스 사전 검측 수칙</h4>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed">
+                        공종 간 누락 및 상충 요소를 3D BIM 기반으로 정밀 대조하고 시공 중 재작업 발생을 사전에 소멸함.
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded">수칙 2</span>
+                        <h4 class="font-bold text-slate-900 text-sm">회의록 & 관리대장 승인 수칙</h4>
+                    </div>
+                    <p class="text-slate-700 text-xs leading-relaxed">
+                        모든 인터페이스 협의 사항은 서명된 회의록 및 관리대장으로 일원화하여 책임감리단 승인을 완수함.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📦 증빙 산출물 -->
+        <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <h3 class="text-base font-bold text-emerald-950 mb-1 flex items-center gap-2">
+                    <span>📦</span> 증빙 산출물 (Deliverables)
+                </h3>
+                <p class="text-slate-700 text-xs font-medium">전기설비 제작사 인터페이스 협의 관련 회의록, 인터페이스 관리대장 및 감리 승인 문서 사본</p>
+            </div>
+            <span class="bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm text-center">
+                협의 승인 완료
+            </span>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

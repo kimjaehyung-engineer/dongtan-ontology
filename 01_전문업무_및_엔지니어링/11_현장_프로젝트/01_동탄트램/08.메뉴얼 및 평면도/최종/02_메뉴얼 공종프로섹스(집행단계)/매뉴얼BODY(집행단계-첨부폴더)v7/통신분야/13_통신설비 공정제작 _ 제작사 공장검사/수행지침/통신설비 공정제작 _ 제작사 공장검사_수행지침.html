@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 통신설비 공정제작 / 제작사 공장검사 수행지침서 (WBS 9000-2-13)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .clickable-diagram {
+            cursor: zoom-in !important;
+            transition: all 0.25s ease !important;
+            position: relative !important;
+        }
+        .clickable-diagram:hover {
+            transform: scale(1.015) !important;
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+        }
+        .zoom-modal, .glossary-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+        .zoom-modal.active, .glossary-modal.active {
+            display: flex;
+        }
+        .zoom-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 28px;
+            border: 1px solid #cbd5e1;
+            width: 95%;
+            max-width: 1100px;
+            max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow-y: auto;
+            text-align: center;
+        }
+        .glossary-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            width: 90%;
+            max-width: 620px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            text-align: left;
+        }
+        .zoom-close, .glossary-close {
+            color: #64748b;
+            position: absolute;
+            right: 20px;
+            top: 16px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .zoom-close:hover, .glossary-close:hover {
+            color: #ef4444;
+        }
+        .term-highlight {
+            color: #0284c7 !important;
+            font-weight: 700 !important;
+            border-bottom: 2px dashed #0284c7 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            padding: 0 2px !important;
+        }
+        .term-highlight:hover {
+            background: #e0f2fe !important;
+            color: #0369a1 !important;
+            border-radius: 4px !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-13)</span>
+        <h1 class="text-3xl font-black mt-2">통신설비 공정제작 및 제작사 공장검사(FAT) 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "15대 통신 장비 1:1 실물 이미지 수록 & 팝업 연동 매뉴얼"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 개념 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 공장검사(FAT) 개념 및 실물 이미지 연동 안내</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                공장검사(FAT, Factory Acceptance Test)는 제작사에 주문한 통신 장비가 현장에 반입되기 전, <strong>제조 공장 성능시험실</strong>에서 미리 <span class="term-highlight" onclick="openGlossary('delivery_check')">Delivery 반입일정</span>, <span class="term-highlight" onclick="openGlossary('drawings_check')">제작도면 1:1 일치 여부</span>, <span class="term-highlight" onclick="openGlossary('insulation_test')">절연·전원 성능</span> 및 아래 수록된 <strong>15대 통신 장비 실물 이미지</strong>를 보며 검수하는 품질 검수 절차입니다. 장비 이미지를 클릭하면 대형 고화질 팝업이 열립니다.
+            </p>
+        </div>
+
+        <!-- ⚙️ 공장검사 4대 필수 확인 과제 카드 -->
+        <div class="bg-gradient-to-br from-blue-50 via-indigo-50/70 to-sky-50 border-2 border-indigo-300 p-7 rounded-2xl shadow-md space-y-5">
+            <div class="border-b border-indigo-300 pb-3 flex items-center justify-between">
+                <div>
+                    <span class="bg-indigo-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase">4-CORE FAT TASKS</span>
+                    <h3 class="text-xl font-black text-indigo-950 mt-1">⚙️ 공장검사 현장에서 반드시 수행해야 하는 4대 핵심 과제</h3>
+                </div>
+                <span class="text-xs text-indigo-900 font-black bg-white px-3 py-1.5 rounded-lg border border-indigo-400 shadow-sm">현장 점검 필수</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div class="bg-white p-5 rounded-xl border border-indigo-200 space-y-2 shadow-sm">
+                    <span class="bg-blue-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">과제 1</span>
+                    <h4 class="font-black text-slate-900 text-sm">📦 1. 외산자재 등 Delivery 반입 일정 확인</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px]">
+                        • 수입 칩셋, Optical Module, 백본 스위치 등 외산 자재의 B/L(선적증명서) 및 수입 통관 서류 확인<br>
+                        • 트램 기계실 반입 주공정표(CPM) 대비 제작 납기 지연 여부를 사전 산출하여 공정 차질 예방
+                    </p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-indigo-200 space-y-2 shadow-sm">
+                    <span class="bg-indigo-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">과제 2</span>
+                    <h4 class="font-black text-slate-900 text-sm">📐 2. 제작도서 기준 최종 제작 상태 확인</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px]">
+                        • 승인받은 자재승인서 대비 랙 외함(2200H), 메쉬도어, 도장 상태, 부품 고정 정밀도 검수<br>
+                        • 랙 내부 접지 단자대 및 전원 분배기(PDU)의 볼트 체결 조임 상태 1:1 육안 검측
+                    </p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-indigo-200 space-y-2 shadow-sm">
+                    <span class="bg-teal-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">과제 3</span>
+                    <h4 class="font-black text-slate-900 text-sm">📑 3. 제작도면과 1:1 일치 여부 상세 대조</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px]">
+                        • 승인된 Shop Drawing(상세 제작도면)을 도면에 펼치고 Internal Wiring 결선 번호 1:1 맞춤 대조<br>
+                        • DC -48V 전원 극성, Terminal Block 번호 표기 및 케이블 라벨링(Tagging) 정확도 확인
+                    </p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-indigo-200 space-y-2 shadow-sm">
+                    <span class="bg-emerald-600 text-white font-bold text-[10px] px-2 py-0.5 rounded">과제 4</span>
+                    <h4 class="font-black text-slate-900 text-sm">🧪 4. 공장 내 성능검사 시험실시 (FAT 구동)</h4>
+                    <p class="text-slate-700 leading-relaxed text-[11px]">
+                        • 절연저항계(Megger)로 전원선-외함 간 절연저항(≥100MΩ) 및 접지저항(≤10Ω) 실측<br>
+                        • 공장 시험실 시뮬레이터에 연결하여 15대 통신 서브시스템 기능 시뮬레이션 및 데이터 패킷 테스트
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📡 15대 공장검사 대상 장비 1:1 실물 이미지 & 검증 가이드 -->
+        <div class="space-y-6">
+            <div class="border-b-2 border-blue-600 pb-2 flex items-center justify-between">
+                <div>
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">15 TELECOM EQUIPMENTS PHOTO GALLERY</span>
+                    <h3 class="text-xl font-black text-slate-900 mt-0.5">📡 15대 통신 장비 1:1 실물 이미지 & 세부 검증 가이드 (클릭 시 팝업 확대)</h3>
+                </div>
+                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">실물 이미지 연동</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                
+                <!-- 1. 영상감시장치 (CCTV) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/cctv_camera_rack_1785146591091.jpg', '01. 영상감시장치 (CCTV) 실물 기술 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/cctv_camera_rack_1785146591091.jpg" alt="CCTV 설비" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 01</span>
+                        <span class="text-[11px] font-bold text-blue-900">CCTV 카메라 & NVR</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📹 영상감시장치 (CCTV)</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • IP66 방수방진 & IK10 내충격 성적서 대조<br>
+                        • 4K(3840x2160) @ 30fps 비디오 스트림 품질
+                    </p>
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 영상 지연 ≤ 200 ms | NVR 30일 이중화</p>
+                    </div>
+                </div>
+
+                <!-- 2. 행선안내장치 (PIS) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/pis_display_board_1785146605102.jpg', '02. 행선안내장치 (PIS) 표지판 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/pis_display_board_1785146605102.jpg" alt="PIS 표지판" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 02</span>
+                        <span class="text-[11px] font-bold text-blue-900">PIS 행선안내</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🖥️ 행선안내장치 (PIS)</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • SMD LED 표지판 모듈 발광 휘도 및 시야각<br>
+                        • PIS 제어기 TCP/IP 및 RS-485 통신
+                    </p>
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 휘도 ≥ 1,500 cd/㎡ | 문자 오차 0.00%</p>
+                    </div>
+                </div>
+
+                <!-- 3. 구내방송장치 (PAS) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/pas_amplifier_rack_1785146617925.jpg', '03. 구내방송장치 (PAS) 앰프 랙 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/pas_amplifier_rack_1785146617925.jpg" alt="PAS 방송설비" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 03</span>
+                        <span class="text-[11px] font-bold text-blue-900">PAS 디지털 앰프</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📢 구내방송장치 (PAS)</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • D급 디지털 파워 앰프 S/N비 & THD 왜곡률<br>
+                        • 화재 수신기 연동 비상 차단 릴레이 회로
+                    </p>
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• S/N ≥ 80dB | 화재 절체 ≤ 0.5초</p>
+                    </div>
+                </div>
+
+                <!-- 4. 전송설비 (OTN) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/otn_transmission_rack_1785146629853.jpg', '04. 전송설비 (OTN 100G) 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/otn_transmission_rack_1785146629853.jpg" alt="OTN 광전송" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 04</span>
+                        <span class="text-[11px] font-bold text-indigo-900">OTN 광전송 랙</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🌐 전송설비 (OTN 장치)</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • 100Gbps OTN 백본 트랜스폰더 광 파워<br>
+                        • Optical Ring 절단 시 주/예비 자동 절체
+                    </p>
+                    <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-200 space-y-1">
+                        <span class="font-bold text-indigo-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-indigo-900 text-[10px] font-bold">• Ring 절체 ≤ 50 ms | BERT = 0.00%</p>
+                    </div>
+                </div>
+
+                <!-- 5. 역무자동화설비 (AFC) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/afc_fare_gate_1785146641599.jpg', '05. 역무자동화설비 (AFC 게이트) 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/afc_fare_gate_1785146641599.jpg" alt="AFC 게이트" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 05</span>
+                        <span class="text-[11px] font-bold text-indigo-900">AFC 요금 게이트</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">💳 역무자동화설비 (AFC)</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • 자동 게이트 플랩 도어 모터 속도<br>
+                        • 교통카드 RF 리더기(13.56MHz) 응답성
+                    </p>
+                    <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-200 space-y-1">
+                        <span class="font-bold text-indigo-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-indigo-900 text-[10px] font-bold">• 도어 개폐 ≤ 0.5초 | 카드 태그 ≤ 0.2초</p>
+                    </div>
+                </div>
+
+                <!-- 6. 열차무선안내장치 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/lter_base_station_1785146653365.jpg', '06. 열차무선안내장치 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/lter_base_station_1785146653365.jpg" alt="열차무선안내" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 06</span>
+                        <span class="text-[11px] font-bold text-indigo-900">열차무선안내</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📻 열차무선안내장치</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • 차상 수신기 커넥터 RF 차폐 검사<br>
+                        • 열차 위치 수신 데이터 패킷 성공률
+                    </p>
+                    <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-200 space-y-1">
+                        <span class="font-bold text-indigo-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-indigo-900 text-[10px] font-bold">• 패킷 성공률 100% | 이득 공차 ±0.5dB</p>
+                    </div>
+                </div>
+
+                <!-- 7. 여객자동안내장치 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/pas_amplifier_rack_1785146617925.jpg', '07. 여객자동안내장치 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/pas_amplifier_rack_1785146617925.jpg" alt="여객안내" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 07</span>
+                        <span class="text-[11px] font-bold text-teal-900">여객자동안내</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🗣️ 여객자동안내장치</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • TTS(Text-to-Speech) 자동 음성 합성 음질<br>
+                        • 시각장애인용 음성 신호기 출력 음압
+                    </p>
+                    <div class="bg-teal-50 p-2.5 rounded-lg border border-teal-200 space-y-1">
+                        <span class="font-bold text-teal-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-teal-900 text-[10px] font-bold">• 음압 레벨 75~85dB | 동기화 ≤ 0.1초</p>
+                    </div>
+                </div>
+
+                <!-- 8. 열차무선설비 (LTE-R) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/lter_base_station_1785146653365.jpg', '08. 열차무선설비 (LTE-R 기지국) 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/lter_base_station_1785146653365.jpg" alt="LTE-R 기지국" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 08</span>
+                        <span class="text-[11px] font-bold text-teal-900">LTE-R 기지국 랙</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📡 열차무선설비 (LTE-R)</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • 700MHz 기지국(DU/RRU) RF 출력 전력<br>
+                        • VSWR(정합수동비) 정밀 계측기 실측
+                    </p>
+                    <div class="bg-teal-50 p-2.5 rounded-lg border border-teal-200 space-y-1">
+                        <span class="font-bold text-teal-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-teal-900 text-[10px] font-bold">• VSWR ≤ 1.5 | Handover 성공률 100%</p>
+                    </div>
+                </div>
+
+                <!-- 9. 재난방송수신설비 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/lter_base_station_1785146653365.jpg', '09. 재난방송수신설비 중계 앰프 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/lter_base_station_1785146653365.jpg" alt="재난방송" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 09</span>
+                        <span class="text-[11px] font-bold text-teal-900">재난방송 중계기</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📻 재난방송수신설비</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • FM 라디오(88~108MHz) & DMB 수신 감도<br>
+                        • 지하 터널 중계 앰프 이득 계측
+                    </p>
+                    <div class="bg-teal-50 p-2.5 rounded-lg border border-teal-200 space-y-1">
+                        <span class="font-bold text-teal-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-teal-900 text-[10px] font-bold">• FM 감도 ≥ 60 dBμV | 재난 절체 ≤ 1.0초</p>
+                    </div>
+                </div>
+
+                <!-- 10. 선로변 통합인터페이스 통신설비 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/trackside_enclosure_1785146666666.jpg', '10. 선로변 옥외 통합함체 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/trackside_enclosure_1785146666666.jpg" alt="통합함체" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-cyan-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 10</span>
+                        <span class="text-[11px] font-bold text-cyan-900">옥외 통합함체</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🗄️ 선로변 통합인터페이스 함체</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • Stainless 3.2m/1.6m 옥외 함체 IP66 방수<br>
+                        • KEC 전기설비규정 파이프 채움률 산출
+                    </p>
+                    <div class="bg-cyan-50 p-2.5 rounded-lg border border-cyan-200 space-y-1">
+                        <span class="font-bold text-cyan-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-cyan-900 text-[10px] font-bold">• KEC 채움률 ≤ 33% | 도장 두께 ≥ 80 ㎛</p>
+                    </div>
+                </div>
+
+                <!-- 11. 역무용통신설비 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/ip_pbx_sos_1785146678401.jpg', '11. 역무용통신설비 (IP-PBX & SOS) 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/ip_pbx_sos_1785146678401.jpg" alt="역무통신" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-cyan-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 11</span>
+                        <span class="text-[11px] font-bold text-cyan-900">IP-PBX & SOS</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">☎️ 역무용통신설비 (IP-PBX)</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • IP 교환기 내선 전화 호출 응답<br>
+                        • 승강장 비상 전화(SOS) 인터폰 회로
+                    </p>
+                    <div class="bg-cyan-50 p-2.5 rounded-lg border border-cyan-200 space-y-1">
+                        <span class="font-bold text-cyan-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-cyan-900 text-[10px] font-bold">• SOS 벨鳴 ≤ 0.5초 | MOS 점수 ≥ 4.0</p>
+                    </div>
+                </div>
+
+                <!-- 12. 백본스위치 (L4/L3) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/backbone_switch_rack_1785146693979.jpg', '12. 백본스위치 (L4/L3) 코어 랙 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/backbone_switch_rack_1785146693979.jpg" alt="백본스위치" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-cyan-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 12</span>
+                        <span class="text-[11px] font-bold text-cyan-900">백본스위치 랙</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🔀 백본스위치 (L4/L3 Backbone)</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • OCC 관제실 코어 스위치 패킷 용량 실측<br>
+                        • CPU 및 파워 모듈 1+1 핫스왑 장애 수용
+                    </p>
+                    <div class="bg-cyan-50 p-2.5 rounded-lg border border-cyan-200 space-y-1">
+                        <span class="font-bold text-cyan-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-cyan-900 text-[10px] font-bold">• 전송 지연 ≤ 1.0 ms | 무중단 핫스왑</p>
+                    </div>
+                </div>
+
+                <!-- 13. L3스위치 / L2스위치 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/backbone_switch_rack_1785146693979.jpg', '13. L3/L2 현장 이더넷 스위치 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/backbone_switch_rack_1785146693979.jpg" alt="현장 스위치" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 13</span>
+                        <span class="text-[11px] font-bold text-emerald-900">현장 L3/L2 스위치</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🔌 L3스위치 / L2스위치</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • 정거장 field switch VLAN 포트 보안 격리<br>
+                        • QoS 우선순위 (CCTV/PAS/LTE-R)
+                    </p>
+                    <div class="bg-emerald-50 p-2.5 rounded-lg border border-emerald-200 space-y-1">
+                        <span class="font-bold text-emerald-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-emerald-900 text-[10px] font-bold">• STP 재구성 ≤ 1.0초 | 패킷 손실 0.00%</p>
+                    </div>
+                </div>
+
+                <!-- 14. 광케이블 (96C/48C) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/optical_cable_drum_1785146706644.jpg', '14. 광케이블 (96C/48C) 드럼 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/optical_cable_drum_1785146706644.jpg" alt="광케이블 드럼" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 14</span>
+                        <span class="text-[11px] font-bold text-emerald-900">광케이블 드럼</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🧵 광케이블 (96Core / 48Core)</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • Single-mode 광섬유 케이블 OTDR 파형<br>
+                        • 1310nm/1550nm 광 파장별 감쇄계수 측정
+                    </p>
+                    <div class="bg-emerald-50 p-2.5 rounded-lg border border-emerald-200 space-y-1">
+                        <span class="font-bold text-emerald-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-emerald-900 text-[10px] font-bold">• 감쇄 ≤ 0.35 dB/km | 접속손실 ≤ 0.05 dB</p>
+                    </div>
+                </div>
+
+                <!-- 15. 케이블 / 안테나 / CCTV용 Pole -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-100 rounded-xl overflow-hidden border border-slate-200 h-44 flex items-center justify-center" onclick="openImageZoom('C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/outdoor_pole_antenna_1785146718065.jpg', '15. 옥외 Pole & 안테나 브라켓 실물 도식')">
+                        <img src="C:/Users/sskjh/.gemini/antigravity/brain/887aacfa-3165-4be1-8e89-29f90e47a298/outdoor_pole_antenna_1785146718065.jpg" alt="옥외 Pole" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">장비 15</span>
+                        <span class="text-[11px] font-bold text-emerald-900">옥외 Pole & 안테나</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🏗️ 케이블 · 안테나 · CCTV Pole</h4>
+                    <p class="text-slate-600 leading-relaxed text-[11px]">
+                        • 옥외 용융아연도금 Pole 도금 두께 실측<br>
+                        • Base Plate 용접 접합부 비파괴 검사(MT)
+                    </p>
+                    <div class="bg-emerald-50 p-2.5 rounded-lg border border-emerald-200 space-y-1">
+                        <span class="font-bold text-emerald-950 text-[10px]">🎯 정량적 판정 기준</span>
+                        <p class="text-emerald-900 text-[10px] font-bold">• 아연도금 ≥ 60 ㎛ | 앵커 공차 ± 1.0mm</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 🧠 4단계 완벽 공학 논리 흐름도 -->
+        <div class="bg-gradient-to-r from-blue-50 via-indigo-50/70 to-sky-50 border-2 border-indigo-200 p-7 rounded-2xl shadow-md space-y-5">
+            <div class="border-b border-indigo-200 pb-3 flex items-center justify-between">
+                <div>
+                    <span class="bg-indigo-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase">LOGICAL ARCHITECTURE FRAMEWORK</span>
+                    <h3 class="text-xl font-black text-indigo-950 mt-1">🧠 초심자를 위한 Step-by-Step 공장검사 4단계 순서 매뉴얼</h3>
+                </div>
+                <span class="text-xs font-bold text-indigo-800 bg-white px-3 py-1.5 rounded-lg border border-indigo-300 shadow-sm">실무 가이드</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
+                <div class="bg-white p-4 rounded-xl border-2 border-sky-300 shadow-sm space-y-2">
+                    <span class="bg-sky-600 text-white text-[10px] font-black px-2 py-0.5 rounded">1단계: PREPARATION</span>
+                    <h4 class="font-black text-sky-950 text-xs">FAT 사전 준비 & 서류 챙기기</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• ITP 시험절차서 출력<br">• 계측기 교정증명서 확인</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border-2 border-indigo-300 shadow-sm space-y-2">
+                    <span class="bg-indigo-600 text-white text-[10px] font-black px-2 py-0.5 rounded">2단계: VISUAL & POWER</span>
+                    <h4 class="font-black text-indigo-950 text-xs">외관 · 도면 1:1 대조</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 랙 2200H 외관/도장 검사<br">• DC -48V 절연저항 (≥100MΩ)</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border-2 border-teal-300 shadow-sm space-y-2">
+                    <span class="bg-teal-600 text-white text-[10px] font-black px-2 py-0.5 rounded">3단계: SIMULATION</span>
+                    <h4 class="font-black text-teal-950 text-xs">15대 장비 파라미터 시뮬</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• OTN 光절체 & LTE-R 무선<br">• CCTV 4K & PAS 방송 연동</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border-2 border-emerald-400 shadow-sm space-y-2">
+                    <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded">4단계: APPROVAL</span>
+                    <h4 class="font-black text-emerald-950 text-xs">결과보고서 & 승인 공문</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 감리원 서명 수득<br">• 현장 반입 승인 공문 발송</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔥 HOW 세부 지침 & 1:1 2D VISUAL SVG -->
+        <div class="space-y-10">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-indigo-600 pb-2">단계별 HOW 실무 지침 & 1:1 그림 해설 상자</h2>
+
+            <!-- STEP 1 Card -->
+            <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1</span>
+                    <h3 class="font-bold text-base text-slate-900">FAT 공장검사 사전 준비 (Delivery 일정 & 계측기 증명서 검수)</h3>
+                </div>
+                <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                    <li><strong>Delivery 일정 확인:</strong> 수입 부품(외산 자재)의 선적/통관 서류(B/L)를 검수하여 현장 기계실 반입 납기 공정률(CPM)과 1:1 대조합니다.</li>
+                    <li><strong>계측기 검교정 증명:</strong> 절연저항계(Megger), OTDR, 스펙트럼 분석기의 유효기간 내 검교정 증명서를 사전에 제출받아 검사 신뢰성을 보장합니다.</li>
+                </ul>
+
+                <!-- STEP 1 SVG Graphic -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step1_fat', 'STEP 1 FAT 시험절차서 사전승인 및 공장 입회 2D 도식')">
+                    <svg id="svg_step1_fat" viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/>
+                        <g transform="translate(15, 15)">
+                            <rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="120" y="25" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">📄 FAT 시험절차서(ITP)</text>
+                            <line x1="15" y1="35" x2="225" y2="35" stroke="#bae6fd" stroke-width="1"/>
+                            
+                            <rect x="25" y="45" width="190" height="95" fill="#f0f9ff" stroke="#38bdf8" stroke-width="1"/>
+                            <text x="35" y="65" font-size="9.5" font-weight="bold" fill="#0369a1">• 검사 서식: KCS 31 10 00 준수</text>
+                            <text x="35" y="85" font-size="9.5" font-weight="bold" fill="#0369a1">• 외산자재 Delivery 일정 확인</text>
+                            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#0369a1">• 계측기 교정증명서 첨부</text>
+                            <text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ ITP 사전 승인 완수</text>
+                        </g>
+
+                        <g transform="translate(285, 15)">
+                            <rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#d97706" stroke-width="2" rx="6"/>
+                            <text x="120" y="25" font-size="12" font-weight="black" fill="#b45309" text-anchor="middle">🏭 공장 입회 일정 확정</text>
+                            <line x1="15" y1="35" x2="225" y2="35" stroke="#fde68a" stroke-width="1"/>
+                            
+                            <rect x="25" y="45" width="190" height="95" fill="#fffbebe" stroke="#f59e0b" stroke-width="1"/>
+                            <text x="35" y="65" font-size="9.5" font-weight="bold" fill="#92400e">• 장소: 통신자재 제조 공장</text>
+                            <text x="35" y="85" font-size="9.5" font-weight="bold" fill="#92400e">• 참석: 감리원 + 현장 시스템팀</text>
+                            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#92400e">• 15대 장비 파라미터 시뮬 준비</text>
+                            <text x="120" y="152" font-size="10" font-weight="black" fill="#b45309" text-anchor="middle">✔ 입회 준비 완료</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="bg-blue-50/90 border-l-4 border-blue-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
+                    <span class="font-bold text-blue-900 flex items-center gap-1.5 text-xs">
+                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 1 ITP 사전승인 & 입회 준비]</strong>
+                    </span>
+                    <p class="text-slate-700 leading-relaxed pl-5 font-medium">
+                        좌측 공장검사 시험절차서(ITP)를 사전에 감리단 승인을 받아 두고, 외산 자재 Delivery 일정 및 계측기 유효기간 증명서를 챙겨 공장에 입회하는 단계입니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 2 Card -->
+            <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
+                    <h3 class="font-bold text-base text-slate-900">제작도면 1:1 일치 여부 및 랙 외관·DC -48V 절연저항 검사</h3>
+                </div>
+                <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                    <li><strong>도면 1:1 대조:</strong> 승인 도면을 펼치고 19인치 랙 internal wiring 결선 단자 번호, PDU 극성 라벨링을 1:1 실물 대조합니다.</li>
+                    <li><strong>외관 & 절연저항:</strong> 랙 외함 치수(2200H), 도장 상태를 육안 검측하고, 절연저항계(Megger)로 DC -48V 전원선 절연저항(≥100MΩ) 및 접지저항(≤10Ω)을 실측합니다.</li>
+                </ul>
+
+                <!-- STEP 2 SVG Graphic -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2_fat', 'STEP 2 통신 랙 외관·치수 및 DC -48V 절연저항 측정 2D 도식')">
+                    <svg id="svg_step2_fat" viewBox="0 0 550 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="550" height="200" fill="#f8fafc" rx="8"/>
+                        
+                        <g transform="translate(15, 15)">
+                            <rect x="0" y="0" width="250" height="170" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="6"/>
+                            <text x="125" y="25" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">📏 19인치 랙 외관 & 치수</text>
+                            <line x1="15" y1="35" x2="235" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <rect x="45" y="48" width="60" height="100" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+                            <text x="75" y="100" font-size="9" font-weight="bold" fill="#0369a1" text-anchor="middle">Rack 2200H</text>
+
+                            <text x="175" y="70" font-size="9" font-weight="bold" fill="#334155">• 너비: 600 mm</text>
+                            <text x="175" y="90" font-size="9" font-weight="bold" fill="#334155">• 깊이: 1000 mm</text>
+                            <text x="175" y="110" font-size="9" font-weight="bold" fill="#334155">• 높이: 2200 mm</text>
+                            
+                            <text x="125" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 도면 1:1 일치 적합</text>
+                        </g>
+
+                        <g transform="translate(280, 15)">
+                            <rect x="0" y="0" width="255" height="170" fill="#ffffff" stroke="#059669" stroke-width="2" rx="6"/>
+                            <text x="127" y="25" font-size="12" font-weight="black" fill="#047857" text-anchor="middle">⚡ DC -48V 절연저항 (Megger)</text>
+                            <line x1="15" y1="35" x2="240" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <rect x="25" y="48" width="205" height="75" fill="#f0fdf4" stroke="#16a34a" stroke-width="1" rx="4"/>
+                            <text x="35" y="68" font-size="9.5" font-weight="bold" fill="#15803d">절연 저항 측정치: 500 MΩ</text>
+                            <text x="35" y="85" font-size="8.5" fill="#334155">• 시방 규정치: ≥ 100 MΩ (합격)</text>
+                            <text x="35" y="98" font-size="8.5" fill="#334155">• 접지 저항: ≤ 10 Ω (합격)</text>
+
+                            <text x="127" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 전원/절연 성능 합격</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="bg-indigo-50/90 border-l-4 border-indigo-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
+                    <span class="font-bold text-indigo-900 flex items-center gap-1.5 text-xs">
+                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 2 도면대조 & 절연저항 측정]</strong>
+                    </span>
+                    <p class="text-slate-700 leading-relaxed pl-5 font-medium">
+                        좌측 19인치 통신 랙의 외형 치수(높이 2.2m)와 internal wiring 도면을 1:1 대조하고, 우측 절연저항계(Megger)로 DC -48V 전원부 절연저항(500MΩ)을 측정하여 감전/누전 이상이 없는지 확인하는 단계입니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 3 Card -->
+            <div class="bg-white p-6 rounded-2xl border border-teal-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-teal-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3</span>
+                    <h3 class="font-bold text-base text-slate-900">공장 내 시험실 15대 서브시스템 정량적 파라미터 기능 시뮬레이션</h3>
+                </div>
+                <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                    <li><strong>기능 시뮬레이션:</strong> 공장 성능 시험실에서 OTN 100G 광전송 Ring 절체(≤50ms), LTE-R 무선 통화 품질, CCTV 4K 30fps 지능형 감지 기능을 시뮬레이터로 구동합니다.</li>
+                    <li><strong>비상 방송 연동:</strong> PAS 구내방송 앰프에 화재 신호를 인가하여 일반 음원 출력이 즉시 차단되고 비상 방송으로 자동 전환되는지 확인합니다.</li>
+                </ul>
+
+                <!-- STEP 3 SVG Graphic -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step3_fat', 'STEP 3 통신 9대 서브시스템 연동 시뮬레이션 2D 도식')">
+                    <svg id="svg_step3_fat" viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/>
+                        
+                        <g transform="translate(20, 15)">
+                            <rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
+                            <text x="120" y="25" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">🌐 OTN / LTE-R 연동 시험</text>
+                            <line x1="15" y1="35" x2="225" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <rect x="35" y="48" width="170" height="75" fill="#f0fdf4" stroke="#16a34a" stroke-width="1" rx="4"/>
+                            <text x="45" y="68" font-size="9" font-weight="bold" fill="#15803d">광 절체 속도: 28 ms (≤50ms)</text>
+                            <text x="45" y="85" font-size="8.5" fill="#334155">• LTE-R 통화 수신율: 100%</text>
+                            <text x="45" y="98" font-size="8.5" fill="#334155">• 패킷 손실율: 0.00% (Pass)</text>
+                            
+                            <text x="120" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 무선/광전송 연동 성공</text>
+                        </g>
+
+                        <g transform="translate(280, 15)">
+                            <rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="120" y="25" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">📺 CCTV & PAS 화재 방송 시뮬</text>
+                            <line x1="15" y1="35" x2="225" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <rect x="30" y="50" width="180" height="75" fill="#f0f9ff" stroke="#0284c7" rx="3"/>
+                            <text x="40" y="70" font-size="9" font-weight="bold" fill="#0369a1">• CCTV 4K (3840x2160) 30fps</text>
+                            <text x="40" y="85" font-size="9" font-weight="bold" fill="#0369a1">• 화재 신호 감지 시 PAS 차단</text>
+                            <text x="40" y="100" font-size="8.5" fill="#334155">반응 속도: 0.8초 (정상 연동)</text>
+
+                            <text x="120" y="152" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">✔ 방송/CCTV 시뮬 성공</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="bg-teal-50/90 border-l-4 border-teal-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
+                    <span class="font-bold text-teal-900 flex items-center gap-1.5 text-xs">
+                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 3 통신 시스템 연동 시뮬레이션]</strong>
+                    </span>
+                    <p class="text-slate-700 leading-relaxed pl-5 font-medium">
+                        좌측 OTN 광전송 망의 주/예비 선로 절체 속도(28ms)를 측정하고, 우측 화재 신호가 들어왔을 때 PAS 방송 앰프가 즉시 비상 방송으로 전환되는지 공장 시뮬레이터로 검증하는 단계입니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- STEP 4 Card -->
+            <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4</span>
+                    <h3 class="font-bold text-base text-slate-900">FAT 합격 보고서 서명 수득 및 감리단/발주처 반입 승인 공문 발송</h3>
+                </div>
+                <ul class="list-disc pl-5 text-slate-700 space-y-1.5 text-xs font-medium leading-relaxed">
+                    <li><strong>합격 서명:</strong> FAT 검사 항목별 판정 결과를 수록한 결과보고서에 책임감리원 및 현장 엔지니어가 명확히 입회 서명합니다.</li>
+                    <li><strong>공문 발송:</strong> 감리단 및 발주처에 공장검사 합격 승인 공문을 발송하여 현장 기계실 및 선로변 반입을 공식 개시합니다.</li>
+                </ul>
+
+                <!-- STEP 4 SVG Graphic -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step4_fat', 'STEP 4 FAT 합격 결과보고서 및 감리단 승인 공문 2D 도식')">
+                    <svg id="svg_step4_fat" viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/>
+                        
+                        <g transform="translate(100, 10)">
+                            <rect x="0" y="0" width="340" height="170" fill="#ffffff" stroke="#059669" stroke-width="2" rx="6"/>
+                            <rect x="0" y="0" width="340" height="32" fill="#059669" rx="6"/>
+                            <text x="170" y="21" font-size="13" font-weight="black" fill="#ffffff" text-anchor="middle">📄 통신설비 공장검사(FAT) 합격 승인서</text>
+                            
+                            <text x="25" y="52" font-size="10" font-weight="bold" fill="#1e293b">품 명: 동탄트램 통신 랙 & 광전송/CCTV 장비</text>
+                            <text x="25" y="70" font-size="9" fill="#475569">• 검사 결과: 외관, 절연저항, 15대 장비 시뮬 적합</text>
+                            <text x="25" y="85" font-size="9" fill="#475569">• 검토 의견: 시방 및 ITP 준수, FAT 합격 및 현장 반입 승인함.</text>
+                            
+                            <line x1="25" y1="98" x2="315" y2="98" stroke="#cbd5e1" stroke-width="1"/>
+                            
+                            <text x="25" y="118" font-size="10" font-weight="bold" fill="#0f172a">책임 감리원:</text>
+                            <text x="90" y="118" font-size="10" font-weight="bold" fill="#1e3a8a">김 책임 (서명/인)</text>
+                            
+                            <!-- RED OFFICIAL STAMP -->
+                            <g transform="translate(210, 95) rotate(-12)">
+                                <rect x="0" y="0" width="110" height="50" fill="none" stroke="#dc2626" stroke-width="3" rx="6"/>
+                                <rect x="3" y="3" width="104" height="44" fill="none" stroke="#dc2626" stroke-width="1" rx="4"/>
+                                <text x="55" y="26" font-size="14" font-weight="900" fill="#dc2626" text-anchor="middle">공식 승인</text>
+                                <text x="55" y="40" font-size="8" font-weight="bold" fill="#dc2626" text-anchor="middle">감리단/발주처 승인완료</text>
+                            </g>
+                            
+                            <text x="170" y="160" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ FAT 합격 & 현장 반입 개시 허가</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="bg-emerald-50/90 border-l-4 border-emerald-600 p-4 rounded-r-xl text-xs space-y-1 mt-2">
+                    <span class="font-bold text-emerald-900 flex items-center gap-1.5 text-xs">
+                        <span>💡</span> <strong>[초심자 그림 해설 - STEP 4 FAT 합격서 작성 & 반입 승인]</strong>
+                    </span>
+                    <p class="text-slate-700 leading-relaxed pl-5 font-medium">
+                        모든 검사 항목을 합격한 후 책임감리원과 함께 FAT 결과보고서에 명확히 서명받고, 현장 반입을 공식 개시하도록 승인 공문을 발송하는 단계입니다.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- 📖 용어 및 대형보기 모달 -->
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 FAT 검사 도식 대형 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[420px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    "delivery_check": "<b>Delivery 반입일정 확인</b><br><br>• 수입 광모듈, 스위치 칩셋 등 외산자재의 선적 및 통관 서류(B/L)를 검수하여 현장 기계실 반입 주공정표(CPM) 대비 납기 지연을 방지하는 확인 절차입니다.",
+    "drawings_check": "<b>제작도면 1:1 일치 여부 확인</b><br><br>• 승인된 자재승인도면과 실물 랙 내부의 결선 번호, Terminal Block 라벨링, DC -48V 전원 극성을 1:1 맞춤 대조하는 검수입니다.",
+    "insulation_test": "<b>절연 저항 측정 (Megger)</b><br><br>• 절연저항계를 활용하여 DC -48V 전원선과 랙 외함 간 절연 상태(≥100MΩ) 및 접지저항(≤10Ω)을 실측하는 전원 안전 검측입니다.",
+    "subsystem_sim": "<b>15대 서브시스템 세부 파라미터 검증</b><br><br>• 공장 성능 시험실에서 OTN 광전송 절체(≤50ms), LTE-R 무선 VSWR(≤1.5), CCTV 4K(30fps), PAS 비상 방송 0.5초 차단 등 정량적 수치를 시뮬레이션하는 기능 검사입니다."
+};
+
+function openGlossary(term) {
+    const modal = document.getElementById('glossaryModal');
+    const titleEl = document.getElementById('modalTitle');
+    const descEl = document.getElementById('modalDescription');
+    
+    if (glossaryData[term]) {
+        titleEl.innerHTML = "📖 용어 해설: " + term;
+        descEl.innerHTML = glossaryData[term];
+        modal.classList.add('active');
+    }
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function closeGlossaryModalOutside(event) {
+    if (event.target.id === 'glossaryModal') {
+        closeGlossaryModal();
+    }
+}
+
+function openImageZoom(imgUrl, titleText) {
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "실물 통신 장비 고화질 보기");
+    zoomBody.innerHTML = `<img src="${imgUrl}" alt="장비 대형보기" style="max-width:100%; max-height:580px; object-fit:contain; border-radius:12px; border:1px solid #cbd5e1; shadow:0 10px 15px -3px rgba(0,0,0,0.1);"/>`;
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "FAT 검사 도식 대형 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '580px');
+        innerSvg.style.maxWidth = '1080px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+        closeGlossaryModal();
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 작수전 Big Room 회의 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    /* Glossary Modal Styles - Minimal Injection */
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .scene-link {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        color: #059669 !important;
+        font-weight: 700 !important;
+        background: #ecfdf5 !important;
+        border: 1px solid #10b981 !important;
+        border-radius: 6px !important;
+        padding: 2px 8px !important;
+        font-size: 0.8rem !important;
+        cursor: pointer !important;
+        margin-left: 8px !important;
+        transition: all 0.2s ease !important;
+        text-decoration: none !important;
+    }
+    .scene-link:hover {
+        background: #d1fae5 !important;
+        color: #065f46 !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 520px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+        text-align: left;
+    }
+    @keyframes modalFadeIn {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover {
+        color: #334155;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-emerald-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-7 Guideline</span>
+                <span class="bg-white text-emerald-950 text-xs font-bold px-3 py-1 rounded-full">의사결정 프로세스</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">작수전 Big Room 회의 수행지침서</h1>
+            <p class="text-emerald-200 mt-2 text-sm sm:text-base">"6대 분야 사전 리스크 매트릭스 승인, BIM 시각화 및 Action Item Log 관리 지침"</p>
+        </div>
+    </div>
+    <div class="p-6 sm:p-10 space-y-8">
+        <!-- 1. 개요 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">1.</span> 작업 개요 및 수행 목적 (Overview & Scope)
+            </h2>
+            <div class="bg-emerald-50/50 p-5 rounded-xl border border-emerald-100 text-sm space-y-2">
+                <p><strong>🎯 수행 목적:</strong> 본사, 현장, 품질/안전 및 궤도·선후행 공종 협력사 간 빅룸 의사결정 체계를 통해 부서 간 병목을 예방함</p>
+                <p><strong>⚙️ 세부 방법:</strong> 6대 분야 리스크 매트릭스 상정 및 헤지 방안 의결, BIM/3D 도면 기반 동선 간섭 분석, <span class="term-highlight" onclick="openGlossary('action_log')">Action Item Log</span> 수립 및 본 타설 전 <span class="term-highlight" onclick="openGlossary('test_strip')">시범 타설(Test Strip)</span> 승인</p>
+            </div>
+        </div>
+        
+        <!-- 2. 세부 절차 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">2.</span> 빅룸(Big Room) 회의 3단계 수행 프로세스
+            </h2>
+            <div class="space-y-6 relative pl-6 border-l-4 border-emerald-500">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative">
+                    <div class="absolute -left-[35px] top-4 bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">1</div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded uppercase">Step 1. 사전 자료 준비 및 조율</span>
+                    <h3 class="text-base font-bold text-slate-900 mt-2 mb-2">분야별 사전 검토 및 참석 소집 계획 수립</h3>
+                    <ul class="space-y-1.5 text-xs sm:text-sm text-slate-600 list-disc list-inside">
+                        <li><strong>6대 분야 자료 제출:</strong> 공사, 공무, 품질, 안전, 외주/자재, 본사 설계 분야별 예상 리스크와 헤지 방안 사전 취합</li>
+                        <li><strong>기본 공정 분석:</strong> 자재/장비 반입로 및 반입구 확보 시기 분석, 토목 노반 <span class="term-highlight" onclick="openGlossary('handover')">노선 Handover</span> 일정 사전 대조</li>
+                        <li>현장소장(주관) 및 분야별 담당자(현장 및 본사 견적/설계/공정팀), 선후행 공종 협력업체 소집</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative">
+                    <div class="absolute -left-[35px] top-4 bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">2</div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded uppercase">Step 2. 본 회의 진행 (Big Room 합동 의결)</span>
+                    <h3 class="text-base font-bold text-slate-900 mt-2 mb-2">BIM 시각화 분석, 리스크 헤지안 승인 및 시범 타설 확정</h3>
+                    <ul class="space-y-1.5 text-xs sm:text-sm text-slate-600 list-disc list-inside">
+                        <li><strong>시각화 자료 활용:</strong> BIM 및 3D/Zone별 공정도면을 스크린에 투사하여 구간별 타설 동선 및 장비 교행/공정 간섭 실시간 도면 조율</li>
+                        <li><strong>리스크 매트릭스 의결:</strong> 수화열 균열 제어(품질), 터널 환기/조도(안전), 외산 홈레일 조달 및 슬립폼/FB 용접사(외주), 토목-궤도 신축이음 위치 매칭(설계)에 대한 최종 헤지 방안 의결</li>
+                        <li><strong>시범 타설 확정:</strong> 본 타설 시공 전에 품질/안전 요건을 사전 검증하기 위한 <strong>시범 타설(Test Strip)</strong> 일정을 빅룸 회의 현장에서 최종 확정</li>
+                        <li><strong>Action Item Log 수립:</strong> [리스크 내용 - 헤지 방안 - 담당자 - 완료 예정일]을 정밀 수록한 추적 조치 대장 작성</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative">
+                    <div class="absolute -left-[35px] top-4 bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">3</div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded uppercase">Step 3. 결과 환정 및 모니터링</span>
+                    <h3 class="text-base font-bold text-slate-900 mt-2 mb-2">빅룸 회의록 배포 및 조치사항 추적</h3>
+                    <ul class="space-y-1.5 text-xs sm:text-sm text-slate-600 list-disc list-inside">
+                        <li>의사결정 사항이 수록된 빅룸 회의록을 배포하여 본사 담당팀 및 감리단 공람</li>
+                        <li>인터페이스 대장 합동 서명 완료 및 Action Item Log 기반 미결사항의 주기적 이행 여부 추적 관리</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3. 리스크 예방 관리 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">3.</span> 빅룸 회의 운영 및 Output 도출 핵심 가이드
+            </h2>
+            <div class="bg-rose-50 p-5 rounded-xl border border-rose-200 text-sm text-slate-700 space-y-2">
+                <ul class="list-disc list-inside space-y-1 text-slate-600 text-xs sm:text-sm">
+                    <li><strong>BIM 기반 공정도 검토:</strong> 정적 토의를 금지하고 구간별 3D 도면 위에서 장비 진입 및 회차 공간을 실시간 검토할 것</li>
+                    <li><strong>Action Item 추적:</strong> 회의 후 모든 담당 부서는 지정된 기한 내에 리스크 헤지 방안의 물리적 조치 성과를 입증할 책임이 있음</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800">
+        동탄도시철도(트램) 수행지침서 | WBS 9000-6-7 | 콘크리트도상
+    </div>
+</div>
+
+
+<!-- Glossary & Scene Popup Modal Layer -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시공장면 해설</h3>
+        <div class="modal-body">
+            <img id="modalImage" src="" style="width:100%; border-radius:10px; display:none; margin-bottom:15px; border: 1px solid #cbd5e1;" />
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'handover': {
+        title: '🤝 노선 Handover (노선 인수인계)',
+        desc: '선행 노반 토목공사 완료 후, 후행 궤도공사를 시작할 수 있도록 토목 시공 구간의 기하학적 선형, 고저 레벨, 종횡단 측량 성과를 대조·검증하여 상호 정식으로 인수인계하는 공정 인터페이스 단계입니다.'
+    },
+    'bigroom': {
+        title: '🏢 Big Room 회의 (합동 의사결정 회의)',
+        desc: '본사 공정/견적/설계 담당팀, 현장 관리자, 궤도 협력업체 및 선후행 토목·설비 협력업체가 한자리에 모여 공정 간 간섭 사항을 실시간으로 도면 조율하고 리스크 헤지 방안을 의결하는 통합 협의체 회의체입니다.'
+    },
+    'stray_current': {
+        title: '⚡ 누설전류 (Stray Current)',
+        desc: '트램 주행로인 레일(귀선로)에서 누설되어 주변 지중 매설 금속관로나 토목 철근 구조체로 흘러들어가 전기 화학적 부식을 유발하는 유도 전류입니다. 이를 방지하기 위해 부식 방지 다이오드 및 접지 배선 매설 계획이 필수적입니다.'
+    },
+    'test_strip': {
+        title: '🧱 시험성토 (Test Strip, 시범 타설)',
+        desc: '본 타설에 들어가기 전, 궤도 지지 쟈키의 안정성 및 콘크리트 유동성/재료분리 여부, 바이브레이터 밀실도를 검증하기 위해 본선 외 구역에 동일 시방 사양으로 사전 진행하는 모의 시범 타설 공정입니다.'
+    },
+    'action_log': {
+        title: '📋 Action Item Log (조치 대장)',
+        desc: '빅룸 회의에서 도출된 각 분야 간 리스크에 대한 종결을 추적하기 위해 [리스크 내용 - 헤지 방안 - 담당 부서 - 조치 완료일]을 테이블화하여 실시간 기록·배포·관리하는 공정 관리 대장입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    
+    const imgEl = document.getElementById('modalImage');
+    if (data.img) {
+        imgEl.src = data.img;
+        imgEl.style.display = 'block';
+    } else {
+        imgEl.src = '';
+        imgEl.style.display = 'none';
+    }
+    
+    document.getElementById('glossaryModal').classList.add('active');
+}
+
+function openScene(sceneKey) {
+    openGlossary(sceneKey);
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+// Esc close key handler
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+    }
+});
+</script>
+
+
+</body>
+</html>

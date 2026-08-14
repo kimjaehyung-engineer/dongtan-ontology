@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄도시철도 - 방화구획 내화채움구조 시공 수행지침</title>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; margin:0; padding:24px; color:#0f172a; line-height:1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px; border: 1px solid #e2e8f0; }
+    .header { border-bottom: 2px solid #0284c7; padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { display: inline-block; background: #0284c7; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0; }
+    .subtitle { font-size: 14px; color: #475569; margin: 0; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #0284c7; padding-left: 10px; margin: 24px 0 12px 0; }
+    .diagram-container { background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin:16px 0; text-align:center; cursor:pointer; transition:0.2s; }
+    .diagram-container:hover { border-color:#0284c7; box-shadow:0 4px 12px rgba(2,132,199,0.15); }
+    .diagram-hint { font-size:12px; color:#0284c7; font-weight:600; margin-top:8px; display:inline-block; }
+    .nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .nav-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+    .btn-std { background: #0f172a; color: #ffffff; }
+    .btn-chk { background: #d97706; color: #ffffff; }
+    .btn-std:hover { background: #1e293b; }
+    .btn-chk:hover { background: #b45309; }
+    /* Zoom Modal */
+    #zoomModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.75); z-index:9999; justify-content:center; align-items:center; padding:20px; box-sizing:border-box; }
+    .modal-content { background:#ffffff; border-radius:12px; max-width:1100px; width:100%; max-height:90vh; overflow:auto; padding:24px; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+    .close-btn { position:absolute; top:16px; right:16px; background:#f1f5f9; border:none; font-size:20px; font-weight:bold; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">9000-8-10 | 동탄트램 기계설비·소방설비 수행지침</span>
+      <h1 class="title">방화구획 내화채움구조 시공 수행지침서</h1>
+      <p class="subtitle">슬래브 및 방화벽체 관통 덕트·배관 틈새 법정 공인 내화충진재 100% 밀폐 시공</p>
+    </div>
+
+    <div class="section-title">1. 엔지니어링 2D 기술 도식 (클릭 시 확대)</div>
+    <div class="diagram-container" onclick="openDiagramZoom()">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">방화구획 슬래브/벽체 관통부 내화채움구조(내화충진재) 상세도</text>
+
+  <rect x="150" y="70" width="500" height="35" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+  <text x="400" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">콘크리트 방화벽체 (2시간 내화구조)</text>
+
+  <rect x="330" y="70" width="140" height="35" fill="#cbd5e1"/>
+  <text x="400" y="92" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e293b">관통 슬리브</text>
+
+  <rect x="50" y="130" width="700" height="50" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="400" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">관통 배관 / 공조 덕트 (Pipe / Duct)</text>
+
+  <rect x="330" y="115" width="140" height="80" rx="4" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+  <text x="400" y="145" text-anchor="middle" font-size="11" font-weight="bold" fill="#854d0e">고밀도 미네랄울</text>
+  <text x="400" y="165" text-anchor="middle" font-size="9" fill="#854d0e">(밀도 ≥ 100kg/㎥)</text>
+
+  <rect x="310" y="110" width="20" height="90" fill="#dc2626" rx="2"/>
+  <rect x="470" y="110" width="20" height="90" fill="#dc2626" rx="2"/>
+  <text x="320" y="215" text-anchor="middle" font-size="9" font-weight="bold" fill="#dc2626">방화실란트</text>
+  <text x="480" y="215" text-anchor="middle" font-size="9" font-weight="bold" fill="#dc2626">방화실란트</text>
+
+  <rect x="50" y="240" width="700" height="45" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
+  <text x="400" y="267" text-anchor="middle" font-size="11" font-weight="bold" fill="#15803d">✔ 우레탄폼 사용 전면 금지 ⟶ 공인기관 차열/차염 2시간 인증 내화채움구조 100% 시공</text>
+</svg>
+      <div class="diagram-hint">🔍 도식을 클릭하면 고해상도 대형 팝업으로 확대됩니다.</div>
+    </div>
+
+    <div class="section-title">2. 단계별 마스터 수행 절차 (Step-by-Step)</div>
+    
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 1</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 1: 관통부 틈새 청소 및 공인 내화구조 매핑</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">슬리브 내부 이물질, 분진 제거 및 성적서 대조</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>콘크리트 슬래브 및 방화벽 관통 슬리브 내부 유류, 먼지, 잔재물 청소</li><li style='margin-bottom:6px;'>관통 배관 재질(STS, 강관, 냉매동관) 및 구경에 일치하는 내화채움 공법서 대조</li><li style='margin-bottom:6px;'>한국건설기술연구원 인정 내화채움구조 인정서 및 시공 매뉴얼 현장 비치</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 2</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 2: 내부 불연재(미네랄울) 고밀도 충진</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">규정 밀도(100kg/㎥ 이상) 준수 다짐 충진</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>불연 미네랄울을 관통 틈새 깊이(벽체/슬래브 두께 기준)에 맞춰 절단</li><li style='margin-bottom:6px;'>충진 지그를 사용하여 틈새 내부 공극이 없도록 고밀도로 빽빽하게 다짐 충진</li><li style='margin-bottom:6px;'>배관 중심부 처짐 방지 및 편심 방지 가이드 링 확인</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 3</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 3: 방화 실란트 및 팽창 파이어스탑 마감</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">차염/차열 특수 내화 실란트 도포</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>벽체 및 슬래브 양쪽 표면에 내화 방화 실란트를 규정 두께(10~25mm) 이상 균일 도포</li><li style='margin-bottom:6px;'>헤라(주걱)를 사용하여 관통부 표면을 매끄럽게 마감하고 배관 밀착부 기포 제거</li><li style='margin-bottom:6px;'>PVC 등 가연성 플라스틱 관통관은 화재 시 열팽창하는 파이어스탑 칼라(Collar) 밴드 체결</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 4</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 4: 시공 라벨 부착 및 감리단 전수 검측</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">품질 식별 번호 부여 및 밀폐 사진 대장 작성</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>모든 관통부마다 '내화채움구조 시공표지판(시공일, 업체, 인정번호, 시공자)' 부착</li><li style='margin-bottom:6px;'>책임감리원 입회 하에 충진 깊이, 실란트 두께, 밀폐 상태 전수(100%) 검측</li><li style='margin-bottom:6px;'>관통부별 시공 전·중·후 사진 대장 및 검측 성적서 영구 보존 관리</li>
+          </ul>
+        </div>
+        
+
+    <div class="section-title">3. 핵심 엔지니어링 용어 해설</div>
+    <div style="margin-top:12px;">
+      
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 내화채움구조:</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">방화구획 관통부를 통한 화재 전파를 방지하기 위해 법정 내화성능을 인증받은 차염/차열 시스템</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 파이어스탑 칼라 (Firestop Collar):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">가연성 배관이 불에 타 녹아내릴 때 내부 흑연이 열팽창하여 구멍을 자동으로 막아주는 링</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 차염성 / 차열성:</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">화염이 통과하지 못하는 성능(차염)과 이면 온도가 상승하지 않도록 열을 차단하는 성능(차열)</span>
+      </div>
+    
+    </div>
+
+    <div class="section-title">4. 기계·소방 엔지니어링 간이 계산기 (Interactive Calculator)</div>
+    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin-top:12px;">
+      <div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:10px;">배관 압력손실 및 소화수 방수압 판정기</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+        <label style="font-size:12px; color:#334155;">시험 압력 (MPa): <input type="number" id="testPressure" value="1.5" step="0.1" style="width:80px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <label style="font-size:12px; color:#334155;">유지 시간 (분): <input type="number" id="testTime" value="60" style="width:70px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <button onclick="calculateTest()" style="background:#0284c7; color:#fff; border:none; padding:6px 14px; border-radius:4px; font-size:12px; font-weight:700; cursor:pointer;">적합성 판정</button>
+        <span id="calcResult" style="font-size:13px; font-weight:700; color:#15803d; margin-left:10px;"></span>
+      </div>
+    </div>
+
+    <div class="nav-box">
+      <a href="../표준서/10_방화구획 내화채움구조 시공_표준서.html" class="nav-btn btn-std">📄 [연계] 방화구획 내화채움구조 시공 표준서 열기 ➔</a>
+      <a href="../체크리스트/10_방화구획 내화채움구조 시공_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 방화구획 내화채움구조 시공 체크리스트 열기 ➔</a>
+    </div>
+  </div>
+
+  <!-- Zoom Modal -->
+  <div id="zoomModal" onclick="closeDiagramZoom(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeDiagramZoom(event)">&times;</button>
+      <h3 style="margin-top:0; font-size:18px; color:#0f172a;">방화구획 내화채움구조 시공 - 고해상도 기술 도식</h3>
+      <div style="margin-top:16px;">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">방화구획 슬래브/벽체 관통부 내화채움구조(내화충진재) 상세도</text>
+
+  <rect x="150" y="70" width="500" height="35" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+  <text x="400" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">콘크리트 방화벽체 (2시간 내화구조)</text>
+
+  <rect x="330" y="70" width="140" height="35" fill="#cbd5e1"/>
+  <text x="400" y="92" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e293b">관통 슬리브</text>
+
+  <rect x="50" y="130" width="700" height="50" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="400" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">관통 배관 / 공조 덕트 (Pipe / Duct)</text>
+
+  <rect x="330" y="115" width="140" height="80" rx="4" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+  <text x="400" y="145" text-anchor="middle" font-size="11" font-weight="bold" fill="#854d0e">고밀도 미네랄울</text>
+  <text x="400" y="165" text-anchor="middle" font-size="9" fill="#854d0e">(밀도 ≥ 100kg/㎥)</text>
+
+  <rect x="310" y="110" width="20" height="90" fill="#dc2626" rx="2"/>
+  <rect x="470" y="110" width="20" height="90" fill="#dc2626" rx="2"/>
+  <text x="320" y="215" text-anchor="middle" font-size="9" font-weight="bold" fill="#dc2626">방화실란트</text>
+  <text x="480" y="215" text-anchor="middle" font-size="9" font-weight="bold" fill="#dc2626">방화실란트</text>
+
+  <rect x="50" y="240" width="700" height="45" rx="4" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
+  <text x="400" y="267" text-anchor="middle" font-size="11" font-weight="bold" fill="#15803d">✔ 우레탄폼 사용 전면 금지 ⟶ 공인기관 차열/차염 2시간 인증 내화채움구조 100% 시공</text>
+</svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openDiagramZoom() {
+      document.getElementById('zoomModal').style.display = 'flex';
+    }
+    function closeDiagramZoom(e) {
+      document.getElementById('zoomModal').style.display = 'none';
+    }
+    function calculateTest() {
+      const p = parseFloat(document.getElementById('testPressure').value);
+      const t = parseFloat(document.getElementById('testTime').value);
+      const res = document.getElementById('calcResult');
+      if (p >= 1.0 && t >= 60) {
+        res.innerHTML = "✔ [합격] KCS 41 기준 충족 (1.0MPa 이상, 60분 유지 만족)";
+        res.style.color = "#15803d";
+      } else {
+        res.innerHTML = "❌ [불합격] 최소 수압(1.0MPa) 및 유지시간(60분) 미달";
+        res.style.color = "#dc2626";
+      }
+    }
+  </script>
+</body>
+</html>

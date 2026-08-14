@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 착수 전 Big Room 회의 수행지침서 (WBS 9000-2-9)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .zoom-modal, .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .zoom-modal.active, .glossary-modal.active {
+        display: flex;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 580px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-close, .glossary-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .zoom-close:hover, .glossary-close:hover {
+        color: #ef4444;
+    }
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Detailed Guideline (WBS 9000-2-9)</span>
+        <h1 class="text-3xl font-black mt-2">착수 전 Big Room 회의 초정밀 실무 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-9 | 주관: 현장소장 | "8대 실무 의제 & 1:1 STEP 2D 그림 수록 가이드"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 💡 개념 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 8대 착수 회의 의제 및 Risk Hedge 현장 실무 개요</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                본 지침서는 본사/현장/협력사 3자 Big Room 회의를 통해 <strong><span class="term-highlight" onclick="openGlossary('interface_check')">5대 공종 간섭(노반/전기/신호/기계/차량)</span></strong>, 자재 반입동선, <span class="term-highlight" onclick="openGlossary('defect_prevention')">하자 재발방지</span>, 양중장비 안전검사 및 <span class="term-highlight" onclick="openGlossary('risk_hedge')">안전/품질/민원 24H Risk Hedge</span> 대책을 5단계 마스터 절차로 완수할 수 있도록 **1:1 2D Visual SVG 도식 및 팝업 확대 기능**을 수록하였습니다.
+            </p>
+        </div>
+
+        <!-- ☀️ 5단계 수행 마스터 프로세스 -->
+        <div class="bg-blue-50/70 border border-blue-200 p-7 rounded-2xl shadow-md space-y-6">
+            <div class="border-b border-blue-200 pb-4">
+                <span class="bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase">FLEXIBLE 5-STEP ARCHITECTURE</span>
+                <h3 class="text-xl font-black text-blue-950 mt-2">📋 8대 의제 반영 착수 회의 5단계 실무 프로세스</h3>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2 text-xs">
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 1</span>
+                    <h4 class="font-bold text-slate-900 text-xs">협의체 & 5대간섭</h4>
+                    <p class="text-[10px] text-slate-600">• 3자 협의체 구축<br">• 5대 공종 간섭 검출</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-indigo-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 2</span>
+                    <h4 class="font-bold text-slate-900 text-xs">반입동선 & 야적장</h4>
+                    <p class="text-[10px] text-slate-600">• 반입구/층고 실측<br">• 야적장 5대 환경</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-cyan-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 3</span>
+                    <h4 class="font-bold text-slate-900 text-xs">성능보증 & 하자예방</h4>
+                    <p class="text-[10px] text-slate-600">• 유사 실적 대조<br">• 타 현장 하자 재발방지</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-teal-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 4</span>
+                    <h4 class="font-bold text-slate-900 text-xs">자원 & 양중장비안전</h4>
+                    <p class="text-[10px] text-slate-600">• 숙련 통신공/계측기<br">• 당사 장비안전검사</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1">
+                    <span class="bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">STEP 5</span>
+                    <h4 class="font-bold text-slate-900 text-xs">Risk Hedge & 서명</h4>
+                    <p class="text-[10px] text-slate-600">• 24H 민원/안전 헷지<br">• 회의록 확정 체결</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔥 8대 의제 상세 가이드 & 1:1 2D Visual SVG -->
+        <div class="space-y-8">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-indigo-600 pb-2">8대 회 의제 상세 실무 지침 & 1:1 직관적 2D 그림</h2>
+
+            <!-- STEP 1 Card -->
+            <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-blue-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 1</span>
+                    <h3 class="font-bold text-base text-slate-900">본사/현장/협력사 협의체 구축 & <span class="term-highlight" onclick="openGlossary('interface_check')">5대 공종 간섭</span> 사전 검토</h3>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
+                    <p>• <strong>3자 합동 협의체:</strong> 현장소장 주관으로 본사, 현장, 협력사 3자 Big Room 협의체를 결성하고 착수 세부 실행계획을 대조합니다.</p>
+                    <p>• <strong>5대 공종 인터페이스:</strong> 노반(궤도), 전기, 신호, 기계, 차량 등 5대 이종 공종과 통신 관통 슬리브(ø100~ø150mm) 좌표 오차(±10mm 이내) 및 관로 경로 간섭점을 사전 검출합니다.</p>
+                </div>
+
+                <!-- 1:1 STEP 1 2D SVG -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step1_agenda', 'STEP 1 3자 협의체 구축 및 5대 공종 간섭 검토 2D 도식')">
+                    <svg id="svg_step1_agenda" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="8"/>
+                        <text x="130" y="50" font-size="13" font-weight="black" fill="#1d4ed8" text-anchor="middle">🤝 3자 Big Room 협의체</text>
+                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 본사/현장/협력사 3자 결성</text>
+                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 착수 세부 실행계획 대조</text>
+                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 실행계획 대조 완료</text>
+
+                        <path d="M 245 90 L 285 90" stroke="#2563eb" stroke-width="3"/>
+                        <polygon points="285,85 295,90 285,95" fill="#2563eb"/>
+
+                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">📐 5대 공종 간섭 검출</text>
+                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 궤도/전기/신호/기계/차량</text>
+                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 관통 슬리브 좌표 오차 ±10mm</text>
+                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 간섭점 사전 해결</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- STEP 2 Card -->
+            <div class="bg-white p-6 rounded-2xl border border-indigo-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-indigo-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 2</span>
+                    <h3 class="font-bold text-base text-slate-900">자재 반입동선, 개구부 규격 및 자재 야적장/공장 검토</h3>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
+                    <p>• <strong>기능실 층고 & 반입 동선:</strong> 통신기계실/관제실 마감 층고(≥3.0m) 및 통신 랙(H=2200mm) 반입 엘리베이터(유효폭 1.5m×2.1m) 통과 여부를 1:1 실측합니다.</p>
+                    <p>• <strong>야적장 & 제작사 공장검사:</strong> 지면 이격 팔레트(10cm), 방수/방염 덮개, 잠금 펜스, CCTV 24시간 야적장 5대 환경 및 제작사 공장검사 일정 사전 승인.</p>
+                </div>
+
+                <!-- 1:1 STEP 2 2D SVG -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step2_agenda', 'STEP 2 반입동선 층고 실측 및 야적장 5대 환경 2D 도식')">
+                    <svg id="svg_step2_agenda" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="8"/>
+                        <text x="130" y="50" font-size="13" font-weight="black" fill="#3730a3" text-anchor="middle">📏 층고 실측 & EV 반입동선</text>
+                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 기능실 마감 층고 ≥ 3.0m</text>
+                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 랙(H=2200mm) EV 1.5×2.1m 통과</text>
+                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 반입동선 검측 합격</text>
+
+                        <path d="M 245 90 L 285 90" stroke="#4f46e5" stroke-width="3"/>
+                        <polygon points="285,85 295,90 285,95" fill="#4f46e5"/>
+
+                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">⛺ 야적장 5대 환경 & 공장검사</text>
+                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 지면이격 팔레트+방수/방염천막</text>
+                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 제작사 공장 사전검사 승인</text>
+                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 야적장 환경 승인</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- STEP 3 Card -->
+            <div class="bg-white p-6 rounded-2xl border border-cyan-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-cyan-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 3</span>
+                    <h3 class="font-bold text-base text-slate-900">통신자재 성능보증 조건 & <span class="term-highlight" onclick="openGlossary('defect_prevention')">타 프로젝트 하자 재발방지</span></h3>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
+                    <p>• <strong>성능보증 & 실적 대조:</strong> 광케이블, CCTV, PIS전광판 자재 성능보증서 및 타 철도/트램 프로젝트 실제 적용 실적을 사전 대조합니다.</p>
+                    <p>• <strong>하자 재발방지 수칙:</strong> 과거 타 현장 광 접속 손실 초과, 침수 및 내화 씰링 미비 하자 사례를 사전 분석하여 현장 예방 방안을 수립합니다.</p>
+                </div>
+
+                <!-- 1:1 STEP 3 2D SVG -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step3_agenda', 'STEP 3 성능보증 실적 대조 및 하자 재발방지 2D 도식')">
+                    <svg id="svg_step3_agenda" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#0891b2" stroke-width="2" rx="8"/>
+                        <text x="130" y="50" font-size="13" font-weight="black" fill="#0e7490" text-anchor="middle">💎 자재 성능보증 & 실적대조</text>
+                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 광케이블/CCTV 성능보증확인</text>
+                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• 타 트램 프로젝트 실적 대조</text>
+                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 자재 품질 검증 통과</text>
+
+                        <path d="M 245 90 L 285 90" stroke="#0891b2" stroke-width="3"/>
+                        <polygon points="285,85 295,90 285,95" fill="#0891b2"/>
+
+                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🛡️ 타 현장 하자 재발방지</text>
+                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 과거 광손실/침수 하자 사례분석</text>
+                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 현장 맞춤 재발방지대책 수립</text>
+                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 하자 Zero 대책 수립</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- STEP 4 Card -->
+            <div class="bg-white p-6 rounded-2xl border border-teal-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-teal-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 4</span>
+                    <h3 class="font-bold text-base text-slate-900">자원 투입계획, 양중장비 운영 & 당사 장비 안전검사 공유</h3>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
+                    <p>• <strong>자원 투입 & 계측기 검교정:</strong> 공정별 특급/고급 통신 기술자 투입, 광융착기 및 OTDR KOLAS 1년 유효 검교정 성적서 S/N 일치를 검증합니다.</p>
+                    <p>• <strong>양중장비 안전검사 공유:</strong> 현장 크레인/고소작업차 안전검사 기준 공유, 장비 검사 필증 사전 확인 및 작업 안전수칙을 공유합니다.</p>
+                </div>
+
+                <!-- 1:1 STEP 4 2D SVG -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step4_agenda', 'STEP 4 자원 투입 및 양중장비 안전검사 기준 공유 2D 도식')">
+                    <svg id="svg_step4_agenda" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="8"/>
+                        <text x="130" y="50" font-size="13" font-weight="black" fill="#0f766e" text-anchor="middle">👤 자원 투입 & 계측기 검교정</text>
+                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 고급/특급 통신 기술자 투입</text>
+                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• OTDR/융착기 1년 검교정 S/N</text>
+                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 자원 투입 준비 완료</text>
+
+                        <path d="M 245 90 L 285 90" stroke="#0d9488" stroke-width="3"/>
+                        <polygon points="285,85 295,90 285,95" fill="#0d9488"/>
+
+                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🏗️ 양중장비 안전검사 공유</text>
+                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 당사 장비 안전검사 기준 공유</text>
+                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• 크레인/고소작업차 필증 확인</text>
+                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 장비 안전검사 완료</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- STEP 5 Card -->
+            <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-1 rounded">STEP 5</span>
+                    <h3 class="font-bold text-base text-slate-900"><span class="term-highlight" onclick="openGlossary('risk_hedge')">공종별 Risk Hedge 방안</span> 수립 (안전/품질/민원대책)</h3>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl text-xs text-slate-700 space-y-2 leading-relaxed">
+                    <p>• <strong>안전/품질 Risk 요소:</strong> 궤도 선로 투입 안전, 고소 작업 낙하 방지 및 Fire-Stop 내화 2시간 방화 구속 씰링 검측 대책을 확정합니다.</p>
+                    <p>• <strong>민원 대응 24H 헷지:</strong> 도로 굴착 소음/진동 민원 접수 시 전담 신호수 2인 배치 및 2시간 이내 현장 출동 헷지 수칙을 Big Room 회의록에 수록·체결합니다.</p>
+                </div>
+
+                <!-- 1:1 STEP 5 2D SVG -->
+                <div class="clickable-diagram bg-slate-50 p-4 rounded-xl border border-slate-200 mt-3" onclick="openDiagramZoom('svg_step5_agenda', 'STEP 5 공종별 Risk Hedge 방안 수립 및 회의록 체결 2D 도식')">
+                    <svg id="svg_step5_agenda" viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="520" height="180" fill="#f8fafc"/>
+                        <rect x="20" y="25" width="220" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="130" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🚧 안전 & 품질 Risk Hedge</text>
+                        <text x="35" y="78" font-size="11" font-weight="bold" fill="#334155">• 궤도/고소작업 안전 대책</text>
+                        <text x="35" y="100" font-size="11" font-weight="bold" fill="#334155">• Fire-Stop 내화 2시간 씰링 확정</text>
+                        <text x="130" y="132" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ 현장 리스크 사전 차단</text>
+
+                        <path d="M 245 90 L 285 90" stroke="#059669" stroke-width="3"/>
+                        <polygon points="285,85 295,90 285,95" fill="#059669"/>
+
+                        <rect x="300" y="25" width="200" height="130" fill="#ffffff" stroke="#059669" stroke-width="2" rx="8"/>
+                        <text x="400" y="50" font-size="13" font-weight="black" fill="#047857" text-anchor="middle">🛡️ 24H 민원 헷지 & 서명 체결</text>
+                        <text x="315" y="78" font-size="11" font-weight="bold" fill="#334155">• 민원 시 2시간 출동 헷지 수칙</text>
+                        <text x="315" y="100" font-size="11" font-weight="bold" fill="#334155">• Big Room 회의록 3자 서명 체결</text>
+                        <text x="400" y="132" font-size="11" font-weight="black" fill="#047857" text-anchor="middle">✔ 착수 회의 최종 승인</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 착수 회의 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    "interface_check": "<b>5대 공종 간섭검토 (Interface Control)</b><br><br>• 노반(궤도), 전기, 신호, 기계, 차량 등 5대 이종 공종과 통신 설비 간 관통 관로, 층고, 양중 공간 및 전파 간섭 지점을 사전에 도출하고 조율하는 절차입니다.",
+    "defect_prevention": "<b>타 프로젝트 하자 재발방지 (Defect Prevention)</b><br><br>• 과거 유사 철도/트램 프로젝트에서 발생했던 광케이블 접속 손실, 침수, 방화 충전 불량 등의 하자 사례를 분석하여 현장에 재발 방지 대책을 수립하는 수칙입니다.",
+    "risk_hedge": "<b>공종별 Risk Hedge 방안</b><br><br>• 궤도 선로 작업 안전, 고소작업 낙하, 광 접속 품질 하자 및 도로 굴착 소음/진동 민원(2시간 이내 출동)에 대해 사전에 수립하는 종합 리스크 예방 대책입니다."
+};
+
+function openGlossary(term) {
+    const modal = document.getElementById('glossaryModal');
+    const titleEl = document.getElementById('modalTitle');
+    const descEl = document.getElementById('modalDescription');
+    
+    if (glossaryData[term]) {
+        titleEl.innerHTML = "📖 용어 해설: " + term;
+        descEl.innerHTML = glossaryData[term];
+        modal.classList.add('active');
+    }
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function closeGlossaryModalOutside(event) {
+    if (event.target.id === 'glossaryModal') {
+        closeGlossaryModal();
+    }
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '550px');
+        innerSvg.style.maxWidth = '1050px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+        closeGlossaryModal();
+    }
+});
+</script>
+
+</body>
+</html>

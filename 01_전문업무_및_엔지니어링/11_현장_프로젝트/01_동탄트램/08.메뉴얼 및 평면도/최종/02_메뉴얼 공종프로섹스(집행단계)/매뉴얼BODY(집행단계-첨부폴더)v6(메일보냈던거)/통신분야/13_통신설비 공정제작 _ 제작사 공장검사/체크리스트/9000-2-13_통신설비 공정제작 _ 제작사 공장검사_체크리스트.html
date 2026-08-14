@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 통신설비 공정제작 / 제작사 공장검사 체크리스트 (WBS 9000-2-13)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+        .zoom-modal.active {
+            display: flex;
+        }
+        .zoom-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 28px;
+            border: 1px solid #cbd5e1;
+            width: 95%;
+            max-width: 1100px;
+            max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow-y: auto;
+            text-align: center;
+        }
+        .zoom-close {
+            color: #64748b;
+            position: absolute;
+            right: 20px;
+            top: 16px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .zoom-close:hover {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Inspection Checklist (WBS 9000-2-13)</span>
+        <h1 class="text-3xl font-black mt-2">통신설비 공정제작 및 공장검사(FAT) 체크리스트</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-13 | 주관: 현장 시스템팀 | "15대 대상 장비 세부 파라미터 도식연동 서식"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-8">
+        
+        <!-- 📋 안내 박스 (요청 양식 동일 적용) -->
+        <div class="bg-blue-50/80 border border-blue-200 p-6 rounded-2xl space-y-2">
+            <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+                📜 쉽게 풀어쓴 현장 점검 체크리스트
+            </h3>
+            <p class="text-slate-700 text-xs font-medium leading-relaxed">
+                본 체크리스트는 통신설비 공장검사(FAT) 수행 시 [<span class="inline-flex items-center gap-1 bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full"><span class="w-1.5 h-1.5 bg-indigo-300 rounded-full"></span> 시공 도식 열기</span>]를 클릭하면 대형 고화질 팝업 모달이 열려 도식을 직접 보며 <strong>~하였는가? (100%)</strong> 점검을 진행할 수 있도록 연동되었습니다.
+            </p>
+        </div>
+
+        <!-- 📊 통계 현황 박스 -->
+        <div class="bg-slate-100 border border-slate-200 p-4 rounded-xl flex items-center justify-between text-xs">
+            <span class="font-bold text-slate-800">📋 총 검측 항목: 8개 문항 (4개 공장검사 단계)</span>
+            <div class="flex items-center gap-3">
+                <span class="bg-white px-3 py-1.5 rounded-lg border border-slate-300 font-bold text-slate-700">
+                    전체: <span id="total-count">8</span>개
+                </span>
+                <span class="bg-emerald-600 text-white px-3 py-1.5 rounded-lg font-bold">
+                    확인 완료: <span id="checked-count">0</span>개
+                </span>
+            </div>
+        </div>
+
+        <!-- 3컬럼 프리미엄 체크리스트 테이블 (사용자 제공 서식 동일 적용) -->
+        <div class="overflow-x-auto border border-slate-200 rounded-2xl shadow-sm">
+            <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                    <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
+                        <th class="p-4 font-black w-48 text-center">시공 단계</th>
+                        <th class="p-4 font-black">필수 검측 항목 (쉬운 질문형 수칙)</th>
+                        <th class="p-4 font-black w-36 text-center">점검 결과</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                    
+                    <!-- GROUP 1: Delivery 일정 & 계측기 준비 -->
+                    <tr class="hover:bg-slate-50/80 transition">
+                        <td class="p-6 text-center align-middle bg-slate-50/50 border-r border-slate-200 space-y-3">
+                            <div class="text-2xl">📦</div>
+                            <h4 class="font-black text-slate-900 text-sm">Delivery & ITP준비</h4>
+                            <p class="text-[11px] text-slate-500 font-medium">(Step 1 반입일정)</p>
+                            <button type="button" onclick="openDiagramZoom('svg_step1_fat', 'STEP 1 FAT 사전준비 및 Delivery 일정 확인 도식')" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full transition shadow-sm">
+                                <span class="w-2 h-2 bg-indigo-300 rounded-full"></span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-4 space-y-4">
+                            <div class="space-y-1">
+                                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded">1. Delivery 반입일정</span>
+                                <p class="text-slate-800 font-medium leading-relaxed pl-1">
+                                    <strong>[외산자재 납기]</strong> 수입 광모듈, 스위치 칩셋의 선적/통관 서류(B/L)를 검수하여 현장 기계실 반입 주공정표(CPM) 대비 납기를 확인하였는가?
+                                </p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-3">
+                                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded">2. ITP 및 계측기</span>
+                                <p class="text-slate-800 font-medium leading-relaxed pl-1">
+                                    <strong>[ITP 승인]</strong> 감리 승인된 ITP 절차서와 절연저항계(Megger), OTDR의 교정 유효기간 증명서를 사전 확인하였는가?
+                                </p>
+                            </div>
+                        </td>
+                        <td class="p-4 text-center align-middle border-l border-slate-200 space-y-4">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <input type="checkbox" id="chk_1" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" onchange="updateCount()">
+                                <label for="chk_1" class="font-bold text-blue-900 cursor-pointer">☐ 확인완료</label>
+                            </div>
+                            <div class="flex items-center justify-center gap-1.5 pt-4">
+                                <input type="checkbox" id="chk_2" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" onchange="updateCount()">
+                                <label for="chk_2" class="font-bold text-blue-900 cursor-pointer">☐ 확인완료</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- GROUP 2: 제작도면 1:1 대조 & 절연저항 -->
+                    <tr class="hover:bg-slate-50/80 transition">
+                        <td class="p-6 text-center align-middle bg-slate-50/50 border-r border-slate-200 space-y-3">
+                            <div class="text-2xl">📐</div>
+                            <h4 class="font-black text-slate-900 text-sm">도면대조 & 절연저항</h4>
+                            <p class="text-[11px] text-slate-500 font-medium">(Step 2 도서일치)</p>
+                            <button type="button" onclick="openDiagramZoom('svg_step2_fat', 'STEP 2 제작도면 1:1 대조 및 DC -48V 절연저항 도식')" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full transition shadow-sm">
+                                <span class="w-2 h-2 bg-indigo-300 rounded-full"></span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-4 space-y-4">
+                            <div class="space-y-1">
+                                <span class="bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-0.5 rounded">3. 제작도면 1:1 대조</span>
+                                <p class="text-slate-800 font-medium leading-relaxed pl-1">
+                                    <strong>[도면 일치]</strong> 승인된 상세 제작도면(Shop Drawing) 대비 랙 내부 배선 결선 번호, PDU 극성 라벨링을 1:1 대조·확인하였는가?
+                                </p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-3">
+                                <span class="bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-0.5 rounded">4. 외관 & 절연저항</span>
+                                <p class="text-slate-800 font-medium leading-relaxed pl-1">
+                                    <strong>[랙 외관 및 전원]</strong> 랙 외함(2200H) 도장 상태와 DC -48V 전원선 절연저항(≥100MΩ) 및 접지저항(≤10Ω)을 실측하였는가?
+                                </p>
+                            </div>
+                        </td>
+                        <td class="p-4 text-center align-middle border-l border-slate-200 space-y-4">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <input type="checkbox" id="chk_3" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" onchange="updateCount()">
+                                <label for="chk_3" class="font-bold text-blue-900 cursor-pointer">☐ 확인완료</label>
+                            </div>
+                            <div class="flex items-center justify-center gap-1.5 pt-4">
+                                <input type="checkbox" id="chk_4" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" onchange="updateCount()">
+                                <label for="chk_4" class="font-bold text-blue-900 cursor-pointer">☐ 확인완료</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- GROUP 3: 15대 통신 장비 파라미터 성능검사 시뮬레이션 -->
+                    <tr class="hover:bg-slate-50/80 transition">
+                        <td class="p-6 text-center align-middle bg-slate-50/50 border-r border-slate-200 space-y-3">
+                            <div class="text-2xl">🧪</div>
+                            <h4 class="font-black text-slate-900 text-sm">파라미터 성능시험</h4>
+                            <p class="text-[11px] text-slate-500 font-medium">(Step 3 수치검증)</p>
+                            <button type="button" onclick="openDiagramZoom('svg_step3_fat', 'STEP 3 공장 성능시험실 15대 장비 파라미터 시뮬레이션 도식')" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full transition shadow-sm">
+                                <span class="w-2 h-2 bg-indigo-300 rounded-full"></span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-4 space-y-4">
+                            <div class="space-y-1">
+                                <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded">5. 15대 장비 파라미터</span>
+                                <p class="text-slate-800 font-medium leading-relaxed pl-1">
+                                    <strong>[정량 수치 검증]</strong> OTN 광 절체(≤50ms), LTE-R VSWR(≤1.5), 광케이블 감쇄계수(≤0.35dB/km), CCTV 4K(30fps) 수치를 계측·검증하였는가?
+                                </p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-3">
+                                <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded">6. PAS 비상 방송 연동</span>
+                                <p class="text-slate-800 font-medium leading-relaxed pl-1">
+                                    <strong>[화재 연동]</strong> PAS 방송 앰프 화재 수신기 비상 차단 회로 시뮬레이션으로 0.5초 이내 자동 안내 방송 전환을 확인하였는가?
+                                </p>
+                            </div>
+                        </td>
+                        <td class="p-4 text-center align-middle border-l border-slate-200 space-y-4">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <input type="checkbox" id="chk_5" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" onchange="updateCount()">
+                                <label for="chk_5" class="font-bold text-blue-900 cursor-pointer">☐ 확인완료</label>
+                            </div>
+                            <div class="flex items-center justify-center gap-1.5 pt-4">
+                                <input type="checkbox" id="chk_6" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" onchange="updateCount()">
+                                <label for="chk_6" class="font-bold text-blue-900 cursor-pointer">☐ 확인완료</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- GROUP 4: FAT 결과보고서 & 반입승인 공문 -->
+                    <tr class="hover:bg-slate-50/80 transition">
+                        <td class="p-6 text-center align-middle bg-slate-50/50 border-r border-slate-200 space-y-3">
+                            <div class="text-2xl">📝</div>
+                            <h4 class="font-black text-slate-900 text-sm">보고서 & 승인공문</h4>
+                            <p class="text-[11px] text-slate-500 font-medium">(Step 4 반입허가)</p>
+                            <button type="button" onclick="openDiagramZoom('svg_step4_fat', 'STEP 4 FAT 합격 결과보고서 및 승인공문 도식')" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full transition shadow-sm">
+                                <span class="w-2 h-2 bg-indigo-300 rounded-full"></span> 시공 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-4 space-y-4">
+                            <div class="space-y-1">
+                                <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded">7. FAT 결과보고서 서명</span>
+                                <p class="text-slate-800 font-medium leading-relaxed pl-1">
+                                    <strong>[결과보고서]</strong> 15대 장비별 공장검사 항목 수치가 수록된 FAT 합격 보고서에 책임감리원 및 엔지니어 서명을 수득하였는가?
+                                </p>
+                            </div>
+                            <div class="space-y-1 border-t border-slate-100 pt-3">
+                                <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded">8. 반입 승인 공문</span>
+                                <p class="text-slate-800 font-medium leading-relaxed pl-1">
+                                    <strong>[공문 발송]</strong> 감리단/발주처에 공장검사 합격 승인 공문을 발송하여 현장 기계실 자재 반입을 공식 개시하였는가?
+                                </p>
+                            </div>
+                        </td>
+                        <td class="p-4 text-center align-middle border-l border-slate-200 space-y-4">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <input type="checkbox" id="chk_7" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" onchange="updateCount()">
+                                <label for="chk_7" class="font-bold text-blue-900 cursor-pointer">☐ 확인완료</label>
+                            </div>
+                            <div class="flex items-center justify-center gap-1.5 pt-4">
+                                <input type="checkbox" id="chk_8" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" onchange="updateCount()">
+                                <label for="chk_8" class="font-bold text-blue-900 cursor-pointer">☐ 확인완료</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 하단 승인 수득 서명 박스 -->
+        <div class="bg-slate-100 border border-slate-300 p-6 rounded-2xl flex flex-wrap justify-between items-center text-xs text-slate-700">
+            <div>
+                <span class="font-bold text-slate-900">검측 일자: 2026년 _____월 _____일</span>
+                <p class="text-[11px] text-slate-500 mt-1">현장 시스템팀 FAT 검측 완료 및 감리단/발주처 공식 승인 공문 수득 확인</p>
+            </div>
+            <div class="flex items-center gap-6 mt-2 sm:mt-0">
+                <span>점검자(시공사): ____________ (인)</span>
+                <span class="font-bold text-indigo-900">확인자(책임감리원): ____________ (인)</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🔍 대형보기 팝업 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 FAT 검사 도식 대형 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[420px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<!-- HIDDEN SVG CONTAINERS FOR POPUP MODAL -->
+<div style="display: none;">
+    <svg id="svg_step1_fat" viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/>
+        <g transform="translate(15, 15)">
+            <rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+            <text x="120" y="25" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">📄 FAT 시험절차서(ITP)</text>
+            <line x1="15" y1="35" x2="225" y2="35" stroke="#bae6fd" stroke-width="1"/>
+            
+            <rect x="25" y="45" width="190" height="95" fill="#f0f9ff" stroke="#38bdf8" stroke-width="1"/>
+            <text x="35" y="65" font-size="9.5" font-weight="bold" fill="#0369a1">• 검사 서식: KCS 31 10 00 준수</text>
+            <text x="35" y="85" font-size="9.5" font-weight="bold" fill="#0369a1">• 외산자재 Delivery 일정 확인</text>
+            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#0369a1">• 계측기 교정증명서 첨부</text>
+            <text x="120" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ ITP 사전 승인 완수</text>
+        </g>
+
+        <g transform="translate(285, 15)">
+            <rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#d97706" stroke-width="2" rx="6"/>
+            <text x="120" y="25" font-size="12" font-weight="black" fill="#9a3412" text-anchor="middle">🏭 공장 입회 일정 확정</text>
+            <line x1="15" y1="35" x2="225" y2="35" stroke="#fde68a" stroke-width="1"/>
+            
+            <rect x="25" y="45" width="190" height="95" fill="#fff8f0" stroke="#f59e0b" stroke-width="1"/>
+            <text x="35" y="65" font-size="9.5" font-weight="bold" fill="#92400e">• 장소: 통신자재 제조 공장</text>
+            <text x="35" y="85" font-size="9.5" font-weight="bold" fill="#92400e">• 참석: 감리원 + 현장 시스템팀</text>
+            <text x="35" y="105" font-size="9.5" font-weight="bold" fill="#92400e">• 15대 장비 파라미터 시뮬 준비</text>
+            <text x="120" y="152" font-size="10" font-weight="black" fill="#9a3412" text-anchor="middle">✔ 입회 준비 완료</text>
+        </g>
+    </svg>
+
+    <svg id="svg_step2_fat" viewBox="0 0 550 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="550" height="200" fill="#f8fafc" rx="8"/>
+        
+        <g transform="translate(15, 15)">
+            <rect x="0" y="0" width="250" height="170" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="6"/>
+            <text x="125" y="25" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">📏 19인치 랙 외관 & 치수</text>
+            <line x1="15" y1="35" x2="235" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+            
+            <rect x="45" y="48" width="60" height="100" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5"/>
+            <text x="75" y="100" font-size="9" font-weight="bold" fill="#0369a1" text-anchor="middle">Rack 2200H</text>
+
+            <text x="175" y="70" font-size="9" font-weight="bold" fill="#1e293b">• 너비: 600 mm</text>
+            <text x="175" y="90" font-size="9" font-weight="bold" fill="#1e293b">• 깊이: 1000 mm</text>
+            <text x="175" y="110" font-size="9" font-weight="bold" fill="#1e293b">• 높이: 2200 mm</text>
+            
+            <text x="125" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 도면 1:1 일치 적합</text>
+        </g>
+
+        <g transform="translate(280, 15)">
+            <rect x="0" y="0" width="255" height="170" fill="#ffffff" stroke="#059669" stroke-width="2" rx="6"/>
+            <text x="127" y="25" font-size="12" font-weight="black" fill="#047857" text-anchor="middle">⚡ DC -48V 절연저항 (Megger)</text>
+            <line x1="15" y1="35" x2="240" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+            
+            <rect x="25" y="48" width="205" height="75" fill="#f0fdf4" stroke="#16a34a" stroke-width="1" rx="4"/>
+            <text x="35" y="68" font-size="9.5" font-weight="bold" fill="#15803d">절연 저항 측정치: 500 MΩ</text>
+            <text x="35" y="85" font-size="9.5" font-weight="700" fill="#1e293b">• 시방 규정치: ≥ 100 MΩ (합격)</text>
+            <text x="35" y="98" font-size="9.5" font-weight="700" fill="#1e293b">• 접지 저항: ≤ 10 Ω (합격)</text>
+
+            <text x="127" y="152" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 전원/절연 성능 합격</text>
+        </g>
+    </svg>
+
+    <svg id="svg_step3_fat" viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/>
+        
+        <g transform="translate(20, 15)">
+            <rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
+            <text x="120" y="25" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">🌐 OTN / LTE-R 연동 시험</text>
+            <line x1="15" y1="35" x2="225" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+            
+            <rect x="35" y="48" width="170" height="75" fill="#f0fdf4" stroke="#16a34a" stroke-width="1" rx="4"/>
+            <text x="45" y="68" font-size="9" font-weight="bold" fill="#15803d">광 절체 속도: 28 ms (≤50ms)</text>
+            <text x="45" y="85" font-size="9.5" font-weight="700" fill="#1e293b">• LTE-R 통화 수신율: 100%</text>
+            <text x="45" y="98" font-size="9.5" font-weight="700" fill="#1e293b">• 패킷 손실율: 0.00% (Pass)</text>
+            
+            <text x="120" y="152" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 무선/광전송 연동 성공</text>
+        </g>
+
+        <g transform="translate(280, 15)">
+            <rect x="0" y="0" width="240" height="160" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+            <text x="120" y="25" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">📺 CCTV & PAS 화재 방송 시뮬</text>
+            <line x1="15" y1="35" x2="225" y2="35" stroke="#e2e8f0" stroke-width="1"/>
+            
+            <rect x="30" y="50" width="180" height="75" fill="#f0f9ff" stroke="#0284c7" rx="3"/>
+            <text x="40" y="70" font-size="9" font-weight="bold" fill="#0369a1">• CCTV 4K (3840x2160) 30fps</text>
+            <text x="40" y="85" font-size="9" font-weight="bold" fill="#0369a1">• 화재 신호 감지 시 PAS 차단</text>
+            <text x="40" y="100" font-size="9.5" font-weight="700" fill="#1e293b">반응 속도: 0.8초 (정상 연동)</text>
+
+            <text x="120" y="152" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">✔ 방송/CCTV 시뮬 성공</text>
+        </g>
+    </svg>
+
+    <svg id="svg_step4_fat" viewBox="0 0 540 190" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="540" height="190" fill="#f8fafc" rx="8"/>
+        
+        <g transform="translate(100, 10)">
+            <rect x="0" y="0" width="340" height="170" fill="#ffffff" stroke="#059669" stroke-width="2" rx="6"/>
+            <rect x="0" y="0" width="340" height="32" fill="#059669" rx="6"/>
+            <text x="170" y="21" font-size="13" font-weight="black" fill="#ffffff" text-anchor="middle">📄 통신설비 공장검사(FAT) 합격 승인서</text>
+            
+            <text x="25" y="52" font-size="10" font-weight="bold" fill="#1e293b">품 명: 동탄트램 통신 랙 & 광전송/CCTV 장비</text>
+            <text x="25" y="70" font-size="9" fill="#0f172a">• 검사 결과: 외관, 절연저항, 15대 장비 시뮬 적합</text>
+            <text x="25" y="85" font-size="9" fill="#0f172a">• 검토 의견: 시방 및 ITP 준수, FAT 합격 및 현장 반입 승인함.</text>
+            
+            <line x1="25" y1="98" x2="315" y2="98" stroke="#cbd5e1" stroke-width="1"/>
+            
+            <text x="25" y="118" font-size="10" font-weight="bold" fill="#0f172a">책임 감리원:</text>
+            <text x="90" y="118" font-size="10" font-weight="bold" fill="#1e3a8a">김 책임 (서명/인)</text>
+            
+            <g transform="translate(210, 95) rotate(-12)">
+                <rect x="0" y="0" width="110" height="50" fill="none" stroke="#dc2626" stroke-width="3" rx="6"/>
+                <rect x="3" y="3" width="104" height="44" fill="none" stroke="#dc2626" stroke-width="1" rx="4"/>
+                <text x="55" y="26" font-size="14" font-weight="900" fill="#dc2626" text-anchor="middle">공식 승인</text>
+                <text x="55" y="40" font-size="9" font-weight="700" font-weight="bold" fill="#dc2626" text-anchor="middle">감리단/발주처 승인완료</text>
+            </g>
+            
+            <text x="170" y="160" font-size="11" font-weight="black" fill="#15803d" text-anchor="middle">✔ FAT 합격 & 현장 반입 개시 허가</text>
+        </g>
+    </svg>
+</div>
+
+<script>
+function updateCount() {
+    const items = document.querySelectorAll('.chk-item');
+    let checked = 0;
+    items.forEach(item => {
+        if (item.checked) checked++;
+    });
+    document.getElementById('checked-count').innerText = checked;
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "FAT 검사 도식 대형 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '580px');
+        innerSvg.style.maxWidth = '1080px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지장물이설 - 인허가 절차 진행 기술 표준서</title>
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-blue: #1e3a8a;
+            --accent-cyan: #0284c7;
+            --border-color: #e2e8f0;
+        }
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            margin: 0; padding: 30px 20px;
+            background: var(--bg-primary); color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px; margin: 0 auto; background: var(--bg-card);
+            padding: 40px; border-radius: 16px; border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+        }
+        .header { border-bottom: 3px solid var(--accent-blue); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px; }
+        .title { font-size: 2.1rem; font-weight: 900; color: var(--text-primary); margin: 0; }
+        .meta-info { display: flex; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); margin-top: 12px; }
+        .badge { background: #dbeafe; color: #1e40af; font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
+        h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent-blue); border-left: 5px solid var(--accent-cyan); padding-left: 12px; margin-top: 35px; margin-bottom: 18px; }
+        table { width: 100% !important; max-width: 100% !important; border-collapse: collapse; margin: 12px 0 20px 0; font-size: 0.92rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; text-align: left; vertical-align: middle; }
+        th { background: #f1f5f9; color: #1e293b; font-weight: 700; }
+        .svg-container { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .diagram-explanation { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-top: 15px; font-size: 0.9rem; color: #334155; text-align: left; }
+        .key-takeaway { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-top: 15px; color: #166534; font-size: 0.9rem; }
+        .footer-note { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid var(--border-color); padding-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 2000-1-9 Standard</div>
+        <h1 class="title">인허가 절차 진행 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 지장물이설 / 지장물이설</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 공사팀 / 공무팀</span>
+            <span>|</span>
+            <span><span class="badge">현장 맞춤 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th style="width: 20%;">과업 목적</th><td>동탄트램 궤도 노선 구간 내 인허가 절차 진행 과업의 성무 수행을 위한 엔지니어링 표준 수칙 준수</td></tr>
+            <tr><th>수행 방법</th><td>인허가 절차 진행 관련 기술 시방서 검토, 현장 정밀 시공 및 감리단/발주처 승인 획득</td></tr>
+            <tr><th>주요 산출물</th><td>인허가 절차 진행 검측보고서, 측량 성과표, 시험성적서 및 준공 도면</td></tr>
+            <tr><th>관련 법령/기준</th><td>동탄도시철도 건설공사 시방서, KCS 11 20 00 토공사 시방서</td></tr>
+        </tbody>
+    </table>
+
+    <h2>2. 인허가 절차 진행 고유 엔지니어링 수칙 및 정량 시방 표</h2>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 22px; border-radius: 12px; margin-bottom: 25px;">
+        <h4 style="margin: 0 0 12px 0; color: #1e3a8a; font-size: 1.05rem;">📍 인허가 절차 진행 고유 정량적 공학 기술 시방 수칙</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem;">
+            <thead>
+                <tr style="background: #e2e8f0; color: #0f172a;">
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 20%;">기술 검속 항목</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 25%;">관련 시방 및 기준</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 55%;">핵심 정량 기술 수칙 및 허용 공차</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">궤도 안전 이격거리</td>
+                    <td style="text-align: center;">동탄트램 시방서</td>
+                    <td>• 인허가 절차 진행 시공 시 궤도 구조물과 최소 수평/수직 이격거리 <strong>H ≥ 1.5m 이상</strong> 확보</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">토공 및 층다짐도</td>
+                    <td style="text-align: center;">KCS 11 20 00 토공사</td>
+                    <td>• 관 기초 모래(Sand Bedding) 150mm 이상 및 되메우기 층다짐도 <strong>95% 이상</strong> 준수</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">품질 시험 검속</td>
+                    <td style="text-align: center;">KCS 상하수도/배관 시방</td>
+                    <td>• 수압시험, CCTV 조사, NDT 비파괴 검사 등 공종별 공인 시험성적서 100% 구비</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">인허가 및 준공 승인</td>
+                    <td style="text-align: center;">건설기술 진흥법</td>
+                    <td>• 현장 감리원 입회 서명 및 화성시/관리기관 준공 이관 서류 완비</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 15px; background: #eff6ff; padding: 12px 16px; border-radius: 8px; border: 1px solid #bfdbfe; font-size: 0.88rem; color: #1e40af;">
+            <strong>📐 동탄트램 기술 이행 절대 수칙:</strong> 본 인허가 절차 진행 과업은 동탄트램 궤도 구조물 안전성 확보와 공기 지연 방지를 위해 <strong>상기 정량 기술 시방</strong>을 엄격히 준수합니다.
+        </div>
+    </div>
+
+    <h2>3. 인허가 절차 진행 핵심 프로세스 모식도</h2>
+    <div class="svg-container">
+        <svg viewBox="0 0 900 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="320" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+            <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">인허가 절차 진행 핵심 프로세스 및 엔지니어링 절차</text>
+
+            <g transform="translate(30, 60)">
+                <rect width="180" height="170" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                <rect width="180" height="35" rx="8" fill="#dbeafe"/>
+                <text x="90" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">① 사전 준비</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">인허가 절차 진행 도석 검토</text>
+            </g>
+
+            <text x="225" y="145" font-size="20" fill="#2563eb">➔</text>
+
+            <g transform="translate(245, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#ffedd5"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">③ 품질 검속</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">인허가 절차 진행 시방 이행</text>
+            </g>
+
+            <text x="450" y="145" font-size="20" fill="#ea580c">➔</text>
+
+            <g transform="translate(470, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#dcfce7"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">③ 품질 검속</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">궤도 이격 1.5m 준수</text>
+            </g>
+
+            <text x="675" y="145" font-size="20" fill="#059669">➔</text>
+
+            <g transform="translate(695, 60)">
+                <rect width="175" height="170" rx="8" fill="#ffffff" stroke="#1e3a8a" stroke-width="2"/>
+                <rect width="175" height="35" rx="8" fill="#e0e7ff"/>
+                <text x="87" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e1b4b">④ 승인 이관</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">감리단/발주처 서명</text>
+            </g>
+
+            <rect x="30" y="250" width="840" height="45" rx="8" fill="#1e3a8a"/>
+            <text x="450" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">🚨 인허가 절차 진행 과업 미이행 시 후행 트램 궤도/노반 공정 지연 및 품질 하자 예방</text>
+        </svg>
+    </div>
+
+    <div class="diagram-explanation">
+        <h4 style="margin: 0 0 8px 0; color: #0f172a;">🔍 인허가 절차 진행 엔지니어링 시스템 해설</h4>
+        <p style="margin: 0; line-height: 1.7;">본 인허가 절차 진행 과업은 동탄도시철도 건설공사 품질 관리 방침에 따라 사전 검토부터 최종 승인까지 시방 규격을 이행하는 절차입니다.</p>
+    </div>
+
+    <div class="key-takeaway">
+        <strong>💡 핵심 요약:</strong> 인허가 절차 진행 과업 목적에 1:1 대조되는 정량 시방 수칙을 엄수하여 시공 품질을 확보하는 단계입니다!
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 2000-1-9 | 지장물이설
+    </div>
+</div>
+</body>
+</html>

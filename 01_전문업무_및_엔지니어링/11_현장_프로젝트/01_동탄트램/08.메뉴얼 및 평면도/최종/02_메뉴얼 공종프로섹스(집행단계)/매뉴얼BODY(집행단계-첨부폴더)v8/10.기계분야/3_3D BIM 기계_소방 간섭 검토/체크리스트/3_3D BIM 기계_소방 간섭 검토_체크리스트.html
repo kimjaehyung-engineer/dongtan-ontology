@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄도시철도 - 3D BIM 기계_소방 간섭 검토 체크리스트</title>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; margin:0; padding:24px; color:#0f172a; line-height:1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px; border: 1px solid #e2e8f0; }
+    .header { border-bottom: 2px solid #d97706; padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { display: inline-block; background: #d97706; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0; }
+    .subtitle { font-size: 14px; color: #475569; margin: 0; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #d97706; padding-left: 10px; margin: 24px 0 12px 0; }
+    .table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+    .table th { background: #0f172a; color: #ffffff; font-weight: 700; padding: 10px 14px; text-align: left; }
+    .nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .nav-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+    .btn-std { background: #0f172a; color: #ffffff; }
+    .btn-guide { background: #0284c7; color: #ffffff; }
+    .btn-std:hover { background: #1e293b; }
+    .btn-guide:hover { background: #0369a1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">9000-8-3 | 동탄트램 기계설비·소방설비 체크리스트</span>
+      <h1 class="title">3D BIM 기계_소방 간섭 검토 시공 및 감리 검측 체크리스트</h1>
+      <p class="subtitle">LOD 350 기반 기계덕트/배관↔전기트레이/건축골조/신호공동구 3D 공간 간섭 100% 제거</p>
+    </div>
+
+    <div class="section-title">1. 필수 검측 체크리스트 (KCS 41 / NFTC 기준)</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width:8%; text-align:center;">No.</th>
+          <th style="width:22%;">검측 항목</th>
+          <th style="width:45%;">점검 내용 및 법적 기준</th>
+          <th style="width:15%; text-align:center;">합격 기준</th>
+          <th style="width:10%; text-align:center;">적합 여부</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr style="border-bottom:1px solid #e2e8f0;">
+          <td style="padding:10px 12px; text-align:center; font-weight:700; color:#64748b;">1</td>
+          <td style="padding:10px 14px; font-weight:600; color:#0f172a;">간섭 클러스터 분석</td>
+          <td style="padding:10px 14px; color:#334155; font-size:12px;">Autodesk Navisworks 기반 Clash Detection</td>
+          <td style="padding:10px 14px; text-align:center; color:#047857; font-weight:600; font-size:12px;">하드 클래시 0건</td>
+          <td style="padding:10px 12px; text-align:center;">
+            <input type="checkbox" checked style="width:16px; height:16px; cursor:pointer;">
+          </td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #e2e8f0;">
+          <td style="padding:10px 12px; text-align:center; font-weight:700; color:#64748b;">2</td>
+          <td style="padding:10px 14px; font-weight:600; color:#0f172a;">천장 공간 배분</td>
+          <td style="padding:10px 14px; color:#334155; font-size:12px;">공조덕트(상단) - 소화배관(중단) - 케이블트레이(하단)</td>
+          <td style="padding:10px 14px; text-align:center; color:#047857; font-weight:600; font-size:12px;">표준 이격거리 준수</td>
+          <td style="padding:10px 12px; text-align:center;">
+            <input type="checkbox" checked style="width:16px; height:16px; cursor:pointer;">
+          </td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #e2e8f0;">
+          <td style="padding:10px 12px; text-align:center; font-weight:700; color:#64748b;">3</td>
+          <td style="padding:10px 14px; font-weight:600; color:#0f172a;">슬리브 위치 확정</td>
+          <td style="padding:10px 14px; color:#334155; font-size:12px;">건축 콘크리트 타설 전 관통 슬리브 3D 좌표 추출</td>
+          <td style="padding:10px 14px; text-align:center; color:#047857; font-weight:600; font-size:12px;">골조 타공 Zero</td>
+          <td style="padding:10px 12px; text-align:center;">
+            <input type="checkbox" checked style="width:16px; height:16px; cursor:pointer;">
+          </td>
+        </tr>
+        
+        <tr style="border-bottom:1px solid #e2e8f0;">
+          <td style="padding:10px 12px; text-align:center; font-weight:700; color:#64748b;">4</td>
+          <td style="padding:10px 14px; font-weight:600; color:#0f172a;">유지보수 공간</td>
+          <td style="padding:10px 14px; color:#334155; font-size:12px;">밸브, 댐퍼, 점검구 작업 반경(≥600mm) 확보</td>
+          <td style="padding:10px 14px; text-align:center; color:#047857; font-weight:600; font-size:12px;">유지관리 동선 100%</td>
+          <td style="padding:10px 12px; text-align:center;">
+            <input type="checkbox" checked style="width:16px; height:16px; cursor:pointer;">
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+
+    <div class="section-title">2. 검측 결과 종합 판정</div>
+    <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="font-size:14px; font-weight:700; color:#0f172a;">종합 판정: <span style="color:#15803d;">적격 (PASSED)</span></div>
+        <div style="font-size:12px; color:#64748b; margin-top:4px;">모든 시방 기준 및 소방법규 100% 충족 확인</div>
+      </div>
+      <div style="font-size:12px; color:#475569; text-align:right;">
+        검측일자: 2026. 08. 14.<br>
+        책임감리원 / 시공책임자 서명 완료
+      </div>
+    </div>
+
+    <div class="nav-box">
+      <a href="../표준서/3_3D BIM 기계_소방 간섭 검토_표준서.html" class="nav-btn btn-std">📄 [연계] 3D BIM 기계_소방 간섭 검토 표준서 열기 ➔</a>
+      <a href="../수행지침/3_3D BIM 기계_소방 간섭 검토_수행지침.html" class="nav-btn btn-guide">📘 [연계] 3D BIM 기계_소방 간섭 검토 수행지침서 열기 ➔</a>
+    </div>
+  </div>
+</body>
+</html>

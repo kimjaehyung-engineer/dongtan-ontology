@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지장물이설 - 상하수도 이설계획 실정보고 기술 표준서</title>
+    <style>
+        :root { --bg-primary: #f8fafc; --bg-card: #ffffff; --text-primary: #0f172a; --text-secondary: #475569; --accent-blue: #1e3a8a; --accent-cyan: #0284c7; --border-color: #e2e8f0; }
+        body { font-family: 'Pretendard', 'Noto Sans KR', sans-serif; margin: 0; padding: 30px 20px; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08); }
+        .header { border-bottom: 3px solid var(--accent-blue); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px; }
+        .title { font-size: 2.1rem; font-weight: 900; color: var(--text-primary); margin: 0; }
+        .meta-info { display: flex; gap: 12px; font-size: 0.9rem; color: var(--text-secondary); margin-top: 12px; }
+        .badge { background: #dbeafe; color: #1e40af; font-weight: 700; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; }
+        h2 { font-size: 1.4rem; font-weight: 800; color: var(--accent-blue); border-left: 5px solid var(--accent-cyan); padding-left: 12px; margin-top: 35px; margin-bottom: 18px; }
+        table { width: 100% !important; max-width: 100% !important; border-collapse: collapse; margin: 12px 0 20px 0; font-size: 0.92rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; text-align: left; vertical-align: middle; }
+        th { background: #f1f5f9; color: #1e293b; font-weight: 700; }
+        .svg-container { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
+        .diagram-explanation { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin-top: 15px; font-size: 0.9rem; color: #334155; text-align: left; }
+        .key-takeaway { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 16px; margin-top: 15px; color: #166534; font-size: 0.9rem; }
+        .footer-note { margin-top: 40px; text-align: center; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid var(--border-color); padding-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 2000-1-8 Standard</div>
+        <h1 class="title">상하수도 이설계획 실정보고 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 사전토공 / 지장물이설 (실정보고)</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 공무팀 / 감리단 / 발주처</span>
+            <span>|</span>
+            <span><span class="badge">설계 변경 승인 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th style="width: 20%;">과업 목적</th><td>도급자 시행 상하수도 현장 시굴 실측 오차에 따른 관경·관재·이설 위치 변경 건에 대해 감리단 및 발주처에 정식 실정보고 승인 획득</td></tr>
+            <tr><th>수행 방법</th><td>현치 오차 비교표, 설계 변경 수량 산출서, 맑은물사업소 입회 의견서 작성 및 감리원 적정성 검속 승인</td></tr>
+            <tr><th>주요 산출물</th><td>상하수도 이설계획 실정보고서, 설계 변경 수량 비교표, 감리단 검토 의견서</td></tr>
+            <tr><th>관련 법령/기준</th><td>국가지계약법 시행령 제65조(설계 변경), KCS 11 20 00 토공 시방</td></tr>
+        </tbody>
+    </table>
+
+    <h2>2. 상하수도 이설계획 실정보고 정량 기술 시방 수칙</h2>
+    <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 22px; border-radius: 12px; margin-bottom: 25px;">
+        <h4 style="margin: 0 0 12px 0; color: #1e3a8a; font-size: 1.05rem;">📝 실정보고 수량 재산정 및 설계 변경 검속 기준</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem;">
+            <thead>
+                <tr style="background: #e2e8f0; color: #0f172a;">
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 20%;">보고 및 변경 항목</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 25%;">관련 법령 및 규정</th>
+                    <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: center; width: 55%;">핵심 정량 기술 수칙 및 변경 승인 조건</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">현치 오차 증빙서</td>
+                    <td style="text-align: center;">건설기술 진흥법</td>
+                    <td>• GPR 탐사(오차 ±10cm) 및 인력 시굴 현장 노출 사진대지 구비<br>• GRS80 세계측지계 측량 성과표(오차 ±5cm) 대조 증빙</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">관재/관경 산출서</td>
+                    <td style="text-align: center;">KCS 47 10 00 / 맑은물</td>
+                    <td>• 신설 상하수도 관경(D300~D800mm) 및 이설 연장 증감 산출<br>• 상수도 수압 10kg/cm², 하수도 CCTV 100% 시방 적용 확인</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">공사비 변경 산정</td>
+                    <td style="text-align: center;">국가계약법 시행령 제65조</td>
+                    <td>• 계약 단가 및 신규 공종 단가 산정 적정성 검증<br>• 토사 굴착량, 되메우기 층다짐(95% 이상) 내역서 첨부</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold; text-align: center;">감리/발주처 승인</td>
+                    <td style="text-align: center;">발주처 계약 조건</td>
+                    <td>• 감리원 현장 적정성 검토 서명 결재 획득<br>• 화성시 발주처 정식 실정보고 승인 공문 수령 후 시공</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 15px; background: #eff6ff; padding: 12px 16px; border-radius: 8px; border: 1px solid #bfdbfe; font-size: 0.88rem; color: #1e40af;">
+            <strong>📐 실정보고 이행 절대 수칙:</strong> 본 과업은 정산 분쟁을 예방하기 위해 <strong>GPR/측량 성과 증빙 및 감리/발주처 사전 승인</strong>을 거쳐 시공합니다.
+        </div>
+    </div>
+
+    <h2>3. 상하수도 이설계획 실정보고 핵심 프로세스 모식도</h2>
+    <div class="svg-container">
+        <svg viewBox="0 0 900 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="320" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+            <text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">상하수도 이설계획 실정보고 및 승인 절차</text>
+
+            <g transform="translate(30, 60)">
+                <rect width="180" height="170" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                <rect width="180" height="35" rx="8" fill="#dbeafe"/>
+                <text x="90" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">① 현치 오차 도출</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">GPR/측량 성과 산출</text>
+            </g>
+
+            <text x="225" y="145" font-size="20" fill="#2563eb">➔</text>
+
+            <g transform="translate(245, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#ffedd5"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a3412">② 실정보고서 작성</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">변경 내역/수량 수립</text>
+            </g>
+
+            <text x="450" y="145" font-size="20" fill="#ea580c">➔</text>
+
+            <g transform="translate(470, 60)">
+                <rect width="190" height="170" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+                <rect width="190" height="35" rx="8" fill="#dcfce7"/>
+                <text x="95" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">③ 감리단 검속</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">감리원 검토 서명</text>
+            </g>
+
+            <text x="675" y="145" font-size="20" fill="#059669">➔</text>
+
+            <g transform="translate(695, 60)">
+                <rect width="175" height="170" rx="8" fill="#ffffff" stroke="#1e3a8a" stroke-width="2"/>
+                <rect width="175" height="35" rx="8" fill="#e0e7ff"/>
+                <text x="87" y="23" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e1b4b">④ 발주처 승인</text>
+                <text x="15" y="65" font-size="11" font-weight="bold" fill="#0f172a">• 주요 과업:</text>
+                <text x="15" y="85" font-size="11" fill="#475569">설계 변경 금액 승인</text>
+            </g>
+
+            <rect x="30" y="250" width="840" height="45" rx="8" fill="#1e3a8a"/>
+            <text x="450" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">🚨 실정보고 미승인 무단 시공 시 공사비 정산 불허 및 사후 설계 변경 거부 리스크 전면 차단</text>
+        </svg>
+    </div>
+
+    <div class="diagram-explanation">
+        <h4 style="margin: 0 0 8px 0; color: #0f172a;">🔍 상하수도 이설계획 실정보고 엔지니어링 시스템 해설</h4>
+        <p style="margin: 0; line-height: 1.7;">본 과업은 현치 오차에 의한 변경 사항을 정량 수량 비교표로 산정하여 감리단 및 발주처 승인을 획득하는 행정 및 계약 변경 절차입니다.</p>
+    </div>
+
+    <div class="key-takeaway">
+        <strong>💡 핵심 요약:</strong> GPR/측량 성과 증빙 및 감리원 서명, 발주처 승인을 획득하여 설계 변경 금액을 확정하는 단계입니다!
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 2000-1-8 | 지장물이설
+    </div>
+</div>
+</body>
+</html>

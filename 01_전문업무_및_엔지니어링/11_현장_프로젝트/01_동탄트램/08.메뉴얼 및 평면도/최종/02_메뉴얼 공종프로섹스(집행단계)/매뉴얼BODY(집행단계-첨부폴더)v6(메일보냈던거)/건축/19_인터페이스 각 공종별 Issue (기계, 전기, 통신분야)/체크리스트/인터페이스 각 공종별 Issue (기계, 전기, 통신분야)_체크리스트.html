@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 건축분야 - 인터페이스 각 공종별 Issue (기계, 전기, 통신분야) 체크리스트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-4 sm:p-8">
+<div class="max-w-5xl mx-auto bg-white shadow-xl rounded-3xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 (Dark Header) -->
+    <div class="bg-slate-900 text-white p-8 sm:p-10 border-b border-slate-200 relative">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="bg-amber-600 text-white text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                DONGTAN TRAM ARCHITECTURE CHECKLIST (WBS 9000-4-19)
+            </span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+            인터페이스 각 공종별 Issue (기계, 전기, 통신분야) 체크리스트
+        </h1>
+        <p class="text-slate-300 text-sm mt-2 font-medium leading-relaxed">
+            L4 Code: 9000-4-19 | 주관: 현장소장 | "건축 법령, 구조 안전 및 품질 시방 100% 검측 서식 (~하였는가? 어미 통일)"
+        </p>
+    </div>
+
+    <!-- ⚪ 메인 컨테이너 영역 -->
+    <div class="bg-white p-6 sm:p-10 space-y-8">
+        
+        <!-- ⚠️ 핵심 의미 및 미검측 시 발생 리스크 Card Block -->
+        <div class="bg-amber-50/70 border border-amber-200/80 p-6 rounded-2xl shadow-xs space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-amber-200/80 pb-3">
+                <h3 class="text-base font-extrabold text-amber-950 flex items-center gap-2">
+                    <span class="text-amber-600 text-lg">⚠️</span> 인터페이스 각 공종별 Issue (기계, 전기, 통신분야) 체크리스트 점검의 핵심 의미 및 미검측 시 발생 리스크
+                </h3>
+                <span class="text-xs bg-rose-800 text-white font-extrabold px-3 py-1 rounded-full shadow-2xs uppercase">
+                    건축 법령 최종 검측 승인
+                </span>
+            </div>
+            
+            <p class="text-slate-700 text-xs sm:text-sm font-semibold leading-relaxed">
+                본 체크리스트는 건축법, KDS 41 00 00 건축구조기준 및 KCS 41 00 00 건축공사 표준시방서에 의거하여, 인터페이스 각 공종별 Issue (기계, 전기, 통신분야) (WBS 9000-4-19) 공종 수행 시 피복두께, 이음길이, 방수/단열 및 인허가 요구사항을 정밀 검측하고 책임감리원 및 관할 지자체 최종 승인을 수령하기 위한 필수 관리 서식입니다.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                <div class="bg-white p-4 rounded-xl border border-amber-200/90 space-y-1 shadow-2xs">
+                    <span class="font-bold text-rose-900 flex items-center gap-1.5">🚨 구조 균열 & 누수 하자 발생</span>
+                    <p class="text-slate-600 font-medium text-[11px] leading-relaxed">
+                        피복두께 및 방수 도막 두께 미검측 시 건물 내구력 저하 및 심각한 누수 하자 야기.
+                    </p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-amber-200/90 space-y-1 shadow-2xs">
+                    <span class="font-bold text-rose-900 flex items-center gap-1.5">🚨 공종 간 간섭 미확인 손실</span>
+                    <p class="text-slate-600 font-medium text-[11px] leading-relaxed">
+                        설비/전기/통신 개구부 및 슬리브 사전 검측 누락 시 콘크리트 후할착 재시공 손실 발생.
+                    </p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-amber-200/90 space-y-1 shadow-2xs">
+                    <span class="font-bold text-rose-900 flex items-center gap-1.5">🚨 건축물 사용승인 승인 반려</span>
+                    <p class="text-slate-600 font-medium text-[11px] leading-relaxed">
+                        인허가 필수 서류 미비 및 소방/승강기 검사 지적 시 지자체 사용승인(준공) 필증 발급 거부.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- 📋 체크리스트 정밀 검측 테이블 -->
+        <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-xs">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-100/80 border-b border-slate-200 text-slate-700 font-extrabold text-xs">
+                        <th class="p-4 w-1/4">시공 단계 (Procedure)</th>
+                        <th class="p-4 w-7/12">필수 검측 및 확인 항목 (Inspection Criteria)</th>
+                        <th class="p-4 w-2/12 text-center">점검 결과</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 text-xs font-medium text-slate-800">
+                    
+                    <!-- STEP 1 -->
+                    <tr>
+                        <td class="p-4 bg-slate-50/50 align-top">
+                            <div class="space-y-1.5">
+                                <span class="bg-amber-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-full inline-block">STEP 1</span>
+                                <div class="font-bold text-slate-900 text-xs sm:text-sm">사전 설계 & 인허가 검토</div>
+                            </div>
+                        </td>
+                        <td class="p-4 space-y-3">
+                            <div>
+                                <span class="text-amber-700 font-bold text-[11px] block">[건축 법령 및 기준 대조]</span>
+                                <p class="text-slate-900 font-bold text-xs mt-0.5">1. 건축법 제11조 및 KDS 41 00 00 건축구조기준에 따라 인터페이스 각 공종별 Issue (기계, 전기, 통신분야) 사전 검토를 수행하였는가?</p>
+                            </div>
+                            <div>
+                                <span class="text-amber-700 font-bold text-[11px] block">[설비 인터페이스 개구부]</span>
+                                <p class="text-slate-900 font-bold text-xs mt-0.5">2. 기계설비·전기·통신 관로 슬리브 및 개구부 도면 간섭 반영 여부를 사전 확인하였는가?</p>
+                            </div>
+                        </td>
+                        <td class="p-4 text-center align-middle bg-slate-50/30">
+                            <div class="space-y-4 flex flex-col items-center justify-center">
+                                <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
+                                    <span class="text-xs font-bold text-slate-700">확인완료</span>
+                                </label>
+                                <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
+                                    <span class="text-xs font-bold text-slate-700">확인완료</span>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 2 -->
+                    <tr>
+                        <td class="p-4 bg-slate-50/50 align-top">
+                            <div class="space-y-1.5">
+                                <span class="bg-amber-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-full inline-block">STEP 2</span>
+                                <div class="font-bold text-slate-900 text-xs sm:text-sm">자재 검수 & 시험 성적서</div>
+                            </div>
+                        </td>
+                        <td class="p-4 space-y-3">
+                            <div>
+                                <span class="text-amber-700 font-bold text-[11px] block">[자재 품질 성적서]</span>
+                                <p class="text-slate-900 font-bold text-xs mt-0.5">3. 레미콘 규격(24~30MPa), 철근 시험성적서 및 방수자재 KCS 표준 품질 적격성을 검수하였는가?</p>
+                            </div>
+                            <div>
+                                <span class="text-amber-700 font-bold text-[11px] block">[KS 인증 및 방화 자재]</span>
+                                <p class="text-slate-900 font-bold text-xs mt-0.5">4. 창호 단열 1등급 및 내화구조 방화문 시험성적서 유효성을 1:1 대조·확인하였는가?</p>
+                            </div>
+                        </td>
+                        <td class="p-4 text-center align-middle bg-slate-50/30">
+                            <div class="space-y-4 flex flex-col items-center justify-center">
+                                <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
+                                    <span class="text-xs font-bold text-slate-700">확인완료</span>
+                                </label>
+                                <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
+                                    <span class="text-xs font-bold text-slate-700">확인완료</span>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 3 -->
+                    <tr>
+                        <td class="p-4 bg-slate-50/50 align-top">
+                            <div class="space-y-1.5">
+                                <span class="bg-amber-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-full inline-block">STEP 3</span>
+                                <div class="font-bold text-slate-900 text-xs sm:text-sm">현장 정밀 시공 & 계측</div>
+                            </div>
+                        </td>
+                        <td class="p-4 space-y-3">
+                            <div>
+                                <span class="text-amber-700 font-bold text-[11px] block">[피복두께 및 이음길이]</span>
+                                <p class="text-slate-900 font-bold text-xs mt-0.5">5. 콘크리트 피복두께(슬래브 40mm, 기둥 50mm) 및 철근 정착/이음길이(40d 이상)를 검측하였는가?</p>
+                            </div>
+                            <div>
+                                <span class="text-amber-700 font-bold text-[11px] block">[방수 두께 및 양생 강도]</span>
+                                <p class="text-slate-900 font-bold text-xs mt-0.5">6. 방수 도막 두께(2.0mm 이상) 및 거푸집 해체 시 콘크리트 양생 강도(14MPa 이상)를 확인하였는가?</p>
+                            </div>
+                        </td>
+                        <td class="p-4 text-center align-middle bg-slate-50/30">
+                            <div class="space-y-4 flex flex-col items-center justify-center">
+                                <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
+                                    <span class="text-xs font-bold text-slate-700">확인완료</span>
+                                </label>
+                                <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
+                                    <span class="text-xs font-bold text-slate-700">확인완료</span>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 4 -->
+                    <tr>
+                        <td class="p-4 bg-slate-50/50 align-top">
+                            <div class="space-y-1.5">
+                                <span class="bg-amber-600 text-white font-black text-[10px] px-2.5 py-0.5 rounded-full inline-block">STEP 4</span>
+                                <div class="font-bold text-slate-900 text-xs sm:text-sm">검사 & 사용승인 필증</div>
+                            </div>
+                        </td>
+                        <td class="p-4 space-y-3">
+                            <div>
+                                <span class="text-amber-700 font-bold text-[11px] block">[소방·승강기 필증]</span>
+                                <p class="text-slate-900 font-bold text-xs mt-0.5">7. 소방시설 완공검사 및 승강기 설치검사 필증 수령을 완료하였는가?</p>
+                            </div>
+                            <div>
+                                <span class="text-amber-700 font-bold text-[11px] block">[사용승인 서류 제출]</span>
+                                <p class="text-slate-900 font-bold text-xs mt-0.5">8. 업무대행 건축사 검사 및 지자체 인터페이스 회의록 서류를 제출하여 승인을 득하였는가?</p>
+                            </div>
+                        </td>
+                        <td class="p-4 text-center align-middle bg-slate-50/30">
+                            <div class="space-y-4 flex flex-col items-center justify-center">
+                                <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
+                                    <span class="text-xs font-bold text-slate-700">확인완료</span>
+                                </label>
+                                <label class="inline-flex items-center gap-1.5 cursor-pointer">
+                                    <input type="checkbox" class="w-4 h-4 text-amber-600 rounded border-slate-300 focus:ring-amber-500">
+                                    <span class="text-xs font-bold text-slate-700">확인완료</span>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- 하단 푸터 노트 -->
+    <div class="bg-slate-100 text-slate-500 text-xs text-center py-4 border-t border-slate-200 font-medium">
+        동탄도시철도(트램) 건설공사 엔지니어링 건축 체크리스트 | WBS 9000-4-19
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인허가 절차 진행 작업 수행지침서 (화성시청 조례 및 지침 반영)</title>
+    <style>
+        :root {
+            --primary-color: #059669;
+            --primary-light: #ECFDF5;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 2rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        .meta-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .step-box {
+            background-color: #FAFAFA;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .step-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #065F46;
+            margin-bottom: 8px;
+        }
+        .diagram-container {
+            margin: 25px 0;
+            text-align: center;
+        }
+        .diagram-explanation {
+            font-size: 0.85rem;
+            color: #4B5563;
+            margin-top: 8px;
+            background-color: #F3F4F6;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+        .badge-hws {
+            background-color: #EFF6FF;
+            color: #1E40AF;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-9-1 Guideline</div>
+        <h1 class="title">인허가 절차 진행 작업 수행지침서</h1>
+        <div class="meta-info">
+            <span><strong>적용 법규:</strong> 화성시 도로점용허가 및 점용료 징수 조례 & 화성시 도로복구원인자부담금 징수 조례</span>
+            <span>|</span>
+            <span><strong>최종 개정일:</strong> 2026년 7월 22일</span>
+        </div>
+    </div>
+
+    <h2>1. 목적 및 범위 (Purpose)</h2>
+    <p>본 지침서는 동탄도시철도(트램) 노선 굴착 공정 진행 시, **화성시청 조례 및 도로법 규칙**에 따른 도로 점용/굴착 제한 및 부담금 산정 절차를 명확히 준수하여 불법 시공 고발 및 공기 지연 리스크를 예방하기 위한 수행 지침입니다.</p>
+
+    <h2>2. 도로점용 및 굴착허가 행정 처리 흐름도</h2>
+    <div class="diagram-container">
+        <!-- SVG Administrative Flow -->
+        <svg viewBox="0 0 800 220" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background-color:#1E293B; border:1px solid #475569; border-radius:8px;">
+            <!-- Background Grids -->
+            <rect x="10" y="10" width="780" height="200" fill="#0F172A" rx="4"/>
+            
+            <!-- Process Nodes (Horizontal Flow) -->
+            <!-- Step 1 -->
+            <rect x="30" y="50" width="140" height="80" fill="#1E3A8A" stroke="#3B82F6" stroke-width="2" rx="6"/>
+            <text x="100" y="80" font-family="sans-serif" font-size="11" fill="#93C5FD" font-weight="bold" text-anchor="middle">1. 계획 및 서류준비</text>
+            <text x="100" y="100" font-family="sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle">지하지장물 조사</text>
+            <text x="100" y="115" font-family="sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle">굴착계획서 작성</text>
+
+            <!-- Arrow 1 -->
+            <path d="M 180 90 L 210 90" stroke="#60A5FA" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+            <!-- Step 2 -->
+            <rect x="220" y="50" width="140" height="80" fill="#78350F" stroke="#F59E0B" stroke-width="2" rx="6"/>
+            <text x="290" y="80" font-family="sans-serif" font-size="11" fill="#FDE68A" font-weight="bold" text-anchor="middle">2. 유관기관 의견 조회</text>
+            <text x="290" y="100" font-family="sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle">가스/한전/상수도 등</text>
+            <text x="290" y="115" font-family="sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle">지하 매설물 확인필</text>
+
+            <!-- Arrow 2 -->
+            <path d="M 370 90 L 400 90" stroke="#FBBF24" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+            <!-- Step 3 -->
+            <rect x="410" y="50" width="150" height="80" fill="#065F46" stroke="#10B981" stroke-width="2" rx="6"/>
+            <text x="485" y="80" font-family="sans-serif" font-size="11" fill="#A7F3D0" font-weight="bold" text-anchor="middle">3. 도로관리심의 접수</text>
+            <text x="485" y="100" font-family="sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle">화성시청 도로관리과</text>
+            <text x="485" y="115" font-family="sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle">(분기별 1회 심의)</text>
+
+            <!-- Arrow 3 -->
+            <path d="M 570 90 L 600 90" stroke="#34D399" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+
+            <!-- Step 4 -->
+            <rect x="610" y="50" width="160" height="80" fill="#1E1B4B" stroke="#818CF8" stroke-width="2" rx="6"/>
+            <text x="690" y="80" font-family="sans-serif" font-size="11" fill="#C7D2FE" font-weight="bold" text-anchor="middle">4. 점용/굴착허가 발급</text>
+            <text x="690" y="100" font-family="sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle">도로복구예치금 납부</text>
+            <text x="690" y="115" font-family="sans-serif" font-size="9" fill="#FFFFFF" text-anchor="middle">굴착 시공 승인 표지판</text>
+
+            <text x="400" y="180" font-family="sans-serif" font-size="10" fill="#94A3B8" text-anchor="middle">※ 전체 행정 소요 시간: 접수 후 허가 발급까지 통상 15일~30일 (단, 심의회 일정 확인 필수)</text>
+        </svg>
+    </div>
+    <div class="diagram-explanation">
+        <strong>[도로 굴착 허가 승인 프로세스]</strong> 지하 지장물 매설 기관들의 사전 동의를 득한 뒤, 관할 화성시청 도로관리과에 서류를 접수하여 도로관리심의위원회의 의결을 통과해야 최종 면허가 교부됩니다.
+    </div>
+
+    <h2>3. 화성시청 조례 및 도로법 연계 수행 지침</h2>
+    
+    <div class="step-box">
+        <span class="badge-hws">화성시도로관리심의회 조례 규정</span>
+        <div class="step-title">도로관리심의회 제출 기준 및 주기 파악</div>
+        <div>
+            - 도로 굴착 길이가 <strong>10m를 초과</strong>하거나 폭원이 <strong>3m를 초과</strong>하는 시공 공정(트램 본선 궤도 및 역사 하부 굴착 전체 해당)은 화성시청 도로관리과에 도로관리심의를 신청해야 합니다.<br>
+            - 심의는 <strong>매년 분기별로 개최(정기 심의: 1월, 4월, 7월, 10월)</strong>되므로 공정표상 주공정(C.P.)과 대조하여 신청 접수 기간(심의 개최 전월 20일 이전)을 일탈하지 않도록 일정을 관리합니다.
+        </div>
+    </div>
+
+    <div class="step-box">
+        <span class="badge-hws">도로법 시행령 제56조 제6항</span>
+        <div class="step-title">신설·포장도로 굴착 제한 기간 검토</div>
+        <div>
+            - 동탄 신도시 지구 내 또는 기 준공된 도로 중 **신설·확장·개량 도로의 차도는 준공일로부터 3년**, **보도(인도)는 준공일로부터 2년** 동안은 법적으로 도로 굴착이 전면 금지됩니다.<br>
+            - 설계 노선 선형 상 굴착 제한 대상에 해당하는 필지가 저촉될 경우, 화성시청 및 LH와의 사전 협의(의제 처리 협의 조서 작성)를 통해 공익상 부득이한 도시철도 사업 예외 조항을 조기에 승인받아야 합니다.
+        </div>
+    </div>
+
+    <div class="step-box">
+        <span class="badge-hws">화성시 겨울철 부실시공 예방 지침</span>
+        <div class="step-title">동절기 도로 굴착 금지 기간 준수</div>
+        <div>
+            - 지반 동결 및 다짐 불량에 따른 포장 침하 방지를 위해 **매년 12월 1일부터 익년 2월 말일까지 도로 굴착 공사가 원칙적으로 제한**됩니다.<br>
+            - 노반 및 토공 굴착 공정 수립 시 동절기 차단 기간 3개월을 공기 계획에 미반영 시 심각한 시공 중단이 유도되므로, 동절기에는 터널 하부 등 내부 공정 위주로 공사를 배정하고 외부 굴착은 일시 중지 조치합니다.
+        </div>
+    </div>
+
+    <div class="step-box">
+        <span class="badge-hws">화성시 도로복구원인자부담금 징수 조례</span>
+        <div class="step-title">도로 복구 부담금 산정 및 복구 방식 확정</div>
+        <div>
+            - 도로 복구는 화성시 조례 별표의 원인자부담금 단가 표에 따라 납부하며, 예치 방식 혹은 면허 발급 전 원인자 직접 복구(준공 검사 확인 조건) 방식 중 시청 도로관리 부서와 협의된 복구 형태로 예산을 확보하고 보증 증권을 발급받습니다.
+        </div>
+    </div>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 1공구 엔지니어링 수행지침서 | 주관: 현장 공사팀
+    </div>
+</div>
+</body>
+</html>

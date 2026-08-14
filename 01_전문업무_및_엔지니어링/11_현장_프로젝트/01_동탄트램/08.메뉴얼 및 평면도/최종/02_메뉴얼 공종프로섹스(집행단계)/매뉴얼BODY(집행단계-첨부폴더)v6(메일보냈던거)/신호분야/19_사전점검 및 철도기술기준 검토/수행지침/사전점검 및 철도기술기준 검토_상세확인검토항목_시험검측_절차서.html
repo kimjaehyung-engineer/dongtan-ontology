@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄도시철도(트램) 사전점검 및 철도기술기준 검토 상세확인검토항목 시험·검측 절차서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Noto Sans KR', sans-serif; } </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased py-10 px-4 sm:px-8">
+
+<div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200/80 p-8 sm:p-12 space-y-10">
+
+    <!-- 🔵 헤더 영역 -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b-2 border-slate-900 gap-4">
+        <div>
+            <span class="text-xs font-black text-indigo-700 bg-indigo-50 border border-indigo-100 px-3.5 py-1.5 rounded-full mb-2 inline-block">
+                Dongtan Tram Verification Standard | 사전점검 및 철도기술기준 검토 상세확인검토항목 정밀 절차서
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                🔍 사전점검 및 철도기술기준 검토 시험·검측 기술 절차서
+            </h1>
+        </div>
+        <div class="text-right">
+            <span class="text-xs font-bold text-slate-400 block">문서번호: DTT-SIG-TP-9019</span>
+            <span class="text-xs font-black text-indigo-600">동탄트램 신호·인터페이스 정밀 검측</span>
+        </div>
+    </div>
+
+    <!-- 💡 개요 안내 카드 -->
+    <div class="bg-indigo-50/60 border border-indigo-100 rounded-2xl p-6 space-y-2">
+        <h3 class="text-lg font-black text-indigo-950 flex items-center gap-2">
+            <span>📌</span> 본 과업(사전점검 및 철도기술기준 검토) 기술 절차서의 목적
+        </h3>
+        <p class="text-slate-700 text-sm leading-relaxed font-medium">
+            본 매뉴얼은 동탄도시철도(트램) <strong>사전점검 및 철도기술기준 검토</strong> 수행지침 카드 내 <strong><code>🔍 상세 확인검토항목 (Verification Checkpoints)</code></strong>에 명시된 4대 핵심 확인항목에 대해 <strong>필요 계측기, 정밀 시험 단계, 구체적 시험 방법 및 합격 판정 기준</strong>을 맞춤형으로 체계화한 공식 표준 기술 지침서입니다.
+        </p>
+    </div>
+
+    
+    <!-- 🔹 [시험 01] 국토교통부 철도기술기준 부합성 검토 -->
+    <section class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <span class="text-indigo-600">[시험 01]</span> 국토교통부 철도기술기준 부합성 검토
+            </h3>
+            <span class="text-xs font-bold text-indigo-600">정밀 검측 가이드라인</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">1. 시험 목적 및 설명</h4>
+                <p class="text-xs text-slate-700 font-semibold leading-relaxed">
+                    신호 설비 기술기준 항목별 1:1 대조 검토서 및 철도안전법 기준 적정성 확인
+                </p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">2. 필요 시험 장비 및 계측기</h4>
+                <ul class="text-xs text-slate-700 font-semibold space-y-1">
+                    <li>• <strong>철도기술기준 대조표</strong></li><li>• <strong>안전기준 검토서</strong></li>
+                </ul>
+            </div>
+            <div class="bg-emerald-50/80 p-5 rounded-2xl border border-emerald-200 space-y-2">
+                <h4 class="text-xs font-black text-emerald-800 uppercase">3. 합격 판정 기준</h4>
+                <ul class="text-xs text-emerald-950 font-bold space-y-1">
+                    <li>• <strong>기술기준 항목 1:1 일치</strong></li><li>• <strong>철도안전법 적합 판정</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                <span>📝</span> 정밀 시험 순서 및 검측 절차
+            </h4>
+            <ol class="text-xs text-slate-700 font-medium space-y-2 pl-4 list-decimal">
+                <li><strong>사전 구성 및 준비:</strong> 승인된 시험절차서 및 정밀 계측기(교정 유효기간 1년)를 세팅하고 대상 설비를 준비합니다.</li>
+                <li><strong>현장 검측 및 측정:</strong> 국토교통부 철도기술기준 부합성 검토에 대한 수치 측정 및 작동 동작을 신호 정밀 기법으로 정밀 계측합니다.</li>
+                <li><strong>판정 대조 및 결과 기록:</strong> 측정된 수치를 합격 판정 기준과 1:1 대조하여 감리원 입회 성적서에 서명 기록합니다.</li>
+            </ol>
+        </div>
+    </section>
+    <!-- 🔹 [시험 02] 관청/지자체/감리단 사전점검 시행 -->
+    <section class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <span class="text-indigo-600">[시험 02]</span> 관청/지자체/감리단 사전점검 시행
+            </h3>
+            <span class="text-xs font-bold text-indigo-600">정밀 검측 가이드라인</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">1. 시험 목적 및 설명</h4>
+                <p class="text-xs text-slate-700 font-semibold leading-relaxed">
+                    사전점검반 합동 현장 신호 설비 및 전자연동장치/선로전환기 정밀 점검
+                </p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">2. 필요 시험 장비 및 계측기</h4>
+                <ul class="text-xs text-slate-700 font-semibold space-y-1">
+                    <li>• <strong>사전점검 체크리스트</strong></li><li>• <strong>현장 점검표</strong></li>
+                </ul>
+            </div>
+            <div class="bg-emerald-50/80 p-5 rounded-2xl border border-emerald-200 space-y-2">
+                <h4 class="text-xs font-black text-emerald-800 uppercase">3. 합격 판정 기준</h4>
+                <ul class="text-xs text-emerald-950 font-bold space-y-1">
+                    <li>• <strong>점검반 현장 입회 완료</strong></li><li>• <strong>설비 작동 100% 정상</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                <span>📝</span> 정밀 시험 순서 및 검측 절차
+            </h4>
+            <ol class="text-xs text-slate-700 font-medium space-y-2 pl-4 list-decimal">
+                <li><strong>사전 구성 및 준비:</strong> 승인된 시험절차서 및 정밀 계측기(교정 유효기간 1년)를 세팅하고 대상 설비를 준비합니다.</li>
+                <li><strong>현장 검측 및 측정:</strong> 관청/지자체/감리단 사전점검 시행에 대한 수치 측정 및 작동 동작을 신호 정밀 기법으로 정밀 계측합니다.</li>
+                <li><strong>판정 대조 및 결과 기록:</strong> 측정된 수치를 합격 판정 기준과 1:1 대조하여 감리원 입회 성적서에 서명 기록합니다.</li>
+            </ol>
+        </div>
+    </section>
+    <!-- 🔹 [시험 03] 사전점검 지적사항 조치 및 재점검 -->
+    <section class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <span class="text-indigo-600">[시험 03]</span> 사전점검 지적사항 조치 및 재점검
+            </h3>
+            <span class="text-xs font-bold text-indigo-600">정밀 검측 가이드라인</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">1. 시험 목적 및 설명</h4>
+                <p class="text-xs text-slate-700 font-semibold leading-relaxed">
+                    지적사항별 원인 분석, 조치 결과서 작성 및 재점검 100% 적합 판정 확인
+                </p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">2. 필요 시험 장비 및 계측기</h4>
+                <ul class="text-xs text-slate-700 font-semibold space-y-1">
+                    <li>• <strong>지적사항 조치서</strong></li><li>• <strong>재점검 확인서</strong></li>
+                </ul>
+            </div>
+            <div class="bg-emerald-50/80 p-5 rounded-2xl border border-emerald-200 space-y-2">
+                <h4 class="text-xs font-black text-emerald-800 uppercase">3. 합격 판정 기준</h4>
+                <ul class="text-xs text-emerald-950 font-bold space-y-1">
+                    <li>• <strong>지적사항 100% 조치 완료</strong></li><li>• <strong>재점검 적합 판정</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                <span>📝</span> 정밀 시험 순서 및 검측 절차
+            </h4>
+            <ol class="text-xs text-slate-700 font-medium space-y-2 pl-4 list-decimal">
+                <li><strong>사전 구성 및 준비:</strong> 승인된 시험절차서 및 정밀 계측기(교정 유효기간 1년)를 세팅하고 대상 설비를 준비합니다.</li>
+                <li><strong>현장 검측 및 측정:</strong> 사전점검 지적사항 조치 및 재점검에 대한 수치 측정 및 작동 동작을 신호 정밀 기법으로 정밀 계측합니다.</li>
+                <li><strong>판정 대조 및 결과 기록:</strong> 측정된 수치를 합격 판정 기준과 1:1 대조하여 감리원 입회 성적서에 서명 기록합니다.</li>
+            </ol>
+        </div>
+    </section>
+    <!-- 🔹 [시험 04] 사전점검 최종 이행 보고서 작성 -->
+    <section class="space-y-4 pt-4 border-t border-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <span class="text-indigo-600">[시험 04]</span> 사전점검 최종 이행 보고서 작성
+            </h3>
+            <span class="text-xs font-bold text-indigo-600">정밀 검측 가이드라인</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">1. 시험 목적 및 설명</h4>
+                <p class="text-xs text-slate-700 font-semibold leading-relaxed">
+                    사전점검 총괄 결과서 작성 및 책임감리원/관계기관 승인 완료
+                </p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                <h4 class="text-xs font-black text-slate-500 uppercase">2. 필요 시험 장비 및 계측기</h4>
+                <ul class="text-xs text-slate-700 font-semibold space-y-1">
+                    <li>• <strong>사전점검 이행보고서</strong></li><li>• <strong>관청 승인 공문</strong></li>
+                </ul>
+            </div>
+            <div class="bg-emerald-50/80 p-5 rounded-2xl border border-emerald-200 space-y-2">
+                <h4 class="text-xs font-black text-emerald-800 uppercase">3. 합격 판정 기준</h4>
+                <ul class="text-xs text-emerald-950 font-bold space-y-1">
+                    <li>• <strong>이행보고서 작성 완료</strong></li><li>• <strong>관계기관 최종 승인</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+            <h4 class="text-sm font-black text-slate-900 flex items-center gap-2">
+                <span>📝</span> 정밀 시험 순서 및 검측 절차
+            </h4>
+            <ol class="text-xs text-slate-700 font-medium space-y-2 pl-4 list-decimal">
+                <li><strong>사전 구성 및 준비:</strong> 승인된 시험절차서 및 정밀 계측기(교정 유효기간 1년)를 세팅하고 대상 설비를 준비합니다.</li>
+                <li><strong>현장 검측 및 측정:</strong> 사전점검 최종 이행 보고서 작성에 대한 수치 측정 및 작동 동작을 신호 정밀 기법으로 정밀 계측합니다.</li>
+                <li><strong>판정 대조 및 결과 기록:</strong> 측정된 수치를 합격 판정 기준과 1:1 대조하여 감리원 입회 성적서에 서명 기록합니다.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- 📑 서명 및 검측 보고서 양식 -->
+    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
+        <h4 class="text-sm font-black text-slate-900">📑 사전점검 및 철도기술기준 검토 상세 확인검토항목 현장 검측 성적서 승인</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                <span class="font-bold text-slate-500">현장 시험검측원 (신호시공):</span>
+                <span class="font-extrabold text-slate-900">성명: ____________ (서명)</span>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                <span class="font-bold text-slate-500">책임감리원 (승인자):</span>
+                <span class="font-extrabold text-slate-900">성명: ____________ (서명)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📄 푸터 -->
+    <div class="pt-6 border-t border-slate-200 text-center text-xs text-slate-400 font-semibold">
+        동탄도시철도(트램) 건설공사 기술 절차서 | DTT-SIG-TP-9019 | 사전점검 및 철도기술기준 검토 상세 확인검토항목 시험·검측 지침
+    </div>
+
+</div>
+
+</body>
+</html>

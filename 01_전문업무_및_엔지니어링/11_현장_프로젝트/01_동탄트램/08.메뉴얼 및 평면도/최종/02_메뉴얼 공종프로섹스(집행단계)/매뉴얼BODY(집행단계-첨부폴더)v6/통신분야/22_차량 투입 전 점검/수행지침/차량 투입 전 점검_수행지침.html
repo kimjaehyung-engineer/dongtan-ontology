@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 차량 투입 전 점검 수행지침서 (WBS 9000-2-22)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .clickable-diagram {
+            cursor: zoom-in !important;
+            transition: all 0.25s ease !important;
+            position: relative !important;
+        }
+        .clickable-diagram:hover {
+            transform: scale(1.01) !important;
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+        }
+        .clickable-diagram::after {
+            content: "🔍 클릭하여 대형 확대보기";
+            position: absolute; bottom: 12px; right: 16px;
+            background: rgba(15, 23, 42, 0.8); color: #ffffff;
+            font-size: 11px; font-weight: 700; padding: 4px 12px;
+            border-radius: 20px; backdrop-filter: blur(4px);
+            pointer-events: none; opacity: 0.9;
+        }
+        .zoom-modal {
+            display: none; position: fixed; z-index: 9999;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px); align-items: center; justify-content: center;
+        }
+        .zoom-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff; margin: auto; padding: 28px;
+            border: 1px solid #cbd5e1; width: 95%; max-width: 1100px; max-height: 90vh;
+            border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow-y: auto; text-align: center;
+        }
+        .zoom-close {
+            color: #64748b; position: absolute; right: 20px; top: 16px;
+            font-size: 32px; font-weight: bold; cursor: pointer;
+        }
+        .zoom-close:hover { color: #ef4444; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-22)</span>
+        <h1 class="text-3xl font-black mt-2">차량 투입 전 점검 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-22 | 주관: 현장소장 및 시공담당반 | "건축·차량한계 100% 무간섭 심사 및 무선통신 안전 정밀 지침"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 개념 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 차량 투입 전 점검 현장 실무 개요</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed text-xs sm:text-sm">
+                본 지침서는 트램 차량의 본선 시운전 투입에 앞서, 노반·궤도·건축·전기·신호·통신 설비의 물리적 설치 무결성을 점검하고 <strong>건축한계(폭 3,100mm/높이 3,800mm) 및 차량한계(폭 2,700mm/높이 3,600mm) 내 통신 설비 충돌 간섭을 100% 차단하며 차상 무선통신기 정상 작동을 확정하는 실무 지침</strong>입니다.
+            </p>
+        </div>
+
+        <!-- 🚀 4대 차량 투입 전 점검 세부 수행 카드 (Why + Where, How, Criteria 수록) -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-blue-600 pb-2 flex items-center gap-2">
+                <span class="text-blue-600">📋</span> 4대 차량 투입 전 점검 세부 정밀 수행지침
+            </h2>
+
+            <div class="grid grid-cols-1 gap-6">
+                
+                <!-- CARD 1 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <span class="bg-blue-600 text-white font-bold text-xs px-3 py-1 rounded-full">TEST 01</span>
+                        <h3 class="font-bold text-base text-slate-900">[한계 심사] 건축한계 (폭 3,100mm / 높이 3,800mm) 무간섭 심사</h3>
+                        <span class="text-xs font-semibold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full">건축한계 무간섭</span>
+                    </div>
+
+                    <!-- ❓ 왜 이 시험을 하는가? -->
+                    <div class="bg-blue-100/70 border border-blue-300 p-4 rounded-xl">
+                        <h4 class="font-black text-xs text-blue-950 flex items-center gap-1.5 mb-1">
+                            <span>❓</span> 왜 이 시험을 하는가? (이유 & 중요성)
+                        </h4>
+                        <p class="text-xs text-blue-900 font-medium leading-relaxed">
+                            트램 주행 경로 주변의 옥외 통신 설비(카메라 하우징, 광케이블 트레이, 기지국 안테나)가 건축한계 공간을 침범하여 <strong>시운전 차량과 물리적으로 접촉·충돌하는 대형 안전사고를 완전 예방하기 위함</strong>입니다.
+                        </p>
+                    </div>
+
+                    <!-- Where, How, Criteria -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📍 Where (어느 부위를 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">동탄트램 본선 전 구간 궤도 주변 통신 케이블 트레이, 지상폴 및 CCTV 카메라 설치 공간</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">⚙️ How (어떻게 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">건축한계 게이지 측정 렌즈 및 3D 레이저 스캐너를 통해 건축한계 단면 내 통신 돌출물 실측</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📏 Criteria (정량적 판정 한계 기준)</span>
+                            <p class="text-slate-800 font-medium">건축한계(폭 3,100mm / 높이 3,800mm) 단면 침범 0mm, 무간섭 100% 확보</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <span class="bg-indigo-600 text-white font-bold text-xs px-3 py-1 rounded-full">TEST 02</span>
+                        <h3 class="font-bold text-base text-slate-900">[한계 심사] 차량한계 (폭 2,700mm / 높이 3,600mm) 무간섭 심사</h3>
+                        <span class="text-xs font-semibold text-indigo-700 bg-indigo-100 px-2.5 py-0.5 rounded-full">차량한계 무간섭</span>
+                    </div>
+
+                    <!-- ❓ 왜 이 시험을 하는가? -->
+                    <div class="bg-indigo-100/70 border border-indigo-300 p-4 rounded-xl">
+                        <h4 class="font-black text-xs text-indigo-950 flex items-center gap-1.5 mb-1">
+                            <span>❓</span> 왜 이 시험을 하는가? (이유 & 중요성)
+                        </h4>
+                        <p class="text-xs text-indigo-900 font-medium leading-relaxed">
+                            트램 차체 외형 치수 기준에서 차상 무선 안테나 및 검측 장치가 궤도 주변 지상 통신 설비와 <strong>주행 중 미세하게 닿거나 파손되는 2차 파손 사고를 사전 차단하기 위함</strong>입니다.
+                        </p>
+                    </div>
+
+                    <!-- Where, How, Criteria -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📍 Where (어느 부위를 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">시운전 트램 차체 지붕 상부 무선 안테나, 측면 차상 단말기 및 궤도변 지상설비 간격</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">⚙️ How (어떻게 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">차량 투입 전 차량한계 측정틀 통과 검사 및 지상 통신 설비와의 최소 이격거리 수치 측정</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📏 Criteria (정량적 판정 한계 기준)</span>
+                            <p class="text-slate-800 font-medium">차량한계(폭 2,700mm / 높이 3,600mm) 규격 준수 및 지상 설비 접촉 0건</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <span class="bg-emerald-600 text-white font-bold text-xs px-3 py-1 rounded-full">TEST 03</span>
+                        <h3 class="font-bold text-base text-slate-900">[통신 무결성] 차량 시운전 대비 무선통신기 & 차상 통신 작동 상태 점검</h3>
+                        <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">차상 무선통신기</span>
+                    </div>
+
+                    <!-- ❓ 왜 이 시험을 하는가? -->
+                    <div class="bg-emerald-100/70 border border-emerald-300 p-4 rounded-xl">
+                        <h4 class="font-black text-xs text-emerald-950 flex items-center gap-1.5 mb-1">
+                            <span>❓</span> 왜 이 시험을 하는가? (이유 & 중요성)
+                        </h4>
+                        <p class="text-xs text-emerald-900 font-medium leading-relaxed">
+                            차량 시운전 본선 투입 즉시 관제실과 운전원 간 무선 음성 통화 및 비상 제어 데이터가 끊기지 않고 정상 작동하여 <strong>시운전 돌발 상황 시 관제 지시 및 비상 정지가 가능하도록 보장하기 위함</strong>입니다.
+                        </p>
+                    </div>
+
+                    <!-- Where, How, Criteria -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📍 Where (어느 부위를 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">트램 차량 운전실 차상 단말기(Cab-Radio), 무선 안테나 및 차량 기지국 통신 랙</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">⚙️ How (어떻게 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">정지 상태에서 관제센터와 그룹 통화 및 텍스트 송수신 개시 후 차상 무선 장치 송수신 전력 시험</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📏 Criteria (정량적 판정 한계 기준)</span>
+                            <p class="text-slate-800 font-medium">차상 무선통신기 100% 정상 작동, 관제 통화 음질 양호 및 데이터 연결 응답 성공</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <span class="bg-teal-600 text-white font-bold text-xs px-3 py-1 rounded-full">TEST 04</span>
+                        <h3 class="font-bold text-base text-slate-900">[점검 승인 체결] 현장소장 및 시공담당반 주관 차량 투입 전 점검 결과보고서 승인</h3>
+                        <span class="text-xs font-semibold text-teal-700 bg-teal-100 px-2.5 py-0.5 rounded-full">투입 승인 체결</span>
+                    </div>
+
+                    <!-- ❓ 왜 이 시험을 하는가? -->
+                    <div class="bg-teal-100/70 border border-teal-300 p-4 rounded-xl">
+                        <h4 class="font-black text-xs text-teal-950 flex items-center gap-1.5 mb-1">
+                            <span>❓</span> 왜 이 시험을 하는가? (이유 & 중요성)
+                        </h4>
+                        <p class="text-xs text-teal-900 font-medium leading-relaxed">
+                            6개 분야(노반, 궤도, 건축, 전기, 신호, 통신)의 투입 전 검측 데이터를 종합 결과보고서로 문서화하고 현장소장 및 감리단의 서명을 득하여 <strong>차량 본선 시운전 투입의 법적·기술적 안전성을 최종 체결하기 위함</strong>입니다.
+                        </p>
+                    </div>
+
+                    <!-- Where, How, Criteria -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📍 Where (어느 부위를 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">동탄트램 현장 감리단 검측 사무소 및 시공 현장 종합 상황실</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">⚙️ How (어떻게 확인하는가?)</span>
+                            <p class="text-slate-800 font-medium">한계 심측 성적표 및 무선통신기 점검표 100% 대조 확인 후 차량 투입 전 결과보고서 서명 제출</p>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200">
+                            <span class="font-bold text-slate-500 block mb-1">📏 Criteria (정량적 판정 한계 기준)</span>
+                            <p class="text-slate-800 font-medium">6개 분야 무결성 확인 및 현장소장/책임감리원 최종 서명 날인 체결 완료</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 🖼️ 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-blue-600 pb-2 flex items-center gap-2">
+                <span class="text-blue-600">🖼️</span> 차량 투입 전 점검 2D Visual 기술 도식
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r22', '[WBS 9000-2-22] 차량 투입 전 점검 2D Visual 정밀 도식')">
+                <svg id="svg_r22" viewBox="0 0 550 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="550" height="200" fill="#f8fafc" rx="8"/>
+                    <rect x="15" y="15" width="520" height="170" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                    <text x="275" y="38" font-size="13" font-weight="black" fill="#0369a1" text-anchor="middle">🚃 트램 차량 투입 전 건축/차량한계 및 무선통신기 점검 모식도</text>
+                    <line x1="25" y1="46" x2="525" y2="46" stroke="#e2e8f0" stroke-width="1.5"/>
+                    
+                    <g transform="translate(25, 55)">
+                        <rect x="0" y="0" width="145" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="1.5" rx="6"/>
+                        <text x="72.5" y="22" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">📏 건축한계 심사</text>
+                        <text x="12" y="42" font-size="8" font-weight="bold" fill="#0f172a">• 폭 3,100mm 규격</text>
+                        <text x="12" y="58" font-size="8" font-weight="bold" fill="#0f172a">• 높이 3,800mm 규격</text>
+                        <text x="12" y="74" font-size="8" font-weight="bold" fill="#0f172a">• 통신설비 돌출 0mm</text>
+                    </g>
+                    
+                    <line x1="170" y1="97.5" x2="210" y2="97.5" stroke="#0284c7" stroke-width="2"/>
+                    <polygon points="210,93.5 218,97.5 210,101.5" fill="#0284c7"/>
+
+                    <g transform="translate(220, 55)">
+                        <rect x="0" y="0" width="140" height="85" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5" rx="6"/>
+                        <text x="70" y="22" font-size="10" font-weight="black" fill="#6b21a8" text-anchor="middle">🚃 차량한계 &amp; 무선통신</text>
+                        <text x="10" y="42" font-size="8" font-weight="bold" fill="#0f172a">• 폭 2,700mm / 높이 3,600</text>
+                        <text x="10" y="58" font-size="8" font-weight="bold" fill="#0f172a">• 차상 무선통신기 점검</text>
+                        <text x="10" y="74" font-size="8" font-weight="bold" fill="#0f172a">• 관제 통화 정상 100%</text>
+                    </g>
+
+                    <line x1="360" y1="97.5" x2="390" y2="97.5" stroke="#9333ea" stroke-width="2"/>
+                    <polygon points="390,93.5 398,97.5 390,101.5" fill="#9333ea"/>
+
+                    <g transform="translate(400, 55)">
+                        <rect x="0" y="0" width="125" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5" rx="6"/>
+                        <text x="62.5" y="22" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">📑 결과보고서 승인</text>
+                        <text x="10" y="42" font-size="8" font-weight="bold" fill="#15803d">• 6개 분야 무결성</text>
+                        <text x="10" y="58" font-size="8" font-weight="bold" fill="#15803d">• 현장소장/감리 서명</text>
+                        <text x="10" y="74" font-size="8" font-weight="bold" fill="#15803d">• 차량 투입 최종 승인</text>
+                    </g>
+
+                    <rect x="30" y="152" width="490" height="24" fill="#0f172a" rx="4"/>
+                    <text x="275" y="168" font-size="9" font-weight="black" fill="#ffffff" text-anchor="middle">✔ 건축/차량한계 무간섭 심사 및 무선통신기 정상 작동 확인 체결</text>
+                </svg>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🟣 시공 도식 확대 팝업 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 차량 투입 전 점검 2D Visual 도식 확대 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+    </div>
+</div>
+
+<script>
+    function openDiagramZoom(elementId, titleText) {
+        const srcEl = document.getElementById(elementId);
+        if (!srcEl) return;
+        
+        const zoomBody = document.getElementById('zoomBody');
+        document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "차량 투입 전 점검 도식 대형 확대 보기");
+        zoomBody.innerHTML = srcEl.outerHTML;
+        
+        const innerSvg = zoomBody.querySelector('svg');
+        if (innerSvg) {
+            innerSvg.setAttribute('width', '100%');
+            innerSvg.setAttribute('height', '520px');
+            innerSvg.style.maxWidth = '1050px';
+        }
+        document.getElementById('zoomModal').classList.add('active');
+    }
+
+    function closeZoomModal() {
+        document.getElementById('zoomModal').classList.remove('active');
+    }
+
+    function closeZoomModalOutside(event) {
+        if (event.target.id === 'zoomModal') closeZoomModal();
+    }
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeZoomModal();
+    });
+</script>
+</body>
+</html>

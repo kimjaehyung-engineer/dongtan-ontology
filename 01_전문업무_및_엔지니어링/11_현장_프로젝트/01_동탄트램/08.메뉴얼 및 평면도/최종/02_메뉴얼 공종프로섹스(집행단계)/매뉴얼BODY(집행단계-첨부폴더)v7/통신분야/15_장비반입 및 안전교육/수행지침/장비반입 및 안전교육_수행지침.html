@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 장비반입 및 안전교육 수행지침서 (WBS 9000-2-15)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .clickable-diagram {
+            cursor: zoom-in !important;
+            transition: all 0.25s ease !important;
+        }
+        .clickable-diagram:hover {
+            transform: scale(1.015) !important;
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+        }
+        .zoom-modal, .glossary-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+        .zoom-modal.active, .glossary-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 28px;
+            border: 1px solid #cbd5e1;
+            width: 95%;
+            max-width: 1100px;
+            max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow-y: auto;
+            text-align: center;
+        }
+        .glossary-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            width: 90%;
+            max-width: 620px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            text-align: left;
+        }
+        .zoom-close, .glossary-close {
+            color: #64748b;
+            position: absolute;
+            right: 20px;
+            top: 16px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .zoom-close:hover, .glossary-close:hover { color: #ef4444; }
+        .term-highlight {
+            color: #0284c7 !important;
+            font-weight: 700 !important;
+            border-bottom: 2px dashed #0284c7 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            padding: 0 2px !important;
+        }
+        .term-highlight:hover {
+            background: #e0f2fe !important;
+            color: #0369a1 !important;
+            border-radius: 4px !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Guideline (WBS 9000-2-15)</span>
+        <h1 class="text-3xl font-black mt-2">장비반입 및 안전교육 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-15 | 주관: 현장 시스템팀 / 안전팀 | "통신 장비 개략 하중 & 50톤 크레인 양중 산정 실무 지침"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 개념 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 중량 통신장비 개략 하중 & 크레인 양중 실무 가이드</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                통신 장비 반입 시, <strong>850kg UPS 비상 축전지, 600kg 광케이블 드럼, 250kg 통신 랙</strong>의 정밀 개략 하중을 확인하고 <strong>50톤 크레인(작업반경 15m 시 정격총하중 3.8ton)</strong> 제원을 대조하여 양중 안전성을 확보하는 실무 수칙입니다. <span class="term-highlight" onclick="openGlossary('crane_50t')">50톤 크레인 제원</span>, <span class="term-highlight" onclick="openGlossary('estimated_weight')">장비 개략 하중</span>, <span class="term-highlight" onclick="openGlossary('outrigger_pad')">아웃트리거 받침목</span> 지침을 준수하십시오.
+            </p>
+        </div>
+
+        <!-- 🏢 4대 실무 수행 가이드 (1:1 맞춤 2D SVG 도식 수록) -->
+        <div class="space-y-6">
+            <div class="border-b-2 border-blue-600 pb-2 flex items-center justify-between">
+                <div>
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">4-STEP WORKFLOW & SVG GALLERY</span>
+                    <h3 class="text-xl font-black text-slate-900 mt-0.5">🏢 4대 장비반입 & 안전교육 실무 수행 지침 (Where & How)</h3>
+                </div>
+                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">100% 2D 도식 수록</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+                
+                <!-- 1. 통신 주요 장비 개략 하중 검증 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui1_weights', '01. 통신 주요 장비 개략 하중 2D 도식')">
+                        <svg id="svg_gui1_weights" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#7e22ce" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#6b21a8" text-anchor="middle">📦 1. 통신 주요 장비 개략 하중 (Estimated Weight)</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <rect x="40" y="65" width="140" height="50" fill="#faf5ff" stroke="#a855f7" rx="4"/>
+                            <text x="110" y="88" font-size="10" font-weight="black" fill="#6b21a8" text-anchor="middle">UPS 축전지 뱅크</text>
+                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">개략 하중: 850 kg</text>
+
+                            <rect x="220" y="65" width="140" height="50" fill="#f0f9ff" stroke="#0284c7" rx="4"/>
+                            <text x="290" y="88" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">광케이블 대형 드럼</text>
+                            <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">개략 하중: 600 kg</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 주요 장비 하중 파라미터 확인 완료</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-purple-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">STEP 01</span>
+                        <span class="text-[11px] font-bold text-purple-900">개략 하중 파악</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📦 1. 통신 주요 장비 정밀 개략 하중 검증</h4>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-purple-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• UPS 비상 축전지(850kg), 광케이블 드럼(600kg), 19인치 랙(250kg), OTN 랙(160kg)</p>
+                        <p class="text-purple-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 장비 제조사 승인 도면 송장(Packing List) 상 자중 대조<br>
+                            ② OTN 광전송 랙(Class S)은 Shock Watch(5G) 부착 상태 확인<br>
+                            ③ 850kg UPS 이동 경로 Access Floor 철판 분산판(t12mm) 설치
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. 반입 경로 분석을 통한 장비 충돌 방지 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui2_collision', '02. 반입 경로 충돌 방지 & Clearance 2D 도식')">
+                        <svg id="svg_gui2_collision" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🛑 2. 반입 경로 분석 & 장비 충돌 방지</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <rect x="40" y="65" width="140" height="50" fill="#e0f2fe" stroke="#0284c7" rx="4"/>
+                            <text x="110" y="88" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">Clearance 이격</text>
+                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">여유 공간 ≥ 300mm</text>
+
+                            <rect x="220" y="65" width="140" height="50" fill="#fffbebe" stroke="#d97706" rx="4"/>
+                            <text x="290" y="88" font-size="10" font-weight="black" fill="#b45309" text-anchor="middle">벽체 코너 방호</text>
+                            <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">충돌 방지 패딩 부착</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 반입 경로 충돌 방지 합격</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">STEP 02</span>
+                        <span class="text-[11px] font-bold text-blue-900">장비 충돌 방지</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🛑 2. 반입 경로 기하학 분석 & 장비 충돌 방지</h4>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 개포구 통과 유효 치수, 복도 90°/180° 회전 코너 벽체, 이중바닥 타일</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 장비 상부/좌우 Clearance ≥ 300mm 여유 이격 공간 레이저 측량<br>
+                            ② 코너 회전 구역 벽체 충돌 방지 완충 패딩 100% 설치<br>
+                            ③ 문턱 경사판(경사각 ≤ 15°) 설치로 랙 틸팅 충돌 방지
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3. 50톤 양중 크레인 제원 산정 및 검증 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui3_crane', '03. 50톤 양중 크레인 제원 산정 2D 도식')">
+                        <svg id="svg_gui3_crane" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#dc2626" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#b91c1c" text-anchor="middle">🏗️ 3. 50톤 유압 크레인 정밀 제원 산정</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <rect x="40" y="65" width="140" height="50" fill="#fef2f2" stroke="#ef4444" rx="4"/>
+                            <text x="110" y="88" font-size="10" font-weight="black" fill="#b91c1c" text-anchor="middle">작업반경 15m 하중</text>
+                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">정격총하중 3.8 ton</text>
+
+                            <rect x="220" y="65" width="140" height="50" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+                            <text x="290" y="88" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">아웃트리거 인출</text>
+                            <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">전길이 7.0m 100%</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 크레인 안전율 SF = 4.00 (적합)</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">STEP 03</span>
+                        <span class="text-[11px] font-bold text-indigo-900">크레인 제원 산정</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🏗️ 3. 50톤 양중 크레인 제원 산정 & JSA 검증</h4>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-indigo-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 50톤 크레인 붐 길이(24.5m), 작업 반경(15m), 아웃트리거 지반 받침목</p>
+                        <p class="text-indigo-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 작업반경 15m 시 정격총하중(3.8ton) 대조로 화물(850kg) 양중 허용<br>
+                            ② 아웃트리거 전길이(7.0m) 100% 인출 & 50mm 이상 철제/목재 받침목 설치<br>
+                            ③ 2줄 걸이 안전율 ≥ 5 와이어 로프 및 신호수 2인 통제 구역 운영
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 4. 특별안전교육 & 교육일지 서명 체결 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui4_edu', '04. 특별안전교육 & 서면 교육일지 2D 도식')">
+                        <svg id="svg_gui4_edu" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">🎓 4. 특별안전교육 (산안법 제29조)</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            
+                            <rect x="40" y="65" width="140" height="50" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+                            <text x="110" y="88" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">특별교육 2시간</text>
+                            <text x="110" y="103" font-size="8.5" fill="#334155" text-anchor="middle">50톤 크레인 안전 교육</text>
+
+                            <rect x="220" y="65" width="140" height="50" fill="#f0f9ff" stroke="#0284c7" rx="4"/>
+                            <text x="290" y="88" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">교육일지 체결</text>
+                            <text x="290" y="103" font-size="8.5" fill="#334155" text-anchor="middle">작업자 100% 서명</text>
+
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 특별안전교육 완수</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">STEP 04</span>
+                        <span class="text-[11px] font-bold text-teal-900">특별안전교육 완수</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🎓 4. 작업자 특별안전교육 & 교육일지 서명 체결</h4>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-teal-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 작업자 개인 보호구 착용 상태, 안전교육 일지 서명부, 장비 점검표</p>
+                        <p class="text-teal-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 작업 착수 전 2시간 이상 산안법 제29조 특별안전교육 집행<br>
+                            ② 50톤 크레인 작업 반경 하부 통제 및 아웃트리거 지반 침하 위험 교육<br>
+                            ③ 안전교육 일지 및 장비 점검표에 현장 작업자 100% 자필 서명 체결
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 📖 용어 및 대형보기 모달 -->
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 장비반입 & 충돌방지 표준 도식 대형 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[420px]">
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    "crane_50t": "<b>50톤 유압식 이동식 크레인 (Tadano GR-500N급)</b><br><br>• 작업 반경 15m에서 정격총하중 3.8ton을 발휘하는 트럭 크레인입니다. 최대 850kg UPS 축전지 양중 시 안전율 SF = 4.00을 확보합니다.",
+    "estimated_weight": "<b>통신 장비 정밀 개략 하중 (Estimated Weight)</b><br><br>• UPS 뱅크(850kg), 광케이블 드럼(600kg), 19인치 통신 랙(250kg), OTN 광전송 랙(160kg) 등 양중 크레인을 결정하기 위한 표준 자중 수치입니다.",
+    "outrigger_pad": "<b>아웃트리거 받침목 (Outrigger Pad)</b><br><br>• 크레인 아웃트리거 하부에 지반 침하를 방지하기 위해 깔아놓는 두께 50mm 이상의 강철 또는 목재 받침판입니다."
+};
+
+function openGlossary(term) {
+    const modal = document.getElementById('glossaryModal');
+    const titleEl = document.getElementById('modalTitle');
+    const descEl = document.getElementById('modalDescription');
+    if (glossaryData[term]) {
+        titleEl.innerHTML = "📖 용어 해설: " + term;
+        descEl.innerHTML = glossaryData[term];
+        modal.classList.add('active');
+    }
+}
+
+function closeGlossaryModal() { document.getElementById('glossaryModal').classList.remove('active'); }
+function closeGlossaryModalOutside(e) { if (e.target.id === 'glossaryModal') closeGlossaryModal(); }
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "정밀 도식 대형 보기");
+    zoomBody.innerHTML = srcEl.outerHTML;
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '580px');
+        innerSvg.style.maxWidth = '1080px';
+    }
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() { document.getElementById('zoomModal').classList.remove('active'); }
+function closeZoomModalOutside(e) { if (e.target.id === 'zoomModal') closeZoomModal(); }
+
+window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { closeZoomModal(); closeGlossaryModal(); }
+});
+</script>
+</body>
+</html>

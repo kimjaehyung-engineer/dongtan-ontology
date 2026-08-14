@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 전기분야 - 발주전략 KOM 상세 수행지침서 (WBS 9000-3-2)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .clickable-diagram {
+            cursor: zoom-in !important;
+            transition: all 0.25s ease !important;
+            position: relative !important;
+        }
+        .clickable-diagram:hover {
+            transform: scale(1.01) !important;
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+        }
+        .clickable-diagram::after {
+            content: "🔍 클릭하여 대형 확대보기";
+            position: absolute; bottom: 12px; right: 16px;
+            background: rgba(15, 23, 42, 0.8); color: #ffffff;
+            font-size: 11px; font-weight: 700; padding: 4px 12px;
+            border-radius: 20px; backdrop-filter: blur(4px);
+            pointer-events: none; opacity: 0.9;
+        }
+        .zoom-modal {
+            display: none; position: fixed; z-index: 9999;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px); align-items: center; justify-content: center;
+        }
+        .zoom-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff; margin: auto; padding: 28px;
+            border: 1px solid #cbd5e1; width: 95%; max-width: 1100px; max-height: 90vh;
+            border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow-y: auto; text-align: center;
+        }
+        .zoom-close {
+            color: #64748b; position: absolute; right: 20px; top: 16px;
+            font-size: 32px; font-weight: bold; cursor: pointer;
+        }
+        .zoom-close:hover { color: #ef4444; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-amber-500 text-slate-900 text-xs font-black px-3 py-1 rounded-full uppercase">Dongtan Tram Electrical Guideline (WBS 9000-3-2)</span>
+        <h1 class="text-3xl font-black mt-2">발주전략 KOM 상세 수행지침서</h1>
+        <p class="text-amber-200 text-sm mt-1">L4 Code: 9000-3-2 | 주관: 현장소장 (전철전력팀 · 책임감리단 공조) | "8대 현실조건 검토 & 원가 Risk Hedge 입찰 수칙 수행 방법론"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 검토 개요 및 목표 -->
+        <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl text-sm text-amber-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 발주전략 KOM 업무수행 방법 및 절차</h4>
+            <p class="bg-white p-4 rounded-xl border border-amber-300 font-medium text-slate-900 leading-relaxed text-xs sm:text-sm">
+                본 지침서는 동탄트램 노면전차설비 공사 발주 전 <strong>설계 및 현장 여건을 정밀 파악하고 8대 현실조건(자재 제작 Lead Time, 철도/경전철 시공 실적 Pool, 예비품, 시공중/후 운전 및 교육지원, 현장 자재창고 임대료, 가설 전원/청소, 개통 후 상주 기술지원 및 내역 누락 헷지)</strong>을 발주 특기시방서 및 내역서에 100% 명시하여 발주 수립을 완수하는 실무 지침서입니다.
+            </p>
+        </div>
+
+        <!-- 🚀 4단계 상세 검토 방법 및 수행 절차 -->
+        <div class="space-y-8">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-amber-600 pb-2 flex items-center gap-2">
+                <span class="text-amber-600">🛠️</span> 발주전략 KOM 상세 수행 절차
+            </h2>
+
+            <div class="grid grid-cols-1 gap-6">
+                
+                <!-- STEP 1: 노면전차설비 설계 & 현장 여건 정밀 분석 기법 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-amber-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 01</span>
+                            <h3 class="font-bold text-base text-slate-900">[설계 & 현장여건] 자재 Lead Time 및 내역 누락 사전 헷지</h3>
+                        </div>
+                        <span class="text-xs font-semibold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">현장분석&Risk헷지</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-amber-900 block border-b border-slate-100 pb-1">1. 자재 제작 기간(Lead Time) 파악</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 노면전차 특수 자재(강성가선, 변압기, ESS) 제작 소요 기간 산출.<br>
+                                • <strong>세부 절차:</strong> 공정표 대비 입고 마일스톤(최소 30~60일 사전 발주)을 확인하여 공기 지연 예방.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-amber-900 block border-b border-slate-100 pb-1">2. 예상 내역 누락 아이템 발굴</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 내역서 상 누락되기 쉬운 특수 공종 사전 검토.<br>
+                                • <strong>세부 절차:</strong> 전식 방지 접지, 관통 슬리브, 부스바 절연 처리 등 원가 누락 아이템 사전 헷지.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-amber-900 block border-b border-slate-100 pb-1">3. 현장 진입 여건 및 수량 대조</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 변전실 및 전차선 궤도 반입 여건 실측.<br>
+                                • <strong>세부 절차:</strong> 도심지 진입 도로, 양중 공간 및 수량 산출서와 계약 내역 일치 여부 대조.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: 적격 시공업체 Pool & 유사 영업운행 실적 검증 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-indigo-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 02</span>
+                            <h3 class="font-bold text-base text-slate-900">[실적 Pool & 영업운행] 철도/경전철 적격 업체 검토 수칙</h3>
+                        </div>
+                        <span class="text-xs font-semibold text-indigo-700 bg-indigo-100 px-2.5 py-0.5 rounded-full">적격Pool검증</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-indigo-900 block border-b border-slate-100 pb-1">1. 시공 실적 보유 업체 Pool</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 철도, 도시철도, 경전철 등 시공 실적업체 Pool 구축.<br>
+                                • <strong>세부 절차:</strong> 전기공사업 면허 및 최근 5년간 철도/경전철 전철전력 시공 실적 검증.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-indigo-900 block border-b border-slate-100 pb-1">2. 유사사례 영업운행 실적 시스템</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 영업운행 실적이 확보된 시스템 적용 대조.<br>
+                                • <strong>세부 절차:</strong> 무가선/유가선 트램 전력 공급 및 정류기 성능이 입증된 신뢰성 높은 기기 적용.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-indigo-900 block border-b border-slate-100 pb-1">3. 입찰 참가 자격 심사(PQ) 기준</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 입찰참가 자격격격 심사 항목 사전 수립.<br>
+                                • <strong>세부 절차:</strong> 기술자 보유 수, 신용평가 등급 및 시공 실적 배점 기준을 입찰안내서 반영.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: 8대 현실조건 발주 내역서 반영 & 비용 계상 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 03</span>
+                            <h3 class="font-bold text-base text-slate-900">[8대 현실조건 내역반영] 예비품, 시공중/후 기술지원 & 경비 계상</h3>
+                        </div>
+                        <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">8대조건내역반영</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-emerald-900 block border-b border-slate-100 pb-1">💡 예비품, 소모품 & 기술지원 비용 포함</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>내역 계상:</strong> 개통 후 소모품/예비품 포함 발주.<br>
+                                • <strong>수행 방식:</strong> 시공 전/중 전기설비 운전 및 교육 지원 인건비와 <strong>개통 후 상주 기술지원 인력/기간/비용</strong>을 내역 반영.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-blue-900 block border-b border-slate-100 pb-1">🛡️ 창고 임대료, 가설 전력/용수/청소 경비</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>경비 명기:</strong> 시공 간접비용을 도급 내역서에 명확히 계상.<br>
+                                • <strong>수행 방식:</strong> 현장 자재보관 창고 임대 비용, 시공 중 공사용 전력 요금, 용수비 및 준공 청소 비용 포함.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: 발주전략 KOM 회의록 작성 & 현장소장 최종 승인 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-teal-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 04</span>
+                            <h3 class="font-bold text-base text-slate-900">[KOM 회의록 & 승인] 현장소장 주관 KOM 수행 & 특기시방 확정</h3>
+                        </div>
+                        <span class="text-xs font-semibold text-teal-700 bg-teal-100 px-2.5 py-0.5 rounded-full">발주전략승인</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-teal-900 block border-b border-slate-100 pb-1">👥 발주전략 KOM 회의 개최</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>회의 주관:</strong> 현장소장 주관, 전철전력팀 및 감리단 참석.<br>
+                                • <strong>수행 방식:</strong> 8대 현실조건과 내역 누락 헷지 방안을 의결하고 발주전략 KOM 종합 회의록 체결.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-teal-900 block border-b border-slate-100 pb-1">📄 입찰안내서 & 발주 특기시방서 배포</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>산출물 확정:</strong> 발주특기시방서 및 공종별 내역서 확정.<br>
+                                • <strong>최종 승인:</strong> 결재 완료된 발주전략 보고서를 외주구매팀 및 본사 견적팀에 전달하여 입찰 반영.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 🖼️ 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-amber-600 pb-2 flex items-center gap-2">
+                <span class="text-amber-600">🖼️</span> 발주전략 KOM 상세 수행 절차도
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r32_elec', '[WBS 9000-3-2] 발주전략 KOM 상세 수행 절차도')">
+                <svg id="svg_r32_elec" viewBox="0 0 550 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="550" height="200" fill="#f8fafc" rx="8"/>
+                    <rect x="15" y="15" width="520" height="170" fill="#ffffff" stroke="#d97706" stroke-width="2" rx="6"/>
+                    <text x="275" y="38" font-size="13" font-weight="black" fill="#b45309" text-anchor="middle">⚡ 동탄트램 발주전략 KOM 8대 현실조건 수행 절차도</text>
+                    <line x1="25" y1="46" x2="525" y2="46" stroke="#e2e8f0" stroke-width="1.5"/>
+                    
+                    <g transform="translate(25, 55)">
+                        <rect x="0" y="0" width="145" height="85" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
+                        <text x="72.5" y="22" font-size="10" font-weight="black" fill="#b45309" text-anchor="middle">1. 자재 Lead Time & Risk</text>
+                        <text x="12" y="42" font-size="8" font-weight="bold" fill="#0f172a">• 자재 제작 기간 30~60일</text>
+                        <text x="12" y="58" font-size="8" font-weight="bold" fill="#0f172a">• 예상 내역 누락 헷지</text>
+                        <text x="12" y="74" font-size="8" font-weight="bold" fill="#0f172a">• 현장 진입 여건 실측</text>
+                    </g>
+                    
+                    <line x1="170" y1="97.5" x2="210" y2="97.5" stroke="#d97706" stroke-width="2"/>
+                    <polygon points="210,93.5 218,97.5 210,101.5" fill="#d97706"/>
+
+                    <g transform="translate(220, 55)">
+                        <rect x="0" y="0" width="140" height="85" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5" rx="6"/>
+                        <text x="70" y="22" font-size="10" font-weight="black" fill="#6b21a8" text-anchor="middle">2. 실적 Pool & 8대 조건</text>
+                        <text x="10" y="42" font-size="8" font-weight="bold" fill="#0f172a">• 철도/경전철 시공 실적</text>
+                        <text x="10" y="58" font-size="8" font-weight="bold" fill="#0f172a">• 예비품 & 기술지원 비용</text>
+                        <text x="10" y="74" font-size="8" font-weight="bold" fill="#0f172a">• 창고임대/전기/청소 경비</text>
+                    </g>
+
+                    <line x1="360" y1="97.5" x2="390" y2="97.5" stroke="#9333ea" stroke-width="2"/>
+                    <polygon points="390,93.5 398,97.5 390,101.5" fill="#9333ea"/>
+
+                    <g transform="translate(400, 55)">
+                        <rect x="0" y="0" width="125" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5" rx="6"/>
+                        <text x="62.5" y="22" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">3. 발주전략 승인</text>
+                        <text x="10" y="42" font-size="8" font-weight="bold" fill="#15803d">• 현장소장 KOM 주관</text>
+                        <text x="10" y="58" font-size="8" font-weight="bold" fill="#15803d">• 발주 특기시방 확정</text>
+                        <text x="10" y="74" font-size="8" font-weight="bold" fill="#15803d">• 외주/견적팀 입찰 반영</text>
+                    </g>
+
+                    <rect x="30" y="152" width="490" height="24" fill="#0f172a" rx="4"/>
+                    <text x="275" y="168" font-size="9" font-weight="black" fill="#ffffff" text-anchor="middle">✔ WBS 9000-3-2 발주전략 KOM 8대 현실조건 수립 및 특기시방서 확정 완수</text>
+                </svg>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🟣 시공 도식 확대 팝업 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 발주전략 KOM 2D Visual 도식 확대 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+    </div>
+</div>
+
+<script>
+    function openDiagramZoom(elementId, titleText) {
+        const srcEl = document.getElementById(elementId);
+        if (!srcEl) return;
+        
+        const zoomBody = document.getElementById('zoomBody');
+        document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "발주전략 KOM 도식 대형 확대 보기");
+        zoomBody.innerHTML = srcEl.outerHTML;
+        
+        const innerSvg = zoomBody.querySelector('svg');
+        if (innerSvg) {
+            innerSvg.setAttribute('width', '100%');
+            innerSvg.setAttribute('height', '520px');
+            innerSvg.style.maxWidth = '1050px';
+        }
+        document.getElementById('zoomModal').classList.add('active');
+    }
+
+    function closeZoomModal() {
+        document.getElementById('zoomModal').classList.remove('active');
+    }
+
+    function closeZoomModalOutside(event) {
+        if (event.target.id === 'zoomModal') closeZoomModal();
+    }
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeZoomModal();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - [PST] 전단앵커설치 및 충전재 주입 기술 표준서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .clickable-diagram::after {
+        content: "🔍 클릭하여 대형 확대보기";
+        position: absolute;
+        bottom: 8px;
+        right: 12px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        pointer-events: none;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+    }
+    .clickable-diagram:hover::after {
+        opacity: 1;
+        background: rgba(2, 132, 199, 0.9);
+    }
+    .glossary-modal, .zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active, .zoom-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .zoom-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 28px;
+        border: 1px solid #cbd5e1;
+        width: 95%;
+        max-width: 1100px;
+        max-height: 90vh;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow-y: auto;
+        text-align: center;
+    }
+    .glossary-close, .zoom-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover, .zoom-close:hover {
+        color: #ef4444;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-16 Standard</span>
+                <span class="bg-emerald-50 text-slate-950 text-xs font-bold px-3 py-1 rounded-full">전단앵커 일체화 & 그라우트 45 MPa 규격</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">[PST] 전단앵커설치 및 충전재 주입 기술 표준서</h1>
+            <p class="text-slate-300 mt-2 text-sm sm:text-base">"HBS/TCL층과 일체화: 전단앵커 천공/수직도 검수, 무수축 그라우트(&ge;45 MPa) 주입, EVA Foam 오버플로우 및 경화 전 전단키 덮개 봉인 매뉴얼"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-8">
+        <!-- 💡 핵심 안내 박스 -->
+        <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-xs sm:text-sm text-amber-900">
+            <h4 class="font-bold text-amber-950 mb-1">💡 [PST] 전단앵커설치 및 충전재 주입 과업 정의</h4>
+            <p class="leading-relaxed">
+                본 공종은 HBS 강화노반 및 TCL 기초 콘크리트층과 상부 PST 프리캐스트 슬래브 간의 일체화 구조 확보를 위해 <strong><span class="term-highlight" onclick="openGlossary('shear_anchor')">전단앵커를 설치</span></strong>하고 몰탈 충전재를 밀실 주입하는 핵심 공종입니다. 천공 깊이 및 수직도 게이지 점검, <strong><span class="term-highlight" onclick="openGlossary('grout_strength')">무수축 그라우트 압축강도 &ge; 45 MPa(최소 30 MPa 이상)</span></strong> 확보, <strong><span class="term-highlight" onclick="openGlossary('eva_foam')">EVA Foam 구멍을 통한 몰탈 유출 오버플로우</span></strong> 확인, 그리고 경화 전 <strong><span class="term-highlight" onclick="openGlossary('key_cap')">전단키 덮개 시공</span></strong> 수칙을 준수합니다.
+            </p>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">1.</span> 과업 개요 및 수행 목적
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">WBS 공정명</span>
+                    <p class="font-bold text-slate-800 mt-1">콘크리트도상 / [PST] 전단앵커설치 및 충전재 주입 (현장 공사팀)</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-blue-700 uppercase">최종 품질 산출물</span>
+                    <p class="font-bold text-slate-800 mt-1">앵커 시공인장 시험기록 | 그라우트 공시체 강도대장 | 음향탐사 검측표</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-blue-600 pb-2">
+                <span class="text-blue-600">2.</span> 전단앵커 및 충전재 정량 기술 시방 절대 기준
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-xs sm:text-sm text-left border-collapse border border-slate-200 rounded-lg">
+                    <thead class="bg-blue-900 text-white">
+                        <tr>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">품질 관리 항목</th>
+                            <th class="p-3 border border-slate-300 w-1/4 text-center">절대 공학 기준</th>
+                            <th class="p-3 border border-slate-300 w-1/2 text-center">수행 조건 및 상세 기술 표준 (KCS 시방 연동)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">천공 깊이 & 수직도</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">게이지 측정 100% 합격</td>
+                            <td class="p-3 border text-slate-600">• 천공 전용 깊이 게이지로 설계 깊이 수직도 점검.<br>• 홀 내 분진 및 돌가루 에어/수쇄 100% 제거</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">충전재 압축강도</td>
+                            <td class="p-3 border text-center font-bold text-red-600">&ge; 45.0 MPa (몰탈 공시체)<br>(최소 &ge; 30 MPa 이상)</td>
+                            <td class="p-3 border text-slate-600">• 무수축 모르타르 배합비 준수 및 28일 강도 시험.<br>• 현장 몰드 시편 45 MPa 미달 시 전량 교체</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">EVA Foam 유출 확인</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">구멍별 오버플로우 확인</td>
+                            <td class="p-3 border text-slate-600">• EVA Foam 공기 배출구로 몰탈 유출 시까지 연속 주입.<br>• 내부 공기 공동(Air Void) 0% 밀실 충전 구현</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">미충전 시 재작업 수칙</td>
+                            <td class="p-3 border text-center font-bold text-red-600">경화 전 100% 제거 후 세척</td>
+                            <td class="p-3 border text-slate-600">• 주입 장비/재료 이상으로 미충전 발생 시 즉시 중단.<br>• 기 주입재 경화 전 완전 제거 및 물청소 후 재작업</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold bg-slate-50 border text-center">전단키 덮개 시공</td>
+                            <td class="p-3 border text-center font-bold text-blue-700">경화 전 봉인 덮개 시공</td>
+                            <td class="p-3 border text-slate-600">• 충전재 주입 직후 경화 전 전단키 덮개 가설.<br>• 수분 급속 유출 및 외부 이물질 침투 완전 차단</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 공학 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'shear_anchor': {
+        title: '⚓ 전단앵커 (Shear Key Anchor)',
+        desc: 'HBS 강화노반 및 TCL 기초 콘크리트 층과 상부 프리캐스트 패널(PST) 간의 층간 전단 미끄러짐을 완벽히 차단하여 일체화 구조를 형성하는 전단키 연결 장치입니다.'
+    },
+    'grout_strength': {
+        title: '📊 무수축 모르타르 그라우트 압축강도 (≥ 30 / 45 MPa)',
+        desc: '전단앵커 홀 및 충전층의 수축 균열을 방지하기 위한 무수축 그라우트의 시방 강도 기준입니다. 일반 그라우트 30 MPa 이상, PST 몰탈 충전재 공시체 45 MPa 이상을 충족해야 합니다.'
+    },
+    'eva_foam': {
+        title: '🫧 EVA Foam 유출구 & 밀실 오버플로우',
+        desc: '그라우트 주입 시 내부 공기 공동(Air Void)을 제거하고 충전재가 완전 밀실하게 찼는지 확인하기 위해 EVA Foam 구멍으로 몰탈이 넘쳐 나오도록 주입 상태를 점검하는 수칙입니다.'
+    },
+    'key_cap': {
+        title: '🛡️ 전단키 덮개 봉인 & 미충전 재작업 수칙',
+        desc: '그라우트 주입 직후 경화 전 전단키 덮개를 시공하여 수분 유출 및 이물질 침투를 차단합니다. 충전 이상 발생 시 경화 전에 기 주입재를 즉시 제거하고 물청소 후 재작업해야 합니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '520px');
+        innerSvg.style.maxWidth = '1000px';
+    }
+    
+    const innerImg = zoomBody.querySelector('img');
+    if (innerImg) {
+        innerImg.style.maxHeight = '70vh';
+        innerImg.style.width = 'auto';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+        closeZoomModal();
+    }
+});
+</script>
+
+</body>
+</html>

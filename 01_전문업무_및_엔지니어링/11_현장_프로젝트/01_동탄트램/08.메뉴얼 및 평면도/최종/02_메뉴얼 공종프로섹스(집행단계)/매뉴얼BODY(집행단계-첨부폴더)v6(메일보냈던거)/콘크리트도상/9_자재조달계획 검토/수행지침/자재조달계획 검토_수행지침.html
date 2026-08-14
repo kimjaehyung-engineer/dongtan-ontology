@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 자재조달계획 검토 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    /* Glossary Modal Styles - Minimal Injection */
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .scene-link {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        color: #059669 !important;
+        font-weight: 700 !important;
+        background: #ecfdf5 !important;
+        border: 1px solid #10b981 !important;
+        border-radius: 6px !important;
+        padding: 2px 8px !important;
+        font-size: 0.8rem !important;
+        cursor: pointer !important;
+        margin-left: 8px !important;
+        transition: all 0.2s ease !important;
+        text-decoration: none !important;
+    }
+    .scene-link:hover {
+        background: #d1fae5 !important;
+        color: #065f46 !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 520px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        position: relative;
+        animation: modalFadeIn 0.3s ease;
+        text-align: left;
+    }
+    @keyframes modalFadeIn {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover {
+        color: #334155;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-emerald-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-emerald-800 to-slate-900 opacity-60"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-9 Guideline</span>
+                <span class="bg-white text-emerald-950 text-xs font-bold px-3 py-1 rounded-full">공정 연동 조달 계획</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">자재조달계획 검토 수행지침서</h1>
+            <p class="text-emerald-200 mt-2 text-sm sm:text-base">"해상 운송 선적서류 및 통관 승인, PST 공장 생산 강도 및 야적장 보관 관리 수칙"</p>
+        </div>
+    </div>
+    <div class="p-6 sm:p-10 space-y-8">
+        <!-- 1. 개요 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">1.</span> 작업 개요 및 수행 목적 (Overview & Scope)
+            </h2>
+            <div class="bg-emerald-50/50 p-5 rounded-xl border border-emerald-100 text-sm space-y-2">
+                <p><strong>🎯 수행 목적:</strong> 외산 특수 자재(홈레일, 체결구 등)의 수입 해상 물류 조달 지연을 방지하고 국내 PST 생산 품질 및 야적장 2차 보관 수명 주기를 제어함</p>
+                <p><strong>⚙️ 수행 주체:</strong> 현장관리팀 및 현장공사팀 주관 하에 본사 구매조달팀 지원 협력</p>
+            </div>
+        </div>
+        
+        <!-- 2. 세부 절차 -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">2.</span> 자재조달 및 검수 3단계 세부 수행 프로세스
+            </h2>
+            <div class="space-y-6 relative pl-6 border-l-4 border-emerald-500">
+                <!-- STEP 1 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative">
+                    <div class="absolute -left-[35px] top-4 bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">1</div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded uppercase">Step 1. 사전 계획 수립 단계</span>
+                    <h3 class="text-base font-bold text-slate-900 mt-2 mb-3">조달 마스터 스케줄 수립 및 야적 공간 대조 분석</h3>
+                    
+                    <div class="space-y-4 text-xs sm:text-sm text-slate-600">
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">1.1. 자재 수급 마스터 스케줄 검토</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">외산 <span class="term-highlight" onclick="openGlossary('grooved_rail')">홈레일</span>의 해상 선적 리드타임과 국내 <span class="term-highlight" onclick="openGlossary('pst_panel')">PST 패널</span> 공장 생산 완료일을 산정하여 통합 조달 스케줄표를 수립한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">1.2. 노반 인도(Handover) 구역별 소요량 매핑</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">선행 구조물 토목 완료 구간의 면적 대비 소요 궤도 자재 수량을 동기화하여, 과잉 반입으로 인한 가설 적체 또는 조달 부족을 방지한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">1.3. 2차 야적장 규모 및 운송 인프라 평가</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">현장 야적이 불가할 때를 대비하여 차량기지 용접장 내 2차 보관 전용 야적 공간의 수용 능력과 인양 크레인 가동성을 검토한다.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- STEP 2 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative">
+                    <div class="absolute -left-[35px] top-4 bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">2</div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded uppercase">Step 2. 본 수행 단계 (서류 검토 및 품질 검수)</span>
+                    <h3 class="text-base font-bold text-slate-900 mt-2 mb-3">선적서류·통관승인 확보, 공장 강도 검수 및 공급원 서명</h3>
+                    
+                    <div class="space-y-4 text-xs sm:text-sm text-slate-600">
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">2.1. 해상 선적서류 및 통관 승인서 구비 검토</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">세관 통관 병목을 해소하기 위해 <span class="term-highlight" onclick="openGlossary('bl_document')">선하증권(B/L)</span>, 인보이스, 패킹리스트 및 제작처 자체 검사성적서를 보세 운송 착수 전 사전 검증한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">2.2. PST 슬래브 패널 공장 생산 강도 및 배근 검수</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">PST 콘크리트 패널 제작 공장을 품질담당자가 방문하여 28일 압축강도(fck &ge; 45 MPa) 실측값 검증 및 앵커 플레이트 밀착 공차를 실사한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">2.3. 입항 수입 홈레일 단면 치수 정밀 오차 검수</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">부산/인천항 현장 입고 시 레일 단면 형상 치수(높이, 플랜지 폭)가 허용 한계 오차 편차 ±0.5mm 이내인지 버니어 캘리퍼스로 실측 대조한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">2.4. 자재 공급 승인서 및 OMC 약정서 발급</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">공학 시험 규격을 만족한 자재에 한해 최종 자재공급 승인서(Sign-off)를 발급하고, 수입 자재의 경우 <span class="term-highlight" onclick="openGlossary('omc')">OMC 품질 시방서</span>를 첨부하여 최종 문서화한다.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- STEP 3 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm relative">
+                    <div class="absolute -left-[35px] top-4 bg-emerald-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">3</div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded uppercase">Step 3. 국내 야적 보관 및 관리 단계</span>
+                    <h3 class="text-base font-bold text-slate-900 mt-2 mb-3">야적장 방수/방습 보호 및 수급 대장 실시간 업데이트</h3>
+                    
+                    <div class="space-y-4 text-xs sm:text-sm text-slate-600">
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">3.1. 국내 2차 야적장 보관 관리 실태 합동 실사</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">야적장에 적치된 홈레일의 산화(녹 발생) 방지를 위해 하부 침목 받침대 설치 및 우천 보호 방수 천막 차광막 고정 상태를 주기적으로 합동 점검한다.</p>
+                        </div>
+                        <div class="border-l-2 border-slate-300 pl-3">
+                            <h4 class="font-bold text-slate-900 text-sm">3.2. 자재 수급 대장 및 공정율 연동 기록 등록</h4>
+                            <p class="text-slate-600 text-xs sm:text-sm mt-0.5">최종 인수 완료된 자재 명세를 본사 ERP 자재 관리 시스템에 등록하여, 노반 시공 진척율과 자재 조달 밸런스를 동기화한다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800">
+        동탄도시철도(트램) 수행지침서 | WBS 9000-6-9 | 콘크리트도상
+    </div>
+</div>
+
+
+<!-- Glossary & Scene Popup Modal Layer -->
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 시공장면 해설</h3>
+        <div class="modal-body">
+            <img id="modalImage" src="" style="width:100%; border-radius:10px; display:none; margin-bottom:15px; border: 1px solid #cbd5e1;" />
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'grooved_rail': {
+        title: '🛤️ 홈레일 (Grooved Rail, 51R1/60R2)',
+        desc: '도심지 매설 궤도에 사용되는 요(凹)자형 홈이 파여진 특수 철도 레일입니다. 트램 차량의 차륜 플랜지가 궤도를 주행할 수 있도록 유도해주는 단면 형상을 지니고 있으며, 전량 유럽 국외 수입에 의존하므로 조달 계획 관리가 생명입니다.'
+    },
+    'pst_panel': {
+        title: '🧱 PST 슬래브 패널 (Precast Slab Track Panel)',
+        desc: '공장에서 사전 일체식으로 제작하여 현장 반입하는 콘크리트 궤도 슬래브 패널입니다. 현장 조립 속도가 매우 빠르나, 28일 기준 설계기준 압축강도가 최소 45 MPa 이상을 달성해야 열차 하중을 안전하게 분산시킬 수 있습니다.'
+    },
+    'omc': {
+        title: '🤝 OMC 품질 시방 (Operation and Maintenance Agreement)',
+        desc: '국산화가 불가능한 해외 수입 특수 궤도 자재에 대해, 제작사가 품질 등급, 화학 성분, 내마모성 시험 결과 등을 보증하고 유지 보수용 특기 사양을 약정한 정식 품질보증합의서입니다.'
+    },
+    'bl_document': {
+        title: '🚢 선하증권 (B/L, Bill of Lading)',
+        desc: '해상 운송 시 선박 회사에서 화주에게 발행하는 물품 수령증이자 소유권 문서입니다. 특수 홈레일 통관 승인을 위해 B/L 원본, 상업송장(Invoice), 제작사 시험성적서 등 선적 서류 구비가 필수적입니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    
+    const imgEl = document.getElementById('modalImage');
+    if (data.img) {
+        imgEl.src = data.img;
+        imgEl.style.display = 'block';
+    } else {
+        imgEl.src = '';
+        imgEl.style.display = 'none';
+    }
+    
+    document.getElementById('glossaryModal').classList.add('active');
+}
+
+function openScene(sceneKey) {
+    openGlossary(sceneKey);
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+// Esc close key handler
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+    }
+});
+</script>
+
+
+</body>
+</html>

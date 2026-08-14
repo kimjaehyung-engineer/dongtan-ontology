@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄도시철도(트램) - 들밀도 시험다짐도 ≥ 95 관련 정밀 시방 수치 및 현장 조건 100 대 상세절차서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .theme-font-toolbar { position: fixed; bottom: 24px; right: 24px; z-index: 1000; display: flex; align-items: center; gap: 8px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); padding: 8px 14px; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .toolbar-btn { background: transparent; color: #f8fafc; border: none; font-size: 14px; font-weight: 700; padding: 4px 10px; cursor: pointer; border-radius: 9999px; transition: all 0.2s; }
+        .toolbar-btn:hover { background: rgba(255, 255, 255, 0.2); }
+        .toolbar-btn.active { background: #f59e0b; color: #0f172a; }
+        body.dark-theme { background-color: #0f172a; color: #f8fafc; }
+        body.dark-theme .bg-white { background-color: #1e293b !important; color: #f8fafc !important; }
+        body.dark-theme .border-slate-200 { border-color: #334155 !important; }
+        body.dark-theme .text-slate-900 { color: #f8fafc !important; }
+        body.dark-theme .text-slate-700 { color: #cbd5e1 !important; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased py-10 px-4 sm:px-8">
+
+    <div class="theme-font-toolbar">
+        <button id="btn-theme" class="toolbar-btn" title="테마 변경">☀️</button>
+        <span style="color:rgba(255,255,255,0.2); font-size:12px;">|</span>
+        <button id="btn-fs-small" class="toolbar-btn" title="글자 작게">A-</button>
+        <button id="btn-fs-medium" class="toolbar-btn active" title="글자 보통">A</button>
+        <button id="btn-fs-large" class="toolbar-btn" title="글자 크게">A+</button>
+    </div>
+
+    <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200 p-8 sm:p-12 space-y-8">
+        <!-- 📜 헤더 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">
+            <div>
+                <span class="text-xs font-black text-amber-800 bg-amber-100 border border-amber-300 px-3.5 py-1.5 rounded-full mb-3 inline-block">
+                    Dongtan Tram Standard Procedure | 상부강화노반 정밀 검측 상세절차서
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                    📜 들밀도 시험다짐도 ≥ 95 관련 정밀 시방 수치 및 현장 조건 100 대 상세절차서
+                </h1>
+            </div>
+            <div class="shrink-0">
+                <button onclick="window.close()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl text-xs transition-all shadow-md">
+                    ✕ 닫기 / 뒤로가기
+                </button>
+            </div>
+        </div>
+
+        <!-- 💡 핵심 개요 -->
+        <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-6 space-y-2">
+            <h3 class="text-base font-black text-amber-950 flex items-center gap-2">
+                <span>📌</span> 현장 이행 수칙 및 정밀 검측 목적
+            </h3>
+            <p class="text-slate-700 text-xs sm:text-sm font-semibold leading-relaxed">
+                본 절차서는 동탄도시철도(트램) 건설공사 <b>[상부강화노반] 들밀도 시험다짐도 ≥ 95 관련 정밀 시방 수치 및 현장 조건 100 대</b> 항목에 대한 국토교통부 KDS/KCS 표준 시방 기준 준수 및 현장 검측 결재를 위한 정밀 표준 작업 절차서임.
+            </p>
+        </div>
+
+        <!-- 🛠️ 단계별 세부 실무 절차서 -->
+        <div class="space-y-4 pt-2">
+            <h3 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                <span>🛠️</span> 단계별 표준 작업 절차 및 검측 가이드라인
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2">
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md">STEP 01</span>
+                    <h4 class="font-bold text-sm text-slate-900">사전 검토 및 장비/자재 승인</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        관련 도면, KDS/KCS 시방 조건, 시험 성적서 사전 이행 여부를 확인하고 감리단 보고서 제출.
+                    </p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2">
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md">STEP 02</span>
+                    <h4 class="font-bold text-sm text-slate-900">현장 오차 실측 및 정밀 시험</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        현장 기준 오차(KDS 수치 기준) 무작위 3개소 이상 실측 측정 및 시험 성적서 데이터 산출.
+                    </p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2">
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md">STEP 03</span>
+                    <h4 class="font-bold text-sm text-slate-900">리스크 저감 및 이행 점검</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        안전·품질 리스크 간섭 여부 사전 배제, 관련 공종 간 인터페이스 점검 및 사후 기록 유지.
+                    </p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2">
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md">STEP 04</span>
+                    <h4 class="font-bold text-sm text-slate-900">검측 성과표 승인 및 최종 결재</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        책임감리원 및 현장소장 서면 검측 성과표 조율 후 최종 이행 결재 및 차기 공종 이행 승인.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📑 필수 제출 서류 및 성과품 -->
+        <div class="bg-slate-900 text-slate-100 rounded-2xl p-6 space-y-3 shadow-inner">
+            <h3 class="text-sm font-black text-amber-400 flex items-center gap-2">
+                <span>📑</span> 필수 현장 성과품 & 최종 검측 서류
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-mono">
+                ✔ 들밀도 시험다짐도 ≥ 95 관련 정밀 시방 수치 및 현장 조건 100 대 정밀 검측 성과표<br>
+                ✔ KDS/KCS 표준 시방 부합 시험성적서<br>
+                ✔ 책임감리원 최종 서면 이행 승인서
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const btnTheme = document.getElementById('btn-theme');
+        btnTheme?.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            btnTheme.textContent = document.body.classList.contains('dark-theme') ? '🌙' : '☀️';
+        });
+    </script>
+</body>
+</html>

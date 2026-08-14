@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>콘크리트도상 - 자재 반입 수행지침서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .glossary-close {
+        color: #94a3b8;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .flow-card {
+            transition: all 0.25s ease;
+        }
+        .flow-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- Header -->
+    <div class="bg-slate-900 text-white p-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-emerald-950 to-slate-900 opacity-70"></div>
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-12 Guideline</span>
+                <span class="bg-white text-slate-950 text-xs font-bold px-3 py-1 rounded-full">공학 정밀 체계 매뉴얼</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">자재 반입 수행지침서</h1>
+            <p class="text-emerald-200 mt-2 text-sm sm:text-base">"레일고정 액상수지 및 외산 특수분기기 정밀 시공 체계도 & 공학 기술 단면 도식"</p>
+        </div>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 💡 오해 방지 안내 박스 -->
+        <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl text-xs sm:text-sm text-amber-900 shadow-sm">
+            <h4 class="font-bold text-amber-950 text-base mb-1.5 flex items-center gap-2">
+                <span>💡</span> "콘크리트도상 자재 반입" 실무 개념 정의
+            </h4>
+            <p class="leading-relaxed">
+                본 공종은 레미콘 차량의 단순 콘크리트를 반입하는 공종이 아닙니다! 도심지 트램 도로 매설 선로를 구축하는 <strong><span class="term-highlight" onclick="openGlossary('resin_fill')">레일고정 액상수지(탄성 절연재)</span>, <span class="term-highlight" onclick="openGlossary('special_turnout')">외산 특수 분기기</span>, <span class="term-highlight" onclick="openGlossary('grooved_rail')">그루브드레일(51R1/60R2)</span>, <span class="term-highlight" onclick="openGlossary('pst_panel')">PST 슬래브 패널</span></strong> 등 매설형 궤도 핵심 자재의 검수, 도로 점용 운반, 정밀 치수 측량 및 불량재 반출 관리를 통합 정립한 공학 가이드입니다.
+            </p>
+        </div>
+
+        <!-- 1. 자재 반입 5대 시공 프로세스 메트릭스 체계도 (Flow Architecture) -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">1.</span> 자재 반입 5대 관리 프로세스 마스터 체계도 (Flow Architecture)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+                <!-- Step 1 -->
+                <div class="flow-card bg-amber-50 p-4 rounded-xl border border-amber-200 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="bg-amber-500 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 1</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">사전 공장검수</h4>
+                        <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                            외산 홈레일/수지/분기기 <strong>시공 60일 전</strong> 해외 공장성적서(Mill Sheet) 감리 승인
+                        </p>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-amber-100 text-[10px] text-amber-800 font-bold">
+                        📋 핵심: 수입 성적서 대조
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flow-card bg-sky-50 p-4 rounded-xl border border-sky-200 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="bg-sky-500 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 2</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">25Ton 장축 수송</h4>
+                        <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                            경찰서/구청 도로점용 인허가 득함, 심야 <strong>사인카 & 신호수</strong> 교통 통제 반입
+                        </p>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-sky-100 text-[10px] text-sky-800 font-bold">
+                        🚚 핵심: 도로점용 안전
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flow-card bg-emerald-50 p-4 rounded-xl border border-emerald-200 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 3</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">현장 인수검사</h4>
+                        <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                            감리 입회 표면 흠집 전수 점검, PST 패널 치수 <strong>&plusmn;2.0mm 이내</strong> 측량
+                        </p>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-emerald-100 text-[10px] text-emerald-800 font-bold">
+                        📏 핵심: 공차 &plusmn;2.0mm
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="flow-card bg-blue-50 p-4 rounded-xl border border-blue-200 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="bg-blue-600 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 4</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">액상수지·야드적재</h4>
+                        <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                            액상수지 드럼 <strong>15~25℃ 상온</strong> 보관, 자재 Lot 마킹 대조 및 덮개 밀폐
+                        </p>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-blue-100 text-[10px] text-blue-800 font-bold">
+                        🧪 핵심: 15~25℃ 보관
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="flow-card bg-rose-50 p-4 rounded-xl border border-rose-200 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="bg-rose-500 text-white text-[10px] font-black px-2 py-0.5 rounded">STEP 5</span>
+                        <h4 class="font-bold text-slate-900 text-xs mt-2">불량재 반출·마감</h4>
+                        <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                            규격 초과/손상 자재 <strong>즉시 현장 반출</strong>, 감리 인수검사 대장 서명
+                        </p>
+                    </div>
+                    <div class="bg-white p-2 rounded border border-rose-100 text-[10px] text-rose-800 font-bold">
+                        🚫 핵심: 불량재 100% 반출
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 정밀 공학 도식 (Technical Engineering Diagram) -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">2.</span> 자재별 구조 정밀 공학 기술 도식 (Engineering Specification Diagram)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 도식 1: 레일고정 액상수지 매설 단면 구조도 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                            <h3 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                                <span class="w-3 h-3 bg-blue-600 rounded-full inline-block"></span>
+                                레일고정 액상수지(Elastic Resin) 매설 단면도
+                            </h3>
+                            <span class="bg-blue-100 text-blue-900 text-[10px] font-bold px-2 py-0.5 rounded">이중 절연 & 진동차단</span>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                            도로 매설 홈레일(51R1) 측면 틈새에 액상수지를 주입하여 고탄성 고무로 경화시킴으로써 <strong>진동 소음 차단 및 누설전류(Stray Current) 부식 방지</strong> 역할을 수행합니다.
+                        </p>
+                        
+                        <!-- SVG 정밀 기술 단면 도 도식 -->
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex justify-center">
+                            <svg viewBox="0 0 380 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="380" height="200" fill="#f8fafc"/>
+                                <!-- 아스콘/콘크리트 도상 -->
+                                <rect x="30" y="120" width="320" height="60" fill="#94a3b8"/>
+                                <rect x="110" y="50" width="160" height="130" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+                                <text x="190" y="170" text-anchor="middle" font-size="9" font-weight="bold" fill="#334155">콘크리트 도상 슬래브</text>
+
+                                <!-- 레일고정 액상수지 층 (블루 고탄성체) -->
+                                <rect x="120" y="60" width="35" height="110" fill="#0284c7" opacity="0.9"/>
+                                <rect x="225" y="60" width="35" height="110" fill="#0284c7" opacity="0.9"/>
+                                <text x="137" y="115" text-anchor="middle" font-size="9" font-weight="black" fill="#ffffff" transform="rotate(-90 137 115)">액상수지(탄성체)</text>
+                                <text x="242" y="115" text-anchor="middle" font-size="9" font-weight="black" fill="#ffffff" transform="rotate(-90 242 115)">액상수지(탄성체)</text>
+
+                                <!-- 51R1 홈레일 -->
+                                <path d="M 160 170 L 160 70 L 155 70 L 155 55 L 225 55 L 225 70 L 220 70 L 220 170 Z" fill="#475569" stroke="#0f172a" stroke-width="2"/>
+                                <text x="190" y="105" text-anchor="middle" font-size="10" font-weight="black" fill="#ffffff">홈레일 51R1</text>
+
+                                <!-- 절연저항 및 공학 지시선 -->
+                                <line x1="260" y1="90" x2="330" y2="90" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="2,2"/>
+                                <circle cx="260" cy="90" r="3" fill="#0284c7"/>
+                                <text x="335" y="93" font-size="9" font-weight="bold" fill="#0284c7">절연저항 &ge; 10 M&Omega;</text>
+                                <text x="335" y="105" font-size="8" fill="#64748b">(누설전류 차단막)</text>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50/70 p-3 rounded-xl border border-blue-100 text-xs text-blue-950 space-y-1">
+                        <div class="font-bold">📋 액상수지 현장 수행 시방 수칙:</div>
+                        <div class="text-[11px] leading-relaxed">
+                            ① 주제:경화제 전용 교반기로 3분 혼합 ➔ ② 레일 틈새 액상 주입(Pouring) ➔ ③ 2~4시간 후 고탄성 고무 완밀 경화
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 도식 2: PST 프리캐스트 패널 치수 검측 도면 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-md flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+                            <h3 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                                <span class="w-3 h-3 bg-emerald-600 rounded-full inline-block"></span>
+                                PST 프리캐스트 패널 치수 허용공차 도면
+                            </h3>
+                            <span class="bg-emerald-100 text-emerald-900 text-[10px] font-bold px-2 py-0.5 rounded">공차 &plusmn;2.0mm 관리</span>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                            공장에서 제작 반입되는 PST 슬래브 패널은 현장 하차 시 버니어 캘리퍼스로 <strong>폭, 길이, 대각선 오차(&plusmn;2.0mm 이내)</strong>를 정밀 측량합니다.
+                        </p>
+                        
+                        <!-- SVG 정밀 기술 도면 도식 -->
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex justify-center">
+                            <svg viewBox="0 0 380 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0" y="0" width="380" height="200" fill="#f8fafc"/>
+                                <!-- PST 패널 본체 -->
+                                <rect x="50" y="45" width="280" height="110" fill="#cbd5e1" stroke="#334155" stroke-width="2" rx="4"/>
+                                <text x="190" y="105" text-anchor="middle" font-size="11" font-weight="black" fill="#1e293b">PST 슬래브 패널 모재 (설계 폭 L=3,000mm)</text>
+                                
+                                <!-- 치수 측정 빔 및 오차 표시선 -->
+                                <line x1="50" y1="25" x2="330" y2="25" stroke="#059669" stroke-width="2"/>
+                                <polygon points="50,25 58,20 58,30" fill="#059669"/>
+                                <polygon points="330,25 322,20 322,30" fill="#059669"/>
+                                <text x="190" y="20" text-anchor="middle" font-size="10" font-weight="black" fill="#059669">허용 공차: &plusmn;2.0mm 이내 (버니어 캘리퍼스 측정)</text>
+
+                                <!-- 대각선 측량 지시선 -->
+                                <line x1="50" y1="45" x2="330" y2="155" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                <text x="210" y="80" font-size="9" font-weight="bold" fill="#b45309" transform="rotate(20 210 80)">대각선 길이 오차 대조</text>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-emerald-50/70 p-3 rounded-xl border border-emerald-100 text-xs text-emerald-950 space-y-1">
+                        <div class="font-bold">📋 PST 패널 인수검사 시방 수칙:</div>
+                        <div class="text-[11px] leading-relaxed">
+                            ① 감리 입회 버니어 캘리퍼스 3면 측정 ➔ ② 오차 &plusmn;2.0mm 초과 및 모서리 균열 발생 시 현장 100% 즉시 반출
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 상세 세부 수행 수칙 (5개 단계별 엔지니어링 매뉴얼) -->
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b-2 border-emerald-600 pb-2">
+                <span class="text-emerald-600">3.</span> 단계별 실무 엔지니어링 수행 수칙
+            </h2>
+            
+            <div class="space-y-4">
+                <!-- Step 1 상세 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="bg-amber-500 text-white font-black text-xs px-3 py-1.5 rounded-lg shrink-0 mt-0.5">STEP 1</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">외산 자재 시공 60일 전 사전 공장검수 수칙</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            <span class="term-highlight" onclick="openGlossary('grooved_rail')">그루브드레일(51R1/60R2)</span>, <span class="term-highlight" onclick="openGlossary('resin_fill')">역상수지</span>, <span class="term-highlight" onclick="openGlossary('special_turnout')">외산 특수분기기</span> 등 해외 수입 자재는 공장 시험성적서(Mill Sheet) 원본을 입수하여 KCS 시방 규격 적합 여부를 검토하고 감리 승인을 의결합니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 2 상세 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="bg-sky-500 text-white font-black text-xs px-3 py-1.5 rounded-lg shrink-0 mt-0.5">STEP 2</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">25Ton 장축 수송 & 도로점용 안전 수칙</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            장척 레일 및 대형 트레일러 투입에 따라 관할 경찰서 및 구청과 도로점용 인허가를 완료합니다. 심야 반입 시 사인카 투입, 신호수 배치 및 안전 펜스를 가설하여 도심지 교통 사고를 예방합니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 3 상세 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="bg-emerald-600 text-white font-black text-xs px-3 py-1.5 rounded-lg shrink-0 mt-0.5">STEP 3</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">감리 입회 인수검사 & PST 패널 치수 정밀 검측 수칙</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            자재 하차 직후 감리 입회 하에 레일 표면 흠집을 전수 조사합니다. <span class="term-highlight" onclick="openGlossary('pst_panel')">PST 슬래브 패널</span>은 버니어 캘리퍼스로 폭과 길이를 측정하여 허용 공차 <strong>&plusmn;2.0mm 이내</strong> 판정 시에만 하차 승인합니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 4 상세 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="bg-blue-600 text-white font-black text-xs px-3 py-1.5 rounded-lg shrink-0 mt-0.5">STEP 4</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">레일고정 액상수지 상온 보관 & 현장 교반 주입 수칙</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            액상수지 드럼은 직사광선을 피하고 <strong>15~25℃ 상온 보관</strong>합니다. 현장 시공 시 레일 홈 청소 후 주제와 경화제를 규정 비율로 교반하여 액체 상태로 흘려넣고 2~4시간 후 완밀 경화시킵니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 5 상세 -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start gap-4">
+                    <div class="bg-rose-500 text-white font-black text-xs px-3 py-1.5 rounded-lg shrink-0 mt-0.5">STEP 5</div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">불량 자재 현장 전량 반출 & 자재대장 마감 수칙</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            치수 초과 및 균열 손상 자재는 현장 밖으로 회수 트럭을 투입해 전량 반출 조치합니다. 감리 입회 서명을 필한 자재인수검사 대장을 작성하고 품질 보존 대장에 영구 보존 등록합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal">
+    <div class="glossary-modal-content">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 자재검측 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    'resin_fill': {
+        title: '🧪 레일고정 액상수지 (Elastic Resin Fill)',
+        desc: '일반 콘크리트가 아닙니다! 트램 홈레일(51R1) 측면 틈새에 액체 상태로 채워 넣어 탄성 고무로 경화시키는 2액형 유연 수지입니다.\n1) 진동·소음 흡수: 도심지 트램 진동 차단\n2) 누설전류(Stray Current) 절연: 지중 매설관 부식 방지\n3) 수밀 고정: 빗물 침투 차단 및 레일 고정'
+    },
+    'special_turnout': {
+        title: '🔀 외산 특수 분기기 (Special Foreign Turnout)',
+        desc: '트램 차선 전환을 위한 전량 해외 수입 특수 분기기입니다. 콘크리트도상 반입 60일 전 해외 공장에서 3D 치수 및 작동 성능 검수를 마치고 국내 전용 컨테이너로 반입됩니다.'
+    },
+    'grooved_rail': {
+        title: '🛤️ 그루브드레일 (Grooved Rail, 51R1/60R2)',
+        desc: '도로 매설형 트램 선로에 사용되는 홈이 파인 특수 레일입니다. 전량 해외 수입 자재로, 콘크리트도상 시공 60일 전 공장 성적서(Mill Sheet) 검수 및 운반 조달 계획을 감리단과 의결해야 합니다.'
+    },
+    'pst_panel': {
+        title: '🧱 PST 프리캐스트 슬래브 패널',
+        desc: '공장에서 사전 제작되어 현장 반입되는 궤도용 콘크리트 슬래브 구조체입니다. 현장 반입 시 패널 치수 오차(±2.0mm 이내) 및 균열 흠집 여부를 정밀 계측하여 불량 시 즉시 반출합니다.'
+    }
+};
+
+function openGlossary(termKey) {
+    const data = glossaryData[termKey];
+    if (!data) return;
+    document.getElementById('modalTitle').innerText = data.title;
+    document.getElementById('modalDescription').innerText = data.desc;
+    document.getElementById('glossaryModal').classList.add('active');
+}
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('glossaryModal');
+        if(modal) modal.classList.remove('active');
+    }
+});
+</script>
+
+</body>
+</html>

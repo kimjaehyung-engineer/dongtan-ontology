@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄도시철도 - 지열 신재생에너지 배관 매설 수행지침</title>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; margin:0; padding:24px; color:#0f172a; line-height:1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px; border: 1px solid #e2e8f0; }
+    .header { border-bottom: 2px solid #0284c7; padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { display: inline-block; background: #0284c7; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0; }
+    .subtitle { font-size: 14px; color: #475569; margin: 0; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #0284c7; padding-left: 10px; margin: 24px 0 12px 0; }
+    .diagram-container { background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin:16px 0; text-align:center; cursor:pointer; transition:0.2s; }
+    .diagram-container:hover { border-color:#0284c7; box-shadow:0 4px 12px rgba(2,132,199,0.15); }
+    .diagram-hint { font-size:12px; color:#0284c7; font-weight:600; margin-top:8px; display:inline-block; }
+    .nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .nav-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+    .btn-std { background: #0f172a; color: #ffffff; }
+    .btn-chk { background: #d97706; color: #ffffff; }
+    .btn-std:hover { background: #1e293b; }
+    .btn-chk:hover { background: #b45309; }
+    /* Zoom Modal */
+    #zoomModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.75); z-index:9999; justify-content:center; align-items:center; padding:20px; box-sizing:border-box; }
+    .modal-content { background:#ffffff; border-radius:12px; max-width:1100px; width:100%; max-height:90vh; overflow:auto; padding:24px; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+    .close-btn { position:absolute; top:16px; right:16px; background:#f1f5f9; border:none; font-size:20px; font-weight:bold; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">9000-8-14 | 동탄트램 기계설비·소방설비 수행지침</span>
+      <h1 class="title">지열 신재생에너지 배관 매설 수행지침서</h1>
+      <p class="subtitle">옥외 지열 천공(150~200m), 고밀도 PE관(KSM 3408) 열교환기 융착 및 1.0MPa 수압시험</p>
+    </div>
+
+    <div class="section-title">1. 엔지니어링 2D 기술 도식 (클릭 시 확대)</div>
+    <div class="diagram-container" onclick="openDiagramZoom()">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">지열 신재생에너지 수직 밀폐형 U-Tube 배관 및 그라우팅 단면도</text>
+
+  <rect x="100" y="70" width="600" height="20" fill="#854d0e"/>
+  <text x="400" y="85" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">지표면 (Ground Level)</text>
+
+  <rect x="200" y="90" width="80" height="180" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
+  <text x="240" y="180" text-anchor="middle" font-size="10" font-weight="bold" fill="#854d0e">천공공(150m)<br>벤토나이트<br>그라우팅</text>
+
+  <path d="M 225 90 L 225 250 A 15 15 0 0 0 255 250 L 255 90" stroke="#2563eb" stroke-width="3" fill="none"/>
+  <text x="240" y="265" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e40af">U-Bend</text>
+
+  <path d="M 225 90 L 450 90 L 450 140" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 255 90 L 470 90 L 470 140" stroke="#dc2626" stroke-width="2" fill="none"/>
+
+  <rect x="420" y="140" width="280" height="110" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="560" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">지열 히트펌프 기계실 연결</text>
+  <text x="440" y="190" font-size="11" fill="#334155">• 고밀도 PE관 (KSM 3408, SDR 11)</text>
+  <text x="440" y="210" font-size="11" fill="#334155">• 1.0 MPa 수압시험 2시간 무누수</text>
+  <text x="440" y="230" font-size="11" fill="#334155">• 열전도도 ≥ 1.8 W/m·K 그라우팅</text>
+</svg>
+      <div class="diagram-hint">🔍 도식을 클릭하면 고해상도 대형 팝업으로 확대됩니다.</div>
+    </div>
+
+    <div class="section-title">2. 단계별 마스터 수행 절차 (Step-by-Step)</div>
+    
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 1</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 1: 지열 천공 지점 측량 및 천공기 가설</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">지하 지장물 이격거리 확보 및 지중 천공</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>정거장 부지 및 차량기지 지열 웰(Well) 배치도 기반 3D 좌표 측량</li><li style='margin-bottom:6px;'>지하수 오염 방지용 지표 케이싱(D200mm, 심도 6~10m) 선시공</li><li style='margin-bottom:6px;'>유압식 지열 천공기를 사용하여 지하 150~200m 깊이로 수직 천공 수행</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 2</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 2: U-Tube PE 열교환관 조립 및 1차 수압시험</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">U-Bend 헤드 융착 및 지상 수압 검측</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>지열 전용 고밀도 PE관(D32mm) 하단에 공장 일체형 U-Bend 헤드 융착</li><li style='margin-bottom:6px;'>지중 삽입 전 지상에서 1.0MPa 수압을 2시간 가압하여 배관 결함 및 누수 유무 검증</li><li style='margin-bottom:6px;'>배관 내부에 깨끗한 청수를 채운 상태로 압력 게이지를 유지하여 지중 삽입 준비</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 3</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 3: 지중 파이프 삽입 및 벤토나이트 그라우팅</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">열전도성 그라우트 바닥 가압 주입</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>천공 홀 내부로 U-Tube PE관과 주입관(Tremie Pipe)을 하단까지 조심스럽게 삽입</li><li style='margin-bottom:6px;'>열전도율(1.8 W/m·K 이상)을 향상시킨 친환경 벤토나이트 그라우트 슬러리 믹싱</li><li style='margin-bottom:6px;'>트레미관을 통해 바닥 최하단부터 상부까지 공극 없이 100% 가압 연속 충진</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 4</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 4: 지중 2차 수압시험 및 트렌치 기계실 연결</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">헤더 매니폴드 연결 및 지열 히트펌프 연동</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>그라우팅 양생 후 지중 매설 상태에서 2차 수압시험(1.0MPa, 2시간) 재검측</li><li style='margin-bottom:6px;'>지열 웰 간의 수평 연결배관을 트렌치 터파기(동결심도 이하 1.2m) 후 기계실 인입</li><li style='margin-bottom:6px;'>기계실 지열 헤더 매니폴드 밸브 결선 및 지열원 히트펌프(GHP) 시운전 완료</li>
+          </ul>
+        </div>
+        
+
+    <div class="section-title">3. 핵심 엔지니어링 용어 해설</div>
+    <div style="margin-top:12px;">
+      
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 지열 히트펌프 (GHP):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">연중 일정한 지하 온도(15±2℃)를 이용하여 냉난방을 수행하는 고효율 신재생 시스템</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• U-Tube 열교환관:</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">지하로 내려갔다가 다시 올라오는 U자 형태의 고밀도 플라스틱 열교환 파이프</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 벤토나이트 그라우팅:</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">지열 파이프와 지하 암반 사이의 빈틈을 채워 열전달을 극대화하고 지하수 오염을 막는 점토질 주입재</span>
+      </div>
+    
+    </div>
+
+    <div class="section-title">4. 기계·소방 엔지니어링 간이 계산기 (Interactive Calculator)</div>
+    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin-top:12px;">
+      <div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:10px;">배관 압력손실 및 소화수 방수압 판정기</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+        <label style="font-size:12px; color:#334155;">시험 압력 (MPa): <input type="number" id="testPressure" value="1.5" step="0.1" style="width:80px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <label style="font-size:12px; color:#334155;">유지 시간 (분): <input type="number" id="testTime" value="60" style="width:70px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <button onclick="calculateTest()" style="background:#0284c7; color:#fff; border:none; padding:6px 14px; border-radius:4px; font-size:12px; font-weight:700; cursor:pointer;">적합성 판정</button>
+        <span id="calcResult" style="font-size:13px; font-weight:700; color:#15803d; margin-left:10px;"></span>
+      </div>
+    </div>
+
+    <div class="nav-box">
+      <a href="../표준서/14_지열 신재생에너지 배관 매설_표준서.html" class="nav-btn btn-std">📄 [연계] 지열 신재생에너지 배관 매설 표준서 열기 ➔</a>
+      <a href="../체크리스트/14_지열 신재생에너지 배관 매설_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 지열 신재생에너지 배관 매설 체크리스트 열기 ➔</a>
+    </div>
+  </div>
+
+  <!-- Zoom Modal -->
+  <div id="zoomModal" onclick="closeDiagramZoom(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeDiagramZoom(event)">&times;</button>
+      <h3 style="margin-top:0; font-size:18px; color:#0f172a;">지열 신재생에너지 배관 매설 - 고해상도 기술 도식</h3>
+      <div style="margin-top:16px;">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">지열 신재생에너지 수직 밀폐형 U-Tube 배관 및 그라우팅 단면도</text>
+
+  <rect x="100" y="70" width="600" height="20" fill="#854d0e"/>
+  <text x="400" y="85" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">지표면 (Ground Level)</text>
+
+  <rect x="200" y="90" width="80" height="180" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
+  <text x="240" y="180" text-anchor="middle" font-size="10" font-weight="bold" fill="#854d0e">천공공(150m)<br>벤토나이트<br>그라우팅</text>
+
+  <path d="M 225 90 L 225 250 A 15 15 0 0 0 255 250 L 255 90" stroke="#2563eb" stroke-width="3" fill="none"/>
+  <text x="240" y="265" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e40af">U-Bend</text>
+
+  <path d="M 225 90 L 450 90 L 450 140" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <path d="M 255 90 L 470 90 L 470 140" stroke="#dc2626" stroke-width="2" fill="none"/>
+
+  <rect x="420" y="140" width="280" height="110" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="560" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">지열 히트펌프 기계실 연결</text>
+  <text x="440" y="190" font-size="11" fill="#334155">• 고밀도 PE관 (KSM 3408, SDR 11)</text>
+  <text x="440" y="210" font-size="11" fill="#334155">• 1.0 MPa 수압시험 2시간 무누수</text>
+  <text x="440" y="230" font-size="11" fill="#334155">• 열전도도 ≥ 1.8 W/m·K 그라우팅</text>
+</svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openDiagramZoom() {
+      document.getElementById('zoomModal').style.display = 'flex';
+    }
+    function closeDiagramZoom(e) {
+      document.getElementById('zoomModal').style.display = 'none';
+    }
+    function calculateTest() {
+      const p = parseFloat(document.getElementById('testPressure').value);
+      const t = parseFloat(document.getElementById('testTime').value);
+      const res = document.getElementById('calcResult');
+      if (p >= 1.0 && t >= 60) {
+        res.innerHTML = "✔ [합격] KCS 41 기준 충족 (1.0MPa 이상, 60분 유지 만족)";
+        res.style.color = "#15803d";
+      } else {
+        res.innerHTML = "❌ [불합격] 최소 수압(1.0MPa) 및 유지시간(60분) 미달";
+        res.style.color = "#dc2626";
+      }
+    }
+  </script>
+</body>
+</html>

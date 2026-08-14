@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄도시철도 - 정화조 음압 탈취설비 시공 수행지침</title>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; margin:0; padding:24px; color:#0f172a; line-height:1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px; border: 1px solid #e2e8f0; }
+    .header { border-bottom: 2px solid #0284c7; padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { display: inline-block; background: #0284c7; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0; }
+    .subtitle { font-size: 14px; color: #475569; margin: 0; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #0284c7; padding-left: 10px; margin: 24px 0 12px 0; }
+    .diagram-container { background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin:16px 0; text-align:center; cursor:pointer; transition:0.2s; }
+    .diagram-container:hover { border-color:#0284c7; box-shadow:0 4px 12px rgba(2,132,199,0.15); }
+    .diagram-hint { font-size:12px; color:#0284c7; font-weight:600; margin-top:8px; display:inline-block; }
+    .nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .nav-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+    .btn-std { background: #0f172a; color: #ffffff; }
+    .btn-chk { background: #d97706; color: #ffffff; }
+    .btn-std:hover { background: #1e293b; }
+    .btn-chk:hover { background: #b45309; }
+    /* Zoom Modal */
+    #zoomModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.75); z-index:9999; justify-content:center; align-items:center; padding:20px; box-sizing:border-box; }
+    .modal-content { background:#ffffff; border-radius:12px; max-width:1100px; width:100%; max-height:90vh; overflow:auto; padding:24px; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+    .close-btn { position:absolute; top:16px; right:16px; background:#f1f5f9; border:none; font-size:20px; font-weight:bold; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">9000-8-25 | 동탄트램 기계설비·소방설비 수행지침</span>
+      <h1 class="title">정화조 음압 탈취설비 시공 수행지침서</h1>
+      <p class="subtitle">정화조 관리층 유해/가연성 가스 배출용 약액세정식 탈취장치, 덕트 부압 및 가스센서</p>
+    </div>
+
+    <div class="section-title">1. 엔지니어링 2D 기술 도식 (클릭 시 확대)</div>
+    <div class="diagram-container" onclick="openDiagramZoom()">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">정화조 관리층 3종 음압 탈취 시스템 및 2단 약액세정탑 상세도</text>
+
+  <rect x="60" y="80" width="280" height="110" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="200" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">정화조실 (음압 -20Pa 유지)</text>
+  <text x="200" y="130" text-anchor="middle" font-size="10" fill="#334155">황화수소(H2S) / 메탄(CH4) 포집 후드</text>
+  <text x="200" y="150" text-anchor="middle" font-size="10" font-weight="bold" fill="#dc2626">방폭 가스감지 센서 연동</text>
+
+  <path d="M 340 135 L 430 135" stroke="#0284c7" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  <text x="385" y="125" text-anchor="middle" font-size="9" font-weight="bold" fill="#0284c7">FRP 덕트</text>
+
+  <rect x="430" y="70" width="310" height="130" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="585" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">2단 약액세정 및 활성탄 탈취탑</text>
+  <text x="450" y="120" font-size="10" fill="#334155">1단계: 산/알칼리 약품 세정 (스크러버)</text>
+  <text x="450" y="140" font-size="10" fill="#334155">2단계: 고성능 첨착 활성탄 흡착 베드</text>
+  <text x="450" y="160" font-size="10" font-weight="bold" fill="#15803d">최종 배출: 복합악취 희석배수 ≤ 500 이하</text>
+
+  <rect x="60" y="215" width="680" height="60" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <text x="80" y="240" font-size="11" font-weight="bold" fill="#0f172a">■ 밀폐공간 안전 및 악취 누출 100% 차단</text>
+  <text x="80" y="260" font-size="11" fill="#334155">• 출입문 개폐 시에도 외부 공기가 안으로만 빨려 들어가는 3종 음압 환기(15~20회/h)</text>
+</svg>
+      <div class="diagram-hint">🔍 도식을 클릭하면 고해상도 대형 팝업으로 확대됩니다.</div>
+    </div>
+
+    <div class="section-title">2. 단계별 마스터 수행 절차 (Step-by-Step)</div>
+    
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 1</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 1: 정화조실 음압 환기량 및 유해가스 농도 계산</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">시간당 20회 배기량 및 수조 포집 후드 설계</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>정화조 용량 및 폐수 유입량에 따른 황화수소/암모니아 발생 부하 산정</li><li style='margin-bottom:6px;'>정화조실 출입문 개폐 시에도 악취가 새어 나오지 않는 음압 기준(-15Pa) 도출</li><li style='margin-bottom:6px;'>수조 점검 맨홀 및 수면 직상부에 국부 악취 포집용 FRP 후드 배치 설계</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 2</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 2: 내식성 FRP 탈취 덕트 및 배기팬 가설</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">FRP 플랜지 체결 및 내화학 내식 송풍기</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>황화수소 가스 부식에 영구적인 유리섬유강화플라스틱(FRP, 두께 5mm) 덕트 시공</li><li style='margin-bottom:6px;'>배기팬 케이싱 및 임펠러를 테프론/FRP 코팅 내식형 방폭 송풍기로 안착</li><li style='margin-bottom:6px;'>풍도 접합부마다 내산성 네오프렌 가스켓 체결 및 스테인리스 볼트 조임</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 3</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 3: 2단 약액세정 탈취탑 및 약품 저장탱크 가설</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">차염소산나트륨/가성소다 약품 투입 배관</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>1차 산/알칼리 약액 세정 스크러버(Scrubber) 노즐 배관 및 폴링(Pall Ring) 충진</li><li style='margin-bottom:6px;'>2차 고성능 첨착 활성탄 흡착 베드(Bed) 적재 및 배출 굴뚝(Chimney) 가설</li><li style='margin-bottom:6px;'>약품 순환 펌프(마그네틱 펌프) 및 약품 자동 보충용 레벨 제어반 결선</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 4</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 4: 가스 누출 테스트, 음압 차압 검측 및 탈취 시운전</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">마노미터 차압계 및 악취 공인 포집 시험</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>정화조실 문을 닫고 배기팬 가동 시 실내 음압(-20Pa) 차압계 정상 검측</li><li style='margin-bottom:6px;'>실시간 H2S/CH4 가스감지기 교정 및 경보 발령 시 비상팬 100% 자동 가동 확인</li><li style='margin-bottom:6px;'>탈취탑 출구 가스 시료 채취를 통한 국가공인 악취판정검사 적합 승인 획득</li>
+          </ul>
+        </div>
+        
+
+    <div class="section-title">3. 핵심 엔지니어링 용어 해설</div>
+    <div style="margin-top:12px;">
+      
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 음압 환기 (Negative Pressure Ventilation):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">실내 공기를 강제로 빨아내어 내부 기압을 바깥보다 낮게 만듦으로써 냄새나 유해균이 밖으로 새어 나가지 못하게 하는 환기 기술</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 약액세정식 스크러버 (Chemical Scrubber):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">악취 가스에 산이나 알칼리 성분의 약품 물을 안개처럼 뿌려 중화·분해시켜 없애는 정화 탑</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• FRP (Fiber Reinforced Plastics):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">유리섬유로 보강하여 가볍고 강철보다 부식에 훨씬 강한 특수 플라스틱 재질</span>
+      </div>
+    
+    </div>
+
+    <div class="section-title">4. 기계·소방 엔지니어링 간이 계산기 (Interactive Calculator)</div>
+    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin-top:12px;">
+      <div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:10px;">배관 압력손실 및 소화수 방수압 판정기</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+        <label style="font-size:12px; color:#334155;">시험 압력 (MPa): <input type="number" id="testPressure" value="1.5" step="0.1" style="width:80px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <label style="font-size:12px; color:#334155;">유지 시간 (분): <input type="number" id="testTime" value="60" style="width:70px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <button onclick="calculateTest()" style="background:#0284c7; color:#fff; border:none; padding:6px 14px; border-radius:4px; font-size:12px; font-weight:700; cursor:pointer;">적합성 판정</button>
+        <span id="calcResult" style="font-size:13px; font-weight:700; color:#15803d; margin-left:10px;"></span>
+      </div>
+    </div>
+
+    <div class="nav-box">
+      <a href="../표준서/25_정화조 음압 탈취설비 시공_표준서.html" class="nav-btn btn-std">📄 [연계] 정화조 음압 탈취설비 시공 표준서 열기 ➔</a>
+      <a href="../체크리스트/25_정화조 음압 탈취설비 시공_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 정화조 음압 탈취설비 시공 체크리스트 열기 ➔</a>
+    </div>
+  </div>
+
+  <!-- Zoom Modal -->
+  <div id="zoomModal" onclick="closeDiagramZoom(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeDiagramZoom(event)">&times;</button>
+      <h3 style="margin-top:0; font-size:18px; color:#0f172a;">정화조 음압 탈취설비 시공 - 고해상도 기술 도식</h3>
+      <div style="margin-top:16px;">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">정화조 관리층 3종 음압 탈취 시스템 및 2단 약액세정탑 상세도</text>
+
+  <rect x="60" y="80" width="280" height="110" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="200" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">정화조실 (음압 -20Pa 유지)</text>
+  <text x="200" y="130" text-anchor="middle" font-size="10" fill="#334155">황화수소(H2S) / 메탄(CH4) 포집 후드</text>
+  <text x="200" y="150" text-anchor="middle" font-size="10" font-weight="bold" fill="#dc2626">방폭 가스감지 센서 연동</text>
+
+  <path d="M 340 135 L 430 135" stroke="#0284c7" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  <text x="385" y="125" text-anchor="middle" font-size="9" font-weight="bold" fill="#0284c7">FRP 덕트</text>
+
+  <rect x="430" y="70" width="310" height="130" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="585" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">2단 약액세정 및 활성탄 탈취탑</text>
+  <text x="450" y="120" font-size="10" fill="#334155">1단계: 산/알칼리 약품 세정 (스크러버)</text>
+  <text x="450" y="140" font-size="10" fill="#334155">2단계: 고성능 첨착 활성탄 흡착 베드</text>
+  <text x="450" y="160" font-size="10" font-weight="bold" fill="#15803d">최종 배출: 복합악취 희석배수 ≤ 500 이하</text>
+
+  <rect x="60" y="215" width="680" height="60" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <text x="80" y="240" font-size="11" font-weight="bold" fill="#0f172a">■ 밀폐공간 안전 및 악취 누출 100% 차단</text>
+  <text x="80" y="260" font-size="11" fill="#334155">• 출입문 개폐 시에도 외부 공기가 안으로만 빨려 들어가는 3종 음압 환기(15~20회/h)</text>
+</svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openDiagramZoom() {
+      document.getElementById('zoomModal').style.display = 'flex';
+    }
+    function closeDiagramZoom(e) {
+      document.getElementById('zoomModal').style.display = 'none';
+    }
+    function calculateTest() {
+      const p = parseFloat(document.getElementById('testPressure').value);
+      const t = parseFloat(document.getElementById('testTime').value);
+      const res = document.getElementById('calcResult');
+      if (p >= 1.0 && t >= 60) {
+        res.innerHTML = "✔ [합격] KCS 41 기준 충족 (1.0MPa 이상, 60분 유지 만족)";
+        res.style.color = "#15803d";
+      } else {
+        res.innerHTML = "❌ [불합격] 최소 수압(1.0MPa) 및 유지시간(60분) 미달";
+        res.style.color = "#dc2626";
+      }
+    }
+  </script>
+</body>
+</html>

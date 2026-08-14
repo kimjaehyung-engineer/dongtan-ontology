@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 자재 반입 및 검수 수행지침서 (WBS 9000-2-16)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .clickable-diagram {
+            cursor: zoom-in !important;
+            transition: all 0.25s ease !important;
+            position: relative !important;
+        }
+        .clickable-diagram:hover {
+            transform: scale(1.015) !important;
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+        }
+        .zoom-modal, .glossary-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto;
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+        .zoom-modal.active, .glossary-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 28px;
+            border: 1px solid #cbd5e1;
+            width: 95%; max-width: 1100px; max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow-y: auto; text-align: center;
+        }
+        .glossary-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            width: 90%; max-width: 620px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            position: relative; text-align: left;
+        }
+        .zoom-close, .glossary-close {
+            color: #64748b;
+            position: absolute; right: 20px; top: 16px;
+            font-size: 32px; font-weight: bold; cursor: pointer;
+            transition: color 0.2s;
+        }
+        .zoom-close:hover, .glossary-close:hover { color: #ef4444; }
+        .term-highlight {
+            color: #0284c7 !important; font-weight: 700 !important;
+            border-bottom: 2px dashed #0284c7 !important; cursor: pointer !important;
+            transition: all 0.2s ease !important; padding: 0 2px !important;
+        }
+        .term-highlight:hover { background: #e0f2fe !important; color: #0369a1 !important; border-radius: 4px !important; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Technical Guideline (WBS 9000-2-16)</span>
+        <h1 class="text-3xl font-black mt-2">자재 반입 및 검수 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-16 | 주관: 현장소장 및 발주청/공동감리단 | "자재 반입 입고 정밀 검수 부위 & 구체적 검수 방법 매뉴얼"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 실무 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 자재 반입 입고 검수 실무 가이드 (어느 부위를 어떻게 검수할 것인가?)</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                공장검사(FAT) 완료 후 현장에 반입되는 통신 자재에 대하여 <strong>어느 부위(Where)를 확인하고 어떤 방법(How)으로 입고 검측해야 하는지</strong> 구체적이고 정밀한 현장 지침을 수록하였습니다. 아래 4대 자재 반입 입고 검수 절차를 준수하여 <span class="term-highlight" onclick="openGlossary('material_approval')">자재승인원 대조</span>, <span class="term-highlight" onclick="openGlossary('serial_number')">Serial No. 매핑</span> 및 <span class="term-highlight" onclick="openGlossary('subul_ledger')">자재검수서 체결</span>을 진행하십시오.
+            </p>
+        </div>
+
+        <!-- 🏢 자재 반입 & 감리 입회 정밀 검수 부위 & 구체적 검수 방법 매뉴얼 -->
+        <div class="space-y-6">
+            <div class="border-b-2 border-blue-600 pb-2 flex items-center justify-between">
+                <div>
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">MATERIAL INSPECTION DETAILED MANUAL</span>
+                    <h3 class="text-xl font-black text-slate-900 mt-0.5">🏢 자재 반입 & 감리 입회 정밀 검수 부위 & 구체적 검수 방법 (Where & How)</h3>
+                </div>
+                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">현장 검수 100% 매뉴얼</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+                
+                <!-- 1. 승인 서류 & Serial No. 대조 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui1_approval', '01. 승인원 & Serial No. 100% 대조 2D 도식')">
+                        <svg id="svg_gui1_approval" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#9333ea" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#6b21a8" text-anchor="middle">📑 자재승인원 &amp; Serial No. 100% 대조</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="40" y="65" width="150" height="48" fill="#faf5ff" stroke="#c084fc" rx="4"/>
+                            <text x="115" y="85" font-size="10" font-weight="bold" fill="#7e22ce" text-anchor="middle">자재승인원 대조</text>
+                            <text x="115" y="100" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">승인 제조사/모델명 1:1</text>
+                            <rect x="210" y="65" width="150" height="48" fill="#f0f9ff" stroke="#38bdf8" rx="4"/>
+                            <text x="285" y="85" font-size="10" font-weight="bold" fill="#0284c7" text-anchor="middle">Serial No. 매핑</text>
+                            <text x="285" y="100" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">바코드 전수 스캔</text>
+                            <text x="200" y="142" font-size="9.5" font-weight="bold" fill="#047857" text-anchor="middle">• FAT 공장성적서 &amp; KS/KC 인증 첨부</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 승인 규격 대조 합격</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">검수 01</span>
+                        <span class="text-[11px] font-bold text-blue-900">승인 서류 & 시리얼 대조</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📑 1. 자재승인원 & Serial No. 100% 대조</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 통신 자재공급원 승인 서류, 공장검사(FAT) 성적서, 반입 자재 명판 표찰</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 자재 승인 문서 상 승인 제조사, 모델명, 정격 사양 1:1 대조<br>
+                            ② 광전송 랙, LTE-R 기지국, NVR 서버 바코드 시리얼 번호 전수 스캔<br>
+                            ③ 공인 시험성적서(KS/KC/TTA) 유효 기간 및 원본 대조
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 승인원 모델명 일치율 100% | Serial No. 바코드 전수 매핑</p>
+                    </div>
+                </div>
+
+                <!-- 2. 외관 파손 & Shock Watch 센서 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui2_damage', '02. 외관 파손 & Shock Watch 센서 2D 도식')">
+                        <svg id="svg_gui2_damage" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🔍 외관 파손 &amp; 충격 민감 센서 검측</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="40" y="65" width="150" height="48" fill="#e0f2fe" stroke="#0284c7" rx="4"/>
+                            <text x="115" y="85" font-size="10" font-weight="bold" fill="#0369a1" text-anchor="middle">Shock Watch ≤ 5G</text>
+                            <text x="115" y="100" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">적색 변색 유무 정밀 관찰</text>
+                            <rect x="210" y="65" width="150" height="48" fill="#fff8f0" stroke="#f59e0b" rx="4"/>
+                            <text x="285" y="85" font-size="10" font-weight="bold" fill="#9a3412" text-anchor="middle">KS / KC 인증 표찰</text>
+                            <text x="285" y="100" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">IP65 방수 가스켓 무결성</text>
+                            <text x="200" y="142" font-size="9.5" font-weight="bold" fill="#047857" text-anchor="middle">• 섀시 도장 긁힘/변형 흠집 0건 검측</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 외관 상태 합격</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">검수 02</span>
+                        <span class="text-[11px] font-bold text-blue-900">외관 파손 검측</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🔍 2. 외관 파손 & Shock Watch/KS/KC 마크 점검</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 장비 섀시 도장, 충격 센서(Shock Watch 5G), KS/KC 인증 스티커</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 포장재 도포 상태 및 운송 중 외관 긁힘, 찌그러짐 흠집 육안 점검<br>
+                            ② Class S OTN 랙 충격 센서(Shock Watch 5G) 적색 변색 시 반품<br>
+                            ③ KC인증 표찰 및 방수 IP65 가스켓 무결성 확인
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 섀시 긁힘/변형 0건 | Shock Watch 미변색 (투명/백색)</p>
+                    </div>
+                </div>
+
+                <!-- 3. 하차 동선 & 안전 양중 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui3_logistics', '03. 하차 동선 & 안전 양중 2D 도식')">
+                        <svg id="svg_gui3_logistics" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#16a34a" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#15803d" text-anchor="middle">🏗️ 자재 하차 동선 &amp; 안전 양중</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="40" y="65" width="150" height="48" fill="#f0fdf4" stroke="#4ade80" rx="4"/>
+                            <text x="115" y="85" font-size="10" font-weight="bold" fill="#15803d" text-anchor="middle">지게차 포크 고무 커버</text>
+                            <text x="115" y="100" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">양중 반경 펜스 &amp; 신호수</text>
+                            <rect x="210" y="65" width="150" height="48" fill="#f0fdf4" stroke="#22c55e" rx="4"/>
+                            <text x="285" y="85" font-size="10" font-weight="bold" fill="#15803d" text-anchor="middle">야적장 받침목 H≥100mm</text>
+                            <text x="285" y="100" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">배수 경사 2% | 천막 밀봉</text>
+                            <text x="200" y="142" font-size="9.5" font-weight="bold" fill="#047857" text-anchor="middle">• 600kg 광케이블 드럼 앙카 롤러 사용</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 하차 및 야적 적합</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">검수 03</span>
+                        <span class="text-[11px] font-bold text-blue-900">하차 및 야적 양중</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🏗️ 3. 하차 동선 & 지게차/크레인 안전 양중</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 화물차 하차 위치, 지게차 포크, 50톤 크레인 받침목, 야적장 지반</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 지게차 포크 보호 고무 패드 착용 및 양중 펜스 구획 설정<br>
+                            ② 600kg 광케이블 드럼 전용 앙카 롤러 받침대 사용<br>
+                            ③ 야적장 지표면 습기 차단용 방진 받침목(H≥100mm) 및 방수 덮개 밀봉
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 지게차 포크 고무 커버 부착 | 받침목 H≥100mm | 배수 경사 ≥ 2%</p>
+                    </div>
+                </div>
+
+                <!-- 4. 감리단 입회 자재검수서 & 수불대장 서명 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui4_sign', '04. 감리 입회 자재검수서 & 수불대장 서명 2D 도식')">
+                        <svg id="svg_gui4_sign" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">📝 감리 입회 자재검수서 &amp; 수불대장 체결</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="40" y="65" width="150" height="48" fill="#f0fdf4" stroke="#2dd4bf" rx="4"/>
+                            <text x="115" y="85" font-size="10" font-weight="bold" fill="#0f766e" text-anchor="middle">자재검수서 체결</text>
+                            <text x="115" y="100" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">감리원/현장대리인 자필 서명</text>
+                            <rect x="210" y="65" width="150" height="48" fill="#f0f9ff" stroke="#38bdf8" rx="4"/>
+                            <text x="285" y="85" font-size="10" font-weight="bold" fill="#0284c7" text-anchor="middle">수불대장 등재</text>
+                            <text x="285" y="100" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">시리얼/수량 전산 등록</text>
+                            <text x="200" y="142" font-size="9.5" font-weight="bold" fill="#047857" text-anchor="middle">• 현장 입고 사진대지(차량 전경/표찰) 첨부</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 증빙 체결 완수</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">검수 04</span>
+                        <span class="text-[11px] font-bold text-blue-900">검수 증빙 체결</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📝 4. 감리단 입회 자재검수서 & 수불대장 서명 체결</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 현장 자재검수서 서식, 자재 수불대장 전산 등록부, 감리원 서명란</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 발주청 및 공동감리단 입회 하 검측 완료 후 검수서에 자필 서명 체결<br>
+                            ② 반입 당일 입고 자재 모델명, 수량, Serial No. 수불대장 전산 등록<br>
+                            ③ 사진 대지(차량 전경, Serial 표찰, 검수 현장) 작성 첨부
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 자재검수서 3자 자필 서명 체결 | 수불대장 전산 당일 등록</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 📖 용어 및 대형보기 모달 -->
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 자재 반입 및 검수 표준 도식 대형 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[420px]">
+        </div>
+    </div>
+</div>
+
+<script>
+    const glossaryData = {
+        "material_approval": "<b>통신 자재공급원 승인 서류 (자재승인원)</b><br><br>• 본공사 착수 전 감리단 및 발주청으로부터 승인받은 자재의 제조사, 모델명, 공인 시험성적서 및 기술 규격서 모음집입니다. 현장 반입 자재와 100% 일치해야 합니다.",
+        "serial_number": "<b>Serial Number (시리얼 번호) 전수 매핑</b><br><br>• OTN 광전송, LTE-R 기지국, CCTV NVR 서버 등 주요 정보통신 기기의 고유 일련번호를 바코드 스캐너로 전수 대조하여 정품 및 승인 자재 여부를 관리하는 수칙입니다.",
+        "subul_ledger": "<b>자재 수불대장 (Material Ledger)</b><br><br>• 반입 자재의 날짜별 입고량, 출고량, 현장 재고량을 전산 관리하여 자재 유실 및 부실 관리를 예방하는 법적 품질 관리 서식입니다."
+    };
+
+    function openGlossary(term) {
+        const modal = document.getElementById('glossaryModal');
+        const titleEl = document.getElementById('modalTitle');
+        const descEl = document.getElementById('modalDescription');
+        if (glossaryData[term]) {
+            titleEl.innerHTML = "📖 용어 해설: " + term;
+            descEl.innerHTML = glossaryData[term];
+            modal.classList.add('active');
+        }
+    }
+
+    function closeGlossaryModal() { document.getElementById('glossaryModal').classList.remove('active'); }
+    function closeGlossaryModalOutside(e) { if (e.target.id === 'glossaryModal') closeGlossaryModal(); }
+
+    function openDiagramZoom(elementId, titleText) {
+        const srcEl = document.getElementById(elementId);
+        if (!srcEl) return;
+        const zoomBody = document.getElementById('zoomBody');
+        document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "정밀 도식 대형 보기");
+        zoomBody.innerHTML = srcEl.outerHTML;
+        const innerSvg = zoomBody.querySelector('svg');
+        if (innerSvg) {
+            innerSvg.setAttribute('width', '100%');
+            innerSvg.setAttribute('height', '580px');
+            innerSvg.style.maxWidth = '1080px';
+        }
+        document.getElementById('zoomModal').classList.add('active');
+    }
+
+    function closeZoomModal() { document.getElementById('zoomModal').classList.remove('active'); }
+    function closeZoomModalOutside(e) { if (e.target.id === 'zoomModal') closeZoomModal(); }
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') { closeZoomModal(); closeGlossaryModal(); }
+    });
+</script>
+</body>
+</html>

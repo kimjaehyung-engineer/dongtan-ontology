@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 전기분야 - 발주전략 KOM 체크리스트 (WBS 9000-3-2)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .zoom-modal {
+            display: none; position: fixed; z-index: 9999;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px); align-items: center; justify-content: center;
+        }
+        .zoom-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff; margin: auto; padding: 28px;
+            border: 1px solid #cbd5e1; width: 95%; max-width: 1100px; max-height: 90vh;
+            border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow-y: auto; text-align: center;
+        }
+        .zoom-close {
+            color: #64748b; position: absolute; right: 20px; top: 16px;
+            font-size: 32px; font-weight: bold; cursor: pointer;
+        }
+        .zoom-close:hover { color: #ef4444; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-amber-500 text-slate-900 text-xs font-black px-3 py-1 rounded-full uppercase">Dongtan Tram Electrical Checklist (WBS 9000-3-2)</span>
+        <h1 class="text-3xl font-black mt-2">발주전략 KOM 체크리스트</h1>
+        <p class="text-amber-200 text-sm mt-1">L4 Code: 9000-3-2 | 주관: 현장소장 (전철전력팀 · 책임감리단 공조) | "16개 정밀 검측 문항 1:1 수평대응 서식 (~하였는가? 어미 100% 통일)"</p>
+    </div>
+    
+    <div class="p-6 sm:p-8 space-y-6">
+        
+        <!-- 💡 체크리스트 점검의 핵심 의미 -->
+        <div class="bg-amber-50 border-2 border-amber-300 p-5 sm:p-6 rounded-2xl text-xs text-amber-950 space-y-3 shadow-sm">
+            <div class="flex items-center justify-between border-b border-amber-200 pb-2.5">
+                <h4 class="font-black text-sm text-amber-900 flex items-center gap-2">
+                    <span class="text-base">⚠️</span> 발주전략 KOM 체크리스트 점검의 핵심 의미
+                </h4>
+                <span class="text-[11px] font-bold bg-red-600 text-white px-2.5 py-0.5 rounded-full">발주 전 검측</span>
+            </div>
+            
+            <p class="text-slate-800 leading-relaxed font-semibold">
+                본 체크리스트는 동탄트램 노면전차설비 공사 발주 착수 전 <strong>8대 현실조건(자재 Lead Time, 시공 실적 Pool, 예비품, 시공중/후 교육 및 기술지원, 현장 자재창고 임대료, 가설 전원/용수/청소, 개통 후 상주 기술지원 및 내역 누락 헷지)을 100% 사전 검측하여 시공 중 원가 상승 분쟁 및 공기 지연 리스크를 소멸하기 위한 필수 확인 서식</strong>입니다.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+                <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                    <span class="font-bold text-red-700 text-[11px] block">🚨 자재 Lead Time 지연 차단</span>
+                    <p class="text-slate-700 text-[11px] leading-normal">제작소요 미산출 시 <strong>자재 입고 지연 및 공정 중단</strong> 초래.</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                    <span class="font-bold text-red-700 text-[11px] block">🚨 예상 내역 누락 분쟁 차단</span>
+                    <p class="text-slate-700 text-[11px] leading-normal">전식/접지 내역 누락 시 <strong>계약 변경 분쟁 및 원가 상승</strong> 야기.</p>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-amber-200 space-y-1">
+                    <span class="font-bold text-red-700 text-[11px] block">🚨 개통 후 기술공백 차단</span>
+                    <p class="text-slate-700 text-[11px] leading-normal">상주 기술지원 미포함 시 <strong>초기 영업운행 장애 복구 지연</strong> 발생.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📊 1:1 정밀 수평대응 3컬럼 체크리스트 테이블 (16개 핵심 문항) -->
+        <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+            <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                    <tr class="bg-slate-100 border-b border-slate-200 text-slate-700">
+                        <th class="p-4 font-bold w-44 text-center border-r border-slate-200">검토 단계 (Procedure)</th>
+                        <th class="p-4 font-bold border-r border-slate-200">필수 검측 및 확인 항목 (Inspection Criteria)</th>
+                        <th class="p-4 font-bold w-32 text-center">점검 결과</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                    
+                    <!-- STEP 1 설계분석 & 8대 조건(1) (4개 문항) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-amber-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 1</span>
+                            <span class="font-bold text-slate-900 text-xs">설계 & 자재/실적</span>
+                            <button onclick="openChecklistDiagram('step1')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 발주 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-amber-900 text-[11px] block mb-0.5">[자재 제작 소요 기간 (Lead Time)]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">1. 공정계획 대비 노면전차 특수 자재 제작 기간(Lead Time 30~60일)을 사전 산출하여 발주 조건에 반영하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-amber-900 text-[11px] block mb-0.5">[시공 실적 보유 적격 업체 Pool]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">2. 철도, 도시철도, 경전철 등 시공 실적을 보유한 검증된 적격 시공업체 Pool을 사전 확보하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-amber-900 text-[11px] block mb-0.5">[유사사례 영업운행 실적 시스템]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">3. 타 트램 현장에서 영업운행 실적이 확보된 안정적인 시스템 및 기기 사양을 적용하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80 border-b-2 border-slate-300">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-amber-900 text-[11px] block mb-0.5">[예상 내역 누락 아이템 헷지]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">4. 전식 방지 접지, 관통 슬리브 등 예상 내역 상 누락되기 쉬운 아이템을 사전 발굴하여 원가 헷지하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 2 8대 현실조건(2) (4개 문항) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-indigo-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 2</span>
+                            <span class="font-bold text-slate-900 text-xs">8대조건 내역반영</span>
+                            <button onclick="openChecklistDiagram('step2')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 발주 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[예비품 및 소모품 내역 포함]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">5. 개통 후 초기 유지보수를 위한 필수 예비품 및 소모품 수량을 발주 내역서에 명확히 반영하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[시공 전/중 운전 & 교육 지원]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">6. 시공 전/중 전기설비 시운전, 시가압 운전 및 운영자 기술 교육 지원 인건비/비용을 내역 반영하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[현장 자재보관 창고 임대료]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">7. 전차선 드럼 및 변전 설비의 안전한 부지 방습/방수를 위한 현장 창고 임대 비용을 계상하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80 border-b-2 border-slate-300">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-indigo-900 text-[11px] block mb-0.5">[공사용 전기 / 용수 / 청소 비용]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">8. 시공 가설 전력 요금, 공사용 용수비 및 현장 준공 청소 경비를 도급 내역서에 포함하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 3 상주 기술지원 & 현장여건 실측 (4개 문항) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-emerald-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 3</span>
+                            <span class="font-bold text-slate-900 text-xs">상주지원 & 현장실측</span>
+                            <button onclick="openChecklistDiagram('step3')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 발주 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[개통 후 상주 기술지원 인력/비용]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">9. 영업 개통 후 초기 안정을 위한 전문 엔지니어 상주 인력, 기술지원 기간 및 비용을 명기하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[현장 진입 도로 & 양중 여건]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">10. 대형 정류기/변압기 진입 도로 회전 반경, 높이 제한 및 크레인 양중 여건을 정밀 실측하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[타 공종 3D BIM 간섭 사전 확인]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">11. 노반(궤도), 통신, 신호, PSD 및 차량과의 3D BIM 공간 간섭 여부를 사전 조율하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80 border-b-2 border-slate-300">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-emerald-900 text-[11px] block mb-0.5">[수량 산출서 & 도면 일치성]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">12. 설계 도면, 수량 산출서 및 계약 발주 내역서 간 1:1 수량 일치 여부를 대조하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!-- STEP 4 KOM 회의록 체결 & 최종 승인 (4개 문항) -->
+                    <tr class="hover:bg-slate-50/80">
+                        <td rowspan="4" class="p-4 align-middle text-center bg-slate-50/50 border-r border-slate-200">
+                            <span class="bg-teal-600 text-white font-bold text-[10px] px-2 py-0.5 rounded block mb-1">STEP 4</span>
+                            <span class="font-bold text-slate-900 text-xs">KOM 회의록 & 승인</span>
+                            <button onclick="openChecklistDiagram('step4')" class="mt-2 text-[10px] bg-purple-100 text-purple-800 hover:bg-purple-200 font-bold px-2 py-1 rounded-full border border-purple-300 transition-all flex items-center gap-1 mx-auto">
+                                <span>🟣</span> 발주 도식 열기
+                            </button>
+                        </td>
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[현장소장 주관 KOM 회의]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">13. 현장소장 주관하에 전철전력팀 및 책임감리단이 참석한 발주전략 KOM 회의를 개최하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[8대 조건 포함 회의록 체결]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">14. 8대 현실조건 및 내역 누락 헷지 방안이 포함된 발주전략 KOM 종합 회의록을 체결하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[발주 특기시방서 최종 확정]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">15. 입찰참가 자격 심사(PQ) 배점 기준 및 발주 특기시방서를 공학적으로 최종 확정하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-slate-50/80">
+                        <td class="p-3.5 border-r border-slate-200">
+                            <span class="font-bold text-teal-900 text-[11px] block mb-0.5">[본사 외주/견적팀 입찰 반영]</span>
+                            <p class="text-slate-800 font-medium leading-relaxed">16. 승인 완료된 발주전략 보고서를 본사 외주구매팀 및 견적팀에 공식 전달하여 입찰 반영을 완수하였는가?</p>
+                        </td>
+                        <td class="p-3.5 align-middle text-center bg-slate-50/30">
+                            <label class="inline-flex items-center justify-center gap-1.5 font-bold text-slate-700 cursor-pointer">
+                                <input type="checkbox" class="chk-item w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500"/> 확인완료
+                            </label>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🟣 시공 도식 확대 팝업 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeChecklistDiagramOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeChecklistDiagram()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 발주전략 KOM 정밀 2D 시공 도식</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[420px]">
+        </div>
+    </div>
+</div>
+
+<script>
+    const diagramTemplates = {
+        step1: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#d97706" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#b45309" text-anchor="middle">🌐 [STEP 1] 설계분석 & 자재 Lead Time/실적 Pool 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(25, 52)">
+                <rect x="0" y="0" width="115" height="85" fill="#fffbeb" stroke="#d97706" stroke-width="2" rx="6"/>
+                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#b45309" text-anchor="middle">설계 & Lead Time</text>
+                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 자재 제작 30~60일</text>
+                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 적격 업체 Pool 검토</text>
+                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 내역 누락 헷지</text>
+                <line x1="115" y1="42" x2="160" y2="42" stroke="#d97706" stroke-width="2.5"/>
+                <polygon points="160,38 168,42 160,46" fill="#d97706"/>
+                <g transform="translate(170, 0)">
+                    <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">유사 영업운행</text>
+                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#15803d">• 철도/경전철 실적</text>
+                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#15803d">• 영업운행 시스템</text>
+                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#15803d">• 신뢰성 기기 적용</text>
+                </g>
+                <g transform="translate(295, 5)">
+                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">자재분석</text>
+                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">LeadTime</text>
+                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">실적Pool</text>
+                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 성공</text>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#fffbeb" stroke="#d97706" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#b45309" text-anchor="middle">자재 수급 Lead Time 및 유사 영업운행 적격 업체 Pool 사전 확정</text>
+        </svg>`,
+        step2: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#9333ea" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#6b21a8" text-anchor="middle">📦 [STEP 2] 8대 현실조건 내역 반영 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(25, 52)">
+                <rect x="0" y="0" width="115" height="85" fill="#faf5ff" stroke="#7e22ce" stroke-width="2" rx="6"/>
+                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#6b21a8" text-anchor="middle">예비품 & 교육지원</text>
+                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 예비품/소모품 반영</text>
+                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 시운전/교육 인건비</text>
+                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 운전지원 경비</text>
+                <line x1="115" y1="42" x2="160" y2="42" stroke="#9333ea" stroke-width="2.5"/>
+                <polygon points="160,38 168,42 160,46" fill="#9333ea"/>
+                <g transform="translate(170, 0)">
+                    <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">창고 & 가설전력</text>
+                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#15803d">• 현장 창고 임대료</text>
+                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#15803d">• 가설 전력/용수비</text>
+                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#15803d">• 준공 청소 비용</text>
+                </g>
+                <g transform="translate(295, 5)">
+                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">내역계상</text>
+                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">예비품</text>
+                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">창고임대</text>
+                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 반영</text>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#faf5ff" stroke="#c084fc" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#7e22ce" text-anchor="middle">예비품, 시공중 교육지원, 자재 창고 임대료 및 가설 전원 내역 포함 완료</text>
+        </svg>`,
+        step3: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#16a34a" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#15803d" text-anchor="middle">🛠️ [STEP 3] 상주 기술지원 & 현장 실측 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(25, 52)">
+                <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">개통 후 상주지원</text>
+                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 전문 인력 상주 기간</text>
+                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 기술지원 비용 명기</text>
+                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 장애 대응 체계</text>
+                <line x1="115" y1="42" x2="160" y2="42" stroke="#16a34a" stroke-width="2.5"/>
+                <polygon points="160,38 168,42 160,46" fill="#16a34a"/>
+                <g transform="translate(170, 0)">
+                    <rect x="0" y="0" width="115" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#0369a1" text-anchor="middle">현장 실측 & 간섭</text>
+                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0369a1">• 진입 도로 회전 반경</text>
+                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0369a1">• 3D BIM 간섭 검토</text>
+                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0369a1">• 수량 일치성 대조</text>
+                </g>
+                <g transform="translate(295, 5)">
+                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">기술상주</text>
+                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">도로실측</text>
+                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">BIM조율</text>
+                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 완료</text>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#15803d" text-anchor="middle">개통 후 상주 기술지원 인력/비용 및 현장 진입 도로 실측 완수</text>
+        </svg>`,
+        step4: `<svg viewBox="0 0 420 200" width="100%" height="380" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#0d9488" stroke-width="2.5" rx="6"/>
+            <text x="210" y="34" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">📄 [STEP 4] KOM 회의록 체결 & 최종 승인 도식</text>
+            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+            <g transform="translate(30, 48)">
+                <rect x="0" y="0" width="165" height="85" fill="#f0fdf4" stroke="#0d9488" stroke-width="2" rx="4"/>
+                <text x="82" y="20" font-size="9" font-weight="black" fill="#0f766e" text-anchor="middle">현장소장 주관 KOM</text>
+                <text x="15" y="40" font-size="8" font-weight="bold" fill="#0f172a">• 8대 현실조건 체결</text>
+                <text x="15" y="55" font-size="8" font-weight="bold" fill="#0f172a">• 발주 특기시방 확정</text>
+                <text x="15" y="70" font-size="8" font-weight="bold" fill="#0f172a">• PQ 배점 기준 수립</text>
+                <g transform="translate(180, 0)">
+                    <rect x="0" y="0" width="175" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="4"/>
+                    <text x="87" y="20" font-size="9" font-weight="black" fill="#0369a1" text-anchor="middle">외주/견적팀 입찰 반영</text>
+                    <text x="15" y="40" font-size="7.5" font-weight="bold" fill="#334155">• KOM 종합 회의록 전달</text>
+                    <text x="15" y="55" font-size="7.5" font-weight="bold" fill="#334155">• 입찰 안내서 공개</text>
+                    <g transform="translate(100, 35) rotate(-10)">
+                        <rect x="0" y="0" width="65" height="32" fill="#ffffff" stroke="#059669" stroke-width="2" rx="4"/>
+                        <text x="32" y="16" font-size="9" font-weight="900" fill="#059669" text-anchor="middle">KOM 승인</text>
+                        <text x="32" y="26" font-size="6.5" font-weight="bold" fill="#059669" text-anchor="middle">최종 완료</text>
+                    </g>
+                </g>
+            </g>
+            <rect x="30" y="148" width="360" height="28" fill="#f0fdf4" stroke="#2dd4bf" rx="4"/>
+            <text x="210" y="165" font-size="9" font-weight="black" fill="#0f766e" text-anchor="middle">발주전략 KOM 종합 회의록 체결 및 외주구매/견적팀 입찰 반영 승인 완수</text>
+        </svg>`
+    };
+
+    function openChecklistDiagram(stepKey) {
+        const zoomBody = document.getElementById('zoomBody');
+        const zoomModal = document.getElementById('zoomModal');
+        const zoomTitle = document.getElementById('zoomTitle');
+        if (diagramTemplates[stepKey]) {
+            zoomTitle.innerText = "🔍 " + stepKey.toUpperCase() + " 발주전략 KOM 정밀 2D 시공 도식";
+            zoomBody.innerHTML = diagramTemplates[stepKey];
+            zoomModal.classList.add('active');
+        }
+    }
+
+    function closeChecklistDiagram() {
+        document.getElementById('zoomModal').classList.remove('active');
+    }
+
+    function closeChecklistDiagramOutside(e) {
+        if (e.target.id === 'zoomModal') closeChecklistDiagram();
+    }
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeChecklistDiagram();
+    });
+</script>
+</body>
+</html>

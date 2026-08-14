@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 전기 / 신호 / 기계 / PSD / 차량 인터페이스 협의 표준서 (쉬운 용어 개편)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Noto Sans KR', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-slate-900 text-white p-8">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Standard (쉬운 용어 개편)</span>
+        <h1 class="text-3xl font-black mt-2">전기 / 신호 / 기계 / PSD / 차량 인터페이스 협의 표준서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-4 | 주관: 현장 시스템팀 / 통신·전기·신호·차량 협업업체</p>
+    </div>
+    
+    <div class="p-8 space-y-8">
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-xl">
+            <h3 class="text-base font-bold text-blue-950 mb-2">🎯 표준 목적 (Objective)</h3>
+            <p class="text-slate-700 text-sm font-medium leading-relaxed">
+                동탄트램 1단계 시스템 분야 설계 인터페이스 정리 서류(12대 항목)에 준하여 전기(소요전력, 22.9kV 수전, 통합 UPS), 신호(공동관로, 전자연동장치), 통신(96Core 광통신망 통합 포설, CCTV/LTE-R Pole 공용), 차량(무가선 LTO 배터리, 30초 정차 정차역 급속충전), 기계/PSD(비상통화, 4자 배수처리) 간의 시공 단계 인터페이스 협의 회의록 및 1,2공구 종합 관리대장의 무결성을 보장함을 목적으로 함.
+            </p>
+        </div>
+
+        <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-4 border-b-2 border-blue-600 pb-2">📜 12대 시스템 인터페이스 정밀 시방 수칙 (Methodology)</h3>
+            <ul class="space-y-3">
+                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙 1</span>
+                    <span class="text-slate-800 text-sm font-medium leading-relaxed"><strong>96Core 광통신망 통합 포설 수칙:</strong> 통신 48Core + 전기 충전기 감시 2Core + 신호 12Core(8Core)를 OF-SM-96Core×2조로 통합 포설하여 케이블 코어를 확정함.</span>
+                </li>
+                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙 2</span>
+                    <span class="text-slate-800 text-sm font-medium leading-relaxed"><strong>KEC 전선관 점유율 33% & 공동관로:</strong> KEC 규정 33% 이하 준수, 상/하선 ELP ø150mm×6개×2조 관로 배치 및 상부 프리캐스트 콘크리트 보호판 매설 수칙을 적용함.</span>
+                </li>
+                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙 3</span>
+                    <span class="text-slate-800 text-sm font-medium leading-relaxed"><strong>CCTV & LTE-R Pole 공용화 수칙:</strong> 12m 강관주 Pole 및 기초대 65개소 공용화, CCTV 제어함체(10kg) 및 LTE-R 안테나(RRU) 공용 지지대의 구조해석을 검측함.</span>
+                </li>
+                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙 4</span>
+                    <span class="text-slate-800 text-sm font-medium leading-relaxed"><strong>통합 UPS (일반 10kVA / 연동 20kVA):</strong> 일반역 10kVA, 연동역 15~20kVA 통합 UPS 채택, 신호 TPD 및 돌발유고장치(500VA) 전원을 통신 UPS에 통합 수용함.</span>
+                </li>
+                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙 5</span>
+                    <span class="text-slate-800 text-sm font-medium leading-relaxed"><strong>차량 무가선 & 30초 정차 급속충전:</strong> LTO 배터리 + 슈퍼캐패시터 차량, 30초 정차 중 5초 상승/20초 충전/5초 하강 집전장치 인터페이스 및 차상 무정전 전원(UPS) 결속 수칙을 반영함.</span>
+                </li>
+                <li class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-start gap-3">
+                    <span class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded mt-0.5">수칙 6</span>
+                    <span class="text-slate-800 text-sm font-medium leading-relaxed"><strong>무선통신 호환성 & 전파 합격증 (TTA/KCA):</strong> 무선통신 장비가 서로 잘 터지고 해킹당하지 않는지 국가 인증(TTA)을 수신하고 최종 전파 합격증(KCA) 서류를 확인·체결함.</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-xl">
+            <h3 class="text-base font-bold text-emerald-950 mb-2">📦 증빙 산출물 (Deliverables)</h3>
+            <p class="text-emerald-900 text-sm font-bold">PDF 12대 규격 반영 인터페이스 회의록, 96Core 광배선도, 통합 UPS 배전반 산출서, 5자 서명 체결 승인서</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

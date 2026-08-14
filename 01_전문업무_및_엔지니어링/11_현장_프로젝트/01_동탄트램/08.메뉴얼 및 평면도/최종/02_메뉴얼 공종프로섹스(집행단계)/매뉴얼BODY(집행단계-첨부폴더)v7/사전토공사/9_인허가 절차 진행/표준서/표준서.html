@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인허가 절차 진행 기술 표준서</title>
+    <style>
+        :root {
+            --primary-color: #2563EB;
+            --primary-light: #EFF6FF;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 2rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 25px 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--primary-light);
+            color: #1E3A8A;
+            font-weight: 700;
+        }
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 25px;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .bullet-list.numbered li:nth-child(1)::before { content: "1)"; }
+        .bullet-list.numbered li:nth-child(2)::before { content: "2)"; }
+        .bullet-list.numbered li:nth-child(3)::before { content: "3)"; }
+        .bullet-list.numbered li:nth-child(4)::before { content: "4)"; }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-9-1 Standard</div>
+        <h1 class="title">인허가 절차 진행 기술 표준서</h1>
+    </div>
+
+    <h2>1. 법적 근거 및 도시철도법 의제 처리 표준</h2>
+    <p>본 표준서는 트램 시공 시 도로 굴착 및 점용에 따른 복잡한 행정 허가를 적기에 획득하고, 법적 고발 리스크를 차단하기 위한 승인 체계를 규정합니다.</p>
+    <ul class="bullet-list">
+        <li><strong>도시철도법 제8조 (인가·허가 등의 의제)</strong>: 도로법에 따른 도로점용 및 굴착허가는 사업시행청(화성시)의 도시철도사업계획 승인을 통해 일괄 의제 처리되도록 승인 도서를 구성해야 합니다.</li>
+        <li><strong>도로교통법 제138조의2 (노면전차 승인 협의)</strong>: 궤도 가설에 따른 시·도경찰청 및 관할 소방서 협의 조서를 첨부해야 합니다.</li>
+    </ul>
+
+    <h2>2. 인허가 항목별 승인기관 및 관련 조례</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>인허가 항목</th>
+                <th>주요 승인 및 관리 기관</th>
+                <th>주요 협의 사항 및 법적 기간</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>도로점용 허가</strong></td>
+                <td>화성시청 도로관리과 / 동탄출장소 교통건설과</td>
+                <td>차선 가설 방벽 설치 한계 승인 (법정 처리 14일)</td>
+            </tr>
+            <tr>
+                <td><strong>도로굴착 허가</strong></td>
+                <td>화성시청 도로관리과 (도로관리심의회)</td>
+                <td>지하 지장물 의견 청취 및 복구원인자부담금 (법정 15일)</td>
+            </tr>
+            <tr>
+                <td><strong>교통 소통 심의</strong></td>
+                <td>화성동탄경찰서 교통계 / 경기도경찰청</td>
+                <td>우회차로 신호 연동 및 안전 표지 가설 (심의 30일)</td>
+            </tr>
+            <tr>
+                <td><strong>비산먼지/특정공사</strong></td>
+                <td>화성시청 기후환경과</td>
+                <td>세륜기 가동 및 방음벽 높이 기준 승인 (신고 7일)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. 제출 필수 조서 도서 목록</h2>
+    <ul class="bullet-list numbered">
+        <li><strong>도로점용/굴착허가신청서</strong> (도로법 시행규칙 별지 제24호 표준 서식)</li>
+        <li><strong>도로굴착 계획서</strong> 및 <strong>지하매설물 유관기관 합동 확인 의견서</strong> (가스, 한전, 난방, 상수도 등 관리자 서명 필)</li>
+        <li><strong>교통소통대책서 및 시공 안전 계획서</strong> (신호수 배치, 안내 표지판 도면)</li>
+        <li><strong>도로복구 원인자부담금 납부 확약서</strong> 및 보증 증권</li>
+    </ul>
+
+    <div class="footer-note">
+        동탄도시철도(트램) 1공구 엔지니어링 표준서 | 주관: 현장 공사팀 / 보상지원팀
+    </div>
+</div>
+</body>
+</html>

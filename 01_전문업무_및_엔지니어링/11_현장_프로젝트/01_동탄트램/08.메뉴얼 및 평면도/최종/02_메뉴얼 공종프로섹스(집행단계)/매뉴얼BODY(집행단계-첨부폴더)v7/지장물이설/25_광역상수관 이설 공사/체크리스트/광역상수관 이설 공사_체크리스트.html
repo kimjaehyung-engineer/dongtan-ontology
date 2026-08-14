@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 지장물이설 - 광역상수관 이설 공사 체크리스트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .theme-font-toolbar { position: fixed; bottom: 24px; right: 24px; z-index: 1000; display: flex; align-items: center; gap: 8px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); padding: 8px 14px; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .toolbar-btn { background: transparent; color: #f8fafc; border: none; font-size: 14px; font-weight: 700; padding: 4px 10px; cursor: pointer; border-radius: 9999px; transition: all 0.2s; }
+        .toolbar-btn:hover { background: rgba(255, 255, 255, 0.2); }
+        .toolbar-btn.active { background: #3b82f6; color: #fff; }
+        body.dark-theme { background-color: #0f172a; color: #f8fafc; }
+        body.dark-theme .bg-white { background-color: #1e293b !important; color: #f8fafc !important; }
+        body.dark-theme .border-slate-200 { border-color: #334155 !important; }
+        body.dark-theme .text-slate-900 { color: #f8fafc !important; }
+        body.dark-theme .text-slate-800 { color: #f1f5f9 !important; }
+        body.fs-small { font-size: 0.875rem; }
+        body.fs-medium { font-size: 1rem; }
+        body.fs-large { font-size: 1.125rem; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased py-10 px-4 sm:px-8 fs-medium">
+
+    <div class="theme-font-toolbar">
+        <button id="btn-theme" class="toolbar-btn" title="테마 변경">☀️</button>
+        <span style="color:rgba(255,255,255,0.2); font-size:12px;">|</span>
+        <button id="btn-fs-small" class="toolbar-btn" title="글자 작게">A-</button>
+        <button id="btn-fs-medium" class="toolbar-btn active" title="글자 보통">A</button>
+        <button id="btn-fs-large" class="toolbar-btn" title="글자 크게">A+</button>
+    </div>
+
+    <div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200/80 p-8 sm:p-12 space-y-8">
+        <!-- 🔵 헤더 영역 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b-2 border-slate-900 gap-4">
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                    광역상수관 이설 공사 마스터 체크리스트
+                </h1>
+            </div>
+            <div class="text-right text-xs font-black text-indigo-600 tracking-wide">
+                WBS Code 2000-4-1 | 지장물이설 검측대장
+            </div>
+        </div>
+
+        <!-- ⚠️ 리스크 경고 상자 -->
+        <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-6 space-y-3">
+            <h3 class="text-base font-black text-amber-950 flex items-center gap-2">
+                <span>⚠️</span> 주요 미검측 시 발생 리스크 (Risk Factor Warning)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-bold text-amber-900">
+                <div class="bg-white/80 p-3 rounded-xl border border-amber-200">1. 품질 허용 오차 초과 및 재시공 비용 증대</div>
+                <div class="bg-white/80 p-3 rounded-xl border border-amber-200">2. 현장 안전사고 및 관제·운행선 간섭 위험</div>
+                <div class="bg-white/80 p-3 rounded-xl border border-amber-200">3. 준공 검사 미승인 및 공기 연체 리스크</div>
+            </div>
+        </div>
+
+        <!-- 📋 3컬럼 검측 테이블 -->
+        <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-100 text-slate-900 text-xs font-black border-b border-slate-200">
+                        <th class="px-4 py-3.5 text-center w-14">No</th>
+                        <th class="px-5 py-3.5">필수 검측 및 확인 항목 (Inspection Criteria)</th>
+                        <th class="px-4 py-3.5 text-center w-32">점검 결과</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                    
+        <tr class="hover:bg-slate-50/80 transition border-b border-slate-200/70">
+            <td class="px-4 py-3.5 text-center text-xs font-black text-slate-500 bg-slate-50/50">1</td>
+            <td class="px-5 py-3.5 text-sm font-semibold text-slate-800 leading-snug">광역상수관 이설 공사 착수 전 관련 시방서 규격 및 KDS/KCS 설계 기준을 정밀 검토하였는가?</td>
+            <td class="px-4 py-3.5 text-center text-xs font-bold text-emerald-700 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                    <input type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"> 확인완료
+                </span>
+            </td>
+        </tr>
+        <tr class="hover:bg-slate-50/80 transition border-b border-slate-200/70">
+            <td class="px-4 py-3.5 text-center text-xs font-black text-slate-500 bg-slate-50/50">2</td>
+            <td class="px-5 py-3.5 text-sm font-semibold text-slate-800 leading-snug">광역상수관 이설 공사 시공에 필요한 주요 자재공급원 승인 및 입도/성적서를 점검하였는가?</td>
+            <td class="px-4 py-3.5 text-center text-xs font-bold text-emerald-700 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                    <input type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"> 확인완료
+                </span>
+            </td>
+        </tr>
+        <tr class="hover:bg-slate-50/80 transition border-b border-slate-200/70">
+            <td class="px-4 py-3.5 text-center text-xs font-black text-slate-500 bg-slate-50/50">3</td>
+            <td class="px-5 py-3.5 text-sm font-semibold text-slate-800 leading-snug">광역상수관 이설 공사 작업 구간 지장물 간섭 여부 및 3D BIM 좌표 연동성을 실측 검측하였는가?</td>
+            <td class="px-4 py-3.5 text-center text-xs font-bold text-emerald-700 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                    <input type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"> 확인완료
+                </span>
+            </td>
+        </tr>
+        <tr class="hover:bg-slate-50/80 transition border-b border-slate-200/70">
+            <td class="px-4 py-3.5 text-center text-xs font-black text-slate-500 bg-slate-50/50">4</td>
+            <td class="px-5 py-3.5 text-sm font-semibold text-slate-800 leading-snug">현장 작업 근로자 안전 교육, TBM 및 개인 보호구 착용 상태를 확인하였는가?</td>
+            <td class="px-4 py-3.5 text-center text-xs font-bold text-emerald-700 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                    <input type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"> 확인완료
+                </span>
+            </td>
+        </tr>
+        <tr class="hover:bg-slate-50/80 transition border-b border-slate-200/70">
+            <td class="px-4 py-3.5 text-center text-xs font-black text-slate-500 bg-slate-50/50">5</td>
+            <td class="px-5 py-3.5 text-sm font-semibold text-slate-800 leading-snug">중장비 반입 전 건설기계 정기검사합격증 및 후방 카메라/경고등 가동을 점검하였는가?</td>
+            <td class="px-4 py-3.5 text-center text-xs font-bold text-emerald-700 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                    <input type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"> 확인완료
+                </span>
+            </td>
+        </tr>
+        <tr class="hover:bg-slate-50/80 transition border-b border-slate-200/70">
+            <td class="px-4 py-3.5 text-center text-xs font-black text-slate-500 bg-slate-50/50">6</td>
+            <td class="px-5 py-3.5 text-sm font-semibold text-slate-800 leading-snug">시공 후 품질 규격 오차 범위(허용오차 규정) 내 충족 여부를 확인하였는가?</td>
+            <td class="px-4 py-3.5 text-center text-xs font-bold text-emerald-700 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                    <input type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"> 확인완료
+                </span>
+            </td>
+        </tr>
+        <tr class="hover:bg-slate-50/80 transition border-b border-slate-200/70">
+            <td class="px-4 py-3.5 text-center text-xs font-black text-slate-500 bg-slate-50/50">7</td>
+            <td class="px-5 py-3.5 text-sm font-semibold text-slate-800 leading-snug">환경오염 방지 대책(비산먼지, 소음·진동 등) 및 둔차선 가설재를 점검하였는가?</td>
+            <td class="px-4 py-3.5 text-center text-xs font-bold text-emerald-700 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                    <input type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"> 확인완료
+                </span>
+            </td>
+        </tr>
+        <tr class="hover:bg-slate-50/80 transition border-b border-slate-200/70">
+            <td class="px-4 py-3.5 text-center text-xs font-black text-slate-500 bg-slate-50/50">8</td>
+            <td class="px-5 py-3.5 text-sm font-semibold text-slate-800 leading-snug">책임감리원 입회하에 서면 검측을 수검하고 서명 결재 대장을 완료하였는가?</td>
+            <td class="px-4 py-3.5 text-center text-xs font-bold text-emerald-700 whitespace-nowrap">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                    <input type="checkbox" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500"> 확인완료
+                </span>
+            </td>
+        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const btnTheme = document.getElementById('btn-theme');
+        const btnFsSmall = document.getElementById('btn-fs-small');
+        const btnFsMedium = document.getElementById('btn-fs-medium');
+        const btnFsLarge = document.getElementById('btn-fs-large');
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+                btnTheme.textContent = '🌙';
+            } else {
+                document.body.classList.remove('dark-theme');
+                btnTheme.textContent = '☀️';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        function applyFontSize(size) {
+            document.body.classList.remove('fs-small', 'fs-medium', 'fs-large');
+            document.body.classList.add('fs-' + size);
+            [btnFsSmall, btnFsMedium, btnFsLarge].forEach(btn => btn.classList.remove('active'));
+            if (size === 'small') btnFsSmall.classList.add('active');
+            else if (size === 'medium') btnFsMedium.classList.add('active');
+            else if (size === 'large') btnFsLarge.classList.add('active');
+            localStorage.setItem('fontSize', size);
+        }
+
+        applyTheme(localStorage.getItem('theme') || 'light');
+        applyFontSize(localStorage.getItem('fontSize') || 'medium');
+
+        btnTheme.addEventListener('click', () => applyTheme(document.body.classList.contains('dark-theme') ? 'light' : 'dark'));
+        btnFsSmall.addEventListener('click', () => applyFontSize('small'));
+        btnFsMedium.addEventListener('click', () => applyFontSize('medium'));
+        btnFsLarge.addEventListener('click', () => applyFontSize('large'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄도시철도 - TAB(풍량_수량 밸런싱) 측정 수행지침</title>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; margin:0; padding:24px; color:#0f172a; line-height:1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px; border: 1px solid #e2e8f0; }
+    .header { border-bottom: 2px solid #0284c7; padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { display: inline-block; background: #0284c7; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0; }
+    .subtitle { font-size: 14px; color: #475569; margin: 0; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #0284c7; padding-left: 10px; margin: 24px 0 12px 0; }
+    .diagram-container { background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin:16px 0; text-align:center; cursor:pointer; transition:0.2s; }
+    .diagram-container:hover { border-color:#0284c7; box-shadow:0 4px 12px rgba(2,132,199,0.15); }
+    .diagram-hint { font-size:12px; color:#0284c7; font-weight:600; margin-top:8px; display:inline-block; }
+    .nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .nav-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+    .btn-std { background: #0f172a; color: #ffffff; }
+    .btn-chk { background: #d97706; color: #ffffff; }
+    .btn-std:hover { background: #1e293b; }
+    .btn-chk:hover { background: #b45309; }
+    /* Zoom Modal */
+    #zoomModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.75); z-index:9999; justify-content:center; align-items:center; padding:20px; box-sizing:border-box; }
+    .modal-content { background:#ffffff; border-radius:12px; max-width:1100px; width:100%; max-height:90vh; overflow:auto; padding:24px; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+    .close-btn { position:absolute; top:16px; right:16px; background:#f1f5f9; border:none; font-size:20px; font-weight:bold; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">9000-8-35 | 동탄트램 기계설비·소방설비 수행지침</span>
+      <h1 class="title">TAB(풍량_수량 밸런싱) 측정 수행지침서</h1>
+      <p class="subtitle">실별 설계 풍량/수량 정밀 측정, 디퓨저 풍량비 ±10% 및 밸런싱 밸브 오차 조정</p>
+    </div>
+
+    <div class="section-title">1. 엔지니어링 2D 기술 도식 (클릭 시 확대)</div>
+    <div class="diagram-container" onclick="openDiagramZoom()">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">공조 덕트 및 수배관 TAB(풍량/수량 밸런싱) 정밀 측정·조정</text>
+
+  <rect x="60" y="75" width="320" height="120" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="220" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">1. 공조 덕트 풍량 TAB</text>
+  <text x="80" y="125" font-size="10" fill="#334155">• 피토관 주풍량 측정 및 볼륨댐퍼(VD) 조정</text>
+  <text x="80" y="145" font-size="10" fill="#334155">• 플로우 후드 이용 디퓨저 취출 풍량 측정</text>
+  <text x="80" y="165" font-size="10" font-weight="bold" fill="#1d4ed8">• 설계 풍량 대비 오차율 ≤ ±10% 이내 교정</text>
+
+  <rect x="420" y="75" width="320" height="120" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="580" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">2. 수배관 유량 TAB</text>
+  <text x="440" y="125" font-size="10" fill="#334155">• 초음파 비파괴 유량계 실제 통수량 실측</text>
+  <text x="440" y="145" font-size="10" fill="#334155">• 밸런싱 밸브 차압(ΔP) 조절 코일 유량 배분</text>
+  <text x="440" y="165" font-size="10" font-weight="bold" fill="#15803d">• 펌프 양정 및 수배관 저항 밸런싱 완료</text>
+
+  <rect x="60" y="210" width="680" height="60" rx="4" fill="#fefce8" stroke="#ca8a04" stroke-width="1"/>
+  <text x="400" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#854d0e">✔ 실내 소음(NC 35~40) 및 실별 온·습도 균일도 100% 입증 공인 TAB 보고서 획득</text>
+</svg>
+      <div class="diagram-hint">🔍 도식을 클릭하면 고해상도 대형 팝업으로 확대됩니다.</div>
+    </div>
+
+    <div class="section-title">2. 단계별 마스터 수행 절차 (Step-by-Step)</div>
+    
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 1</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 1: TAB 사전 검토 및 측정 계획서 수립</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">설계 도면, 장비 사양서, 계통도 사전 분석</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>공인 TAB 전문업체(대한설비공학회 인증) 등록증 및 교정 검정된 측정 장비 확인</li><li style='margin-bottom:6px;'>공조기, 송풍기, 펌프 설계 데이터 시트 및 디퓨저별 설계 풍량 산출표 취합</li><li style='margin-bottom:6px;'>측정 전 덕트 내부 청소 상태, 필터 장착 여부, 배관 에어빼기 완료 상태 사전 점검</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 2</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 2: 공조 덕트 주풍량 및 디퓨저 풍량 측정·조정</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">피토관 및 플로우 후드를 이용한 비례조정</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>공조기 메인 덕트 직관부에 피토관(Pitot Tube)을 삽입하여 총 풍량(CMM) 실측</li><li style='margin-bottom:6px;'>가지 덕트 볼륨댐퍼(VD)를 순차 조정하여 각 실별 분기 풍량 배분</li><li style='margin-bottom:6px;'>각 실 천장 디퓨저에 플로우 후드(Flow Hood)를 밀착하여 풍량 측정 및 오차(±10% 이내) 교정</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 3</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 3: 냉온수 배관 수량 밸런싱 및 펌프 양정 실측</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">초음파 유량계 및 밸런싱 밸브 차압 조정</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>냉동기, 보일러, AHU 코일 전·후단에 부착된 밸런싱 밸브의 압력 강하(ΔP) 측정</li><li style='margin-bottom:6px;'>비파괴 초음파 유량계를 파이프 외벽에 장착하여 실제 통수 유량(LPM) 정밀 실측</li><li style='margin-bottom:6px;'>설계 유량보다 과다하게 흐르는 바이패스 밸브를 조여 전 코일에 정량 공급 밸런싱</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 4</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 4: 실내 온·습도, 소음(NC) 측정 및 TAB 종합보고서 승인</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">공인 시험 성적서 발급 및 최종 준공</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>정거장 승강장 및 대합실 실내 소음도(NC 35~40 기준 부합) 정밀 측정</li><li style='margin-bottom:6px;'>클린룸 및 변전실의 실내 온·습도 분포 및 양압/음압 형성 상태 검증</li><li style='margin-bottom:6px;'>측정 전·후 비교표가 수록된 TAB 최종 기술보고서 감리단 승인 및 완료</li>
+          </ul>
+        </div>
+        
+
+    <div class="section-title">3. 핵심 엔지니어링 용어 해설</div>
+    <div style="margin-top:12px;">
+      
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• TAB (Testing, Adjusting, Balancing):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">건물 안의 모든 에어컨 바람과 물 흐름을 정밀하게 측정하고 조절해서 구석구석 골고루 시원하고 따뜻하게 만들어주는 종합 튜닝 기술</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 플로우 후드 (Flow Hood):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">천장에 달린 환기구에 씌워서 뿜어져 나오는 바람의 양을 한 방울도 안 놓치고 측정하는 깔때기 모양의 측정기</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• NC 소음 기준 (Noise Criteria):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">에어컨이나 덕트에서 나는 바람 소리가 사람 귀에 거슬리지 않는지 평가하는 실내 소음 표준 곡선</span>
+      </div>
+    
+    </div>
+
+    <div class="section-title">4. 기계·소방 엔지니어링 간이 계산기 (Interactive Calculator)</div>
+    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin-top:12px;">
+      <div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:10px;">배관 압력손실 및 소화수 방수압 판정기</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+        <label style="font-size:12px; color:#334155;">시험 압력 (MPa): <input type="number" id="testPressure" value="1.5" step="0.1" style="width:80px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <label style="font-size:12px; color:#334155;">유지 시간 (분): <input type="number" id="testTime" value="60" style="width:70px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <button onclick="calculateTest()" style="background:#0284c7; color:#fff; border:none; padding:6px 14px; border-radius:4px; font-size:12px; font-weight:700; cursor:pointer;">적합성 판정</button>
+        <span id="calcResult" style="font-size:13px; font-weight:700; color:#15803d; margin-left:10px;"></span>
+      </div>
+    </div>
+
+    <div class="nav-box">
+      <a href="../표준서/35_TAB(풍량_수량 밸런싱) 측정_표준서.html" class="nav-btn btn-std">📄 [연계] TAB(풍량_수량 밸런싱) 측정 표준서 열기 ➔</a>
+      <a href="../체크리스트/35_TAB(풍량_수량 밸런싱) 측정_체크리스트.html" class="nav-btn btn-chk">📋 [연계] TAB(풍량_수량 밸런싱) 측정 체크리스트 열기 ➔</a>
+    </div>
+  </div>
+
+  <!-- Zoom Modal -->
+  <div id="zoomModal" onclick="closeDiagramZoom(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeDiagramZoom(event)">&times;</button>
+      <h3 style="margin-top:0; font-size:18px; color:#0f172a;">TAB(풍량_수량 밸런싱) 측정 - 고해상도 기술 도식</h3>
+      <div style="margin-top:16px;">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">공조 덕트 및 수배관 TAB(풍량/수량 밸런싱) 정밀 측정·조정</text>
+
+  <rect x="60" y="75" width="320" height="120" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="220" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">1. 공조 덕트 풍량 TAB</text>
+  <text x="80" y="125" font-size="10" fill="#334155">• 피토관 주풍량 측정 및 볼륨댐퍼(VD) 조정</text>
+  <text x="80" y="145" font-size="10" fill="#334155">• 플로우 후드 이용 디퓨저 취출 풍량 측정</text>
+  <text x="80" y="165" font-size="10" font-weight="bold" fill="#1d4ed8">• 설계 풍량 대비 오차율 ≤ ±10% 이내 교정</text>
+
+  <rect x="420" y="75" width="320" height="120" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="580" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">2. 수배관 유량 TAB</text>
+  <text x="440" y="125" font-size="10" fill="#334155">• 초음파 비파괴 유량계 실제 통수량 실측</text>
+  <text x="440" y="145" font-size="10" fill="#334155">• 밸런싱 밸브 차압(ΔP) 조절 코일 유량 배분</text>
+  <text x="440" y="165" font-size="10" font-weight="bold" fill="#15803d">• 펌프 양정 및 수배관 저항 밸런싱 완료</text>
+
+  <rect x="60" y="210" width="680" height="60" rx="4" fill="#fefce8" stroke="#ca8a04" stroke-width="1"/>
+  <text x="400" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#854d0e">✔ 실내 소음(NC 35~40) 및 실별 온·습도 균일도 100% 입증 공인 TAB 보고서 획득</text>
+</svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openDiagramZoom() {
+      document.getElementById('zoomModal').style.display = 'flex';
+    }
+    function closeDiagramZoom(e) {
+      document.getElementById('zoomModal').style.display = 'none';
+    }
+    function calculateTest() {
+      const p = parseFloat(document.getElementById('testPressure').value);
+      const t = parseFloat(document.getElementById('testTime').value);
+      const res = document.getElementById('calcResult');
+      if (p >= 1.0 && t >= 60) {
+        res.innerHTML = "✔ [합격] KCS 41 기준 충족 (1.0MPa 이상, 60분 유지 만족)";
+        res.style.color = "#15803d";
+      } else {
+        res.innerHTML = "❌ [불합격] 최소 수압(1.0MPa) 및 유지시간(60분) 미달";
+        res.style.color = "#dc2626";
+      }
+    }
+  </script>
+</body>
+</html>

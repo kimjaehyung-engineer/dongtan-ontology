@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 자재 / 인력 / 장비 등 투입 사전 검토 표준서 (WBS 9000-2-8)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        
+    .clickable-diagram {
+        cursor: zoom-in !important;
+        transition: all 0.25s ease !important;
+        position: relative !important;
+    }
+    .clickable-diagram:hover {
+        transform: scale(1.015) !important;
+        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+    }
+    .glossary-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        align-items: center;
+        justify-content: center;
+    }
+    .glossary-modal.active {
+        display: flex;
+    }
+    .glossary-modal-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 24px;
+        border: 1px solid #e2e8f0;
+        width: 90%;
+        max-width: 580px;
+        border-radius: 16px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        text-align: left;
+    }
+    .glossary-close {
+        color: #64748b;
+        position: absolute;
+        right: 20px;
+        top: 16px;
+        font-size: 32px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    .glossary-close:hover {
+        color: #ef4444;
+    }
+    .term-highlight {
+        color: #0284c7 !important;
+        font-weight: 700 !important;
+        border-bottom: 2px dashed #0284c7 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        padding: 0 2px !important;
+    }
+    .term-highlight:hover {
+        background: #e0f2fe !important;
+        color: #0369a1 !important;
+        border-radius: 4px !important;
+    }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Standard (WBS 9000-2-8)</span>
+        <h1 class="text-3xl font-black mt-2">자재 / 인력 / 장비 등 투입 사전 검토 마스터 표준서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-8 | 주관: 현장 시스템팀 / 협력업체 / 감리단 | "법적 근거 및 시방 품질 심사 규정"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        <!-- 💡 표준 개요 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 본 표준서의 개요 및 법적·공학적 의의</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                본 표준서는 <span class="term-highlight" onclick="openGlossary('정보통신공사업법')">정보통신공사업법</span>, <span class="term-highlight" onclick="openGlossary('건설기술진흥법')">건설기술 진흥법</span>, 및 <span class="term-highlight" onclick="openGlossary('KCS471000')">KCS 47 10 00</span> 철도통신 표준시방서에 근거하여, 동탄트램 통신공사 착공 전 투입 자원(인력·장비·자재)의 품질 수급 및 타당성을 사전 검증·승인함으로써 <strong>시공 품질 하자를 사전에 차단하고 공기 내 무결점 시공을 달성하는 법적 표준 규정</strong>입니다.
+            </p>
+        </div>
+
+        <!-- 📜 1. 관련 관계 법령 및 시방 기준 -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-blue-600 pb-2">1. 관련 관계 법령 및 국토교통부 시방 기준</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">🏛️ 정보통신공사업법 제33조 (기술자 배치)</span>
+                    <p class="text-slate-700 text-xs leading-relaxed">공사 현장 규모별 정보통신기술자(특급/고급)의 현장 상주 배치를 의무화하여 기술 책임 시공 체계를 확립합니다.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">📑 정보통신공사업법 제36조 (자재 검수)</span>
+                    <p class="text-slate-700 text-xs leading-relaxed">공사 수급인은 자재 입고 시 공장시험 성적서(Mill Test)를 확인받고 감리원 사전 승인을 득한 후 투입해야 합니다.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">📐 건설기술 진흥법 시행령 제91조</span>
+                    <p class="text-slate-700 text-xs leading-relaxed">현장에 투입되는 정밀 시험 측정 계측기에 대해 국가공인기관 검교정을 시행하고 유효성을 유지해야 합니다.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
+                    <span class="font-bold text-blue-800 flex items-center gap-2">🚆 KCS 47 10 00 철도통신 시방서</span>
+                    <p class="text-slate-700 text-xs leading-relaxed">자재 야적 보관, 방수·방염 및 정밀 계측기(OTDR, 융착기) 검측 기준을 준수하도록 명시합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🎯 2. 4대 정량적 자원 투입 심사 표준 기준 -->
+        <div class="space-y-6">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-indigo-600 pb-2">2. 4대 정량적 자원 투입 심사 표준 기준</h2>
+            
+            <div class="space-y-4 text-sm">
+                <!-- 기준 1 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="font-bold text-base text-indigo-900 flex items-center gap-2">
+                        <span class="bg-indigo-600 text-white text-xs font-black px-2.5 py-1 rounded">기준 1</span>
+                        👤 인력 자격 표준: 현장대리인 및 공종별 숙련 기술자 상주 배치
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1.5 text-xs text-slate-700 leading-relaxed">
+                        <li><strong>현장 대리인:</strong> 정보통신기술사 또는 기술사급 5년 이상 실무 경력자를 현장 전담 배치합니다.</li>
+                        <li><strong>숙련 기술자:</strong> 72-Core 광케이블 접속 및 LTE-R 무선망 시공 경력 3년 이상인 고급/특급 기술자 100% 배치를 검증합니다.</li>
+                    </ul>
+                </div>
+
+                <!-- 기준 2 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="font-bold text-base text-indigo-900 flex items-center gap-2">
+                        <span class="bg-indigo-600 text-white text-xs font-black px-2.5 py-1 rounded">기준 2</span>
+                        ⚡ 장비 검교정 표준: 정밀 시험 계측기 국가공인 <span class="term-highlight" onclick="openGlossary('검교정')">검교정</span> 유효성
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1.5 text-xs text-slate-700 leading-relaxed">
+                        <li><strong>대상 장비:</strong> 광융착기(Fusion Splicer), OTDR(광파동 측정기), 광파워미터, 스펙트럼 분석기.</li>
+                        <li><strong>검교정 유효기간:</strong> 국가공인기관(KOLAS 인증) 발행 <strong>1년 이내 검교정 성적서 원본</strong>을 보유한 장비만 투입을 허용합니다.</li>
+                    </ul>
+                </div>
+
+                <!-- 기준 3 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="font-bold text-base text-indigo-900 flex items-center gap-2">
+                        <span class="bg-indigo-600 text-white text-xs font-black px-2.5 py-1 rounded">기준 3</span>
+                        📦 자재 검수 표준: 공장시험성적서(Mill Test) 및 법정 무선 적합인증
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1.5 text-xs text-slate-700 leading-relaxed">
+                        <li><strong>품질 성적서:</strong> 광케이블, 4K IP CCTV, PIS 전광판 입고 시 제조업체 공장시험성적서 원본을 확인합니다.</li>
+                        <li><strong>무선 적합성:</strong> LTE-R 안테나 및 무선 장비는 국립전파연구원(TTA/KCA) 전파 적합 필증 획득 여부를 사전 심사합니다.</li>
+                    </ul>
+                </div>
+
+                <!-- 기준 4 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="font-bold text-base text-indigo-900 flex items-center gap-2">
+                        <span class="bg-indigo-600 text-white text-xs font-black px-2.5 py-1 rounded">기준 4</span>
+                        🚧 보관 & 안전 표준: 자재 야적장 환경 및 도로 굴착 안전 통제
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1.5 text-xs text-slate-700 leading-relaxed">
+                        <li><strong>야적장 시설:</strong> 방수/방습 덮개, 방염 천막, 도난 방지 펜스 및 24시간 감시망 시설을 갖춘 장소에만 야적합니다.</li>
+                        <li><strong>교통 안전:</strong> 도로 굴착 및 지장물 가설 작업 시 전담 신호수 2인 배치 및 안전 야간 점멸등 설치를 의무화합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        
+        
+    </div>
+</div>
+
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 법령 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    "정보통신공사업법": "<b>정보통신공사업법 제33조 및 제36조</b><br><br>• <b>제33조 (기술자 배치):</b> 공사 현장별 정보통신기술자(특급/고급) 현장 상주 배치를 법적으로 의무화합니다.<br>• <b>제36조 (자재 검수):</b> 수급인은 주요 통신 자재 입고 시 시험 성적서 확인 및 감리원 승인을 득해야 합니다.",
+    "건설기술진흥법": "<b>건설기술 진흥법 시행령 제91조 (품질관리)</b><br><br>• 현장 정밀 측정 계측기(광융착기, OTDR 등)에 대해 국가공인기관 검교정을 주기적으로 시행하고 적합성을 검증받아야 합니다.",
+    "KCS471000": "<b>KCS 47 10 00 (철도신호통신공사 표준시방서)</b><br><br>• 철도 통신 시스템 공사의 자재 야적 보관, 방수/방염 조치, 공종별 기술자 자격 및 정밀 시험 절차를 규정한 국토교통부 표준 시방 기준입니다.",
+    "검교정": "<b>검교정 (Calibration)</b><br><br>• 계측기 오차가 국가 표준 기준 내에 있는지 <b>1년 마다 공인 기관(KOLAS)에서 검사 및 승인</b>받는 기술 절차입니다."
+};
+
+function openGlossary(term) {
+    const modal = document.getElementById('glossaryModal');
+    const titleEl = document.getElementById('modalTitle');
+    const descEl = document.getElementById('modalDescription');
+    
+    if (glossaryData[term]) {
+        titleEl.innerHTML = "📖 용어/법령 해설: " + term;
+        descEl.innerHTML = glossaryData[term];
+        modal.classList.add('active');
+    }
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function closeGlossaryModalOutside(event) {
+    if (event.target.id === 'glossaryModal') {
+        closeGlossaryModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeGlossaryModal();
+    }
+});
+</script>
+
+</body>
+</html>

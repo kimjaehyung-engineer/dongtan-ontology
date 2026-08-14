@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상부강화노반 - 발주전략 KOM 완료 검측 체크리스트</title>
+    <style>
+        :root { --primary-color: #D97706; --primary-light: #FEF3C7; --text-color: #1F2937; --bg-color: #F9FAFB; --card-bg: #FFFFFF; --border-color: #E5E7EB; }
+        body { font-family: 'Inter', '맑은 고딕', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 40px 20px; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 40px; }
+        .header { border-bottom: 2px solid var(--primary-light); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: #6B7280; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+        .title { font-size: 1.8rem; color: #111827; margin: 0; font-weight: 800; }
+        .meta-info { display: flex; gap: 15px; margin-top: 12px; font-size: 0.9rem; color: #6B7280; flex-wrap: wrap; }
+        .badge { background-color: var(--primary-light); color: var(--primary-color); padding: 4px 8px; border-radius: 6px; font-weight: 600; font-size: 0.8rem; }
+        h2 { font-size: 1.25rem; color: #111827; border-left: 4px solid var(--primary-color); padding-left: 12px; margin-top: 35px; margin-bottom: 15px; }
+        .bullet-list { list-style: none; padding-left: 0; margin-bottom: 25px; }
+        .bullet-list li { position: relative; padding-left: 28px; margin-bottom: 12px; font-size: 0.95rem; line-height: 1.5; }
+        .bullet-list li::before { content: "☐"; position: absolute; left: 0; color: var(--primary-color); font-weight: 700; font-size: 1.1rem; }
+        .footer-note { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: #9CA3AF; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-7-2 Checklist</div>
+        <h1 class="title">발주전략 KOM 완료 검측 체크리스트</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 상부강화노반 / 토공</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장소장 (D-70)</span>
+            <span>|</span>
+            <span><span class="badge">완료 검측 표준</span></span>
+        </div>
+    </div>
+
+    <h2>1. 완료 검측 세부 체크리스트 (Inspection Items)</h2>
+    <ul class="bullet-list">
+        <li>강화노반 반력계수 K30 ≥ 110 MN/m³ (PBT 시험) 적격 여부를 확인하였는가?</li>
+        <li>변형계수 Ev2 ≥ 120 MPa 및 변형비 Ev2/Ev1 ≤ 2.2 시방 기준 만족 여부를 확인하였는가?</li>
+        <li>다짐도 ≥ 95% (수정 AASHTO 다짐) 및 1층 다짐 두께 ≤ 30cm (느슨한 두께)를 준수하였는가?</li>
+        <li>강화노반 표고 허용 공차 ± 10mm 및 배수 횡단 구배 2.0% 형성 여부를 3D 측량으로 확인하였는가?</li>
+        <li>GRS80 세계측지계(중부원점) 좌표 및 선로 중심선 편차 ≤ ± 5mm 이내인가?</li>
+        <li>스마트 토공 장비(GPS/GNSS 유도 롤러, 스마트 믹서) 반영률 100% 검토를 수행했는가?</li>
+        <li>하도급법 준수 및 본사 외주 조달지침 적합성을 검증했는가?</li>
+        <li>가설 B/P(배치플랜트) 생산용량 및 야적장 면적 산정 (일일 목표 타설량의 150% 확보)을 하였는가?</li>
+    </ul>
+
+    <h2>2. 집행단계 리스크 점검사항 (LLBS Risk Checklist)</h2>
+    <ul class="bullet-list">
+        <li>절성토 경계부 계단식 층따기(1:4 구배) 및 맹암거(유공관, 부직포 필터) 시공으로 부등침하 방지 조치를 완료하였는가?</li>
+        <li>연약지반(PVD, DCM, CGS) 침하속도 ≤ 1.0mm/월 수렴 및 방치기간 확보 여부를 확인했는가?</li>
+        <li>토지보상 미완료 구간 포함 발주 시 협력사 단가 인상 및 공기 지연 리스크를 검토하였는가?</li>
+        <li>스마트 롤러 다짐관리 시스템 장비 스펙 누락으로 인한 강화노반 다짐 품질 미달 리스크를 확인하였는가?</li>
+    </ul>
+
+    <h2>3. 협력사 공사관리 검측 확인사항 (Subcontractor Verification)</h2>
+
+        <ul class="bullet-list" style="margin-top: 10px;">
+            <li>☐ <strong>[협력업체 자문]</strong> 최소 1~2km 노반 완료 후 궤도 공정에 전달 인계하였는가? (정주건설 자문)</li>
+            <li>☐ <strong>[협력업체 자문]</strong> 하부 배수박스 위 대형 레미콘/장비 통과 시 구조 하중 안전성을 검토하였는가? (정주건설 자문)</li>
+        </ul>
+        
+    <ul class="bullet-list">
+        <li>현장 투입 다짐 장비(10t+ 진동롤러, 15t+ 타이어롤러) 검수 및 다짐 pass 수를 확인하였는가?</li>
+        <li>우수 토공 전문협력사 입찰 참여 유도 및 장비 보유 현황을 사전 검증하였는가?</li>
+        <li>스마트 토공장비 운용 능력을 평가 항목에 반영하였는가?</li>
+    </ul>
+
+    <div class="footer-note">동탄도시철도(트램) 건설공사 엔지니어링 체크리스트 | WBS 9000-7-2</div>
+</div>
+</body>
+</html>

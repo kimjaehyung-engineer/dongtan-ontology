@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=device-width, initial-scale=1.0">
+    <title>사전토공사 - Site Survey 기술 표준서</title>
+    <style>
+        :root {
+            --primary-color: #2563EB;
+            --primary-light: #EFF6FF;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --success-color: #10B981;
+            --warning-color: #F59E0B;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .title {
+            font-size: 2rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        .meta-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+        .badge {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+        }
+        th {
+            background-color: var(--primary-light);
+            color: #1E3A8A;
+            font-weight: 700;
+            width: 25%;
+        }
+        tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 25px;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .bullet-list.numbered li:nth-child(1)::before { content: "1)"; }
+        .bullet-list.numbered li:nth-child(2)::before { content: "2)"; }
+        .bullet-list.numbered li:nth-child(3)::before { content: "3)"; }
+        .bullet-list.numbered li:nth-child(4)::before { content: "4)"; }
+        .callout {
+            background-color: #FFFBEB;
+            border-left: 4px solid var(--warning-color);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 25px 0;
+            font-size: 0.9rem;
+            color: #78350F;
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-5-1 Standard</div>
+        <h1 class="title">Site Survey 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>분야:</strong> 사전토공사 / 토공</span>
+            <span>|</span>
+            <span><strong>최종 개정일:</strong> 2026년 7월 22일</span>
+            <span><span class="badge">설계 기술 표준 규격</span></span>
+        </div>
+    </div>
+
+    <h2>1. 관련 법적 규격 및 기술 출처 (References)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>적용 표준 및 고시명</th>
+                <th>주요 관리 요건</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>법률 및 시행령</strong></td>
+                <td>「공간정보의 구축 및 관리 등에 관한 법률 및 동법 시행령」</td>
+                <td>국가 기준점 연계 규격 및 측량업 등록 기기 기준 준수</td>
+            </tr>
+            <tr>
+                <td><strong>표준 고시</strong></td>
+                <td>국토지리정보원 고시 「공공측량의 작업규정 세부기준」</td>
+                <td>공공측량 도근점 및 기준점 관측 정밀도, 오차 한계 규정</td>
+            </tr>
+            <tr>
+                <td><strong>철도 지침</strong></td>
+                <td>국가철도공단 「철도설계지침(노반 및 궤도)」</td>
+                <td>철도 중심선 측량 및 20m 간격 말뚝 포설 오차 한계 충족</td>
+            </tr>
+            <tr>
+                <td><strong>발주 설계도서</strong></td>
+                <td>동탄도시철도 건설공사 기본설계 보고서 및 입찰안내서</td>
+                <td>통합기준점 연결 좌표계 및 가스안전영향평가 의무 요건 준수</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>2. 정량적 기술 표준 (Technical Specifications)</h2>
+    <ul class="bullet-list numbered">
+        <li><strong>세계측지계 및 중부원점 절대 기준 적용</strong>
+            <br>- GRS80 타원체를 적용한 세계지구물리경위도측지계 좌표 산출.
+            <br>- 원점 정의: 중부원점 (North 38° 00' 00", East 127° 00' 00") 기준 위치 결정.
+        </li>
+        <li><strong>국가 통합기준점 연계 및 GPS 스타틱(정지측위) 관측</strong>
+            <br>- 국토지리정보원 고시 통합기준점(U용인42, U용인45, U남양09, U남양30 등)과 직접 결합하여 관측.
+            <br>- 스타틱 측량 조건: 정밀도 확보를 위해 최소 2대 이상의 위성수신기 동시 관측, 관측 시간 1시간 이상 유지.
+        </li>
+        <li><strong>허용 정밀도 및 폐합 오차 규격</strong>
+            <br>- <strong>평면 도근점(CP) 측량 허용오차</strong>: 설계 계획 위치 대비 수평 편차 ±20mm 이내.
+            <br>- <strong>수준측량(가수준점 TBM) 허용오차</strong>: 왕복 수준측량 폐합 오차 ±10mm × √S 이내 (S: 편도 거리 km).
+            <br>- <strong>구조물 계획고 대비 마감 한계</strong>: 고저 오차 편차 ±10mm 이내.
+        </li>
+        <li><strong>측량 장비 의무 검교정 요건</strong>
+            <br>- 광파측정기, GNSS 수신기 등 현장 투입 장비는 측량법에 따른 공인 기관의 검교정 검사필증(유효기간 2년 이내)을 부착 및 보유해야 함.
+        </li>
+    </ul>
+
+    <div class="callout">
+        <strong>[경고] 가스안전영향평가 대상 고압가스배수관 통과 시 주의:</strong><br>
+        본선 구간 중 도시가스 고압배관(압력 1MPa 이상, 관경 600mm 이상 등) 통과 예상 구간은 도시가스사업법에 의거하여 가스안전영향평가를 착공 전 반드시 이행해야 하며, 영향평가 보완 사항을 실시설계에 100% 반영하여야 합니다.
+    </div>
+
+    
+        
+<div class="subcontractor-advisory-box" style="background-color: #FFFBEB; border: 1.5px solid #F59E0B; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #B45309; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>👷</span> [협력업체 실무 자문] 위례선 트램 시공업체(정주건설·트리폴건설) 사전 토공 자문
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #78350F; font-size: 0.92rem; line-height: 1.7;">
+                <li><strong>가설 배치플랜트(B/P) 및 부지 확보:</strong> 궤도 조강 콘크리트 공급을 위해 현장 10km 이내 임시 B/P 및 레일/자재 야적 부지 사전 확보 필수 (정주건설 자문)</li>
+                <li><strong>공동구 시공 변경 검토:</strong> 토공 완료 후 시스템 공동구 후속 시공 시 RC 현장타설 대신 양질의 모래 채움 변경안 검토로 시공성/경제성 확보 (정주건설 자문)</li>
+                <li><strong>도로 점용 및 우회차로 확보:</strong> 트램 부지 외 양방향 우회 통행로 및 최소 1차선 이상 건설 장비 양중 점용 공간 사전 확보 (정주/트리폴 자문)</li>
+            </ul>
+        </div>
+        
+<div class="footer-note">
+        동탄도시철도(트램) 1공구 엔지니어링 표준서 | 주관: 현장 공사팀 / 토목수행팀
+    </div>
+</div>
+</body>
+</html>

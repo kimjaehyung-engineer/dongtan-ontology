@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사전토공사 액티비티 카드맵 | 동탄트램</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: #1e293b;
+    --bg-card-hover: #243044;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border: #334155;
+    --accent-blue: #3b82f6;
+    --accent-green: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-purple: #8b5cf6;
+    --accent-rose: #f43f5e;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1a1a2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+  }
+  .header-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+  .header .subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .stat-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  /* ===== TOOLBAR ===== */
+  .toolbar {
+    max-width: 1600px;
+    margin: 20px auto 0;
+    padding: 0 40px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .toolbar button {
+    padding: 8px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .toolbar button:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-blue);
+  }
+  .toolbar button.active {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: white;
+  }
+  .toolbar .search-wrap {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+  }
+  .toolbar .search-wrap input {
+    width: 100%;
+    padding: 8px 18px 8px 38px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .toolbar .search-wrap input:focus {
+    border-color: var(--accent-blue);
+  }
+  .toolbar .search-wrap::before {
+    content: '🔍';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+  }
+
+  /* ===== PHASE SECTION ===== */
+  .phase-section {
+    max-width: 1600px;
+    margin: 32px auto;
+    padding: 0 40px;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+  }
+  .phase-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+  }
+  .phase-title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .phase-count {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: auto;
+  }
+
+  /* ===== CARD GRID ===== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 18px;
+  }
+
+  /* ===== CARD ===== */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .card.expanded {
+    grid-column: span 1;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px 12px;
+  }
+  .card-num {
+    min-width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+  }
+  .card-title-wrap {
+    flex: 1;
+    min-width: 0;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+  .card-meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-code {
+    background: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+  }
+  .badge-schedule {
+    background: rgba(245, 158, 11, 0.12);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+  }
+
+  /* Card Body (fields) */
+  .card-body {
+    padding: 0 20px 12px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s;
+    opacity: 0;
+  }
+  .card.expanded .card-body {
+    max-height: 800px;
+    padding: 4px 20px 16px;
+    opacity: 1;
+  }
+
+  .field {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+  }
+  .field:last-child {
+    border-bottom: none;
+  }
+  .field-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .field-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .field-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+  .field-value {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    word-break: keep-all;
+  }
+  .design-field .field-value {
+    color: var(--accent-amber);
+    font-weight: 500;
+  }
+
+  /* Card Footer */
+  .card-footer {
+    padding: 10px 20px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .link-badges {
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .card.expanded .link-badges {
+    opacity: 1;
+  }
+  .link-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .link-badge.std {
+    background: rgba(59, 130, 246, 0.1);
+    color: #60a5fa;
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+  .link-badge.std:hover { background: rgba(59, 130, 246, 0.25); }
+  .link-badge.guide {
+    background: rgba(16, 185, 129, 0.1);
+    color: #34d399;
+    border-color: rgba(16, 185, 129, 0.2);
+  }
+  .link-badge.guide:hover { background: rgba(16, 185, 129, 0.25); }
+  .link-badge.chk {
+    background: rgba(245, 158, 11, 0.1);
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.2);
+  }
+  .link-badge.chk:hover { background: rgba(245, 158, 11, 0.25); }
+
+  .expand-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .card.expanded .expand-hint {
+    transform: rotate(180deg);
+  }
+
+  /* Hidden utility */
+  .hidden { display: none !important; }
+
+  /* ===== SUMMARY COMPACT (collapsed preview) ===== */
+  .card-preview {
+    padding: 0 20px 4px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .card.expanded .card-preview {
+    display: none;
+  }
+  .preview-chip {
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 2px 8px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; color: #1e293b; }
+    .header { background: white; border-bottom: 2px solid #e2e8f0; }
+    .card { border: 1px solid #e2e8f0; background: white; break-inside: avoid; }
+    .card-body { max-height: none !important; opacity: 1 !important; padding: 4px 20px 16px !important; }
+    .toolbar { display: none; }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .header { padding: 16px 20px; }
+    .phase-section { padding: 0 16px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .toolbar { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="logo-icon">🏗️</div>
+      <div>
+        <h1>사전토공사 액티비티 카드맵</h1>
+        <div class="subtitle">동탄트램 · 매뉴얼 BODY (집행단계) v6 — 전체 30개 액티비티</div>
+      </div>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-pill">
+        <div class="stat-dot" style="background: var(--accent-blue);"></div>
+        사전단계 <strong>21</strong>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-dot" style="background: var(--accent-green);"></div>
+        집행단계 <strong>9</strong>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-dot" style="background: var(--accent-purple);"></div>
+        전체 <strong>30</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toolbar">
+  <button class="active" onclick="filterPhase('all', this)">전체</button>
+  <button onclick="filterPhase('prep', this)">🔵 사전단계</button>
+  <button onclick="filterPhase('exec', this)">🟢 집행단계</button>
+  <button onclick="expandAll()">📖 전체 펼치기</button>
+  <button onclick="collapseAll()">📕 전체 접기</button>
+  <div class="search-wrap">
+    <input type="text" placeholder="액티비티 검색 (이름, 목적, 방법...)" oninput="searchCards(this.value)">
+  </div>
+</div>
+
+<!-- PHASE 1: 사전단계 -->
+<div class="phase-section" id="phase-prep">
+  <div class="phase-header">
+    <div class="phase-icon" style="background: linear-gradient(135deg, #3b82f6, #6366f1);">📋</div>
+    <div class="phase-title">사전단계 (D-Day 이전)</div>
+    <div class="phase-count" style="background: rgba(59,130,246,0.12); color: #60a5fa;">21개 액티비티</div>
+  </div>
+  <div class="card-grid">
+    
+    <div class="card" data-id="9000-5-1" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">1</div>
+        <div class="card-title-wrap">
+          <div class="card-title">Site Survey</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-1</span>
+            <span class="badge badge-schedule">D-90 (D-120~D-90)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KDS 47 10 00 철도지반 설계기준 | 현장 가설 둔차선, 용지 경계 및 원지반 고저차 3D 레벨 현측 | 토공사 사전 현장 조사 보고서</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 현장 가설 도로 및 용지 경계 현측 ➔ 2) 광학 레벨 원지반 고저차 측정 ➔ 3) 진입 도로 장애 요소 매핑 ➔ 4) 현장 조사 보고서 감리 제출</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">가설 도로 폭/구배 현측, 원지반 고저차 레벨 측량 및 3D BIM 도면 오차 점검 (현장 조사 보고서)</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 설계도면 및 지적 경계 기준 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-2" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">2</div>
+        <div class="card-title-wrap">
+          <div class="card-title">발주전략 KOM</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-2</span>
+            <span class="badge badge-schedule">D-80 (D-120~D-80)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KCS 47 10 25 시방 검토 | 사전 토공 토사/암석 깎기 및 성토 시방 규정 | 발주처·감리·시공 3자 킥오프 결재</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 사전 토공 시방 요구조건 분석 ➔ 2) 3D BIM 도면 깎기/성토 수량 검증 ➔ 3) 토공 리스크 예비비 수립 ➔ 4) 발주·감리·시공 3자 킥오프 결재</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장소장</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">KCS 47 10 25 사전 토공 시방 검토, 토사/암석 깎기 수량 산출 및 3D BIM 간섭 zero (3자 킥오프 결재)</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 본사외주부서, 수행부서, 토목국내견적팀, 컴플라이언스RM팀, 토목사업지원팀 협의</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-3" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">3</div>
+        <div class="card-title-wrap">
+          <div class="card-title">Site Survey Risk 검토</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-3</span>
+            <span class="badge badge-schedule">D-60 (D-70~D-60)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">지하안전법 제23조 | 현장 지장물, 연약 지반 층후 및 사면 붕괴 위험 요소 추출 | 사전 토공 리스크 대책 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 지하 매설 지장물 &amp; 연약지반 현출 ➔ 2) 사면 붕괴 위험 구간 추출 ➔ 3) 흙막이 가설재 보강 수립 ➔ 4) 토공 리스크 대책서 감리 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">토목국내견적팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">지중 매설물 탐사, 연약 지반 층후 분석 및 사면 붕괴 위험 구간 흙막이 가설재 보강 수립</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 실행예산 검토 및 공사 수행 리스크 분석</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-4" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">4</div>
+        <div class="card-title-wrap">
+          <div class="card-title">최고의 팀 만들기 지원</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-4</span>
+            <span class="badge badge-schedule">D-50 (D-60~D-50)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">건산법 상생협력 수칙 | 토공 전문 기술자 1:1 전담 배치 &amp; 3자 주간 소통 회의 | 일일 Safety TBM 100% 이행</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 토공 전담 기술자 1:1 배치 ➔ 2) 3자 주간 소통 회의 개최 ➔ 3) 근로자 복지 지원 &amp; Safety TBM ➔ 4) One-Team 조직표 감리 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">외주관리팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">토공 전담 기술자 1:1 현장 배치, 발주·감리·시공 3자 주간 소통 회의 및 일일 Safety TBM/음주 측정</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 외주관리 협력업체 평가 및 선정 기준</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-5" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">5</div>
+        <div class="card-title-wrap">
+          <div class="card-title">공사중 교통처리계획</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-5</span>
+            <span class="badge badge-schedule">D-60 (D-80~D-60)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">도로교통법 제69조 | 동탄경찰서 교통안전 심의 및 우회 차선 설계 | 전담 신호수(2인 2조) &amp; LED 경광등 배치</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 교통 우회 차선 &amp; 둔차선 도면 설계 ➔ 2) 동탄경찰서 도로점용 허가 ➔ 3) 전담 신호수(2인 2조) 배치 ➔ 4) 교통소통 대책서 감리 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">동탄경찰서 도로점용 허가, 가설 우회 차선 설계 및 전담 안전 신호수(2인 2조)/LED 경광등 배치</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 도로교통법 및 관할 지자체 교통 지침 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-6" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">6</div>
+        <div class="card-title-wrap">
+          <div class="card-title">자재발주 요청</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-6</span>
+            <span class="badge badge-schedule">D-65 (D-65~D-55)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KCS 47 10 25 자재 시방 | 굴착 장비, 가설 펜스 및 배수관 자재 발주 승인 | 공인시험기관 성적표 수속</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 굴착 장비 및 가설 펜스 자재 선정 ➔ 2) 공인시험기관 시험성적서 검수 ➔ 3) 자재 발주 신청서 제출 ➔ 4) 자재 반입 검수 통보서 결재</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공무팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">KCS 47 10 25 굴착 장비/가설재 자재 승인, 공인시험기관 시험성적서 검수 및 자재 반입 통보</div>
+          </div>
+        </div>
+        
+        
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-7" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">7</div>
+        <div class="card-title-wrap">
+          <div class="card-title">용지 사용 Risk 검토</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-7</span>
+            <span class="badge badge-schedule">D-40 (D-60~D-40)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">토지보상법 준수 | 미보상 사유지 경계 현출 및 가설 펜스(H=1.8m) 차단 | 3D 우회 토공 동선 마일스톤 연동</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 미보상 사유지 경계 현출 ➔ 2) 가설 펜스(H=1.8m) 차단 ➔ 3) 3D 우회 토공 동선 수립 ➔ 4) 용지 보상 리스크 대책 감리 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">토목계약관리팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">미보상 사유지 경계 현출, 가설 펜스(H=1.8m) 차단 및 3D 우회 토공 동선 마일스톤 연동</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 계약 리스크 방지 및 현장 부지 확보 요건 검토</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-8" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">8</div>
+        <div class="card-title-wrap">
+          <div class="card-title">착수전 Big Room 회의</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-8</span>
+            <span class="badge badge-schedule">D-40</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">현장 통합 관리 지침 | 발주처·감리·지자체·시공사 4자 빅룸 회의 | 사전 토공 마일스톤 서명 결재</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 4자(발주·감리·지자체·시공) 빅룸 결성 ➔ 2) 사전 토공 마일스톤 연동 ➔ 3) 간섭 리스크 즉시 해소 ➔ 4) 빅룸 회의록 4자 서명 완수</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장소장</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">4자(발주·감리·지자체·시공) 빅룸 회의 결성, 사전 토공 마일스톤 연동 및 간섭 리스크 서명</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 본사 유관부서(견적/엔지니어링/공정/품질/안전) 조율</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-9" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">9</div>
+        <div class="card-title-wrap">
+          <div class="card-title">인허가 절차 진행</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-9</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">도로법 및 환경영향평가법 | 지자체 도로점용 허가 및 비산먼지 발생신고 수속 | 법정 인허가 필증 수속</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 지자체 도로/하천점용 허가서 작성 ➔ 2) 관련 부서 서류 제출 &amp; 심의 ➔ 3) 보증보험 증권 부착 ➔ 4) 법정 인허가 필증 감리 수속</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공무팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">지자체 도로/하천점용 허가서 접수, 비산먼지 발생사업 신고 필증 수속 및 보증보험 제출</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 관련 인허가 법령 검토</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-10" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">10</div>
+        <div class="card-title-wrap">
+          <div class="card-title">교통처리대책 협의 및 승인</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-10</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">도로교통법 안전 수칙 | 경찰서 차선 점용 허가 및 가설 둔차선 도로 복구 이행 보증보험 | 교통대책 감리 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 경찰서 차선 점용 허가증 수령 ➔ 2) 도로 복구 보증보험 증권 제출 ➔ 3) 전담 신호수 &amp; LED 경광등 배치 ➔ 4) 교통대책서 감리 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공무팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">동탄경찰서 차선 점용 허가, 도로 복구 이행 보증보험 제출 및 전담 신호수(2인 2조) 100% 배치</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 사토/토취장 인허가 요건 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-11" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">11</div>
+        <div class="card-title-wrap">
+          <div class="card-title">지장물 검토 및 협의</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-11</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">지하안전관리에 관한 특별법 | GPR 3D 관로 탐사 &amp; 인력 시탐 줄파기(깊이 1.5m) | 점용기관 현장 입회 이설 방호</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) GPR 3D 지중 관로 탐사 ➔ 2) 인력 시탐 줄파기(깊이 1.5m) ➔ 3) 관할 점용기관 1:1 현장 입회 ➔ 4) 매달기 방호 &amp; 지장물 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공무팀/공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">GPR 3D 관로 탐사, 인력 시탐 줄파기(폭 0.5m, 깊이 1.5m) 및 점용기관 1:1 현장 입회 매달기 방호</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 도로점용 및 지장물 이설 규정 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-12" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">12</div>
+        <div class="card-title-wrap">
+          <div class="card-title">기공승낙 적정성 검토</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-12</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">국유재산법 및 공유재산법 | 토지 기공승낙서 인허가 확인 및 진입로 점용 범위 실측 | 토지 사용 승인서 결재</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 국유지/공유지 기공승낙서 수속 ➔ 2) 진입 도로 점용 범위 실측 ➔ 3) 토지 소유주 사용 협의 ➔ 4) 기공승낙서 감리 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공무팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">국유지/공유지 기공승낙서 인허가 검증, 진입 도로 점용 범위 실측 및 토지 사용 승인서 결재</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 용지 취득 및 기공승낙 법적 검토</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-13" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">13</div>
+        <div class="card-title-wrap">
+          <div class="card-title">민원 저감 대책 수립</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-13</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">소음진동관리법 준수 | 야간 공사 소음 방음벽(H=3m) 및 세륜기(깊이 1.2m) 가동 | 단수/단전 주민 사전 안내</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 야간 공사 소음 방음벽(H=3m) 설치 ➔ 2) 세륜기 가동 &amp; 분무 살수 ➔ 3) 단수/단전 사전 주민 공지 ➔ 4) 민원 대응반 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 안전팀/공무팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">야간 공사 소음 방음벽(H=3m) 가동, 세륜기(깊이 1.2m) 가동 및 단수/단전 주민 사전 고지</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 민원 관리 지침 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-14" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">14</div>
+        <div class="card-title-wrap">
+          <div class="card-title">용지보상 Risk 파악</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-14</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">토지보상법 준수 | 지장물 이설 부지 용지보상 현황 및 점용 경계 실측 | 미보상 사유지 가설 펜스 차단</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 미보상 필지 현출 &amp; 지적 대조 ➔ 2) 가설 펜스(H=1.8m) 차단 ➔ 3) 우회 토공 동선 수립 ➔ 4) 용지 보상 대책서 감리 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공무팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">미보상 필지 지적 대조, 경계 가설 펜스(H=1.8m) 차단 및 우회 토공 동선 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 토지보상법 및 공정 영향 분석</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-15" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">15</div>
+        <div class="card-title-wrap">
+          <div class="card-title">시공계획서 검토 지원</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-15</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">건진법 시행령 제89조 | 사전 토공 시공계획서 표준 8대 목차 검토 | 착공 14일 전 감리 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 사전 토공 시공계획서 작성 ➔ 2) 8대 목차 &amp; KCS 수치 명시 ➔ 3) 착공 14일 전 감리단 제출 ➔ 4) 시공계획서 감리 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">토목품질팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">사전 토공 시공계획서 표준 8대 목차, KCS 수치 수록 및 착공 14일 전 감리 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 품질경영 매뉴얼 기준</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-16" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">16</div>
+        <div class="card-title-wrap">
+          <div class="card-title">시공계획 수립</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-16</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KCS 47 10 25 토공 시방 | 깎기/성토 토공 유동표 작성 및 3D BIM 도면 대조 | 책임감리원 최종 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 토공 깎기/성토 유동표 작성 ➔ 2) 3D BIM 모델 표고 대조 ➔ 3) 사면 안성성 계산서 부착 ➔ 4) 토공 시공계획서 감리 최종 결재</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">토공 깎기/성토 유동표 작성, 3D BIM 모델 표고 대조 및 사면 안전성 계산서 감리 결재</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 토공사 표준시방서 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-17" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">17</div>
+        <div class="card-title-wrap">
+          <div class="card-title">후행공종 요구조건 반영 설계변경 검토</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-17</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">건진법 설계변경 수칙 | 궤도/구조물 후행 공종 요구 표고 오차(±10mm) 반영 | 설계변경 실정보고서 작성</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 궤도/구조물 후행 요구 조건 수집 ➔ 2) 마무리면 표고 오차(±10mm) 반영 ➔ 3) 설계변경 실정보고서 작성 ➔ 4) 책임감리원 기술 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공무팀/공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">궤도/구조물 후행 요구 조건 반영, 마무리면 표고 오차(±10mm) 반영 및 설계변경 실정보고</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 인터페이스 조건 만족</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-18" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">18</div>
+        <div class="card-title-wrap">
+          <div class="card-title">설계변경 (착수전)</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-18</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">지방계약법 정산 수칙 | 착수 전 토종 변경 및 수량 증감 실정보고 작성 | 총사업비 변경 승인 수속</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 토질 변경 &amp; 수량 증감 실정보고 작성 ➔ 2) 단가 비교표 작성 ➔ 3) 설계변경 도서 제출 ➔ 4) 총사업비 변경 승인 결재</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공무팀/공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">토질 변경 &amp; 수량 증감 실정보고서 작성, 단가 비교표 작성 및 총사업비 변경 승인 결재</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 설계변경 절차 규정 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-19" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">19</div>
+        <div class="card-title-wrap">
+          <div class="card-title">설계변경 지원</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-19</span>
+            <span class="badge badge-schedule">D-30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">건진법 설계변경 규정 | 수량 산출서 및 단가 비교표 작성 | 책임감리원 기술 검토 의견서 첨부</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 변경 수량 산출서 정밀 집계 ➔ 2) 신규 단가 산정 서류 부착 ➔ 3) 감리단 기술 검토 수속 ➔ 4) 설계변경 제출 서면 결재</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">토목수행팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">변경 수량 산출서 정밀 집계, 신규 단가 산정 서류 첨부 및 책임감리원 기술 검토 수속</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 기술 검증 규격 확인</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-20" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">20</div>
+        <div class="card-title-wrap">
+          <div class="card-title">교통관리 및 교통안전시설 설치</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-20</span>
+            <span class="badge badge-schedule">D-20</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">도로교통법 안전 수칙 | 게이트 바리케이트, 야간 LED 경광등 부설 | 전담 안전 신호수(2인 2조) 100% 배치</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 게이트 바리케이트 &amp; 경광등 부설 ➔ 2) 우회 차선 표지판 설치 ➔ 3) 전담 신호수(2인 2조) 배치 ➔ 4) 교통 안전 점검 대장 결재</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">게이트 바리케이트/LED 경광등 설치, 우회 차선 표지판 검측 및 전담 신호수(2인 2조) 배치</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 경찰청 협의사항 및 교통안전시설 설치기준 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-21" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #3b82f6;">21</div>
+        <div class="card-title-wrap">
+          <div class="card-title">장비 검수 지원</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-21</span>
+            <span class="badge badge-schedule">D-10</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">건설기계관리법 제13조 | 자중 10t+ 굴착기, 덤프 정기검사증 검수 | 후방 센서 점검 및 반입 허가</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 10t+ 굴착기/덤프 사양 검수 ➔ 2) 건설기계 정기검사증 점검 ➔ 3) 후방 카메라/경보음 시동 점검 ➔ 4) 장비 반입 승인서 감리 결재</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">기술안전팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">자중 10t+ 굴착기/덤프 정기검사증, 후방 카메라/경보음 시동 점검 및 반입 허가 결재</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 산업안전보건법 및 건설기계관리법 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2: 집행단계 -->
+<div class="phase-section" id="phase-exec">
+  <div class="phase-header">
+    <div class="phase-icon" style="background: linear-gradient(135deg, #10b981, #059669);">⚡</div>
+    <div class="phase-title">집행단계 (D-Day 이후)</div>
+    <div class="phase-count" style="background: rgba(16,185,129,0.12); color: #34d399;">9개 액티비티</div>
+  </div>
+  <div class="card-grid">
+    
+    <div class="card" data-id="9000-5-22" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #10b981;">22</div>
+        <div class="card-title-wrap">
+          <div class="card-title">벌목/벌근제거</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-22</span>
+            <span class="badge badge-schedule">D+10~30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KCS 47 10 25 산림 벌목 시방 | 수목 벌목 및 뿌리 제거(벌근) 깊이 30cm 이상 | 임목 폐기물 수속 처리</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 현장 지반 수목 벌목 시행 ➔ 2) 뿌리 제거(벌근) 깊이 30cm 굴착 ➔ 3) 임목 폐기물 수속 처리 ➔ 4) 벌목 벌근 성과표 감리 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">현장 수목 벌목 시행, 뿌리 제거(벌근) 깊이 30cm 이상 굴착 및 임목 폐기물 수속 처리</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 산림자원법 및 환경 기준 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-23" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #10b981;">23</div>
+        <div class="card-title-wrap">
+          <div class="card-title">기존구조물 / 지장물 처리</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-23</span>
+            <span class="badge badge-schedule">D+10~25</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">폐기물관리법 준수 | 기존 아스콘/콘크리트 구조물 안전 삭평 철거 | 건설 폐기물 성적표 수속</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 기존 아스콘/콘크리트 삭평 철거 ➔ 2) 폐기물 분리 수거 &amp; 적재 ➔ 3) 건설 폐기물 위탁 처리 ➔ 4) 지장물 처리 성과표 감리 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀 / 공무팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">기존 아스콘/콘크리트 삭평 철거, 건설 폐기물 분리 수거 적재 및 폐기물 성적서 수속</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 지장물 이설 및 철거 규정 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-24" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #10b981;">24</div>
+        <div class="card-title-wrap">
+          <div class="card-title">진입로 조성</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-24</span>
+            <span class="badge badge-schedule">D+10~30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KCS 47 10 25 가설 도로 | 덤프트럭 진입 가설 도로 폭 6m 포설 | 쇄석 골재(두께 20cm) 부설 &amp; 살수</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 가설 도로 폭 6m 성토 굴착 ➔ 2) 쇄석 골재(두께 20cm) 부설 ➔ 3) 10t 롤러 다짐 &amp; 살수 ➔ 4) 진입로 조성 성과표 감리 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">가설 도로 폭 6m 성토 굴착, 쇄석 골재(두께 20cm) 부설, 10t 롤러 다짐 및 살수 점검</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 진입로 종단구배 및 가로 폭 규격 만족</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-25" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #10b981;">25</div>
+        <div class="card-title-wrap">
+          <div class="card-title">배수/환경시설 설치</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-25</span>
+            <span class="badge badge-schedule">D+10~30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KCS 47 10 25 배수 시방 | 가배수로(0.6×0.6m) &amp; 가침사지 설치 | 세륜기(깊이 1.2m) 가동 및 배수 검측</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 가배수로(0.6×0.6m) &amp; 가침사지 터파기 ➔ 2) 세륜기(깊이 1.2m) 부설 ➔ 3) 양수 펌프 비치 ➔ 4) 배수 환경 시설 감리 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">가배수로(0.6×0.6m) &amp; 가침사지 설치, 세륜기(깊이 1.2m) 가동 및 수중 양수 펌프 비치</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 환경보존법 및 비산먼지/침사지 규정 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-26" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #10b981;">26</div>
+        <div class="card-title-wrap">
+          <div class="card-title">토공 굴착</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-26</span>
+            <span class="badge badge-schedule">D+10~30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KCS 47 10 25 굴착 규정 | 3D GPS 굴착기 표고 오차 ±20mm 통제 | 사면 비탈면 경사(1:1.5) 준수</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 3D GPS 굴착기 정밀 세팅 ➔ 2) 토사 깎기 &amp; 사면 비탈면(1:1.5) 굴착 ➔ 3) 표고 오차(±20mm) 검측 ➔ 4) 토공 굴착 성과표 감리 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">3D GPS 굴착기 표고 오차 ±20mm 통제, 사면 비탈면 경사(1:1.5 이하) 준수 및 굴착 검측</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 굴착 사면 기울기 및 굴착 공차 한계 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-27" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #10b981;">27</div>
+        <div class="card-title-wrap">
+          <div class="card-title">노상토 지지력 확인</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-27</span>
+            <span class="badge badge-schedule">D+10~30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KS F 2310 규정 준수 | 굴착 바닥 원지반 평판재하시험 K30 ≥ 70 MN/m³ | 덤프트럭 펌핑 연약 지반 점검</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 굴착 바닥 원지반 수평 정리 ➔ 2) K30 평판재하시험(≥70 MN/m³) ➔ 3) 덤프트럭 펌핑 연약 지반 점검 ➔ 4) 노상토 지지력 성과표 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 품질팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">굴착 바닥 평판재하시험 K30 ≥ 70 MN/m³, 덤프트럭 펌핑 연약 지반 점검 및 노상토 승인</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 강화노반 필요 지지력 규격 만족</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-28" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #10b981;">28</div>
+        <div class="card-title-wrap">
+          <div class="card-title">쌓기 및 다짐(필요시)</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-28</span>
+            <span class="badge badge-schedule">D+10~30</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KCS 47 10 25 성토 시방 | 층두께 ≤ 30cm 토사 포설 | 10t 강동 롤러 다짐(들밀도 다짐도 ≥ 90%)</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 성토 토사 30cm 층포설 ➔ 2) 살수차 최적함수비 살수 ➔ 3) 10t 강동 롤러 다짐(다짐도≥90%) ➔ 4) 성토 다짐 성과표 감리 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">성토 토사 30cm 층포설, 살수차 최적함수비 OMC 살수 및 10t 롤러 다짐(다짐도 ≥ 90%)</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 다짐도(95% 이상) 규격 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-29" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #10b981;">29</div>
+        <div class="card-title-wrap">
+          <div class="card-title">현장지원</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-29</span>
+            <span class="badge badge-schedule">D+75일 이후</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">현장 통합 소통 수칙 | 일일 TBM 및 품질/안전 지원 대장 수록 | 감리 입회 검측 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 일일 현장 품질/안전 지원 ➔ 2) TBM 및 근로자 교육 ➔ 3) 공정 장애 요소 해소 ➔ 4) 현장 지원 대장 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">토목수행팀, 토목품질팀, 토목안전팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">일일 현장 품질/안전 지원 대장, TBM 및 근로자 교육 시행 서면 승인</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 본사 정기현장점검 지침 준수</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+
+    <div class="card" data-id="9000-5-30" onclick="toggleExpand(this)">
+      <div class="card-header">
+        <div class="card-num" style="background: #10b981;">30</div>
+        <div class="card-title-wrap">
+          <div class="card-title">강화노반 인계</div>
+          <div class="card-meta">
+            <span class="badge badge-code">9000-5-30</span>
+            <span class="badge badge-schedule">D+75일 이후</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="field">
+          <div class="field-icon">🎯</div>
+          <div class="field-content">
+            <div class="field-label">목적</div>
+            <div class="field-value">KCS 47 10 25 인계인수 수칙 | 토공-강화노반 시공팀 3자 합동 레벨 측량 | 마무리면 인계인수서 서명</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">⚙️</div>
+          <div class="field-content">
+            <div class="field-label">방법</div>
+            <div class="field-value">1) 토공-강화노반 시공팀 3자 합동 현측 ➔ 2) 마무리면 레벨 오차(±10mm) 확인 ➔ 3) 인계인수 합의서 서명 ➔ 4) 토공 마무리면 인계 완료</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">👥</div>
+          <div class="field-content">
+            <div class="field-label">주관 (지원)</div>
+            <div class="field-value">현장 공사팀 / 품질팀</div>
+          </div>
+        </div>
+        
+        <div class="field">
+          <div class="field-icon">📦</div>
+          <div class="field-content">
+            <div class="field-label">산출물 (결과)</div>
+            <div class="field-value">토공-강화노반 시공팀 3자 합동 레벨 측량, 마무리면 레벨 오차(±10mm) 인계인수서 서명</div>
+          </div>
+        </div>
+        
+        <div class="field design-field"><div class="field-icon">📐</div><div class="field-content"><div class="field-label">설계기준</div><div class="field-value">● 궤도 부설 구간 허용 오차 한계 확인</div></div></div>
+      </div>
+      
+      <div class="card-footer">
+        <div class="link-badges">
+          <a class="link-badge std" onclick="event.stopPropagation()" title="표준서 열기">📄 표준서</a>
+          <a class="link-badge guide" onclick="event.stopPropagation()" title="수행지침 열기">📋 수행지침</a>
+          <a class="link-badge chk" onclick="event.stopPropagation()" title="체크리스트 열기">✅ 체크리스트</a>
+        </div>
+        <div class="expand-hint">▼ 클릭하여 상세보기</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle card expand/collapse
+  function toggleExpand(el) {
+    el.classList.toggle('expanded');
+  }
+
+  // Filter by phase
+  function filterPhase(phase, btn) {
+    document.querySelectorAll('.toolbar button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    const prep = document.getElementById('phase-prep');
+    const exec = document.getElementById('phase-exec');
+    
+    if (phase === 'all') {
+      prep.classList.remove('hidden');
+      exec.classList.remove('hidden');
+    } else if (phase === 'prep') {
+      prep.classList.remove('hidden');
+      exec.classList.add('hidden');
+    } else {
+      prep.classList.add('hidden');
+      exec.classList.remove('hidden');
+    }
+  }
+
+  // Expand / Collapse all
+  function expandAll() {
+    document.querySelectorAll('.card').forEach(c => c.classList.add('expanded'));
+  }
+  function collapseAll() {
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('expanded'));
+  }
+
+  // Search
+  function searchCards(query) {
+    const q = query.toLowerCase().trim();
+    document.querySelectorAll('.card').forEach(card => {
+      if (!q) {
+        card.style.display = '';
+        return;
+      }
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(q) ? '' : 'none';
+    });
+  }
+</script>
+
+</body>
+</html>

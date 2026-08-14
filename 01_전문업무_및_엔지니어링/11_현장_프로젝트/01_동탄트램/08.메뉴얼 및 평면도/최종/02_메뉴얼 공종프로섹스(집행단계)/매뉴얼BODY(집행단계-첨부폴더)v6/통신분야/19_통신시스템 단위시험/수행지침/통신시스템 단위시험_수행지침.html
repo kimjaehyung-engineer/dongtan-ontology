@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 통신시스템 단위시험 수행지침서 (WBS 9000-2-19)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .clickable-diagram {
+            cursor: zoom-in !important;
+            transition: all 0.25s ease !important;
+            position: relative !important;
+        }
+        .clickable-diagram:hover {
+            transform: scale(1.015) !important;
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+        }
+        .zoom-modal, .glossary-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto;
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+        .zoom-modal.active, .glossary-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 28px;
+            border: 1px solid #cbd5e1;
+            width: 95%; max-width: 1100px; max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow-y: auto; text-align: center;
+        }
+        .glossary-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            width: 90%; max-width: 620px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            position: relative; text-align: left;
+        }
+        .zoom-close, .glossary-close {
+            color: #64748b;
+            position: absolute; right: 20px; top: 16px;
+            font-size: 32px; font-weight: bold; cursor: pointer;
+            transition: color 0.2s;
+        }
+        .zoom-close:hover, .glossary-close:hover { color: #ef4444; }
+        .term-highlight {
+            color: #0284c7 !important; font-weight: 700 !important;
+            border-bottom: 2px dashed #0284c7 !important; cursor: pointer !important;
+            transition: all 0.2s ease !important; padding: 0 2px !important;
+        }
+        .term-highlight:hover { background: #e0f2fe !important; color: #0369a1 !important; border-radius: 4px !important; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Technical Guideline (WBS 9000-2-19)</span>
+        <h1 class="text-3xl font-black mt-2">통신시스템 단위시험 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-19 | 주관: 현장 시스템반 | "LTE-R, PIS/PA, CCTV, 광전송 SFP 계측 & ITP 절차서 시험 실무 가이드"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 실무 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 통신시스템 단위시험 정밀 가이드 (어느 부위를 어떻게 검수할 것인가?) <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full ml-auto">LTE-R RF, PIS/PA 음압, CCTV 4K, ITP 시험성적서</span></h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                통신시스템 단위시험 시 <strong>어느 부위(Where)를 확인하고 어떤 계측기와 기준(How)으로 단위 동작 시험을 집행해야 하는지, 그리고 왜 이 시험을 수행해야 하는지</strong> 구체적인 현장 지침을 수록하였습니다. 아래 4대 시험 절차를 준수하여 <span class="term-highlight" onclick="openGlossary('lter_rf_test')">LTE-R 기지국 RF 송신출력(43dBm ±0.5dB)</span>, <span class="term-highlight" onclick="openGlossary('pa_sound_test')">PIS/PA 스피커 음압(≥85dB)</span>, <span class="term-highlight" onclick="openGlossary('cctv_frame_test')">CCTV 4K 영상 저장(30fps)</span> 및 <span class="term-highlight" onclick="openGlossary('itp_signature')">ITP 시험성적서 감리 서명 체결</span>을 진행하십시오.
+            </p>
+        </div>
+
+        <!-- 🏢 통신시스템 단위시험 정밀 검수 부위 & 구체적 검수 방법 매뉴얼 -->
+        <div class="space-y-6">
+            <div class="border-b-2 border-blue-600 pb-2 flex items-center justify-between">
+                <div>
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">UNIT SYSTEM TEST MANUAL</span>
+                    <h3 class="text-xl font-black text-slate-900 mt-0.5">🏢 통신시스템 단위시험 정밀 검수 부위 & 구체적 검수 방법 (Where & How & Why)</h3>
+                </div>
+                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">현장 단위시험 100% 매뉴얼</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                
+                <!-- 1. LTE-R 무선 기지국(DU/RU) RF 송신출력 & VSWR 계측 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-56 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui1_lter', '01. LTE-R 무선 기지국 RF 출력 & VSWR 단위시험 2D 도식')">
+                        <svg id="svg_gui1_lter" viewBox="0 0 420 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+                            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" rx="6"/>
+                            <text x="210" y="34" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">📻 [단위시험 01] LTE-R 기지국 RF 송신출력 &amp; VSWR 계측</text>
+                            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+                            
+                            <g transform="translate(25, 52)">
+                                <rect x="0" y="0" width="115" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#0369a1" text-anchor="middle">LTE-R DU 제어기</text>
+                                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 단독 전원 투입</text>
+                                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• IP 주소 할당</text>
+                                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 셀 제어 정상</text>
+
+                                <line x1="115" y1="42" x2="160" y2="42" stroke="#0284c7" stroke-width="2.5"/>
+                                <polygon points="160,38 168,42 160,46" fill="#0284c7"/>
+
+                                <g transform="translate(170, 0)">
+                                    <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">LTE-R RU 무선장치</text>
+                                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#15803d">• RF: 43dBm ±0.5</text>
+                                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#15803d">• VSWR ≤ 1.3</text>
+                                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#15803d">• 안테나 방사 정상</text>
+                                </g>
+
+                                <g transform="translate(295, 5)">
+                                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">RF 파워메터</text>
+                                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">43.0 dBm</text>
+                                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">VSWR: 1.15</text>
+                                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 합격</text>
+                                </g>
+                            </g>
+
+                            <rect x="30" y="148" width="175" height="28" fill="#e0f2fe" stroke="#0284c7" rx="4"/>
+                            <text x="117" y="165" font-size="9" font-weight="black" fill="#0369a1" text-anchor="middle">RF 출력 파워 43dBm ±0.5dB</text>
+
+                            <rect x="215" y="148" width="175" height="28" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+                            <text x="302" y="165" font-size="9" font-weight="black" fill="#15803d" text-anchor="middle">안테나 VSWR ≤ 1.3 이하</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">단위 시험 01</span>
+                        <span class="text-[11px] font-bold text-blue-900">LTE-R 무선기지국 단위시험</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📻 1. LTE-R 무선 기지국(DU/RU) RF 송신출력 & VSWR 계측</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 통신기계실 LTE-R DU 제어기, 선로변 옥외 RU 무선장치, 동축케이블 안테나 커넥터</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 기지국 단독 전원 투입 후 시스템 셀 부팅 및 IP 정상 할당 확인<br>
+                            ② RF 파워메터로 무선장치(RU) 송신 출력(43dBm ±0.5dB) 정밀 계측<br>
+                            ③ 안테나 분석기로 급전선 정송파비(VSWR ≤ 1.3) 측정 및 셀 무선 서베이
+                        </p>
+                        <p class="text-blue-950 font-bold">❓ 왜 이 시험을 하는가? (이유 & 중요성)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            • <strong>시험 이유</strong>: 출력이 약하면 주행 중 무선이 끊기고, 안테나 선로 조립 불량 시 전파가 튕겨 나와 장비가 과열로 파손되기 때문입니다.<br>
+                            • <strong>트램 운행 중요성</strong>: 기관사와 관제센터 간의 생명선인 무선 대화 및 제어 신호가 1초도 끊기지 않는 튼튼한 무선망 뿌리를 확보합니다.
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• RF 송신출력 43dBm ±0.5dB | VSWR ≤ 1.3 이하 | 셀 무선 동기 100%</p>
+                    </div>
+                </div>
+
+                <!-- 2. PIS / PA 앰프 및 승강장 스피커 음압 시험 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-56 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui2_pa', '02. PIS/PA 방송 앰프 및 스피커 음압 단위시험 2D 도식')">
+                        <svg id="svg_gui2_pa" viewBox="0 0 420 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+                            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#9333ea" stroke-width="2.5" rx="6"/>
+                            <text x="210" y="34" font-size="12" font-weight="black" fill="#6b21a8" text-anchor="middle">🔊 [단위시험 02] PIS / PA 방송 앰프 &amp; 스피커 음압 계측</text>
+                            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+                            
+                            <g transform="translate(25, 52)">
+                                <rect x="0" y="0" width="115" height="85" fill="#faf5ff" stroke="#7e22ce" stroke-width="2" rx="6"/>
+                                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#6b21a8" text-anchor="middle">PA 방송 앰프</text>
+                                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• 220V 전원 투입</text>
+                                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 앰프출력 정격</text>
+                                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• 오디오 신호발생</text>
+
+                                <line x1="115" y1="42" x2="160" y2="42" stroke="#9333ea" stroke-width="2.5"/>
+                                <polygon points="160,38 168,42 160,46" fill="#9333ea"/>
+
+                                <g transform="translate(170, 0)">
+                                    <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">승강장 스피커</text>
+                                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#15803d">• 음압 ≥ 85dB</text>
+                                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#15803d">• STI ≥ 0.6</text>
+                                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#15803d">• 찌그러짐 0%</text>
+                                </g>
+
+                                <g transform="translate(295, 5)">
+                                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">소음계/STI</text>
+                                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">88.5 dBA</text>
+                                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">STI: 0.68</text>
+                                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 합격</text>
+                                </g>
+                            </g>
+
+                            <rect x="30" y="148" width="175" height="28" fill="#faf5ff" stroke="#c084fc" rx="4"/>
+                            <text x="117" y="165" font-size="9" font-weight="black" fill="#7e22ce" text-anchor="middle">스피커 음압 레벨 ≥ 85dB</text>
+
+                            <rect x="215" y="148" width="175" height="28" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+                            <text x="302" y="165" font-size="9" font-weight="black" fill="#15803d" text-anchor="middle">음성 명료도 STI ≥ 0.6 이상</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">단위 시험 02</span>
+                        <span class="text-[11px] font-bold text-blue-900">PIS / PA 방송 단위시험</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🔊 2. PIS / PA 앰프 및 승강장 스피커 음압 시험</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 통신기계실 PA 방송 앰프 랙, 정거장 승강장 스피커, 행정전화 PABX 연동부</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① PA 방송 앰프 랙 220V 전원 투입 및 1kHz 톤 신호 출력 발생<br>
+                            ② 소음계(Sound Level Meter)로 승강장 1m 지점 스피커 음압(≥85dB) 측정<br>
+                            ③ 음향 명료도 측정기로 STI 수치(≥0.6) 확보 및 방송 찌그러짐 검측
+                        </p>
+                        <p class="text-blue-950 font-bold">❓ 왜 이 시험을 하는가? (이유 & 중요성)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            • <strong>시험 이유</strong>: 소리가 작거나 웅웅거리며 뭉개지면 비상 상황 시 승객들이 대피 안내를 못 알아듣기 때문입니다.<br>
+                            • <strong>트램 운행 중요성</strong>: 화재나 사고 시 승객의 생명을 안전하게 대피시키는 안내 방송의 청취력을 100% 보장합니다.
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 스피커 음압 ≥ 85dB | 음성 명료도 STI ≥ 0.6 | 방송 찌그러짐 0%</p>
+                    </div>
+                </div>
+
+                <!-- 3. CCTV 카메라 PoE 전원 & 4K UHD 영상 프레임 시험 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-56 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui3_cctv', '03. CCTV 카메라 & NVR 녹화 단위시험 2D 도식')">
+                        <svg id="svg_gui3_cctv" viewBox="0 0 420 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+                            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#16a34a" stroke-width="2.5" rx="6"/>
+                            <text x="210" y="34" font-size="12" font-weight="black" fill="#15803d" text-anchor="middle">📹 [단위시험 03] CCTV 카메라 PoE 전원 &amp; 4K UHD 영상 프레임</text>
+                            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+                            
+                            <g transform="translate(25, 52)">
+                                <rect x="0" y="0" width="115" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="6"/>
+                                <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#15803d" text-anchor="middle">4K CCTV 카메라</text>
+                                <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0f172a">• PoE+ 802.3at전원</text>
+                                <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0f172a">• 4K UHD 8MP</text>
+                                <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0f172a">• IP66 방수 정상</text>
+
+                                <line x1="115" y1="42" x2="160" y2="42" stroke="#16a34a" stroke-width="2.5"/>
+                                <polygon points="160,38 168,42 160,46" fill="#16a34a"/>
+
+                                <g transform="translate(170, 0)">
+                                    <rect x="0" y="0" width="115" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                                    <text x="57.5" y="22" font-size="9.5" font-weight="black" fill="#0369a1" text-anchor="middle">NVR 저장 서버</text>
+                                    <text x="12" y="42" font-size="7.5" font-weight="bold" fill="#0369a1">• 30fps 무결성</text>
+                                    <text x="12" y="57" font-size="7.5" font-weight="bold" fill="#0369a1">• KISA 인증 준수</text>
+                                    <text x="12" y="72" font-size="7.5" font-weight="bold" fill="#0369a1">• 채널 100% 녹화</text>
+                                </g>
+
+                                <g transform="translate(295, 5)">
+                                    <rect x="0" y="0" width="60" height="75" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                                    <text x="30" y="18" font-size="7.5" font-weight="black" fill="#b45309" text-anchor="middle">영상분석기</text>
+                                    <text x="30" y="35" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">30 fps</text>
+                                    <text x="30" y="52" font-size="7" font-weight="bold" fill="#78350f" text-anchor="middle">0% Drop</text>
+                                    <text x="30" y="66" font-size="7" font-weight="black" fill="#15803d" text-anchor="middle">✔ 합격</text>
+                                </g>
+                            </g>
+
+                            <rect x="30" y="148" width="175" height="28" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+                            <text x="117" y="165" font-size="9" font-weight="black" fill="#15803d" text-anchor="middle">4K 영상 프레임 레이트 30fps</text>
+
+                            <rect x="215" y="148" width="175" height="28" fill="#f0f9ff" stroke="#38bdf8" rx="4"/>
+                            <text x="302" y="165" font-size="9" font-weight="black" fill="#0284c7" text-anchor="middle">NVR 전 채널 녹화 무결성 100%</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">단위 시험 03</span>
+                        <span class="text-[11px] font-bold text-blue-900">CCTV 카메라 & NVR 단위시험</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📹 3. CCTV 카메라 PoE 전원 & 4K UHD 영상 프레임 시험</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 승강장/선로변 CCTV 카메라 단말, PoE 스위치 전원선, NVR 녹화 서버</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① PoE 스위치 전원 공급(48V DC) 확인 및 카메라 영상 스트림 인지<br>
+                            ② 4K UHD 영상 프레임 드롭 여부(30fps 준수) 및 야간 적외선(IR) 테스트<br>
+                            ③ KISA 보안인증 솔루션과 NVR 서버 100% 채널 정상 저장 확인
+                        </p>
+                        <p class="text-blue-950 font-bold">❓ 왜 이 시험을 하는가? (이유 & 중요성)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            • <strong>시험 이유</strong>: 영상이 끊기거나 멈추면 선로 추락 사고 발생 시 관제사가 제때 인지하지 못하기 때문입니다.<br>
+                            • <strong>트램 운행 중요성</strong>: 관제사의 실시간 눈(Eye)이 되어 동탄 트램 전 노선의 안전 사각지대를 감시하는 선명한 화질을 확보합니다.
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 영상 프레임 30fps 무결성 | KISA 인증 준수 | NVR 녹화 성공률 100%</p>
+                    </div>
+                </div>
+
+                <!-- 4. 광전송 SFP 레벨 & ITP 시험성적서 체결 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-56 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_gui4_itp', '04. 광전송 SFP 광파워 레벨 & ITP 서명 2D 도식')">
+                        <svg id="svg_gui4_itp" viewBox="0 0 420 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="420" height="200" fill="#f8fafc" rx="8"/>
+                            <rect x="15" y="15" width="390" height="170" fill="#ffffff" stroke="#0d9488" stroke-width="2.5" rx="6"/>
+                            <text x="210" y="34" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">📡 [단위시험 04] SFP 광파워 레벨 계측 &amp; ITP 서명 체결</text>
+                            <line x1="25" y1="42" x2="395" y2="42" stroke="#e2e8f0" stroke-width="1.5"/>
+                            
+                            <g transform="translate(30, 48)">
+                                <rect x="0" y="0" width="165" height="85" fill="#f0fdf4" stroke="#0d9488" stroke-width="2" rx="4"/>
+                                <text x="82" y="20" font-size="9" font-weight="black" fill="#0f766e" text-anchor="middle">광파워메터 측정 레벨</text>
+                                <text x="15" y="40" font-size="8" font-weight="bold" fill="#0f172a">• 송신 광레벨: -1.5 dBm (합격)</text>
+                                <text x="15" y="55" font-size="8" font-weight="bold" fill="#0f172a">• 수신 광감도: -18.2 dBm (합격)</text>
+                                <text x="15" y="70" font-size="8" font-weight="bold" fill="#0f172a">• 파장대: 1310nm / 1550nm</text>
+
+                                <g transform="translate(180, 0)">
+                                    <rect x="0" y="0" width="175" height="85" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" rx="4"/>
+                                    <text x="87" y="20" font-size="9" font-weight="black" fill="#0369a1" text-anchor="middle">ITP 단위시험 성적표 체결</text>
+                                    <text x="15" y="40" font-size="7.5" font-weight="bold" fill="#334155">• ITP 시험 항목: 100% 이행</text>
+                                    <text x="15" y="55" font-size="7.5" font-weight="bold" fill="#334155">• 감리단 입회 검측: 합격</text>
+
+                                    <g transform="translate(100, 35) rotate(-10)">
+                                        <rect x="0" y="0" width="65" height="32" fill="#ffffff" stroke="#059669" stroke-width="2" rx="4"/>
+                                        <text x="32" y="16" font-size="9" font-weight="900" fill="#059669" text-anchor="middle">ITP 승인</text>
+                                        <text x="32" y="26" font-size="6.5" font-weight="bold" fill="#059669" text-anchor="middle">감리자필서명</text>
+                                    </g>
+                                </g>
+                            </g>
+
+                            <rect x="30" y="148" width="175" height="28" fill="#f0fdf4" stroke="#2dd4bf" rx="4"/>
+                            <text x="117" y="165" font-size="9" font-weight="black" fill="#0f766e" text-anchor="middle">송신 -3~0dBm / 수신 ≤ -24dBm</text>
+
+                            <rect x="215" y="148" width="175" height="28" fill="#f0fdf4" stroke="#38bdf8" rx="4"/>
+                            <text x="302" y="165" font-size="9" font-weight="black" fill="#0284c7" text-anchor="middle">ITP 시험성적표 감리 서명 100%</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">단위 시험 04</span>
+                        <span class="text-[11px] font-bold text-blue-900">광 SFP 레벨 & ITP 서명 체결</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📡 4. 광전송 SFP 광파워 레벨 & ITP 서명 체결</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• OTDR 광전송 랙 SFP 트랜시버, 광파워메터 커넥터, ITP 단위시험 검측 서식</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 광파워메터로 SFP 모듈 송신 레벨(-3~0dBm) 및 수신 감도(≤-24dBm) 측정<br>
+                            ② 광 감쇄기 적용 여부 및 파장별(1310/1550nm) 광 파워 무결성 측정<br>
+                            ③ 감리원 현장 입회 검측 완료 후 ITP 시험성적서 자필 서명 체결
+                        </p>
+                        <p class="text-blue-950 font-bold">❓ 왜 이 시험을 하는가? (이유 & 중요성)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            • <strong>시험 이유</strong>: 광 파워가 너무 약하면 데이터 손실이 생기고, 너무 세면 센서가 타버리기 때문입니다.<br>
+                            • <strong>트램 운행 중요성</strong>: 광 케이블 망의 신호 손실을 Zero화하고, ITP 성적서 체결로 공인 품질 보증을 완료합니다.
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 송신 -3~0dBm | 수신 감도 ≤ -24dBm | ITP 자필 서명 체결 100%</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 📖 용어 및 대형보기 모달 -->
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 통신시스템 단위시험 표준 도식 대형 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[420px]">
+        </div>
+    </div>
+</div>
+
+<script>
+    const glossaryData = {
+        "lter_rf_test": "<b>LTE-R 기지국 RF 송신출력 (RF Power Test)</b><br><br>• 트램 전용 무선통신 기지국(RU)의 무선 송신 파워를 43dBm ±0.5dB로 계측하고, 급전선 정송파비(VSWR)를 1.3 이하로 제어하는 무선 단위시험 수칙입니다.",
+        "pa_sound_test": "<b>PIS/PA 방송 스피커 음압 (Sound Pressure Level)</b><br><br>• 정거장 승강장 및 기계실 방송 스피커의 음압 수치를 85dB 이상으로 확보하고, 음성 명료도(STI) 수치를 0.6 이상으로 만족시키는 음향 기능 시험입니다.",
+        "cctv_frame_test": "<b>CCTV 4K 영상 프레임 레이트 (Frame Rate Test)</b><br><br>• CCTV 카메라 단말에 PoE+ 전원을 공급하고, 4K UHD 고화질 영상 프레임을 초당 30fps로 NVR 녹화 서버에 100% 무손실 저장시키는 시험입니다.",
+        "itp_signature": "<b>검사시험계획서 자필 서명 (ITP / TC Signature)</b><br><br>• 통신 설비 단품별 전원 투입 및 기능 검측 결과를 시험성적표에 작성하고, 감리원 입회 하에 최종 자필 승인 서명을 수득하는 품질 서식입니다."
+    };
+
+    function openGlossary(term) {
+        const modal = document.getElementById('glossaryModal');
+        const titleEl = document.getElementById('modalTitle');
+        const descEl = document.getElementById('modalDescription');
+        if (glossaryData[term]) {
+            titleEl.innerHTML = "📖 용어 해설: " + term;
+            descEl.innerHTML = glossaryData[term];
+            modal.classList.add('active');
+        }
+    }
+
+    function closeGlossaryModal() { document.getElementById('glossaryModal').classList.remove('active'); }
+    function closeGlossaryModalOutside(e) { if (e.target.id === 'glossaryModal') closeGlossaryModal(); }
+
+    function openDiagramZoom(elementId, titleText) {
+        const srcEl = document.getElementById(elementId);
+        if (!srcEl) return;
+        const zoomBody = document.getElementById('zoomBody');
+        document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "정밀 도식 대형 보기");
+        zoomBody.innerHTML = srcEl.outerHTML;
+        const innerSvg = zoomBody.querySelector('svg');
+        if (innerSvg) {
+            innerSvg.setAttribute('width', '100%');
+            innerSvg.setAttribute('height', '580px');
+            innerSvg.style.maxWidth = '1080px';
+        }
+        document.getElementById('zoomModal').classList.add('active');
+    }
+
+    function closeZoomModal() { document.getElementById('zoomModal').classList.remove('active'); }
+    function closeZoomModalOutside(e) { if (e.target.id === 'zoomModal') closeZoomModal(); }
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') { closeZoomModal(); closeGlossaryModal(); }
+    });
+</script>
+</body>
+</html>

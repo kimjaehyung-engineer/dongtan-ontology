@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 지장물이설 - 도로점용/굴착행위 인허가 수행지침</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .theme-font-toolbar { position: fixed; bottom: 24px; right: 24px; z-index: 1000; display: flex; align-items: center; gap: 8px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); padding: 8px 14px; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .toolbar-btn { background: transparent; color: #f8fafc; border: none; font-size: 14px; font-weight: 700; padding: 4px 10px; cursor: pointer; border-radius: 9999px; transition: all 0.2s; }
+        .toolbar-btn:hover { background: rgba(255, 255, 255, 0.2); }
+        .toolbar-btn.active { background: #3b82f6; color: #fff; }
+        body.dark-theme { background-color: #0f172a; color: #f8fafc; }
+        body.dark-theme .bg-white { background-color: #1e293b !important; color: #f8fafc !important; }
+        body.dark-theme .border-slate-200 { border-color: #334155 !important; }
+        body.dark-theme .text-slate-900 { color: #f8fafc !important; }
+        body.dark-theme .text-slate-700 { color: #cbd5e1 !important; }
+        body.dark-theme .text-slate-600 { color: #94a3b8 !important; }
+        body.fs-small { font-size: 0.875rem; }
+        body.fs-medium { font-size: 1rem; }
+        body.fs-large { font-size: 1.125rem; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased py-10 px-4 sm:px-8 fs-medium">
+
+    <div class="theme-font-toolbar">
+        <button id="btn-theme" class="toolbar-btn" title="테마 변경">☀️</button>
+        <span style="color:rgba(255,255,255,0.2); font-size:12px;">|</span>
+        <button id="btn-fs-small" class="toolbar-btn" title="글자 작게">A-</button>
+        <button id="btn-fs-medium" class="toolbar-btn active" title="글자 보통">A</button>
+        <button id="btn-fs-large" class="toolbar-btn" title="글자 크게">A+</button>
+    </div>
+
+    <div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200/80 p-8 sm:p-12 space-y-8">
+        <!-- 🔵 헤더 영역 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">
+            <div>
+                <span class="text-xs font-black text-indigo-700 bg-indigo-50 border border-indigo-100 px-3.5 py-1.5 rounded-full mb-2 inline-block">
+                    Dongtan Tram Playbook | WBS 2000-3-1 현장 검토 수행방침
+                </span>
+                <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                    도로점용/굴착행위 인허가 수행지침서
+                </h1>
+            </div>
+            <div class="shrink-0 text-right text-xs font-bold text-slate-500">
+                공종분야: <span class="text-indigo-600 font-extrabold">지장물이설</span>
+            </div>
+        </div>
+
+        <!-- 📋 개요 카드 -->
+        <div class="bg-blue-50/60 border border-blue-100 rounded-2xl p-6 space-y-4">
+            <h3 class="text-base font-black text-blue-950 flex items-center gap-2">
+                <span>📌</span> 업무 목적 및 개요
+            </h3>
+            <p class="text-slate-700 text-sm leading-relaxed font-medium">
+                본 과업은 공사 구역 도로 굴착을 위해 관할 지자체에 도로 굴착 행위 허가 신청을 접수하고, 도로 복구 보증보험 증권 제출 등 관계 법령상 행위 허가를 완수하는 것을 목적으로 함.
+            </p>
+        </div>
+
+        <!-- 💡 수행 방법 및 절차 -->
+        <div class="space-y-4">
+            <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
+                <span>💡</span> 업무 수행 절차 및 공학적 핵심 지침
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+        <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-6 hover:shadow-md transition">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-xs font-black text-indigo-700 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900/50 px-3 py-1 rounded-full">STEP 01</span>
+                <h4 class="text-lg font-bold text-slate-900 dark:text-white">단계별 세부 업무 절차 1</h4>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">1) 도로 굴착 허가 신청서 작성</p>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-6 hover:shadow-md transition">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-xs font-black text-indigo-700 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900/50 px-3 py-1 rounded-full">STEP 02</span>
+                <h4 class="text-lg font-bold text-slate-900 dark:text-white">단계별 세부 업무 절차 2</h4>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">2) 지자체 도로굴착 심의 필</p>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-6 hover:shadow-md transition">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-xs font-black text-indigo-700 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900/50 px-3 py-1 rounded-full">STEP 03</span>
+                <h4 class="text-lg font-bold text-slate-900 dark:text-white">단계별 세부 업무 절차 3</h4>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">3) 복구 보증보험 증권 제출</p>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 rounded-2xl p-6 hover:shadow-md transition">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-xs font-black text-indigo-700 dark:text-indigo-300 bg-indigo-100 dark:bg-indigo-900/50 px-3 py-1 rounded-full">STEP 04</span>
+                <h4 class="text-lg font-bold text-slate-900 dark:text-white">단계별 세부 업무 절차 4</h4>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">4) 도로 굴착 허가증 감리 결재</p>
+        </div>
+            </div>
+        </div>
+
+        <!-- 📦 산출물 결과 카드 -->
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-6 space-y-2">
+            <h3 class="text-base font-black text-emerald-950 flex items-center gap-2">
+                <span>📂</span> 최종 산출물 및 결재 서류
+            </h3>
+            <p class="text-emerald-900 text-sm leading-relaxed font-medium">
+                본 과업은 공사 구역 도로 굴착을 위해 관할 지자체에 도로 굴착 행위 허가 신청을 접수하고, 도로 복구 보증보험 증권 제출 등 관계 법령상 행위 허가를 완수하는 것을 목적으로 함.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const btnTheme = document.getElementById('btn-theme');
+        const btnFsSmall = document.getElementById('btn-fs-small');
+        const btnFsMedium = document.getElementById('btn-fs-medium');
+        const btnFsLarge = document.getElementById('btn-fs-large');
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+                btnTheme.textContent = '🌙';
+            } else {
+                document.body.classList.remove('dark-theme');
+                btnTheme.textContent = '☀️';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        function applyFontSize(size) {
+            document.body.classList.remove('fs-small', 'fs-medium', 'fs-large');
+            document.body.classList.add('fs-' + size);
+            [btnFsSmall, btnFsMedium, btnFsLarge].forEach(btn => btn.classList.remove('active'));
+            if (size === 'small') btnFsSmall.classList.add('active');
+            else if (size === 'medium') btnFsMedium.classList.add('active');
+            else if (size === 'large') btnFsLarge.classList.add('active');
+            localStorage.setItem('fontSize', size);
+        }
+
+        applyTheme(localStorage.getItem('theme') || 'light');
+        applyFontSize(localStorage.getItem('fontSize') || 'medium');
+
+        btnTheme.addEventListener('click', () => applyTheme(document.body.classList.contains('dark-theme') ? 'light' : 'dark'));
+        btnFsSmall.addEventListener('click', () => applyFontSize('small'));
+        btnFsMedium.addEventListener('click', () => applyFontSize('medium'));
+        btnFsLarge.addEventListener('click', () => applyFontSize('large'));
+    </script>
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 통신분야 - 본공사 전 선행공정 인수인계 점검 수행지침서 (WBS 9000-2-14)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .clickable-diagram {
+            cursor: zoom-in !important;
+            transition: all 0.25s ease !important;
+            position: relative !important;
+        }
+        .clickable-diagram:hover {
+            transform: scale(1.015) !important;
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+        }
+        .zoom-modal, .glossary-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+        }
+        .zoom-modal.active, .glossary-modal.active {
+            display: flex;
+        }
+        .zoom-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 28px;
+            border: 1px solid #cbd5e1;
+            width: 95%;
+            max-width: 1100px;
+            max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow-y: auto;
+            text-align: center;
+        }
+        .glossary-modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            width: 90%;
+            max-width: 620px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            text-align: left;
+        }
+        .zoom-close, .glossary-close {
+            color: #64748b;
+            position: absolute;
+            right: 20px;
+            top: 16px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .zoom-close:hover, .glossary-close:hover {
+            color: #ef4444;
+        }
+        .term-highlight {
+            color: #0284c7 !important;
+            font-weight: 700 !important;
+            border-bottom: 2px dashed #0284c7 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            padding: 0 2px !important;
+        }
+        .term-highlight:hover {
+            background: #e0f2fe !important;
+            color: #0369a1 !important;
+            border-radius: 4px !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Dongtan Tram Technical Guideline (WBS 9000-2-14)</span>
+        <h1 class="text-3xl font-black mt-2">본공사 전 선행공정 인수인계 점검 수행지침서</h1>
+        <p class="text-blue-200 text-sm mt-1">L4 Code: 9000-2-14 | 주관: 현장 시스템팀 | "8대 선행 구조물별 정밀 검수 부위 & 구체적 검수 방법 매뉴얼"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 실무 해설 박스 -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl text-sm text-blue-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 초심자 엔지니어를 위한 8대 구조물 실무 검수 가이드 (어느 부위를 어떻게 검수할 것인가?)</h4>
+            <p class="bg-white p-4 rounded-xl border border-blue-300 font-medium text-slate-900 leading-relaxed">
+                선행 공종(토목·건축)이 완료된 후 현장에서 통신 엔지니어가 직접 <strong>어느 부위(Where)를 확인하고 어떤 계측기와 방법(How)으로 검측해야 하는지</strong> 구체적이고 정밀한 현장 지침을 수록하였습니다. 아래 8대 구조물별 실무 검수 절차를 준수하여 <span class="term-highlight" onclick="openGlossary('mandrel_test')">Mandrel 관로 도통 시험</span> 및 <span class="term-highlight" onclick="openGlossary('handover_doc')">선행공정 인수인계서</span> 서면 체결을 진행하십시오.
+            </p>
+        </div>
+
+        <!-- 🏢 8대 선행공정 점검 대상 구조물 정밀 검수 부위 & 구체적 검수 방법 매뉴얼 -->
+        <div class="space-y-6">
+            <div class="border-b-2 border-blue-600 pb-2 flex items-center justify-between">
+                <div>
+                    <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">8 STRUCTURES DETAILED INSPECTION MANUAL</span>
+                    <h3 class="text-xl font-black text-slate-900 mt-0.5">🏢 8대 선행 구조물 정밀 검수 부위 & 구체적 검수 방법 (Where & How)</h3>
+                </div>
+                <span class="text-xs font-bold bg-blue-100 text-blue-800 px-3 py-1 rounded-full">현장 검수 100% 매뉴얼</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+                
+                <!-- 1. 통신기계실 (Telecom Room) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct1_room', '01. 통신기계실 (Telecom Room) 마감 & 온습도 2D 도식')">
+                        <svg id="svg_struct1_room" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🏢 통신기계실 마감 & 온습도 환경</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="40" y="115" width="320" height="35" fill="#e0f2fe" stroke="#0284c7" stroke-dasharray="2"/>
+                            <text x="200" y="136" font-size="10" font-weight="bold" fill="#0369a1" text-anchor="middle">Access Floor H300 (수평 오차 ±2mm 이내)</text>
+                            <rect x="40" y="62" width="150" height="42" fill="#f0fdf4" stroke="#16a34a" rx="4"/>
+                            <text x="115" y="79" font-size="9.5" font-weight="bold" fill="#15803d" text-anchor="middle">항온항습 22±2℃</text>
+                            <text x="115" y="94" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">습도 50±10% 가동</text>
+                            <rect x="210" y="62" width="150" height="42" fill="#f0f9ff" stroke="#0284c7" rx="4"/>
+                            <text x="285" y="79" font-size="9.5" font-weight="bold" fill="#0369a1" text-anchor="middle">천장/벽체 누수 0L</text>
+                            <text x="285" y="94" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">방진 에폭시 도장 100%</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 기계실 인수 환경 합격</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 01</span>
+                        <span class="text-[11px] font-bold text-blue-900">통신기계실 (Room)</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🏢 1. 통신기계실 마감 & 온습도 환경</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 천장/벽체 우수 방수 모서리, Access Floor 하부 지지대, 항온항습기(HVAC) 루버, 방진 에폭시 바닥</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 육안 및 랜턴 조사로 천장 누수 자국/결로 흔적 수색<br>
+                            ② 레이저 레벨기로 Access Floor 타일 4모서리 평탄 단차 측정<br>
+                            ③ 온습도계로 항온항습기 24시간 연속 가동 온도(22±2℃) 및 습도 실측
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• Access Floor 수평 오차 ≤ ±2mm | 누수 0L (Zero)</p>
+                    </div>
+                </div>
+
+                <!-- 2. 장비 반입 개포구 (Entrance Hatch) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct2_hatch', '02. 장비 반입 개포구 (Equipment Hatch) 2D 도식')">
+                        <svg id="svg_struct2_hatch" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#4f46e5" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#3730a3" text-anchor="middle">🚪 장비 반입 개포구 (Equipment Hatch)</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="60" y="60" width="120" height="85" fill="#f0f5ff" stroke="#4f46e5" stroke-width="2" rx="4"/>
+                            <text x="120" y="98" font-size="10" font-weight="black" fill="#3730a3" text-anchor="middle">개포구 유효 규격</text>
+                            <text x="120" y="115" font-size="9" font-bold fill="#4338ca" text-anchor="middle">W 1.8m x H 2.2m</text>
+                            <rect x="220" y="60" width="120" height="85" fill="#fff8f0" stroke="#d97706" stroke-width="1.5" rx="4"/>
+                            <text x="280" y="92" font-size="9.5" font-weight="bold" fill="#9a3412" text-anchor="middle">윈치/호이스트 앵커</text>
+                            <text x="280" y="110" font-size="10" font-weight="black" fill="#92400e" text-anchor="middle">하중 ≥ 2.0 ton</text>
+                            <text x="280" y="125" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">장애물 0cm (확보)</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">✔ 장비 반입 통로 합격</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 02</span>
+                        <span class="text-[11px] font-bold text-blue-900">장비 반입 개포구</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🚪 2. 장비 반입 개포구 (Equipment Hatch)</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-blue-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 장비 반입 개포구 프레임 내경, 반입 이동 통로, 상부 윈치/호이스트 인입 앵커</p>
+                        <p class="text-blue-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 줄자로 개포구 유효 개구 폭(W)과 높이(H) 실측<br>
+                            ② 기계실까지의 이동 통로 내 토목/건축 가설재 자재 장애물 0cm 상태 확인<br>
+                            ③ 상부 윈치 인입 앵커 인장시험 성적서 대조 및 수동 윈치 2.0ton 구동 테스트
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-200 space-y-1">
+                        <span class="font-bold text-blue-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-blue-900 text-[10px] font-bold">• 개포구 규격 W1.8m x H2.2m 이상 | 윈치 앵커 ≥ 2.0 ton</p>
+                    </div>
+                </div>
+
+                <!-- 3. 지중 관로 (Underground Conduit) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct3_conduit', '03. 지중 관로 Mandrel 도통 시험 2D 도식')">
+                        <svg id="svg_struct3_conduit" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">🕳️ 지중 관로 Mandrel 도통 시험</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="40" y="65" width="320" height="50" fill="#e2e8f0" stroke="#475569" stroke-width="2" rx="4"/>
+                            <circle cx="140" cy="90" r="20" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+                            <text x="140" y="94" font-size="9" font-weight="black" fill="#ffffff" text-anchor="middle">Mandrel Ø50</text>
+                            <line x1="140" y1="90" x2="340" y2="90" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="4"/>
+                            <text x="200" y="134" font-size="9.5" font-weight="bold" fill="#0f766e" text-anchor="middle">• 관로 도통 Pass 100% | 배관 곡률 R ≥ 1.5m</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 관로 도통 100% 합격</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 03</span>
+                        <span class="text-[11px] font-bold text-indigo-900">지중 관로 (Conduit)</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🕳️ 3. 지중 관로 & Mandrel 도통 시험</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-indigo-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 지중 배관 인입구(PNC/ELP관), 배관 곡률 굴곡부, 관로 내부 내공 공간</p>
+                        <p class="text-indigo-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 관로 입구에 시험용 Mandrel Gauge(Ø50mm/Ø100mm) 및 요비선 결합<br>
+                            ② 반대편 핸드홀에서 윈치/인력으로 견인하여 막힘 없이 100% 통과 실측<br>
+                            ③ R-Gauge 계측기로 관로 곡률 반지름(R≥1.5m) 과도한 굴곡 유무 측량
+                        </p>
+                    </div>
+
+                    <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-200 space-y-1">
+                        <span class="font-bold text-indigo-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-indigo-900 text-[10px] font-bold">• Mandrel Ø50mm 100% Pass | 배관 곡률 R ≥ 1.5m</p>
+                    </div>
+                </div>
+
+                <!-- 4. 지중 핸드홀 & 맨홀 (Handhole) -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct4_handhole', '04. 지중 핸드홀 청소 및 배수 2D 도식')">
+                        <svg id="svg_struct4_handhole" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0f766e" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">🕳️ 지중 핸드홀 이물질 청소 & 배수</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="50" y="60" width="300" height="75" fill="#ccfbf1" stroke="#14b8a6" stroke-width="1.5" rx="4"/>
+                            <text x="200" y="85" font-size="10.5" font-weight="black" fill="#0f766e" text-anchor="middle">지중 핸드홀 (내공 1.2m x 1.2m)</text>
+                            <text x="200" y="105" font-size="9.5" font-weight="bold" fill="#115e59" text-anchor="middle">• 토사/쓰레기 청소 100% | 바닥 배수 구멍 완비</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 배수 고임 수위 0mm (합격)</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 04</span>
+                        <span class="text-[11px] font-bold text-indigo-900">지중 핸드홀 & 맨홀</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🕳️ 4. 지중 핸드홀 & 맨홀 이물질 청소</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-indigo-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 핸드홀 내공 벽면, 바닥 드레인 배수 구멍, 맨홀 뚜껑 체결부</p>
+                        <p class="text-indigo-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 줄자로 내공 치수(1.2m x 1.2m x 1.2m) 정밀 실측<br>
+                            ② 바닥에 누적된 토사, 자갈, 쓰레기를 청소 장비로 100% 제거<br>
+                            ③ 바닥 드레인 구멍에 물을 인가하여 자연 배수 속도 및 잔여 고임 수위(0mm) 측정
+                        </p>
+                    </div>
+
+                    <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-200 space-y-1">
+                        <span class="font-bold text-indigo-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-indigo-900 text-[10px] font-bold">• 내공 1.2m x 1.2m | 이물질 청소 100% (수위 0mm)</p>
+                    </div>
+                </div>
+
+                <!-- 5. 선로변 통합함체 기초 패드 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct5_pad', '05. 옥외 통합함체 콘크리트 기초 패드 2D 도식')">
+                        <svg id="svg_struct5_pad" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">📦 옥외 통합함체 콘크리트 기초 패드</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="60" y="65" width="280" height="40" fill="#cbd5e1" stroke="#475569" stroke-width="2" rx="2"/>
+                            <text x="200" y="88" font-size="10" font-weight="black" fill="#1e293b" text-anchor="middle">Concrete C24/30 기초 패드</text>
+                            <circle cx="100" cy="72" r="4" fill="#dc2626"/>
+                            <circle cx="300" cy="72" r="4" fill="#dc2626"/>
+                            <text x="200" y="125" font-size="9.5" font-weight="bold" fill="#0f766e" text-anchor="middle">• 패드 수평 오차 ±1.0mm | M16 앵커 공차 ±1.0mm</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 함체 기초 적합</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 05</span>
+                        <span class="text-[11px] font-bold text-teal-900">통합함체 기초 패드</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">📦 5. 옥외 통합함체 콘크리트 기초</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-teal-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 콘크리트 기초 패드 상면, M16 앵커 볼트 나사산, 패드 바닥 방수 턱</p>
+                        <p class="text-teal-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 앙카 거리 측정기로 M16 앵커 볼트 4개 간격 및 매설 깊이 실측<br>
+                            ② 레이저 수평계로 콘크리트 패드 상면 평탄 수평도 측정<br>
+                            ③ 슈미트 해머 타격으로 콘크리트 압축강도(C24/30 이상) 검측
+                        </p>
+                    </div>
+
+                    <div class="bg-teal-50 p-2.5 rounded-lg border border-teal-200 space-y-1">
+                        <span class="font-bold text-teal-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-teal-900 text-[10px] font-bold">• 콘크리트 C24/30 | 앵커 공차 ±1.0mm</p>
+                    </div>
+                </div>
+
+                <!-- 6. 케이블 트렌치 & Floor Opening -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct6_trench', '06. 케이블 트렌치 & Fire Stop 내화 2시간 2D 도식')">
+                        <svg id="svg_struct6_trench" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0d9488" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0f766e" text-anchor="middle">🪜 케이블 트렌치 & 층간 방화 관통재</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="40" y="65" width="320" height="45" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3"/>
+                            <text x="200" y="92" font-size="10.5" font-weight="black" fill="#0f172a" text-anchor="middle">바닥 트렌치 (W400 x D300)</text>
+                            <text x="200" y="128" font-size="9.5" font-weight="bold" fill="#0f766e" text-anchor="middle">• 층간 Fire Stop 내화 성능 2시간 적합</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 트렌치 & 방화관통 완수</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-teal-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 06</span>
+                        <span class="text-[11px] font-bold text-teal-900">케이블 트렌치 & 오프닝</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🪜 6. 케이블 트렌치 & 층간 방화 관통재</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-teal-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 기계실 바닥 트렌치 커버, 층간 슬래브 케이블 방화 관통부(Fire Stop)</p>
+                        <p class="text-teal-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 버니어캘리퍼스 및 줄자로 트렌치 폭(400mm)과 깊이(300mm) 실측<br>
+                            ② 커버를 하중 밟기로 유격, 소음, 휨 변형 유무 확인<br>
+                            ③ 층간 관통부 샌드위치 내화 폼 도포 상태 및 내화 2시간 성적서 대조
+                        </p>
+                    </div>
+
+                    <div class="bg-teal-50 p-2.5 rounded-lg border border-teal-200 space-y-1">
+                        <span class="font-bold text-teal-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-teal-900 text-[10px] font-bold">• 트렌치 W400 x D300 | Fire Stop 내화 2시간</p>
+                    </div>
+                </div>
+
+                <!-- 7. 토목 Joint Duct & 관로 랙 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct7_joint', '07. 토목 Joint Duct & 관로 랙 2D 도식')">
+                        <svg id="svg_struct7_joint" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">🧵 토목 Joint Duct & 케이블 관로 랙</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="50" y="65" width="140" height="50" fill="#f0f9ff" stroke="#0284c7" rx="3"/>
+                            <text x="120" y="88" font-size="9.5" font-weight="bold" fill="#0369a1" text-anchor="middle">Joint Duct 위치</text>
+                            <text x="120" y="103" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">공차 ±5.0mm</text>
+                            <rect x="210" y="65" width="140" height="50" fill="#f0fdf4" stroke="#16a34a" rx="3"/>
+                            <text x="280" y="88" font-size="9.5" font-weight="bold" fill="#15803d" text-anchor="middle">KEC 관로 채움률</text>
+                            <text x="280" y="103" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">채움률 ≤ 33%</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 관로 랙 인프라 합격</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-cyan-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 07</span>
+                        <span class="text-[11px] font-bold text-cyan-900">Joint Duct & 관로 랙</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">🧵 7. 토목 Joint Duct & 케이블 관로 랙</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-cyan-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• 교량/터널 토목 연동구간 Joint Duct 인입 구멍, 아연도금 케이블 랙 체결부</p>
+                        <p class="text-cyan-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 광학 측량기로 Joint Duct 구멍의 중심 위치 좌표 측정<br>
+                            ② 도막두께 측정기로 용융아연도금 두께(≥60㎛) 실측<br>
+                            ③ KEC 전선관 단면적 대비 포설 케이블 채움률(≤33%) 수치 계산
+                        </p>
+                    </div>
+
+                    <div class="bg-cyan-50 p-2.5 rounded-lg border border-cyan-200 space-y-1">
+                        <span class="font-bold text-cyan-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-cyan-900 text-[10px] font-bold">• KEC 채움률 ≤ 33% | 도금 두께 ≥ 60㎛</p>
+                    </div>
+                </div>
+
+                <!-- 8. 기계실 전원 분배반 & 접지 단자대 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="clickable-diagram bg-slate-50 rounded-xl overflow-hidden border border-slate-200 h-48 flex items-center justify-center p-2" onclick="openDiagramZoom('svg_struct8_pdu', '08. 전원 분배반 (PDU) & 접지 단자대 2D 도식')">
+                        <svg id="svg_struct8_pdu" viewBox="0 0 400 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="400" height="180" fill="#f8fafc" rx="8"/>
+                            <rect x="20" y="20" width="360" height="140" fill="#ffffff" stroke="#0284c7" stroke-width="2" rx="6"/>
+                            <text x="200" y="42" font-size="12" font-weight="black" fill="#0369a1" text-anchor="middle">⚡ 전원 분배반 (PDU) & 독립 1종 접지</text>
+                            <line x1="30" y1="50" x2="370" y2="50" stroke="#e2e8f0" stroke-width="1"/>
+                            <rect x="40" y="65" width="150" height="52" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" rx="4"/>
+                            <text x="115" y="87" font-size="10" font-weight="black" fill="#0369a1" text-anchor="middle">AC 220V / DC -48V</text>
+                            <text x="115" y="104" font-size="9.5" font-weight="700" fill="#1e293b" text-anchor="middle">PDU 극성 라벨링 100%</text>
+                            <rect x="210" y="65" width="150" height="52" fill="#ffffff" stroke="#16a34a" stroke-width="1.5" rx="4"/>
+                            <text x="285" y="87" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">독립 1종 접지</text>
+                            <text x="285" y="104" font-size="9.5" font-weight="bold" fill="#15803d" text-anchor="middle">접지저항 ≤ 10 Ω</text>
+                            <text x="200" y="170" font-size="10" font-weight="black" fill="#047857" text-anchor="middle">✔ 전원/절연/접지 100% 합격</text>
+                        </svg>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-cyan-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">구조물 08</span>
+                        <span class="text-[11px] font-bold text-cyan-900">전원 분배반 & 접지</span>
+                    </div>
+                    <h4 class="font-black text-slate-900 text-sm">⚡ 8. 기계실 전원 분배반 (PDU) & 접지</h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2 text-[11px]">
+                        <p class="text-cyan-950 font-bold">📍 어느 부위를 확인하는가? (Where)</p>
+                        <p class="text-slate-700 leading-relaxed">• PDU 전원 단자대(AC 220V/380V, DC -48V), 등전위 접지 단자대(Earth Busbar)</p>
+                        <p class="text-cyan-950 font-bold">🛠️ 어떻게 확인하는가? (How)</p>
+                        <p class="text-slate-700 leading-relaxed">
+                            ① 멀티미터로 AC/DC 전압 및 PDU 단자 극성 라벨링 대조<br>
+                            ② 메거(Megger 500V)로 DC -48V 전원선 절연저항(≥100MΩ) 측정<br>
+                            ③ 접지저항 측정기(3극법)로 독립 1종 접지 단자대 접지저항(≤10Ω) 실측
+                        </p>
+                    </div>
+
+                    <div class="bg-cyan-50 p-2.5 rounded-lg border border-cyan-200 space-y-1">
+                        <span class="font-bold text-cyan-950 text-[10px]">🎯 정량적 판정 한계 기준</span>
+                        <p class="text-cyan-900 text-[10px] font-bold">• 접지저항 ≤ 10 Ω | 절연저항 ≥ 100 MΩ</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 🧠 4단계 완벽 공학 논리 흐름도 -->
+        <div class="bg-gradient-to-r from-blue-50 via-indigo-50/70 to-sky-50 border-2 border-indigo-200 p-7 rounded-2xl shadow-md space-y-5">
+            <div class="border-b border-indigo-200 pb-3 flex items-center justify-between">
+                <div>
+                    <span class="bg-indigo-600 text-white text-[10px] font-black px-2.5 py-0.5 rounded uppercase">LOGICAL ARCHITECTURE FRAMEWORK</span>
+                    <h3 class="text-xl font-black text-indigo-950 mt-1">🧠 초심자를 위한 Step-by-Step 선행공정 인수인계 4단계 순서</h3>
+                </div>
+                <span class="text-xs font-bold text-indigo-800 bg-white px-3 py-1.5 rounded-lg border border-indigo-300 shadow-sm">실무 프로세스</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
+                <div class="bg-white p-4 rounded-xl border-2 border-sky-300 shadow-sm space-y-2">
+                    <span class="bg-sky-600 text-white text-[10px] font-black px-2 py-0.5 rounded">1단계: PRE-INSPECTION</span>
+                    <h4 class="font-black text-sky-950 text-xs">도면대조 & 서식 작성</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 인터페이스 도면 사전 확인<br">• 3자 현장 점검표 준비</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border-2 border-indigo-300 shadow-sm space-y-2">
+                    <span class="bg-indigo-600 text-white text-[10px] font-black px-2 py-0.5 rounded">2단계: FIELD JOINT CHECK</span>
+                    <h4 class="font-black text-indigo-950 text-xs">8대 구조물 현장 검측</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 기계실/개포구/트렌치 검측<br">• Mandrel 관로 도통 시험</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border-2 border-teal-300 shadow-sm space-y-2">
+                    <span class="bg-teal-600 text-white text-[10px] font-black px-2 py-0.5 rounded">3단계: DISCREPANCY NCR</span>
+                    <h4 class="font-black text-teal-950 text-xs">결함 시정조치 (NCR)</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 막힘/누수 결함 발현 시<br">• 토목/건축 NCR 요구서 발행</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border-2 border-emerald-400 shadow-sm space-y-2">
+                    <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded">4단계: SIGN & HANDOVER</span>
+                    <h4 class="font-black text-emerald-950 text-xs">인수인계 체결 & 보고</h4>
+                    <p class="text-[10px] text-slate-600 leading-snug">• 3자 서명 인수인계서 체결<br">• 감리단 결과보고서 제출</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 📖 용어 및 대형보기 모달 -->
+<div class="glossary-modal" id="glossaryModal" onclick="closeGlossaryModalOutside(event)">
+    <div class="glossary-modal-content" onclick="event.stopPropagation()">
+        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
+        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 엔지니어링 기술 해설</h3>
+        <div class="modal-body">
+            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 선행공정 구조물 대형 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[420px]">
+        </div>
+        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
+            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
+        </div>
+    </div>
+</div>
+
+<script>
+const glossaryData = {
+    "mandrel_test": "<b>관로 도통 시험 (Mandrel Test)</b><br><br>• 지중 배관 내부에 시험용 게이지(Mandrel Ø50mm)를 통과시켜 배관 찌그러짐, 굴곡 변형, 내공 막힘이 없는지 확인하는 필수 도통 검사입니다.",
+    "handover_doc": "<b>선행공정 인수인계서 (Handover Certificate)</b><br><br>• 토목·건축 선행 공종의 인수가 완료되었음을 증빙하기 위해 토목, 건축, 통신 3자 현장 책임자가 서명 날인하여 감리단에 제출하는 공식 서면 서식입니다."
+};
+
+function openGlossary(term) {
+    const modal = document.getElementById('glossaryModal');
+    const titleEl = document.getElementById('modalTitle');
+    const descEl = document.getElementById('modalDescription');
+    
+    if (glossaryData[term]) {
+        titleEl.innerHTML = "📖 용어 해설: " + term;
+        descEl.innerHTML = glossaryData[term];
+        modal.classList.add('active');
+    }
+}
+
+function closeGlossaryModal() {
+    document.getElementById('glossaryModal').classList.remove('active');
+}
+
+function closeGlossaryModalOutside(event) {
+    if (event.target.id === 'glossaryModal') {
+        closeGlossaryModal();
+    }
+}
+
+function openDiagramZoom(elementId, titleText) {
+    const srcEl = document.getElementById(elementId);
+    if (!srcEl) return;
+    
+    const zoomBody = document.getElementById('zoomBody');
+    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "선행공정 정밀 도식 대형 보기");
+    
+    zoomBody.innerHTML = srcEl.outerHTML;
+    
+    const innerSvg = zoomBody.querySelector('svg');
+    if (innerSvg) {
+        innerSvg.setAttribute('width', '100%');
+        innerSvg.setAttribute('height', '580px');
+        innerSvg.style.maxWidth = '1080px';
+    }
+    
+    document.getElementById('zoomModal').classList.add('active');
+}
+
+function closeZoomModal() {
+    document.getElementById('zoomModal').classList.remove('active');
+}
+
+function closeZoomModalOutside(event) {
+    if (event.target.id === 'zoomModal') {
+        closeZoomModal();
+    }
+}
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeZoomModal();
+        closeGlossaryModal();
+    }
+});
+</script>
+</body>
+</html>

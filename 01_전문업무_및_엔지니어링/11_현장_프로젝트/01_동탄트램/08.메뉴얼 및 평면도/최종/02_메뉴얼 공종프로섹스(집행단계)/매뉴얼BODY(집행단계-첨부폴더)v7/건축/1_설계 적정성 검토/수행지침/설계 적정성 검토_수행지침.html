@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건축 - 설계 적정성 검토 작업 수행지침서</title>
+    <style>
+        :root {
+            --primary-color: #059669;
+            --primary-light: #ECFDF5;
+            --text-color: #1F2937;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+            --danger-color: #EF4444;
+        }
+        body {
+            font-family: 'Inter', '맑은 고딕', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+        .header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb {
+            font-size: 0.85rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .title {
+            font-size: 1.8rem;
+            color: #111827;
+            margin: 0;
+            font-weight: 800;
+        }
+        .meta-info {
+            display: flex;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #6B7280;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        h2 {
+            font-size: 1.25rem;
+            color: #111827;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
+        .step-card {
+            background-color: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .step-title {
+            font-weight: 800;
+            color: #065F46;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 0.93rem;
+        }
+        .bullet-list li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .risk-box {
+            background-color: #FEF2F2;
+            border-left: 4px solid var(--danger-color);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 25px 0;
+            font-size: 0.9rem;
+            color: #991B1B;
+        }
+        .footer-note {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #9CA3AF;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-4-1 Guideline</div>
+        <h1 class="title">설계 적정성 검토 작업 수행지침서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 건축 / 건축공학</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 공무팀 / 기술지원팀</span>
+            <span>|</span>
+            <span><span class="badge">현장 시공 관리 지침</span></span>
+        </div>
+    </div>
+
+    <h2>1. 작업 개요 및 준비사항 (Preparation)</h2>
+    <p><strong>주요 목적:</strong> 동탄트램 건축 구조물 및 부대시설(차량기지 피트, OCC 관제실, 정거장) 설계도서의 오류·누락 사전 검증 및 시공성 확보</p>
+    <p><strong>주요 검토도서:</strong> 건축/구조 도면, 구조계산서, KDS/KCS 시방서, MEP/궤도/신호/통신 종합인터페이스도(CSI/CSD)</p>
+
+    <h2>2. 3단계 상세 작업 절차 (Procedures)</h2>
+
+    <div class="step-card">
+        <div class="step-title">① 사전 준비 단계 (Pre-construction)</div>
+        <ul class="bullet-list">
+            <li>건축 구조계산서(KDS 41 00 00)와 도면 간 하중조건(차량기지 피트 하중, 트롤리 크레인 10톤 하중) 일치 여부 확인</li>
+            <li>토목, 궤도, 기계, 전기, 소방, 통신 공종 간 3D BIM 간섭 검토 시행 및 슬리브/개구부 누락 점검</li>
+            <li>건축허가 및 관련 규정(소방성능위주설계, 피난/방화규칙) 최신 개정사항 반영 여부 검토</li>
+            <li>전문가 검토위원회 구성 및 설계오류·누락 사항 리스트(Design Defect Log) 작성</li>
+        </ul>
+    </div>
+
+    <div class="step-card">
+        <div class="step-title">② 본 시공 단계 (Execution & Coordination)</div>
+        <ul class="bullet-list">
+            <li>차량기지 피트 하부 구체방수 및 팽창줄눈(Expansion Joint) 위치의 시공 간섭도 작성 및 검토</li>
+            <li>OCC 관제실 Access Floor(높이 300~450mm) 하부 전선관/가스계 소화 배관 패스 설계 확인</li>
+            <li>크레인 브래킷 및 대형 장비 반입 개구부(Equipment Hatch) 크기 및 보강 철근 상세 검토</li>
+            <li>현장 실측 결과와 설계 도면 기준선(TBM, BM) 간 오차 검증 및 수정 도면 확정</li>
+        </ul>
+    </div>
+
+    <div class="step-card">
+        <div class="step-title">③ 검사 및 마감 단계 (Inspection & Final Sign-off)</div>
+        <ul class="bullet-list">
+            <li>공종별 주관 엔지니어 간 인터페이스 검토 완료 서명(Sign-off) 수령</li>
+            <li>설계 변경 발생 시 실정보고서 작성 및 감리단/발주처 제출, 승인 절차 수행</li>
+            <li>최종 승인된 설계변경 도서를 현장 공사팀 및 협력사에 배포하고 구 도면 회수/폐기</li>
+        </ul>
+    </div>
+
+    <h2>3. 하자 예방 및 위험요인 관리 (Risk Management)</h2>
+    <div class="risk-box">
+        <strong>⚠️ LLBS 리스크 관리 수칙</strong><br>
+        - 피트 벽체/슬래브 배관 관통 부위 코어 뚫기 후가공 금지 (사전 슬리브 매립 100% 반영)<br>
+        - 가스계 소화구역(NFSC 103) 구획 벽체 밀폐성 미달 시 소화가스 누출 위험 → 구조체 미장 및 실링재 상세 필수 반영<br>
+        - 차량기지 피트 하부 집수정 슬로프(1/100) 미반영 시 잔수 체류 하자 발생 예방
+    </div>
+
+    
+        
+<div class="subcontractor-advisory-box" style="background-color: #FFFBEB; border: 1.5px solid #F59E0B; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #B45309; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>👷</span> [협력업체 실무 자문] 건축/검수고 수행지침 (정주/트리폴건설)
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #78350F; font-size: 0.92rem; line-height: 1.7;">
+                <li>검수고 매설 레일 타설 시 작업조를 통합 운영하여 피트 구조물과 궤도 선형 오차를 동시에 조정</li>
+            </ul>
+        </div>
+        
+<div class="footer-note">
+        동탄도시철도(트램) 건설공사 엔지니어링 수행지침서 | WBS 9000-4-1
+    </div>
+</div>
+</body>
+</html>

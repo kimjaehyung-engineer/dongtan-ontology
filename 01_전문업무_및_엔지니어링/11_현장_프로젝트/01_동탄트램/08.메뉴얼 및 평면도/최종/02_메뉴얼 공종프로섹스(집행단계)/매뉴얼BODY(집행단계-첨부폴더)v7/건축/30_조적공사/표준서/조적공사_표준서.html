@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건축 - 조적공사 기술 표준서</title>
+    <style>
+        :root { --primary-color: #2563EB; --primary-light: #EFF6FF; --text-color: #1F2937; --bg-color: #F9FAFB; --card-bg: #FFFFFF; --border-color: #E5E7EB; --warn-bg: #FEF2F2; --warn-border: #EF4444; }
+        body { font-family: 'Inter', '맑은 고딕', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 40px 20px; line-height: 1.6; }
+        .container { max-width: 950px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 40px; }
+        .header { border-bottom: 2px solid var(--primary-light); padding-bottom: 20px; margin-bottom: 30px; }
+        .breadcrumb { font-size: 0.85rem; color: #6B7280; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+        .title { font-size: 1.8rem; color: #111827; margin: 0; font-weight: 800; }
+        .meta-info { display: flex; gap: 15px; margin-top: 12px; font-size: 0.9rem; color: #6B7280; flex-wrap: wrap; }
+        .badge { background-color: var(--primary-light); color: var(--primary-color); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; }
+        h2 { font-size: 1.25rem; color: #111827; border-left: 4px solid var(--primary-color); padding-left: 12px; margin-top: 35px; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 25px; font-size: 0.9rem; }
+        th, td { border: 1px solid var(--border-color); padding: 12px 16px; }
+        th { background-color: var(--primary-light); color: #1E3A8A; font-weight: 700; width: 25%; }
+        .bullet-list { list-style: none; padding-left: 0; margin-bottom: 25px; }
+        .bullet-list li { position: relative; padding-left: 20px; margin-bottom: 10px; font-size: 0.95rem; }
+        .bullet-list li::before { content: "•"; position: absolute; left: 0; color: var(--primary-color); font-weight: 700; }
+        .defect-box { background-color: var(--warn-bg); border-left: 4px solid var(--warn-border); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; font-size: 0.9rem; }
+        .footer-note { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: #9CA3AF; text-align: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="breadcrumb">Dongtan Tram WBS 9000-4-30 Standard</div>
+        <h1 class="title">조적공사 기술 표준서</h1>
+        <div class="meta-info">
+            <span><strong>공종/분야:</strong> 건축 / 조적공사</span>
+            <span>|</span>
+            <span><strong>주관부서:</strong> 현장 조적팀 / 공사팀</span>
+            <span>|</span>
+            <span><span class="badge">조적공사 기술 표준</span></span>
+        </div>
+    </div>
+    <h2>1. 과업 개요 및 목적 (Overview & Scope)</h2>
+    <table>
+        <tbody>
+            <tr><th>과업 목적</th><td>동탄트램 차량기지 및 정거장 실내 시멘트 벽돌/블록 쌓기, 인방보(Lintel) 설치 및 구조적 전단 보강 준수</td></tr>
+            <tr><th>관련 법령 및 규격</th><td>KCS 41 34 00(조적공사 표준시방서), KDS 41 34 00(콘크리트 소형블록/벽돌구조)</td></tr>
+            <tr><th>수행 방법</th><td>- 하루 쌓기 높이(1.2m ~ 1.5m 이하) 제한 준수 및 줄눈 몰탈(두께 10mm) 밀실 충전<br>- 개구부 폭 1.2m 이상 콘크리트 인방보(양단 걸침 20cm 이상) 설치<br>- 매 3~4단마다 블록/벽돌 횡보강근(#8 선재) 체결 및 벽체 연결 앵커 긴결</td></tr>
+            <tr><th>주요 산출물</th><td>조적공사 완료 검측서, 몰탈 압축강도 성적서, 인방보 배근 검측서</td></tr>
+        </tbody>
+    </table>
+    <h2>2. 하자사례 기반 정량적 기술 표준 (Defect History & Technical Specifications)</h2>
+    <div class="defect-box">
+        <strong>⚠️ 과거 주요 하자사례 (Lessons Learned)</strong>
+        <ul>
+            <li><strong>조적 벽체 균열 및 개구부 모서리 쳐짐:</strong> 인방보 미설치 및 하루 높이 초과(2.0m 이상) 쌓기로 조적 벽체 좌굴 균열 발생 → 하루 높이 제한 준수.</li>
+        </ul>
+    </div>
+    <table>
+        <thead><tr><th>구분</th><th>정량적 기술 기준 수치</th><th>품질 관리 및 제어 방안</th></tr></thead>
+        <tbody>
+            <tr><td>하루 쌓기 높이</td><td>최대 1.2m ~ 1.5m 이하 준수</td><td>조적 작업 일지 및 높이 먹줄 검측</td></tr>
+            <tr><td>인방보 양단 걸침</td><td>개구부 양측 minimum ≥ 20cm 이상</td><td>인방보 프리캐스트 설치 후 사진 촬영</td></tr>
+            <tr><td>줄눈 모르타르 두께</td><td>수평/수직 줄눈 10mm 밀실 충전</td><td>사춤 100% 미장 충전 수검</td></tr>
+        </tbody>
+    </table>
+    <h2>3. 상세 기술 설계기준 (Design Criteria)</h2>
+
+    <div class="designer-criteria-box" style="background-color: #F0F9FF; border: 1px solid #BAE6FD; border-radius: 8px; padding: 18px; margin-top: 15px;">
+        <h4 style="color: #0369A1; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem;">📄 건축구조 및 기계·소방 분야 설계기준 (분야별설계기준 검토서)</h4>
+        <ul style="margin: 0; padding-left: 20px; color: #1E293B; font-size: 0.92rem; line-height: 1.7;">
+            <li><strong>건축구조 설계기준 (KDS 41 00 00):</strong> 건축물 내진설계기준, 풍하중 및 차량기지 검수고 피트(Pit) 수밀 방수 시방 적용</li>
+            <li><strong>크레인 및 하중 조건:</strong> 검수고 5~10t 천장 크레인(Trolley Crane) 동적 하중 반영, OCC 관제실 Access Floor 내진 앵커링 준수</li>
+            <li><strong>소방시설 설계기준:</strong> 소방시설공사업법 및 국가화재안전기술기준(NFSC 101/102/103) 준수, 관제실/변전소 가스계 소화설비 룸인티그리티(N50) 적용</li>
+            <li><strong>인터페이스 CSD 3D BIM:</strong> 건축 구조체 슬리브 및 개구부에 대한 MEP, 토목, 궤도, 전기, 신호, 통신 사전 3D BIM 검토 수칙 적용</li>
+        </ul>
+    </div>
+    
+    <ul class="bullet-list">
+        <li><strong>KCS 41 34 00:</strong> 공간 벽체 단열재 고정 핀 및 횡보강 앵커 간격 준수</li>
+    </ul>
+    <h2>4. 협력사 시공/공사관리 자문 (Subcontractor Advisory)</h2>
+    <p>● 조적 상부와 슬래브 접합부 우레탄 폼 팽창 사춤으로 균열 방지 완충조치.</p>
+    
+        
+<div class="subcontractor-advisory-box" style="background-color: #FFFBEB; border: 1.5px solid #F59E0B; border-radius: 8px; padding: 18px; margin-top: 20px;">
+            <h4 style="color: #B45309; margin-top: 0; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+                <span>👷</span> [협력업체 실무 자문] 위례선 트램 차량기지 건축 자문 (정주/트리폴건설)
+            </h4>
+            <ul style="margin: 0; padding-left: 20px; color: #78350F; font-size: 0.92rem; line-height: 1.7;">
+                <li><strong>검수고 피트 궤도 연결부:</strong> 검수고 피트 레일과 본선 궤도 연결부 부등침하 예방을 위한 조강 콘크리트 및 이중 앵커 시방 적용</li>
+            </ul>
+        </div>
+        
+<div class="footer-note">동탄도시철도(트램) 건설공사 엔지니어링 기술 표준서 | WBS 9000-4-30</div>
+</div>
+</body>
+</html>

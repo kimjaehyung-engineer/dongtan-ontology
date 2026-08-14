@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동탄트램 전기분야 - 착수 전 Big Room 회의 상세 수행지침서 (WBS 9000-3-10)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .clickable-diagram {
+            cursor: zoom-in !important;
+            transition: all 0.25s ease !important;
+            position: relative !important;
+        }
+        .clickable-diagram:hover {
+            transform: scale(1.01) !important;
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
+        }
+        .clickable-diagram::after {
+            content: "🔍 클릭하여 대형 확대보기";
+            position: absolute; bottom: 12px; right: 16px;
+            background: rgba(15, 23, 42, 0.8); color: #ffffff;
+            font-size: 11px; font-weight: 700; padding: 4px 12px;
+            border-radius: 20px; backdrop-filter: blur(4px);
+            pointer-events: none; opacity: 0.9;
+        }
+        .zoom-modal {
+            display: none; position: fixed; z-index: 9999;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(6px); align-items: center; justify-content: center;
+        }
+        .zoom-modal.active { display: flex; }
+        .zoom-modal-content {
+            background-color: #ffffff; margin: auto; padding: 28px;
+            border: 1px solid #cbd5e1; width: 95%; max-width: 1100px; max-height: 90vh;
+            border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative; overflow-y: auto; text-align: center;
+        }
+        .zoom-close {
+            color: #64748b; position: absolute; right: 20px; top: 16px;
+            font-size: 32px; font-weight: bold; cursor: pointer;
+        }
+        .zoom-close:hover { color: #ef4444; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
+<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
+    
+    <!-- 🔵 헤더 영역 -->
+    <div class="bg-slate-900 text-white p-8 relative">
+        <span class="bg-amber-500 text-slate-900 text-xs font-black px-3 py-1 rounded-full uppercase">Dongtan Tram Electrical Guideline (WBS 9000-3-10)</span>
+        <h1 class="text-3xl font-black mt-2">착수 전 Big Room 회의 상세 수행지침서</h1>
+        <p class="text-amber-200 text-sm mt-1">L4 Code: 9000-3-10 | 주관: 현장소장 (본사 · 현장 · 협력사 · 선후행 공종 3자 협의체) | "공종간섭, 자재반입로, 하자사례 분석 & Risk Hedge 방법론"</p>
+    </div>
+    
+    <div class="p-6 sm:p-10 space-y-10">
+        
+        <!-- 💡 검토 개요 및 목표 -->
+        <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl text-sm text-amber-950 space-y-3">
+            <h4 class="font-bold text-base flex items-center gap-2">💡 착수 전 Big Room 회의 업무수행 방법 및 절차</h4>
+            <p class="bg-white p-4 rounded-xl border border-amber-300 font-medium text-slate-900 leading-relaxed text-xs sm:text-sm">
+                본 지침서는 동탄트램 전기분야 실공사 착수 전 <strong>본사, 현장, 협력사 및 토목/신호/차량 3자 협의체 구축 방법</strong>, <strong>3D BIM 공종 간섭 조율, 자재 반입 동선/야적장 확보, 타 프로젝트 하자사례 분석 및 안전/민원 Risk Hedge 보고서 결재 절차</strong>를 명확히 제시하여, 시공 리스크를 사전에 소멸시키고 Big Room 승인 회의록을 완성하는 실무 지침서입니다.
+            </p>
+        </div>
+
+        <!-- 🚀 4단계 상세 검토 방법 및 수행 절차 -->
+        <div class="space-y-8">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-amber-600 pb-2 flex items-center gap-2">
+                <span class="text-amber-600">🛠️</span> 착수 전 Big Room 회의 상세 수행 절차
+            </h2>
+
+            <div class="grid grid-cols-1 gap-6">
+                
+                <!-- STEP 1: 본사/현장/협력사 3자 협의체 구축 & 공종 간섭 조율 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-amber-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 01</span>
+                            <h3 class="font-bold text-base text-slate-900">[3자 협의체 & 공종간섭] 회의체 구축 & 3D BIM 간섭 검토</h3>
+                        </div>
+                        <span class="text-xs font-semibold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">3자협의체&간섭</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-amber-900 block border-b border-slate-100 pb-1">1. Big Room 참석자 구성</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 본사, 현장 및 선후행 공종 참석자 확정.<br>
+                                • <strong>세부 절차:</strong> 현장소장 주관, 본사(엔지니어링/견적/품질팀), 현장팀, 전철전력 및 토목/차량 협력사 대표 배정.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-amber-900 block border-b border-slate-100 pb-1">2. 3D BIM 공종 간섭 사전 실측</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 3D BIM 모델 기반 이종 공종 간섭 확인.<br>
+                                • <strong>세부 절차:</strong> 노반(궤도) 구획, 신호/통신 케이블 트레이 이격 거리 및 PSD 구조물 간섭 대조.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-amber-900 block border-b border-slate-100 pb-1">3. 경계면 작업 책임 확정</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 선후행 공종 간 시공 경계 및 이관 일정 조율.<br>
+                                • <strong>세부 절차:</strong> 건축 슬래브 관통 개구부 타공 주체 및 2차측 전기 배선 접속 책임 구분 완료.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: 전기 자재 반입 동선 & 야적장/공장 제작 조건 검증 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-indigo-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 02</span>
+                            <h3 class="font-bold text-base text-slate-900">[반입동선 & 야적장] 자재 반입구, 양중 크레인 & 야적장 검증</h3>
+                        </div>
+                        <span class="text-xs font-semibold text-indigo-700 bg-indigo-100 px-2.5 py-0.5 rounded-full">반입동선&야적장</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-indigo-900 block border-b border-slate-100 pb-1">1. 대형 중량물 반입 동선 검토</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 변압기 및 정류기 반입 경로 실사.<br>
+                                • <strong>세부 절차:</strong> 진입 도로 회전 반경, 지중 지하 매설물 지지력 및 반입구 개구부 높이/폭 실측.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-indigo-900 block border-b border-slate-100 pb-1">2. 현장 야적장 & 자재 보관고</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 자재 야적장 전용 구획 확정.<br>
+                                • <strong>세부 절차:</strong> 전차선 지주 및 케이블 드럼 전용 야장 배수 시설 및 도난 방지 보안 펜스 구획.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-indigo-900 block border-b border-slate-100 pb-1">3. 제작사 공장 제작 조건 조율</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>수행 방법:</strong> 자재 제작사 공장 제작 및 공장시험(FAT) 검토.<br>
+                                • <strong>세부 절차:</strong> 제작사 입고 자재 검수, 공장 중간 검사 일정 및 출하 납품 일정 조율.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: 성능보증 검토 & 타 현장 하자사례 재발방지책 수립 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 03</span>
+                            <h3 class="font-bold text-base text-slate-900">[하자사례 & 성능보증] 타 프로젝트 하자 원인 분석 & 재발방지</h3>
+                        </div>
+                        <span class="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">하자사례재발방지</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-emerald-900 block border-b border-slate-100 pb-1">💡 타 프로젝트 하자사례 전수 데이터베이스 분석</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>사례 분석:</strong> 유사 철도/트램 전기 공사 하자사례 수집.<br>
+                                • <strong>수행 방식:</strong> 전차선 절단, 케이블 단자 접속부 발열 및 절연유 누유 원인 분석 및 대책 수립.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-blue-900 block border-b border-slate-100 pb-1">🛡️ 자재 성능보증 조건 확정</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>성능 보증:</strong> 전기 자재 제조사 납품 성능보증 확약.<br>
+                                • <strong>수행 방식:</strong> 무상 하자보수 기간 연장, 성능 보증증권 제출 및 비상 응급복구 핫라인 수록.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: 안전/품질/민원 Risk Hedge 수립 & Big Room 회의록 승인 -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-teal-600 text-white font-bold text-xs px-3 py-1 rounded-full">STEP 04</span>
+                            <h3 class="font-bold text-base text-slate-900">[Risk Hedge & 회의록] 안전/민원 대책 의결 & 회의록 감리 승인</h3>
+                        </div>
+                        <span class="text-xs font-semibold text-teal-700 bg-teal-100 px-2.5 py-0.5 rounded-full">RiskHedge승인</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-teal-900 block border-b border-slate-100 pb-1">👥 안전/품질/민원 Risk Hedge 수립</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>대책 의결:</strong> 공종별 위험 요소 및 민원 대응방안 수립.<br>
+                                • <strong>수행 방식:</strong> 당사 장비 안전검사 기준 공유, 양중 크레인 안전 검사 및 도심지 소음/소통 민원 대책 확정.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                            <span class="font-bold text-teal-900 block border-b border-slate-100 pb-1">📄 착수 전 Big Room 회의록 서명 & 배포</span>
+                            <p class="text-slate-700 leading-relaxed font-medium">
+                                • <strong>산출물 체결:</strong> 참석 3자 서명 종합 회의록 수립.<br>
+                                • <strong>최종 승인:</strong> 책임감리단 및 발주처 승인 제출 후 본사/현장/협력사에 공식 배포 완료.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 🖼️ 2D VISUAL SVG DIAGRAM -->
+        <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900 border-b-2 border-amber-600 pb-2 flex items-center gap-2">
+                <span class="text-amber-600">🖼️</span> 착수 전 Big Room 회의 상세 수행 절차도
+            </h2>
+            <div class="clickable-diagram bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner" onclick="openDiagramZoom('svg_r310_elec', '[WBS 9000-3-10] 착수 전 Big Room 회의 상세 수행 절차도')">
+                <svg id="svg_r310_elec" viewBox="0 0 550 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="550" height="200" fill="#f8fafc" rx="8"/>
+                    <rect x="15" y="15" width="520" height="170" fill="#ffffff" stroke="#d97706" stroke-width="2" rx="6"/>
+                    <text x="275" y="38" font-size="13" font-weight="black" fill="#b45309" text-anchor="middle">⚡ 동탄트램 착수 전 Big Room 회의 상세 수행 절차도</text>
+                    <line x1="25" y1="46" x2="525" y2="46" stroke="#e2e8f0" stroke-width="1.5"/>
+                    
+                    <g transform="translate(25, 55)">
+                        <rect x="0" y="0" width="145" height="85" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
+                        <text x="72.5" y="22" font-size="10" font-weight="black" fill="#b45309" text-anchor="middle">1. 3자 협의체 & 간섭</text>
+                        <text x="12" y="42" font-size="8" font-weight="bold" fill="#0f172a">• 본사-현장-협력사 참석</text>
+                        <text x="12" y="58" font-size="8" font-weight="bold" fill="#0f172a">• 노반/신호 3D BIM 간섭</text>
+                        <text x="12" y="74" font-size="8" font-weight="bold" fill="#0f172a">• 경계면 접속 책임 구분</text>
+                    </g>
+                    
+                    <line x1="170" y1="97.5" x2="210" y2="97.5" stroke="#d97706" stroke-width="2"/>
+                    <polygon points="210,93.5 218,97.5 210,101.5" fill="#d97706"/>
+
+                    <g transform="translate(220, 55)">
+                        <rect x="0" y="0" width="140" height="85" fill="#faf5ff" stroke="#9333ea" stroke-width="1.5" rx="6"/>
+                        <text x="70" y="22" font-size="10" font-weight="black" fill="#6b21a8" text-anchor="middle">2. 동선 & 하자재발방지</text>
+                        <text x="10" y="42" font-size="8" font-weight="bold" fill="#0f172a">• 반입로/양중 크레인</text>
+                        <text x="10" y="58" font-size="8" font-weight="bold" fill="#0f172a">• 자재 야적장 배수 펜스</text>
+                        <text x="10" y="74" font-size="8" font-weight="bold" fill="#0f172a">• 타 현장 하자사례 대책</text>
+                    </g>
+
+                    <line x1="360" y1="97.5" x2="390" y2="97.5" stroke="#9333ea" stroke-width="2"/>
+                    <polygon points="390,93.5 398,97.5 390,101.5" fill="#9333ea"/>
+
+                    <g transform="translate(400, 55)">
+                        <rect x="0" y="0" width="125" height="85" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5" rx="6"/>
+                        <text x="62.5" y="22" font-size="10" font-weight="black" fill="#15803d" text-anchor="middle">3. Risk Hedge 승인</text>
+                        <text x="10" y="42" font-size="8" font-weight="bold" fill="#15803d">• 안전/품질/민원 대책</text>
+                        <text x="10" y="58" font-size="8" font-weight="bold" fill="#15803d">• 종합 회의록 서명</text>
+                        <text x="10" y="74" font-size="8" font-weight="bold" fill="#15803d">• 감리단 보고서 제출</text>
+                    </g>
+
+                    <rect x="30" y="152" width="490" height="24" fill="#0f172a" rx="4"/>
+                    <text x="275" y="168" font-size="9" font-weight="black" fill="#ffffff" text-anchor="middle">✔ WBS 9000-3-10 착수 전 Big Room 회의록 서명 체결 및 Risk Hedge 승인 완수</text>
+                </svg>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 🟣 시공 도식 확대 팝업 모달 -->
+<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
+    <div class="zoom-modal-content" onclick="event.stopPropagation()">
+        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
+        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 착수 전 Big Room 회의 2D Visual 도식 확대 보기</h3>
+        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
+        </div>
+    </div>
+</div>
+
+<script>
+    function openDiagramZoom(elementId, titleText) {
+        const srcEl = document.getElementById(elementId);
+        if (!srcEl) return;
+        
+        const zoomBody = document.getElementById('zoomBody');
+        document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "착수 전 Big Room 회의 도식 대형 확대 보기");
+        zoomBody.innerHTML = srcEl.outerHTML;
+        
+        const innerSvg = zoomBody.querySelector('svg');
+        if (innerSvg) {
+            innerSvg.setAttribute('width', '100%');
+            innerSvg.setAttribute('height', '520px');
+            innerSvg.style.maxWidth = '1050px';
+        }
+        document.getElementById('zoomModal').classList.add('active');
+    }
+
+    function closeZoomModal() {
+        document.getElementById('zoomModal').classList.remove('active');
+    }
+
+    function closeZoomModalOutside(event) {
+        if (event.target.id === 'zoomModal') closeZoomModal();
+    }
+
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeZoomModal();
+    });
+</script>
+</body>
+</html>

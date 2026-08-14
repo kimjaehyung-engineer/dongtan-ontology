@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동탄도시철도 - 정거장 인승용 승강기(17_24인승) 수행지침</title>
+  <style>
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#f1f5f9; margin:0; padding:24px; color:#0f172a; line-height:1.6; }
+    .container { max-width: 1000px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 32px; border: 1px solid #e2e8f0; }
+    .header { border-bottom: 2px solid #0284c7; padding-bottom: 16px; margin-bottom: 24px; }
+    .badge { display: inline-block; background: #0284c7; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 6px 0; }
+    .subtitle { font-size: 14px; color: #475569; margin: 0; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #0284c7; padding-left: 10px; margin: 24px 0 12px 0; }
+    .diagram-container { background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin:16px 0; text-align:center; cursor:pointer; transition:0.2s; }
+    .diagram-container:hover { border-color:#0284c7; box-shadow:0 4px 12px rgba(2,132,199,0.15); }
+    .diagram-hint { font-size:12px; color:#0284c7; font-weight:600; margin-top:8px; display:inline-block; }
+    .nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+    .nav-btn { flex: 1; text-align: center; padding: 12px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; }
+    .btn-std { background: #0f172a; color: #ffffff; }
+    .btn-chk { background: #d97706; color: #ffffff; }
+    .btn-std:hover { background: #1e293b; }
+    .btn-chk:hover { background: #b45309; }
+    /* Zoom Modal */
+    #zoomModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.75); z-index:9999; justify-content:center; align-items:center; padding:20px; box-sizing:border-box; }
+    .modal-content { background:#ffffff; border-radius:12px; max-width:1100px; width:100%; max-height:90vh; overflow:auto; padding:24px; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+    .close-btn { position:absolute; top:16px; right:16px; background:#f1f5f9; border:none; font-size:20px; font-weight:bold; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">9000-8-31 | 동탄트램 기계설비·소방설비 수행지침</span>
+      <h1 class="title">정거장 인승용 승강기(17_24인승) 수행지침서</h1>
+      <p class="subtitle">승강로 수직도(±5mm), 도어 다점 안전센서, 비상통화장치 및 한국승강기안전공단(KoELSA) 검사</p>
+    </div>
+
+    <div class="section-title">1. 엔지니어링 2D 기술 도식 (클릭 시 확대)</div>
+    <div class="diagram-container" onclick="openDiagramZoom()">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">정거장 MRL 인승용 승강기(17/24인승) 및 한국승강기안전공단 검사</text>
+
+  <rect x="80" y="75" width="280" height="135" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="220" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">MRL 기계실 없는 권상기</text>
+  <text x="100" y="125" font-size="10" fill="#334155">• PMSM 영구자석 기어리스 권상기</text>
+  <text x="100" y="145" font-size="10" fill="#334155">• 승강로 수직도 오차 ≤ ±5mm</text>
+  <text x="100" y="165" font-size="10" fill="#334155">• 가이드레일 단차 ≤ 0.05mm</text>
+  <text x="100" y="185" font-size="10" fill="#334155">• 승차감 진동 ≤ 15 gal 달성</text>
+
+  <rect x="380" y="75" width="360" height="135" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="560" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">4대 핵심 안전장치 연동</text>
+  <text x="400" y="125" font-size="10" fill="#334155">• 128채널 3D 다점 적외선 도어센서</text>
+  <text x="400" y="145" font-size="10" fill="#334155">• 정전 시 자동 착상 구출장치(ARD)</text>
+  <text x="400" y="165" font-size="10" fill="#334155">• 조속기 및 비상정지장치(Safety Gear)</text>
+  <text x="400" y="185" font-size="10" font-weight="bold" fill="#15803d">• 2중 비상통화장치 (24h 방재실 연결)</text>
+
+  <rect x="80" y="225" width="660" height="45" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <text x="400" y="252" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">■ 한국승강기안전공단(KoELSA) 완성검사 100% 합격 ⟶ 법정 운행 필증 획득</text>
+</svg>
+      <div class="diagram-hint">🔍 도식을 클릭하면 고해상도 대형 팝업으로 확대됩니다.</div>
+    </div>
+
+    <div class="section-title">2. 단계별 마스터 수행 절차 (Step-by-Step)</div>
+    
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 1</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 1: 승강로 골조 치수, 피트 깊이 및 수직도 실측</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">레이저 수직 측정기를 이용한 오차 검측</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>승강로 내부 가로/세로 유효 치수 및 오버헤드(Overhead), 피트 깊이(≥1,500mm) 실측</li><li style='margin-bottom:6px;'>피트 바닥 방수 상태(누수 0건) 및 완충기(Buffer) 기초 콘크리트 패드 검측</li><li style='margin-bottom:6px;'>피아노선 또는 3D 레이저 측정기를 내려 승강로 전 높이 수직도 오차(±5mm 이내) 확인</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 2</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 2: 가이드레일 브라켓 및 T형 레일 조립</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">레일 브라켓 앵커링 및 조인트 플레이트 체결</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>승강로 벽체에 2.5m 간격으로 레일 브라켓을 수평 먹매김 후 확장 앵커 고정</li><li style='margin-bottom:6px;'>카 가이드레일 및 균형추(Counter Weight) 가이드레일 인양 및 볼팅 조립</li><li style='margin-bottom:6px;'>레일 접합면 단차(0.05mm 이하) 정밀 줄작업(Filing) 및 레일 간격(BG) 게이지 검측</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 3</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 3: 카 프레임, MRL 권상기, 와이어로프 및 도어 머신 가설</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">안전장치 및 제어반 결선</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>승강로 상단에 고효율 PMSM 기어리스 권상기 안착 및 방진패드 체결</li><li style='margin-bottom:6px;'>특수 엘리베이터 와이어로프(또는 평벨트) 포설 및 카/균형추 로핑 체결</li><li style='margin-bottom:6px;'>카 바닥 하부 비상정지장치(Safety Gear), 조속기(Governor) 로프 연동 결속</li><li style='margin-bottom:6px;'>카 도어에 128채널 3D 적외선 다점 센서 및 세이프티 슈(Safety Shoe) 이중 장착</li>
+          </ul>
+        </div>
+        
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:18px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+            <span style="background:#0284c7; color:#ffffff; font-size:12px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 4</span>
+            <span style="font-size:15px; font-weight:700; color:#0f172a;">STEP 4: 무부하/과부하 시운전 및 승강기안전공단 완성검사</span>
+          </div>
+          <div style="font-size:12px; color:#64748b; margin-bottom:10px; padding-left:4px;">KoELSA 입회 100여개 항목 정밀 검사</div>
+          <ul style="margin:0; padding-left:20px; font-size:13px; color:#334155; line-height:1.6;">
+            <li style='margin-bottom:6px;'>정격 속도(60~90m/min) 주행 시험, 가감속 진동(Gal) 및 소음(≤55dB) 측정</li><li style='margin-bottom:6px;'>정격 하중의 110% 과부하 감지 장치 작동 및 125% 브레이크 제동력 시험</li><li style='margin-bottom:6px;'>정전 시 배터리 구동 자동 착상 장치(ARD) 및 비상통화 버튼 외부 연결 확인</li><li style='margin-bottom:6px;'>한국승강기안전공단(KoELSA) 완성검사 입회 및 법정 승강기 운행 허가 필증 수령</li>
+          </ul>
+        </div>
+        
+
+    <div class="section-title">3. 핵심 엔지니어링 용어 해설</div>
+    <div style="margin-top:12px;">
+      
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• MRL (Machine Room Less):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">별도의 옥상 기계실 없이 승강로 내부 상단에 권상기와 제어반을 모두 집어넣은 최신 공간절약형 엘리베이터</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• ARD (Automatic Rescue Device):</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">엘리베이터 운행 중 정전이 발생했을 때 배터리로 가장 가까운 층까지 자동으로 이동시켜 승객을 안전하게 구출하는 장치</span>
+      </div>
+    
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:8px;">
+        <span style="font-weight:700; color:#0369a1; font-size:13px;">• 조속기 / 비상정지장치:</span>
+        <span style="font-size:12px; color:#475569; margin-left:6px;">로프가 끊어지거나 카가 과속으로 추락할 때 기계적으로 레일을 꽉 물어 멈추게 하는 최후의 안전 브레이크</span>
+      </div>
+    
+    </div>
+
+    <div class="section-title">4. 기계·소방 엔지니어링 간이 계산기 (Interactive Calculator)</div>
+    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin-top:12px;">
+      <div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:10px;">배관 압력손실 및 소화수 방수압 판정기</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+        <label style="font-size:12px; color:#334155;">시험 압력 (MPa): <input type="number" id="testPressure" value="1.5" step="0.1" style="width:80px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <label style="font-size:12px; color:#334155;">유지 시간 (분): <input type="number" id="testTime" value="60" style="width:70px; padding:4px 8px; border:1px solid #cbd5e1; border-radius:4px;"></label>
+        <button onclick="calculateTest()" style="background:#0284c7; color:#fff; border:none; padding:6px 14px; border-radius:4px; font-size:12px; font-weight:700; cursor:pointer;">적합성 판정</button>
+        <span id="calcResult" style="font-size:13px; font-weight:700; color:#15803d; margin-left:10px;"></span>
+      </div>
+    </div>
+
+    <div class="nav-box">
+      <a href="../표준서/31_정거장 인승용 승강기(17_24인승)_표준서.html" class="nav-btn btn-std">📄 [연계] 정거장 인승용 승강기(17_24인승) 표준서 열기 ➔</a>
+      <a href="../체크리스트/31_정거장 인승용 승강기(17_24인승)_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 정거장 인승용 승강기(17_24인승) 체크리스트 열기 ➔</a>
+    </div>
+  </div>
+
+  <!-- Zoom Modal -->
+  <div id="zoomModal" onclick="closeDiagramZoom(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeDiagramZoom(event)">&times;</button>
+      <h3 style="margin-top:0; font-size:18px; color:#0f172a;">정거장 인승용 승강기(17_24인승) - 고해상도 기술 도식</h3>
+      <div style="margin-top:16px;">
+        <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; font-family:'Pretendard', sans-serif;">
+  <rect x="20" y="20" width="760" height="280" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="400" y="45" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">정거장 MRL 인승용 승강기(17/24인승) 및 한국승강기안전공단 검사</text>
+
+  <rect x="80" y="75" width="280" height="135" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="220" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">MRL 기계실 없는 권상기</text>
+  <text x="100" y="125" font-size="10" fill="#334155">• PMSM 영구자석 기어리스 권상기</text>
+  <text x="100" y="145" font-size="10" fill="#334155">• 승강로 수직도 오차 ≤ ±5mm</text>
+  <text x="100" y="165" font-size="10" fill="#334155">• 가이드레일 단차 ≤ 0.05mm</text>
+  <text x="100" y="185" font-size="10" fill="#334155">• 승차감 진동 ≤ 15 gal 달성</text>
+
+  <rect x="380" y="75" width="360" height="135" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="560" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d">4대 핵심 안전장치 연동</text>
+  <text x="400" y="125" font-size="10" fill="#334155">• 128채널 3D 다점 적외선 도어센서</text>
+  <text x="400" y="145" font-size="10" fill="#334155">• 정전 시 자동 착상 구출장치(ARD)</text>
+  <text x="400" y="165" font-size="10" fill="#334155">• 조속기 및 비상정지장치(Safety Gear)</text>
+  <text x="400" y="185" font-size="10" font-weight="bold" fill="#15803d">• 2중 비상통화장치 (24h 방재실 연결)</text>
+
+  <rect x="80" y="225" width="660" height="45" rx="4" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <text x="400" y="252" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">■ 한국승강기안전공단(KoELSA) 완성검사 100% 합격 ⟶ 법정 운행 필증 획득</text>
+</svg>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openDiagramZoom() {
+      document.getElementById('zoomModal').style.display = 'flex';
+    }
+    function closeDiagramZoom(e) {
+      document.getElementById('zoomModal').style.display = 'none';
+    }
+    function calculateTest() {
+      const p = parseFloat(document.getElementById('testPressure').value);
+      const t = parseFloat(document.getElementById('testTime').value);
+      const res = document.getElementById('calcResult');
+      if (p >= 1.0 && t >= 60) {
+        res.innerHTML = "✔ [합격] KCS 41 기준 충족 (1.0MPa 이상, 60분 유지 만족)";
+        res.style.color = "#15803d";
+      } else {
+        res.innerHTML = "❌ [불합격] 최소 수압(1.0MPa) 및 유지시간(60분) 미달";
+        res.style.color = "#dc2626";
+      }
+    }
+  </script>
+</body>
+</html>
