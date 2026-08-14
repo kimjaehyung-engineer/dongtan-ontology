@@ -86,7 +86,18 @@
             color: #0369a1 !important;
             border-radius: 4px !important;
         }
-    </style>
+    
+/* Standardized Bottom Navigation Box */
+.nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
+.nav-btn { flex: 1; text-align: center; padding: 12px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
+.btn-std { background: #0f172a !important; color: #ffffff !important; }
+.btn-guide { background: #0284c7 !important; color: #ffffff !important; }
+.btn-chk { background: #d97706 !important; color: #ffffff !important; }
+.btn-std:hover { background: #1e293b !important; }
+.btn-guide:hover { background: #0369a1 !important; }
+.btn-chk:hover { background: #b45309 !important; }
+
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
 <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
@@ -420,7 +431,13 @@
     </div>
 </div>
 
-<script>
+
+    <div class="nav-box">
+      <a href="../표준서/자재공급원 검토 및 승인_표준서.html" class="nav-btn btn-std">📄 [연계] 자재공급원 검토 및 승인 표준서 열기 ➔</a>
+      <a href="../체크리스트/자재공급원 검토 및 승인_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 자재공급원 검토 및 승인 체크리스트 열기 ➔</a>
+    </div>
+
+  <script>
 const glossaryData = {
     "material_source": "<b>자재공급원 승인신청서 (Material Supplier Application)</b><br><br>• 건설기술진흥법 시행령 제91조에 의거, 공사 현장에 투입할 자재/장비의 품질 및 제조사 적합성을 사전에 검증받기 위해 감리단/발주처에 제출하는 서류입니다.",
     "test_report": "<b>KOLAS 공인시험성적서 (KOLAS Official Test Report)</b><br><br>• 산업통상자원부 국가기술표준원 산하 한국인정기구(KOLAS) 인정 시험기관에서 발행한 방수, 내진, 난연 등 객관적 자재 성능 검증서입니다.",

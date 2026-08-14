@@ -86,7 +86,18 @@
             color: #0369a1 !important;
             border-radius: 4px !important;
         }
-    </style>
+    
+/* Standardized Bottom Navigation Box */
+.nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
+.nav-btn { flex: 1; text-align: center; padding: 12px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
+.btn-std { background: #0f172a !important; color: #ffffff !important; }
+.btn-guide { background: #0284c7 !important; color: #ffffff !important; }
+.btn-chk { background: #d97706 !important; color: #ffffff !important; }
+.btn-std:hover { background: #1e293b !important; }
+.btn-guide:hover { background: #0369a1 !important; }
+.btn-chk:hover { background: #b45309 !important; }
+
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
 <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
@@ -416,7 +427,13 @@
     </div>
 </div>
 
-<script>
+
+    <div class="nav-box">
+      <a href="../표준서/시공 계획 수립 _ 승인_표준서.html" class="nav-btn btn-std">📄 [연계] 시공 계획 수립 _ 승인 표준서 열기 ➔</a>
+      <a href="../체크리스트/시공 계획 수립 _ 승인_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 시공 계획 수립 _ 승인 체크리스트 열기 ➔</a>
+    </div>
+
+  <script>
 const glossaryData = {
     "construction_plan": "<b>시공계획서 (Construction Plan)</b><br><br>• 통신공사 착수 전 공사 개요, 조직도, 예정공정표, 자재/인력/장비 투입계획, 품질/안전 관리 및 시스템 인터페이스 계획을 수립하여 감리단 승인을 받는 공식 지침서입니다.",
     "cpm_schedule": "<b>CPM 예정공정표 (Critical Path Method Schedule)</b><br><br>• 공사의 전체 세부 작업 간 선후 관계를 분석하여 주공정선(Critical Path)을 집중 관리하는 공정표입니다.",

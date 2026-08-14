@@ -88,7 +88,18 @@
         border-radius: 4px !important;
     }
 
-    </style>
+    
+/* Standardized Bottom Navigation Box */
+.nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
+.nav-btn { flex: 1; text-align: center; padding: 12px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
+.btn-std { background: #0f172a !important; color: #ffffff !important; }
+.btn-guide { background: #0284c7 !important; color: #ffffff !important; }
+.btn-chk { background: #d97706 !important; color: #ffffff !important; }
+.btn-std:hover { background: #1e293b !important; }
+.btn-guide:hover { background: #0369a1 !important; }
+.btn-chk:hover { background: #b45309 !important; }
+
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
 <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
@@ -337,7 +348,13 @@
     </div>
 </div>
 
-<script>
+
+    <div class="nav-box">
+      <a href="../표준서/착수 전 Big Room 회의_표준서.html" class="nav-btn btn-std">📄 [연계] 착수 전 Big Room 회의 표준서 열기 ➔</a>
+      <a href="../체크리스트/착수 전 Big Room 회의_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 착수 전 Big Room 회의 체크리스트 열기 ➔</a>
+    </div>
+
+  <script>
 const glossaryData = {
     "interface_check": "<b>5대 공종 간섭검토 (Interface Control)</b><br><br>• 노반(궤도), 전기, 신호, 기계, 차량 등 5대 이종 공종과 통신 설비 간 관통 관로, 층고, 양중 공간 및 전파 간섭 지점을 사전에 도출하고 조율하는 절차입니다.",
     "defect_prevention": "<b>타 프로젝트 하자 재발방지 (Defect Prevention)</b><br><br>• 과거 유사 철도/트램 프로젝트에서 발생했던 광케이블 접속 손실, 침수, 방화 충전 불량 등의 하자 사례를 분석하여 현장에 재발 방지 대책을 수립하는 수칙입니다.",

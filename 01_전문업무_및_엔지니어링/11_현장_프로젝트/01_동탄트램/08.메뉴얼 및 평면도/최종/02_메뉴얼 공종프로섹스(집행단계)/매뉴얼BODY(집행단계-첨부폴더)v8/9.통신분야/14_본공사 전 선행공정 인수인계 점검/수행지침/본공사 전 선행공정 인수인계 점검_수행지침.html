@@ -86,7 +86,18 @@
             color: #0369a1 !important;
             border-radius: 4px !important;
         }
-    </style>
+    
+/* Standardized Bottom Navigation Box */
+.nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
+.nav-btn { flex: 1; text-align: center; padding: 12px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
+.btn-std { background: #0f172a !important; color: #ffffff !important; }
+.btn-guide { background: #0284c7 !important; color: #ffffff !important; }
+.btn-chk { background: #d97706 !important; color: #ffffff !important; }
+.btn-std:hover { background: #1e293b !important; }
+.btn-guide:hover { background: #0369a1 !important; }
+.btn-chk:hover { background: #b45309 !important; }
+
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
 <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
@@ -498,7 +509,13 @@
     </div>
 </div>
 
-<script>
+
+    <div class="nav-box">
+      <a href="../표준서/본공사 전 선행공정 인수인계 점검_표준서.html" class="nav-btn btn-std">📄 [연계] 본공사 전 선행공정 인수인계 점검 표준서 열기 ➔</a>
+      <a href="../체크리스트/본공사 전 선행공정 인수인계 점검_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 본공사 전 선행공정 인수인계 점검 체크리스트 열기 ➔</a>
+    </div>
+
+  <script>
 const glossaryData = {
     "mandrel_test": "<b>관로 도통 시험 (Mandrel Test)</b><br><br>• 지중 배관 내부에 시험용 게이지(Mandrel Ø50mm)를 통과시켜 배관 찌그러짐, 굴곡 변형, 내공 막힘이 없는지 확인하는 필수 도통 검사입니다.",
     "handover_doc": "<b>선행공정 인수인계서 (Handover Certificate)</b><br><br>• 토목·건축 선행 공종의 인수가 완료되었음을 증빙하기 위해 토목, 건축, 통신 3자 현장 책임자가 서명 날인하여 감리단에 제출하는 공식 서면 서식입니다."

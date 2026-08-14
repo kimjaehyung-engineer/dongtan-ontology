@@ -80,7 +80,18 @@
             color: #0369a1 !important;
             border-radius: 4px !important;
         }
-    </style>
+    
+/* Standardized Bottom Navigation Box */
+.nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
+.nav-btn { flex: 1; text-align: center; padding: 12px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
+.btn-std { background: #0f172a !important; color: #ffffff !important; }
+.btn-guide { background: #0284c7 !important; color: #ffffff !important; }
+.btn-chk { background: #d97706 !important; color: #ffffff !important; }
+.btn-std:hover { background: #1e293b !important; }
+.btn-guide:hover { background: #0369a1 !important; }
+.btn-chk:hover { background: #b45309 !important; }
+
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
 <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
@@ -288,7 +299,13 @@
     </div>
 </div>
 
-<script>
+
+    <div class="nav-box">
+      <a href="../표준서/장비반입 및 안전교육_표준서.html" class="nav-btn btn-std">📄 [연계] 장비반입 및 안전교육 표준서 열기 ➔</a>
+      <a href="../체크리스트/장비반입 및 안전교육_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 장비반입 및 안전교육 체크리스트 열기 ➔</a>
+    </div>
+
+  <script>
 const glossaryData = {
     "crane_50t": "<b>50톤 유압식 이동식 크레인 (Tadano GR-500N급)</b><br><br>• 작업 반경 15m에서 정격총하중 3.8ton을 발휘하는 트럭 크레인입니다. 최대 850kg UPS 축전지 양중 시 안전율 SF = 4.00을 확보합니다.",
     "estimated_weight": "<b>통신 장비 정밀 개략 하중 (Estimated Weight)</b><br><br>• UPS 뱅크(850kg), 광케이블 드럼(600kg), 19인치 통신 랙(250kg), OTN 광전송 랙(160kg) 등 양중 크레인을 결정하기 위한 표준 자중 수치입니다.",

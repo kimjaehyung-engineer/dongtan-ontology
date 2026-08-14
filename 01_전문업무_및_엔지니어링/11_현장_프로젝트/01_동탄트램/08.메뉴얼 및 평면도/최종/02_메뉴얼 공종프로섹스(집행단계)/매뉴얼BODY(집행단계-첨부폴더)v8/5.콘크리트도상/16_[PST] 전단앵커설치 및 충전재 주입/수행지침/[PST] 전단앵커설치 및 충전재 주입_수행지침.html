@@ -108,7 +108,18 @@
         color: #ef4444;
     }
 
-    </style>
+    
+/* Standardized Bottom Navigation Box */
+.nav-box { display: flex; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
+.nav-btn { flex: 1; text-align: center; padding: 12px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
+.btn-std { background: #0f172a !important; color: #ffffff !important; }
+.btn-guide { background: #0284c7 !important; color: #ffffff !important; }
+.btn-chk { background: #d97706 !important; color: #ffffff !important; }
+.btn-std:hover { background: #1e293b !important; }
+.btn-guide:hover { background: #0369a1 !important; }
+.btn-chk:hover { background: #b45309 !important; }
+
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
 <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
@@ -395,7 +406,13 @@
     </div>
 </div>
 
-<script>
+
+    <div class="nav-box">
+      <a href="../표준서/16_[PST] 전단앵커설치 및 충전재 주입_표준서.html" class="nav-btn btn-std">📄 [연계] [PST] 전단앵커설치 및 충전재 주입 표준서 열기 ➔</a>
+      <a href="../체크리스트/16_[PST] 전단앵커설치 및 충전재 주입_체크리스트.html" class="nav-btn btn-chk">📋 [연계] [PST] 전단앵커설치 및 충전재 주입 체크리스트 열기 ➔</a>
+    </div>
+
+  <script>
 const glossaryData = {
     'hbs_layer': {
         title: '🧱 HBS 강화노반 지반층 (Hydraulically Bound Base Support)',
