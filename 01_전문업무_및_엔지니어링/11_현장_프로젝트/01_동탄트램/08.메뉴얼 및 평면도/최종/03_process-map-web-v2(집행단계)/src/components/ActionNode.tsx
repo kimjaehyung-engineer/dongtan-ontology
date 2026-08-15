@@ -225,49 +225,108 @@ export default function ActionNode({ id, data, selected }: NodeProps<NodeData>) 
           </div>
         </div>
 
-        {/* Handles: 네 면의 정확한 중앙(50%) 배치 (카드 overflow-hidden 밖으로 완전히 돌출시켜 마우스 연결 100% 보장) */}
+        {/* Handles: Left (Target & Source) */}
         <Handle
-          type="source"
+          type="target"
           position={Position.Left}
-          id="left"
+          id="left-target"
           isConnectable={true}
-          isConnectableStart={true}
-          isConnectableEnd={true}
           style={{ top: '50%', left: -10, transform: 'translateY(-50%)', zIndex: 60 }}
           className="!w-7 !h-7 !bg-indigo-600 !border-3 !border-white shadow-xl cursor-crosshair hover:scale-150 transition-transform pointer-events-auto"
         />
+        <Handle
+          type="source"
+          position={Position.Left}
+          id="left-source"
+          isConnectable={true}
+          style={{ top: '50%', left: -10, transform: 'translateY(-50%)', zIndex: 60 }}
+          className="!w-7 !h-7 !bg-indigo-600 !border-3 !border-white shadow-xl cursor-crosshair hover:scale-150 transition-transform pointer-events-auto opacity-0"
+        />
+        <Handle
+          type="target"
+          position={Position.Left}
+          id="left"
+          isConnectable={true}
+          style={{ top: '50%', left: -10, transform: 'translateY(-50%)', zIndex: 59 }}
+          className="opacity-0 pointer-events-none"
+        />
 
+        {/* Handles: Right (Source & Target) */}
+        <Handle
+          type="source"
+          position={Position.Right}
+          id="right-source"
+          isConnectable={true}
+          style={{ top: '50%', right: -10, transform: 'translateY(-50%)', zIndex: 60 }}
+          className="!w-7 !h-7 !bg-emerald-600 !border-3 !border-white shadow-xl cursor-crosshair hover:scale-150 transition-transform pointer-events-auto"
+        />
+        <Handle
+          type="target"
+          position={Position.Right}
+          id="right-target"
+          isConnectable={true}
+          style={{ top: '50%', right: -10, transform: 'translateY(-50%)', zIndex: 60 }}
+          className="!w-7 !h-7 !bg-emerald-600 !border-3 !border-white shadow-xl cursor-crosshair hover:scale-150 transition-transform pointer-events-auto opacity-0"
+        />
         <Handle
           type="source"
           position={Position.Right}
           id="right"
           isConnectable={true}
-          isConnectableStart={true}
-          isConnectableEnd={true}
-          style={{ top: '50%', right: -10, transform: 'translateY(-50%)', zIndex: 60 }}
-          className="!w-7 !h-7 !bg-emerald-600 !border-3 !border-white shadow-xl cursor-crosshair hover:scale-150 transition-transform pointer-events-auto"
+          style={{ top: '50%', right: -10, transform: 'translateY(-50%)', zIndex: 59 }}
+          className="opacity-0 pointer-events-none"
         />
 
+        {/* Handles: Top (Target & Source) */}
         <Handle
-          type="source"
+          type="target"
           position={Position.Top}
-          id="top"
+          id="top-target"
           isConnectable={true}
-          isConnectableStart={true}
-          isConnectableEnd={true}
           style={{ left: '50%', top: -10, transform: 'translateX(-50%)', zIndex: 60 }}
           className="!w-7 !h-7 !bg-blue-600 !border-3 !border-white shadow-xl cursor-crosshair hover:scale-150 transition-transform pointer-events-auto"
         />
+        <Handle
+          type="source"
+          position={Position.Top}
+          id="top-source"
+          isConnectable={true}
+          style={{ left: '50%', top: -10, transform: 'translateX(-50%)', zIndex: 60 }}
+          className="!w-7 !h-7 !bg-blue-600 !border-3 !border-white shadow-xl cursor-crosshair hover:scale-150 transition-transform pointer-events-auto opacity-0"
+        />
+        <Handle
+          type="target"
+          position={Position.Top}
+          id="top"
+          isConnectable={true}
+          style={{ left: '50%', top: -10, transform: 'translateX(-50%)', zIndex: 59 }}
+          className="opacity-0 pointer-events-none"
+        />
 
+        {/* Handles: Bottom (Source & Target) */}
+        <Handle
+          type="source"
+          position={Position.Bottom}
+          id="bottom-source"
+          isConnectable={true}
+          style={{ left: '50%', bottom: -10, transform: 'translateX(-50%)', zIndex: 60 }}
+          className="!w-7 !h-7 !bg-teal-600 !border-3 !border-white shadow-xl cursor-crosshair hover:scale-150 transition-transform pointer-events-auto"
+        />
+        <Handle
+          type="target"
+          position={Position.Bottom}
+          id="bottom-target"
+          isConnectable={true}
+          style={{ left: '50%', bottom: -10, transform: 'translateX(-50%)', zIndex: 60 }}
+          className="!w-7 !h-7 !bg-teal-600 !border-3 !border-white shadow-xl cursor-crosshair hover:scale-150 transition-transform pointer-events-auto opacity-0"
+        />
         <Handle
           type="source"
           position={Position.Bottom}
           id="bottom"
           isConnectable={true}
-          isConnectableStart={true}
-          isConnectableEnd={true}
-          style={{ left: '50%', bottom: -10, transform: 'translateX(-50%)', zIndex: 60 }}
-          className="!w-7 !h-7 !bg-teal-600 !border-3 !border-white shadow-xl cursor-crosshair hover:scale-150 transition-transform pointer-events-auto"
+          style={{ left: '50%', bottom: -10, transform: 'translateX(-50%)', zIndex: 59 }}
+          className="opacity-0 pointer-events-none"
         />
       </div>
 

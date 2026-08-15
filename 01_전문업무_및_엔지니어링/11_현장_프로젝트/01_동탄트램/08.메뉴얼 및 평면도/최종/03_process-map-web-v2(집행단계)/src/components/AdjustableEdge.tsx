@@ -104,8 +104,8 @@ export default function AdjustableEdge({
 
   const markerId = `marker-arrow-${id.replace(/[^a-zA-Z0-9_-]/g, '')}`;
   const isCrimsonRed = style?.stroke === '#b91c1c' || (markerEnd && typeof markerEnd === 'object' && (markerEnd as any).color === '#b91c1c');
-  const strokeColor = isCrimsonRed ? '#b91c1c' : '#000000';
-  const edgeWidth = selected ? 7 : 6;
+  const strokeColor = isCrimsonRed ? '#b91c1c' : ((style?.stroke as string) || (markerEnd && typeof markerEnd === 'object' && (markerEnd as any).color) || '#2563eb');
+  const edgeWidth = selected ? 7 : (Number(style?.strokeWidth) || 5.5);
 
   const activeStyle: React.CSSProperties = {
     ...(style || {}),
