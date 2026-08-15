@@ -496,10 +496,10 @@ export function buildNodesAndEdgesFromRows(
               sourceHandle,
               targetHandle,
               type: 'smoothstep',
-              animated: true,
+              animated: false,
               pathOptions: { borderRadius: 16, offset: (pIdx % 3) * 12 },
-              style: { stroke: '#2563eb', strokeWidth: 5.5 },
-              markerEnd: { type: MarkerType.ArrowClosed, color: '#2563eb', width: 24, height: 24 },
+              style: { stroke: '#000000', strokeWidth: 5.5 },
+              markerEnd: { type: MarkerType.ArrowClosed, color: '#000000', width: 24, height: 24 },
             });
           }
         }
@@ -530,10 +530,10 @@ export function buildNodesAndEdgesFromRows(
               sourceHandle,
               targetHandle,
               type: 'smoothstep',
-              animated: true,
+              animated: false,
               pathOptions: { borderRadius: 16, offset: (sIdx % 3) * 12 },
-              style: { stroke: '#2563eb', strokeWidth: 5.5 },
-              markerEnd: { type: MarkerType.ArrowClosed, color: '#2563eb', width: 24, height: 24 },
+              style: { stroke: '#000000', strokeWidth: 5.5 },
+              markerEnd: { type: MarkerType.ArrowClosed, color: '#000000', width: 24, height: 24 },
             });
           }
         }
@@ -556,15 +556,15 @@ export function buildNodesAndEdgesFromRows(
         sourceHandle,
         targetHandle,
         type: 'smoothstep',
-        animated: isCp,
+        animated: false,
         pathOptions: { borderRadius: 16 },
         style: {
-          stroke: isCp ? '#b91c1c' : '#1d4ed8',
-          strokeWidth: isCp ? 6 : 5,
+          stroke: isCp ? '#b91c1c' : '#000000',
+          strokeWidth: isCp ? 6 : 5.5,
         },
         markerEnd: {
           type: MarkerType.ArrowClosed,
-          color: isCp ? '#b91c1c' : '#1d4ed8',
+          color: isCp ? '#b91c1c' : '#000000',
           width: 18,
           height: 18,
         },
