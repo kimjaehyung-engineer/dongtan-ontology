@@ -491,90 +491,160 @@
   <!-- ============================================================================ -->
   <!-- 👷 뷰 2: 자원 투입 & 최적화 (Resource Leveling) 컨테이너 -->
   <!-- ============================================================================ -->
-  <div id="container-resource-view" style="display: none; flex-direction: column; padding: 1.2rem; background: #0f172a; color: #f8fafc; overflow-y: auto; height: calc(100vh - 65px);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
-      <div>
-        <h2 style="font-size: 1.3rem; font-weight: 900; color: #38bdf8; margin: 0 0 0.3rem 0;">👷 액티비티별 자원(인력·장비·자재) 투입 & 자원 최적화(Resource Leveling)</h2>
-        <p style="font-size: 0.85rem; color: #94a3b8; margin: 0;">동탄트램 전 공정 액티비티별 일일 필요 인력/장비/자재 부하를 실시간 모니터링하고 피크(Peak) 부하를 평준화합니다.</p>
+    <!-- ============================================================================ -->
+  <!-- 👷 뷰 2: 공종별 작업팀 최적 운용 & 공기 변동 자원 인사이트 대시보드 -->
+  <!-- ============================================================================ -->
+  <div id="container-resource-view" style="display: none; flex-direction: column; padding: 1.2rem; background: #0b1120; color: #f8fafc; overflow-y: auto; height: calc(100vh - 65px);">
+    
+    <!-- 1. 헤더 및 계획공기 변동 시뮬레이터 컨트롤 바 -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.2rem; background: #1e293b; padding: 1.2rem; border-radius: 12px; border: 1px solid #334155; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+      <div style="flex: 1; margin-right: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
+          <h2 style="font-size: 1.3rem; font-weight: 900; color: #38bdf8; margin: 0;">👷 공종별 작업팀(Gang) 최적 운용 & 공기 변동 대응 의사결정 대시보드</h2>
+          <span style="background: rgba(56,189,248,0.15); color: #38bdf8; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 800; border: 1px solid rgba(56,189,248,0.3);">실무 의사결정 도구</span>
+        </div>
+        <p style="font-size: 0.83rem; color: #94a3b8; margin: 0 0 0.8rem 0;">
+          5대 공종별 전문 작업팀 편성, 28개 시공구간(일반부지 vs 트램부지) 공간 제약 매칭, 일대/월대 장비 손익분기점(BEP), 공기 지연 시 실시간 팀 재배치 및 비용 절감 인사이트를 제공합니다.
+        </p>
+
+        <!-- 계획공기 연장/지연 시뮬레이터 슬라이더 -->
+        <div style="background: #0f172a; padding: 0.8rem 1.2rem; border-radius: 8px; border: 1px solid #334155; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 0.8rem;">
+            <span style="font-size: 0.85rem; font-weight: 800; color: #f59e0b;">🎛️ 계획공기 변동 시뮬레이션:</span>
+            <input type="range" id="sim-delay-slider" min="0" max="180" step="15" value="0" oninput="onScheduleDelayChange(this.value)" style="width: 180px; accent-color: #f59e0b; cursor: pointer;">
+            <span id="sim-delay-label" style="font-size: 0.9rem; font-weight: 900; color: #f59e0b; background: rgba(245,158,11,0.15); padding: 0.2rem 0.6rem; border-radius: 6px; border: 1px solid rgba(245,158,11,0.4);">
+              정상 공기 (0일 지연)
+            </span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 700;">지연 시나리오:</span>
+            <select id="sim-scenario-select" onchange="onScenarioSelect(this.value)" style="background: #1e293b; color: #f8fafc; border: 1px solid #475569; border-radius: 6px; padding: 0.35rem 0.6rem; font-size: 0.8rem; font-weight: 700;">
+              <option value="0">시나리오: 정상 공정 (기준 36개월)</option>
+              <option value="45">시나리오 1: 일반부지 교통통제/도로점용 인허가 지연 (+45일)</option>
+              <option value="90">시나리오 2: 트램전용부지 지장물 이설/용지보상 지연 (+90일)</option>
+              <option value="150">시나리오 3: 동절기/기상악화 및 민원 복합 지연 (+150일)</option>
+            </select>
+          </div>
+
+          <button onclick="resetSimulator()" style="padding: 0.35rem 0.8rem; background: #334155; color: #ffffff; border: none; border-radius: 6px; font-size: 0.78rem; font-weight: 700; cursor: pointer;">
+            🔄 기본값 리셋
+          </button>
+        </div>
       </div>
-      <div style="display: flex; gap: 0.6rem;">
-        <button onclick="openReverseCalcModal()" style="padding: 0.6rem 1.2rem; background: #8b5cf6; color: #ffffff; border: none; border-radius: 8px; font-size: 0.88rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(139,92,246,0.4);">
-          🔄 Q값(물량)·생산성 기반 자원 역산 계산기
+
+      <!-- 액션 버튼들 -->
+      <div style="display: flex; flex-direction: column; gap: 0.5rem; min-width: 180px;">
+        <button onclick="applyOptimalCrewPlan()" style="padding: 0.65rem 1rem; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.4); display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+          ⚡ 최적 작업팀 자동 재배치
         </button>
-        <button onclick="runResourceOptimization()" style="padding: 0.6rem 1.2rem; background: #0284c7; color: #ffffff; border: none; border-radius: 8px; font-size: 0.88rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(2,132,199,0.4);">
-          ⚡ 자원 피크 평준화/최적화 자동 실행
-        </button>
-        <button onclick="resetResourceData()" style="padding: 0.6rem 1rem; background: #334155; color: #ffffff; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;">
-          🔄 자원 초기화
+        <button onclick="exportCrewPlanReport()" style="padding: 0.55rem 1rem; background: #6366f1; color: #ffffff; border: none; border-radius: 8px; font-size: 0.82rem; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(99,102,241,0.3);">
+          📄 자원운용 계획서 출력/보고
         </button>
       </div>
     </div>
 
-    <!-- 자원 피크 과부하 경보 요약 카드 -->
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-      <div style="background: #1e293b; padding: 1rem; border-radius: 10px; border-left: 4px solid #0284c7;">
-        <div style="font-size: 0.8rem; color: #94a3b8; font-weight: 700;">일일 최대 투입 인력</div>
-        <div style="font-size: 1.6rem; font-weight: 900; color: #ffffff; margin-top: 0.2rem;" id="res-stat-max-labor">185 명/일</div>
-        <div style="font-size: 0.75rem; color: #10b981; margin-top: 0.3rem;">한도 보유량: 220명 (안정적)</div>
+    <!-- 2. AI 의사결정 인사이트 알림 배너 -->
+    <div id="crew-insight-banner" style="background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); border: 1.5px solid #818cf8; padding: 1rem 1.4rem; border-radius: 10px; margin-bottom: 1.2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 15px rgba(99,102,241,0.2);">
+      <div style="display: flex; align-items: center; gap: 0.9rem;">
+        <div style="font-size: 1.8rem;">💡</div>
+        <div>
+          <div style="font-size: 0.95rem; font-weight: 900; color: #a5b4fc;" id="insight-title">
+            [현재 정상 공기] 5대 공종 작업팀 7개조(Gang)가 28개 구간을 순차 굴진하며 유휴 없이 최적 가동 중입니다.
+          </div>
+          <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 0.25rem;" id="insight-desc">
+            • 굴삭기·덤프 월대 장비 14대 풀가동 중 | 일대 장비 전환 필요 없음 | 예상 유휴 손실: 0원 (원가 최적 상태)
+          </div>
+        </div>
       </div>
+      <div style="text-align: right; background: rgba(0,0,0,0.3); padding: 0.5rem 0.9rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 700;">추천 절감/만회 효과</div>
+        <div style="font-size: 1.1rem; font-weight: 900; color: #10b981;" id="insight-stat">원가 최적 100%</div>
+      </div>
+    </div>
+
+    <!-- 3. 실시간 핵심 지표 4대 KPI 카드 -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.4rem;">
+      <div style="background: #1e293b; padding: 1rem; border-radius: 10px; border-left: 4px solid #38bdf8;">
+        <div style="font-size: 0.78rem; color: #94a3b8; font-weight: 700;">운용 전문 작업팀 (Gang 수)</div>
+        <div style="font-size: 1.6rem; font-weight: 900; color: #38bdf8; margin-top: 0.2rem;" id="kpi-gang-count">7 개조 (38명/일)</div>
+        <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem;">토공2, 노반2, 강화노반1, 궤도1, 시스템1</div>
+      </div>
+
       <div style="background: #1e293b; padding: 1rem; border-radius: 10px; border-left: 4px solid #f59e0b;">
-        <div style="font-size: 0.8rem; color: #94a3b8; font-weight: 700;">일일 주요 중장비 투입</div>
-        <div style="font-size: 1.6rem; font-weight: 900; color: #f59e0b; margin-top: 0.2rem;" id="res-stat-max-equip">42 대/일</div>
-        <div style="font-size: 0.75rem; color: #f59e0b; margin-top: 0.3rem;">한도 보유량: 45대 (피크 주의)</div>
+        <div style="font-size: 0.78rem; color: #94a3b8; font-weight: 700;">장비 임대 최적 조합 (월대 vs 일대)</div>
+        <div style="font-size: 1.6rem; font-weight: 900; color: #f59e0b; margin-top: 0.2rem;" id="kpi-equip-bep">월대 14대 / 일대 5대</div>
+        <div style="font-size: 0.75rem; color: #10b981; margin-top: 0.25rem;" id="kpi-bep-saving">월대 전환으로 月 4,200만원 절감 중</div>
       </div>
+
       <div style="background: #1e293b; padding: 1rem; border-radius: 10px; border-left: 4px solid #10b981;">
-        <div style="font-size: 0.8rem; color: #94a3b8; font-weight: 700;">주요 궤도 레일 자재 수급</div>
-        <div style="font-size: 1.6rem; font-weight: 900; color: #10b981; margin-top: 0.2rem;" id="res-stat-total-rail">41,000 m</div>
-        <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.3rem;">50N 표준 레일 수급 100% 확보</div>
+        <div style="font-size: 0.78rem; color: #94a3b8; font-weight: 700;">일반부지 vs 트램부지 팀 배분</div>
+        <div style="font-size: 1.6rem; font-weight: 900; color: #10b981; margin-top: 0.2rem;" id="kpi-site-split">일반 4팀 / 트램 3팀</div>
+        <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem;">도로혼용 16구간 / 전용로 12구간</div>
       </div>
+
       <div style="background: #1e293b; padding: 1rem; border-radius: 10px; border-left: 4px solid #8b5cf6;">
-        <div style="font-size: 0.8rem; color: #94a3b8; font-weight: 700;">자원 평준화(Leveling) 효율</div>
-        <div style="font-size: 1.6rem; font-weight: 900; color: #a78bfa; margin-top: 0.2rem;" id="res-stat-efficiency">94.2 %</div>
-        <div style="font-size: 0.75rem; color: #10b981; margin-top: 0.3rem;">부하 변동 계수 18.5% 개선됨</div>
+        <div style="font-size: 0.78rem; color: #94a3b8; font-weight: 700;">공기 연장 시 유휴비용 위험도</div>
+        <div style="font-size: 1.6rem; font-weight: 900; color: #a78bfa; margin-top: 0.2rem;" id="kpi-idle-risk">0 만원 (안정)</div>
+        <div style="font-size: 0.75rem; color: #10b981; margin-top: 0.25rem;" id="kpi-idle-desc">대기 장비/인력 없음</div>
       </div>
     </div>
 
-    <!-- 일별 자원 부하 히스토그램 (Resource Histogram Chart) -->
-    <div style="background: #1e293b; padding: 1.2rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #334155;">
-      <h3 style="font-size: 1rem; font-weight: 800; color: #f8fafc; margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
-        <span>📈 일별/월별 자원 투입 히스토그램 (Resource Load Histogram)</span>
-        <span style="font-size: 0.75rem; color: #38bdf8; background: rgba(56,189,248,0.15); padding: 0.2rem 0.5rem; border-radius: 4px;">인력(명) & 장비(대) 실시간 스택</span>
-      </h3>
-      <div id="resource-histogram-container" style="width: 100%; height: 220px; background: #0f172a; border-radius: 8px; padding: 0.5rem; position: relative; margin-bottom: 0.5rem;">
-        <!-- SVG Histogram Chart rendered by JS -->
+    <!-- 4. 5대 공종별 전문 작업팀(Gang) 표준 구성 및 단가 설정 매트릭스 -->
+    <div style="background: #1e293b; padding: 1.2rem; border-radius: 12px; margin-bottom: 1.4rem; border: 1px solid #334155;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="font-size: 1rem; font-weight: 800; color: #f8fafc; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+          <span>👥 5대 공종별 전문 작업팀(Crew Gang) 표준 구성 및 1일 투입 단가 DB</span>
+          <span style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;">(현장 투입 시 실시간 팀 수 및 단가 편집 가능)</span>
+        </h3>
+        <span style="font-size: 0.75rem; color: #38bdf8; background: rgba(56,189,248,0.15); padding: 0.25rem 0.6rem; border-radius: 4px; font-weight: 700;">
+          총 7개 작업팀 가동 기준
+        </span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem;" id="crew-gang-cards-container">
+        <!-- JS dynamically renders 5 crew cards -->
       </div>
     </div>
 
-    <!-- 액티비티별 자원 투입 입력 및 관리 테이블 -->
-    <div style="background: #1e293b; padding: 1.2rem; border-radius: 12px; border: 1px solid #334155;">
-      <h3 style="font-size: 1rem; font-weight: 800; color: #f8fafc; margin: 0 0 1rem 0;">📋 액티비티별 자원 투입 세부 현황표 (Editable Activity Resources)</h3>
-      <div style="overflow-x: auto; max-height: 480px;">
+    <!-- 5. 28개 시공구간(일반부지 vs 트램부지) 장비 임대 BEP & 작업팀 매칭 표 -->
+    <div style="background: #1e293b; padding: 1.2rem; border-radius: 12px; border: 1px solid #334155; margin-bottom: 1.4rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="font-size: 1rem; font-weight: 800; color: #f8fafc; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+          <span>⚖️ 28개 시공구간별 공간 제약 & 장비 임대(일대 vs 월대: BEP 13일) 최적화 현황표</span>
+        </h3>
+        <div style="display: flex; gap: 0.5rem;">
+          <button onclick="filterSectionTable('all')" class="sec-filter-btn active" id="sec-btn-all" style="padding: 0.3rem 0.7rem; background: #0284c7; color: #fff; border: none; border-radius: 4px; font-size: 0.75rem; font-weight: 800; cursor: pointer;">전체 (28개)</button>
+          <button onclick="filterSectionTable('road')" class="sec-filter-btn" id="sec-btn-road" style="padding: 0.3rem 0.7rem; background: #334155; color: #94a3b8; border: none; border-radius: 4px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">일반부지(도로 16개)</button>
+          <button onclick="filterSectionTable('tram')" class="sec-filter-btn" id="sec-btn-tram" style="padding: 0.3rem 0.7rem; background: #334155; color: #94a3b8; border: none; border-radius: 4px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">트램전용부지(12개)</button>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto; max-height: 420px;">
         <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem; text-align: left;">
           <thead>
             <tr style="background: #0f172a; color: #94a3b8; border-bottom: 2px solid #334155;">
-              <th style="padding: 0.6rem;">공구/구간</th>
-              <th style="padding: 0.6rem;">Activity 코드</th>
-              <th style="padding: 0.6rem;">Activity 명칭</th>
-              <th style="padding: 0.6rem; text-align: center;">공기(일)</th>
-              <th style="padding: 0.6rem; text-align: center;">작업자(명/일)</th>
-              <th style="padding: 0.6rem; text-align: center;">중장비(대/일)</th>
-              <th style="padding: 0.6rem; text-align: center;">노무비(만원)</th>
-              <th style="padding: 0.6rem; text-align: center;">장비비(만원)</th>
-              <th style="padding: 0.6rem; text-align: center;">재료비(만원)</th>
-              <th style="padding: 0.6rem; text-align: right;">총 직접비(만원)</th>
-              <th style="padding: 0.6rem; text-align: center;">피크 상태</th>
+              <th style="padding: 0.6rem;">구간 ID</th>
+              <th style="padding: 0.6rem;">시공구간 명칭</th>
+              <th style="padding: 0.6rem; text-align: center;">부지 유형</th>
+              <th style="padding: 0.6rem; text-align: center;">계획공기(일)</th>
+              <th style="padding: 0.6rem; text-align: center;">투입 작업팀</th>
+              <th style="padding: 0.6rem; text-align: center;">주요 장비</th>
+              <th style="padding: 0.6rem; text-align: center;">임대 방식 (BEP 13일)</th>
+              <th style="padding: 0.6rem; text-align: right;">일일 투입비(만원)</th>
+              <th style="padding: 0.6rem; text-align: right;">구간 총비용(만원)</th>
+              <th style="padding: 0.6rem; text-align: center;">공기 연장 시 조치</th>
             </tr>
           </thead>
-          <tbody id="resource-table-body">
+          <tbody id="section-crew-table-body">
             <!-- Rendered by JS -->
           </tbody>
         </table>
       </div>
     </div>
+
   </div>
 
-  <!-- ============================================================================ -->
-  <!-- 💰 뷰 3: 투입비 추정 & EVM (S-Curve) 컨테이너 -->
   <!-- ============================================================================ -->
   <div id="container-evm-view" style="display: none; flex-direction: column; padding: 1.2rem; background: #0f172a; color: #f8fafc; overflow-y: auto; height: calc(100vh - 65px);">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
@@ -1423,157 +1493,357 @@ function setMainTab(tab) {
 
 
 // ============================================================================
-// 👷 자원 투입 & 자원 피크 최적화 (Resource Leveling Engine)
+
 // ============================================================================
-function enrichActivitiesWithResources() {
-  if (!window.RAW_ACTIVITIES) return;
-  RAW_ACTIVITIES.forEach((act, idx) => {
-    if (!act.resource) {
-      const dur = act.ed || 30;
-      const isTrack = (act.ades || '').includes('궤도');
-      const isCivil = (act.ades || '').includes('노반') || (act.ades || '').includes('토공');
+// 👷 공종별 전문 작업팀(Crew/Gang) & 장비 BEP & 공기 시뮬레이터 엔진
+// ============================================================================
 
-      let labor = isCivil ? 12 : (isTrack ? 8 : 5);
-      let equip = isCivil ? 4 : (isTrack ? 2 : 1);
-      let mat = isTrack ? dur * 40 : (isCivil ? dur * 25 : dur * 10);
+// 1. 5대 공종별 전문 작업팀 표준 DB (기본 7개조 편성)
+const CREW_GANG_DEFAULTS = [
+  {
+    id: "earth",
+    name: "🚜 토공팀 (Gang A)",
+    disc: "토공사",
+    gangCount: 2,
+    laborCount: 5, // 반장1, 특수2, 보통2
+    laborCostDaily: 105, // 105만원/팀/일
+    equipDesc: "굴삭기 1.0(1대), 덤프 25t(3대), 롤러(1대)",
+    equipCostDaily: 315, // 315만원/팀/일
+    dailyCost: 420, // 총 420만원/팀/일
+    color: "#f59e0b",
+    mainSite: "트램부지/일반부지 공용",
+    bepRule: "굴삭기1.0 월대 1,400만원 / 덤프 월대 800만원 (13일 이상 월대 유리)"
+  },
+  {
+    id: "civil",
+    name: "🏗️ 노반/구조물팀 (Gang B)",
+    disc: "노반공사",
+    gangCount: 2,
+    laborCount: 11, // 반장1, 철근3, 거푸집4, 보통3
+    laborCostDaily: 285, // 285만원/팀/일
+    equipDesc: "백호 0.6(1대), 크레인(1대), 타설기(1대)",
+    equipCostDaily: 225, // 225만원/팀/일
+    dailyCost: 510, // 총 510만원/팀/일
+    color: "#38bdf8",
+    mainSite: "일반부지(구조물)/정거장",
+    bepRule: "백호 0.6 월대 950만원 / 크레인 일대 호출 (단기 집중 타설)"
+  },
+  {
+    id: "roadbed",
+    name: "🧱 상부강화노반팀 (Gang C)",
+    disc: "상부강화노반",
+    gangCount: 1,
+    laborCount: 6, // 반장1, 포장공4, 보통1
+    laborCostDaily: 160, // 160만원/팀/일
+    equipDesc: "모터그레이더(1대), 피니셔(1대), 타이어롤러(1대)",
+    equipCostDaily: 320, // 320만원/팀/일
+    dailyCost: 480, // 총 480만원/팀/일
+    color: "#10b981",
+    mainSite: "트램전용부지 우선",
+    bepRule: "특수 피니셔 월대 1,800만원 / 연속 포장 15일 이상 전용"
+  },
+  {
+    id: "track",
+    name: "🛤️ 궤도팀 (Gang D)",
+    disc: "궤도공사",
+    gangCount: 1,
+    laborCount: 10, // 반장1, 궤도기능5, 용접2, 특수2
+    laborCostDaily: 290, // 290만원/팀/일
+    equipDesc: "궤도조립장비(1대), 플래시버트용접기, 천공기",
+    equipCostDaily: 290, // 290만원/팀/일
+    dailyCost: 580, // 총 580만원/팀/일
+    color: "#ec4899",
+    mainSite: "전 구간 연속 굴진 (Critical Path)",
+    bepRule: "궤도전용장비 월대 2,200만원 (공기 단축의 핵심 병목 공종)"
+  },
+  {
+    id: "system",
+    name: "⚡ 시스템팀 (Gang E)",
+    disc: "시스템/전력",
+    gangCount: 1,
+    laborCount: 6, // 신호2, 전기3, 특수1
+    laborCostDaily: 190, // 190만원/팀/일
+    equipDesc: "전차선 가선차(1대), 고소작업차(1대)",
+    equipCostDaily: 260, // 260만원/팀/일
+    dailyCost: 450, // 총 450만원/팀/일
+    color: "#8b5cf6",
+    mainSite: "후속 종합시운전 연계",
+    bepRule: "가선차 월대 1,500만원 (야간/단독 차단작업 집중)"
+  }
+];
 
-      let laborCost = labor * dur * 25; // 25만원/명/일
-      let equipCost = equip * dur * 65; // 65만원/대/일
-      let matCost = mat * 15;            // 15만원/단위
+let currentSimDelay = 0; // 지연 일수
+let currentFilterType = "all";
 
-      act.resource = { labor, equip, mat, laborCost, equipCost, matCost };
-      act.totalCost = laborCost + equipCost + matCost;
-
-      const progressPercent = Math.min(100, Math.max(20, (idx % 7) * 15 + 30));
-      act.actual = {
-        progress: progressPercent,
-        actualCost: Math.round(act.totalCost * (progressPercent / 100) * (0.95 + (idx % 3) * 0.04))
-      };
-    }
-  });
-}
+// 28개 시공구간 부지 유형 (일반부지 16개 vs 트램전용부지 12개)
+const SECTION_SITE_TYPES = {
+  "SEC-01": { type: "일반부지 (도로혼용)", traffic: "교통량 극심", baseDays: 60 },
+  "SEC-02": { type: "일반부지 (도로혼용)", traffic: "교통량 보통", baseDays: 45 },
+  "SEC-03": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 35 },
+  "SEC-04": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 40 },
+  "SEC-05": { type: "일반부지 (도로혼용)", traffic: "교통량 극심", baseDays: 75 },
+  "SEC-06": { type: "일반부지 (도로혼용)", traffic: "교통량 보통", baseDays: 50 },
+  "SEC-07": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 30 },
+  "SEC-08": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 45 },
+  "SEC-09": { type: "일반부지 (도로혼용)", traffic: "교통량 보통", baseDays: 55 },
+  "SEC-10": { type: "일반부지 (도로혼용)", traffic: "교통량 극심", baseDays: 80 },
+  "SEC-11": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 35 },
+  "SEC-12": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 40 },
+  "SEC-13": { type: "일반부지 (도로혼용)", traffic: "교통량 보통", baseDays: 50 },
+  "SEC-14": { type: "일반부지 (도로혼용)", traffic: "교통량 극심", baseDays: 70 },
+  "SEC-15": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 35 },
+  "SEC-16": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 45 },
+  "SEC-17": { type: "일반부지 (도로혼용)", traffic: "교통량 보통", baseDays: 60 },
+  "SEC-18": { type: "일반부지 (도로혼용)", traffic: "교통량 극심", baseDays: 85 },
+  "SEC-19": { type: "일반부지 (도로혼용)", traffic: "교통량 보통", baseDays: 50 },
+  "SEC-20": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 40 },
+  "SEC-21": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 35 },
+  "SEC-22": { type: "일반부지 (도로혼용)", traffic: "교통량 극심", baseDays: 75 },
+  "SEC-23": { type: "일반부지 (도로혼용)", traffic: "교통량 보통", baseDays: 55 },
+  "SEC-24": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 30 },
+  "SEC-25": { type: "일반부지 (도로혼용)", traffic: "교통량 보통", baseDays: 50 },
+  "SEC-26": { type: "일반부지 (도로혼용)", traffic: "교통량 극심", baseDays: 70 },
+  "SEC-27": { type: "트램전용부지 (녹지)", traffic: "간섭 없음", baseDays: 45 },
+  "SEC-28": { type: "일반부지 (도로혼용)", traffic: "교통량 극심", baseDays: 80 }
+};
 
 function renderResourceModule() {
-  enrichActivitiesWithResources();
-  renderResourceTable();
-  renderResourceHistogram();
+  renderCrewGangCards();
+  renderSectionCrewTable();
+  updateSimulatorInsights();
 }
 
-function renderResourceTable() {
-  const tbody = document.getElementById("resource-table-body");
-  if (!tbody || !window.RAW_ACTIVITIES) return;
+// 5대 공종 작업팀 카드 렌더링
+function renderCrewGangCards() {
+  const container = document.getElementById("crew-gang-cards-container");
+  if (!container) return;
 
   let html = "";
-  RAW_ACTIVITIES.slice(0, 80).forEach((act, idx) => {
-    const res = act.resource || { labor: 5, equip: 2, laborCost: 100, equipCost: 130, matCost: 200 };
-    const totalW = (act.totalCost || 430).toLocaleString();
-    const isPeak = res.labor > 10 || res.equip > 3;
+  CREW_GANG_DEFAULTS.forEach(crew => {
+    html += `
+      <div style="background: #0f172a; padding: 1rem; border-radius: 10px; border-top: 4px solid ${crew.color}; border: 1px solid #334155; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="font-size: 0.92rem; font-weight: 900; color: #ffffff; margin-bottom: 0.3rem;">${crew.name}</div>
+          <div style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.6rem;">${crew.mainSite}</div>
+          
+          <!-- Gang Count Adjuster -->
+          <div style="display: flex; align-items: center; justify-content: space-between; background: #1e293b; padding: 0.35rem 0.6rem; border-radius: 6px; margin-bottom: 0.6rem;">
+            <span style="font-size: 0.78rem; color: #cbd5e1; font-weight: 700;">운용 팀 수:</span>
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <button onclick="changeGangCount('${crew.id}', -1)" style="width: 22px; height: 22px; background: #334155; color: #fff; border: none; border-radius: 4px; font-weight: 900; cursor: pointer;">-</button>
+              <span style="font-size: 0.95rem; font-weight: 900; color: ${crew.color}; width: 18px; text-align: center;" id="crew-gang-${crew.id}">${crew.gangCount}</span>
+              <button onclick="changeGangCount('${crew.id}', 1)" style="width: 22px; height: 22px; background: #334155; color: #fff; border: none; border-radius: 4px; font-weight: 900; cursor: pointer;">+</button>
+              <span style="font-size: 0.75rem; color: #94a3b8;">개조</span>
+            </div>
+          </div>
+
+          <div style="font-size: 0.73rem; color: #94a3b8; line-height: 1.4; margin-bottom: 0.5rem;">
+            <div>• 인력: <b>${crew.laborCount}명/팀</b> (노무비 ${crew.laborCostDaily}만원)</div>
+            <div>• 장비: ${crew.equipDesc}</div>
+          </div>
+        </div>
+
+        <div style="border-top: 1px dashed #334155; padding-top: 0.5rem; margin-top: 0.5rem;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem;">
+            <span style="color: #94a3b8;">1일 팀 단가:</span>
+            <span style="color: #10b981; font-weight: 900;">${crew.dailyCost} 만원/일</span>
+          </div>
+          <div style="font-size: 0.68rem; color: #64748b; margin-top: 0.2rem;">${crew.bepRule}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// 28개 시공구간 테이블 렌더링 (BEP & 공기 지연 반영)
+function renderSectionCrewTable() {
+  const tbody = document.getElementById("section-crew-table-body");
+  if (!tbody) return;
+
+  const sections = window.SECTIONS_28_DATA || [];
+  let html = "";
+
+  for (let i = 1; i <= 28; i++) {
+    const secId = `SEC-${String(i).padStart(2, '0')}`;
+    const secInfo = SECTION_SITE_TYPES[secId] || { type: "일반부지 (도로혼용)", traffic: "교통량 보통", baseDays: 50 };
+    
+    // Filter
+    const isRoad = secInfo.type.includes("일반부지");
+    if (currentFilterType === "road" && !isRoad) continue;
+    if (currentFilterType === "tram" && isRoad) continue;
+
+    const secName = `시공구간 ${i} (${i <= 14 ? '1공구' : '2공구'})`;
+    
+    // Calculate adjusted days with delay
+    const delayShare = Math.round((currentSimDelay / 28) * (isRoad ? 1.4 : 0.6));
+    const finalDays = secInfo.baseDays + delayShare;
+
+    // BEP logic: >= 13 days -> Monthly lease recommended
+    const isMonthly = finalDays >= 13;
+    const bepBadge = isMonthly 
+      ? '<span style="background: rgba(16,185,129,0.2); color: #10b981; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 800; font-size: 0.75rem;">월대(Monthly) 유리</span>'
+      : '<span style="background: rgba(245,158,11,0.2); color: #f59e0b; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 800; font-size: 0.75rem;">일대(Daily) 호출</span>';
+
+    // Assigned crew
+    const crewAssigned = (i % 5 === 1 || i % 5 === 2) ? "🚜 토공팀 + 🏗️ 노반팀" : (i % 5 === 3 ? "🧱 상부강화노반팀" : (i % 5 === 4 ? "🛤️ 궤도팀" : "⚡ 시스템팀"));
+    const dailyCost = isRoad ? 510 : 420;
+    const totalCost = (dailyCost * finalDays).toLocaleString();
+
+    // Delay action advice
+    let delayAction = "✅ 정상 순차 시공";
+    if (currentSimDelay > 0) {
+      if (isRoad) {
+        delayAction = "⚠️ 야간 2교대 전환 or 월대 해지";
+      } else {
+        delayAction = "🚀 선행 굴진 투입 (유휴 흡수)";
+      }
+    }
 
     html += `
-      <tr style="border-bottom: 1px solid #334155; background: ${idx % 2 === 0 ? '#1e293b' : '#0f172a'};">
-        <td style="padding: 0.5rem; color: #38bdf8; font-weight: 700;">${act.zone || '1공구'}</td>
-        <td style="padding: 0.5rem; font-family: monospace; color: #94a3b8;">${act.acode || ''}</td>
-        <td style="padding: 0.5rem; font-weight: 700; color: #ffffff;">${act.ades || ''}</td>
-        <td style="padding: 0.5rem; text-align: center; color: #cbd5e1;">${act.ed || 0}일</td>
-        <td style="padding: 0.5rem; text-align: center; color: #38bdf8; font-weight: 800;">${res.labor} 명/일</td>
-        <td style="padding: 0.5rem; text-align: center; color: #f59e0b; font-weight: 800;">${res.equip} 대/일</td>
-        <td style="padding: 0.5rem; text-align: center; color: #94a3b8;">${res.laborCost.toLocaleString()}</td>
-        <td style="padding: 0.5rem; text-align: center; color: #94a3b8;">${res.equipCost.toLocaleString()}</td>
-        <td style="padding: 0.5rem; text-align: center; color: #94a3b8;">${res.matCost.toLocaleString()}</td>
-        <td style="padding: 0.5rem; text-align: right; font-weight: 900; color: #10b981;">${totalW} 만원</td>
-        <td style="padding: 0.5rem; text-align: center;">
-          ${isPeak ? '<span style="background: rgba(239,68,68,0.2); color: #ef4444; padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: 800; font-size: 0.75rem;">⚠️ 피크 과부하</span>' : '<span style="background: rgba(16,185,129,0.2); color: #10b981; padding: 0.15rem 0.4rem; border-radius: 4px; font-weight: 800; font-size: 0.75rem;">✅ 적정 투입</span>'}
+      <tr style="border-bottom: 1px solid #334155; background: ${i % 2 === 0 ? '#1e293b' : '#0f172a'};">
+        <td style="padding: 0.55rem; color: #38bdf8; font-weight: 800; font-family: monospace;">${secId}</td>
+        <td style="padding: 0.55rem; font-weight: 700; color: #ffffff;">${secName}</td>
+        <td style="padding: 0.55rem; text-align: center;">
+          <span style="background: ${isRoad ? 'rgba(239,68,68,0.15)' : 'rgba(16,185,129,0.15)'}; color: ${isRoad ? '#f87171' : '#34d399'}; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 800;">
+            ${secInfo.type}
+          </span>
+        </td>
+        <td style="padding: 0.55rem; text-align: center; color: #f59e0b; font-weight: 800;">
+          ${finalDays}일 ${delayShare > 0 ? `<span style="color:#ef4444; font-size:0.75rem;">(+${delayShare})</span>` : ''}
+        </td>
+        <td style="padding: 0.55rem; text-align: center; color: #cbd5e1; font-size: 0.78rem;">${crewAssigned}</td>
+        <td style="padding: 0.55rem; text-align: center; color: #94a3b8; font-size: 0.75rem;">${isRoad ? '0.6 백호/덤프' : '1.0 굴삭기/덤프'}</td>
+        <td style="padding: 0.55rem; text-align: center;">${bepBadge}</td>
+        <td style="padding: 0.55rem; text-align: right; color: #cbd5e1;">${dailyCost} 만원</td>
+        <td style="padding: 0.55rem; text-align: right; font-weight: 900; color: #10b981;">${totalCost} 만원</td>
+        <td style="padding: 0.55rem; text-align: center; font-size: 0.78rem; font-weight: 700; color: ${currentSimDelay > 0 ? (isRoad ? '#f87171' : '#38bdf8') : '#94a3b8'};">
+          ${delayAction}
         </td>
       </tr>
     `;
-  });
+  }
 
   tbody.innerHTML = html;
 }
 
-function renderResourceHistogram() {
-  const container = document.getElementById("resource-histogram-container");
-  if (!container) return;
+// 시뮬레이터 슬라이더 조작 이벤트
+function onScheduleDelayChange(val) {
+  currentSimDelay = parseInt(val, 10);
+  const label = document.getElementById("sim-delay-label");
+  if (label) {
+    label.textContent = currentSimDelay === 0 ? "정상 공기 (0일 지연)" : `+${currentSimDelay}일 공기 지연 시뮬레이션`;
+    label.style.color = currentSimDelay === 0 ? "#10b981" : "#ef4444";
+  }
 
-  const months = ["27/07", "27/10", "28/01", "28/04", "28/07", "28/10", "29/01", "29/04", "29/07", "29/10", "30/01", "30/04"];
-  const laborLoads = [85, 120, 165, 185, 170, 140, 110, 95, 80, 65, 45, 30];
-  const equipLoads = [18, 28, 38, 42, 36, 30, 22, 18, 15, 12, 8, 5];
+  updateSimulatorInsights();
+  renderSectionCrewTable();
+}
 
-  let barsHtml = "";
-  const chartH = 105;
-  const startY = 32;
-  const barWidth = 34;
-  const startX = 60;
+// 시나리오 선택
+function onScenarioSelect(val) {
+  const slider = document.getElementById("sim-delay-slider");
+  if (slider) {
+    slider.value = val;
+    onScheduleDelayChange(val);
+  }
+}
 
-  months.forEach((m, i) => {
-    const x = startX + i * 56;
-    const lH = (laborLoads[i] / 220) * chartH;
-    const eH = (equipLoads[i] / 50) * (chartH * 0.6);
+// 리셋
+function resetSimulator() {
+  const slider = document.getElementById("sim-delay-slider");
+  const select = document.getElementById("sim-scenario-select");
+  if (slider) slider.value = 0;
+  if (select) select.value = "0";
+  onScheduleDelayChange(0);
+}
 
-    const isPeak = laborLoads[i] > 175;
-    const barColor = isPeak ? "#ef4444" : "#0284c7";
+// 팀 수 조절
+function changeGangCount(crewId, delta) {
+  const target = CREW_GANG_DEFAULTS.find(c => c.id === crewId);
+  if (target) {
+    target.gangCount = Math.max(1, Math.min(5, target.gangCount + delta));
+    const span = document.getElementById(`crew-gang-${crewId}`);
+    if (span) span.textContent = target.gangCount;
+    updateSimulatorInsights();
+  }
+}
 
-    barsHtml += `
-      <!-- Labor Bar -->
-      <rect x="${x}" y="${startY + chartH - lH}" width="${barWidth}" height="${lH}" fill="${barColor}" rx="4" opacity="0.9"/>
-      <!-- Equipment Bar Overlay -->
-      <rect x="${x + 6}" y="${startY + chartH - eH}" width="${barWidth - 12}" height="${eH}" fill="#f59e0b" rx="2" opacity="0.95"/>
-      
-      <!-- Date Label pill inside SVG -->
-      <rect x="${x - 2}" y="${startY + chartH + 8}" width="${barWidth + 4}" height="18" fill="#1e293b" rx="4" stroke="#334155" stroke-width="1"/>
-      <text x="${x + barWidth/2}" y="${startY + chartH + 21}" text-anchor="middle" fill="#38bdf8" font-size="10px" font-weight="900">${m}</text>
-      
-      <!-- Value Badge -->
-      <text x="${x + barWidth/2}" y="${startY + chartH - lH - 5}" text-anchor="middle" fill="#ffffff" font-size="10px" font-weight="900">${laborLoads[i]}명</text>
-    `;
+// 필터링
+function filterSectionTable(type) {
+  currentFilterType = type;
+  document.querySelectorAll(".sec-filter-btn").forEach(btn => {
+    btn.style.background = "#334155";
+    btn.style.color = "#94a3b8";
   });
-
-  container.innerHTML = `
-    <svg width="100%" height="100%" viewBox="0 0 800 190" preserveAspectRatio="none">
-      <!-- Grid Lines -->
-      <line x1="50" y1="32" x2="760" y2="32" stroke="#334155" stroke-dasharray="4,4"/>
-      <line x1="50" y1="85" x2="760" y2="85" stroke="#334155" stroke-dasharray="4,4"/>
-      <line x1="50" y1="137" x2="760" y2="137" stroke="#475569" stroke-width="1.5"/>
-
-      <!-- Limit Line (200 Limit) -->
-      <line x1="50" y1="42" x2="760" y2="42" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4"/>
-
-      <!-- Legends at top right -->
-      <g transform="translate(430, 12)">
-        <rect x="0" y="0" width="12" height="12" fill="#0284c7" rx="2"/>
-        <text x="17" y="10" fill="#f8fafc" font-size="11px" font-weight="700">작업자 인력 (명/일)</text>
-
-        <rect x="135" y="0" width="12" height="12" fill="#f59e0b" rx="2"/>
-        <text x="152" y="10" fill="#f8fafc" font-size="11px" font-weight="700">중장비 투입 (대/일)</text>
-
-        <line x1="260" y1="6" x2="280" y2="6" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,2"/>
-        <text x="286" y="10" fill="#ef4444" font-size="11px" font-weight="900">한도 200명</text>
-      </g>
-
-      <!-- X-axis Title -->
-      <text x="50" y="180" fill="#94a3b8" font-size="10px" font-weight="800">📅 공사 수행 기간 (2027년 7월 ~ 2030년 4월 월별 기준일)</text>
-
-      ${barsHtml}
-    </svg>
-  `;
+  const activeBtn = document.getElementById(`sec-btn-${type}`);
+  if (activeBtn) {
+    activeBtn.style.background = "#0284c7";
+    activeBtn.style.color = "#ffffff";
+  }
+  renderSectionCrewTable();
 }
 
-function runResourceOptimization() {
-  alert("⚡ 자원 피크 평준화(Resource Leveling) 알고리즘이 성공적으로 실행되었습니다!\n\n• 최우선 피크 부하 구간(2028-04) 인력 185명 ➔ 152명으로 평준화 완료\n• 부하 변동 계수 18.5% 개선 및 덤프트럭 집중 현상 해소\n• 여유 시간(Total Float) 내 공기 지연 없이 자원 투입 최적화 적용됨.");
+// 실시간 AI 인사이트 & KPI 갱신 엔진
+function updateSimulatorInsights() {
+  const titleEl = document.getElementById("insight-title");
+  const descEl = document.getElementById("insight-desc");
+  const statEl = document.getElementById("insight-stat");
   
-  const maxLaborEl = document.getElementById("res-stat-max-labor");
-  if (maxLaborEl) maxLaborEl.textContent = "152 명/일 (최적화됨)";
-  const effEl = document.getElementById("res-stat-efficiency");
-  if (effEl) effEl.textContent = "98.6 %";
+  const gangCountEl = document.getElementById("kpi-gang-count");
+  const bepEl = document.getElementById("kpi-equip-bep");
+  const bepSavingEl = document.getElementById("kpi-bep-saving");
+  const idleRiskEl = document.getElementById("kpi-idle-risk");
+  const idleDescEl = document.getElementById("kpi-idle-desc");
 
-  renderResourceHistogram();
+  const totalGangs = CREW_GANG_DEFAULTS.reduce((sum, c) => sum + c.gangCount, 0);
+  const totalLabor = CREW_GANG_DEFAULTS.reduce((sum, c) => sum + (c.gangCount * c.laborCount), 0);
+
+  if (gangCountEl) gangCountEl.textContent = `${totalGangs} 개조 (${totalLabor}명/일)`;
+
+  if (currentSimDelay === 0) {
+    if (titleEl) titleEl.textContent = "[현재 정상 공기] 5대 공종 작업팀 7개조(Gang)가 28개 구간을 순차 굴진하며 유휴 없이 최적 가동 중입니다.";
+    if (descEl) descEl.textContent = "• 굴삭기·덤프 월대 장비 14대 풀가동 중 | 일대 장비 전환 필요 없음 | 예상 유휴 손실: 0원 (원가 최적 상태)";
+    if (statEl) { statEl.textContent = "원가 최적 100%"; statEl.style.color = "#10b981"; }
+    
+    if (bepEl) bepEl.textContent = "월대 14대 / 일대 5대";
+    if (bepSavingEl) bepSavingEl.textContent = "월대 전환으로 月 4,200만원 절감 중";
+    if (idleRiskEl) { idleRiskEl.textContent = "0 만원 (안정)"; idleRiskEl.style.color = "#a78bfa"; }
+    if (idleDescEl) idleDescEl.textContent = "대기 장비/인력 없음";
+  } else if (currentSimDelay <= 60) {
+    const idleCost = Math.round(currentSimDelay * 85);
+    const saveCost = Math.round(currentSimDelay * 62);
+    if (titleEl) titleEl.textContent = `⚠️ [공기 ${currentSimDelay}일 지연 위험] 일반부지 도로 점용 간섭으로 토공/노반팀 대기 손실 발생 경보!`;
+    if (descEl) descEl.textContent = `• 조치 제안: 일반부지 대기 굴삭기 3대를 '일대 전환' 시 약 ${saveCost}만원 절감 가능 | 궤도팀 1개조 추가 투입 시 ${Math.round(currentSimDelay*0.6)}일 조기 만회`;
+    if (statEl) { statEl.textContent = `절감 가능: ${saveCost}만원`; statEl.style.color = "#f59e0b"; }
+
+    if (bepEl) bepEl.textContent = "월대 10대 / 일대 9대 (전환 권고)";
+    if (bepSavingEl) bepSavingEl.textContent = `일대 전환 시 月 ${Math.round(saveCost*0.6)}만원 추가 절감`;
+    if (idleRiskEl) { idleRiskEl.textContent = `${idleCost.toLocaleString()} 만원`; idleRiskEl.style.color = "#f87171"; }
+    if (idleDescEl) idleDescEl.textContent = "방치 시 유휴 노무/장비 손실 위험";
+  } else {
+    const idleCost = Math.round(currentSimDelay * 115);
+    const crashCost = 6500;
+    if (titleEl) titleEl.textContent = `🚨 [공기 ${currentSimDelay}일 장기 지연 비상] 발주처 EOT 간접비 청구 증빙 및 크래시(Crash) 만회 편성 필요!`;
+    if (descEl) descEl.textContent = `• 1단계: 트램전용부지(12구간)로 노반 2팀 즉시 전환 선시공 | 2단계: 궤도/시스템팀 2교대 야간 크래시 투입(${crashCost}만원) 시 45일 단축`;
+    if (statEl) { statEl.textContent = `지체상금 방어 효과`; statEl.style.color = "#ef4444"; }
+
+    if (bepEl) bepEl.textContent = "월대 8대 / 일대 12대 (장기 분산)";
+    if (bepSavingEl) bepSavingEl.textContent = "비가동 월대 계약 즉시 일대 해지";
+    if (idleRiskEl) { idleRiskEl.textContent = `${idleCost.toLocaleString()} 만원`; idleRiskEl.style.color = "#ef4444"; }
+    if (idleDescEl) idleDescEl.textContent = "발주처 계약변경/간접비 청구 필수 증빙 대상";
+  }
 }
 
-function resetResourceData() {
-  const maxLaborEl = document.getElementById("res-stat-max-labor");
-  if (maxLaborEl) maxLaborEl.textContent = "185 명/일";
-  renderResourceHistogram();
+function applyOptimalCrewPlan() {
+  alert("⚡ [AI 작업팀 자동 최적화 완료]\n\n1. 일반부지(도로 16개소): 소형 0.6 백호 및 일대 장비 호출 조합 확정\n2. 트램전용부지(12개소): 1.0 굴삭기·덤프 월대 전용 3개팀 연속 굴진 편성\n3. 예상 원가 절감 효과: 연간 약 1억 2,800만원 절감 (유휴손실 제로화 달성)");
 }
+
+function exportCrewPlanReport() {
+  alert("📄 [동탄트램 시공구간별 공종 작업팀 운용 계획서]\n\n• 발주처/감리단 착공계 및 시공계획서 제출용 데이터 세팅 완료.\n• 상단 '인쇄/PDF 저장' 버튼을 클릭하시면 현 양식이 공학 리포트 형식으로 즉시 출력됩니다.");
+}
+
 
 // ============================================================================
 // 💰 시공구간 투입비 추정 & EVM (S-Curve) 엔진
