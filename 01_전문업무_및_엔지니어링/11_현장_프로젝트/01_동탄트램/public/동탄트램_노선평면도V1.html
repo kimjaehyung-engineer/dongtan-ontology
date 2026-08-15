@@ -1747,9 +1747,7 @@ header {
     </select>
   </div>
   <div class="nav-button-group">
-    <a href="../동탄트램_업무_매뉴얼.html" target="_blank" class="nav-link-btn manual-btn" title="동탄트램 업무 매뉴얼">📖 업무 매뉴얼</a>
-    <a href="../동탄트램_정거장_노반_분리형_공정_매뉴얼_포털.html" target="_blank" class="nav-link-btn portal-btn" title="공정 매뉴얼 포털">📋 공정 포털</a>
-    <a href="../../09_공정표/동탄트램_Time_Chainage_공정표_대시보드.html" target="_blank" class="nav-link-btn tc-btn" title="Time-Chainage 공정표 대시보드">📊 Time-Chainage</a>
+    <a href="../05_공정표/동탄트램_Time_Chainage_공정표_대시보드.html" onclick="openTimeChainage(event)" target="_blank" class="nav-link-btn tc-btn" title="Time-Chainage 공정표 대시보드" style="padding: 0.45rem 1.1rem; font-size: 0.88rem; font-weight: 800; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; border: 1px solid #047857; box-shadow: 0 2px 6px rgba(16, 185, 129, 0.35); border-radius: 0.5rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">📊 Time-Chainage 공정표</a>
   </div>
   <div class="badge-group">
     <div class="badge blue">2공구 (망포~오산) 16.6km</div>
@@ -16652,9 +16650,13 @@ window.addEventListener("DOMContentLoaded", () => {
     renderGeotechBoreholes();
   }, 100);
 });
-setTimeout(() => {
-  renderGeotechBoreholes();
-}, 300);
+// 📊 Time-Chainage 공정표 스마트 연동 함수 (로컬/웹 호스팅 100% 호환)
+function openTimeChainage(e) {
+  if (window.location.protocol.startsWith("http")) {
+    if (e) e.preventDefault();
+    window.open("./동탄트램_Time_Chainage_공정표_대시보드.html", "_blank");
+  }
+}
 
 </script>
 
