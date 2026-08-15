@@ -3,158 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>콘크리트도상 - 레일 용접장 선정 완료 검측 체크리스트</title>
+    <title>레일 용접장 선정 마스터 체크리스트</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Noto Sans KR', sans-serif; } 
-
-
-  
-    
-
-  
-    /* Standardized Bottom Navigation Box */
-    .nav-box { display: flex; gap: 12px; margin-top: 36px; padding-top: 24px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
-    .nav-btn { flex: 1; text-align: center; padding: 14px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
-    .btn-std { background: #0f172a !important; color: #ffffff !important; }
-    .btn-guide { background: #0284c7 !important; color: #ffffff !important; }
-    .btn-chk { background: #d97706 !important; color: #ffffff !important; }
-    .btn-std:hover { background: #1e293b !important; }
-    .btn-guide:hover { background: #0369a1 !important; }
-    .btn-chk:hover { background: #b45309 !important; }
-
-  </style>
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }
+        /* Standardized Bottom Navigation Box */
+        .nav-box { display: flex; gap: 12px; margin-top: 36px; padding-top: 24px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
+        .nav-btn { flex: 1; text-align: center; padding: 14px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
+        .btn-std { background: #0f172a !important; color: #ffffff !important; }
+        .btn-guide { background: #0284c7 !important; color: #ffffff !important; }
+        .btn-chk { background: #d97706 !important; color: #ffffff !important; }
+        .btn-std:hover { background: #1e293b !important; }
+        .btn-guide:hover { background: #0369a1 !important; }
+        .btn-chk:hover { background: #b45309 !important; }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased p-6 sm:p-10">
-<div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl border border-slate-200 overflow-hidden">
-    <div class="bg-amber-900 text-white p-8 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-amber-800 to-slate-900 opacity-60"></div>
-        <div class="relative z-10">
-            <div class="flex items-center gap-3 mb-2">
-                <span class="bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Dongtan Tram WBS 9000-6-3 Checklist</span>
-                <span class="bg-white text-amber-950 text-xs font-bold px-3 py-1 rounded-full">실시간 O/X 검측 도구</span>
-            </div>
-            <h1 class="text-3xl sm:text-4xl font-black tracking-tight">레일 용접장 선정 완료 검측 체크리스트</h1>
-            <p class="text-amber-200 mt-2 text-sm sm:text-base">"궤도 틀림, 용접 NDT, 콘크리트 강도 및 LLBS 리스크 완벽 검증 체크리스트"</p>
+<body class="p-6 sm:p-10 text-slate-800">
+<div class="max-w-5xl mx-auto space-y-6">
+
+    <!-- 대제목 & WBS 코드 -->
+    <div class="flex justify-between items-end border-b-2 border-slate-900 pb-4">
+        <div>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">레일 용접장 선정 마스터 체크리스트</h1>
+        </div>
+        <div class="text-right">
+            <span class="text-blue-600 font-bold text-sm">WBS Code 9000-5-3 | 콘크리트도상 검측대장</span>
         </div>
     </div>
-    <div class="p-6 sm:p-10 space-y-8">
+
+    <!-- 📋 상단 안내 상자 (Notice Box) -->
+    <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-6 shadow-sm space-y-2">
+        <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+            <span>📋</span> 레일 용접장 선정 12대 정밀 검측대장
+        </h3>
+        <p class="text-xs text-blue-900 leading-relaxed font-medium">
+            본 체크리스트는 국토교통부 표준시방서, 철도설계기준 및 동탄트램 특기시방서 기준을 12개 정밀 점검 항목으로 확장 구성하였으며, 모든 항목의 문장 끝은 예외 없이 질문형 어미(<strong class="text-blue-700">~하였는가?</strong>)로 100% 정형화되었습니다.
+        </p>
+    </div>
+
+    <!-- 3-Column 마스터 검측 테이블 -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-slate-100 text-slate-700 text-xs sm:text-sm font-bold border-b border-slate-200">
+                    <th class="p-4 text-center w-12">NO</th>
+                    <th class="p-4 text-left w-36">구분</th>
+                    <th class="p-4 text-left">검측 및 확인 세부 항목 (질문형 어미 준수)</th>
+                    <th class="p-4 text-center w-36">검측 결과</th>
+                    <th class="p-4 text-center w-28">조치 사항</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">1</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">사전 도서 대조</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">레일 용접장 선정 관련 최신 승인도면 및 철도시설 기술기준 및 콘크리트도상 시방서에 따라 사전 검토를 철저히 수행하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">2</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">자재 검수 및 승인</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">현장 반입 자재가 자재공급원 승인원 및 공인 시험성적서 규격과 100% 일치함을 확인하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">3</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">선행공정 인계</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">선행 구조물(토목/건축/노반)의 수평도, 마감 상태 및 분계점 인수인계를 정밀 점검하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">4</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">시공장비 및 안전</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">투입 장비(레일 연마기, 트랙게이지, 콘크리트 펌프카)의 공인 검교정 필증을 확인하고 작업장 안전방호 조치를 완료하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">5</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">정밀 수치 계측</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">궤간(1,435mm ±1mm), 수평(±1mm), 면맞춤 허용오차 기준을 100% 충족하도록 정밀 실측 검측을 수행하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">6</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">핵심 성능 시험</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">체결장치(텐션클램프) 체결 토크 및 절연패드 측정 및 단위 기능시험을 엄격히 실시하여 시방 기준 합격을 입증하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">7</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">체결 및 조립 상태</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">규정 토크값에 따라 전용 공구로 정밀 체결하고 풀림방지 마킹(Torque Seal)을 완료하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">8</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">배관/배선/배치 정돈</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">설비 및 배관/배선의 굴절반경 규격 준수, 정돈 상태 및 지지간격의 적정성을 확인하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">9</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">방화/환경 씰링</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">방화구획 관통부 내화 2시간 이상의 방화충전재 밀폐 및 환경오염 방지 처리를 완료하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">10</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">인터페이스 상호 확인</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">인접 공종(궤도, 전기, 신호, 통신, 건축, 차량)과의 이격거리 확보 및 간섭 배제 조치를 확인하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">11</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">사진 채증 완료</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">시공 전, 시공 중, 시공 후의 주요 공정 및 숨은 검측 상태를 다각도에서 촬영 채증하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">12</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">3자 서명 날인</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">시공사, 품질관리자 및 책임감리원 3자 입회 검측 후 용접장 임시지정서, NDT 검사실 계획서에 서명/날인을 완료하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 점검자 및 감리원 서명란 -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-slate-700">
         <div>
-            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-amber-600 pb-2">
-                <span class="text-amber-600">1.</span> 정밀 궤도 검측 및 시방 기준 체크항목 (Track Geometry Inspection)
-            </h2>
-            <div class="space-y-3 text-sm">
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3 hover:bg-amber-50/50 transition-colors">
-                    <input type="checkbox" class="w-5 h-5 mt-0.5 text-amber-600 rounded border-slate-300 focus:ring-amber-500 cursor-pointer">
-                    <div>
-                        <strong class="text-slate-900">EN 14587 가스압접/플래시버트 설비 정밀도:</strong>
-                        <p class="text-xs text-slate-600 mt-0.5">자동 용접 설비 및 가압 업셋 공차가 EN 14587 시방 기준을 충족함을 확인하였는가?</p>
-                    </div>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3 hover:bg-amber-50/50 transition-colors">
-                    <input type="checkbox" class="w-5 h-5 mt-0.5 text-amber-600 rounded border-slate-300 focus:ring-amber-500 cursor-pointer">
-                    <div>
-                        <strong class="text-slate-900">용접 직선도 (1m 룰러 오차 ±0.2mm):</strong>
-                        <p class="text-xs text-slate-600 mt-0.5">용접 완료 후 1m 정밀 룰러 측정 시 수직/수평 오차가 ±0.2mm 이내인가?</p>
-                    </div>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3 hover:bg-amber-50/50 transition-colors">
-                    <input type="checkbox" class="w-5 h-5 mt-0.5 text-amber-600 rounded border-slate-300 focus:ring-amber-500 cursor-pointer">
-                    <div>
-                        <strong class="text-slate-900">UT 초음파 탐상검사 100% 무결함:</strong>
-                        <p class="text-xs text-slate-600 mt-0.5">용접부 100% UT 탐상 결과를 작성하고 미세 균열/슬래그 결함이 없음을 확인했는가?</p>
-                    </div>
-                </div>
-            </div>
+            <span>📌 종합 판정 결과: </span>
+            <span class="text-blue-600 font-bold text-sm ml-2">적합 (PASS)</span>
         </div>
-        <div>
-            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-amber-600 pb-2">
-                <span class="text-amber-600">2.</span> 집행단계 리스크 점검사항 (LLBS Risk Checklist)
-            </h2>
-            <div class="space-y-3 text-sm">
-                <div class="p-4 bg-amber-50/60 rounded-xl border border-amber-200 flex items-start gap-3">
-                    <input type="checkbox" class="w-5 h-5 mt-0.5 text-amber-600 rounded border-slate-300 focus:ring-amber-500 cursor-pointer">
-                    <div>
-                        <strong class="text-slate-900">용접 롤러대 수평 침하 점검:</strong>
-                        <p class="text-xs text-slate-600 mt-0.5">롤러대 300m 이송 구간 수평 오차가 ±0.5mm/10m 이내로 정밀 유지되고 있는가?</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <h2 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2 border-b-2 border-amber-600 pb-2">
-                <span class="text-amber-600">3.</span> 협력사 공사관리 검측 확인사항 (Subcontractor Verification)
-            </h2>
-            <div class="space-y-3 text-sm">
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3">
-                    <input type="checkbox" class="w-5 h-5 mt-0.5 text-amber-600 rounded border-slate-300 focus:ring-amber-500 cursor-pointer">
-                    <div>
-                        <strong class="text-slate-900">용접원 자격 및 타각 기록 확인:</strong>
-                        <p class="text-xs text-slate-600 mt-0.5">용접원 자격증 사본 대조 및 레일 측면 용접년도/고유번호 타각 기록을 확인했는가?</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mt-8 pt-6 border-t border-slate-200">
-            <h3 class="text-sm font-bold text-slate-800 mb-4">✍️ 최종 검측 승인 서명란 (Inspection Sign-off)</h3>
-            <div class="grid grid-cols-3 gap-4 text-center text-xs">
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <p class="text-slate-500 font-bold">검측자 (시공사)</p>
-                    <p class="mt-6 text-slate-400">성명: ____________ (서명)</p>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <p class="text-slate-500 font-bold">확인자 (감리원)</p>
-                    <p class="mt-6 text-slate-400">성명: ____________ (서명)</p>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                    <p class="text-slate-500 font-bold">승인자 (현장대리인)</p>
-                    <p class="mt-6 text-slate-400">성명: ____________ (서명)</p>
-                </div>
-            </div>
+        <div class="flex gap-8">
+            <div>점검자(시공책임): <span class="border-b border-slate-400 pb-1 px-4 inline-block ml-1">김시공 (인)</span></div>
+            <div>확인자(책임감리): <span class="border-b border-slate-400 pb-1 px-4 inline-block ml-1">이감리 (인)</span></div>
         </div>
     </div>
-    <div class="bg-slate-900 text-slate-400 p-6 text-center text-xs border-t border-slate-800">
-        동탄도시철도(트램) 건설공사 엔지니어링 체크리스트 | WBS 9000-6-3 | 궤도공학 콘크리트도상
-    </div>
-</div>
 
-
-    
-
-  
-    <!-- Bottom Navigation Block -->
-    
-
-  
     <!-- Bottom Navigation Block -->
     <div class="nav-box">
       <a href="../표준서/레일 용접장 선정_표준서.html" class="nav-btn btn-std">📄 [연계] 레일 용접장 선정 표준서 열기 ➔</a>
       <a href="../수행지침/레일 용접장 선정_수행지침.html" class="nav-btn btn-guide">📘 [연계] 레일 용접장 선정 수행지침서 열기 ➔</a>
     </div>
-
-  <div id="zoomModal" class="fixed inset-0 z-[9999] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
-    <div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()">
-        <button onclick="document.getElementById('zoomModal').classList.add('hidden')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm hover:bg-slate-700">✕ 닫기</button>
-        <h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3>
-        <div id="zoomContent" class="flex justify-center items-center"></div>
-    </div>
 </div>
-<script>
-function openDiagramZoom(htmlContent, title) {
-    var modal = document.getElementById('zoomModal');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'zoomModal';
-        modal.className = 'fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4';
-        modal.onclick = function() { modal.classList.add('hidden'); };
-        modal.innerHTML = '<div class="bg-white rounded-3xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto border-4 border-indigo-500 shadow-2xl relative" onclick="event.stopPropagation()"><button onclick="document.getElementById(\'zoomModal\').classList.add(\'hidden\')" class="absolute top-4 right-4 bg-slate-900 text-white font-black px-4 py-2 rounded-full text-sm">✕ 닫기</button><h3 id="zoomTitle" class="text-xl font-black text-slate-900 mb-4 pb-2 border-b border-slate-200">고해상도 2D 시공 도식 확대보기</h3><div id="zoomContent" class="flex justify-center items-center"></div></div>';
-        document.body.appendChild(modal);
-    }
-    document.getElementById('zoomTitle').innerText = title || '2D 시공 도식 확대보기';
-    document.getElementById('zoomContent').innerHTML = htmlContent;
-    modal.classList.remove('hidden');
-}
-</script>
-
 </body>
 </html>

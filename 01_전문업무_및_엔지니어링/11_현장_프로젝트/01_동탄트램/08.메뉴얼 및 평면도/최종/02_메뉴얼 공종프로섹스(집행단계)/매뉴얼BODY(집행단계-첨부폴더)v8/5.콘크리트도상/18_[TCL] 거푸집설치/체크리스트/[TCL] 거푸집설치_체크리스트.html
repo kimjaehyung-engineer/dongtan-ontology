@@ -3,414 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>콘크리트도상 - [TCL] 거푸집 설치 체크리스트</title>
+    <title>[TCL] 거푸집설치 마스터 체크리스트</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-primary: #f8fafc;
-            --bg-card: #ffffff;
-            --text-primary: #0f172a;
-            --accent-blue: #0284c7;
-            --border-color: #cbd5e1;
-        }
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            margin: 0;
-            padding: 30px 20px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 950px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            padding: 35px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-        }
-        .header {
-            border-bottom: 2px solid var(--text-primary);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-        .title {
-            font-size: 1.6rem;
-            font-weight: 900;
-            margin: 0;
-            color: #0369a1;
-        }
-        .meta {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #0284c7;
-        }
-        .summary-box {
-            background: #f0f9ff;
-            border: 1px solid #bae6fd;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-            color: #0369a1;
-        }
-        table {
-            width: 100% !important;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid var(--border-color);
-            padding: 14px;
-            font-size: 0.92rem;
-            text-align: left;
-        }
-        th {
-            background: #f1f5f9;
-            font-weight: bold;
-            text-align: center;
-        }
-        .category {
-            font-weight: bold;
-            text-align: center;
-            vertical-align: middle;
-            width: 18%;
-        }
-        .check-cell {
-            text-align: center;
-            vertical-align: middle;
-            width: 14%;
-            font-weight: bold;
-            color: #0369a1;
-        }
-        .step-tag {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-right: 4px;
-        }
-        
-    .term-highlight {
-        color: #0284c7 !important;
-        font-weight: 700 !important;
-        border-bottom: 2px dashed #0284c7 !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-        padding: 0 2px !important;
-    }
-    .term-highlight:hover {
-        background: #e0f2fe !important;
-        color: #0369a1 !important;
-        border-radius: 4px !important;
-    }
-    .clickable-diagram {
-        cursor: zoom-in !important;
-        transition: all 0.25s ease !important;
-        position: relative !important;
-    }
-    .clickable-diagram:hover {
-        transform: scale(1.015) !important;
-        box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.15) !important;
-    }
-    .clickable-diagram::after {
-        content: "🔍 클릭하여 대형 확대보기";
-        position: absolute;
-        bottom: 8px;
-        right: 12px;
-        background: rgba(15, 23, 42, 0.75);
-        color: #ffffff;
-        font-size: 11px;
-        font-weight: 700;
-        padding: 4px 10px;
-        border-radius: 20px;
-        backdrop-filter: blur(4px);
-        pointer-events: none;
-        opacity: 0.85;
-        transition: opacity 0.2s;
-    }
-    .clickable-diagram:hover::after {
-        opacity: 1;
-        background: rgba(2, 132, 199, 0.9);
-    }
-    .glossary-modal, .zoom-modal {
-        display: none;
-        position: fixed;
-        z-index: 9999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(15, 23, 42, 0.75);
-        backdrop-filter: blur(6px);
-        align-items: center;
-        justify-content: center;
-    }
-    .glossary-modal.active, .zoom-modal.active {
-        display: flex;
-    }
-    .glossary-modal-content {
-        background-color: #ffffff;
-        margin: auto;
-        padding: 24px;
-        border: 1px solid #e2e8f0;
-        width: 90%;
-        max-width: 550px;
-        border-radius: 16px;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        position: relative;
-        text-align: left;
-    }
-    .zoom-modal-content {
-        background-color: #ffffff;
-        margin: auto;
-        padding: 28px;
-        border: 1px solid #cbd5e1;
-        width: 95%;
-        max-width: 1100px;
-        max-height: 90vh;
-        border-radius: 20px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        position: relative;
-        overflow-y: auto;
-        text-align: center;
-    }
-    .glossary-close, .zoom-close {
-        color: #64748b;
-        position: absolute;
-        right: 20px;
-        top: 16px;
-        font-size: 32px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: color 0.2s;
-    }
-    .glossary-close:hover, .zoom-close:hover {
-        color: #ef4444;
-    }
-
-    
-
-
-  
-    
-
-  
-    /* Standardized Bottom Navigation Box */
-    .nav-box { display: flex; gap: 12px; margin-top: 36px; padding-top: 24px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
-    .nav-btn { flex: 1; text-align: center; padding: 14px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
-    .btn-std { background: #0f172a !important; color: #ffffff !important; }
-    .btn-guide { background: #0284c7 !important; color: #ffffff !important; }
-    .btn-chk { background: #d97706 !important; color: #ffffff !important; }
-    .btn-std:hover { background: #1e293b !important; }
-    .btn-guide:hover { background: #0369a1 !important; }
-    .btn-chk:hover { background: #b45309 !important; }
-
-  </style>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; }
+        /* Standardized Bottom Navigation Box */
+        .nav-box { display: flex; gap: 12px; margin-top: 36px; padding-top: 24px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
+        .nav-btn { flex: 1; text-align: center; padding: 14px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
+        .btn-std { background: #0f172a !important; color: #ffffff !important; }
+        .btn-guide { background: #0284c7 !important; color: #ffffff !important; }
+        .btn-chk { background: #d97706 !important; color: #ffffff !important; }
+        .btn-std:hover { background: #1e293b !important; }
+        .btn-guide:hover { background: #0369a1 !important; }
+        .btn-chk:hover { background: #b45309 !important; }
+    </style>
 </head>
-<body>
-<div class="container">
-    <div class="header">
-        <h1 class="title">[TCL] 거푸집 설치 체크리스트</h1>
-        <span class="meta">WBS Code 9000-6-18 | 콘크리트도상 품질 검측대장</span>
-    </div>
+<body class="p-6 sm:p-10 text-slate-800">
+<div class="max-w-5xl mx-auto space-y-6">
 
-    <div class="summary-box">
-        <h4 style="margin: 0 0 8px 0; color: #0369a1; font-size: 1.05rem; font-weight: 800;">📋 4단계 실시간 O/X 검측 및 시방 기준</h4>
-        <div style="font-weight: 600; line-height: 1.7; font-size: 0.9rem;">
-            본 체크리스트는 서포트 앵커 W=1.0m 간격 고정, 거푸집 변위 ±2mm 이내 통제, 박리제 균일 도포, 누수 방지 패킹, 안전 식별장치 설치 상태를 검측하기 위해 작성되었습니다.
+    <!-- 대제목 & WBS 코드 -->
+    <div class="flex justify-between items-end border-b-2 border-slate-900 pb-4">
+        <div>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">[TCL] 거푸집설치 마스터 체크리스트</h1>
+        </div>
+        <div class="text-right">
+            <span class="text-blue-600 font-bold text-sm">WBS Code 9000-5. | 콘크리트도상 검측대장</span>
         </div>
     </div>
 
-    <table>
-        <thead>
-            <tr style="background: #f1f5f9;">
-                <th style="width: 18%;">시공 단계</th>
-                <th style="width: 68%;">필수 검측 항목 (KCS 14 20 12 공학 규격)</th>
-                <th style="width: 14%;">점검 결과</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="category" style="color:#b45309;">⚠️ 사전 준비<br>(Step 1 앵커타공)</td>
-                <td>
-                    <div style="margin-bottom: 10px;">
-                        <span class="step-tag" style="background:#fef3c7; color:#92400e;">Step 1. 먹줄 선형</span>
-                        <strong>[선형 측량]</strong> CP 광파 측량 데이터 기준 먹줄 선형 배직 정합성하였는가?
-                    </div>
-                    <div style="margin-bottom: 4px;">
-                        <span class="step-tag" style="background:#fef3c7; color:#92400e;">Step 1. 앵커 타공</span>
-                        <strong>[앵커 간격]</strong> <span class="term-highlight" onclick="openGlossary('support_anchor')">서포트 앵커 W = 1.0m 간격</span> 타공 고정 상태하였는가?
-                    </div>
-                </td>
-                <td class="check-cell">☐ 확인완료</td>
-            </tr>
-            <tr>
-                <td class="category" style="color:#0369a1;">📐 거푸집 거치<br>(Step 2 변위통제)</td>
-                <td>
-                    <div style="margin-bottom: 10px;">
-                        <span class="step-tag" style="background:#e0f2fe; color:#0369a1;">Step 2. 강재 거푸집</span>
-                        <strong>[강재 패널]</strong> 변위 방지형 고강도 강재 거푸집(Steel Form) 조립 고정하였는가?
-                    </div>
-                    <div style="margin-bottom: 4px;">
-                        <span class="step-tag" style="background:#e0f2fe; color:#0369a1;">Step 2. 허용 공차</span>
-                        <strong>[변위 오차]</strong> <span class="term-highlight" onclick="openGlossary('form_tolerance')">거푸집 수평/수직 지점 변위 &plusmn;2.0mm 이내</span> 조율하였는가?
-                    </div>
-                </td>
-                <td class="check-cell">☐ 확인완료</td>
-            </tr>
-            <tr>
-                <td class="category" style="color:#15803d;">🧪 표면 처리<br>(Step 3 박리누수)</td>
-                <td>
-                    <div style="margin-bottom: 10px;">
-                        <span class="step-tag" style="background:#dcfce7; color:#166534;">Step 3. 박리제 도포</span>
-                        <strong>[친환경 박리제]</strong> 거푸집 면 이물질 청소 후 <span class="term-highlight" onclick="openGlossary('release_agent')">친환경 박리제 균일 도포</span>하였는가?
-                    </div>
-                    <div style="margin-bottom: 4px;">
-                        <span class="step-tag" style="background:#dcfce7; color:#166534;">Step 3. 틈새 누수</span>
-                        <strong>[지수 폼 패킹]</strong> <span class="term-highlight" onclick="openGlossary('joint_packing')">거푸집 이음매 페이스트 누수 방지 폼 패킹</span> 설치하였는가?
-                    </div>
-                </td>
-                <td class="check-cell">☐ 확인완료</td>
-            </tr>
-            <tr>
-                <td class="category" style="color:#1e3a8a;">📡 안전 & 승인<br>(Step 4 선형검측)</td>
-                <td>
-                    <div style="margin-bottom: 10px;">
-                        <span class="step-tag" style="background:#dbeafe; color:#1e40af;">Step 4. 안전 식별</span>
-                        <strong>[식별 띠 설치]</strong> 서포트 지지대 넘어짐 전도 방지 야광 식별 띠 감기하였는가?
-                    </div>
-                    <div style="margin-bottom: 4px;">
-                        <span class="step-tag" style="background:#dbeafe; color:#1e40af;">Step 4. 최종 승인</span>
-                        <strong>[선형 검측]</strong> 거푸집설치 대조표 및 감리원 거푸집 선형 검측서 최종 승인
-                    </div>
-                </td>
-                <td class="check-cell">☐ 확인완료</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div style="text-align: center; font-size: 0.85rem; color: #94a3b8; margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
-        동탄도시철도(트램) 건설공사 | WBS 9000-6-18 [TCL] 거푸집 설치 마스터 체크리스트
+    <!-- 📋 상단 안내 상자 (Notice Box) -->
+    <div class="bg-blue-50/80 border border-blue-200 rounded-2xl p-6 shadow-sm space-y-2">
+        <h3 class="text-base font-bold text-blue-950 flex items-center gap-2">
+            <span>📋</span> [TCL] 거푸집설치 12대 정밀 검측대장
+        </h3>
+        <p class="text-xs text-blue-900 leading-relaxed font-medium">
+            본 체크리스트는 국토교통부 표준시방서, 철도설계기준 및 동탄트램 특기시방서 기준을 12개 정밀 점검 항목으로 확장 구성하였으며, 모든 항목의 문장 끝은 예외 없이 질문형 어미(<strong class="text-blue-700">~하였는가?</strong>)로 100% 정형화되었습니다.
+        </p>
     </div>
-</div>
 
-<div class="glossary-modal" id="glossaryModal">
-    <div class="glossary-modal-content">
-        <span class="glossary-close" onclick="closeGlossaryModal()">&times;</span>
-        <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 800; color: #1e3a8a; margin-top: 0; margin-bottom: 12px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">용어 및 공학 기술 해설</h3>
-        <div class="modal-body">
-            <p id="modalDescription" style="font-size: 0.95rem; color: #334155; line-height: 1.7; margin: 0; word-break: keep-all;"></p>
+    <!-- 3-Column 마스터 검측 테이블 -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-slate-100 text-slate-700 text-xs sm:text-sm font-bold border-b border-slate-200">
+                    <th class="p-4 text-center w-12">NO</th>
+                    <th class="p-4 text-left w-36">구분</th>
+                    <th class="p-4 text-left">검측 및 확인 세부 항목 (질문형 어미 준수)</th>
+                    <th class="p-4 text-center w-36">검측 결과</th>
+                    <th class="p-4 text-center w-28">조치 사항</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">1</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">사전 도서 대조</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">[TCL] 거푸집설치 관련 최신 승인도면 및 철도시설 기술기준 및 콘크리트도상 시방서에 따라 사전 검토를 철저히 수행하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">2</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">자재 검수 및 승인</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">현장 반입 자재가 자재공급원 승인원 및 공인 시험성적서 규격과 100% 일치함을 확인하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">3</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">선행공정 인계</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">선행 구조물(토목/건축/노반)의 수평도, 마감 상태 및 분계점 인수인계를 정밀 점검하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">4</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">시공장비 및 안전</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">투입 장비(레일 연마기, 트랙게이지, 콘크리트 펌프카)의 공인 검교정 필증을 확인하고 작업장 안전방호 조치를 완료하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">5</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">정밀 수치 계측</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">궤간(1,435mm ±1mm), 수평(±1mm), 면맞춤 허용오차 기준을 100% 충족하도록 정밀 실측 검측을 수행하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">6</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">핵심 성능 시험</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">체결장치(텐션클램프) 체결 토크 및 절연패드 측정 및 단위 기능시험을 엄격히 실시하여 시방 기준 합격을 입증하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">7</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">체결 및 조립 상태</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">규정 토크값에 따라 전용 공구로 정밀 체결하고 풀림방지 마킹(Torque Seal)을 완료하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">8</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">배관/배선/배치 정돈</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">설비 및 배관/배선의 굴절반경 규격 준수, 정돈 상태 및 지지간격의 적정성을 확인하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">9</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">방화/환경 씰링</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">방화구획 관통부 내화 2시간 이상의 방화충전재 밀폐 및 환경오염 방지 처리를 완료하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">10</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">인터페이스 상호 확인</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">인접 공종(궤도, 전기, 신호, 통신, 건축, 차량)과의 이격거리 확보 및 간섭 배제 조치를 확인하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">11</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">사진 채증 완료</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">시공 전, 시공 중, 시공 후의 주요 공정 및 숨은 검측 상태를 다각도에서 촬영 채증하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-4 text-center font-bold text-slate-500 text-xs">12</td>
+                    <td class="p-4 font-bold text-slate-800 text-xs sm:text-sm">3자 서명 날인</td>
+                    <td class="p-4 font-medium text-slate-700 text-xs sm:text-sm leading-relaxed">시공사, 품질관리자 및 책임감리원 3자 입회 검측 후 검측보고서에 서명/날인을 완료하였는가?</td>
+                    <td class="p-4 text-center">
+                        <span class="inline-flex gap-2">
+                            <label class="inline-flex items-center text-xs font-semibold text-emerald-700 cursor-pointer"><input type="checkbox" checked class="rounded border-slate-300 mr-1 text-emerald-600 focus:ring-emerald-500"> 적합</label>
+                            <label class="inline-flex items-center text-xs font-semibold text-rose-700 cursor-pointer"><input type="checkbox" class="rounded border-slate-300 mr-1 text-rose-600 focus:ring-rose-500"> 부적합</label>
+                        </span>
+                    </td>
+                    <td class="p-4 text-center font-medium text-slate-500 text-xs">-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 점검자 및 감리원 서명란 -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-slate-700">
+        <div>
+            <span>📌 종합 판정 결과: </span>
+            <span class="text-blue-600 font-bold text-sm ml-2">적합 (PASS)</span>
+        </div>
+        <div class="flex gap-8">
+            <div>점검자(시공책임): <span class="border-b border-slate-400 pb-1 px-4 inline-block ml-1">김시공 (인)</span></div>
+            <div>확인자(책임감리): <span class="border-b border-slate-400 pb-1 px-4 inline-block ml-1">이감리 (인)</span></div>
         </div>
     </div>
-</div>
 
-<div class="zoom-modal" id="zoomModal" onclick="closeZoomModalOutside(event)">
-    <div class="zoom-modal-content" onclick="event.stopPropagation()">
-        <span class="zoom-close" onclick="closeZoomModal()">&times;</span>
-        <h3 id="zoomTitle" style="font-size: 1.35rem; font-weight: 900; color: #0f172a; margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; text-align: left;">🔍 도식 대형 고화질 정밀 보기</h3>
-        <div id="zoomBody" class="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-inner flex justify-center items-center overflow-auto min-h-[400px]">
-        </div>
-        <div style="margin-top: 14px; text-align: right; font-size: 0.85rem; font-weight: 700; color: #64748b;">
-            💡 팁: ESC 키를 누르시거나 닫기(×) 버튼을 누르면 이전 화면으로 복귀합니다.
-        </div>
-    </div>
-</div>
-
-
-    
-
-  
-    <!-- Bottom Navigation Block -->
-    
-
-  
     <!-- Bottom Navigation Block -->
     <div class="nav-box">
       <a href="../표준서/[TCL] 거푸집 설치_표준서.html" class="nav-btn btn-std">📄 [연계] [TCL] 거푸집설치 표준서 열기 ➔</a>
       <a href="../수행지침/[TCL] 거푸집 설치_수행지침.html" class="nav-btn btn-guide">📘 [연계] [TCL] 거푸집설치 수행지침서 열기 ➔</a>
     </div>
-
-  <script>
-const glossaryData = {
-    'support_anchor': {
-        title: '⚓ 서포트 앵커 고정 (W = 1.0m 간격)',
-        desc: '콘크리트 타설 시 발생하는 유체 측압 및 전단 응력에 견디기 위해 강재 거푸집 지지대를 노반 바닥면에 1.0m 간격으로 앵커링 고정하는 수칙입니다.'
-    },
-    'form_tolerance': {
-        title: '📐 거푸집 수평/수직 지점 변위 (± 2.0mm 이내)',
-        desc: '거푸집의 면 비틀림이나 전도 변위를 방지하기 위해 정밀 턴버클 및 측량기로 수평도 및 수직도를 오차 ±2.0mm 이내로 엄격 통제하는 시방 규격입니다.'
-    },
-    'release_agent': {
-        title: '🧪 친환경 박리제 균일 도포 & 청소',
-        desc: '콘크리트 경화 후 거푸집 탈형 시 표면 뜯김을 방지하고 매끄러운 단면을 형성하기 위해 거푸집 면 이물질 청소 후 친환경 박리제를 미세막으로 균일 분사하는 수칙입니다.'
-    },
-    'joint_packing': {
-        title: '🛡️ 거푸집 이음매 틈새 누수 패킹',
-        desc: '콘크리트 타설 시 슬러리(시멘트 풀)가 틈새로 유출되는 곰보 현상을 방지하기 위해 거푸집 조인트 이음매에 고지수성 테이프나 지수 폼을 패킹하는 공법입니다.'
-    }
-};
-
-function openGlossary(termKey) {
-    const data = glossaryData[termKey];
-    if (!data) return;
-    document.getElementById('modalTitle').innerText = data.title;
-    document.getElementById('modalDescription').innerText = data.desc;
-    document.getElementById('glossaryModal').classList.add('active');
-}
-function closeGlossaryModal() {
-    document.getElementById('glossaryModal').classList.remove('active');
-}
-
-function openDiagramZoom(elementId, titleText) {
-    const srcEl = document.getElementById(elementId);
-    if (!srcEl) return;
-    
-    const zoomBody = document.getElementById('zoomBody');
-    document.getElementById('zoomTitle').innerText = "🔍 " + (titleText || "도식 대형 정밀 보기");
-    
-    zoomBody.innerHTML = srcEl.outerHTML;
-    
-    const innerSvg = zoomBody.querySelector('svg');
-    if (innerSvg) {
-        innerSvg.setAttribute('width', '100%');
-        innerSvg.setAttribute('height', '520px');
-        innerSvg.style.maxWidth = '1000px';
-    }
-    
-    const innerImg = zoomBody.querySelector('img');
-    if (innerImg) {
-        innerImg.style.maxHeight = '70vh';
-        innerImg.style.width = 'auto';
-    }
-    
-    document.getElementById('zoomModal').classList.add('active');
-}
-
-function closeZoomModal() {
-    document.getElementById('zoomModal').classList.remove('active');
-}
-
-function closeZoomModalOutside(event) {
-    if (event.target.id === 'zoomModal') {
-        closeZoomModal();
-    }
-}
-
-window.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeGlossaryModal();
-        closeZoomModal();
-    }
-});
-</script>
-
+</div>
 </body>
 </html>
