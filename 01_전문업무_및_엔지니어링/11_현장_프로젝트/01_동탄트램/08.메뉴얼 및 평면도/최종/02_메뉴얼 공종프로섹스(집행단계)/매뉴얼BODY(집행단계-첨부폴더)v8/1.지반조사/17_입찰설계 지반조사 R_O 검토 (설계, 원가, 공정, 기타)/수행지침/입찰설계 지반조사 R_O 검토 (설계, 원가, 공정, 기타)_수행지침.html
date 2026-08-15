@@ -18,10 +18,6 @@
     .step-body { font-size: 13.5px; line-height: 1.7; color: #334155; }
     .diagram-container { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; margin-top: 14px; cursor: pointer; text-align: center; }
     .diagram-hint { font-size: 11px; color: #64748b; margin-top: 6px; font-weight: 600; }
-    .calc-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 18px; margin-top: 16px; }
-    .calc-row { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; font-size: 13.5px; }
-    .calc-input { padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 120px; font-size: 13.5px; font-weight: bold; }
-    .calc-btn { background: #0284c7; color: #ffffff; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; }
     
     
 
@@ -126,21 +122,6 @@
       </div>
     </div>
 
-    <!-- 인터랙티브 지내력/N치 계산기 -->
-    <div class="section">
-      <div class="section-title">3. 인터랙티브 지반공학 간이 산정기 (N치 ➔ 허용지내력 qa)</div>
-      <div class="calc-box">
-        <div class="calc-row">
-          <span>■ 현장 측정 표준관입시험 N치 입력 :</span>
-          <input type="number" id="inputN" class="calc-input" value="25" min="1" max="60">
-          <button type="button" class="calc-btn" onclick="calcBearingCapacity()">지내력 계산 ➔</button>
-        </div>
-        <div id="calcResult" style="font-size:13.5px; font-weight:bold; color:#1e40af; margin-top:8px;">
-          • Meyerhof 허용지내력 qa = 250 kN/㎡ (25.5 tonf/㎡) | 내부마찰각 φ ≈ 37.4° (양호한 모래/자갈층)
-        </div>
-      </div>
-    </div>
-
     <!-- Zoom Modal -->
     
     <!-- Bottom Navigation Block -->
@@ -195,14 +176,6 @@
     }
     function closeDiagramZoom() {
       document.getElementById('zoomModal').style.display = 'none';
-    }
-    function calcBearingCapacity() {
-      const n = parseFloat(document.getElementById('inputN').value) || 0;
-      const qa = n * 10;
-      const phi = (Math.sqrt(20 * n) + 15).toFixed(1);
-      const ton = (qa / 9.8).toFixed(1);
-      document.getElementById('calcResult').innerHTML = 
-        `• Meyerhof 허용지내력 qa = ${qa} kN/㎡ (${ton} tonf/㎡) | 내부마찰각 φ ≈ ${phi}° (N=${n} 기준)`;
     }
   </script>
 </body>
