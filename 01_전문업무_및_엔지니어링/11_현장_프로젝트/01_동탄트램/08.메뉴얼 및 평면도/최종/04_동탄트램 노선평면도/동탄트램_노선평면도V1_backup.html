@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>동탄 도시철도(트램) 노선 평면도 V1</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-color: #0f172a;
+  --panel-bg: #1e293b;
+  --card-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --blue-glow: 0 0 15px rgba(29, 111, 232, 0.6);
+  --red-glow: 0 0 15px rgba(224, 49, 49, 0.6);
+  --blue: #1d6fe8;
+  --red: #e03131;
+  --glass-bg: rgba(30, 41, 59, 0.85);
+  --header-bg: linear-gradient(135deg, #1e293b, #0f172a);
+}
+
+body.light-theme {
+  --bg-color: #f8fafc;
+  --panel-bg: #ffffff;
+  --card-bg: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --border-color: #cbd5e1;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --header-bg: linear-gradient(135deg, #ffffff, #f1f5f9);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+}
+body {
+  font-family: "Inter", "Noto Sans KR", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Top navigation */
+header {
+  background: var(--header-bg);
+  border-bottom: 1.5px solid var(--border-color);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+header h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+header p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+.badge-group {
+  display: flex;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+.badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  border: 1px solid transparent;
+}
+.badge.blue {
+  background: rgba(29, 111, 232, 0.15);
+  color: #60a5fa;
+  border-color: rgba(29, 111, 232, 0.4);
+}
+.badge.red {
+  background: rgba(224, 49, 49, 0.15);
+  color: #f87171;
+  border-color: rgba(224, 49, 49, 0.4);
+}
+
+/* Main layout */
+.main-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Map view */
+.map-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+.map-container:active {
+  cursor: grabbing;
+}
+#map-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Zoom controls */
+.zoom-controls {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 10;
+}
+.zoom-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--panel-bg);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.15s ease;
+}
+.zoom-btn:hover {
+  background: var(--border-color);
+}
+
+/* Layers control panel */
+.layer-panel {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 10;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.layer-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+.layer-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+.layer-item input {
+  cursor: pointer;
+}
+
+/* Side Panel - Premium High-Contrast Glassmorphic Console */
+.side-panel {
+  width: 0;
+  /* Local color overrides to force a bright theme inside the panel */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --border-color: rgba(0, 0, 0, 0.08);
+  
+  background: rgba(255, 255, 255, 0.93);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-left: 0 solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-left-width 0.4s;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.12);
+  z-index: 150;
+  color: var(--text-primary);
+}
+.side-panel.open {
+  width: 380px;
+  border-left-width: 1.5px;
+  border-left-color: rgba(0, 0, 0, 0.08);
+}
+.panel-header {
+  padding: 1.5rem;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.panel-close {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-left: auto;
+  transition: color 0.15s;
+}
+.panel-close:hover {
+  color: var(--text-primary);
+}
+.panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.station-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+.station-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.panel-section-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+.panel-section-title::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 12px;
+  background: linear-gradient(135deg, var(--blue), #a855f7);
+  border-radius: 4px;
+}
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+.info-card {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1.5px solid rgba(0, 0, 0, 0.05);
+  padding: 0.8rem 1rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s;
+}
+.info-card:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.03);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+.info-card .label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.info-card .value {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-top: 0.15rem;
+  color: var(--text-primary);
+}
+
+/* Force side panel badges to remain bright and high-contrast */
+.side-panel .badge.red {
+  background: rgba(224, 49, 49, 0.1) !important;
+  color: #dc2626 !important;
+  border-color: rgba(224, 49, 49, 0.25) !important;
+}
+.side-panel .badge.blue {
+  background: rgba(29, 111, 232, 0.1) !important;
+  color: #1d6fe8 !important;
+  border-color: rgba(29, 111, 232, 0.25) !important;
+}
+
+/* Interactive SVG styling */
+.route-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4px;
+  transition: stroke-width 0.2s, stroke-opacity 0.2s;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+}
+.route-path.blue { stroke: var(--blue); }
+.route-path.red { stroke: var(--red); }
+.route-path:hover {
+  stroke-width: 6px;
+}
+
+.station-marker {
+  cursor: pointer;
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: transform 0.2s, filter 0.2s;
+}
+.station-marker:hover {
+  transform: scale(1.3);
+  filter: brightness(1.2) drop-shadow(0 0 8px currentColor);
+}
+
+/* Issues & RFP List Card Styling */
+#info-issues li, #info-rfp li {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+  transition: transform 0.15s ease;
+}
+#info-issues li:hover, #info-rfp li:hover {
+  transform: translateX(3px);
+}
+body:not(.light-theme) #info-issues li,
+body:not(.light-theme) #info-rfp li {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+#manual-link {
+  display: block;
+  text-align: center;
+  background: linear-gradient(135deg, var(--blue) 0%, #1e40af 100%);
+  color: white !important;
+  padding: 0.75rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 15px rgba(29, 111, 232, 0.25);
+  transition: all 0.2s ease;
+}
+#manual-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(29, 111, 232, 0.4);
+  filter: brightness(1.1);
+}
+
+/* Tooltip */
+#tip {
+  position: fixed;
+  background: rgba(15, 23, 42, 0.95);
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  border: 1px solid #334155;
+}
+#tip.show { opacity: 1; }
+
+/* Float Toolbar */
+.theme-font-toolbar {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  background: var(--panel-bg);
+  border: 1.5px solid var(--border-color);
+  padding: 0.4rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  z-index: 100;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+.toolbar-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s;
+}
+.toolbar-btn:hover {
+  background: var(--border-color);
+}
+.toolbar-divider {
+  width: 1px;
+  height: 1.2rem;
+  background: var(--border-color);
+}
+
+.quick-nav-select {
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+.quick-nav-select option {
+  background: var(--panel-bg);
+  color: var(--text-primary);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div style="font-size: 1.5rem;">🚊</div>
+  <div>
+    <h1>동탄 도시철도(트램) 노선 평면도 V1</h1>
+    <p>정밀 지도 데이터 정합 분석 및 기본설계 레이어 연동 뷰어</p>
+  </div>
+  <select class="quick-nav-select" id="quick-nav">
+    <option value="">정거장 바로가기...</option>
+  </select>
+  <div class="badge-group">
+    <div class="badge blue">2공구 (망포~오산) 16.6km</div>
+    <div class="badge red">1공구 (병점~동탄2) 17.8km</div>
+  </div>
+</header>
+
+<div class="main-container">
+  <div class="layer-panel">
+    <div class="layer-title">도면 레이어</div>
+    <label class="layer-item">
+      <input type="checkbox" id="toggle-bg" checked> 배경 노선도 평면도
+    </label>
+    <label class="layer-item">
+      <input type="checkbox" id="toggle-routes" checked> 벡터 노선 연결선
+    </label>
+    <label class="layer-item">
+      <input type="checkbox" id="toggle-labels" checked> 정거장 명칭
+    </label>
+    <label class="layer-item">
+      <input type="checkbox" id="toggle-distances" checked> 정거장 간 거리
+    </label>
+    <label class="layer-item">
+      <input type="checkbox" id="toggle-turnouts" checked> 분기기 및 규격
+    </label>
+  </div>
+
+  <div class="map-container" id="map-container">
+    <svg id="map-svg" viewBox="0 0 625 657" preserveAspectRatio="xMidYMid meet">
+      <!-- Background Image -->
+      <image id="bg-map" href="동탄트램_노선평면도V1.png" x="0" y="0" width="625" height="657" />
+      
+      <!-- Vector Paths -->
+      <g id="routes-group">
+        <path id="pBN" class="route-path blue" />
+        <path id="pBS" class="route-path blue" />
+        <path id="pRW" class="route-path red" />
+        <path id="pRE" class="route-path red" />
+      </g>
+      
+      <!-- Distances Group -->
+      <g id="distances-group"></g>
+      
+      <!-- Turnouts Group -->
+      <g id="turnouts-group"></g>
+      
+      <!-- Interactive Nodes -->
+      <g id="nodes-group"></g>
+      <g id="labels-group"></g>
+    </svg>
+    
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="zoom-in">+</button>
+      <button class="zoom-btn" id="zoom-out">-</button>
+      <button class="zoom-btn" id="zoom-reset">⟲</button>
+    </div>
+  </div>
+
+  <!-- Side Panel -->
+  <div class="side-panel" id="side-panel">
+    <div class="panel-header">
+      <div id="panel-badge" class="badge"></div>
+      <button class="panel-close" id="panel-close">✕</button>
+    </div>
+    <div class="panel-body">
+      <div>
+        <h2 class="station-title" id="stn-name">-</h2>
+        <div class="station-meta" id="stn-type">-</div>
+      </div>
+      
+      <div>
+        <div class="panel-section-title">기본 명세</div>
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="label">위치 / 주소</div>
+            <div class="value" id="info-addr">-</div>
+          </div>
+          <div class="info-card">
+            <div class="label">누계 거리 (km)</div>
+            <div class="value" id="info-km">-</div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <div class="panel-section-title">승강장 제원 (안전이격 검토)</div>
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="label">기본 폭원</div>
+            <div class="value" id="plat-width">-</div>
+          </div>
+          <div class="info-card">
+            <div class="label">승강장 연장 / 기둥 배치</div>
+            <div class="value" id="plat-col">-</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel-section-title">현장 여건</div>
+        <ul id="info-issues" style="list-style: none; font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem;">
+          <!-- dynamic content -->
+        </ul>
+      </div>
+
+      <div style="margin-top: auto; padding-top: 1rem;">
+        <a id="manual-link" href="동탄트램_업무_매뉴얼.html" target="_blank">연계 업무 매뉴얼 확인 ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="theme-font-toolbar">
+  <button id="btn-theme" class="toolbar-btn" title="테마 변경">🌙</button>
+  <div class="font-size-group">
+    <button id="btn-fs-small" class="toolbar-btn fs-btn">A-</button>
+    <button id="btn-fs-medium" class="toolbar-btn fs-btn" style="background: var(--border-color);">A</button>
+    <button id="btn-fs-large" class="toolbar-btn fs-btn">A+</button>
+  </div>
+</div>
+<script>
+const stnDetail = {
+  // 1공구 병점~동탄2본선
+  "301": {
+    name: "병점역 정거장", line: "빨강노선 (1공구 시점)", type: "쌍섬식 복합환승역",
+    addr: "경기도 화성시 병점동 병점역 광장 일원", km: "0+023.00",
+    issues: [
+      "병점역 복합환승센터 신설 기둥의 트램 승강장 내부 침범 방지를 위해 신호/설비 기구함 최적화 조율",
+      "기본설계안의 불필요한 대형 캐노피를 삭제하고 충전설비 전용 구조물 최적 설계로 사업비 절감"
+    ]
+  },
+  "302": {
+    name: "302정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 벌말교 인근 (10용사로 교차부)", km: "3+210.00",
+    issues: [
+      "301→302 최장 구간(3,187m) — 운행속도 및 정시성 확보를 위한 가속 성능 검토",
+      "10용사로 평면교차부 우선신호 연동 및 안전차단설비 구축"
+    ]
+  },
+  "303": {
+    name: "303정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 벌말교 동측 도로변", km: "3+705.00",
+    issues: [
+      "벌말교 교량 접속부의 상하선 레일 신축조절장치(LJD) 적용",
+      "도로 하부 D300 상수도 배관 등 지장물 이설 조율"
+    ]
+  },
+  "304": {
+    name: "304정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 동탄중앙로", km: "4+663.00",
+    issues: [
+      "동탄~병점선 18호 기지창 지하 개착 가시설과 시공 시기 중첩에 따른 공정 협의 필수",
+      "곡선부 승강장 연단 간격 50mm 이내 기준 만족을 위한 횡단 고무안전발판 반영"
+    ]
+  },
+  "305": {
+    name: "305정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 동탄중앙로 삼거리 부근", km: "5+410.00",
+    issues: [
+      "기지창 개착 종료부 구조물 연결 및 노면 복구 가설 공정 관리",
+      "보도 셋백구간 확보 및 도로 횡단 지장 가스관 방호 조치"
+    ]
+  },
+  "306": {
+    name: "306정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 동탄청계로 (오산천 서측)", km: "6+290.00",
+    issues: [
+      "오산천 친수공간 교각 설치 구간 우기철 하천 점용 및 방재 계획 수립",
+      "하천 통과 광케이블 등 통신공동관로 국부 이설 조율"
+    ]
+  },
+  "307": {
+    name: "307정거장 (동탄역 전방)", line: "빨강노선 (1공구)", type: "섬식 지하정거장",
+    addr: "경기도 화성시 청계동 동탄청계로 지하", km: "7+415.00",
+    issues: [
+      "동탄~인덕원선 지하철 개착 굴착 노선과의 중첩에 따른 구조 간섭 및 지반 보강",
+      "상호 간섭 구간 정밀 공정 조율을 위한 국가철도공단 협의체 가동"
+    ]
+  },
+  "동탄역": {
+    name: "동탄역 정거장 (지하 공용역)", line: "1공구 및 2공구 교차 지점", type: "섬식 지하 특화역",
+    addr: "경기도 화성시 오산동 동탄역 광장 지하", km: "8+505.00",
+    issues: [
+      "SRT 동탄역 환승 통로 및 지하 주차장 측벽 인접 시공에 따른 구조 안전성 확보",
+      "기둥 강재를 SM355(Φ900)에서 고강도 SNT460(Φ1066)으로 강화 설계 적용",
+      "승강장 폭원을 기존 5.5m에서 6.5m로 1m 전면 확장하여 통행 병목 해소"
+    ]
+  },
+  "202": {
+    name: "202정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 영천동 (더퍼스트타워 사거리 인근)", km: "9+710.00",
+    issues: [
+      "비즈니스 빌딩 밀집 지역 시공 중 도로 점용 최소화 및 대안 통행로 확보",
+      "공사 중 소음 및 진동 차단용 고성능 방음 패널 가설 수립"
+    ]
+  },
+  "203": {
+    name: "203정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 영천동 동탄순환대로 교차로 서측", km: "11+127.00",
+    issues: [
+      "도로 종단 구배가 교통약자법 기준(1/100 이하)을 초과하므로 지형 조율 및 배수 대책 수립",
+      "중앙 분리 완충녹지 공간 정비 및 사거리 횡단 통신 배선 이설"
+    ]
+  },
+  "204": {
+    name: "204정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 동탄순환대로 (다원초교 사거리 인근)", km: "12+106.00",
+    issues: [
+      "인근 주거단지 인접에 따른 저소음형 궤도 공법 적용 검토",
+      "신호대기 중 차량 매립 궤도 통과 시 안전 교통 정리를 위한 우회 대책"
+    ]
+  },
+  "205": {
+    name: "205정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 동탄순환대로 (의료시설부지 사거리 인근)", km: "13+310.00",
+    issues: [
+      "노선 우측 굴곡부 평면선형 설계 조정 및 안전 캔트 확보",
+      "승강장 접근 횡단보도 안전 펜스 보강 및 교통 약자 경사로 완화"
+    ]
+  },
+  "208": {
+    name: "208정거장", line: "빨강노선 (1공구)", type: "섬식 승강장 (대피선)",
+    addr: "경기도 화성시 동탄순환대로 (목동 이주단지 인근)", km: "13+990.00",
+    issues: [
+      "대피선(L=53m) 배선 신설에 따른 신호 및 분기기 전원 이중화",
+      "주변 가로수 및 가로등 이설을 통한 유효 보도폭원 보장"
+    ]
+  },
+  "207": {
+    name: "207정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 신동 (신리IC 교차로 부근)", km: "15+253.00",
+    issues: [
+      "송방천5교 교량 통과 궤도 연결부에 연속 철근콘도상(TCL) 시공 대책 반영",
+      "하천 교량 연속 구조 안전성 검토 및 PCL 보강공 설계"
+    ]
+  },
+  "206": {
+    name: "206정거장", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 목동/신동 경계 동탄순환대로", km: "16+120.00",
+    issues: [
+      "매립형 궤도 하부 횡단 배수관 신설을 통한 폭우 시 선로전환기 침수 보호",
+      "100년 빈도 강우 강도를 감안한 통수 단면 설계 및 배수구 추가 확보"
+    ]
+  },
+  "209": {
+    name: "209정거장", line: "빨강노선 (1공구)", type: "섬식 승강장 (차량기지 진입선 인근)",
+    addr: "경기도 화성시 장지동 차량기지 분기 지점", km: "16+884.00",
+    issues: [
+      "차량기지 인입선 집중 분기 구간의 매립형 선로전환기 동작 불량 방지 배수 장치 신설",
+      "분기부 하부에 배수 가스켓(어스박스) 및 직결 배수 배관 시스템 도입"
+    ]
+  },
+  "210": {
+    name: "210정거장 (본선 종점 전방)", line: "빨강노선 (1공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 장지동 본선 종점 인근", km: "17+540.00",
+    issues: [
+      "차량기지 입고 열차와 본선 회차 열차 간의 신호 충돌 방지 인터록 구축",
+      "종점부 선로 종단 저지 장치 및 차막이 구조물 최적 설계"
+    ]
+  },
+  "vehicle-depot": {
+    name: "동탄2 차량기지", line: "1공구 및 2공구 공용 기지", type: "차량정비 및 주박기지",
+    addr: "경기도 화성시 장지동 산 79 일원", km: "17+818.31 (본선 종점)",
+    issues: [
+      "차량기지 내 종합관리동, 검수고, 주박선 배치 효율성 극대화",
+      "본선 차량 인입 및 출고 시 정밀 스케줄 제어를 위한 통합 관제 시스템 수립"
+    ]
+  },
+
+  // 2공구 망포~오산
+  "S01": {
+    name: "망포역 정거장 (시점)", line: "파랑노선 (2공구 시점)", type: "상대식 환승정거장",
+    addr: "경기도 수원시 영통구 영통동 980-2 일원 (망포역 사거리)", km: "0+124.00",
+    issues: [
+      "수인분당선 망포역 지하 환승통로 간섭 배제를 위해 2.3m 안전 이격 확보",
+      "변전소 본체 구조 간섭 방지를 위해 지하변전실 위치를 시점부로 100m 이동",
+      "왕복 7차로에서 4~5차로 축소에 대비한 단계별 우회 교통 대책 수립"
+    ]
+  },
+  "S02": {
+    name: "S02정거장", line: "파랑노선 (2공구)", type: "상대식 승강장",
+    addr: "경기도 수원시 영통구 영통로 일원 (신설삼거리 부근)", km: "0+839.00",
+    issues: [
+      "지방도 318호선 확장 계획 및 진안신도시 개발과의 노선 레벨 정합 협의",
+      "교차로 통과부 매설 상수관(62m), 하수관(80m) 이설 계획 수립"
+    ]
+  },
+  "101": {
+    name: "101정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 반월동 반월리큰고개 사거리 인근", km: "1+997.00",
+    issues: [
+      "BRT 승강장 유효 폭원 부족 해결을 위해 울산트램 산식 기준 적용 재정립",
+      "BF 인증 및 교통약자 교행을 위한 캐노피 기둥 끝단 배치 개선 (폭 2.0m 이상 확보)"
+    ]
+  },
+  "동탄역_특화": {
+    name: "동탄역 정거장 (특화 계획)", line: "1공구 및 2공구 교차 지점", type: "특화 정거장",
+    addr: "동탄역 주변", km: "8+505.00",
+    issues: [
+      "스카이브릿지(E/V, E/S 포함) 도입"
+    ],
+    rfp: [
+      { no: "입찰안내서 p.289", text: "특화정거장 동탄역 구조안전성 및 기존건축물 안전성 검토 수행" },
+      { no: "입찰안내서 p.286", text: "동탄역 주변 보행 동선 및 공원 입체 보행로(스카이브릿지) 계획 수립", status: "완료" }
+    ],
+    prog: { 토공: 35, 궤도: 10, 시스템: 15, 건축: 25, 구조: 40 }
+  },
+  "102": {
+    name: "102정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 석우동 IT단지 교차로 인근", km: "3+207.00",
+    issues: [
+      "지방도 318호선 단지계획과의 계획고 매핑 및 지하 매설물 보호공 설치",
+      "하부 열배관로(255m) 우회 매설에 따른 구조적 간섭 차단"
+    ]
+  },
+  "103": {
+    name: "103정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 석우동 동탄원천로 도로변", km: "4+080.00",
+    issues: [
+      "원천로 도로 지장 가로등 및 이정표 이설 연계",
+      "본선 배수 흐름을 고려한 L자형 배수측구 시공성 확보"
+    ]
+  },
+  "104": {
+    name: "104정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 석우동 예당사거리 인근", km: "4+798.00",
+    issues: [
+      "예당교차로 우회 동선 확보 및 시공 가설 차단 계획 수립",
+      "승강장 캐노피 구조의 시인성 확보를 위한 조명기구함 슬림화"
+    ]
+  },
+  "105": {
+    name: "105정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 석우동 동탄중앙로 도로변", km: "5+263.00",
+    issues: [
+      "노면 요철 완화를 위한 궤도 평면 다짐 시공 관리 철저",
+      "횡단보도 접근성 강화를 위한 유도 블록 재배치"
+    ]
+  },
+  "106": {
+    name: "106정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 석우동 센트럴파크 인근 도로변", km: "6+046.00",
+    issues: [
+      "센트럴파크 유동인구 흡수를 위한 보도 접속부 광폭 설계 검토",
+      "조경 가로수 국부 이식 및 주변 도시경관 정합성 확보"
+    ]
+  },
+  "107": {
+    name: "107정거장 (동탄역 지하 전방)", line: "파랑노선 (2공구)", type: "섬식 지하 정거장",
+    addr: "경기도 화성시 오산동 동탄역 북측 지하", km: "7+447.00",
+    issues: [
+      "동탄역 환승 통로 연계 대합실 층 간 설계 매칭",
+      "지하 연계 구간 지장 하수압송관 우회 보호 조치 수립"
+    ]
+  },
+  "108": {
+    name: "108정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 청계동 동탄대로 시범길 교차로 부근", km: "8+229.00",
+    issues: [
+      "기본설계의 108 대피선을 철거하고 107역 신호 공용 편개분기기 신설로 최적화",
+      "이례상황 발생 시 S01~116구간의 신속 회차 및 운행 정시성 극대화"
+    ]
+  },
+  "109": {
+    name: "109정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 오산동 동탄대로 도로변", km: "9+275.00",
+    issues: [
+      "동탄대로 광폭 구간 중앙부 궤도 매립 시 교통 차단 최소화 시공",
+      "승강장 안전 스크린 및 시그널 램프 전원 케이블 포설"
+    ]
+  },
+  "110": {
+    name: "110정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 오산동 동탄순환대로 인근 도로변", km: "10+248.00",
+    issues: [
+      "도로 교차지점 신호 연동 궤도 회로 감지기 최적 위치 선정",
+      "보도 연접 펜스 추가 배치를 통한 교통안전 리스크 예방"
+    ]
+  },
+  "111": {
+    name: "111정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 송동 동탄대로 도로변", km: "10+898.00",
+    issues: [
+      "곡선 궤도 진입부 레일 마모 방지를 위한 도유기 설치",
+      "승강장 단부 비상계단 보도 축소 간섭 방지"
+    ]
+  },
+  "112": {
+    name: "112정거장", line: "파랑노선 (2공구)", type: "섬식 승강장 (기지 인입 분기)",
+    addr: "경기도 화성시 송동 호수공원 남측 도로변", km: "11+517.00",
+    issues: [
+      "차량기지 진입 차량 회차용 2WAY 더블 분기기 적용에 따른 전철기 자동 제어",
+      "인근 주거 및 호수공원 조망 간섭 최소화를 위한 저소음 차음벽 도입"
+    ]
+  },
+  "113": {
+    name: "113정거장", line: "파랑노선 (2공구)", type: "섬식 승강장",
+    addr: "경기도 화성시 송동 동탄대로 남측 도로변", km: "12+527.00",
+    issues: [
+      "인입 본선과의 합류 지점 레일 축력 전달을 방지하기 위한 체결구 보강",
+      "승강장 유효 폭원 BF 기준 확보"
+    ]
+  },
+  "114": {
+    name: "114정거장 (1단계 종점)", line: "파랑노선 (2공구)", type: "섬식 종점정거장",
+    addr: "경기도 화성시 송동 동탄순환대로 남측 완충녹지 인근", km: "13+637.00",
+    issues: [
+      "1단계 임시 개통 및 주박 회차를 위한 임시 2편성 주박 배선 신설",
+      "장비 진입 트럭(5t) 회전 반경(8m) 확보를 위해 진입 경사로 설계 보강",
+      "승무원 근무 여건 강화를 위해 편의 휴게시설(36㎡) 설계 반영"
+    ]
+  },
+  "115": {
+    name: "115정거장", line: "파랑노선 (2공구 장래연계)", type: "섬식 승강장",
+    addr: "경기도 화성시 장지동 동탄대로 남측", km: "14+664.00",
+    issues: [
+      "오산 방향 종단 경사 접속부 평면선형 설계 조정",
+      "신설 교차로 교통 정리용 보도 신호 제어 배관 가설"
+    ]
+  },
+  "116": {
+    name: "116정거장", line: "파랑노선 (2공구 장래연계)", type: "섬식 승강장",
+    addr: "경기도 화성시 장지동 경계 도로변", km: "15+515.00",
+    issues: [
+      "오산(화성-오산) 시계 구간 시공 한계점 조율",
+      "장지저수지 수변테마파크 연계를 고려한 환승 편의 증진"
+    ]
+  },
+  "117": {
+    name: "오산역 정거장 (시점/종점)", line: "파랑노선 (2공구 오산 연계)", type: "상대식 단선예정역",
+    addr: "경기도 오산시 오산동 오산역 광장 일원", km: "16+562.00",
+    issues: [
+      "2단계 연계 시 단선 운행에 따른 오산역 종점부 분기기 장애 대응 비상 회차선 확보",
+      "1호선 오산역 및 환승센터 간 초단거리 보행 동선 설계 최적화"
+    ]
+  },
+  "108": {
+    name: "108 정거장", line: "파랑노선 (2공구)", type: "섬식 일반정거장",
+    addr: "경기도 화성시 청계동 일원 (동탄대로시범길 교차로 부근)", km: "8+209",
+    utilities: [
+      { type: "전기/배수", scope: "도급분", desc: "교차로 주변 횡단 전기 관로 및 하수관 국부 이설" }
+    ],
+    issues: [
+      "기본설계의 108 대피선을 철거하고, 107역(동탄역)과 신호를 공용하는 편개분기기 신설로 최적화",
+      "선로 이례상황 및 본선 고장차량 발생 시 신속 대피 및 구간 운행(S01~116) 안정성 대폭 개선"
+    ],
+    rfp: [
+      { no: "기술지침", text: "이례상황 대처 적정성 및 분기선 배선 계획 기준 충족", status: "완료" }
+    ],
+    prog: { 토공: 18, 궤도: 8, 시스템: 10, 건축: 12, 구조: 22 }
+  },
+  "114": {
+    name: "114 정거장 (1단계 종점)", line: "파랑노선 (2공구 종점부)", type: "섬식 종점정거장",
+    addr: "경기도 화성시 송동 일원 (동탄순환대로 남측 완충녹지)", km: "13+617",
+    utilities: [
+      { type: "지상변전소 인입", scope: "도급분", desc: "상수관(62m), 하수관(80m) 우회 매설" },
+      { type: "녹지시설", scope: "도급분", desc: "정거장 접근로 조성을 위한 완충녹지 가로수 이설" }
+    ],
+    issues: [
+      "지상변전소 부지와 도로 간 종단 단차(+2.5m~+4.5m) 극복 경사로 및 5t 장비 트럭 회전반경(8m) 진입 동선 신설",
+      "1단계 적기 개통 및 임시 반복 운행을 위해 종점부 2편성 임시 주박선과 회차 배선 신설",
+      "종점 근무 승무원들의 보건 및 대기 환경 조성을 위한 승무원 휴게시설(36㎡) 추가 설계"
+    ],
+    rfp: [
+      { no: "입찰안내서 p.40", text: "1단계 종점부 단독 개통 대비 회차 배선 및 주박 계획 수립" },
+      { no: "입찰안내서 p.284", text: "주박지 승무원 편의시설 및 대기환경 확보 기준 이행", status: "완료" }
+    ],
+    prog: { 토공: 25, 궤도: 10, 시스템: 12, 건축: 20, 구조: 30 }
+  },
+  "117": {
+    name: "오산역 정거장 (장래 연계점)", line: "파랑노선 (오산시 구간)", type: "상대식 단선역 예정",
+    addr: "경기도 오산시 오산역 광장 일원 (1호선 연계)", km: "16+562",
+    utilities: [],
+    issues: [
+      "2단계 연계 시 단선 구간 운행으로 인한 종점부 양개 분기기 고장 시 전체 마비 리스크",
+      "전방에 임시 비상건넘선을 추가 설치하여 분기기 문제 시에도 S01~116구간의 안정적 반복구간 운행 확보"
+    ],
+    rfp: [
+      { no: "안전설계지침", text: "신호기 및 선로전환기 고장 시 비상대응 운행계획 수립", status: "완료" }
+    ],
+    prog: { 토공: 5, 궤도: 0, 시스템: 2, 건축: 0, 구조: 5 }
+  },
+  "202": {
+    name: "202 정거장", line: "빨강노선 (1공구)", type: "섬식 일반정거장",
+    addr: "경기도 화성시 영천동 일원 (더퍼스트타워I 사거리 교차로 부근)", km: "9+710",
+    utilities: [
+      { type: "전기/통신", scope: "도급분", desc: "사거리 직진 구간 내 통신 공동구 및 한전 전선로 간섭 이설" }
+    ],
+    issues: [
+      "주변 대형 비즈니스 빌딩 밀집 구역 통과에 따른 시공 중 통행 차단 소음/분진 극심 대책",
+      "도로 점용 및 우회차로 확보, 자재 적치장 차폐막 등 소음저감 시설 가설 수립"
+    ],
+    rfp: [
+      { no: "입찰안내서 p.289", text: "토목/건축 지상 가설 시설 최소화 및 친환경 현장 관리", status: "완료" }
+    ],
+    prog: { 토공: 15, 궤도: 5, 시스템: 8, 건축: 10, 구조: 20 }
+  },
+  "203": {
+    name: "203 정거장", line: "빨강노선 (1공구)", type: "섬식 일반정거장",
+    addr: "경기도 화성시 영천동 일원 (동탄순환대로 교차로 서측)", km: "11+107",
+    utilities: [
+      { type: "우수/통신", scope: "도급분", desc: "중앙 분리 완충녹지 공간 정비 및 교차로 횡단 통신선 이설" }
+    ],
+    issues: [
+      "자연 도로 기울기로 인해 승강장 종단구배가 교통약자법 기준(1/100 이하)을 초과하는 설계 리스크",
+      "지형 여건상 구배 불가피성에 대해 발주처에 소명하고 대안 배수 구조 설계 수립"
+    ],
+    rfp: [
+      { no: "교통약자법 규칙", text: "승강장 종단 구배 한계치 적정성 심의 조율 진행", status: "심의중" }
+    ],
+    prog: { 토공: 10, 궤도: 2, 시스템: 5, 건축: 8, 구조: 15 }
+  },
+  "206": {
+    name: "206 정거장", line: "빨강노선 (1공구)", type: "섬식 일반정거장",
+    addr: "경기도 화성시 신동 및 목동 경계 동탄순환대로 일원", km: "13+500",
+    utilities: [
+      { type: "궤도배수", scope: "도급분", desc: "선로 및 매립식 궤도 하부 횡단 배수관 신설" }
+    ],
+    issues: [
+      "매립형 궤도 구조의 배수 지연에 따른 선로전환기 수침 및 신호 에러 방지 대책",
+      "횡단 배수관을 하중 영향권 밖인 동상방지층 하부에 배치하고 100년 빈도 강우 강도 통수 용량 설계"
+    ],
+    rfp: [
+      { no: "기술지침 2.6", text: "토목분야 매립궤도 구간 100년 빈도 수해 안전 배수 설계 지침 충족", status: "완료" }
+    ],
+    prog: { 토공: 18, 궤도: 8, 시스템: 8, 건축: 12, 구조: 25 }
+  },
+  "207": {
+    name: "207 정거장", line: "빨강노선 (1공구)", type: "섬식 일반정거장",
+    addr: "경기도 화성시 신동 일원 (신리IC교차로 부근)", km: "15+253",
+    utilities: [
+      { type: "전기/통신 공동구", scope: "도급분", desc: "사거리 교차로 구간 공동구 간섭 이설 수립" }
+    ],
+    issues: [
+      "신리천 하천 교량(송방천5교) 시점부 근접 시공에 따른 선로 신축이음매(REJ) 배치 연계",
+      "하천 교량 연속 철근콘도상(TCL) 시공에 따른 장대레일 축력 방지용 하부 PCL(보호콘크리트) 보강"
+    ],
+    rfp: [
+      { no: "궤도지침 2.7", text: "하천 교량 인접 통과 구조 안전성(KR Code 및 UIC776-3 기준) 만족", status: "완료" }
+    ],
+    prog: { 토공: 20, 궤도: 10, 시스템: 10, 건축: 15, 구조: 28 }
+  },
+  "209": {
+    name: "209 정거장", line: "빨강노선 (1공구 차량기지 인근)", type: "섬식 일반정거장",
+    addr: "경기도 화성시 장지동 차량기지 진입선 인근", km: "16+800",
+    utilities: [
+      { type: "인입선 배수", scope: "도급분", desc: "차량기지 본선 분기 구간 배수 장치 신설" }
+    ],
+    issues: [
+      "차량기지 진입 분기기가 밀집된 개소의 집중호우 시 매립 분기기 동작 중단 방지 대책",
+      "분기기 하면(궤도 중심부)에 배수 가스켓(어스박스) 및 직결 배수 배관 시스템 추가 설계"
+    ],
+    rfp: [
+      { no: "특별사항 39조", text: "차량기지 진입부 매립형 선로전환기 폭우 대비 안전 배수 대책 완비", status: "완료" }
+    ],
+    prog: { 토공: 25, 궤도: 12, 시스템: 12, 건축: 18, 구조: 32 }
+  }
+};
+const platformData = {
+  "301": { type: "쌍섬식 (시점)", baseWidth: "4.0m", endWidth: "1.86m / 1.85m", centerWidth: "3.46m / 3.45m", colPosition: "-", shortage: "" },
+  "302": { type: "섬식", baseWidth: "4.5m", endWidth: "1.17m", centerWidth: "2.77m", colPosition: "-", shortage: "" },
+  "303": { type: "섬식", baseWidth: "4.5m", endWidth: "1.22m", centerWidth: "2.82m", colPosition: "-", shortage: "" },
+  "304": { type: "섬식", baseWidth: "4.5m", endWidth: "1.25m", centerWidth: "2.85m", colPosition: "-", shortage: "" },
+  "305": { type: "섬식", baseWidth: "4.5m", endWidth: "1.62m", centerWidth: "3.22m", colPosition: "-", shortage: "" },
+  "306": { type: "섬식", baseWidth: "4.5m", endWidth: "1.37m", centerWidth: "2.97m", colPosition: "-", shortage: "" },
+  "307": { type: "섬식", baseWidth: "4.5m", endWidth: "1.24m", centerWidth: "2.84m", colPosition: "-", shortage: "" },
+  "202": { type: "섬식", baseWidth: "4.5m", endWidth: "1.53m", centerWidth: "3.13m", colPosition: "-", shortage: "" },
+  "203": { type: "섬식", baseWidth: "4.5m", endWidth: "1.54m", centerWidth: "3.14m", colPosition: "-", shortage: "" },
+  "204": { type: "섬식", baseWidth: "4.5m", endWidth: "1.71m", centerWidth: "3.31m", colPosition: "-", shortage: "" },
+  "205": { type: "섬식", baseWidth: "4.5m", endWidth: "2.12m", centerWidth: "3.72m", colPosition: "-", shortage: "" },
+  "206": { type: "섬식", baseWidth: "4.5m", endWidth: "3.41m", centerWidth: "5.01m", colPosition: "끝단배치", shortage: "" },
+  "207": { type: "섬식", baseWidth: "4.5m", endWidth: "3.54m", centerWidth: "5.14m", colPosition: "끝단배치", shortage: "" },
+  "208": { type: "섬식", baseWidth: "4.5m", endWidth: "2.37m", centerWidth: "3.97m", colPosition: "-", shortage: "" },
+  "209": { type: "섬식", baseWidth: "4.5m", endWidth: "4.81m", centerWidth: "6.41m", colPosition: "끝단배치 및 길이연장", shortage: "▲0.31m" },
+  "210": { type: "섬식", baseWidth: "4.5m", endWidth: "1.99m", centerWidth: "3.59m", colPosition: "-", shortage: "" },
+  
+  "S01": { type: "상대식 (시점)", baseWidth: "3.0m", endWidth: "2.98m / 2.89m", centerWidth: "-", colPosition: "-", shortage: "" },
+  "S02": { type: "상대식", baseWidth: "3.0m", endWidth: "1.19m / 1.18m", centerWidth: "-", colPosition: "-", shortage: "" },
+  "101": { type: "섬식", baseWidth: "4.5m", endWidth: "1.63m", centerWidth: "3.23m", colPosition: "-", shortage: "" },
+  "102": { type: "섬식", baseWidth: "4.5m", endWidth: "1.90m", centerWidth: "3.50m", colPosition: "-", shortage: "" },
+  "103": { type: "섬식", baseWidth: "4.5m", endWidth: "1.86m", centerWidth: "3.46m", colPosition: "-", shortage: "" },
+  "104": { type: "섬식", baseWidth: "4.5m", endWidth: "1.87m", centerWidth: "3.47m", colPosition: "-", shortage: "" },
+  "105": { type: "섬식", baseWidth: "4.5m", endWidth: "1.73m", centerWidth: "3.33m", colPosition: "-", shortage: "" },
+  "106": { type: "섬식", baseWidth: "4.5m", endWidth: "1.10m", centerWidth: "2.70m", colPosition: "-", shortage: "" },
+  "107": { type: "섬식 (지하 특화정거장)", baseWidth: "5.5m", endWidth: "6.36m", centerWidth: "7.96m", colPosition: "끝단배치 및 폭원확장", shortage: "▲0.86m" },
+  "108": { type: "섬식", baseWidth: "4.5m", endWidth: "1.16m", centerWidth: "2.76m", colPosition: "-", shortage: "" },
+  "109": { type: "섬식", baseWidth: "4.5m", endWidth: "1.47m", centerWidth: "3.07m", colPosition: "-", shortage: "" },
+  "110": { type: "섬식", baseWidth: "4.5m", endWidth: "1.46m", centerWidth: "3.06m", colPosition: "-", shortage: "" },
+  "111": { type: "섬식", baseWidth: "4.5m", endWidth: "2.03m", centerWidth: "3.63m", colPosition: "-", shortage: "" },
+  "112": { type: "섬식", baseWidth: "4.5m", endWidth: "4.99m", centerWidth: "6.59m", colPosition: "끝단배치 및 길이연장", shortage: "▲0.44m" },
+  "113": { type: "섬식", baseWidth: "4.5m", endWidth: "1.87m", centerWidth: "3.47m", colPosition: "-", shortage: "" },
+  "114": { type: "섬식 (종점)", baseWidth: "4.5m", endWidth: "1.15m", centerWidth: "2.75m", colPosition: "-", shortage: "" },
+  "동탄역": { type: "지하 공용특화역", baseWidth: "5.5m (107역/201역 공용)", endWidth: "6.23m ~ 6.36m", centerWidth: "7.83m ~ 7.96m", colPosition: "끝단배치 및 폭원확장", shortage: "▲0.73m ~ ▲0.86m" }
+};
+const nodes = {
+  "S01": { "x": 227, "y": 85 },
+  "S02": { "x": 213, "y": 110 },
+  "101": { "x": 248, "y": 144 },
+  "102": { "x": 276, "y": 173 },
+  "103": { "x": 292, "y": 202 },
+  "104": { "x": 302, "y": 230 },
+  "105": { "x": 313, "y": 256 },
+  "106": { "x": 355, "y": 266 },
+  "107": { "x": 364, "y": 297 },
+  "동탄역": { "x": 373, "y": 312 },
+  "108": { "x": 386, "y": 357 },
+  "109": { "x": 395, "y": 386 },
+  "110": { "x": 407, "y": 417 },
+  "111": { "x": 416, "y": 446 },
+  "112": { "x": 412, "y": 475 },
+  "113": { "x": 388, "y": 485 },
+  "114": { "x": 342, "y": 493 },
+  "115": { "x": 322, "y": 544 },
+  "116": { "x": 305, "y": 567 },
+  "117": { "x": 257, "y": 582 },
+  
+  "301": { "x": 102, "y": 276 },
+  "302": { "x": 146, "y": 305 },
+  "303": { "x": 200, "y": 306 },
+  "304": { "x": 241, "y": 300 },
+  "305": { "x": 258, "y": 318 },
+  "306": { "x": 275, "y": 318 },
+  "307": { "x": 320, "y": 366 },
+  "202": { "x": 388, "y": 252 },
+  "203": { "x": 427, "y": 269 },
+  "204": { "x": 450, "y": 283 },
+  "205": { "x": 473, "y": 307 },
+  "206": { "x": 486, "y": 367 },
+  "207": { "x": 470, "y": 450 },
+  "208": { "x": 455, "y": 480 },
+  "209": { "x": 421, "y": 494 },
+  "210": { "x": 404, "y": 516 },
+  "vehicle-depot": { "x": 386, "y": 550 }
+};
+const sequences = {
+  pBN: ["S01", "S02", "101", "102", "103", "104", "105", "106", "107", "동탄역"],
+  pBS: ["동탄역", "108", "109", "110", "111", "112", "113", "114", "115", "116", "117"],
+  pRW: ["301", "302", "303", "304", "305", "306", "307", "동탄역"],
+  pRE: ["동탄역", "202", "203", "204", "205", "206", "207", "208", "209", "210", "vehicle-depot"]
+};
+
+// 정거장 간 거리 데이터 (도면 기준)
+const segmentDistances = {
+  "301-302": "3,187m",
+  "302-303": "495m",
+  "303-304": "958m",
+  "304-305": "747m",
+  "305-306": "880m",
+  "306-307": "1,125m",
+  "307-동탄역": "1,250m",
+  "동탄역-202": "1,065m",
+  "202-203": "1,397m",
+  "203-204": "979m",
+  "204-205": "1,204m",
+  "205-208": "680m",
+  "208-207": "1,283m",
+  "207-206": "847m",
+  "206-209": "764m",
+  "209-210": "656m",
+  "210-vehicle-depot": "375m",
+
+  "S01-S02": "715m",
+  "S02-101": "1,158m",
+  "101-102": "1,210m",
+  "102-103": "873m",
+  "103-104": "718m",
+  "104-105": "465m",
+  "105-106": "783m",
+  "106-107": "1,401m",
+  "107-동탄역": "400m",
+  "동탄역-108": "382m",
+  "108-109": "1,046m",
+  "109-110": "973m",
+  "110-111": "650m",
+  "111-112": "619m",
+  "112-113": "1,010m",
+  "113-114": "1,110m",
+  "114-115": "1,027m",
+  "115-116": "851m",
+  "116-117": "1,047m"
+};
+
+// 분기기 규격 데이터 (도면 기준)
+const turnoutData = {
+  "301": { spec: "4.0x40.0" },
+  "302": { spec: "4.5x40.0" },
+  "303": { spec: "4.5x40.0" },
+  "304": { spec: "4.5x40.0" },
+  "305": { spec: "4.5x40.0" },
+  "306": { spec: "4.5x40.0" },
+  "307": { spec: "4.5x40.0" },
+  "동탄역": { spec: "5.5x146.0" },
+  "202": { spec: "4.5x40.0" },
+  "203": { spec: "4.5x40.0" },
+  "204": { spec: "4.5x40.0" },
+  "205": { spec: "4.5x40.0" },
+  "208": { spec: "4.5x40.0" },
+  "207": { spec: "4.5x40.0" },
+  "206": { spec: "4.5x40.0" },
+  "209": { spec: "4.5x40.0" },
+  "210": { spec: "4.5x40.0" },
+  "S01": { spec: "3.0x40.0" },
+  "S02": { spec: "3.0x40.0" },
+  "101": { spec: "4.5x40.0" },
+  "102": { spec: "4.5x40.0" },
+  "103": { spec: "4.5x40.0" },
+  "104": { spec: "4.5x40.0" },
+  "105": { spec: "4.5x40.0" },
+  "106": { spec: "4.5x40.0" },
+  "107": { spec: "5.5x146.0" },
+  "108": { spec: "4.5x40.0" },
+  "109": { spec: "4.5x40.0" },
+  "110": { spec: "4.5x41.0" },
+  "111": { spec: "4.5x41.0" },
+  "112": { spec: "4.5x40.0" },
+  "113": { spec: "4.5x40.0" },
+  "114": { spec: "4.5x40.0" },
+  "115": { spec: "4.5x41.0" },
+  "116": { spec: "4.5x41.0" },
+  "117": { spec: "3.0x40.0" }
+};
+
+// Drag and drop state variables
+let activeDraggedNode = null;
+let isDraggingNode = false;
+let dragStartMouseX = 0;
+let dragStartMouseY = 0;
+let dragStartX = 0;
+let dragStartY = 0;
+
+// Setup route paths
+function drawPaths() {
+  for (const [pathId, seq] of Object.entries(sequences)) {
+    const pathEl = document.getElementById(pathId);
+    if (!pathEl) continue;
+    let d = "";
+    seq.forEach((id, idx) => {
+      const pt = nodes[id];
+      if (!pt) return;
+      if (idx === 0) d += `M ${pt.x},${pt.y}`;
+      else d += ` L ${pt.x},${pt.y}`;
+    });
+    pathEl.setAttribute("d", d);
+  }
+}
+
+// 정거장 간 거리 드로잉
+const distancesGroup = document.getElementById("distances-group");
+function drawDistances() {
+  if (!distancesGroup) return;
+  distancesGroup.innerHTML = "";
+  
+  for (const [pair, distText] of Object.entries(segmentDistances)) {
+    const [id1, id2] = pair.split("-");
+    const pt1 = nodes[id1];
+    const pt2 = nodes[id2];
+    if (!pt1 || !pt2) continue;
+    
+    const cx = (pt1.x + pt2.x) / 2;
+    const cy = (pt1.y + pt2.y) / 2;
+    
+    const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    g.setAttribute("class", "distance-label");
+    g.setAttribute("style", "pointer-events: none;");
+    
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", cx);
+    text.setAttribute("y", cy);
+    text.setAttribute("fill", "#000000");
+    text.setAttribute("font-family", "Inter, Noto Sans KR");
+    text.setAttribute("font-size", "4.8px");
+    text.setAttribute("font-weight", "800");
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("dominant-baseline", "middle");
+    text.textContent = distText;
+    
+    // rect sizing based on text length
+    const rectW = distText.length * 2.8 + 3;
+    const rectH = 6.5;
+    
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", cx - rectW / 2);
+    rect.setAttribute("y", cy - rectH / 2);
+    rect.setAttribute("width", rectW);
+    rect.setAttribute("height", rectH);
+    rect.setAttribute("fill", "#ffffff");
+    rect.setAttribute("stroke", "#475569");
+    rect.setAttribute("stroke-width", "0.5");
+    rect.setAttribute("rx", "1");
+    rect.setAttribute("ry", "1");
+    
+    g.appendChild(rect);
+    g.appendChild(text);
+    distancesGroup.appendChild(g);
+  }
+}
+
+// 분기기 규격 드로잉
+const turnoutsGroup = document.getElementById("turnouts-group");
+function drawTurnouts() {
+  if (!turnoutsGroup) return;
+  turnoutsGroup.innerHTML = "";
+  
+  for (const [stnId, data] of Object.entries(turnoutData)) {
+    const pt = nodes[stnId];
+    if (!pt) continue;
+    
+    const tx = pt.x;
+    const ty = pt.y + 11;
+    
+    const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    g.setAttribute("class", "turnout-label");
+    g.setAttribute("style", "pointer-events: none;");
+    
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", tx);
+    text.setAttribute("y", ty);
+    text.setAttribute("fill", "#ea580c");
+    text.setAttribute("font-family", "Inter, Noto Sans KR");
+    text.setAttribute("font-size", "4.2px");
+    text.setAttribute("font-weight", "800");
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("dominant-baseline", "middle");
+    text.textContent = `⛙ ${data.spec}`;
+    
+    const textLen = `⛙ ${data.spec}`.length;
+    const rectW = textLen * 2.3 + 3;
+    const rectH = 5.5;
+    
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", tx - rectW / 2);
+    rect.setAttribute("y", ty - rectH / 2);
+    rect.setAttribute("width", rectW);
+    rect.setAttribute("height", rectH);
+    rect.setAttribute("fill", "rgba(254, 243, 199, 0.95)");
+    rect.setAttribute("stroke", "#ea580c");
+    rect.setAttribute("stroke-width", "0.4");
+    rect.setAttribute("rx", "1");
+    rect.setAttribute("ry", "1");
+    
+    g.appendChild(rect);
+    g.appendChild(text);
+    turnoutsGroup.appendChild(g);
+  }
+}
+
+// Draw interactive circles
+const nodesGroup = document.getElementById("nodes-group");
+const labelsGroup = document.getElementById("labels-group");
+const quickNav = document.getElementById("quick-nav");
+
+function renderInteractiveElements() {
+  nodesGroup.innerHTML = "";
+  labelsGroup.innerHTML = "";
+  
+  // Sort keys alphabetically/numerically for select menu
+  const sortedKeys = Object.keys(nodes).sort();
+  sortedKeys.forEach(id => {
+    const detail = stnDetail[id] || { name: id };
+    const option = document.createElement("option");
+    option.value = id;
+    option.textContent = `${id}역 - ${detail.name}`;
+    quickNav.appendChild(option);
+  });
+
+  for (const [id, pt] of Object.entries(nodes)) {
+    const detail = stnDetail[id] || {};
+    const name = detail.name || id;
+    const isTransfer = ["S01", "301", "동탄역", "117"].includes(id);
+    const color = id.startsWith("3") || id.startsWith("2") ? "var(--red)" : "var(--blue)";
+    
+    // Circle element
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", pt.x);
+    circle.setAttribute("cy", pt.y);
+    circle.setAttribute("r", isTransfer ? "8" : "5");
+    circle.setAttribute("fill", isTransfer ? "#a855f7" : color);
+    circle.setAttribute("stroke", "#ffffff");
+    circle.setAttribute("stroke-width", "1.5");
+    circle.setAttribute("class", "station-marker");
+    circle.setAttribute("data-id", id);
+    
+    // Tooltip events
+    circle.addEventListener("mouseenter", (e) => showTooltip(e, `${id} ${name}`));
+    circle.addEventListener("mouseleave", hideTooltip);
+    
+    // Mousedown event for Drag Start
+    circle.addEventListener("mousedown", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      svg.style.transition = "none"; // Disable active centering animations
+      isDraggingNode = true;
+      activeDraggedNode = id;
+      dragStartMouseX = e.clientX;
+      dragStartMouseY = e.clientY;
+      dragStartX = pt.x;
+      dragStartY = pt.y;
+      circle.setAttribute("stroke", "#10b981"); // Green stroke highlight
+      circle.setAttribute("stroke-width", "3");
+      circle.style.cursor = "grabbing";
+    });
+    
+    nodesGroup.appendChild(circle);
+
+    // Text Label
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("data-id", id);
+    text.setAttribute("x", pt.x);
+    text.setAttribute("y", pt.y - 10);
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("font-family", "Noto Sans KR");
+    text.setAttribute("font-size", "5.6px");
+    text.setAttribute("font-weight", "600");
+    text.setAttribute("fill", "var(--text-primary)");
+    text.setAttribute("stroke", "var(--bg-color)");
+    text.setAttribute("stroke-width", "2px");
+    text.setAttribute("stroke-linejoin", "round");
+    text.setAttribute("paint-order", "stroke fill");
+    text.setAttribute("style", "pointer-events: none;");
+    text.textContent = name.replace(/ ?정거장( \([^)]+\))?/g, '').replace(/ ?정거장/g, '');
+    labelsGroup.appendChild(text);
+  }
+}
+
+// Tooltip helper
+const tip = document.getElementById("tip");
+function showTooltip(e, text) {
+  tip.textContent = text;
+  tip.classList.add("show");
+  positionTooltip(e);
+}
+function positionTooltip(e) {
+  tip.style.left = (e.clientX + 15) + "px";
+  tip.style.top = (e.clientY + 15) + "px";
+}
+function hideTooltip() {
+  tip.classList.remove("show");
+}
+
+// Selection / Sidepanel detail injection
+function selectStation(id) {
+  const detail = stnDetail[id] || { name: id };
+  const plat = platformData[id] || {};
+  
+  document.getElementById("stn-name").textContent = detail.name || id;
+  document.getElementById("stn-type").textContent = detail.type || "-";
+  document.getElementById("info-addr").textContent = detail.addr || "-";
+  document.getElementById("info-km").textContent = detail.km || "-";
+  
+  document.getElementById("plat-width").textContent = plat.baseWidth || "-";
+  document.getElementById("plat-col").textContent = plat.colPosition || "-";
+  
+  // Populate issues list
+  const issuesList = document.getElementById("info-issues");
+  issuesList.innerHTML = "";
+  if (detail.issues && detail.issues.length > 0) {
+    detail.issues.forEach(issue => {
+      const li = document.createElement("li");
+      li.textContent = "• " + issue;
+      issuesList.appendChild(li);
+    });
+  } else {
+    issuesList.innerHTML = "<li style='color:var(--text-muted)'>특이사항 없음</li>";
+  }
+
+  // Adjust sidepanel styling badge color
+  const isRed = id.startsWith("3") || id.startsWith("2");
+  const badge = document.getElementById("panel-badge");
+  badge.textContent = isRed ? "1공구" : "2공구";
+  badge.className = isRed ? "badge red" : "badge blue";
+
+  // Open side panel
+  document.getElementById("side-panel").classList.add("open");
+  
+  // Focus SVG on coordinates
+  const pt = nodes[id];
+  if (pt) {
+    focusCoordinates(pt.x, pt.y);
+  }
+}
+
+// Close side panel
+document.getElementById("panel-close").addEventListener("click", () => {
+  document.getElementById("side-panel").classList.remove("open");
+});
+
+// Zoom and Pan implementation
+const svg = document.getElementById("map-svg");
+const container = document.getElementById("map-container");
+let scale = 1;
+let pointX = 0;
+let pointY = 0;
+let startX = 0;
+let startY = 0;
+let isPanning = false;
+
+function setTransform() {
+  svg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+  svg.style.transformOrigin = "0 0";
+}
+
+container.addEventListener("mousedown", (e) => {
+  svg.style.transition = "none";
+  if (e.target.classList.contains("station-marker")) return;
+  isPanning = true;
+  startX = e.clientX - pointX;
+  startY = e.clientY - pointY;
+});
+
+container.addEventListener("mousemove", (e) => {
+  if (!isPanning) return;
+  pointX = e.clientX - startX;
+  pointY = e.clientY - startY;
+  setTransform();
+});
+
+window.addEventListener("mouseup", () => {
+  isPanning = false;
+});
+
+container.addEventListener("wheel", (e) => {
+  svg.style.transition = "none";
+  e.preventDefault();
+  const xs = (e.clientX - container.offsetLeft - pointX) / scale;
+  const ys = (e.clientY - container.offsetTop - pointY) / scale;
+  const delta = -e.deltaY;
+  
+  if (delta > 0) scale *= 1.1;
+  else scale /= 1.1;
+  
+  scale = Math.min(Math.max(0.5, scale), 8);
+  pointX = e.clientX - container.offsetLeft - xs * scale;
+  pointY = e.clientY - container.offsetTop - ys * scale;
+  
+  setTransform();
+});
+
+// Button zoom controls
+document.getElementById("zoom-in").addEventListener("click", () => {
+  svg.style.transition = "transform 0.3s ease";
+  scale = Math.min(scale * 1.3, 8);
+  setTransform();
+  setTimeout(() => { svg.style.transition = "none"; }, 300);
+});
+document.getElementById("zoom-out").addEventListener("click", () => {
+  svg.style.transition = "transform 0.3s ease";
+  scale = Math.max(scale / 1.3, 0.5);
+  setTransform();
+  setTimeout(() => { svg.style.transition = "none"; }, 300);
+});
+document.getElementById("zoom-reset").addEventListener("click", () => {
+  svg.style.transition = "transform 0.3s ease";
+  scale = 1;
+  pointX = 0;
+  pointY = 0;
+  setTransform();
+  setTimeout(() => { svg.style.transition = "none"; }, 300);
+});
+
+function focusCoordinates(x, y) {
+  const containerW = container.clientWidth;
+  const containerH = container.clientHeight;
+  
+  const svgRatio = 625 / 657;
+  const containerRatio = containerW / containerH;
+  
+  let baseSvgWidth, baseSvgHeight;
+  if (containerRatio > svgRatio) {
+    baseSvgHeight = containerH;
+    baseSvgWidth = containerH * svgRatio;
+  } else {
+    baseSvgWidth = containerW;
+    baseSvgHeight = containerW / svgRatio;
+  }
+  
+  const svgLeft = (containerW - baseSvgWidth) / 2;
+  const svgTop = (containerH - baseSvgHeight) / 2;
+  
+  scale = 2.5; // Zoom in for details
+  
+  const screenX = svgLeft + (x / 625) * baseSvgWidth;
+  const screenY = svgTop + (y / 657) * baseSvgHeight;
+  
+  pointX = containerW / 2 - screenX * scale;
+  pointY = containerH / 2 - screenY * scale;
+  
+  svg.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+  setTransform();
+  setTimeout(() => {
+    svg.style.transition = "none";
+  }, 400);
+}
+
+// Quick navigation select
+quickNav.addEventListener("change", (e) => {
+  if (e.target.value) {
+    selectStation(e.target.value);
+  }
+});
+
+// Layers toggling
+document.getElementById("toggle-bg").addEventListener("change", (e) => {
+  document.getElementById("bg-map").style.display = e.target.checked ? "block" : "none";
+});
+document.getElementById("toggle-routes").addEventListener("change", (e) => {
+  document.getElementById("routes-group").style.display = e.target.checked ? "block" : "none";
+});
+document.getElementById("toggle-labels").addEventListener("change", (e) => {
+  document.getElementById("labels-group").style.display = e.target.checked ? "block" : "none";
+});
+document.getElementById("toggle-distances").addEventListener("change", (e) => {
+  document.getElementById("distances-group").style.display = e.target.checked ? "block" : "none";
+});
+document.getElementById("toggle-turnouts").addEventListener("change", (e) => {
+  document.getElementById("turnouts-group").style.display = e.target.checked ? "block" : "none";
+});
+
+// Theme toggle
+const btnTheme = document.getElementById("btn-theme");
+btnTheme.addEventListener("click", () => {
+  document.body.classList.toggle("light-theme");
+  btnTheme.textContent = document.body.classList.contains("light-theme") ? "☀️" : "🌙";
+  localStorage.setItem("v1-theme", document.body.classList.contains("light-theme") ? "light" : "dark");
+});
+
+// Font size sizing
+function applyFontSize(size) {
+  document.body.classList.remove("fs-small", "fs-medium", "fs-large");
+  if (size === "small") {
+    document.body.style.fontSize = "0.85rem";
+    document.getElementById("btn-fs-small").style.background = "var(--border-color)";
+    document.getElementById("btn-fs-medium").style.background = "transparent";
+    document.getElementById("btn-fs-large").style.background = "transparent";
+  } else if (size === "large") {
+    document.body.style.fontSize = "1.15rem";
+    document.getElementById("btn-fs-small").style.background = "transparent";
+    document.getElementById("btn-fs-medium").style.background = "transparent";
+    document.getElementById("btn-fs-large").style.background = "var(--border-color)";
+  } else {
+    document.body.style.fontSize = "1.0rem";
+    document.getElementById("btn-fs-small").style.background = "transparent";
+    document.getElementById("btn-fs-medium").style.background = "var(--border-color)";
+    document.getElementById("btn-fs-large").style.background = "transparent";
+  }
+  localStorage.setItem("v1-font", size);
+}
+
+document.getElementById("btn-fs-small").addEventListener("click", () => applyFontSize("small"));
+document.getElementById("btn-fs-medium").addEventListener("click", () => applyFontSize("medium"));
+document.getElementById("btn-fs-large").addEventListener("click", () => applyFontSize("large"));
+
+// Global Node Dragging Handlers
+window.addEventListener("mousemove", (e) => {
+  if (isDraggingNode && activeDraggedNode) {
+    const ptSvg = svg.createSVGPoint();
+    ptSvg.x = e.clientX;
+    ptSvg.y = e.clientY;
+    try {
+      const svgCoord = ptSvg.matrixTransform(svg.getScreenCTM().inverse());
+      // Constrain coordinates within viewBox bounds (0 to 625, 0 to 657)
+      const newX = Math.max(0, Math.min(625, Math.round(svgCoord.x)));
+      const newY = Math.max(0, Math.min(657, Math.round(svgCoord.y)));
+      
+      // Update memory coords
+      nodes[activeDraggedNode].x = newX;
+      nodes[activeDraggedNode].y = newY;
+      
+      // Update element coords in real-time
+      const activeCircle = nodesGroup.querySelector(`circle[data-id="${activeDraggedNode}"]`);
+      if (activeCircle) {
+        activeCircle.setAttribute("cx", newX);
+        activeCircle.setAttribute("cy", newY);
+      }
+      
+      const activeText = labelsGroup.querySelector(`text[data-id="${activeDraggedNode}"]`);
+      if (activeText) {
+        activeText.setAttribute("x", newX);
+        activeText.setAttribute("y", newY - 10);
+      }
+      
+      // Redraw connection paths, distances and turnouts
+      drawPaths();
+      drawDistances();
+      drawTurnouts();
+    } catch (err) {
+      console.error("Error transforming coordinates:", err);
+    }
+  }
+});
+
+window.addEventListener("mouseup", (e) => {
+  if (isDraggingNode && activeDraggedNode) {
+    const activeCircle = nodesGroup.querySelector(`circle[data-id="${activeDraggedNode}"]`);
+    if (activeCircle) {
+      const isTransfer = ["S01", "301", "동탄역", "117"].includes(activeDraggedNode);
+      activeCircle.setAttribute("stroke", "#ffffff");
+      activeCircle.setAttribute("stroke-width", "1.5");
+      activeCircle.style.cursor = "pointer";
+    }
+    
+    // Distinguish click vs drag
+    const moveDist = Math.sqrt(Math.pow(e.clientX - dragStartMouseX, 2) + Math.pow(e.clientY - dragStartMouseY, 2));
+    if (moveDist < 6) {
+      selectStation(activeDraggedNode);
+    } else {
+      // Save position to localStorage
+      localStorage.setItem("dongtan_tram_map_coords_v1", JSON.stringify(nodes));
+      console.log(`Station ${activeDraggedNode} moved to (${nodes[activeDraggedNode].x}, ${nodes[activeDraggedNode].y})`);
+    }
+    
+    isDraggingNode = false;
+    activeDraggedNode = null;
+  }
+});
+
+// Init load
+window.addEventListener("DOMContentLoaded", () => {
+  // Load saved coordinates from localStorage if any
+  const savedCoords = localStorage.getItem("dongtan_tram_map_coords_v1");
+  if (savedCoords) {
+    try {
+      const parsed = JSON.parse(savedCoords);
+      for (const [id, pt] of Object.entries(parsed)) {
+        if (nodes[id]) {
+          nodes[id].x = pt.x;
+          nodes[id].y = pt.y;
+        }
+      }
+    } catch (e) {
+      console.error("Error parsing saved coordinates:", e);
+    }
+  }
+
+  drawPaths();
+  drawDistances();
+  drawTurnouts();
+  renderInteractiveElements();
+  
+  // Theme load
+  if (localStorage.getItem("v1-theme") === "light") {
+    document.body.classList.add("light-theme");
+    btnTheme.textContent = "☀️";
+  }
+  
+  // Font load
+  applyFontSize(localStorage.getItem("v1-font") || "medium");
+});
+</script>
+</body>
+</html>
+
