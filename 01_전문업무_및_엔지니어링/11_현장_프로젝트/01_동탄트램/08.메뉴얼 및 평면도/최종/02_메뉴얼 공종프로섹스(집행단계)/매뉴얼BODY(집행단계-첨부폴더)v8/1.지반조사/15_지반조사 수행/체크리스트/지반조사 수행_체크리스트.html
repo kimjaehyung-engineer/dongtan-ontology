@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지반조사 수행 체크리스트 - 동탄도시철도(트램)</title>
+  <style>
+    body { font-family: 'Pretendard', '맑은 고딕', sans-serif; background: #f8fafc; color: #1e293b; margin: 0; padding: 24px; }
+    .container { max-width: 1080px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 36px; }
+    .header { border-bottom: 2px solid #d97706; padding-bottom: 20px; margin-bottom: 28px; }
+    .badge { display: inline-block; background: #d97706; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 8px 0; }
+    .subtitle { font-size: 14px; color: #64748b; margin: 0; }
+    .section { margin-bottom: 32px; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #d97706; padding-left: 10px; margin-bottom: 14px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13.5px; }
+    th, td { border: 1px solid #cbd5e1; padding: 10px 14px; text-align: left; }
+    th { background: #fef3c7; color: #92400e; font-weight: 700; }
+    td { color: #334155; }
+    .sign-box { display: flex; justify-content: flex-end; gap: 24px; margin-top: 24px; font-size: 13.5px; }
+    .sign-item { border: 1px solid #cbd5e1; padding: 12px 24px; border-radius: 6px; text-align: center; }
+    
+    
+
+  
+    /* Standardized Bottom Navigation Box */
+    .nav-box { display: flex; gap: 12px; margin-top: 36px; padding-top: 24px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
+    .nav-btn { flex: 1; text-align: center; padding: 14px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
+    .btn-std { background: #0f172a !important; color: #ffffff !important; }
+    .btn-guide { background: #0284c7 !important; color: #ffffff !important; }
+    .btn-chk { background: #d97706 !important; color: #ffffff !important; }
+    .btn-std:hover { background: #1e293b !important; }
+    .btn-guide:hover { background: #0369a1 !important; }
+    .btn-chk:hover { background: #b45309 !important; }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">WBS 9000-1-15 | 지반조사 현장 검측 체크리스트</span>
+      <h1 class="title">지반조사 수행 체크리스트</h1>
+      <p class="subtitle">동탄도시철도(트램) 시공 품질 및 안전 검측 필증</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">1. 기본 검측 정보</div>
+      <table>
+        <tr>
+          <th style="width:15%;">공사명</th><td>동탄도시철도(트램) 건설공사</td>
+          <th style="width:15%;">검측 일자</th><td>2026. __. __</td>
+        </tr>
+        <tr>
+          <th>위치/구간</th><td>동탄트램 1·2호선 본선 및 정거장</td>
+          <th>WBS 코드</th><td><strong>9000-1-15</strong></td>
+        </tr>
+        <tr>
+          <th>주관 부서</th><td>지반조사업체 (협업: 포스코스마트엔지니어링팀)</td>
+          <th>검측자</th><td>토목품질관리자 (인) / 책임감리원 (인)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">2. 단계별 핵심 점검표</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:8%; text-align:center;">No.</th>
+            <th style="width:20%; text-align:center;">구분</th>
+            <th style="width:47%; text-align:center;">점검 항목 및 확인 기준</th>
+            <th style="width:15%; text-align:center;">판정 기준</th>
+            <th style="width:10%; text-align:center;">결과</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:center;">1</td>
+            <td style="text-align:center; font-weight:bold;">사전 준비</td>
+            <td>지하매설물 도면 일치 여부 및 도로점용 인허가 완료 여부</td>
+            <td style="text-align:center;">인허가 승인</td>
+            <td style="text-align:center; color:#16a34a; font-weight:bold;">적합</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">2</td>
+            <td style="text-align:center; font-weight:bold;">장비 및 인력</td>
+            <td>시추기/계측장비 검교정 필증 및 안전관리자 상주 여부</td>
+            <td style="text-align:center;">교정 필증 완비</td>
+            <td style="text-align:center; color:#16a34a; font-weight:bold;">적합</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">3</td>
+            <td style="text-align:center; font-weight:bold;">현장 시험</td>
+            <td>시추 심도, 코어회수율(TCR ≥ 85%), SPT N치 규정 준수</td>
+            <td style="text-align:center;">시방 기준 충족</td>
+            <td style="text-align:center; color:#16a34a; font-weight:bold;">적합</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">4</td>
+            <td style="text-align:center; font-weight:bold;">안전 관리</td>
+            <td>작업장 안전휀스 설치, 신호수 배치 및 야간 점멸등 작동</td>
+            <td style="text-align:center;">안전 규정 준수</td>
+            <td style="text-align:center; color:#16a34a; font-weight:bold;">적합</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;">5</td>
+            <td style="text-align:center; font-weight:bold;">산출물 관리</td>
+            <td><strong>지반조사 보고서, 시추 Core 및 샘플</strong> 작성 및 책임감리원 기술검토 승인</td>
+            <td style="text-align:center;">보고서 승인</td>
+            <td style="text-align:center; color:#16a34a; font-weight:bold;">적합</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">3. 종합 판정 및 입회 서명</div>
+      <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; font-size:13.5px;">
+        <strong>■ 종합 판정 결과:</strong> <span style="color:#16a34a; font-weight:bold; font-size:15px;">[합격 / PASS]</span><br>
+        • 지반조사 시방 기준 및 현장 안전 수칙을 100% 준수하여 조사가 적정하게 완료되었음을 확인함.
+      </div>
+      <div class="sign-box">
+        <div class="sign-item">
+          점검자 (시공사): <strong>김토목</strong> (서명/인)
+        </div>
+        <div class="sign-item">
+          확인자 (책임감리): <strong>이감리</strong> (서명/인)
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation Block -->
+    
+  </div>
+
+    <!-- Bottom Navigation Block -->
+    <div class="nav-box">
+      <a href="../표준서/지반조사 수행_표준서.html" class="nav-btn btn-std">📄 [연계] 지반조사 수행 표준서 열기 ➔</a>
+      <a href="../수행지침/지반조사 수행_수행지침.html" class="nav-btn btn-guide">📘 [연계] 지반조사 수행 수행지침서 열기 ➔</a>
+    </div>
+
+</body>
+</html>

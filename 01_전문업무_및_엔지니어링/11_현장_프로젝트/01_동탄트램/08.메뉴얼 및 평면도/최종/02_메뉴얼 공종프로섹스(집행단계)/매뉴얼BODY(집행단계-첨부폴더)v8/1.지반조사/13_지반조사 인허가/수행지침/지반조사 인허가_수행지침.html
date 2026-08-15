@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지반조사 인허가 수행지침서 - 동탄도시철도(트램)</title>
+  <style>
+    body { font-family: 'Pretendard', '맑은 고딕', sans-serif; background: #f8fafc; color: #1e293b; margin: 0; padding: 24px; }
+    .container { max-width: 1080px; margin: 0 auto; background: #ffffff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); padding: 36px; }
+    .header { border-bottom: 2px solid #0284c7; padding-bottom: 20px; margin-bottom: 28px; }
+    .badge { display: inline-block; background: #0284c7; color: #ffffff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 8px; }
+    .title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 8px 0; }
+    .subtitle { font-size: 14px; color: #64748b; margin: 0; }
+    .section { margin-bottom: 32px; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; border-left: 4px solid #0284c7; padding-left: 10px; margin-bottom: 14px; }
+    .step-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    .step-hdr { font-size: 15px; font-weight: 700; color: #0284c7; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+    .step-body { font-size: 13.5px; line-height: 1.7; color: #334155; }
+    .diagram-container { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; margin-top: 14px; cursor: pointer; text-align: center; }
+    .diagram-hint { font-size: 11px; color: #64748b; margin-top: 6px; font-weight: 600; }
+    .calc-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 18px; margin-top: 16px; }
+    .calc-row { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; font-size: 13.5px; }
+    .calc-input { padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 120px; font-size: 13.5px; font-weight: bold; }
+    .calc-btn { background: #0284c7; color: #ffffff; border: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    
+    
+
+    
+    #zoomModal, #glossaryModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.8); z-index: 9999; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+    .modal-content { background: #ffffff; border-radius: 12px; max-width: 1000px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 24px; position: relative; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); }
+    .close-btn { position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none; font-size: 18px; font-weight: bold; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+  
+    /* Standardized Bottom Navigation Box */
+    .nav-box { display: flex; gap: 12px; margin-top: 36px; padding-top: 24px; border-top: 1px solid #e2e8f0; width: 100%; box-sizing: border-box; }
+    .nav-btn { flex: 1; text-align: center; padding: 14px 16px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; transition: 0.2s; display: inline-block; box-sizing: border-box; }
+    .btn-std { background: #0f172a !important; color: #ffffff !important; }
+    .btn-guide { background: #0284c7 !important; color: #ffffff !important; }
+    .btn-chk { background: #d97706 !important; color: #ffffff !important; }
+    .btn-std:hover { background: #1e293b !important; }
+    .btn-guide:hover { background: #0369a1 !important; }
+    .btn-chk:hover { background: #b45309 !important; }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="badge">WBS 9000-1-13 | 지반조사 현장 수행지침서</span>
+      <h1 class="title">지반조사 인허가 수행지침서</h1>
+      <p class="subtitle">동탄트램 무결점 현장 시공을 위한 1:1 공학 도식 및 단계별 가이드</p>
+    </div>
+
+    <!-- 2D SVG 엔지니어링 도식 -->
+    <div class="section">
+      <div class="section-title">1. 핵심 기술 메커니즘 및 2D 공학 도식 (클릭 시 확대)</div>
+      <div class="diagram-container" onclick="openDiagramZoom()">
+        
+        <svg viewBox="0 0 700 240" width="100%" height="240" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; border:1px solid #cbd5e1;">
+            <rect x="20" y="20" width="660" height="200" fill="#ffffff" rx="6" stroke="#e2e8f0"/>
+            <text x="350" y="45" font-family="'맑은 고딕', sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">동탄도시철도 지반 리스크 & 엔지니어링 관리 프로세스</text>
+            <rect x="50" y="75" width="160" height="120" fill="#eff6ff" stroke="#3b82f6" rx="6"/>
+            <text x="130" y="100" font-size="12" font-weight="bold" fill="#1e40af" text-anchor="middle">[사전/계획 단계]</text>
+            <text x="130" y="125" font-size="11" fill="#1e293b" text-anchor="middle">• 지질도·시추주상도 검토</text>
+            <text x="130" y="148" font-size="11" fill="#1e293b" text-anchor="middle">• 조사기획 및 인허가</text>
+            <text x="130" y="172" font-size="11" fill="#1e293b" text-anchor="middle">• 지하시설물 점용 협의</text>
+            
+            <line x1="210" y1="135" x2="260" y2="135" stroke="#0284c7" stroke-width="3" marker-end="url(#arrow)"/>
+            
+            <rect x="270" y="75" width="160" height="120" fill="#f0fdf4" stroke="#16a34a" rx="6"/>
+            <text x="350" y="100" font-size="12" font-weight="bold" fill="#166534" text-anchor="middle">[현장/분석 단계]</text>
+            <text x="350" y="125" font-size="11" fill="#1e293b" text-anchor="middle">• 시추·원위치·물리탐사</text>
+            <text x="350" y="148" font-size="11" fill="#1e293b" text-anchor="middle">• 3D GPR 공동탐사</text>
+            <text x="350" y="172" font-size="11" fill="#1e293b" text-anchor="middle">• 실내시험 및 지층분석</text>
+            
+            <line x1="430" y1="135" x2="480" y2="135" stroke="#0284c7" stroke-width="3"/>
+            
+            <rect x="490" y="75" width="160" height="120" fill="#fefce8" stroke="#ca8a04" rx="6"/>
+            <text x="570" y="100" font-size="12" font-weight="bold" fill="#854d0e" text-anchor="middle">[설계/시공 피드백]</text>
+            <text x="570" y="125" font-size="11" fill="#1e293b" text-anchor="middle">• R/O 및 REM 수립</text>
+            <text x="570" y="148" font-size="11" fill="#1e293b" text-anchor="middle">• 지반보강 공법 최적화</text>
+            <text x="570" y="172" font-size="11" fill="#1e293b" text-anchor="middle">• 현장 인수인계 완결</text>
+        </svg>
+        
+        <div class="diagram-hint">🔍 [도식 클릭] 대형 팝업 확대보기 및 상세 도면 확인</div>
+      </div>
+    </div>
+
+    <!-- 단계별 수행 지침 -->
+    <div class="section">
+      <div class="section-title">2. 단계별 상세 수행 절차 (Step-by-Step SOP)</div>
+      <div class="step-card">
+        <div class="step-hdr">
+          <span>STEP 1 : 사전 준비 및 조사 계획 수립</span>
+          <span style="font-size:12px; color:#64748b;">D-Day: D-30</span>
+        </div>
+        <div class="step-body">
+          • 유관기관 지하매설물(가스·상수도·한전·통신) 도면 대조 및 굴착허가 취득<br>
+          • 조사 장비(시추기, 발전기, 계측센서) 반입 전 공인 교정 필증 확인<br>
+          • 도로 점용 구간 교통안전시설(라바콘, 점멸등, 안내판) 및 신호수 100% 배치
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-hdr">
+          <span>STEP 2 : 현장 조사 및 시험 정밀 수행</span>
+          <span style="font-size:12px; color:#0284c7;">공학적 핵심 공정</span>
+        </div>
+        <div class="step-body">
+          • <strong>수행 내용:</strong> • 산지일시사용 신고(사업계획서, 지형도, 산지일시사용예정실측도, 복구계획서, 복지봉투)<br>• • 굴착행위 신고(굴착행위신고서, 위치 또는 평면도, 원상복구계획서, 토지사용 승낙서)<br>• • 하천점용 허가(위치도, 이해관계인 동의서, 수리계산서, 하천점용등, 사업자등록증)<br>
+          • 시추 심도별 코어 회수율(TCR) 및 암질지수(RQD) 실시간 측정 및 사진대지 기록<br>
+          • 표준관입시험(SPT) N치 측정 시 63.5kg 해머 76cm 자유낙하 엄격 준수
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-hdr">
+          <span>STEP 3 : 데이터 분석, R/O 도출 및 최종 승인</span>
+          <span style="font-size:12px; color:#16a34a;">산출물: 인허가 서류</span>
+        </div>
+        <div class="step-body">
+          • 시추 주상도, 지층 단면도 및 3D 지반 모델링 데이터 전산화<br>
+          • 지반정수 산정(c, φ, E, qa) 및 기초 형식(직접초/말뚝기초) 타당성 검증<br>
+          • <strong>인허가 서류</strong> 편찬 후 책임감리원 최종 서명 날인 및 PMIS 등재
+        </div>
+      </div>
+    </div>
+
+    <!-- 인터랙티브 지내력/N치 계산기 -->
+    <div class="section">
+      <div class="section-title">3. 인터랙티브 지반공학 간이 산정기 (N치 ➔ 허용지내력 qa)</div>
+      <div class="calc-box">
+        <div class="calc-row">
+          <span>■ 현장 측정 표준관입시험 N치 입력 :</span>
+          <input type="number" id="inputN" class="calc-input" value="25" min="1" max="60">
+          <button type="button" class="calc-btn" onclick="calcBearingCapacity()">지내력 계산 ➔</button>
+        </div>
+        <div id="calcResult" style="font-size:13.5px; font-weight:bold; color:#1e40af; margin-top:8px;">
+          • Meyerhof 허용지내력 qa = 250 kN/㎡ (25.5 tonf/㎡) | 내부마찰각 φ ≈ 37.4° (양호한 모래/자갈층)
+        </div>
+      </div>
+    </div>
+
+    <!-- Zoom Modal -->
+    
+    <!-- Bottom Navigation Block -->
+    <div class="nav-box">
+      <a href="../표준서/지반조사 인허가_표준서.html" class="nav-btn btn-std">📄 [연계] 지반조사 인허가 표준서 열기 ➔</a>
+      <a href="../체크리스트/지반조사 인허가_체크리스트.html" class="nav-btn btn-chk">📋 [연계] 지반조사 인허가 체크리스트 열기 ➔</a>
+    </div>
+
+  <div id="zoomModal" onclick="closeDiagramZoom()">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="close-btn" onclick="closeDiagramZoom()">✕</button>
+        <h3 style="margin-top:0; color:#0f172a; font-size:16px;">2D 지반공학 엔지니어링 도식 고해상도 확대보기</h3>
+        <div style="margin-top:16px;">
+          
+        <svg viewBox="0 0 700 240" width="100%" height="240" xmlns="http://www.w3.org/2000/svg" style="background:#f8fafc; border-radius:8px; border:1px solid #cbd5e1;">
+            <rect x="20" y="20" width="660" height="200" fill="#ffffff" rx="6" stroke="#e2e8f0"/>
+            <text x="350" y="45" font-family="'맑은 고딕', sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">동탄도시철도 지반 리스크 & 엔지니어링 관리 프로세스</text>
+            <rect x="50" y="75" width="160" height="120" fill="#eff6ff" stroke="#3b82f6" rx="6"/>
+            <text x="130" y="100" font-size="12" font-weight="bold" fill="#1e40af" text-anchor="middle">[사전/계획 단계]</text>
+            <text x="130" y="125" font-size="11" fill="#1e293b" text-anchor="middle">• 지질도·시추주상도 검토</text>
+            <text x="130" y="148" font-size="11" fill="#1e293b" text-anchor="middle">• 조사기획 및 인허가</text>
+            <text x="130" y="172" font-size="11" fill="#1e293b" text-anchor="middle">• 지하시설물 점용 협의</text>
+            
+            <line x1="210" y1="135" x2="260" y2="135" stroke="#0284c7" stroke-width="3" marker-end="url(#arrow)"/>
+            
+            <rect x="270" y="75" width="160" height="120" fill="#f0fdf4" stroke="#16a34a" rx="6"/>
+            <text x="350" y="100" font-size="12" font-weight="bold" fill="#166534" text-anchor="middle">[현장/분석 단계]</text>
+            <text x="350" y="125" font-size="11" fill="#1e293b" text-anchor="middle">• 시추·원위치·물리탐사</text>
+            <text x="350" y="148" font-size="11" fill="#1e293b" text-anchor="middle">• 3D GPR 공동탐사</text>
+            <text x="350" y="172" font-size="11" fill="#1e293b" text-anchor="middle">• 실내시험 및 지층분석</text>
+            
+            <line x1="430" y1="135" x2="480" y2="135" stroke="#0284c7" stroke-width="3"/>
+            
+            <rect x="490" y="75" width="160" height="120" fill="#fefce8" stroke="#ca8a04" rx="6"/>
+            <text x="570" y="100" font-size="12" font-weight="bold" fill="#854d0e" text-anchor="middle">[설계/시공 피드백]</text>
+            <text x="570" y="125" font-size="11" fill="#1e293b" text-anchor="middle">• R/O 및 REM 수립</text>
+            <text x="570" y="148" font-size="11" fill="#1e293b" text-anchor="middle">• 지반보강 공법 최적화</text>
+            <text x="570" y="172" font-size="11" fill="#1e293b" text-anchor="middle">• 현장 인수인계 완결</text>
+        </svg>
+        
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation Block -->
+    
+  </div>
+
+  <script>
+    function openDiagramZoom() {
+      document.getElementById('zoomModal').style.display = 'flex';
+    }
+    function closeDiagramZoom() {
+      document.getElementById('zoomModal').style.display = 'none';
+    }
+    function calcBearingCapacity() {
+      const n = parseFloat(document.getElementById('inputN').value) || 0;
+      const qa = n * 10;
+      const phi = (Math.sqrt(20 * n) + 15).toFixed(1);
+      const ton = (qa / 9.8).toFixed(1);
+      document.getElementById('calcResult').innerHTML = 
+        `• Meyerhof 허용지내력 qa = ${qa} kN/㎡ (${ton} tonf/㎡) | 내부마찰각 φ ≈ ${phi}° (N=${n} 기준)`;
+    }
+  </script>
+</body>
+</html>
