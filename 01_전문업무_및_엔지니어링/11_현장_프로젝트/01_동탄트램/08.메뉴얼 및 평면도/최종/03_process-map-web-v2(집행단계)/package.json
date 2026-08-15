@@ -1,0 +1,88 @@
+{
+  "name": "process-map-web",
+  "private": true,
+  "version": "1.0.0",
+  "main": "electron-main.cjs",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "dist:exe": "npm run build && electron-builder --win nsis portable"
+  },
+  "dependencies": {
+    "@reactflow/node-resizer": "^2.2.14",
+    "autoprefixer": "^10.5.0",
+    "canvg": "^4.0.3",
+    "dayjs": "^1.11.21",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^1.17.0",
+    "postcss": "^8.5.15",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "reactflow": "^11.11.4",
+    "tailwindcss": "^3.4.19",
+    "uuid": "^14.0.0",
+    "xlsx": "^0.18.5",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/uuid": "^10.0.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "electron": "^43.3.0",
+    "electron-builder": "^26.15.3",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12",
+    "vite-plugin-singlefile": "^2.3.3"
+  },
+  "build": {
+    "appId": "com.dongtan.tram.processmap",
+    "productName": "동탄트램_사전토공사_프로세스맵",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron-main.cjs"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "동탄트램 사전토공사 프로세스맵",
+      "artifactName": "동탄트램_사전토공사_프로세스맵_설치형.exe"
+    },
+    "portable": {
+      "artifactName": "동탄트램_사전토공사_프로세스맵_포터블.exe"
+    }
+  }
+}

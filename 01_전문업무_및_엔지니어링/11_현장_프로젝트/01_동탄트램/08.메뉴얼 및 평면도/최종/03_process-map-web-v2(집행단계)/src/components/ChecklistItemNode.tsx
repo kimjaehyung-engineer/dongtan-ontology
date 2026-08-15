@@ -1,0 +1,86 @@
+import React from 'react';
+import { Handle, Position } from 'reactflow';
+import type { NodeProps } from 'reactflow';
+import type { NodeData } from '../store/useStore';
+import useStore from '../store/useStore';
+
+type CheckStatus = 'todo' | 'inprogress' | 'done' | 'na';
+
+const STATUS_CONFIG: Record<CheckStatus, { label: string; color: string; bg: string; dot: string }> = {
+  todo:       { label: '미착수', color: 'text-slate-400', bg: 'bg-slate-100',    dot: 'bg-slate-300' },
+  inprogress: { label: '진행중', color: 'text-amber-600', bg: 'bg-amber-50',     dot: 'bg-amber-400 animate-pulse' },
+  done:       { label: '완료',   color: 'text-emerald-600', bg: 'bg-emerald-50', dot: 'bg-emerald-500' },
+  na:         { label: 'N/A',   color: 'text-slate-300', bg: 'bg-slate-50',     dot: 'bg-slate-200' },
+};
+
+export default function ChecklistItemNode({ id, data }: NodeProps<NodeData>) {
+  const { updateNodeData, takeSnapshot } = useStore();
+  const status = (data.status as CheckStatus) ?? 'todo';
+
+  const cfg = STATUS_CONFIG[status];
+  const cycleStatus = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const order: CheckStatus[] = ['todo', 'inprogress', 'done', 'na'];
+    const next = order[(order.indexOf(status) + 1) % order.length];
+    takeSnapshot(); // 변경 전 스냅샷 저장
+    updateNodeData(id, { status: next });
+  };
+
+  return (
+    <div
+      className={`nodrag group relative gap-1.5 p-3 rounded-lg border
+                  shadow-sm hover:shadow-md transition-all duration-150 select-none
+                  ${cfg.bg} w-[160px] min-h-[80px]`}
+      style={{ borderColor: status === 'done' ? '#6ee7b7' : status === 'inprogress' ? '#fcd34d' : '#e2e8f0', display: 'flex', flexDirection: 'column', gap: '6px' }}
+    >
+      {/* 상단: 상태 뱃지 + 완료 체크 */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '4px' }}>
+        <button
+          onClick={cycleStatus}
+          className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full
+                      border transition-colors cursor-pointer
+                      ${cfg.color} ${cfg.bg}`}
+          style={{ borderColor: 'currentColor', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '4px' }}
+          title="클릭하여 상태 변경"
+        >
+          <span className={`w-1.5 h-1.5 rounded-full inline-block ${cfg.dot}`} />
+          {cfg.label}
+        </button>
+
+        {status === 'done' && (
+          <svg className="w-4 h-4 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        )}
+      </div>
+
+      {/* 제목 */}
+      <div className="text-xs font-semibold text-slate-700 leading-snug break-all whitespace-pre-wrap">
+        {data.label as string}
+      </div>
+
+      {/* 담당 */}
+      {data.department && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: 'auto', paddingTop: '4px' }}>
+          <span className="text-[10px] text-slate-400">👤</span>
+          <span className="text-[10px] text-slate-400 truncate">{data.department as string}</span>
+        </div>
+      )}
+
+      {/* 상태=done 일 때 상단 완료 라인 */}
+      {status === 'done' && (
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-emerald-400 rounded-t-lg" />
+      )}
+
+      {/* Handles */}
+      <Handle type="source" position={Position.Left} id="left-source" style={{ top: '35%' }} className="!bg-slate-400" />
+      <Handle type="target" position={Position.Left} id="left-target" style={{ top: '65%' }} className="!bg-slate-400" />
+      <Handle type="source" position={Position.Right} id="right-source" style={{ top: '35%' }} className="!bg-slate-400" />
+      <Handle type="target" position={Position.Right} id="right-target" style={{ top: '65%' }} className="!bg-slate-400" />
+      <Handle type="source" position={Position.Top} id="top-source" style={{ left: '35%' }} className="!bg-slate-400" />
+      <Handle type="target" position={Position.Top} id="top-target" style={{ left: '65%' }} className="!bg-slate-400" />
+      <Handle type="source" position={Position.Bottom} id="bottom-source" style={{ left: '35%' }} className="!bg-slate-400" />
+      <Handle type="target" position={Position.Bottom} id="bottom-target" style={{ left: '65%' }} className="!bg-slate-400" />
+    </div>
+  );
+}
