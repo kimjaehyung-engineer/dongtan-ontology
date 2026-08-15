@@ -522,8 +522,22 @@ const useStore = create<RFState>()(
       },
       onReconnect: (oldEdge: Edge, newConnection: Connection) => {
         get().takeSnapshot();
+        const reconnected = reconnectEdge(oldEdge, newConnection, get().edges);
+        const safeReconnected = reconnected.map((e) => {
+          if (e.id === oldEdge.id) {
+            return {
+              ...e,
+              sourceHandle: newConnection.sourceHandle ?? e.sourceHandle,
+              targetHandle: newConnection.targetHandle ?? e.targetHandle,
+              animated: false,
+              style: e.style || { stroke: '#000000', strokeWidth: 5.5 },
+              markerEnd: e.markerEnd || { type: MarkerType.ArrowClosed, color: '#000000', width: 24, height: 24 },
+            };
+          }
+          return e;
+        });
         set({
-          edges: reconnectEdge(oldEdge, newConnection, get().edges),
+          edges: safeReconnected,
         });
       },
       addNode: (node) => {

@@ -51,7 +51,7 @@
 }
 
 /* React Flow 관련 스타일 보정 */
-/* 연결선(화살표) 및 연결선 라벨 레이어를 노드 카드 뒤로 배치 */
+/* 연결선(화살표) 및 연결선 라벨 레이어를 노드 카드 뒤로 배치 (선택 시에는 최상단 인터랙션 가능) */
 .react-flow__edges {
   z-index: 5 !important;
   pointer-events: none;
@@ -59,11 +59,54 @@
 .react-flow__edge {
   pointer-events: stroke;
 }
+.react-flow__edge.selected {
+  z-index: 50 !important;
+  pointer-events: all !important;
+}
 .react-flow__edge-path {
   stroke-width: 6px !important;
   stroke-opacity: 1 !important;
   opacity: 1 !important;
   pointer-events: stroke;
+}
+
+/* 연결선 재연결(Reconnect) 조작용 끝점 드래그 핸들 (시작점/끝점 원형 그립) */
+.react-flow__edgeupdater {
+  cursor: grab !important;
+  pointer-events: all !important;
+  fill: #ffffff !important;
+  stroke: #2563eb !important;
+  stroke-width: 3.5px !important;
+  r: 13 !important;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s ease, stroke 0.15s ease !important;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45)) !important;
+  z-index: 100 !important;
+}
+
+.react-flow__edgeupdater:hover {
+  cursor: grabbing !important;
+  transform: scale(1.4) !important;
+  fill: #2563eb !important;
+  stroke: #ffffff !important;
+  stroke-width: 3px !important;
+}
+
+/* 시작점(Source) 핸들: 그린 */
+.react-flow__edgeupdater-source {
+  stroke: #10b981 !important;
+}
+.react-flow__edgeupdater-source:hover {
+  fill: #10b981 !important;
+  stroke: #ffffff !important;
+}
+
+/* 끝점(Target/화살표) 핸들: 블랙 */
+.react-flow__edgeupdater-target {
+  stroke: #000000 !important;
+}
+.react-flow__edgeupdater-target:hover {
+  fill: #000000 !important;
+  stroke: #ffffff !important;
 }
 
 /* PDF/PNG 캡처 모드일 때 연결점 파란 점(🔵), 노드 아웃라인, 리사이즈 그립 완전히 숨김 */
