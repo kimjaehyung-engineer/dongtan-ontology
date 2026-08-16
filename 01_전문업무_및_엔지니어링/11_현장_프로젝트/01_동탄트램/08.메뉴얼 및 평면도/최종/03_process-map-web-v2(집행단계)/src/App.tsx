@@ -810,13 +810,33 @@ function App() {
     }
   };
 
+  const getActiveDisciplineName = () => {
+    const { activeDisciplineId, disciplineMaps, nodes } = useStore.getState();
+    const currentMap = disciplineMaps.find(m => m.id === activeDisciplineId);
+    if (currentMap) {
+      const raw = currentMap.sheetName || currentMap.name || '';
+      return raw.replace(/^[^\w가-힣]+/g, '').trim() || '공종별';
+    }
+    const frameNode = nodes.find(n => n.id === 'map-frame-master');
+    if (frameNode?.data?.label) {
+      const cleaned = (frameNode.data.label as string)
+        .replace(/^[^\w가-힣]+/g, '')
+        .replace('프로세스 맵', '')
+        .replace('프로세스맵', '')
+        .trim();
+      if (cleaned) return cleaned;
+    }
+    return '공종별';
+  };
+
   const handleExportPNG = async () => {
     try {
       document.body.style.cursor = 'wait';
       const res = await captureFullMapCanvas(2.0);
       if (!res) return;
+      const discName = getActiveDisciplineName();
       const link = document.createElement('a');
-      link.download = `process-map-${dayjs().format('YYYYMMDD-HHmm')}.png`;
+      link.download = `[동탄트램]_${discName}_프로세스맵_${dayjs().format('YYYYMMDD-HHmm')}.png`;
       link.href = res.canvas.toDataURL('image/png');
       link.click();
     } catch (err) {
@@ -849,7 +869,8 @@ function App() {
       const imgData = canvas.toDataURL('image/jpeg', 0.95);
       pdf.addImage(imgData, 'JPEG', 0, 0, pageW, pageH, undefined, 'FAST');
 
-      pdf.save(`process-map-${dayjs().format('YYYYMMDD-HHmm')}.pdf`);
+      const discName = getActiveDisciplineName();
+      pdf.save(`[동탄트램]_${discName}_프로세스맵_${dayjs().format('YYYYMMDD-HHmm')}.pdf`);
     } catch (err) {
       alert('PDF 생성 중 오류가 발생했습니다: ' + err);
     } finally {
@@ -860,8 +881,9 @@ function App() {
   const handleSave = () => {
     const state = { nodes: useStore.getState().nodes, edges: useStore.getState().edges };
     const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const discName = getActiveDisciplineName();
     const link = document.createElement('a');
-    link.download = `process-map-${dayjs().format('YYYYMMDD-HHmm')}.json`;
+    link.download = `[동탄트램]_${discName}_프로세스맵_${dayjs().format('YYYYMMDD-HHmm')}.json`;
     link.href = URL.createObjectURL(blob);
     link.click();
   };
