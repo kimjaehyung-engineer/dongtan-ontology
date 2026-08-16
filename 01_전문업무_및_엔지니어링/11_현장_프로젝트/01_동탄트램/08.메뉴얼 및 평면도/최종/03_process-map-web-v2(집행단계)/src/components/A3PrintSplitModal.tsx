@@ -33,8 +33,8 @@ export default function A3PrintSplitModal({
       setIsProcessing(true);
       setProgressMsg('300DPI 출판 레벨 초고화질 캔버스를 캡처하는 중입니다...');
 
-      // 300DPI 초고화질 스케일(3.5배) 캡처 요청
-      const res = await captureFullCanvas(3.5);
+      // 300DPI 고화질 안전 스케일(2.0배) 캡처 요청
+      const res = await captureFullCanvas(2.0);
       if (!res) {
         alert('캔버스 캡처 실패');
         setIsProcessing(false);
@@ -64,7 +64,7 @@ export default function A3PrintSplitModal({
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           pageIndex++;
-          setProgressMsg(`[${pageIndex}/${totalPages}] ${paperSize.toUpperCase()} 300DPI 초고화질 무왜곡 조각 생성 중... (${pageIndex}/${totalPages})`);
+          setProgressMsg(`[${pageIndex}/${totalPages}] ${paperSize.toUpperCase()} 고화질 무왜곡 조각 생성 중... (${pageIndex}/${totalPages})`);
 
           // 서브 캔버스 타일 생성 및 자르기
           const subCanvas = document.createElement('canvas');
@@ -88,7 +88,7 @@ export default function A3PrintSplitModal({
             );
           }
 
-          const subImgData = subCanvas.toDataURL('image/png', 1.0);
+          const subImgData = subCanvas.toDataURL('image/jpeg', 0.95);
 
           if (pageIndex > 1) {
             pdf.addPage(paperSize, 'landscape');
@@ -114,7 +114,7 @@ export default function A3PrintSplitModal({
           }
 
           // 100% 원본 비율 보존 형태로 PDF 페이지에 고화질 삽입
-          pdf.addImage(subImgData, 'PNG', offsetX, offsetY, renderW, renderH);
+          pdf.addImage(subImgData, 'JPEG', offsetX, offsetY, renderW, renderH, undefined, 'FAST');
 
           // 하단 분할 안내 및 테이프 연결 가이드선 추가
           if (showOverlapGuide) {

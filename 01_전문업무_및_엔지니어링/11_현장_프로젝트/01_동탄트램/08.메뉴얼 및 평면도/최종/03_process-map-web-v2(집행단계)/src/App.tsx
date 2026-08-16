@@ -769,9 +769,9 @@ function App() {
     const fullW = Math.ceil(maxX - minX);
     const fullH = Math.ceil(maxY - minY);
 
-    // 2. 300DPI 출판 레벨 초고화질 스케일 (최대 16,000px 한계 내에서 최고 화질 보장)
-    const targetScale = requestedScale || 3.5;
-    const safeScale = Math.min(targetScale, 15500 / Math.max(fullW, fullH));
+    // 2. 고화질 보장 안전 스케일 (브라우저 메모리 오버플로우 방지 및 8K 해상도 제어)
+    const targetScale = requestedScale || 2.0;
+    const safeScale = Math.min(targetScale, 8192 / Math.max(fullW, fullH));
 
     // 3. 현재 사용자 뷰포트 상태 및 컨테이너 스타일 보존
     const origTransform = viewportEl.style.transform;
@@ -787,7 +787,7 @@ function App() {
       reactFlowEl.style.height = `${fullH}px`;
       reactFlowEl.style.overflow = 'visible';
 
-      // 5. html2canvas로 전체 맵 영역 300DPI 초고화질 캡처 (windowWidth/Height 지정으로 flex 높이 축소 100% 방지)
+      // 5. html2canvas로 전체 맵 영역 고화질 캡처
       const canvas = await html2canvas(reactFlowEl, {
         width: fullW,
         height: fullH,
@@ -813,11 +813,11 @@ function App() {
   const handleExportPNG = async () => {
     try {
       document.body.style.cursor = 'wait';
-      const res = await captureFullMapCanvas();
+      const res = await captureFullMapCanvas(2.0);
       if (!res) return;
       const link = document.createElement('a');
       link.download = `process-map-${dayjs().format('YYYYMMDD-HHmm')}.png`;
-      link.href = res.canvas.toDataURL('image/png', 1.0);
+      link.href = res.canvas.toDataURL('image/png');
       link.click();
     } catch (err) {
       alert('PNG 생성 중 오류가 발생했습니다: ' + err);
@@ -829,7 +829,7 @@ function App() {
   const handleExportPDF = async () => {
     try {
       document.body.style.cursor = 'wait';
-      const res = await captureFullMapCanvas();
+      const res = await captureFullMapCanvas(2.0);
       if (!res) return;
 
       const { canvas, safeScale } = res;
@@ -846,8 +846,8 @@ function App() {
       const pageW = pdf.internal.pageSize.getWidth();
       const pageH = pdf.internal.pageSize.getHeight();
 
-      const imgData = canvas.toDataURL('image/png', 1.0);
-      pdf.addImage(imgData, 'PNG', 0, 0, pageW, pageH);
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      pdf.addImage(imgData, 'JPEG', 0, 0, pageW, pageH, undefined, 'FAST');
 
       pdf.save(`process-map-${dayjs().format('YYYYMMDD-HHmm')}.pdf`);
     } catch (err) {
