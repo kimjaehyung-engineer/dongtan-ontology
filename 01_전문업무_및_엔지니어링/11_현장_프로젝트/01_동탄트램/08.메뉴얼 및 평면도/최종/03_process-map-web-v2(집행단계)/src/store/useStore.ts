@@ -20,6 +20,24 @@ import type {
 import { generatePreEarthworkNodesAndEdges } from '../utils/preEarthworkLoader';
 import { generateAiContextEdges, autoAlignActionNodes } from '../utils/aiContextLinker';
 
+// Clean up all old process-map-storage-* keys to free up quota
+try {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const keysToRemove: string[] = [];
+    for (let i = 0; i < window.localStorage.length; i++) {
+      const k = window.localStorage.key(i);
+      if (k && k.startsWith('process-map-storage-') && k !== 'process-map-storage-v85') {
+        keysToRemove.push(k);
+      }
+    }
+    keysToRemove.forEach(k => {
+      try { window.localStorage.removeItem(k); } catch (e) {}
+    });
+  }
+} catch (e) {
+  console.warn('LocalStorage cleanup error:', e);
+}
+
 // 마우스 움직임에 따른 캔버스상 좌표(비반응형) 추적용 전역 레퍼런스
 export const lastCanvasMousePos = { x: 500, y: 300 };
 
@@ -605,10 +623,10 @@ const useStore = create<RFState>()(
       },
     }),
     {
-      name: 'process-map-storage-v75',
-      version: 75,
+      name: 'process-map-storage-v92',
+      version: 92,
       migrate: (persistedState: any, version: number) => {
-        if (version < 75) {
+        if (version < 92) {
           const fresh = generatePreEarthworkNodesAndEdges();
           return {
             nodes: fresh.nodes,
@@ -849,9 +867,50 @@ const useStore = create<RFState>()(
       partialize: (state) => ({
         nodes: state.nodes,
         edges: state.edges,
-        past: state.past,
-        future: state.future,
+        disciplineMaps: state.disciplineMaps,
+        activeDisciplineId: state.activeDisciplineId,
       }),
+      storage: {
+        getItem: (name) => {
+          try {
+            const str = localStorage.getItem(name);
+            return str ? JSON.parse(str) : null;
+          } catch (e) {
+            return null;
+          }
+        },
+        setItem: (name, value) => {
+          try {
+            localStorage.setItem(name, JSON.stringify(value));
+          } catch (e) {
+            console.warn('LocalStorage quota exceeded, attempting fallback cleanup:', e);
+            try {
+              // Delete older keys if quota exceeded
+              for (let i = localStorage.length - 1; i >= 0; i--) {
+                const k = localStorage.key(i);
+                if (k && k !== name) localStorage.removeItem(k);
+              }
+              // Save with minimized state (only active nodes/edges)
+              const minVal = {
+                state: {
+                  nodes: (value as any)?.state?.nodes || [],
+                  edges: (value as any)?.state?.edges || [],
+                  activeDisciplineId: (value as any)?.state?.activeDisciplineId || '',
+                },
+                version: (value as any)?.version || 85,
+              };
+              localStorage.setItem(name, JSON.stringify(minVal));
+            } catch (err) {
+              console.error('Safe storage fallback failed silently:', err);
+            }
+          }
+        },
+        removeItem: (name) => {
+          try {
+            localStorage.removeItem(name);
+          } catch (e) {}
+        },
+      },
     }
   )
 );

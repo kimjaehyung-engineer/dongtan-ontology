@@ -13,7 +13,7 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(label);
 
-  // ── 🎨 세련된 회색(그레이) 세로축 배경 & 초고대비 찐한 검정색 타이플 ──────────
+  // ── 🎨 세련된 회색(그레이) 세로축 배경 & 초고대비 찐한 검정색 타이포 ──────────
   let headerStyle = {
     accentLine: 'bg-indigo-600',
     rowBgLight: 'bg-slate-50/70 border-slate-200/90',
@@ -21,43 +21,49 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
     titleWords: ['공무'],
   };
 
-  if (label.includes('공사') || label.includes('시공')) {
+  if (label.startsWith('공무') || (label.includes('공무') && !label.includes('공사'))) {
     headerStyle = {
-      accentLine: 'bg-emerald-600',
-      rowBgLight: 'bg-slate-100/50 border-slate-200/90',
-      rowBgDark: 'bg-slate-900/80 border-slate-800/90',
-      titleWords: ['공사'],
+      accentLine: 'bg-indigo-600',
+      rowBgLight: 'bg-slate-50/70 border-slate-200/90',
+      rowBgDark: 'bg-slate-900/70 border-slate-800/90',
+      titleWords: ['공무'],
     };
   } else if (label.includes('품질')) {
     headerStyle = {
       accentLine: 'bg-amber-600',
-      rowBgLight: 'bg-slate-50/70 border-slate-200/90',
+      rowBgLight: 'bg-amber-50/40 border-slate-200/90',
       rowBgDark: 'bg-slate-900/70 border-slate-800/90',
       titleWords: ['품질'],
     };
   } else if (label.includes('안전')) {
     headerStyle = {
       accentLine: 'bg-rose-600',
-      rowBgLight: 'bg-slate-100/50 border-slate-200/90',
+      rowBgLight: 'bg-rose-50/40 border-slate-200/90',
       rowBgDark: 'bg-slate-900/80 border-slate-800/90',
       titleWords: ['안전'],
     };
   } else if (label.includes('관리') || label.includes('용지') || label.includes('총무')) {
     headerStyle = {
       accentLine: 'bg-purple-600',
-      rowBgLight: 'bg-slate-50/70 border-slate-200/90',
+      rowBgLight: 'bg-purple-50/40 border-slate-200/90',
       rowBgDark: 'bg-slate-900/70 border-slate-800/90',
       titleWords: ['관리'],
     };
-  } else if (label.includes('본사')) {
+  } else if (label.includes('본사') || label.includes('전략')) {
     headerStyle = {
-      accentLine: 'bg-slate-700',
-      rowBgLight: 'bg-slate-100/50 border-slate-200/90',
+      accentLine: 'bg-sky-600',
+      rowBgLight: 'bg-sky-50/40 border-slate-200/90',
       rowBgDark: 'bg-slate-900/80 border-slate-800/90',
       titleWords: ['본사'],
     };
+  } else if (label.includes('공사') || label.includes('시공')) {
+    headerStyle = {
+      accentLine: 'bg-emerald-600',
+      rowBgLight: 'bg-emerald-50/40 border-slate-200/90',
+      rowBgDark: 'bg-slate-900/80 border-slate-800/90',
+      titleWords: ['공사'],
+    };
   } else {
-    // 사용자 지정 새 행 등
     const shortLabel = label.replace(/[🏢🏗️🛡️🚨💼🏛️📋]/g, '').trim().split(/[\s\/]+/)[0] || '새행';
     headerStyle = {
       accentLine: 'bg-teal-600',
@@ -178,7 +184,7 @@ export default function SwimlaneNode({ id, data, selected }: NodeProps<NodeData>
   return (
     <div className="relative w-full h-full overflow-visible">
       {/* ── 행 배경 ── */}
-      <div className={`nodrag absolute inset-0 ${bgClass} ${accentRing} transition-colors border-b-2`} />
+      <div className={`nodrag absolute inset-0 ${bgClass} ${accentRing} transition-colors`} />
 
       {/* ── 🌟 [세련된 회색 세로축 헤더 & 찐한 검정색 타이포그래피] ── */}
       <div

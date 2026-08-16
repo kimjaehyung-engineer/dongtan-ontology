@@ -77,34 +77,38 @@ export default function ActionNode({ id, data, selected }: NodeProps<NodeData>) 
             className="px-4 py-3.5 min-h-[58px] text-white font-bold gap-2.5 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border-b border-indigo-900/40 shadow-sm"
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, minHeight: '58px' }}
           >
-            {/* 타이틀 영역: 절대 세로 줄바꿈 안 되도록 whitespace-nowrap 및 min-w-0 처리 */}
-            <div className="flex items-center gap-2.5 min-w-0 flex-1 overflow-hidden" title={data.label}>
-              <DeptIcon size={20} className="flex-shrink-0 text-white/90" />
-              <span className="font-black text-white text-[17.5px] whitespace-nowrap truncate block">
-                {data.label || '액티비티명'}
+            {/* 타이틀 영역: 가로 100% 한 줄 서술 및 툴팁 제공 */}
+            <div className="flex items-center gap-2 min-w-0 flex-1 overflow-hidden" title={data.label || data.wbsCode || '액티비티명'}>
+              <DeptIcon size={18} className="flex-shrink-0 text-white/90" />
+              <span className="font-black text-white text-[16.5px] whitespace-nowrap truncate block">
+                {data.label || data.wbsCode || '액티비티명'}
               </span>
             </div>
 
             {/* D-Day 기한 및 담당 부서 뱃지 */}
             <div className="flex items-center gap-1.5 flex-shrink-0">
               {(() => {
-                const displayDate = data.date || (nodeNum ? (nodeNum <= 2 ? 'D-90' : nodeNum <= 6 ? 'D-60' : nodeNum <= 12 ? 'D-30' : nodeNum <= 21 ? 'D-Day' : 'D+10') : 'D-Day');
+                let displayDate = data.date || '';
+                if (!displayDate || !/^[DP][+-]?\d+/i.test(displayDate)) {
+                  displayDate = nodeNum ? (nodeNum <= 2 ? 'D-90' : nodeNum <= 6 ? 'D-60' : nodeNum <= 12 ? 'D-30' : nodeNum <= 21 ? 'D-Day' : 'D+10') : 'D-Day';
+                }
+                if (displayDate.length > 12) displayDate = displayDate.slice(0, 10);
                 return (
                   <span
-                    className="px-2 py-0.5 rounded-md text-[11.5px] font-black bg-amber-400 text-slate-950 shadow-sm whitespace-nowrap border border-amber-500"
-                    title={`D-Day / 일정: ${displayDate}`}
+                    className="px-2 py-0.5 rounded-md text-[11px] font-black bg-amber-400 text-slate-950 shadow-sm whitespace-nowrap border border-amber-500"
+                    title={`D-Day / 일정: ${data.date || displayDate}`}
                   >
                     📅 {displayDate}
                   </span>
                 );
               })()}
               <span
-                className={`px-2 py-0.5 rounded-md text-[11.5px] font-extrabold shadow-sm whitespace-nowrap border ${
+                className={`px-2 py-0.5 rounded-md text-[11px] font-extrabold shadow-sm whitespace-nowrap border ${
                   isDarkMode ? 'bg-slate-800 text-slate-200 border-slate-700' : 'bg-slate-100 text-slate-800 border-slate-300'
                 }`}
                 title={`주관 부서: ${data.department || '미정'}`}
               >
-                🏢 {(data.department || '공사').replace('현장 · ', '')}
+                🏢 {(data.department || '공사').replace('현장 · ', '').replace('본사 · ', '').slice(0, 10)}
               </span>
             </div>
           </div>

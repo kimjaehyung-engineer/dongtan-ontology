@@ -1063,7 +1063,10 @@ function App() {
             <button 
               onClick={() => {
                 if (window.confirm('모든 사용자 편집 데이터를 지우고 초기 상태로 복원하시겠습니까?')) {
+                  localStorage.removeItem('process-map-storage-v76');
                   localStorage.removeItem('process-map-storage-v75');
+                  localStorage.removeItem('process-map-wbs-cache-v2');
+                  localStorage.removeItem('process-map-wbs-cache-v1');
                   localStorage.removeItem('process-map-storage-v74');
                   localStorage.removeItem('process-map-storage-v73');
                   localStorage.removeItem('process-map-storage-v72');
@@ -1629,12 +1632,17 @@ function App() {
                               <label className="font-bold text-slate-700 text-xs">🏛️ 주관 부서 (행 자동 배치)</label>
                               <select
                                 value={
-                                  (selectedNode.data.department || '').includes('공무') ? '공무' :
-                                  (selectedNode.data.department || '').includes('공사') ? '공사' :
+                                  selectedNode.data.swimlane === '본사' || selectedNode.data.category === '본사' || (selectedNode.data.department || '').startsWith('본사') ? '본사' :
+                                  selectedNode.data.swimlane === '공무' || (selectedNode.data.department || '').startsWith('현장 · 공무') ? '공무' :
+                                  selectedNode.data.swimlane === '품질' || (selectedNode.data.department || '').startsWith('현장 · 품질') ? '품질' :
+                                  selectedNode.data.swimlane === '안전' || (selectedNode.data.department || '').startsWith('현장 · 안전') ? '안전' :
+                                  selectedNode.data.swimlane === '관리' || (selectedNode.data.department || '').startsWith('현장 · 관리') ? '관리' :
+                                  selectedNode.data.swimlane === '공사' || (selectedNode.data.department || '').startsWith('현장 · 공사') ? '공사' :
+                                  (selectedNode.data.department || '').includes('본사') ? '본사' :
                                   (selectedNode.data.department || '').includes('품질') ? '품질' :
                                   (selectedNode.data.department || '').includes('안전') ? '안전' :
                                   (selectedNode.data.department || '').includes('관리') ? '관리' :
-                                  (selectedNode.data.department || '').includes('본사') ? '본사' : '공사'
+                                  (selectedNode.data.department || '').includes('공무') ? '공무' : '공사'
                                 }
                                 onFocus={takeSnapshot}
                                 onChange={e => {
@@ -1644,7 +1652,7 @@ function App() {
 
                                   const { nodes: currentNodes, edges: currentEdges, setNodesAndEdges } = useStore.getState();
                                   const swimlane = currentNodes.find(n => n.type === 'swimlane' && ((n.data?.label as string) || '').includes(subDept));
-                                  const targetY = swimlane ? swimlane.position.y + 200 : selectedNode.position.y;
+                                  const targetY = swimlane ? swimlane.position.y + 60 : selectedNode.position.y;
 
                                   const nextNodes = currentNodes.map(n => {
                                     if (n.id === selectedNode.id) {
