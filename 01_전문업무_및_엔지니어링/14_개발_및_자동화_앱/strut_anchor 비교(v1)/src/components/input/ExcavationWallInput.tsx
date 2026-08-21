@@ -708,26 +708,18 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
                           </span>
                           <span className="text-[10px] font-mono text-blue-700 font-bold">하부 굴착면 적용</span>
                         </div>
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-2">
                           <select
                             value={currentStrutSpec}
                             onChange={(e) => handleBatchSupportChange('spec', e.target.value)}
-                            className="flex-1 bg-white border border-slate-300 rounded px-1.5 py-1 text-[11px] font-mono font-bold text-slate-800 focus:border-blue-500 focus:outline-none"
+                            className="flex-1 bg-white border border-slate-300 rounded px-2 py-1 text-[11px] font-mono font-bold text-slate-800 focus:border-blue-500 focus:outline-none shadow-xs"
                           >
                             {STRUT_DATABASE.map(st => (
                               <option key={st.spec} value={st.spec}>{st.spec}</option>
                             ))}
                           </select>
-                          <select
-                            value={currentStrutSpacing}
-                            onChange={(e) => handleBatchSupportChange('spacing', parseFloat(e.target.value))}
-                            className="w-28 bg-white border border-slate-300 rounded px-1.5 py-1 text-[11px] font-mono font-bold text-slate-800 focus:border-blue-500 focus:outline-none"
-                          >
-                            {[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0].map(sp => (
-                              <option key={sp} value={sp}>@ {sp.toFixed(1)}m</option>
-                            ))}
-                          </select>
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-center gap-1 bg-white border border-blue-400 rounded px-2 py-0.5 shadow-2xs">
+                            <span className="text-[11px] text-blue-900 font-bold">간격:</span>
                             <input
                               type="number"
                               step="0.1"
@@ -735,10 +727,10 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
                               max="8.0"
                               value={currentStrutSpacing}
                               onChange={(e) => handleBatchSupportChange('spacing', parseFloat(e.target.value) || 1.0)}
-                              className="w-14 bg-white border border-blue-400 rounded px-1 py-1 text-[11px] font-mono font-bold text-blue-950 text-center focus:ring-1 focus:ring-blue-500 focus:outline-none shadow-2xs"
-                              title="버팀보 간격 직접 입력 (m)"
+                              className="w-14 bg-blue-50/60 border border-blue-300 rounded px-1 py-0.5 text-[11px] font-mono font-black text-blue-950 text-center focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                              title="버팀보 수평 간격 직접 입력 (m)"
                             />
-                            <span className="text-[10px] text-slate-500 font-bold">m</span>
+                            <span className="text-[11px] text-blue-900 font-bold">m</span>
                           </div>
                         </div>
                       </div>
