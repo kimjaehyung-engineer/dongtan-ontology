@@ -86,7 +86,7 @@ export class DetailedCostEngine {
     ANCHOR_STRAND_INSTALL: { contract: 35000, execution: 28000, mat: 21000, lab: 10000, exp: 4000, basis: '내역 2-1-2-10-30 / SWPC 7B 12.7mm 강연선 가공조립 및 삽입' },
     ANCHOR_TENSION_TEST: { contract: 45000, execution: 36000, mat: 5000, lab: 25000, exp: 15000, basis: '내역 2-1-2-10-50 / 유압잭 인장시험, PC콘 조립 및 락오프 정착' },
     ANCHOR_BASE_PLATE: { contract: 180000, execution: 144000, mat: 95000, lab: 55000, exp: 30000, basis: '내역 2-1-2-10-60 / 일반앵커 지압판(Base Plate) 제작 및 설치' },
-    HIGH_ANGLE_SPECIAL_BRACKET: { contract: 800000, execution: 640000, mat: 560000, lab: 160000, exp: 80000, basis: '고각(45°~70°) 전용 특수 경사 지압 브래킷 & 띠장 거셋 보강 (공당 80만원)' },
+    HIGH_ANGLE_SPECIAL_BRACKET: { contract: 450000, execution: 360000, mat: 280000, lab: 110000, exp: 60000, basis: '고각(45°~70°) 전용 특수 경사 지압 브래킷 & 띠장 거셋 보강 (공당 45만원)' },
     ANCHOR_STRAND_REMOVE: { contract: 25000, execution: 20000, mat: 0, lab: 18000, exp: 7000, basis: '내역 2-1-2-10-80 / 제거식 어스앵커 강선 인발 및 제거' },
     ANCHOR_RIG_SETUP: { contract: 1800000, execution: 1440000, mat: 0, lab: 900000, exp: 900000, basis: '내역 2-1-2-10-90 / 크롤러 드릴 천공장비 조립 및 해체' }
   };
@@ -706,13 +706,20 @@ export class DetailedCostEngine {
     // ==========================================
     // 9. 보강재 및 중간말뚝 (2-1-2-8)
     // ==========================================
+    // ==========================================
+    // 9. 보강재 및 중간말뚝 (2-1-2-8)
+    // ==========================================
     const hasStrut = alt.type === 'ALL_ANCHOR' ? false : (alt.supports && alt.supports.some((s: any) => s.type === 'STRUT'));
-    if (hasStrut && inputs.deckingConfig?.useDecking) {
+    // 버팀보 설치 시 굴착폭 B >= 10m이면 좌굴 방지를 위한 중간말뚝 및 수평/수직 가새 필수 설치 (지반공학/가설표준시방서)
+    const requiresKingPost = hasStrut && (B >= 10.0 || inputs.deckingConfig?.useDecking);
+    
+    if (requiresKingPost) {
       const decking = inputs.deckingConfig;
-      const kingSpacing = decking.kingPostSpacing || 3.5;
-      const numKingPosts = Math.ceil(L_peri / kingSpacing);
-      const kingTotalLenM = decking.kingPostTotalLength || (H + 5.0);
-      const kingWeightKg = 94.0;
+      const kingSpacing = decking?.kingPostSpacing || 3.5;
+      const numKingPostRows = B >= 25.0 ? 2 : 1; // 굴착폭 25m 이상 시 2열 중간말뚝
+      const numKingPosts = Math.ceil(L_peri / kingSpacing) * numKingPostRows;
+      const kingTotalLenM = decking?.kingPostTotalLength || (H + 4.5); // 근입장 포함
+      const kingWeightKg = 94.0; // H-300x300x10x15 (94.0 kg/m)
       const kingWeightTon = Number(((numKingPosts * kingTotalLenM * kingWeightKg) / 1000.0).toFixed(2));
 
       items.push({
@@ -721,10 +728,10 @@ export class DetailedCostEngine {
         categoryName: '9. 보강재 및 중간말뚝 (2-1-2-8)',
         itemCode: '2-1-2-8-60',
         name: '중간말뚝(King Post) 암반소켓 천공 & 거치',
-        spec: `${decking.kingPostSpec || 'H-300x300x10x15'} (L=${kingTotalLenM}m, ${numKingPosts}본)`,
+        spec: `H-300x300x10x15 (L=${kingTotalLenM.toFixed(1)}m, ${numKingPosts}본)`,
         unit: 'm',
-        formula: `본수(${numKingPosts}본) x 길이(${kingTotalLenM}m)`,
-        formulaDetail: `암반소켓 천공 및 파일 거치`,
+        formula: `본수(${numKingPosts}본) x 길이(${kingTotalLenM.toFixed(1)}m)`,
+        formulaDetail: `굴착폭 ${B}m 버팀보 좌굴길이 구속용 중간말뚝 천공 및 거치`,
         quantity: numKingPosts * kingTotalLenM,
         contractUnitCost: this.DEFAULT_UNIT_COSTS.KING_POST_SOCKET_DRILL.contract,
         executionUnitCost: this.DEFAULT_UNIT_COSTS.KING_POST_SOCKET_DRILL.execution,
@@ -739,10 +746,10 @@ export class DetailedCostEngine {
         categoryName: '9. 보강재 및 중간말뚝 (2-1-2-8)',
         itemCode: '2-1-2-8-60',
         name: '중간말뚝 H형강 강재사용료 (6개월 손료)',
-        spec: `${decking.kingPostSpec || 'H-300x300x10x15'} 손료`,
+        spec: `H-300x300x10x15 6개월 손료`,
         unit: 'ton',
         formula: `중간말뚝 총 중량 (${kingWeightTon} ton)`,
-        formulaDetail: `6개월 임대손료`,
+        formulaDetail: `강재 임대 손료`,
         quantity: kingWeightTon,
         contractUnitCost: this.DEFAULT_UNIT_COSTS.KING_POST_RENTAL.contract,
         executionUnitCost: this.DEFAULT_UNIT_COSTS.KING_POST_RENTAL.execution,
@@ -770,6 +777,24 @@ export class DetailedCostEngine {
       });
 
       items.push({
+        id: '2-1-2-8-65',
+        category: 'BRACING',
+        categoryName: '9. 보강재 및 중간말뚝 (2-1-2-8)',
+        itemCode: '2-1-2-8-65',
+        name: '중간말뚝 바닥 기초슬래브 관통부 지수판 방수처리',
+        spec: `수팽창 지수판 + 무수축 그라우트 밀봉`,
+        unit: '개소',
+        formula: `중간말뚝 총 본수 (${numKingPosts}개소)`,
+        formulaDetail: `기초 슬래브 관통부 지하수 유입 차단 방수`,
+        quantity: numKingPosts,
+        contractUnitCost: this.DEFAULT_UNIT_COSTS.KING_POST_WATERPROOF.contract,
+        executionUnitCost: this.DEFAULT_UNIT_COSTS.KING_POST_WATERPROOF.execution,
+        contractAmount: numKingPosts * this.DEFAULT_UNIT_COSTS.KING_POST_WATERPROOF.contract,
+        executionAmount: numKingPosts * this.DEFAULT_UNIT_COSTS.KING_POST_WATERPROOF.execution,
+        costBasis: this.DEFAULT_UNIT_COSTS.KING_POST_WATERPROOF.basis
+      });
+
+      items.push({
         id: '2-1-2-8-10',
         category: 'BRACING',
         categoryName: '9. 보강재 및 중간말뚝 (2-1-2-8)',
@@ -777,13 +802,13 @@ export class DetailedCostEngine {
         name: 'ㄷ-형강 및 L-형강 수평/수직 가새 보강재',
         spec: `380x100 ㄷ형강 & 90x90 L형강 (G-2 Type)`,
         unit: 'ton',
-        formula: `버팀보 중량의 12% 환산 (${Number((totalStrutCount * 0.15).toFixed(1))} ton)`,
-        formulaDetail: `비틀림 방지 가새`,
-        quantity: Number((totalStrutCount * 0.15).toFixed(1)),
+        formula: `버팀보 중량의 12% 환산 (${Number((totalStrutWeightTon * 0.12).toFixed(1))} ton)`,
+        formulaDetail: `버팀보 비틀림 방지 및 평면 안정성 확보 가새`,
+        quantity: Number((totalStrutWeightTon * 0.12).toFixed(1)),
         contractUnitCost: this.DEFAULT_UNIT_COSTS.BRACING_STEEL.contract,
         executionUnitCost: this.DEFAULT_UNIT_COSTS.BRACING_STEEL.execution,
-        contractAmount: Math.round((totalStrutCount * 0.15) * this.DEFAULT_UNIT_COSTS.BRACING_STEEL.contract),
-        executionAmount: Math.round((totalStrutCount * 0.15) * this.DEFAULT_UNIT_COSTS.BRACING_STEEL.execution),
+        contractAmount: Math.round((totalStrutWeightTon * 0.12) * this.DEFAULT_UNIT_COSTS.BRACING_STEEL.contract),
+        executionAmount: Math.round((totalStrutWeightTon * 0.12) * this.DEFAULT_UNIT_COSTS.BRACING_STEEL.execution),
         costBasis: this.DEFAULT_UNIT_COSTS.BRACING_STEEL.basis
       });
     }
