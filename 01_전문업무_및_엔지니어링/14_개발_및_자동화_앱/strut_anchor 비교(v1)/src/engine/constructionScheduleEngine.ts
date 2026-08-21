@@ -48,7 +48,8 @@ export class ConstructionScheduleEngine {
     const H = inputs.excavationDepth;
     const B = inputs.excavationWidth;
     const L = inputs.totalWallPerimeter / 2.0; // 평면 종방향 길이 (약 100m)
-    const totalVolumeM3 = Math.round(L * B * H); // 총 토공 굴착량 (m3)
+    const floorAreaM2 = Math.round(L * B); // 층당 바닥 슬래브 면적 (m2)
+    const totalVolumeM3 = Math.round(floorAreaM2 * H); // 총 토공 굴착량 (m3)
 
     // 1. 굴착 깊이 연동 표준 지하 층수 (전 대안 동일)
     let numStories = 3;
@@ -124,67 +125,83 @@ export class ConstructionScheduleEngine {
       };
 
       // -------------------------------------------------------------
-      // 2단계: 지하 RC 본구조물 축조 (단일 작업반 1개 팀 기준)
+      // 2단계: 지하 RC 본구조물 축조 (총 가시설 연장 및 바닥면적별 슬래브 분할 타설 구획 반영)
       // -------------------------------------------------------------
-      let daysPerStory = 28; // All-Strut 기본 (철근 7일 + 거푸집 8일 + 타설양생 7일 + 해체채움 6일)
-      let rebarDaysPerStory = 7.0;
-      let formDaysPerStory = 8.0;
-      let postPourDaysPerStory = 6.0;
-      let rebarRatio = 0.65;
-      let formRatio = 0.55;
+      // 1회 최대 타설 가능 면적: 어스앵커 무지보 1,000㎡/구획 vs 버팀보 간섭 650㎡/구획
+      const maxPourAreaPerZone = isAnchor ? 1000 : (isHybrid ? 800 : 650);
+      const numPourZonesPerFloor = Math.max(1, Math.ceil(floorAreaM2 / maxPourAreaPerZone));
+      const totalPourSegments = numStories * numPourZonesPerFloor;
 
-      if (isAnchor) {
-        daysPerStory = 16; // 무지보 일체타설 (철근 4.5일 + 대형시스템폼 4.5일 + 타설양생 7일)
-        rebarDaysPerStory = 4.5;
-        formDaysPerStory = 4.5;
-        postPourDaysPerStory = 0.0;
-        rebarRatio = 1.0;
-        formRatio = 1.0;
-      } else if (isHybrid) {
-        daysPerStory = 21;
-        rebarDaysPerStory = 5.5;
-        formDaysPerStory = 6.0;
-        postPourDaysPerStory = 3.0;
-        rebarRatio = 0.82;
-        formRatio = 0.78;
+      let daysPerZoneRebar = 4.0; // 구획당 철근
+      let daysPerZoneForm = 4.5;  // 구획당 거푸집
+      let daysPerZonePour = 4.0;  // 구획당 타설 및 초기양생
+      let daysPerZonePost = 0.0;
+
+      let rebarRatio = 1.0;
+      let formRatio = 1.0;
+
+      if (!isAnchor) {
+        if (isHybrid) {
+          daysPerZoneRebar = 5.0;
+          daysPerZoneForm = 5.5;
+          daysPerZonePour = 4.5;
+          daysPerZonePost = 2.5;
+          rebarRatio = 0.82;
+          formRatio = 0.78;
+        } else {
+          // ALL_STRUT
+          daysPerZoneRebar = 6.0;
+          daysPerZoneForm = 7.0;
+          daysPerZonePour = 5.0;
+          daysPerZonePost = 4.5;
+          rebarRatio = 0.65;
+          formRatio = 0.55;
+        }
       }
 
-      // 복수 작업팀 투입 시 공기 단축 계수
+      // 구획간 순환 병행 시공 계수 (오버랩 계수 0.75 적용)
+      const overlapFactor = numPourZonesPerFloor > 1 ? 0.75 : 1.0;
       const crewFactor = numCrews > 1 ? (1.0 / (numCrews * 0.75)) : 1.0;
-      const structureTotalDays = Math.ceil(numStories * daysPerStory * crewFactor);
+
+      const subRebarDays = Math.ceil(totalPourSegments * daysPerZoneRebar * overlapFactor * crewFactor);
+      const subFormDays = Math.ceil(totalPourSegments * daysPerZoneForm * overlapFactor * crewFactor);
+      const subPourDays = Math.ceil(numStories * (7.0 + (numPourZonesPerFloor - 1) * 3.0)); // 층당 콘크리트 양생 및 구획 릴레이
+      const subPostDays = !isAnchor ? Math.ceil(totalPourSegments * daysPerZonePost * overlapFactor * crewFactor) : 0;
+
+      const structureTotalDays = subRebarDays + subFormDays + subPourDays + subPostDays;
 
       const structurePhase: SchedulePhaseResult = {
-        name: `지하 ${numStories}층 RC 본구조물 축조`,
+        name: `지하 ${numStories}층 RC 본구조물 축조 (층당 ${numPourZonesPerFloor}구획 분할)`,
         durationDays: structureTotalDays,
         description: isAnchor
-          ? `대형 시스템 폼 1회 일체 연속 타설 (분할타설 0회 / 관통부 누수 리스크 제로)`
-          : `버팀보 관통 벽체 분할 타설 (총 ${blockOutCount}개소 블록아웃 및 2차 채움 타설 발생)`,
+          ? `가시설 연장 L=${L.toFixed(0)}m(바닥 ${floorAreaM2.toLocaleString()}㎡) → 층당 ${numPourZonesPerFloor}개 대구획 연속타설 (관통부 누수 0개소)`
+          : `가시설 연장 L=${L.toFixed(0)}m(바닥 ${floorAreaM2.toLocaleString()}㎡) → 층당 ${numPourZonesPerFloor}개 구획 분할타설 (총 ${blockOutCount}개소 관통 박스아웃 발생)`,
         subTasks: [
           { 
-            name: `철근 가공조립 (${numCrews}개 팀)`, 
-            days: Math.round(numStories * rebarDaysPerStory * crewFactor), 
-            formula: `지하 ${numStories}개층 × 층당 ${rebarDaysPerStory.toFixed(1)}일 ÷ 작업계수(${crewFactor.toFixed(2)}) = ${Math.round(numStories * rebarDaysPerStory * crewFactor)}일`,
+            name: `철근 가공조립 (층당 ${numPourZonesPerFloor}개 구획)`, 
+            days: subRebarDays, 
+            formula: `총 ${totalPourSegments}개 구획(5층×${numPourZonesPerFloor}구획) × 구획당 ${daysPerZoneRebar.toFixed(1)}일 × 오버랩(${overlapFactor}) = ${subRebarDays}일`,
             note: isAnchor ? '장애물 없는 대구획 연속 배근 (작업능률 100%)' : `버팀보 파이프 사이 관통 꿰기 배근으로 작업능률 ${(rebarRatio * 100).toFixed(0)}% 저하`,
             standardBasis: '건축공사 표준시방서 KCS 41 30 00 철근공사 품셈'
           },
           { 
             name: `거푸집 및 블록아웃 설치`, 
-            days: Math.round(numStories * formDaysPerStory * crewFactor), 
-            formula: `지하 ${numStories}개층 × 층당 ${formDaysPerStory.toFixed(1)}일 ÷ 작업계수(${crewFactor.toFixed(2)}) = ${Math.round(numStories * formDaysPerStory * crewFactor)}일`,
+            days: subFormDays, 
+            formula: `총 ${totalPourSegments}개 구획 × 구획당 ${daysPerZoneForm.toFixed(1)}일 × 오버랩(${overlapFactor}) = ${subFormDays}일`,
             note: isAnchor ? '대형 시스템폼(갱폼) 크레인 일체 인양 조립' : `버팀보 관통부 개별 박스아웃, 지수판 매립, 분할 거푸집 현장 가공 (${blockOutCount}개소)`,
             standardBasis: '건축공사 표준시방서 KCS 41 30 05 거푸집공사'
           },
           { 
-            name: `콘크리트 타설 및 양생`, 
-            days: Math.round(numStories * 7.0), 
-            formula: `지하 ${numStories}개층 × 층당 양생 7.0일 = ${Math.round(numStories * 7.0)}일`,
-            note: '슬래브/외벽 타설 후 설계기준강도(fck ≥ 14MPa) 발현 양생 필수 기간',
-            standardBasis: '콘크리트구조기준 KDS 14 20 00 압축강도 발현 양생 기준'
+            name: `슬래브 분할 콘크리트 타설 및 양생`, 
+            days: subPourDays, 
+            formula: `지하 ${numStories}개층 × [기본양생 7일 + 구획릴레이 ${(numPourZonesPerFloor - 1) * 3}일] = ${subPourDays}일`,
+            note: `층당 ${numPourZonesPerFloor}회 분할 타설 (1회 레미콘 800~1,000㎥ 공급 한계 및 시공이음 콜드조인트 방지)`,
+            standardBasis: '콘크리트구조기준 KDS 14 20 00 슬래브 시공이음(Joint) 및 양생 기준'
           },
           ...(!isAnchor ? [{ 
             name: `버팀보 철거 및 관통부 2차 채움타설`, 
-            days: Math.round(numStories * postPourDaysPerStory * crewFactor), 
-            formula: `지하 ${numStories}개층 × 층당 ${postPourDaysPerStory.toFixed(1)}일 = ${Math.round(numStories * postPourDaysPerStory * crewFactor)}일`,
+            days: subPostDays, 
+            formula: `총 ${totalPourSegments}개 구획 × 구획당 ${daysPerZonePost.toFixed(1)}일 × 오버랩(${overlapFactor}) = ${subPostDays}일`,
             note: '구조물 강도 확보 후 버팀보 순차 절단/인양 + 박스아웃 무수축 그라우트 2차 타설 & 방수',
             standardBasis: '지하 가설공사 시방서 관통부 조인트 사후 보수 시방'
           }] : [])
