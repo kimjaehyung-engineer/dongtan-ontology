@@ -14,6 +14,7 @@ import { SunexDataExporter } from './components/report/SunexDataExporter';
 import { EngineeringReport } from './components/report/EngineeringReport';
 import { DetailedCostModal } from './components/cost/DetailedCostModal';
 import { LccScheduleComparison } from './components/comparison/LccScheduleComparison';
+import { EconomicAnalysisView } from './components/comparison/EconomicAnalysisView';
 import { EngineeringBalancePanel } from './components/common/EngineeringBalancePanel';
 import { SmartRemedyPanel } from './components/common/SmartRemedyPanel';
 import { Zap, Sparkles, CheckCircle2, AlertCircle, Play, RefreshCw, AlertTriangle } from 'lucide-react';
@@ -432,24 +433,14 @@ export function App() {
           </div>
         )}
 
-        {/* 탭 3: 경제성 및 공기·LCC 종합 분석 (확정된 수량 기준 렌더링) */}
+        {/* 탭 3: 경제성 및 공기·LCC 종합 분석 (3단 프리미엄 대시보드 뷰) */}
         {activeTab === 'cost' && (
-          <div className="space-y-5">
-            {/* 🌟 1. 공기 간섭 분석 및 LCC 총생애주기비용 비교 카드 */}
-            <LccScheduleComparison
-              inputs={solvedInputs}
-              alternatives={alternatives}
-              selectedAltId={selectedAltId}
-              onSelectAlt={setSelectedAltId}
-            />
-
-            {/* 🌟 2. 직접공사비 세부 내역 및 다차원 평가 */}
-            <CostRadarChart
-              alternatives={alternatives}
-              selectedAlt={selectedAlt}
-              onSelectAlt={setSelectedAltId}
-            />
-          </div>
+          <EconomicAnalysisView
+            inputs={solvedInputs}
+            alternatives={alternatives}
+            selectedAltId={selectedAltId}
+            onSelectAlt={setSelectedAltId}
+          />
         )}
       </main>
 
