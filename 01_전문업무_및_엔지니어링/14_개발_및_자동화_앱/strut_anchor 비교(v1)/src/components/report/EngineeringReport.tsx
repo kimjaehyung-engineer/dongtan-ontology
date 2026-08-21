@@ -66,47 +66,48 @@ export const EngineeringReport: React.FC<EngineeringReportProps> = ({
             </div>
           </div>
 
-          {/* 1. 검토 목적 및 개요 */}
+          {/* 1. 설계 기본 조건 및 지반 단면 */}
           <div className="mb-6">
             <h2 className="text-sm font-bold text-slate-900 border-l-4 border-blue-600 pl-2 mb-2">
-              1. 검토 목적 및 기본 조건
+              1. 굴착 제원 및 프로젝트 설계 조건
             </h2>
-            <p className="text-slate-700 leading-normal mb-2 text-justify">
-              본 검토는 상용 수치해석 프로그램(SUNEX 등) 본설계 수행 전 단계에서, 대상 현장의 굴착 조건(깊이 H={inputs.excavationDepth}m, 폭 B={inputs.excavationWidth}m, 상재하중 q={inputs.surcharge}kN/m²) 및 다층 지반 특성을 고려하여 <strong>Strut(버팀보) 공법</strong>과 <strong>Ground Anchor(어스앵커) 공법</strong> 및 <strong>복합 대안</strong>의 구조적 안정성, 직접공사비(경제성), 시공성을 종합 비교하여 최적의 대안을 도출하고자 수행되었습니다.
-            </p>
-            <div className="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded border border-slate-200 text-[11px]">
-              <div>• 굴착 깊이: <strong>{inputs.excavationDepth} m</strong></div>
-              <div>• 굴착 폭: <strong>{inputs.excavationWidth} m</strong></div>
-              <div>• 가시설 연장: <strong>{inputs.totalWallPerimeter} m</strong></div>
-              <div>• 지하수위 G.W.L: <strong>-{inputs.waterTableBehind} m</strong></div>
-              <div>• 상재하중: <strong>{inputs.surcharge} kN/m²</strong></div>
-              <div>• 대지경계 이격: <strong>{inputs.boundaryDistance} m</strong></div>
+            <div className="grid grid-cols-2 gap-4 bg-slate-50 p-3 rounded border border-slate-200">
+              <div>
+                <p>• <strong>굴착 깊이 (H):</strong> {inputs.excavationDepth.toFixed(1)} m</p>
+                <p>• <strong>굴착 폭 (B):</strong> {inputs.excavationWidth.toFixed(1)} m</p>
+                <p>• <strong>가시설 총 연장 (L):</strong> {inputs.totalWallPerimeter.toFixed(1)} m</p>
+              </div>
+              <div>
+                <p>• <strong>배후 지하수위:</strong> GL -{inputs.waterTableBehind.toFixed(1)} m</p>
+                <p>• <strong>인접 부지경계 이격:</strong> {inputs.boundaryDistance.toFixed(1)} m</p>
+                <p>• <strong>상부 상재하중:</strong> {inputs.surcharge.toFixed(1)} kN/㎡</p>
+              </div>
             </div>
           </div>
 
-          {/* 2. 지층 조건 요약 */}
+          {/* 2. 지층 구성 및 P-y 지반반력계수 제원 */}
           <div className="mb-6">
             <h2 className="text-sm font-bold text-slate-900 border-l-4 border-blue-600 pl-2 mb-2">
-              2. 지반 프로파일 및 설계 토질정수
+              2. 지층 구성 및 P-y 지반반력계수 제원
             </h2>
-            <table className="w-full text-left border-collapse border border-slate-300 text-[11px] eng-table">
+            <table className="w-full text-left border-collapse border border-slate-300 text-[10.5px] eng-table">
               <thead>
                 <tr>
                   <th>지층명</th>
                   <th className="text-center">심도 (m)</th>
-                  <th className="text-center">단위중량 (kN/m³)</th>
-                  <th className="text-center">점착력 c</th>
-                  <th className="text-center">마찰각 φ</th>
-                  <th className="text-center">kh0 (kN/m³)</th>
+                  <th className="text-center">단위중량 (kN/㎥)</th>
+                  <th className="text-center">점착력 (kN/㎡)</th>
+                  <th className="text-center">내부마찰각 (°)</th>
+                  <th className="text-center">수평지반반력계수 (kN/㎥)</th>
                   <th className="text-center">N치</th>
                 </tr>
               </thead>
               <tbody>
                 {inputs.soils.map((s, idx) => (
                   <tr key={idx}>
-                    <td className="font-bold">{s.name}</td>
-                    <td className="text-center font-mono">{s.topDepth} ~ {s.bottomDepth}</td>
-                    <td className="text-center font-mono">{s.gamma} / {s.gammaSat}</td>
+                    <td>{s.name}</td>
+                    <td className="text-center font-mono">GL -{s.topDepth.toFixed(1)} ~ -{s.bottomDepth.toFixed(1)}</td>
+                    <td className="text-center font-mono">{s.gamma}</td>
                     <td className="text-center font-mono">{s.cohesion}</td>
                     <td className="text-center font-mono">{s.frictionAngle}°</td>
                     <td className="text-center font-mono">{s.kh0.toLocaleString()}</td>
@@ -117,10 +118,10 @@ export const EngineeringReport: React.FC<EngineeringReportProps> = ({
             </table>
           </div>
 
-          {/* 3. 4대안 종합 비교표 */}
+          {/* 3. 3대안 종합 비교표 */}
           <div className="mb-6">
             <h2 className="text-sm font-bold text-slate-900 border-l-4 border-blue-600 pl-2 mb-2">
-              3. 4대 공법 대안별 종합 비교 및 평가 결과
+              3. 가시설 지보공법 3대안 종합 성능 및 다기준 비교 평가 결과
             </h2>
             <table className="w-full text-left border-collapse border border-slate-300 text-[10.5px] eng-table">
               <thead>
@@ -130,6 +131,7 @@ export const EngineeringReport: React.FC<EngineeringReportProps> = ({
                   <th className="text-center">최대변위</th>
                   <th className="text-center">H-Pile 응력비</th>
                   <th className="text-center">근입/보일링 FS</th>
+                  <th className="text-center">총 공기</th>
                   <th className="text-center">직접공사비</th>
                   <th className="text-center">시공/민원성</th>
                   <th className="text-center">종합 순위</th>
@@ -147,8 +149,9 @@ export const EngineeringReport: React.FC<EngineeringReportProps> = ({
                       {alt.pileStressRatio} ({alt.pileStressRatio <= 1.0 ? 'O.K' : 'N.G'})
                     </td>
                     <td className="text-center font-mono">{alt.embedmentSF} / {alt.boilingSF}</td>
-                    <td className="text-center font-mono text-blue-700">
-                      {(alt.totalCostWon / 1e6).toFixed(1)} 백만
+                    <td className="text-center font-mono font-bold text-indigo-700">{alt.periodDays}일</td>
+                    <td className="text-center font-mono text-blue-700 font-bold">
+                      {(alt.totalCostWon / 1e8).toFixed(2)} 억원
                     </td>
                     <td className="text-center font-mono">
                       작업({alt.workSpaceScore}) / 경계({alt.boundaryRiskScore})

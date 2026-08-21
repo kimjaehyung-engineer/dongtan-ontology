@@ -1,6 +1,7 @@
 import type { SoilLayer, WallSection, SupportStage, ExcavationStage, StageResult, NodeResult, SupportResult, StabilityResult, AlternativeSpec, CostItem, ProjectInputs } from '../types';
 import { H_PILE_DATABASE, STRUT_DATABASE, WALE_DATABASE } from './sectionDB';
 import { DetailedCostEngine } from './detailedCostEngine';
+import { ConstructionScheduleEngine } from './constructionScheduleEngine';
 import { DEFAULT_PROJECT_INPUTS } from './presets';
 
 export class FEMElastoPlasticEngine {
@@ -491,6 +492,38 @@ export class AlternativeEvaluator {
       this.evaluateSingleAlt(2, `대안 2: 고각 앵커 (All-Anchor ${userAnchorAngle}°) 공법`, 'ALL_ANCHOR', `전단 고각 어스앵커 (${userAnchorAngle}°) 로 부지경계 침범 방지 및 100% 개방 굴착`, soils, wall, anchorSups, inputs),
       this.evaluateSingleAlt(3, `대안 3: 복합공법 (상부 고각앵커 ${userAnchorAngle}° + 하부 스트러트)`, 'HYBRID', `상부 고각 앵커(${userAnchorAngle}°)로 작업공간 확보 및 하부 스트러트로 암반층 결합`, soils, wall, hybridSups, inputs),
     ];
+
+    // 공기 산정 엔진(ConstructionScheduleEngine)과 100% 동기화
+    try {
+      const scheduleResults = ConstructionScheduleEngine.calculateSchedules(inputs, alts, 1);
+      alts.forEach((alt, idx) => {
+        const sch = scheduleResults.find(s => s.altId === alt.id) || scheduleResults[idx];
+        if (sch) {
+          alt.periodDays = sch.totalDurationDays;
+        }
+      });
+    } catch (e) {}
+
+    // 경제성 + 공기 + 안전성 종합 평가 점수 산정 (모든 창 100% 동일 순위 보장)
+    const minCost = Math.min(...alts.map(a => a.totalCostWon));
+    const minPeriod = Math.min(...alts.map(a => a.periodDays));
+
+    alts.forEach(alt => {
+      let safetyScore = 100;
+      if (!alt.isStructurallySafe) {
+        safetyScore = 40;
+      } else {
+        safetyScore -= Math.max(0, (alt.pileStressRatio - 0.65) * 45);
+        safetyScore -= Math.max(0, (alt.maxDisplacement - 20) * 1.5);
+      }
+      safetyScore = Math.max(40, Math.min(100, safetyScore));
+
+      const costScore = Number((70 + ((minCost / (alt.totalCostWon || 1)) * 30)).toFixed(1));
+      const schedScore = Number((70 + ((minPeriod / (alt.periodDays || 1)) * 30)).toFixed(1));
+      const workScore = (alt.workSpaceScore + alt.boundaryRiskScore) / 2;
+
+      alt.overallScore = Number((safetyScore * 0.35 + costScore * 0.35 + schedScore * 0.20 + workScore * 0.10).toFixed(1));
+    });
 
     const sorted = [...alts].sort((a, b) => b.overallScore - a.overallScore);
     sorted.forEach((item, idx) => {

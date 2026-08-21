@@ -728,14 +728,20 @@ export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
               <span>엔지니어링 의사결정 분석 요약 [현재 선택: 대안 {selectedAlt.id} - {selectedAlt.name}]</span>
             </h4>
             <p className="text-[11px] text-blue-200/90 mt-0.5">
-              기준안(대안 1) 대비 공기 <strong>{13}일 단축</strong> 및 LCC 생애주기 총비용 약 <strong>{((lccResult.lccBreakdowns.find(b => b.altId === selectedAlt.id)?.savedLccWonComparedToBaseline || 0) / 1e6).toFixed(0)}백만원 절감</strong>이 기대됩니다.
+              {selectedAlt.id === 1 ? (
+                <span>기준 설계안(전단 버팀보 공법)으로 총 공기 <strong>{selectedAlt.periodDays}일</strong>, 직접공사비 <strong>{(selectedAlt.totalCostWon / 1e8).toFixed(2)}억원</strong>이 소요됩니다.</span>
+              ) : (
+                <span>
+                  기준안(대안 1) 대비 공기 <strong>{lccResult.scheduleResults.find(s => s.altId === selectedAlt.id)?.savedDaysComparedToBaseline || 0}일 단축</strong> 및 LCC 생애주기 총비용 약 <strong>{((lccResult.lccBreakdowns.find(b => b.altId === selectedAlt.id)?.savedLccWonComparedToBaseline || 0) / 1e6).toFixed(0)}백만원 절감</strong>이 기대됩니다.
+                </span>
+              )}
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-[11px] text-blue-300 font-mono">
-            추천 공법: {bestLccAlt.altName}
+          <span className="text-[11px] text-blue-300 font-mono bg-blue-800/60 px-3 py-1 rounded-lg border border-blue-600">
+            ★ LCC 1위 추천 공법: {bestLccAlt.altName}
           </span>
         </div>
       </div>
