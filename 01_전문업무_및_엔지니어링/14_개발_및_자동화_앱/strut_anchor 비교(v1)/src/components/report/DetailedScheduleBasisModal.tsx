@@ -230,18 +230,29 @@ export const DetailedScheduleBasisModal: React.FC<DetailedScheduleBasisModalProp
                 </p>
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-200 text-slate-500 font-bold">
-                      <th className="py-2 px-3">세부 작업 공종</th>
-                      <th className="py-2 px-3 text-center">소요 일수</th>
-                      <th className="py-2 px-3">작업 능력 및 산출 근거 (표준품셈)</th>
+                    <tr className="border-b border-slate-200 text-slate-500 font-bold bg-slate-50">
+                      <th className="py-2.5 px-3">세부 작업 공종</th>
+                      <th className="py-2.5 px-3 text-center">소요 일수</th>
+                      <th className="py-2.5 px-3">📐 구체적 산출 수식 (Formula)</th>
+                      <th className="py-2.5 px-3">현장 시공 특성 및 표준품셈 근거</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 font-mono">
+                  <tbody className="divide-y divide-slate-100 text-xs">
                     {activeSchedule.phases.earthwork.subTasks.map((t, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50">
-                        <td className="py-2 px-3 font-sans font-bold text-slate-800">{t.name}</td>
-                        <td className="py-2 px-3 text-center font-bold text-blue-700">{t.days}일</td>
-                        <td className="py-2 px-3 font-sans text-slate-600">{t.note}</td>
+                      <tr key={idx} className="hover:bg-slate-50/80">
+                        <td className="py-2.5 px-3 font-sans font-bold text-slate-800">{t.name}</td>
+                        <td className="py-2.5 px-3 text-center font-mono font-bold text-blue-700 bg-blue-50/40">{t.days}일</td>
+                        <td className="py-2.5 px-3 font-mono font-bold text-indigo-800 bg-indigo-50/30">
+                          {t.formula || `${t.days}일`}
+                        </td>
+                        <td className="py-2.5 px-3 font-sans text-slate-600 space-y-0.5">
+                          <div>{t.note}</div>
+                          {t.standardBasis && (
+                            <div className="text-[11px] text-slate-500 font-mono">
+                              ↳ <span className="underline decoration-slate-300">{t.standardBasis}</span>
+                            </div>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -273,18 +284,29 @@ export const DetailedScheduleBasisModal: React.FC<DetailedScheduleBasisModalProp
                 </p>
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-200 text-slate-500 font-bold">
-                      <th className="py-2 px-3">세부 작업 공종</th>
-                      <th className="py-2 px-3 text-center">소요 일수</th>
-                      <th className="py-2 px-3">작업 능력 및 산출 근거 (시방서)</th>
+                    <tr className="border-b border-slate-200 text-slate-500 font-bold bg-blue-50/40">
+                      <th className="py-2.5 px-3">세부 작업 공종</th>
+                      <th className="py-2.5 px-3 text-center">소요 일수</th>
+                      <th className="py-2.5 px-3">📐 구체적 산출 수식 (Formula)</th>
+                      <th className="py-2.5 px-3">현장 시공 특성 및 표준시방서 근거</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 font-mono">
+                  <tbody className="divide-y divide-slate-100 text-xs">
                     {activeSchedule.phases.structure.subTasks.map((t, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50">
-                        <td className="py-2 px-3 font-sans font-bold text-slate-800">{t.name}</td>
-                        <td className="py-2 px-3 text-center font-bold text-blue-700">{t.days}일</td>
-                        <td className="py-2 px-3 font-sans text-slate-600">{t.note}</td>
+                      <tr key={idx} className="hover:bg-blue-50/20">
+                        <td className="py-2.5 px-3 font-sans font-bold text-slate-800">{t.name}</td>
+                        <td className="py-2.5 px-3 text-center font-mono font-bold text-blue-700 bg-blue-50/40">{t.days}일</td>
+                        <td className="py-2.5 px-3 font-mono font-bold text-indigo-800 bg-indigo-50/30">
+                          {t.formula || `${t.days}일`}
+                        </td>
+                        <td className="py-2.5 px-3 font-sans text-slate-600 space-y-0.5">
+                          <div>{t.note}</div>
+                          {t.standardBasis && (
+                            <div className="text-[11px] text-slate-500 font-mono">
+                              ↳ <span className="underline decoration-slate-300">{t.standardBasis}</span>
+                            </div>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -311,18 +333,29 @@ export const DetailedScheduleBasisModal: React.FC<DetailedScheduleBasisModalProp
                 </p>
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-200 text-slate-500 font-bold">
-                      <th className="py-2 px-3">세부 작업 공종</th>
-                      <th className="py-2 px-3 text-center">소요 일수</th>
-                      <th className="py-2 px-3">작업 능력 및 산출 근거</th>
+                    <tr className="border-b border-slate-200 text-slate-500 font-bold bg-slate-50">
+                      <th className="py-2.5 px-3">세부 작업 공종</th>
+                      <th className="py-2.5 px-3 text-center">소요 일수</th>
+                      <th className="py-2.5 px-3">📐 구체적 산출 수식 (Formula)</th>
+                      <th className="py-2.5 px-3">현장 시공 특성 및 표준시방서 근거</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 font-mono">
+                  <tbody className="divide-y divide-slate-100 text-xs">
                     {activeSchedule.phases.dismantle.subTasks.map((t, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50">
-                        <td className="py-2 px-3 font-sans font-bold text-slate-800">{t.name}</td>
-                        <td className="py-2 px-3 text-center font-bold text-blue-700">{t.days}일</td>
-                        <td className="py-2 px-3 font-sans text-slate-600">{t.note}</td>
+                      <tr key={idx} className="hover:bg-slate-50/80">
+                        <td className="py-2.5 px-3 font-sans font-bold text-slate-800">{t.name}</td>
+                        <td className="py-2.5 px-3 text-center font-mono font-bold text-blue-700 bg-blue-50/40">{t.days}일</td>
+                        <td className="py-2.5 px-3 font-mono font-bold text-indigo-800 bg-indigo-50/30">
+                          {t.formula || `${t.days}일`}
+                        </td>
+                        <td className="py-2.5 px-3 font-sans text-slate-600 space-y-0.5">
+                          <div>{t.note}</div>
+                          {t.standardBasis && (
+                            <div className="text-[11px] text-slate-500 font-mono">
+                              ↳ <span className="underline decoration-slate-300">{t.standardBasis}</span>
+                            </div>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
