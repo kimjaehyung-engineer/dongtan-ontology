@@ -13,7 +13,8 @@ import {
   Sparkles,
   HelpCircle,
   FolderOpen,
-  CheckCircle2
+  CheckCircle2,
+  Calendar
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -22,6 +23,7 @@ interface HeaderProps {
   onOpenReport: () => void;
   onOpenSunexExport: () => void;
   onOpenDetailedCost: () => void;
+  onOpenScheduleBasis?: () => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onRunAnalysis: () => void;
@@ -39,6 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenReport,
   onOpenSunexExport,
   onOpenDetailedCost,
+  onOpenScheduleBasis,
   activeTab,
   setActiveTab,
   onRunAnalysis,
@@ -115,8 +118,20 @@ export const Header: React.FC<HeaderProps> = ({
             title="수량산출 근거 및 도급/실행 단가 상세 검증"
           >
             <FileSpreadsheet className="w-3.5 h-3.5 text-amber-300" />
-            <span>수량·단가 산출근거 (도급/실행)</span>
+            <span>수량·단가 산출근거</span>
           </button>
+
+          {/* 🌟 공기 산정 근거서 모달 버튼 */}
+          {onOpenScheduleBasis && (
+            <button
+              onClick={onOpenScheduleBasis}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-700 hover:bg-blue-600 text-white border border-blue-500 text-xs font-bold shadow-xs transition-all"
+              title="3대안 공사기간(공기) 정밀 산출 근거서 (표준품셈 & 시방서 연동)"
+            >
+              <Calendar className="w-3.5 h-3.5 text-amber-300" />
+              <span>공기 산정 근거서</span>
+            </button>
+          )}
 
           {/* SUNEX 데이터 시트 모달 버튼 */}
           <button

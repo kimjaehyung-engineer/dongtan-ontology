@@ -41,13 +41,15 @@ interface EconomicAnalysisViewProps {
   alternatives: AlternativeSpec[];
   selectedAltId: number;
   onSelectAlt: (altId: number) => void;
+  onOpenScheduleBasis?: () => void;
 }
 
 export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
   inputs,
   alternatives,
   selectedAltId,
-  onSelectAlt
+  onSelectAlt,
+  onOpenScheduleBasis
 }) => {
   // 서브탭 상태
   const [activeSubTab, setActiveSubTab] = useState<'LCC_SCHEDULE' | 'DETAILED_QTO' | 'RADAR_EVAL'>('LCC_SCHEDULE');
@@ -355,9 +357,21 @@ export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
                     <p className="text-[11px] text-slate-500">토공 2개 반출구 수직양중 및 지하 {lccResult.scheduleResults[0]?.numStories}층 RC 골조 축조 공기</p>
                   </div>
                 </div>
-                <span className="text-[11px] text-indigo-700 font-mono font-bold bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
-                  단위: 일(Days)
-                </span>
+                <div className="flex items-center gap-2">
+                  {onOpenScheduleBasis && (
+                    <button
+                      onClick={onOpenScheduleBasis}
+                      className="flex items-center gap-1 px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold shadow-xs transition-all"
+                      title="대안별 공기 정밀 산출 수식 및 표준품셈 근거서 확인"
+                    >
+                      <Clock className="w-3 h-3 text-amber-300" />
+                      <span>공기 산정 근거서 (품셈)</span>
+                    </button>
+                  )}
+                  <span className="text-[11px] text-indigo-700 font-mono font-bold bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
+                    단위: 일(Days)
+                  </span>
+                </div>
               </div>
 
               <div className="p-4 h-72 w-full bg-white">

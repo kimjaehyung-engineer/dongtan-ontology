@@ -13,6 +13,7 @@ import { CostRadarChart } from './components/comparison/CostRadarChart';
 import { SunexDataExporter } from './components/report/SunexDataExporter';
 import { EngineeringReport } from './components/report/EngineeringReport';
 import { DetailedCostModal } from './components/cost/DetailedCostModal';
+import { DetailedScheduleBasisModal } from './components/report/DetailedScheduleBasisModal';
 import { LccScheduleComparison } from './components/comparison/LccScheduleComparison';
 import { EconomicAnalysisView } from './components/comparison/EconomicAnalysisView';
 import { EngineeringBalancePanel } from './components/common/EngineeringBalancePanel';
@@ -72,6 +73,7 @@ export function App() {
   const [isReportOpen, setIsReportOpen] = useState<boolean>(false);
   const [isSunexOpen, setIsSunexOpen] = useState<boolean>(false);
   const [isCostModalOpen, setIsCostModalOpen] = useState<boolean>(false);
+  const [isScheduleBasisOpen, setIsScheduleBasisOpen] = useState<boolean>(false);
   const [isSolving, setIsSolving] = useState<boolean>(false);
 
   // 상태 변경 시 localStorage 즉시 동기화
@@ -226,6 +228,7 @@ export function App() {
         onOpenReport={() => setIsReportOpen(true)}
         onOpenSunexExport={() => setIsSunexOpen(true)}
         onOpenDetailedCost={() => setIsCostModalOpen(true)}
+        onOpenScheduleBasis={() => setIsScheduleBasisOpen(true)}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onRunAnalysis={() => handleRunAnalysis()}
@@ -440,6 +443,7 @@ export function App() {
             alternatives={alternatives}
             selectedAltId={selectedAltId}
             onSelectAlt={setSelectedAltId}
+            onOpenScheduleBasis={() => setIsScheduleBasisOpen(true)}
           />
         )}
       </main>
@@ -477,6 +481,14 @@ export function App() {
         alternatives={alternatives}
         currentAltId={selectedAltId}
         inputs={solvedInputs}
+      />
+
+      <DetailedScheduleBasisModal
+        isOpen={isScheduleBasisOpen}
+        onClose={() => setIsScheduleBasisOpen(false)}
+        inputs={solvedInputs}
+        alternatives={alternatives}
+        selectedAltId={selectedAltId}
       />
 
       <SunexDataExporter
