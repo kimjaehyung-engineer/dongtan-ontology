@@ -708,11 +708,11 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
                           </span>
                           <span className="text-[10px] font-mono text-blue-700 font-bold">하부 굴착면 적용</span>
                         </div>
-                        <div className="grid grid-cols-2 gap-1.5">
+                        <div className="flex items-center gap-1.5">
                           <select
                             value={currentStrutSpec}
                             onChange={(e) => handleBatchSupportChange('spec', e.target.value)}
-                            className="w-full bg-white border border-slate-300 rounded px-1.5 py-1 text-[11px] font-mono font-bold text-slate-800 focus:border-blue-500 focus:outline-none"
+                            className="flex-1 bg-white border border-slate-300 rounded px-1.5 py-1 text-[11px] font-mono font-bold text-slate-800 focus:border-blue-500 focus:outline-none"
                           >
                             {STRUT_DATABASE.map(st => (
                               <option key={st.spec} value={st.spec}>{st.spec}</option>
@@ -721,12 +721,25 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
                           <select
                             value={currentStrutSpacing}
                             onChange={(e) => handleBatchSupportChange('spacing', parseFloat(e.target.value))}
-                            className="w-full bg-white border border-slate-300 rounded px-1.5 py-1 text-[11px] font-mono font-bold text-slate-800 focus:border-blue-500 focus:outline-none"
+                            className="w-28 bg-white border border-slate-300 rounded px-1.5 py-1 text-[11px] font-mono font-bold text-slate-800 focus:border-blue-500 focus:outline-none"
                           >
                             {[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0].map(sp => (
-                              <option key={sp} value={sp}>버팀보 @ {sp.toFixed(1)}m</option>
+                              <option key={sp} value={sp}>@ {sp.toFixed(1)}m</option>
                             ))}
                           </select>
+                          <div className="flex items-center gap-1">
+                            <input
+                              type="number"
+                              step="0.1"
+                              min="0.8"
+                              max="8.0"
+                              value={currentStrutSpacing}
+                              onChange={(e) => handleBatchSupportChange('spacing', parseFloat(e.target.value) || 1.0)}
+                              className="w-14 bg-white border border-blue-400 rounded px-1 py-1 text-[11px] font-mono font-bold text-blue-950 text-center focus:ring-1 focus:ring-blue-500 focus:outline-none shadow-2xs"
+                              title="버팀보 간격 직접 입력 (m)"
+                            />
+                            <span className="text-[10px] text-slate-500 font-bold">m</span>
+                          </div>
                         </div>
                       </div>
                     </div>
