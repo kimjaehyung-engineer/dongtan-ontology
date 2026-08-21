@@ -505,15 +505,17 @@ export class AlternativeEvaluator {
       });
     } catch (e) {}
 
-    // LCC 경제성 엔진과 100% 동기화 (토공 직상차 절감 + PF금융이자 절감 + 부지경계비용 반영)
+    // VE 다기준 종합 평가 (MCDM): 안전성(30%) + 경제성(30%) + 공기(20%) + 부지경계(10%) + 작업공간(10%)
     try {
       const lccRes = LccCostEngine.calculateLcc(inputs, alts);
       const minLcc = Math.min(...lccRes.lccBreakdowns.map(b => b.totalLccWon));
+      const minPeriod = Math.min(...alts.map(a => a.periodDays));
 
       alts.forEach(alt => {
         const lccItem = lccRes.lccBreakdowns.find(b => b.altId === alt.id);
         const totalLccWon = lccItem ? lccItem.totalLccWon : alt.totalCostWon;
 
+        // 1. 안전성 점수 (100점 만점)
         let safetyScore = 100;
         if (!alt.isStructurallySafe) {
           safetyScore = 40;
@@ -523,10 +525,26 @@ export class AlternativeEvaluator {
         }
         safetyScore = Math.max(40, Math.min(100, safetyScore));
 
+        // 2. 경제성(LCC) 점수 (100점 만점: 1안 최고)
         const lccScore = Number((70 + ((minLcc / (totalLccWon || 1)) * 30)).toFixed(1));
-        const workScore = (alt.workSpaceScore + alt.boundaryRiskScore) / 2;
 
-        alt.overallScore = Number((safetyScore * 0.35 + lccScore * 0.45 + workScore * 0.20).toFixed(1));
+        // 3. 공기 단축성 점수 (100점 만점: 2안 최고)
+        const schedScore = Number((70 + ((minPeriod / (alt.periodDays || 1)) * 30)).toFixed(1));
+
+        // 4. 부지경계 안전성 점수 (2안은 침범 감점, 1/3안 만점)
+        const boundaryScore = alt.boundaryRiskScore;
+
+        // 5. 작업 공간성 점수 (상부 개방성)
+        const workScore = alt.workSpaceScore;
+
+        // 종합 VE 가중합산 점수
+        alt.overallScore = Number((
+          safetyScore * 0.30 +
+          lccScore * 0.30 +
+          schedScore * 0.20 +
+          boundaryScore * 0.10 +
+          workScore * 0.10
+        ).toFixed(1));
       });
 
       const sorted = [...alts].sort((a, b) => b.overallScore - a.overallScore);
