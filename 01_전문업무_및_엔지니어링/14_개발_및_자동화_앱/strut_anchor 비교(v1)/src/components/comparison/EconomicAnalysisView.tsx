@@ -98,8 +98,11 @@ export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
     name: `대안 ${b.altId}`,
     fullName: b.altName,
     직접공사비: Number((b.directCostWon / 1e8).toFixed(2)),
+    직상차절감액: Number((b.earthworkSavingsWon / 1e8).toFixed(2)),
+    금융이자절감: Number((b.financingBenefitWon / 1e8).toFixed(2)),
+    부지경계비용: Number((b.boundaryRiskCostWon / 1e8).toFixed(2)),
     현장운영간접비: Number((b.timeDependentIndirectCostWon / 1e8).toFixed(2)),
-    조인트방수비: Number((b.jointRemediationCostWon / 1e8).toFixed(2)),
+    조인트하자비: Number((b.jointRemediationCostWon / 1e8).toFixed(2)),
     totalLcc: Number((b.totalLccWon / 1e8).toFixed(2)),
     rank: b.rank,
     isSelected: b.altId === selectedAltId
@@ -454,12 +457,12 @@ export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
             </div>
           </div>
 
-          {/* 4대안 LCC 종합 집계표 */}
+          {/* 3대안 LCC 종합 집계표 */}
           <div className="eng-panel overflow-hidden">
             <div className="eng-panel-header flex items-center justify-between">
               <h3 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
                 <Layers className="w-3.5 h-3.5 text-blue-600" />
-                4대안 공기·간접비·LCC 총비용 정밀 비교표
+                3대안 실무 LCC 생애주기 총비용 정밀 비교표
               </h3>
               <span className="text-[11px] text-slate-400 font-mono">
                 기준안(대안 1) 대비 절감액 산출
@@ -471,13 +474,16 @@ export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
                 <thead>
                   <tr className="bg-slate-50 text-slate-600 border-b border-slate-200 font-bold">
                     <th className="py-2.5 px-3">대안명</th>
-                    <th className="py-2.5 px-3 text-center">총 공기</th>
-                    <th className="py-2.5 px-3 text-right">① 직접공사비</th>
-                    <th className="py-2.5 px-3 text-right">② 현장운영간접비</th>
-                    <th className="py-2.5 px-3 text-right">③ 조인트 방수비</th>
-                    <th className="py-2.5 px-3 text-right">총 LCC 비용</th>
-                    <th className="py-2.5 px-3 text-right">기준안 대비 절감액</th>
-                    <th className="py-2.5 px-3 text-center">종합 순위</th>
+                    <th className="py-2.5 px-2 text-center">총 공기</th>
+                    <th className="py-2.5 px-2 text-right">① 직접공사비</th>
+                    <th className="py-2.5 px-2 text-right text-emerald-700">② 덤프직상차 절감</th>
+                    <th className="py-2.5 px-2 text-right text-teal-700">③ PF이자 절감</th>
+                    <th className="py-2.5 px-2 text-right text-indigo-700">④ 부지경계 비용</th>
+                    <th className="py-2.5 px-2 text-right text-amber-700">⑤ 현장운영비</th>
+                    <th className="py-2.5 px-2 text-right text-rose-700">⑥ 누수하자보수</th>
+                    <th className="py-2.5 px-3 text-right font-black">⭐ 실질 LCC 총비용</th>
+                    <th className="py-2.5 px-2 text-right">기준안 대비 절감액</th>
+                    <th className="py-2.5 px-2 text-center">LCC 순위</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 font-mono">
@@ -501,34 +507,47 @@ export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
                             대안 {b.altId}: {b.altName}
                           </span>
                         </td>
-                        <td className="py-2 px-3 text-center">
+                        <td className="py-2 px-2 text-center">
                           {b.durationDays}일 <span className="text-slate-400 text-[10px]">({b.durationMonths.toFixed(1)}개월)</span>
                         </td>
-                        <td className="py-2 px-3 text-right text-blue-700">
+                        <td className="py-2 px-2 text-right text-blue-700 font-semibold">
                           {(b.directCostWon / 1e8).toFixed(2)} 억
                         </td>
-                        <td className="py-2 px-3 text-right text-amber-700">
+                        <td className="py-2 px-2 text-right text-emerald-700 font-semibold">
+                          {b.earthworkSavingsWon > 0 ? `▲ ${(b.earthworkSavingsWon / 1e8).toFixed(2)} 억 (${Math.round(b.directLoadingRatio * 100)}%)` : '-'}
+                        </td>
+                        <td className="py-2 px-2 text-right text-teal-700 font-semibold">
+                          {b.financingBenefitWon > 0 ? `▲ ${(b.financingBenefitWon / 1e8).toFixed(2)} 억` : '-'}
+                        </td>
+                        <td className="py-2 px-2 text-right text-indigo-700 font-semibold">
+                          {b.boundaryRiskCostWon > 0 ? `+ ${(b.boundaryRiskCostWon / 1e8).toFixed(2)} 억` : '0원 (안전)'}
+                        </td>
+                        <td className="py-2 px-2 text-right text-amber-700">
                           {(b.timeDependentIndirectCostWon / 1e8).toFixed(2)} 억
                         </td>
-                        <td className="py-2 px-3 text-right text-rose-700">
+                        <td className="py-2 px-2 text-right text-rose-700">
                           {(b.jointRemediationCostWon / 1e6).toFixed(0)} 백만
                         </td>
-                        <td className="py-2 px-3 text-right font-bold text-slate-900">
+                        <td className="py-2 px-3 text-right font-black text-slate-900 text-sm">
                           {(b.totalLccWon / 1e8).toFixed(2)} 억원
                         </td>
-                        <td className="py-2 px-3 text-right font-bold">
+                        <td className="py-2 px-2 text-right font-bold">
                           {b.altId === 1 ? (
                             <span className="text-slate-400">-</span>
-                          ) : (
+                          ) : b.savedLccWonComparedToBaseline > 0 ? (
                             <span className="text-emerald-700">
-                              -{(b.savedLccWonComparedToBaseline / 1e6).toFixed(0)} 백만원
+                              ▲ {(b.savedLccWonComparedToBaseline / 1e8).toFixed(2)} 억원 절감
+                            </span>
+                          ) : (
+                            <span className="text-rose-600">
+                              + {Math.abs(b.savedLccWonComparedToBaseline / 1e8).toFixed(2)} 억원 증가
                             </span>
                           )}
                         </td>
-                        <td className="py-2 px-3 text-center font-sans">
+                        <td className="py-2 px-2 text-center font-sans">
                           {b.isLccRecommended ? (
                             <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-extrabold text-[10px] border border-amber-300">
-                              ★ 1위 (최적)
+                              🥇 1위 (최적추천)
                             </span>
                           ) : (
                             <span className="text-slate-500 font-bold">{b.rank}위</span>

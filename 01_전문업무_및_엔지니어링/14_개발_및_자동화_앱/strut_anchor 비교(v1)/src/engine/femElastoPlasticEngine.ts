@@ -2,6 +2,7 @@ import type { SoilLayer, WallSection, SupportStage, ExcavationStage, StageResult
 import { H_PILE_DATABASE, STRUT_DATABASE, WALE_DATABASE } from './sectionDB';
 import { DetailedCostEngine } from './detailedCostEngine';
 import { ConstructionScheduleEngine } from './constructionScheduleEngine';
+import { LccCostEngine } from './lccCostEngine';
 import { DEFAULT_PROJECT_INPUTS } from './presets';
 
 export class FEMElastoPlasticEngine {
@@ -504,32 +505,36 @@ export class AlternativeEvaluator {
       });
     } catch (e) {}
 
-    // 경제성 + 공기 + 안전성 종합 평가 점수 산정 (모든 창 100% 동일 순위 보장)
-    const minCost = Math.min(...alts.map(a => a.totalCostWon));
-    const minPeriod = Math.min(...alts.map(a => a.periodDays));
+    // LCC 경제성 엔진과 100% 동기화 (토공 직상차 절감 + PF금융이자 절감 + 부지경계비용 반영)
+    try {
+      const lccRes = LccCostEngine.calculateLcc(inputs, alts);
+      const minLcc = Math.min(...lccRes.lccBreakdowns.map(b => b.totalLccWon));
 
-    alts.forEach(alt => {
-      let safetyScore = 100;
-      if (!alt.isStructurallySafe) {
-        safetyScore = 40;
-      } else {
-        safetyScore -= Math.max(0, (alt.pileStressRatio - 0.65) * 45);
-        safetyScore -= Math.max(0, (alt.maxDisplacement - 20) * 1.5);
-      }
-      safetyScore = Math.max(40, Math.min(100, safetyScore));
+      alts.forEach(alt => {
+        const lccItem = lccRes.lccBreakdowns.find(b => b.altId === alt.id);
+        const totalLccWon = lccItem ? lccItem.totalLccWon : alt.totalCostWon;
 
-      const costScore = Number((70 + ((minCost / (alt.totalCostWon || 1)) * 30)).toFixed(1));
-      const schedScore = Number((70 + ((minPeriod / (alt.periodDays || 1)) * 30)).toFixed(1));
-      const workScore = (alt.workSpaceScore + alt.boundaryRiskScore) / 2;
+        let safetyScore = 100;
+        if (!alt.isStructurallySafe) {
+          safetyScore = 40;
+        } else {
+          safetyScore -= Math.max(0, (alt.pileStressRatio - 0.65) * 45);
+          safetyScore -= Math.max(0, (alt.maxDisplacement - 20) * 1.5);
+        }
+        safetyScore = Math.max(40, Math.min(100, safetyScore));
 
-      alt.overallScore = Number((safetyScore * 0.35 + costScore * 0.35 + schedScore * 0.20 + workScore * 0.10).toFixed(1));
-    });
+        const lccScore = Number((70 + ((minLcc / (totalLccWon || 1)) * 30)).toFixed(1));
+        const workScore = (alt.workSpaceScore + alt.boundaryRiskScore) / 2;
 
-    const sorted = [...alts].sort((a, b) => b.overallScore - a.overallScore);
-    sorted.forEach((item, idx) => {
-      const original = alts.find(a => a.id === item.id);
-      if (original) original.rank = idx + 1;
-    });
+        alt.overallScore = Number((safetyScore * 0.35 + lccScore * 0.45 + workScore * 0.20).toFixed(1));
+      });
+
+      const sorted = [...alts].sort((a, b) => b.overallScore - a.overallScore);
+      sorted.forEach((item, idx) => {
+        const original = alts.find(a => a.id === item.id);
+        if (original) original.rank = idx + 1;
+      });
+    } catch (e) {}
 
     return alts;
   }
