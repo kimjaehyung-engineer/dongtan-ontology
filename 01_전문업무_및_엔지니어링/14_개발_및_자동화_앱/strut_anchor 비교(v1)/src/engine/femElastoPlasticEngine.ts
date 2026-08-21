@@ -486,40 +486,10 @@ export class AlternativeEvaluator {
       };
     });
 
-    // 4. 대안 4: 자재최적화 단면 (H-Pile 간격 확대 + 1단 감축 또는 앵커 최적화)
-    const optWall: WallSection = {
-      ...wall,
-      name: `${wall.hPileSpec || 'H-300x300'} @ ${Math.min(2.5, wall.spacing + 0.2)}m (자재최적화)`,
-      spacing: Math.min(2.5, wall.spacing + 0.2),
-      EI: (wall.EI * wall.spacing) / Math.min(2.5, wall.spacing + 0.2),
-      totalLength: Math.max(excavationDepth + 3.0, wall.totalLength - 1.0)
-    };
-
-    const optSups: SupportStage[] = tierSpacings.slice(0, Math.max(2, numTiers - (excavationDepth > 12 ? 0 : 1))).map((depth, idx) => {
-      const isUpper = idx === 0;
-      return {
-        id: `opt-${idx}`,
-        stageIndex: idx + 1,
-        type: isUpper ? 'GROUND_ANCHOR' : 'STRUT',
-        depth,
-        angle: isUpper ? userAnchorAngle : 0,
-        horizSpacing: isUpper ? 2.0 : Math.min(5.0, userStrutSpacing + 0.5),
-        preload: isUpper ? 180 : 120,
-        springStiffness: isUpper ? 38000 : 50000,
-        freeLength: isUpper ? 8.5 : 0,
-        bondLength: isUpper ? 7.0 : 0,
-        allowableCapacity: isUpper ? 520 : 2250,
-        specName: isUpper ? `SWPC 12.7mm 5가닥 (${userAnchorAngle}°)` : '강관 Φ609.6x12.0t',
-        strutSpec: isUpper ? undefined : '강관 Φ609.6x12.0t',
-        waleSpec: '2-H 350x350x12x19'
-      };
-    });
-
     const alts: AlternativeSpec[] = [
       this.evaluateSingleAlt(1, '대안 1: 버팀보 (All-Strut) 공법', 'ALL_STRUT', `전단 ${userStrutSpec} 버팀보 (간격 ${userStrutSpacing}m) 및 띠장 ${userWaleSpec} 적용`, soils, wall, strutSups, inputs),
       this.evaluateSingleAlt(2, `대안 2: 고각 앵커 (All-Anchor ${userAnchorAngle}°) 공법`, 'ALL_ANCHOR', `전단 고각 어스앵커 (${userAnchorAngle}°) 로 부지경계 침범 방지 및 100% 개방 굴착`, soils, wall, anchorSups, inputs),
       this.evaluateSingleAlt(3, `대안 3: 복합공법 (상부 고각앵커 ${userAnchorAngle}° + 하부 스트러트)`, 'HYBRID', `상부 고각 앵커(${userAnchorAngle}°)로 작업공간 확보 및 하부 스트러트로 암반층 결합`, soils, wall, hybridSups, inputs),
-      this.evaluateSingleAlt(4, '대안 4: 자재 최적화 고강도 복합안', 'OPTIMIZED', '엄지말뚝 간격 확대 및 단수 슬림화로 공사비 절감', soils, optWall, optSups, inputs),
     ];
 
     const sorted = [...alts].sort((a, b) => b.overallScore - a.overallScore);

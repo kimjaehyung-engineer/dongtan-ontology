@@ -19,7 +19,7 @@ export const AlternativeMatrix: React.FC<AlternativeMatrixProps> = ({
         <div>
           <h2 className="text-sm font-bold text-slate-800 flex items-center gap-2">
             <Award className="w-5 h-5 text-amber-500" />
-            4대 가시설 지보공법 종합 성능 및 다기준 비교 매트릭스 (Alternative Matrix)
+            가시설 지보공법 3대안 종합 성능 및 다기준 비교 매트릭스 (3-Alternative Matrix)
           </h2>
           <p className="text-xs text-slate-500">
             C++ 탄소성 FEM 비선형 해석 기반 구조안전성 + 직접공사비(물량) + 시공성/민원 리스크 종합 평가
@@ -27,7 +27,7 @@ export const AlternativeMatrix: React.FC<AlternativeMatrixProps> = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {alternatives.map((alt) => {
           const isSelected = alt.id === selectedAltId;
           const isTopRank = alt.rank === 1;

@@ -164,8 +164,8 @@ export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* 🌟 1단: 4대안 핵심 KPI 카드 (한눈 비교 & 원클릭 선택) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+      {/* 🌟 1단: 3대안 핵심 KPI 카드 (한눈 비교 & 원클릭 선택) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
         {alternatives.map((alt) => {
           const isSelected = alt.id === selectedAltId;
           const lccItem = lccResult.lccBreakdowns.find(b => b.altId === alt.id);

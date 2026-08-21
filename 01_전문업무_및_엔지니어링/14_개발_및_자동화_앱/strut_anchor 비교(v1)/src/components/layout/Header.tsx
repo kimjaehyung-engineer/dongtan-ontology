@@ -165,7 +165,7 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             <Table2 className="w-3.5 h-3.5" />
-            <span>2. 4대안 다기준 비교 (Matrix)</span>
+            <span>2. 3대안 다기준 비교 (Matrix)</span>
           </button>
 
           <button
