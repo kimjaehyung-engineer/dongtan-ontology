@@ -306,23 +306,23 @@ export function App() {
           </div>
         </div>
 
-        {/* 🌟 다목적 공학 균형도 진단 및 골든존(65%~80%) 최적 조율 패널 */}
-        <EngineeringBalancePanel
-          inputs={draftInputs}
-          alternative={selectedAlt}
-          onApplyBalancedInputs={(balanced) => handleRunAnalysis(balanced)}
-        />
-
-        {/* 🌟 구조적 NG 진단 및 공학적 최적 처방 가이드 패널 */}
-        <SmartRemedyPanel
-          inputs={solvedInputs}
-          selectedAlt={selectedAlt}
-          onApplyFix={handleApplyRemedyFix}
-        />
-
         {/* 탭 1: 단면 설계 및 수동 해석 실행 */}
         {activeTab === 'design' && (
           <div className="space-y-4">
+            {/* 🌟 다목적 공학 균형도 진단 및 골든존(65%~80%) 최적 조율 패널 */}
+            <EngineeringBalancePanel
+              inputs={draftInputs}
+              alternative={selectedAlt}
+              onApplyBalancedInputs={(balanced) => handleRunAnalysis(balanced)}
+            />
+
+            {/* 🌟 구조적 NG 진단 및 공학적 최적 처방 가이드 패널 */}
+            <SmartRemedyPanel
+              inputs={solvedInputs}
+              selectedAlt={selectedAlt}
+              onApplyFix={handleApplyRemedyFix}
+            />
+
             {/* 좌: CAD 2D 단면도 / 우: 토목 다이어그램 (변위/모멘트/전단력/토압) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
               <div className="lg:col-span-8">
