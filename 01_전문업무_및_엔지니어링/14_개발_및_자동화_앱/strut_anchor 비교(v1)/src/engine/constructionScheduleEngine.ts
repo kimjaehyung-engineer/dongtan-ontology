@@ -192,18 +192,20 @@ export class ConstructionScheduleEngine {
             standardBasis: '건축공사 표준시방서 KCS 41 30 05 거푸집공사'
           },
           { 
-            name: `슬래브 분할 콘크리트 타설 및 양생`, 
+            name: `슬래브 & 지하외벽 1차 콘크리트 타설 및 양생`, 
             days: subPourDays, 
             formula: `지하 ${numStories}개층 × [기본양생 7일 + 구획릴레이 ${(numPourZonesPerFloor - 1) * 3}일] = ${subPourDays}일`,
-            note: `층당 ${numPourZonesPerFloor}회 분할 타설 (1회 레미콘 800~1,000㎥ 공급 한계 및 시공이음 콜드조인트 방지)`,
+            note: isAnchor 
+              ? `층당 ${numPourZonesPerFloor}회 슬래브 및 외벽 1회 일체타설 (단일 Lift 연속타설)` 
+              : `버팀보 하단까지만 외벽 1차 타설 (버팀보 지지력 유지 상태로 상부 분할 불가, 슬래브+외벽하부 1차 타설)`,
             standardBasis: '콘크리트구조기준 KDS 14 20 00 슬래브 시공이음(Joint) 및 양생 기준'
           },
           ...(!isAnchor ? [{ 
-            name: `버팀보 철거 및 관통부 2차 채움타설`, 
+            name: `버팀보 순차해체 및 지하외벽 2차 수직 분할타설·무수축채움`, 
             days: subPostDays, 
-            formula: `총 ${totalPourSegments}개 구획 × 구획당 ${daysPerZonePost.toFixed(1)}일 × 오버랩(${overlapFactor}) = ${subPostDays}일`,
-            note: '구조물 강도 확보 후 버팀보 순차 절단/인양 + 박스아웃 무수축 그라우트 2차 타설 & 방수',
-            standardBasis: '지하 가설공사 시방서 관통부 조인트 사후 보수 시방'
+            formula: `총 ${totalPourSegments}개 구획 × 구획당 2차 타설/해체 ${daysPerZonePost.toFixed(1)}일 × 오버랩(${overlapFactor}) = ${subPostDays}일`,
+            note: `1차 타설 외벽 콘크리트(14MPa) 강도발현 후 버팀보 해체 → 외벽 상단 2차 수직 분할타설(2-Lift Pouring) + 박스아웃(${blockOutCount}개소) 무수축 그라우트 채움`,
+            standardBasis: '지하 가설공사 표준시방서 KCS 21 30 00 지하외벽 분할타설 및 관통 조인트 사후 보수 시방'
           }] : [])
         ]
       };

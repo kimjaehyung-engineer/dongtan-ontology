@@ -380,11 +380,12 @@ export const DetailedScheduleBasisModal: React.FC<DetailedScheduleBasisModalProp
                 </ul>
               </div>
               <div className="bg-white p-3 rounded-lg border border-slate-200">
-                <strong className="text-slate-800 block mb-1">2. 지하 RC 골조 축조 사이클 (층당)</strong>
+                <strong className="text-slate-800 block mb-1">2. 지하 RC 골조 축조 사이클 및 외벽 분할타설</strong>
                 <ul className="list-disc list-inside space-y-0.5">
-                  <li><strong>무지보 일체 타설 (All-Anchor)</strong>: 대형 시스템폼 적용 = <strong>층당 16일</strong></li>
-                  <li><strong>버팀보 관통 타설 (All-Strut)</strong>: 1차타설 + 양생 + 버팀보해체 + 2차채움 = <strong>층당 28일</strong></li>
-                  <li><strong>철근 배근 능률비</strong>: 무지보 100% 대비 버팀보 꿰기 배근 시 <strong>65% 수준</strong>으로 저하</li>
+                  <li><strong>무지보 일체 타설 (All-Anchor)</strong>: 대형 갱폼으로 바닥 슬래브 + 지하외벽 1회 일체타설 (누수 취약 조인트 0개소)</li>
+                  <li><strong>버팀보 관통 외벽 2-Lift 분할타설 (All-Strut)</strong>: 버팀보 하단 1차 외벽타설 → 14MPa 강도발현 후 버팀보 해체 → 상단 2차 수직 분할타설 & 박스아웃 무수축 그라우트 채움</li>
+                  <li><strong>철근 배근 능률비</strong>: 무지보 100% 대비 버팀보 파이프 꿰기 배근 시 <strong>65% 수준</strong>으로 저하</li>
+                  <li><strong>슬래브 분할타설</strong>: 가시설 총 연장에 따라 층당 2~3개 구획(Zone) 릴레이 시공</li>
                 </ul>
               </div>
             </div>
