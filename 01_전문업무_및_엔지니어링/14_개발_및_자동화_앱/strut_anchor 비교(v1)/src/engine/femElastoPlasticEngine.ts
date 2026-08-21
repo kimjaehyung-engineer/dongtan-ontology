@@ -394,11 +394,11 @@ export class AlternativeEvaluator {
 
     // 대표 버팀보/띠장 사양
     const defaultStrut = inputs.supports.find(s => s.type === 'STRUT') || inputs.supports[0];
-    const userStrutSpec = defaultStrut?.strutSpec || '강관 Φ508.0x9.0t';
+    const userStrutSpec = defaultStrut?.strutSpec || defaultStrut?.specName || '강관 Φ508.0x9.0t';
     const userStrutSpacing = defaultStrut?.horizSpacing || 3.5;
     const userWaleSpec = defaultStrut?.waleSpec || '2-H 300x300x10x15';
 
-    const strutOpt = STRUT_DATABASE.find(s => s.spec === userStrutSpec) || STRUT_DATABASE[1];
+    const strutOpt = STRUT_DATABASE.find(s => s.spec === userStrutSpec || s.spec.includes(userStrutSpec) || userStrutSpec.includes(s.spec)) || STRUT_DATABASE[2];
 
     // 지보단수 결정: 1단 1.5m부터 굴착 저면 1.2m 상부까지 2.6m~2.9m 간격으로 바닥 끝까지 빈틈없이 배치
     const numTiers = Math.max(2, Math.min(30, Math.floor((excavationDepth - 1.5) / 2.8) + 1));
@@ -423,8 +423,8 @@ export class AlternativeEvaluator {
       freeLength: 0,
       bondLength: 0,
       allowableCapacity: strutOpt.allowCompressCapacity,
-      specName: userStrutSpec,
-      strutSpec: userStrutSpec,
+      specName: strutOpt.spec,
+      strutSpec: strutOpt.spec,
       waleSpec: userWaleSpec
     }));
 
