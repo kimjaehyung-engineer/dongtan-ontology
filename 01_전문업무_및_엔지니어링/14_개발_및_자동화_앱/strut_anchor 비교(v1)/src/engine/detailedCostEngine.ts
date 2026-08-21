@@ -86,7 +86,7 @@ export class DetailedCostEngine {
     ANCHOR_STRAND_INSTALL: { contract: 35000, execution: 28000, mat: 21000, lab: 10000, exp: 4000, basis: '내역 2-1-2-10-30 / SWPC 7B 12.7mm 강연선 가공조립 및 삽입' },
     ANCHOR_TENSION_TEST: { contract: 45000, execution: 36000, mat: 5000, lab: 25000, exp: 15000, basis: '내역 2-1-2-10-50 / 유압잭 인장시험, PC콘 조립 및 락오프 정착' },
     ANCHOR_BASE_PLATE: { contract: 180000, execution: 144000, mat: 95000, lab: 55000, exp: 30000, basis: '내역 2-1-2-10-60 / 일반앵커 지압판(Base Plate) 제작 및 설치' },
-    HIGH_ANGLE_SPECIAL_BRACKET: { contract: 450000, execution: 360000, mat: 280000, lab: 110000, exp: 60000, basis: '고각(45°~70°) 전용 특수 경사 지압 브래킷 & 띠장 거셋 보강 (공당 45만원)' },
+    HIGH_ANGLE_SPECIAL_BRACKET: { contract: 800000, execution: 640000, mat: 560000, lab: 160000, exp: 80000, basis: '고각(45°~70°) 전용 특수 경사 지압 브래킷 임대손료 & 띠장 거셋 보강 (공당 80만원)' },
     ANCHOR_STRAND_REMOVE: { contract: 25000, execution: 20000, mat: 0, lab: 18000, exp: 7000, basis: '내역 2-1-2-10-80 / 제거식 어스앵커 강선 인발 및 제거' },
     ANCHOR_RIG_SETUP: { contract: 1800000, execution: 1440000, mat: 0, lab: 900000, exp: 900000, basis: '내역 2-1-2-10-90 / 크롤러 드릴 천공장비 조립 및 해체' }
   };
