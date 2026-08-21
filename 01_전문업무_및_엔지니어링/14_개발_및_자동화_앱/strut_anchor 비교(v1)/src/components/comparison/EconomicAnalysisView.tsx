@@ -191,13 +191,13 @@ export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
                   </span>
                   <div className="flex items-center gap-1">
                     {isBestLcc && (
-                      <span className="px-1.5 py-0.2 rounded bg-amber-500 text-slate-950 font-black text-[10px] shadow-2xs flex items-center gap-0.5">
-                        <Award className="w-3 h-3 fill-current" /> LCC 1위
+                      <span className="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-black text-[10px] shadow-2xs flex items-center gap-0.5 animate-pulse">
+                        <Award className="w-3 h-3 fill-current" /> 🥇 LCC 1위 (최적)
                       </span>
                     )}
                     {isSelected && (
-                      <span className="px-1.5 py-0.2 rounded bg-blue-600 text-white font-bold text-[10px]">
-                        선택됨
+                      <span className="px-2 py-0.5 rounded bg-blue-600 text-white font-bold text-[10px] shadow-2xs">
+                        ✓ 상세 분석중
                       </span>
                     )}
                   </div>
@@ -232,11 +232,18 @@ export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
 
               {/* 하단 절감액 및 종합 점수 */}
               <div className="flex items-center justify-between pt-2 text-[11px]">
-                <span className="text-slate-500 font-sans">
-                  {alt.id === 1 ? '기준안' : (
-                    <span className="text-emerald-700 font-bold font-mono">
-                      절감 {((lccItem?.savedLccWonComparedToBaseline || 0) / 1e6).toFixed(0)}백만
-                    </span>
+                <span className="font-sans">
+                  {alt.id === 1 ? (
+                    <span className="text-slate-500 font-bold">기준안 (최저비용)</span>
+                  ) : (
+                    (() => {
+                      const diff = (lccItem?.savedLccWonComparedToBaseline || 0) / 1e8;
+                      if (diff > 0) {
+                        return <span className="text-emerald-700 font-bold font-mono">LCC {diff.toFixed(2)}억 절감</span>;
+                      } else {
+                        return <span className="text-slate-500 font-mono">LCC {Math.abs(diff).toFixed(2)}억 증가 (공기단축)</span>;
+                      }
+                    })()
                   )}
                 </span>
                 <span className="font-bold text-slate-700 font-mono text-[11.5px]">
