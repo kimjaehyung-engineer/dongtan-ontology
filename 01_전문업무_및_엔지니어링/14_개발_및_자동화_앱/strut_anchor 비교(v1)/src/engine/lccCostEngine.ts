@@ -52,11 +52,13 @@ export class LccCostEngine {
       const directCostWon = alt.totalCostWon;
       const isAnchor = alt.type === 'ALL_ANCHOR';
       const isHybrid = alt.type === 'HYBRID';
+      const isCompStrut = alt.type === 'COMPOSITE_STRUT';
 
-      // 1. 덤프 램프 진입 직상차 비율 (2안 100%, 3안 상부 50%, 1안 0%)
+      // 1. 덤프 램프 진입 직상차 비율 (2안 100%, 3안 상부 50%, 4안 30%, 1안 0%)
       let directLoadingRatio = 0.0;
       if (isAnchor) directLoadingRatio = 1.0;
       else if (isHybrid) directLoadingRatio = 0.5;
+      else if (isCompStrut) directLoadingRatio = 0.3; // 중간말뚝 부재 및 광폭 5.0m 배치로 상부 부분 직상차 가능
       else directLoadingRatio = 0.0;
 
       const earthworkSavingsWon = Math.round(totalVolumeM3 * directLoadingRatio * LccCostEngine.DIRECT_LOADING_SAVING_PER_M3);
@@ -85,7 +87,9 @@ export class LccCostEngine {
         rank: 1,
         isLccRecommended: false,
         directLoadingRatio,
-        notes: isHybrid
+        notes: isCompStrut
+          ? '중간말뚝 100% 삭제(3.5억 절감) + 가새 삭제 + 공기 59일 단축으로 구조안전 및 시공성 극대화'
+          : isHybrid
           ? '공기 51일 단축 + 상부 덤프직상차(50%) + 부지경계 무침범으로 VE 종합 최적안'
           : isAnchor
           ? '최단 공기(156일) 및 100% 직상차 가능하나 앵커비용 과다 및 부지경계 침범 리스크'

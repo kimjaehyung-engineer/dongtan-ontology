@@ -84,9 +84,9 @@ export const EconomicAnalysisView: React.FC<EconomicAnalysisViewProps> = ({
     altId: sch.altId,
     name: `대안 ${sch.altId}`,
     fullName: sch.altName,
-    '토공 & 앵커양생': sch.phases.earthwork.durationDays,
+    '벽체 & 단계별 굴착': sch.phases.wallAndPiles.durationDays + sch.phases.stepwiseExcavation.durationDays,
     'RC 본구조물 축조': sch.phases.structure.durationDays,
-    '가시설 해체': sch.phases.dismantle.durationDays,
+    '가시설 해체/되메우기': sch.phases.dismantle.durationDays,
     totalDays: sch.totalDurationDays,
     savedDays: sch.savedDaysComparedToBaseline,
     isSelected: sch.altId === selectedAltId

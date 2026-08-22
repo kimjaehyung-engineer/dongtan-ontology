@@ -60,9 +60,9 @@ export const LccScheduleComparison: React.FC<LccScheduleComparisonProps> = ({
       altId: sch.altId,
       name: `대안 ${sch.altId}`,
       fullName: sch.altName,
-      '토공 & 앵커양생': sch.phases.earthwork.durationDays,
+      '벽체 & 단계별 굴착': sch.phases.wallAndPiles.durationDays + sch.phases.stepwiseExcavation.durationDays,
       'RC 본구조물 축조': sch.phases.structure.durationDays,
-      '가시설 해체': sch.phases.dismantle.durationDays,
+      '가시설 해체/되메우기': sch.phases.dismantle.durationDays,
       totalDays: sch.totalDurationDays,
       savedDays: sch.savedDaysComparedToBaseline,
       isSelected: sch.altId === selectedAltId
@@ -294,7 +294,7 @@ export const LccScheduleComparison: React.FC<LccScheduleComparisonProps> = ({
                       )}
                     </td>
                     <td className="py-2.5 px-3 text-center font-mono text-slate-700">
-                      {sch?.phases.earthwork.durationDays}일
+                      {((sch?.phases.wallAndPiles.durationDays || 0) + (sch?.phases.stepwiseExcavation.durationDays || 0))}일
                     </td>
                     <td className="py-2.5 px-3 text-center font-mono text-slate-700">
                       {sch?.phases.structure.durationDays}일

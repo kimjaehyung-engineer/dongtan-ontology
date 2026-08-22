@@ -31,8 +31,8 @@ export interface HPileSectionProp {
 
 export interface StrutSectionProp {
   spec: string;
-  type: 'PIPE' | 'H_BEAM';
-  diameterOrH: number; // mm
+  type: 'PIPE' | 'H_BEAM' | 'COMPOSITE_SQUARE';
+  diameterOrH: number; // mm (원형 직경 또는 사각강관 한변 길이)
   thickness: number;   // mm
   weight: number;      // kg/m
   A: number;           // cm2
@@ -66,7 +66,7 @@ export interface WallSection {
   laggingThickness?: number; // mm
 }
 
-export type SupportType = 'STRUT' | 'GROUND_ANCHOR' | 'RAKER';
+export type SupportType = 'STRUT' | 'GROUND_ANCHOR' | 'RAKER' | 'COMPOSITE_STRUT';
 
 export interface SupportStage {
   id: string;
@@ -158,7 +158,7 @@ export interface CostItem {
 export interface AlternativeSpec {
   id: number;
   name: string;
-  type: 'ALL_STRUT' | 'ALL_ANCHOR' | 'HYBRID' | 'OPTIMIZED';
+  type: 'ALL_STRUT' | 'ALL_ANCHOR' | 'HYBRID' | 'OPTIMIZED' | 'COMPOSITE_STRUT';
   description: string;
   wall: WallSection;
   supports: SupportStage[];

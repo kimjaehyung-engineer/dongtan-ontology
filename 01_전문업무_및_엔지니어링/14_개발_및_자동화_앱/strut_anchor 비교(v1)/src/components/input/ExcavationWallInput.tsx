@@ -3,13 +3,14 @@ import { ProjectInputs, WallSection, SupportStage, DeckingAndKingPostConfig } fr
 import { H_PILE_DATABASE, STRUT_DATABASE, WALE_DATABASE, LAGGING_DATABASE, DECK_BEAM_DATABASE } from '../../engine/sectionDB';
 import { HighAngleAnchorEngine } from '../../engine/anchorDesignEngine';
 import { KingPostEngine } from '../../engine/kingPostEngine';
+import { StructureScheduleEngine } from '../../engine/structureScheduleEngine';
 import { Construction, Box, Waves, ArrowDownUp, Ruler, ShieldAlert, Cpu, CheckCircle2, Layers, Sliders, Truck, Anchor, Sparkles, AlertTriangle, RefreshCw } from 'lucide-react';
 
 interface ExcavationWallInputProps {
   inputs: ProjectInputs;
   onChangeInputs: (inputs: ProjectInputs) => void;
   onRunAnalysis?: (overrideInputs?: ProjectInputs) => void;
-  selectedAltType?: 'ALL_STRUT' | 'ALL_ANCHOR' | 'HYBRID' | 'OPTIMIZED';
+  selectedAltType?: 'ALL_STRUT' | 'ALL_ANCHOR' | 'HYBRID' | 'OPTIMIZED' | 'COMPOSITE_STRUT';
 }
 
 export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({ 
@@ -55,17 +56,22 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
     const EI = (2.05e8 * opt.Ix * 1e-8) / spacing;
     const EA = (2.05e8 * opt.A * 1e-4) / spacing;
 
-    onChangeInputs({
+    const newInputs = {
       ...inputs,
       wall: {
         ...inputs.wall,
-        name: `${opt.spec} @ ${spacing}m`,
-        hPileSpec: opt.spec,
+        hPileSpec: spec,
+        name: `${spec} @ ${spacing}m`,
         Zx: opt.Zx,
+        Ix: opt.Ix,
         EI,
         EA
       }
-    });
+    };
+    onChangeInputs(newInputs);
+    if (onRunAnalysis) {
+      onRunAnalysis(newInputs);
+    }
   };
 
   // 엄지말뚝 간격 변경
@@ -74,7 +80,7 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
     const EI = (2.05e8 * opt.Ix * 1e-8) / spacing;
     const EA = (2.05e8 * opt.A * 1e-4) / spacing;
 
-    onChangeInputs({
+    const newInputs = {
       ...inputs,
       wall: {
         ...inputs.wall,
@@ -83,7 +89,11 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
         EI,
         EA
       }
-    });
+    };
+    onChangeInputs(newInputs);
+    if (onRunAnalysis) {
+      onRunAnalysis(newInputs);
+    }
   };
 
   // 버팀보(Strut) 및 고각 어스앵커 규격/간격/각도 일괄 업데이트
@@ -148,10 +158,14 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
       return s;
     });
 
-    onChangeInputs({
+    const newInputs = {
       ...inputs,
       supports: updatedSups
-    });
+    };
+    onChangeInputs(newInputs);
+    if (onRunAnalysis) {
+      onRunAnalysis(newInputs);
+    }
   };
 
   // 단별(Tier-by-Tier) 개별 지보재 변경
@@ -178,10 +192,14 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
     }
 
     updatedSups[index] = current;
-    onChangeInputs({
+    const newInputs = {
       ...inputs,
       supports: updatedSups
-    });
+    };
+    onChangeInputs(newInputs);
+    if (onRunAnalysis) {
+      onRunAnalysis(newInputs);
+    }
   };
 
   // 🌟 굴착 깊이 연동 표준 단간격(2.5m ~ 3.0m) 지보단수 자동 최적 재배치 함수
@@ -316,11 +334,21 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
   // 대표 파라미터 추출
   const isAnchorMode = selectedAltType === 'ALL_ANCHOR' || (inputs.supports.length > 0 && inputs.supports.every(s => s.type === 'GROUND_ANCHOR'));
   const isHybridMode = selectedAltType === 'HYBRID';
+  const isCompStrutMode = selectedAltType === 'COMPOSITE_STRUT';
+
+  // 1안(일반 버팀보) 및 3안(복합공법) 설계 시 합성버팀보(4-Box) 완전히 제외 (재래식 원형 강관 및 H형강만 허용)
+  const availableStruts = isCompStrutMode 
+    ? STRUT_DATABASE 
+    : STRUT_DATABASE.filter(st => st.type !== 'COMPOSITE_SQUARE');
 
   const defaultStrut = inputs.supports.find(s => s.type === 'STRUT') || inputs.supports[0];
   const defaultAnchor = inputs.supports.find(s => s.type === 'GROUND_ANCHOR') || inputs.supports[0];
 
-  const currentStrutSpec = defaultStrut?.strutSpec || '강관 Φ508.0x9.0t';
+  let rawStrutSpec = defaultStrut?.strutSpec || '강관 Φ508.0x9.0t';
+  if (!isCompStrutMode && rawStrutSpec.includes('사각')) {
+    rawStrutSpec = '강관 Φ508.0x9.0t'; // 1안에서는 합성사각 선택 시 강관 Φ508로 자동 전환
+  }
+  const currentStrutSpec = rawStrutSpec;
   const currentStrutSpacing = defaultStrut?.horizSpacing || 3.5;
   const currentAnchorAngle = defaultAnchor?.angle || 45;
   const currentAnchorSpacing = defaultAnchor?.horizSpacing || 2.0;
@@ -452,6 +480,39 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
                 <span>굴착 조건 확정</span>
               </button>
             </div>
+
+            {/* 📐 굴착 제원 연동 본체 RC 구조물 자동 결정 카드 */}
+            {(() => {
+              const geom = StructureScheduleEngine.determineStructureGeometry(inputs);
+              return (
+                <div className="mt-2 p-2.5 rounded-lg bg-blue-50/80 border border-blue-200 text-slate-800 space-y-1.5 shadow-2xs">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold text-blue-900 flex items-center gap-1">
+                      <Layers className="w-3.5 h-3.5 text-blue-600" />
+                      <span>본체 RC 구조물 연동 제원</span>
+                    </span>
+                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-blue-600 text-white font-mono font-bold">
+                      지하 {geom.numStories}층 Box
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1.5 text-[10px] font-mono">
+                    <div className="bg-white/80 p-1.5 rounded border border-blue-100">
+                      <span className="text-slate-500 block text-[9px]">본체 구조물 폭(B)</span>
+                      <span className="font-bold text-slate-800">{geom.structWidth}m</span>
+                      <span className="text-slate-400 text-[8px] block">(순내폭 {geom.structInnerWidth}m)</span>
+                    </div>
+                    <div className="bg-white/80 p-1.5 rounded border border-blue-100">
+                      <span className="text-slate-500 block text-[9px]">본체 연장 / 스팬</span>
+                      <span className="font-bold text-slate-800">{geom.totalLength}m</span>
+                      <span className="text-slate-400 text-[8px] block">(20m × {geom.numSpans}스팬)</span>
+                    </div>
+                  </div>
+                  <div className="text-[9px] text-slate-600 pt-1 border-t border-blue-200/60 leading-tight">
+                    • 층별 구성: <span className="font-semibold text-blue-800">{geom.storyNames.join(' + ')}</span>
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         </div>
 
@@ -745,7 +806,7 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
                           onChange={(e) => handleBatchSupportChange('spec', e.target.value)}
                           className="w-full bg-white border border-slate-300 rounded px-2.5 py-1.5 text-slate-900 font-mono font-bold focus:border-blue-500 focus:outline-none shadow-xs"
                         >
-                          {STRUT_DATABASE.map((st) => (
+                          {availableStruts.map((st) => (
                             <option key={st.spec} value={st.spec}>
                               {st.spec} (허용축력 Pa={st.allowCompressCapacity}kN)
                             </option>
@@ -758,10 +819,10 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
                           <label className="text-slate-700 font-bold">
                             버팀보 수평 간격: <span className="text-blue-700 font-mono font-extrabold">{currentStrutSpacing} m</span>
                           </label>
-                          <span className="text-[11px] text-slate-400 font-mono">1.0m ~ 5.0m 선택</span>
+                          <span className="text-[11px] text-slate-400 font-mono">1.0m ~ 8.0m 선택</span>
                         </div>
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          {[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0].map((sp) => (
+                          {[1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 6.0, 7.0, 8.0].map((sp) => (
                             <button
                               key={sp}
                               onClick={() => handleBatchSupportChange('spacing', sp)}
@@ -780,11 +841,11 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
                               type="number"
                               step="0.1"
                               min="0.8"
-                              max="8.0"
+                              max="10.0"
                               value={currentStrutSpacing}
                               onChange={(e) => handleBatchSupportChange('spacing', parseFloat(e.target.value) || 1.0)}
                               className="w-16 bg-white border border-slate-300 rounded px-1.5 py-1 text-slate-900 text-center font-mono font-bold focus:border-blue-500 focus:outline-none"
-                              title="직접 입력"
+                              title="버팀보 수평 간격 직접 입력 (m)"
                             />
                           </div>
                         </div>
@@ -857,7 +918,7 @@ export const ExcavationWallInput: React.FC<ExcavationWallInputProps> = ({
                             onChange={(e) => handleSingleTierChange(idx, 'strutSpec', e.target.value)}
                             className="w-full bg-white border border-slate-300 rounded px-1.5 py-1 text-[11px] font-mono font-bold text-slate-800 focus:border-blue-500 focus:outline-none"
                           >
-                            {STRUT_DATABASE.map(st => (
+                            {availableStruts.map(st => (
                               <option key={st.spec} value={st.spec}>{st.spec}</option>
                             ))}
                           </select>

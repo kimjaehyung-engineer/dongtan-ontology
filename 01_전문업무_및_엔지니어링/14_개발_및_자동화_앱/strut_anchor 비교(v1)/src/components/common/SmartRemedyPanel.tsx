@@ -18,8 +18,13 @@ export const SmartRemedyPanel: React.FC<SmartRemedyPanelProps> = ({
   // 사용자의 번거로움을 줄이기 위해 기본 접힘(false) 상태로 제공
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isDismissed, setIsDismissed] = useState<boolean>(false);
+  const effectiveInputs: ProjectInputs = {
+    ...inputs,
+    wall: selectedAlt.wall,
+    supports: selectedAlt.supports
+  };
 
-  const remedies = SmartRemedyEngine.diagnose(inputs, selectedAlt);
+  const remedies = SmartRemedyEngine.diagnose(effectiveInputs, selectedAlt);
   const criticalCount = remedies.filter(r => r.type === 'CRITICAL').length;
   const warningCount = remedies.filter(r => r.type === 'WARNING').length;
 
@@ -46,8 +51,8 @@ export const SmartRemedyPanel: React.FC<SmartRemedyPanelProps> = ({
     return null;
   }
 
-  // 모든 항목이 안전한 경우
-  if (remedies.length === 0) {
+  // 모든 항목이 안전하고 구조적으로도 안전한 경우에만 SAFE 녹색 배너 표시
+  if (remedies.length === 0 && selectedAlt.isStructurallySafe) {
     return (
       <div className="bg-emerald-50 border border-emerald-300 rounded-lg p-2.5 px-4 flex items-center justify-between shadow-xs text-xs">
         <div className="flex items-center gap-2.5">

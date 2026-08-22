@@ -187,14 +187,19 @@ export const DiagramViewer: React.FC<DiagramViewerProps> = ({
             </text>
 
             {/* 지보 위치 표기 */}
-            {currentStage.supports.map((sup, idx) => (
-              <g key={idx}>
-                <circle cx={chartType === 'earthPressure' ? leftPad : midX} cy={getY(sup.depth)} r="4" fill="#d97706" />
-                <text x={leftPad + 8} y={getY(sup.depth) - 2} fill="#92400e" fontSize="8.5" fontWeight="bold">
-                  {sup.type === 'STRUT' ? 'Strut' : 'Anchor'} {sup.supportIndex} ({sup.axialForce}kN)
-                </text>
-              </g>
-            ))}
+            {currentStage.supports.map((sup, idx) => {
+              const isComp = alternative.type === 'COMPOSITE_STRUT' || (sup.type as any) === 'COMPOSITE_STRUT';
+              const isStrut = sup.type === 'STRUT' || isComp;
+              const label = isComp ? '합성Strut' : (isStrut ? 'Strut' : 'Anchor');
+              return (
+                <g key={idx}>
+                  <circle cx={chartType === 'earthPressure' ? leftPad : midX} cy={getY(sup.depth)} r="4" fill={isComp ? '#2563eb' : '#d97706'} />
+                  <text x={leftPad + 8} y={getY(sup.depth) - 2} fill={isComp ? '#1d4ed8' : '#92400e'} fontSize="8.5" fontWeight="bold">
+                    {label} {sup.supportIndex} ({sup.axialForce}kN)
+                  </text>
+                </g>
+              );
+            })}
 
             {/* 토압 모드일 때 한계토압 */}
             {chartType === 'earthPressure' && (

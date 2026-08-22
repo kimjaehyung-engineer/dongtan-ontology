@@ -170,15 +170,19 @@ export const DetailedScheduleBasisModal: React.FC<DetailedScheduleBasisModalProp
 
                   <div className="space-y-1.5 text-xs font-mono">
                     <div className="flex justify-between py-1 border-b border-slate-200/80">
-                      <span className="text-slate-500">① 토공 & 지보가설</span>
-                      <strong className="text-slate-800">{sch.phases.earthwork.durationDays}일</strong>
+                      <span className="text-slate-500">① 벽체 & 중간말뚝</span>
+                      <strong className="text-slate-800">{sch.phases.wallAndPiles.durationDays}일</strong>
                     </div>
                     <div className="flex justify-between py-1 border-b border-slate-200/80">
-                      <span className="text-slate-500">② RC 본구조물 축조</span>
+                      <span className="text-slate-500">② 단계별 굴착 & 지보</span>
+                      <strong className="text-slate-800">{sch.phases.stepwiseExcavation.durationDays}일</strong>
+                    </div>
+                    <div className="flex justify-between py-1 border-b border-slate-200/80">
+                      <span className="text-slate-500">③ 지하 RC 본체 축조</span>
                       <strong className="text-slate-800">{sch.phases.structure.durationDays}일</strong>
                     </div>
                     <div className="flex justify-between py-1 border-b border-slate-200/80">
-                      <span className="text-slate-500">③ 가시설 해체/되메우기</span>
+                      <span className="text-slate-500">④ 해체, 인발 & 되메우기</span>
                       <strong className="text-slate-800">{sch.phases.dismantle.durationDays}일</strong>
                     </div>
                     <div className="flex justify-between pt-2 text-sm">
@@ -199,34 +203,34 @@ export const DetailedScheduleBasisModal: React.FC<DetailedScheduleBasisModalProp
             })}
           </div>
 
-          {/* 🌟 2. 선택된 대안의 3단계 세부 공종별 정밀 산출 근거표 */}
+          {/* 🌟 2. 선택된 대안의 4단계 세부 공종별 정밀 산출 근거표 */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <FileText className="w-4 h-4 text-blue-600" />
-                <span>[대안 {activeSchedule.altId}] 세부 시공단계별 작업 일수 산출 내역</span>
+                <span>[대안 {activeSchedule.altId}] 전주기(Phase 1~4) 세부 시공단계별 작업 일수 산출 내역</span>
               </h4>
               <span className="text-xs text-slate-500 font-mono">
-                총 굴착토량: {activeSchedule.totalVolumeM3.toLocaleString()} ㎥ / 지하 {activeSchedule.numStories}층 구조물
+                벽체외주: {activeSchedule.wallPerimeterM.toFixed(0)}m / 총 토공량: {activeSchedule.totalVolumeM3.toLocaleString()} ㎥ / 지하 {activeSchedule.numStories}층 구조물
               </span>
             </div>
 
-            {/* 단계 1: 토공 굴착 및 지보재 설치 */}
+            {/* Phase 1: 흙막이벽체 및 중간말뚝 시공 */}
             <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
-              <div className="bg-amber-50 px-4 py-2.5 border-b border-amber-200 flex items-center justify-between">
+              <div className="bg-slate-100 px-4 py-2.5 border-b border-slate-200 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-amber-700" />
-                  <strong className="text-xs text-amber-950 font-bold">
-                    1단계: {activeSchedule.phases.earthwork.name}
+                  <HardHat className="w-4 h-4 text-slate-700" />
+                  <strong className="text-xs text-slate-950 font-bold">
+                    {activeSchedule.phases.wallAndPiles.name}
                   </strong>
                 </div>
-                <span className="text-xs font-mono font-bold text-amber-900 bg-amber-200/60 px-2 py-0.5 rounded">
-                  소계: {activeSchedule.phases.earthwork.durationDays}일
+                <span className="text-xs font-mono font-bold text-slate-900 bg-slate-200/80 px-2 py-0.5 rounded">
+                  소계: {activeSchedule.phases.wallAndPiles.durationDays}일
                 </span>
               </div>
               <div className="p-4 space-y-3 text-xs">
                 <p className="text-slate-600 bg-slate-50 p-2.5 rounded border border-slate-200 leading-relaxed">
-                  <strong>공학적 산정 특성:</strong> {activeSchedule.phases.earthwork.description}
+                  <strong>공학적 산정 특성:</strong> {activeSchedule.phases.wallAndPiles.description}
                 </p>
                 <table className="w-full text-left border-collapse">
                   <thead>
@@ -238,7 +242,7 @@ export const DetailedScheduleBasisModal: React.FC<DetailedScheduleBasisModalProp
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 text-xs">
-                    {activeSchedule.phases.earthwork.subTasks.map((t, idx) => (
+                    {activeSchedule.phases.wallAndPiles.subTasks.map((t, idx) => (
                       <tr key={idx} className="hover:bg-slate-50/80">
                         <td className="py-2.5 px-3 font-sans font-bold text-slate-800">{t.name}</td>
                         <td className="py-2.5 px-3 text-center font-mono font-bold text-blue-700 bg-blue-50/40">{t.days}일</td>
@@ -260,13 +264,78 @@ export const DetailedScheduleBasisModal: React.FC<DetailedScheduleBasisModalProp
               </div>
             </div>
 
-            {/* 단계 2: 지하 RC 본구조물 축조 */}
+            {/* Phase 2: 단계별 굴착 & 가시설 지보 가설 */}
+            <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
+              <div className="bg-amber-50 px-4 py-2.5 border-b border-amber-200 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Truck className="w-4 h-4 text-amber-700" />
+                  <strong className="text-xs text-amber-950 font-bold">
+                    {activeSchedule.phases.stepwiseExcavation.name}
+                  </strong>
+                </div>
+                <span className="text-xs font-mono font-bold text-amber-900 bg-amber-200/60 px-2 py-0.5 rounded">
+                  소계: {activeSchedule.phases.stepwiseExcavation.durationDays}일
+                </span>
+              </div>
+              <div className="p-4 space-y-3 text-xs">
+                <p className="text-slate-600 bg-slate-50 p-2.5 rounded border border-slate-200 leading-relaxed">
+                  <strong>공학적 산정 특성:</strong> {activeSchedule.phases.stepwiseExcavation.description}
+                </p>
+
+                {/* 🌟 단계별 굴착/지보 세부 사이클 테이블 */}
+                <div className="border border-amber-200/80 rounded-lg overflow-hidden">
+                  <div className="bg-amber-100/60 px-3 py-1.5 font-bold text-[11px] text-amber-900 border-b border-amber-200">
+                    🔍 구조해석 연동 단계별(Tier-by-Tier) 굴착 및 지보재 가설 사이클 상세
+                  </div>
+                  <table className="w-full text-left border-collapse text-[11px]">
+                    <thead>
+                      <tr className="bg-amber-50/50 text-slate-600 border-b border-amber-200">
+                        <th className="py-2 px-2.5 font-bold">단계명 (Stage)</th>
+                        <th className="py-2 px-2.5 text-center font-bold">굴착심도</th>
+                        <th className="py-2 px-2.5 font-bold">지반 종류 & 강도</th>
+                        <th className="py-2 px-2.5 text-center font-bold">일일 속도</th>
+                        <th className="py-2 px-2.5 text-center font-bold">순수굴착</th>
+                        <th className="py-2 px-2.5 text-center font-bold">지보가설</th>
+                        <th className="py-2 px-2.5 text-center font-bold text-rose-700">양생대기</th>
+                        <th className="py-2 px-2.5 text-center font-bold text-blue-700">합계</th>
+                        <th className="py-2 px-2.5 font-bold">세부 시공 메커니즘</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-amber-100">
+                      {activeSchedule.stepwiseCycles.map((c, cIdx) => (
+                        <tr key={`cycle-${cIdx}`} className="hover:bg-amber-50/40">
+                          <td className="py-2 px-2.5 font-bold text-slate-800 font-sans">{c.stageName}</td>
+                          <td className="py-2 px-2.5 text-center font-mono font-bold text-slate-700">GL-{c.excavationDepth.toFixed(1)}m</td>
+                          <td className="py-2 px-2.5 font-sans font-medium text-amber-900 bg-amber-50/20">
+                            <span className="px-1.5 py-0.5 rounded bg-amber-100/80 text-[10.5px]">
+                              {c.dominantSoilName || '토사'}
+                            </span>
+                          </td>
+                          <td className="py-2 px-2.5 text-center font-mono text-slate-700 font-semibold">{c.dailyExcavationRate || 500} ㎥/일</td>
+                          <td className="py-2 px-2.5 text-center font-mono text-slate-700">{c.pureExcavationDays}일</td>
+                          <td className="py-2 px-2.5 text-center font-mono text-slate-700">{c.supportInstallDays > 0 ? `${c.supportInstallDays}일` : '-'}</td>
+                          <td className="py-2 px-2.5 text-center font-mono font-bold text-rose-600">
+                            {c.curingWaitDays > 0 ? `⚠️ ${c.curingWaitDays}일` : '-'}
+                          </td>
+                          <td className="py-2 px-2.5 text-center font-mono font-bold text-blue-700 bg-blue-50/30">
+                            {c.totalCycleDays}일
+                          </td>
+                          <td className="py-2 px-2.5 text-slate-600 font-sans text-[10.5px]">{c.description}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Phase 3: 지하 RC 본구조물 축조 */}
             <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
               <div className="bg-blue-50 px-4 py-2.5 border-b border-blue-200 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Building2 className="w-4 h-4 text-blue-700" />
                   <strong className="text-xs text-blue-950 font-bold">
-                    2단계: {activeSchedule.phases.structure.name}
+                    {activeSchedule.phases.structure.name}
                   </strong>
                 </div>
                 <span className="text-xs font-mono font-bold text-blue-900 bg-blue-200/60 px-2 py-0.5 rounded">
@@ -314,16 +383,16 @@ export const DetailedScheduleBasisModal: React.FC<DetailedScheduleBasisModalProp
               </div>
             </div>
 
-            {/* 단계 3: 가시설 해체 및 되메우기 */}
+            {/* Phase 4: 가시설 해체, 중간말뚝 인발 및 되메우기 */}
             <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-xs">
-              <div className="bg-slate-100 px-4 py-2.5 border-b border-slate-300 flex items-center justify-between">
+              <div className="bg-emerald-50 px-4 py-2.5 border-b border-emerald-200 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <HardHat className="w-4 h-4 text-slate-700" />
-                  <strong className="text-xs text-slate-900 font-bold">
-                    3단계: {activeSchedule.phases.dismantle.name}
+                  <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+                  <strong className="text-xs text-emerald-950 font-bold">
+                    {activeSchedule.phases.dismantle.name}
                   </strong>
                 </div>
-                <span className="text-xs font-mono font-bold text-slate-800 bg-slate-200 px-2 py-0.5 rounded">
+                <span className="text-xs font-mono font-bold text-emerald-900 bg-emerald-200/60 px-2 py-0.5 rounded">
                   소계: {activeSchedule.phases.dismantle.durationDays}일
                 </span>
               </div>
@@ -333,16 +402,16 @@ export const DetailedScheduleBasisModal: React.FC<DetailedScheduleBasisModalProp
                 </p>
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-200 text-slate-500 font-bold bg-slate-50">
+                    <tr className="border-b border-slate-200 text-slate-500 font-bold bg-emerald-50/40">
                       <th className="py-2.5 px-3">세부 작업 공종</th>
                       <th className="py-2.5 px-3 text-center">소요 일수</th>
                       <th className="py-2.5 px-3">📐 구체적 산출 수식 (Formula)</th>
-                      <th className="py-2.5 px-3">현장 시공 특성 및 표준시방서 근거</th>
+                      <th className="py-2.5 px-3">현장 시공 특성 및 표준품셈 근거</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 text-xs">
                     {activeSchedule.phases.dismantle.subTasks.map((t, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50/80">
+                      <tr key={idx} className="hover:bg-emerald-50/20">
                         <td className="py-2.5 px-3 font-sans font-bold text-slate-800">{t.name}</td>
                         <td className="py-2.5 px-3 text-center font-mono font-bold text-blue-700 bg-blue-50/40">{t.days}일</td>
                         <td className="py-2.5 px-3 font-mono font-bold text-indigo-800 bg-indigo-50/30">

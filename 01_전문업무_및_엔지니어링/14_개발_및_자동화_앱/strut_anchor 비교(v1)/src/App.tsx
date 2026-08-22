@@ -16,6 +16,7 @@ import { DetailedCostModal } from './components/cost/DetailedCostModal';
 import { DetailedScheduleBasisModal } from './components/report/DetailedScheduleBasisModal';
 import { LccScheduleComparison } from './components/comparison/LccScheduleComparison';
 import { EconomicAnalysisView } from './components/comparison/EconomicAnalysisView';
+import { StructureSchedule4DView } from './components/schedule4d/StructureSchedule4DView';
 import { EngineeringBalancePanel } from './components/common/EngineeringBalancePanel';
 import { SmartRemedyPanel } from './components/common/SmartRemedyPanel';
 import { Zap, Sparkles, CheckCircle2, AlertCircle, Play, RefreshCw, AlertTriangle } from 'lucide-react';
@@ -369,17 +370,19 @@ export function App() {
                 ))}
               </div>
 
-              {/* 하단 해석 실행 버튼 */}
-              {hasPendingChanges && (
-                <button
-                  onClick={() => handleRunAnalysis()}
-                  disabled={isSolving}
-                  className="flex items-center gap-1.5 px-4 py-1.5 rounded bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs whitespace-nowrap"
-                >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>설계 입력 완료 → 구조해석 실행</span>
-                </button>
-              )}
+              {/* 항상 고정 노출되는 구조해석 실행 버튼 */}
+              <button
+                onClick={() => handleRunAnalysis()}
+                disabled={isSolving}
+                className={`flex items-center gap-1.5 px-4 py-1.5 rounded text-xs font-extrabold shadow-sm whitespace-nowrap transition-all ${
+                  hasPendingChanges
+                    ? 'bg-blue-600 hover:bg-blue-700 text-white ring-2 ring-blue-400 ring-offset-1 shadow-md animate-pulse'
+                    : 'bg-blue-600 hover:bg-blue-700 text-white'
+                }`}
+              >
+                <Play className="w-3.5 h-3.5 fill-current" />
+                <span>{isSolving ? '해석 연산 중...' : '설계 입력 완료 → 구조해석 실행'}</span>
+              </button>
             </div>
 
             {/* 굴착 제원 및 H-Pile / 버팀보 / 띠장 / 앵커 사양 및 간격 입력 (대안에 따라 동적 전환) */}
@@ -444,6 +447,16 @@ export function App() {
             selectedAltId={selectedAltId}
             onSelectAlt={setSelectedAltId}
             onOpenScheduleBasis={() => setIsScheduleBasisOpen(true)}
+          />
+        )}
+
+        {/* 탭 4: 본체 구조물 축조 4D 시뮬레이션 & 20m 스팬 간트차트 */}
+        {activeTab === 'schedule4d' && (
+          <StructureSchedule4DView
+            inputs={solvedInputs}
+            alternatives={alternatives}
+            selectedAltId={selectedAltId}
+            onSelectAltId={setSelectedAltId}
           />
         )}
       </main>

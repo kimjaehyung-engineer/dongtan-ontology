@@ -38,7 +38,7 @@ export class EngineeringBalanceEngine {
     let maxStrutRatio = 0.65;
     const allSupportResults = alt.stageResults.flatMap(sr => sr.supports || []);
     if (allSupportResults.length > 0) {
-      const strutResults = allSupportResults.filter(s => s.type === 'STRUT');
+      const strutResults = allSupportResults.filter(s => s.type === 'STRUT' || (s.type as any) === 'COMPOSITE_STRUT');
       if (strutResults.length > 0) {
         maxStrutRatio = Math.max(...strutResults.map(s => s.strutStressRatio || (s.axialForce / Math.max(1, s.allowableForce))));
       }
@@ -158,33 +158,74 @@ export class EngineeringBalanceEngine {
       recommendations.push('버팀보에 과도한 하중이 집중되지 않고, 중간말뚝 좌굴과 벽체 휨응력이 최적의 안전율(0.68~0.78)로 완벽히 균형을 이루고 있습니다.');
     }
 
-    // 최적 균형 추천 파라미터 생성
+    // 굴착 깊이 및 폭, 대안 타입에 따른 역학적 안전 골든존(Safe + 65~85%) 규격 동적 도출
+    const H = inputs.excavationDepth;
+    const B = inputs.excavationWidth;
+    const altType = alt.type;
+
+    // 벽체 규격: 대심도(H>=25m)는 H-400x400, 중심도는 H-350x350/H-300x300
+    let optHPileSpec = 'H-300x300x10x15';
+    let optSpacing = 1.5;
+    if (H >= 25) {
+      optHPileSpec = 'H-400x400x13x21';
+      optSpacing = 1.2;
+    } else if (H >= 18) {
+      optHPileSpec = 'H-350x350x12x19';
+      optSpacing = 1.5;
+    }
+
+    // 근입장: 침투 유선 및 토압 저항 고려 (H*1.4 이상 확보로 보일링 방지)
+    const optWallLength = Math.max(H + 8.0, Number((H * 1.45).toFixed(1)));
+
+    // 띠장 규격: 대심도/광폭 지간은 고강도 2-H 400x400 SM355 또는 2-H 428x407
+    let optWaleSpec = '2-H 300x300x10x15';
+    if (altType === 'COMPOSITE_STRUT' || H >= 25) {
+      optWaleSpec = altType === 'COMPOSITE_STRUT' ? (H >= 25 ? '2-H 428x407x20x35' : '2-H 400x400x13x21 (SM355)') : '2-H 400x400x13x21 (SM355)';
+    } else if (H >= 16) {
+      optWaleSpec = '2-H 350x350x12x19';
+    }
+
+    // 버팀보 규격: 대안 1/3은 일반 강관, 대안 4는 합성사각
+    let optStrutSpec = '강관 Φ508.0x9.0t';
+    let optStrutSpacing = 3.5;
+    if (altType === 'COMPOSITE_STRUT') {
+      optStrutSpec = H >= 25 ? '합성사각 4-Box 500형' : '합성사각 4-Box 450형';
+      optStrutSpacing = 5.0;
+    } else {
+      if (H >= 25) optStrutSpec = B >= 20 ? '강관 Φ711.2x14.0t' : '강관 Φ609.6x12.0t';
+      else if (H >= 18) optStrutSpec = '강관 Φ609.6x12.0t';
+      optStrutSpacing = 3.5;
+    }
+
     const balancedWall: WallSection = {
       ...inputs.wall,
-      spacing: 1.8,
-      hPileSpec: 'H-300x300x10x15',
-      totalLength: inputs.excavationDepth + 5.0
+      spacing: optSpacing,
+      hPileSpec: optHPileSpec,
+      totalLength: optWallLength
     };
 
     const balancedSups: SupportStage[] = inputs.supports.map((s, idx) => {
-      if (s.type === 'STRUT') {
+      const isAnchor = s.type === 'GROUND_ANCHOR' || altType === 'ALL_ANCHOR';
+      if (isAnchor) {
         return {
           ...s,
-          horizSpacing: 3.5,
-          strutSpec: '강관 Φ508.0x9.0t',
-          preload: Math.min(180, 100 + idx * 25), // 과도하지 않은 적정 프리로드
-          waleSpec: '2-H 300x300x10x15'
-        };
-      } else if (s.type === 'GROUND_ANCHOR') {
-        return {
-          ...s,
+          type: 'GROUND_ANCHOR' as const,
           angle: 55, // 55° 고각 최적 균형
-          horizSpacing: 2.0,
+          horizSpacing: H >= 25 ? 1.5 : 2.0,
           preload: 140 + idx * 25,
-          waleSpec: '2-H 300x300x10x15'
+          waleSpec: optWaleSpec
+        };
+      } else {
+        return {
+          ...s,
+          type: altType === 'COMPOSITE_STRUT' ? ('COMPOSITE_STRUT' as any) : ('STRUT' as const),
+          horizSpacing: optStrutSpacing,
+          strutSpec: optStrutSpec,
+          specName: optStrutSpec,
+          preload: Math.min(220, 100 + idx * 25),
+          waleSpec: optWaleSpec
         };
       }
-      return s;
     });
 
     const suggestedBalancedInputs: ProjectInputs = {
@@ -201,9 +242,10 @@ export class EngineeringBalanceEngine {
           kingPostSpec: 'H-300x300x10x15',
           kingPostSpacing: 3.5,
           kingPostNumRows: 1,
-          kingPostTotalLength: inputs.excavationDepth + 5.0
+          kingPostTotalLength: optWallLength
         }),
-        kingPostSpacing: 3.5 // 강결 최적 간격
+        kingPostSpacing: 3.5,
+        kingPostTotalLength: optWallLength
       }
     };
 

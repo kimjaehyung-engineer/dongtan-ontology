@@ -149,12 +149,13 @@ export class SmartRemedyEngine {
       });
     }
 
-    // 3. 전체 시공단계 중 띠장(Wale) 휨응력비 초과 탐색
+    // 3. 전체 시공단계 중 띠장(Wale) 휨응력비 초과 탐색 (모든 지보재 타입 포함)
     let worstWaleSup: any = null;
     let worstWaleStageName = '';
     for (const stage of stages) {
       for (const sup of stage.supports) {
-        if (sup.type === 'STRUT' && (sup.waleStressRatio || 0) > 1.0) {
+        const isStrutLike = sup.type === 'STRUT' || (sup.type as any) === 'COMPOSITE_STRUT';
+        if (isStrutLike && (sup.waleStressRatio || 0) > 1.0) {
           if (!worstWaleSup || (sup.waleStressRatio || 0) > (worstWaleSup.waleStressRatio || 0)) {
             worstWaleSup = sup;
             worstWaleStageName = stage.stageName;
@@ -192,7 +193,8 @@ export class SmartRemedyEngine {
         ],
         autoFixAction: (prevInputs: ProjectInputs) => {
           const updatedSups = prevInputs.supports.map(s => {
-            if (s.type === 'STRUT') {
+            const isStrutLike = s.type === 'STRUT' || (s.type as any) === 'COMPOSITE_STRUT';
+            if (isStrutLike) {
               return { ...s, waleSpec: targetWale!.spec, horizSpacing: targetSpacing };
             }
             return s;

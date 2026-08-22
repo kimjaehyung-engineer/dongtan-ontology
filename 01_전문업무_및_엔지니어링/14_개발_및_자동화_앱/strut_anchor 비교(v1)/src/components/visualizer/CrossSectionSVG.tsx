@@ -18,6 +18,9 @@ export const CrossSectionSVG: React.FC<CrossSectionSVGProps> = ({
   const totalLength = alternative.wall.totalLength;
   const excWidth = inputs.excavationWidth;
 
+  const isCompositeStrutAlt = alternative.type === 'COMPOSITE_STRUT';
+  const isAllAnchorAlt = alternative.type === 'ALL_ANCHOR';
+
   const svgWidth = 840;
   const svgHeight = 540;
   const topMargin = 75;
@@ -39,7 +42,14 @@ export const CrossSectionSVG: React.FC<CrossSectionSVGProps> = ({
         <div className="flex items-center gap-2">
           <Compass className="w-4 h-4 text-blue-600" />
           <div>
-            <h3 className="text-xs font-bold text-slate-800">2D 가시설 단면 뷰포트 (Cross-Section Viewport) — {alternative.name}</h3>
+            <h3 className="text-xs font-bold text-slate-800 flex items-center gap-2">
+              <span>2D 가시설 단면 뷰포트 (Cross-Section Viewport) — {alternative.name}</span>
+              {isCompositeStrutAlt && (
+                <span className="px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 text-[10px] font-bold border border-indigo-200">
+                  ✨ 무중간말뚝 장지간 (Single-Span B={excWidth}m)
+                </span>
+              )}
+            </h3>
             <p className="text-[11px] text-slate-500">
               시공단계: <strong>{stageRes.stageName}</strong> (현재 굴착고: <span className="text-blue-700 font-mono font-bold">-{excDepth.toFixed(1)}m</span> / 벽체연장: {totalLength.toFixed(1)}m)
             </p>
@@ -66,6 +76,10 @@ export const CrossSectionSVG: React.FC<CrossSectionSVGProps> = ({
               {/* 공학 해치 패턴 */}
               <pattern id="soil-cad-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
                 <line x1="0" y1="0" x2="0" y2="10" stroke="#94a3b8" strokeWidth="0.8" opacity="0.4" />
+              </pattern>
+              {/* 합성사각강관 전용 해치 */}
+              <pattern id="comp-box-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <line x1="0" y1="0" x2="0" y2="8" stroke="#3b82f6" strokeWidth="1" opacity="0.6" />
               </pattern>
               {/* 화살표 마커 */}
               <marker id="arrow-cad" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
@@ -226,7 +240,7 @@ export const CrossSectionSVG: React.FC<CrossSectionSVGProps> = ({
               근입하단 (EL -{totalLength.toFixed(1)}m)
             </text>
 
-            {/* 7. 복공판(Deck Plate) 및 주형보(Deck Beam) & 교통하중 렌더링 (간섭 없는 계층 분리) */}
+            {/* 7. 복공판(Deck Plate) 및 주형보(Deck Beam) & 교통하중 렌더링 */}
             {inputs.deckingConfig?.useDecking && (
               <g>
                 {/* 상부 복공판 (Deck Plate) */}
@@ -263,7 +277,7 @@ export const CrossSectionSVG: React.FC<CrossSectionSVGProps> = ({
                   strokeWidth="1.2"
                 />
 
-                {/* Level 2: 교통하중(차량) 뱃지 (y = 52) */}
+                {/* Level 2: 교통하중(차량) 뱃지 */}
                 <g transform={`translate(${wallLeftX + (excWidth * scaleX) / 2 - 60}, ${groundY - 48})`}>
                   <rect x="0" y="0" width="120" height="20" rx="4" fill="#ffffff" stroke="#2563eb" strokeWidth="1.5" className="shadow-xs" />
                   <text x="60" y="14" fill="#1e40af" fontSize="10" fontWeight="bold" textAnchor="middle">
@@ -271,7 +285,7 @@ export const CrossSectionSVG: React.FC<CrossSectionSVGProps> = ({
                   </text>
                 </g>
 
-                {/* Level 3: 복공 제원 텍스트 (y = 86) */}
+                {/* Level 3: 복공 제원 텍스트 */}
                 <g transform={`translate(${wallLeftX + 6}, ${groundY - 26})`}>
                   <rect x="0" y="0" width="230" height="15" rx="2" fill="#ffffff" fillOpacity="0.9" />
                   <text x="2" y="11" fill="#334155" fontSize="9.5" fontWeight="bold">
@@ -281,8 +295,8 @@ export const CrossSectionSVG: React.FC<CrossSectionSVGProps> = ({
               </g>
             )}
 
-            {/* 8. 중간말뚝 (King Post) 정밀 렌더링 */}
-            {inputs.deckingConfig?.useDecking !== false && (() => {
+            {/* 8. 중간말뚝 (King Post) - 합성사각강관(대안 4) 및 올앵커(대안 2)는 무중간말뚝으로 완전 제외 */}
+            {!isCompositeStrutAlt && !isAllAnchorAlt && inputs.deckingConfig?.useDecking !== false && (() => {
               const kpLength = inputs.deckingConfig?.kingPostTotalLength || (excDepth + 5.0);
               const kpCenterX = wallLeftX + (excWidth * scaleX) / 2;
               return (
@@ -318,7 +332,7 @@ export const CrossSectionSVG: React.FC<CrossSectionSVGProps> = ({
                   <text x={kpCenterX + 12} y={groundY + kpLength * scaleY + 3} fill="#475569" fontSize="9" fontWeight="bold">
                     중간말뚝 근입 (EL -{kpLength.toFixed(1)}m)
                   </text>
-                  {/* 중간말뚝 설명 라벨 (흰색 배경 박스로 간섭 방지) */}
+                  {/* 중간말뚝 설명 라벨 */}
                   <g transform={`translate(${kpCenterX + 10}, ${groundY + 15})`}>
                     <rect x="0" y="0" width="190" height="16" rx="2" fill="#ffffff" fillOpacity="0.9" stroke="#cbd5e1" strokeWidth="0.8" />
                     <text x="4" y="12" fill="#334155" fontSize="9.5" fontWeight="bold">
@@ -329,48 +343,95 @@ export const CrossSectionSVG: React.FC<CrossSectionSVGProps> = ({
               );
             })()}
 
-            {/* 9. 지보공 렌더링 (Strut / Ground Anchor) */}
+            {/* 9. 지보공 렌더링 (Strut / Composite Strut / Ground Anchor) */}
             {alternative.supports.map((sup, idx) => {
               if (sup.depth > excDepth + 0.1) return null;
               const supY = groundY + sup.depth * scaleY;
               const angleRad = (sup.angle * Math.PI) / 180;
 
-              if (sup.type === 'STRUT') {
-                return (
-                  <g key={sup.id}>
-                    {/* 띠장 (Wale) */}
-                    <rect x={wallLeftX - 10} y={supY - 6} width={8} height={12} fill="#d97706" stroke="#92400e" strokeWidth="1" />
-                    <rect x={wallRightX + 2} y={supY - 6} width={8} height={12} fill="#d97706" stroke="#92400e" strokeWidth="1" />
+              const isCompStrut = isCompositeStrutAlt || (sup.type as any) === 'COMPOSITE_STRUT' || (sup.specName && sup.specName.includes('사각')) || (sup.strutSpec && sup.strutSpec.includes('사각'));
+              const isStrut = sup.type === 'STRUT' || isCompStrut;
 
-                    {/* 강관 버팀보 */}
-                    <line x1={wallLeftX} y1={supY} x2={wallRightX} y2={supY} stroke="#f59e0b" strokeWidth="6" />
-                    
-                    {/* 중간말뚝 - 스트럿 강결 접합부 (Rigid Joint Gusset Plate / Bracket) */}
-                    {inputs.deckingConfig?.useDecking !== false && (
-                      <g>
-                        <rect
-                          x={wallLeftX + (excWidth * scaleX) / 2 - 8}
-                          y={supY - 8}
-                          width={16}
-                          height={16}
-                          fill="#1e293b"
-                          stroke="#f59e0b"
-                          strokeWidth="1.5"
-                          rx="2"
-                        />
-                        <circle cx={wallLeftX + (excWidth * scaleX) / 2} cy={supY} r="3" fill="#f59e0b" />
+              if (isStrut) {
+                if (isCompStrut) {
+                  // 🌟 4대안: 합성사각강관(4-Box) 전용 고강성 박스 단면 렌더링
+                  return (
+                    <g key={sup.id}>
+                      {/* 광폭 2-H 400 띠장 (Wale) */}
+                      <rect x={wallLeftX - 12} y={supY - 8} width={10} height={16} fill="#1e3a8a" stroke="#172554" strokeWidth="1.2" rx="1" />
+                      <rect x={wallRightX + 2} y={supY - 8} width={10} height={16} fill="#1e3a8a" stroke="#172554" strokeWidth="1.2" rx="1" />
+
+                      {/* 2000kN 고용량 유압 프리로드 잭 & 접합 브래킷 */}
+                      <rect x={wallLeftX} y={supY - 6} width={16} height={12} fill="#2563eb" stroke="#1d4ed8" strokeWidth="1" rx="1" />
+                      <rect x={wallRightX - 16} y={supY - 6} width={16} height={12} fill="#2563eb" stroke="#1d4ed8" strokeWidth="1" rx="1" />
+
+                      {/* 4-Box 450형 합성사각강관 본체 (두꺼운 박스형태 + 해치) */}
+                      <rect
+                        x={wallLeftX + 16}
+                        y={supY - 5.5}
+                        width={excWidth * scaleX - 32}
+                        height={11}
+                        fill="#3b82f6"
+                        stroke="#1d4ed8"
+                        strokeWidth="1.8"
+                        rx="2"
+                      />
+                      <rect
+                        x={wallLeftX + 16}
+                        y={supY - 5.5}
+                        width={excWidth * scaleX - 32}
+                        height={11}
+                        fill="url(#comp-box-hatch)"
+                        rx="2"
+                      />
+
+                      {/* 텍스트 표기 (프리미엄 인디고 박스) */}
+                      <g transform={`translate(${wallLeftX + 24}, ${supY - 16})`}>
+                        <rect x="0" y="0" width="280" height="15" rx="3" fill="#ffffff" fillOpacity="0.95" stroke="#3b82f6" strokeWidth="1" />
+                        <text x="5" y="11" fill="#1e40af" fontSize="10" fontWeight="bold">
+                          {idx + 1}단 4-Box 합성사각강관 450형 (@5.0m 광폭, 무중간말뚝 L={excWidth}m)
+                        </text>
                       </g>
-                    )}
-
-                    {/* 텍스트 표기 (흰색 배경 박스) */}
-                    <g transform={`translate(${wallLeftX + 15}, ${supY - 14})`}>
-                      <rect x="0" y="0" width="230" height="14" rx="2" fill="#ffffff" fillOpacity="0.85" />
-                      <text x="2" y="11" fill="#92400e" fontSize="10" fontWeight="bold">
-                        {idx + 1}단 Strut ({sup.specName}, Lk=B/2 강결)
-                      </text>
                     </g>
-                  </g>
-                );
+                  );
+                } else {
+                  // 재래식 강관 원형 버팀보 렌더링
+                  return (
+                    <g key={sup.id}>
+                      {/* 띠장 (Wale) */}
+                      <rect x={wallLeftX - 10} y={supY - 6} width={8} height={12} fill="#d97706" stroke="#92400e" strokeWidth="1" />
+                      <rect x={wallRightX + 2} y={supY - 6} width={8} height={12} fill="#d97706" stroke="#92400e" strokeWidth="1" />
+
+                      {/* 강관 버팀보 */}
+                      <line x1={wallLeftX} y1={supY} x2={wallRightX} y2={supY} stroke="#f59e0b" strokeWidth="6" />
+                      
+                      {/* 중간말뚝 - 스트럿 강결 접합부 (Rigid Joint Gusset Plate / Bracket) */}
+                      {inputs.deckingConfig?.useDecking !== false && (
+                        <g>
+                          <rect
+                            x={wallLeftX + (excWidth * scaleX) / 2 - 8}
+                            y={supY - 8}
+                            width={16}
+                            height={16}
+                            fill="#1e293b"
+                            stroke="#f59e0b"
+                            strokeWidth="1.5"
+                            rx="2"
+                          />
+                          <circle cx={wallLeftX + (excWidth * scaleX) / 2} cy={supY} r="3" fill="#f59e0b" />
+                        </g>
+                      )}
+
+                      {/* 텍스트 표기 (흰색 배경 박스) */}
+                      <g transform={`translate(${wallLeftX + 15}, ${supY - 14})`}>
+                        <rect x="0" y="0" width="230" height="14" rx="2" fill="#ffffff" fillOpacity="0.85" />
+                        <text x="2" y="11" fill="#92400e" fontSize="10" fontWeight="bold">
+                          {idx + 1}단 Strut ({sup.specName}, Lk=B/2 강결)
+                        </text>
+                      </g>
+                    </g>
+                  );
+                }
               } else if (sup.type === 'GROUND_ANCHOR') {
                 const dx_free = sup.freeLength * Math.cos(angleRad) * scaleX;
                 const dy_free = sup.freeLength * Math.sin(angleRad) * scaleY;

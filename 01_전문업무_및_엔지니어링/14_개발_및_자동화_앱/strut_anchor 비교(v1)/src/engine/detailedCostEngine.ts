@@ -53,9 +53,12 @@ export class DetailedCostEngine {
     H_PILE_EXTRACT: { contract: 65000, execution: 52000, mat: 5000, lab: 32000, exp: 28000, basis: '내역 2-1-2-4-20 / 바이브로해머 엄지말뚝 인발' },
     EXTRACT_BACKFILL: { contract: 8500, execution: 6800, mat: 2500, lab: 3000, exp: 3000, basis: '내역 2-1-2-4-23 / 인발 후 홀 그라우팅/토사 채움' },
 
-    // 4. 목재 토류판 (2-1-2-9)
+    // 4. 토류판 (목재, 강재, 숏크리트 2-1-2-9)
     LAGGING_INSTALL: { contract: 32000, execution: 25600, mat: 19200, lab: 9600, exp: 3200, basis: '내역 2-1-2-9-10 / 낙엽송 판재(t=8cm, 3회 유용손료) + 끼우기' },
-    LAGGING_DISMANTLE: { contract: 12000, execution: 9600, mat: 0, lab: 9000, exp: 3000, basis: '내역 2-1-2-9-30 / 토류판 해체 및 잔재 처리' },
+    LAGGING_DISMANTLE: { contract: 12000, execution: 9600, mat: 0, lab: 9000, exp: 3000, basis: '내역 2-1-2-9-30 / 목재 토류판 해체 및 잔재 처리' },
+    STEEL_LAGGING_INSTALL: { contract: 48000, execution: 38400, mat: 35000, lab: 8000, exp: 5000, basis: '내역 2-1-2-9-15 / 강재 토류판(t=6~8mm) 6개월 임대손료 + 끼우기 (㎡당)' },
+    STEEL_LAGGING_DISMANTLE: { contract: 15000, execution: 12000, mat: 0, lab: 10000, exp: 5000, basis: '내역 2-1-2-9-35 / 강재 토류판 인양 해체 및 반출 (㎡당)' },
+    SHOTCRETE_LAGGING: { contract: 55000, execution: 44000, mat: 30000, lab: 18000, exp: 7000, basis: '내역 2-1-2-9-20 / 숏크리트 타설(t=15cm) + 와이어메쉬 #8 부착 (㎡당)' },
 
     // 5. 띠장재 (2-1-2-6)
     WALE_RENTAL_INSTALL: { contract: 420000, execution: 336000, mat: 315000, lab: 55000, exp: 50000, basis: '내역 2-1-2-6-10 / 2-H 300x300 손료(6개월) + 띠장 가설' },
@@ -65,9 +68,13 @@ export class DetailedCostEngine {
 
     // 6. 버팀보 (Strut, 2-1-2-7)
     STRUT_RENTAL_INSTALL: { contract: 450000, execution: 360000, mat: 337500, lab: 62500, exp: 50000, basis: '내역 2-1-2-7-10 / 강관 Φ508x9t 6개월 손료 + 버팀보 가설' },
+    // 합성사각강관: 고강도 특허 자재 손료 + 모듈러 무중간말뚝 볼트 가설비 반영 (톤당 1,200,000원)
+    COMPOSITE_STRUT_RENTAL_INSTALL: { contract: 1200000, execution: 960000, mat: 900000, lab: 180000, exp: 120000, basis: '신기술/특허 4-Box 합성사각강관 6개월 손료 + 모듈러 볼트 가설' },
     SCREW_JACK: { contract: 120000, execution: 96000, mat: 75000, lab: 30000, exp: 15000, basis: '내역 2-1-2-7-40 / 1000kN 스크류잭 설치 및 프리로드 유압재하' },
+    COMPOSITE_STRUT_JACK: { contract: 380000, execution: 304000, mat: 250000, lab: 80000, exp: 50000, basis: '합성사각강관 전용 2000kN 고용량 유압 프리로드잭 & 단부 접합 브래킷' },
     WEDGE_BLOCK: { contract: 95000, execution: 76000, mat: 45000, lab: 35000, exp: 15000, basis: '내역 2-1-2-7-30 / 화타쐐기(K-1 Type) 제작 및 밀착설치' },
-    STRUT_DISMANTLE: { contract: 45000, execution: 36000, mat: 0, lab: 28000, exp: 17000, basis: '내역 2-1-2-7-15 / 버팀보 해체 및 인양 반출' },
+    STRUT_DISMANTLE: { contract: 45000, execution: 36000, mat: 0, lab: 28000, exp: 17000, basis: '내역 2-1-2-7-15 / 강관 버팀보 해체 및 인양 반출' },
+    COMPOSITE_STRUT_DISMANTLE: { contract: 85000, execution: 68000, mat: 0, lab: 55000, exp: 30000, basis: '합성사각강관 볼트 분해 및 크레인 인양' },
 
     // 7. 보강재 및 중간말뚝 (2-1-2-8)
     BRACING_STEEL: { contract: 380000, execution: 304000, mat: 285000, lab: 50000, exp: 45000, basis: '내역 2-1-2-8-10,20 / ㄷ-형강 및 L-형강 수평/수직 가새 보강재 손료/설치' },
@@ -82,17 +89,23 @@ export class DetailedCostEngine {
     DECK_BRACING: { contract: 165000, execution: 132000, mat: 55000, lab: 80000, exp: 30000, basis: '내역 2-1-2-5-30,60 / 주형보 브레이싱(X-1) 및 피스브라켓 제작설치' },
 
     // 9. 어스앵커 (2-1-2-10)
-    ANCHOR_DRILL_GROUT: { contract: 58000, execution: 46400, mat: 18000, lab: 22000, exp: 18000, basis: '내역 2-1-2-10-10,40 / 앵커천공(D135) + 시멘트 가압 그라우팅' },
-    ANCHOR_STRAND_INSTALL: { contract: 35000, execution: 28000, mat: 21000, lab: 10000, exp: 4000, basis: '내역 2-1-2-10-30 / SWPC 7B 12.7mm 강연선 가공조립 및 삽입' },
-    ANCHOR_TENSION_TEST: { contract: 45000, execution: 36000, mat: 5000, lab: 25000, exp: 15000, basis: '내역 2-1-2-10-50 / 유압잭 인장시험, PC콘 조립 및 락오프 정착' },
-    ANCHOR_BASE_PLATE: { contract: 180000, execution: 144000, mat: 95000, lab: 55000, exp: 30000, basis: '내역 2-1-2-10-60 / 일반앵커 지압판(Base Plate) 제작 및 설치' },
-    HIGH_ANGLE_SPECIAL_BRACKET: { contract: 800000, execution: 640000, mat: 560000, lab: 160000, exp: 80000, basis: '고각(45°~70°) 전용 특수 경사 지압 브래킷 임대손료 & 띠장 거셋 보강 (공당 80만원)' },
-    ANCHOR_STRAND_REMOVE: { contract: 25000, execution: 20000, mat: 0, lab: 18000, exp: 7000, basis: '내역 2-1-2-10-80 / 제거식 어스앵커 강선 인발 및 제거' },
-    ANCHOR_RIG_SETUP: { contract: 1800000, execution: 1440000, mat: 0, lab: 900000, exp: 900000, basis: '내역 2-1-2-10-90 / 크롤러 드릴 천공장비 조립 및 해체' }
+    ANCHOR_DRILL_GROUT: { contract: 48000, execution: 38400, mat: 15000, lab: 18000, exp: 15000, basis: '내역 2-1-2-10-10,40 / 앵커천공(D135) + 시멘트 가압 그라우팅 (m당)' },
+    ANCHOR_STRAND_INSTALL: { contract: 18000, execution: 14400, mat: 11000, lab: 5000, exp: 2000, basis: '내역 2-1-2-10-30 / SWPC 7B 12.7mm 강연선 가공조립 및 삽입 (m당)' },
+    ANCHOR_TENSION_TEST: { contract: 65000, execution: 52000, mat: 8000, lab: 38000, exp: 19000, basis: '내역 2-1-2-10-50 / 유압잭 인장시험, PC콘 조립 및 락오프 정착 (공당)' },
+    ANCHOR_BASE_PLATE: { contract: 120000, execution: 96000, mat: 65000, lab: 35000, exp: 20000, basis: '내역 2-1-2-10-60 / 일반앵커 지압판(Base Plate) 제작 및 설치 (공당)' },
+    HIGH_ANGLE_SPECIAL_BRACKET: { contract: 380000, execution: 304000, mat: 260000, lab: 80000, exp: 40000, basis: '고각(45°~70°) 특수 경사 지압 브래킷 6개월 임대손료 & 띠장 거셋 보강 (공당 38만원)' },
+    ANCHOR_STRAND_REMOVE: { contract: 25000, execution: 20000, mat: 0, lab: 18000, exp: 7000, basis: '내역 2-1-2-10-80 / 제거식 어스앵커 강선 인발 및 제거 (공당)' },
+    ANCHOR_RIG_SETUP: { contract: 1800000, execution: 1440000, mat: 0, lab: 900000, exp: 900000, basis: '내역 2-1-2-10-90 / 크롤러 드릴 천공장비 조립 및 해체 (회당)' }
   };
 
   /**
-   * 프로젝트 입력 및 대안에 따른 실제 내역서 2.1.2 세부 공종 전체 목록(QTO) 자동 산출
+   * 프로젝트 입력 및 4대안에 따른 실제 내역서 2.1.2 세부 공종 전체 목록(QTO) 자동 산출
+   * 
+   * [기하학적 수량 산출 기준 일원화]
+   * - L_wall = inputs.totalWallPerimeter (양측 벽체 전체 둘레 연장, m)
+   * - L_long = inputs.totalWallPerimeter / 2.0 (종방향 굴착 연장, m)
+   * - B = inputs.excavationWidth (횡방향 굴착폭, m)
+   * - H = inputs.excavationDepth (굴착 심도, m)
    */
   public static calculateDetailedCost(
     alt: AlternativeSpec,
@@ -102,18 +115,18 @@ export class DetailedCostEngine {
   ): DetailedCostResult {
     const H = inputs.excavationDepth;
     const B = inputs.excavationWidth;
-    const L_peri = inputs.totalWallPerimeter;
+    const L_wall = inputs.totalWallPerimeter; // 총 벽체 둘레 연장 (기본 100m)
+    const L_long = L_wall / 2.0;              // 종방향 굴착 연장 (기본 50m)
     const wall = alt.wall;
-    const D = wall.totalLength - H; // 근입장
-    const totalLength = wall.totalLength;
-    const S_h = wall.spacing;
+    const totalLength = wall.totalLength;     // 말뚝 총 심도 (굴착고 + 근입장)
+    const S_h = wall.spacing || 1.5;
 
     const items: QuantityItem[] = [];
 
     // ==========================================
     // 1. 말뚝박기용 천공 및 항타 (2-1-2-1)
     // ==========================================
-    const numHPiles = Math.ceil(L_peri / S_h);
+    const numHPiles = Math.ceil(L_wall / S_h);
     const hPileTotalLengthM = numHPiles * totalLength;
     const drillSoilM = Number((hPileTotalLengthM * 0.55).toFixed(1));
     const drillRockM = Number((hPileTotalLengthM * 0.45).toFixed(1));
@@ -126,7 +139,7 @@ export class DetailedCostEngine {
       name: '말뚝박기용 천공 (토사층, D500mm 케이싱사용)',
       spec: `천공경 D500mm (토사층 L=${drillSoilM}m, ${numHPiles}본)`,
       unit: 'm',
-      formula: `총 연장(${L_peri}m) / 간격(${S_h}m) x 심도(${totalLength}m) x 55%`,
+      formula: `총 벽체연장(${L_wall}m) ÷ 말뚝간격(${S_h}m) × 심도(${totalLength}m) × 55%`,
       formulaDetail: `토사구간 오거크레인 천공`,
       quantity: drillSoilM,
       contractUnitCost: this.DEFAULT_UNIT_COSTS.DRILL_SOIL.contract,
@@ -144,7 +157,7 @@ export class DetailedCostEngine {
       name: '말뚝박기용 천공 (풍화암/연암, T4 컴프레셔)',
       spec: `천공경 D500mm (암반층 L=${drillRockM}m, ${numHPiles}본)`,
       unit: 'm',
-      formula: `총 연장(${L_peri}m) / 간격(${S_h}m) x 심도(${totalLength}m) x 45%`,
+      formula: `총 벽체연장(${L_wall}m) ÷ 말뚝간격(${S_h}m) × 심도(${totalLength}m) × 45%`,
       formulaDetail: `암반소켓 T4 천공`,
       quantity: drillRockM,
       contractUnitCost: this.DEFAULT_UNIT_COSTS.DRILL_ROCK.contract,
@@ -162,7 +175,7 @@ export class DetailedCostEngine {
       name: '천공홀 되메우기 (φ500mm)',
       spec: `천공경 φ500mm 모래/토사 채움`,
       unit: 'm',
-      formula: `말뚝 총 천공길이(${hPileTotalLengthM}m) x 85%`,
+      formula: `말뚝 총 천공길이(${hPileTotalLengthM}m) × 85%`,
       formulaDetail: `파일 근입 후 상하부 공극 채움`,
       quantity: Number((hPileTotalLengthM * 0.85).toFixed(1)),
       contractUnitCost: this.DEFAULT_UNIT_COSTS.HOLE_BACKFILL.contract,
@@ -204,7 +217,7 @@ export class DetailedCostEngine {
       name: `H-Pile 강재사용료 (${wall.hPileSpec || 'H-300x300x10x15'})`,
       spec: `${wall.hPileSpec || 'H-300x300x10x15'} (6개월 임대손료 15%)`,
       unit: 'ton',
-      formula: `본수(${numHPiles}본) x 심도(${totalLength}m) x 단위중량(${hPileUnitWeightKg}kg/m)`,
+      formula: `본수(${numHPiles}본) × 심도(${totalLength}m) × 단위중량(${hPileUnitWeightKg}kg/m) ÷ 1,000`,
       formulaDetail: `총 ${hPileTotalLengthM}m, 가설 6개월 손료`,
       quantity: hPileTotalWeightTon,
       contractUnitCost: this.DEFAULT_UNIT_COSTS.H_PILE_RENTAL.contract,
@@ -309,47 +322,108 @@ export class DetailedCostEngine {
     });
 
     // ==========================================
-    // 4. 목재 토류판 설치 및 철거 (2-1-2-9)
+    // 4. 토류판 설치 및 철거 (2-1-2-9)
     // ==========================================
-    const laggingAreaM2 = Number((L_peri * H).toFixed(1));
-    items.push({
-      id: '2-1-2-9-10',
-      category: 'LAGGING',
-      categoryName: '4. 토류판 설치 및 철거 (2-1-2-9)',
-      itemCode: '2-1-2-9-10',
-      name: '목재 토류판 설치 (낙엽송 t=8.0cm)',
-      spec: `낙엽송 판재 t=8cm (3회 유용손료)`,
-      unit: '㎡',
-      formula: `가시설 연장(${L_peri}m) x 굴착깊이(${H}m)`,
-      formulaDetail: `토류판 시공 전면적`,
-      quantity: laggingAreaM2,
-      contractUnitCost: this.DEFAULT_UNIT_COSTS.LAGGING_INSTALL.contract,
-      executionUnitCost: this.DEFAULT_UNIT_COSTS.LAGGING_INSTALL.execution,
-      contractAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.LAGGING_INSTALL.contract),
-      executionAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.LAGGING_INSTALL.execution),
-      costBasis: this.DEFAULT_UNIT_COSTS.LAGGING_INSTALL.basis
-    });
+    const laggingAreaM2 = Number((L_wall * H).toFixed(1));
+    const laggingType = inputs.wall.laggingType || '낙엽송 목재 토류판 (t=8.0cm)';
+    const isSteelLagging = laggingType.includes('강재');
+    const isShotcrete = laggingType.includes('숏크리트');
 
-    items.push({
-      id: '2-1-2-9-30',
-      category: 'LAGGING',
-      categoryName: '4. 토류판 설치 및 철거 (2-1-2-9)',
-      itemCode: '2-1-2-9-30',
-      name: '목재 토류판 해체 및 철거',
-      spec: `되메우기 시 토류판 순차 인양`,
-      unit: '㎡',
-      formula: `토류판 면적(${laggingAreaM2} ㎡)`,
-      formulaDetail: `철거 공종`,
-      quantity: laggingAreaM2,
-      contractUnitCost: this.DEFAULT_UNIT_COSTS.LAGGING_DISMANTLE.contract,
-      executionUnitCost: this.DEFAULT_UNIT_COSTS.LAGGING_DISMANTLE.execution,
-      contractAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.LAGGING_DISMANTLE.contract),
-      executionAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.LAGGING_DISMANTLE.execution),
-      costBasis: this.DEFAULT_UNIT_COSTS.LAGGING_DISMANTLE.basis
-    });
+    if (isSteelLagging) {
+      items.push({
+        id: '2-1-2-9-15',
+        category: 'LAGGING',
+        categoryName: '4. 토류판 설치 및 철거 (2-1-2-9)',
+        itemCode: '2-1-2-9-15',
+        name: `강재 토류판 설치 (${laggingType})`,
+        spec: `${laggingType} (6개월 손료 + 끼우기)`,
+        unit: '㎡',
+        formula: `총 벽체연장(${L_wall}m) × 굴착깊이(${H}m)`,
+        formulaDetail: `강재 토류판 시공 면적 (${laggingAreaM2}㎡)`,
+        quantity: laggingAreaM2,
+        contractUnitCost: this.DEFAULT_UNIT_COSTS.STEEL_LAGGING_INSTALL.contract,
+        executionUnitCost: this.DEFAULT_UNIT_COSTS.STEEL_LAGGING_INSTALL.execution,
+        contractAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.STEEL_LAGGING_INSTALL.contract),
+        executionAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.STEEL_LAGGING_INSTALL.execution),
+        costBasis: this.DEFAULT_UNIT_COSTS.STEEL_LAGGING_INSTALL.basis
+      });
+
+      items.push({
+        id: '2-1-2-9-35',
+        category: 'LAGGING',
+        categoryName: '4. 토류판 설치 및 철거 (2-1-2-9)',
+        itemCode: '2-1-2-9-35',
+        name: `강재 토류판 해체 및 크레인 인양`,
+        spec: `되메우기 시 강재 토류판 순차 인양 반출`,
+        unit: '㎡',
+        formula: `토류판 면적(${laggingAreaM2} ㎡)`,
+        formulaDetail: `강재 토류판 인양 철거`,
+        quantity: laggingAreaM2,
+        contractUnitCost: this.DEFAULT_UNIT_COSTS.STEEL_LAGGING_DISMANTLE.contract,
+        executionUnitCost: this.DEFAULT_UNIT_COSTS.STEEL_LAGGING_DISMANTLE.execution,
+        contractAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.STEEL_LAGGING_DISMANTLE.contract),
+        executionAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.STEEL_LAGGING_DISMANTLE.execution),
+        costBasis: this.DEFAULT_UNIT_COSTS.STEEL_LAGGING_DISMANTLE.basis
+      });
+    } else if (isShotcrete) {
+      items.push({
+        id: '2-1-2-9-20',
+        category: 'LAGGING',
+        categoryName: '4. 토류판 설치 및 철거 (2-1-2-9)',
+        itemCode: '2-1-2-9-20',
+        name: `숏크리트 타설 및 와이어메쉬 시공`,
+        spec: `t=150mm 습식 숏크리트 + 용접철망 부착`,
+        unit: '㎡',
+        formula: `총 벽체연장(${L_wall}m) × 굴착깊이(${H}m)`,
+        formulaDetail: `숏크리트 전면 타설`,
+        quantity: laggingAreaM2,
+        contractUnitCost: this.DEFAULT_UNIT_COSTS.SHOTCRETE_LAGGING.contract,
+        executionUnitCost: this.DEFAULT_UNIT_COSTS.SHOTCRETE_LAGGING.execution,
+        contractAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.SHOTCRETE_LAGGING.contract),
+        executionAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.SHOTCRETE_LAGGING.execution),
+        costBasis: this.DEFAULT_UNIT_COSTS.SHOTCRETE_LAGGING.basis
+      });
+    } else {
+      // 목재 토류판
+      items.push({
+        id: '2-1-2-9-10',
+        category: 'LAGGING',
+        categoryName: '4. 토류판 설치 및 철거 (2-1-2-9)',
+        itemCode: '2-1-2-9-10',
+        name: `목재 토류판 설치 (${laggingType})`,
+        spec: `${laggingType} (3회 유용손료)`,
+        unit: '㎡',
+        formula: `총 벽체연장(${L_wall}m) × 굴착깊이(${H}m)`,
+        formulaDetail: `토류판 시공 전면적`,
+        quantity: laggingAreaM2,
+        contractUnitCost: this.DEFAULT_UNIT_COSTS.LAGGING_INSTALL.contract,
+        executionUnitCost: this.DEFAULT_UNIT_COSTS.LAGGING_INSTALL.execution,
+        contractAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.LAGGING_INSTALL.contract),
+        executionAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.LAGGING_INSTALL.execution),
+        costBasis: this.DEFAULT_UNIT_COSTS.LAGGING_INSTALL.basis
+      });
+
+      items.push({
+        id: '2-1-2-9-30',
+        category: 'LAGGING',
+        categoryName: '4. 토류판 설치 및 철거 (2-1-2-9)',
+        itemCode: '2-1-2-9-30',
+        name: '목재 토류판 해체 및 철거',
+        spec: `되메우기 시 토류판 순차 인양`,
+        unit: '㎡',
+        formula: `토류판 면적(${laggingAreaM2} ㎡)`,
+        formulaDetail: `철거 공종`,
+        quantity: laggingAreaM2,
+        contractUnitCost: this.DEFAULT_UNIT_COSTS.LAGGING_DISMANTLE.contract,
+        executionUnitCost: this.DEFAULT_UNIT_COSTS.LAGGING_DISMANTLE.execution,
+        contractAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.LAGGING_DISMANTLE.contract),
+        executionAmount: Math.round(laggingAreaM2 * this.DEFAULT_UNIT_COSTS.LAGGING_DISMANTLE.execution),
+        costBasis: this.DEFAULT_UNIT_COSTS.LAGGING_DISMANTLE.basis
+      });
+    }
 
     // ==========================================
-    // 5. 띠장재 (2-1-2-6)
+    // 5. 띠장재 (2-1-2-6) - 단별 전체 벽체 연장 L_wall 기준
     // ==========================================
     let totalWaleWeightTon = 0;
     alt.supports.forEach((sup, idx) => {
@@ -358,8 +432,8 @@ export class DetailedCostEngine {
       const numBeams = isTwoH ? 2 : 1;
       const waleOpt = WALE_DATABASE.find(w => w.spec === waleSpec) || WALE_DATABASE[0];
       const singleBeamWeight = isTwoH ? waleOpt.weight / 2.0 : waleOpt.weight;
-      const totalWaleLengthM = 2 * L_peri * numBeams; // 양측 벽체
-      const tierWeightTon = Number(((totalWaleLengthM * singleBeamWeight) / 1000.0).toFixed(2));
+      // 전체 벽체 연장 L_wall에 대해 양열 띠장 연장
+      const tierWeightTon = Number(((L_wall * numBeams * singleBeamWeight) / 1000.0).toFixed(2));
       totalWaleWeightTon += tierWeightTon;
 
       items.push({
@@ -368,9 +442,9 @@ export class DetailedCostEngine {
         categoryName: '5. 띠장재 설치 및 철거 (2-1-2-6)',
         itemCode: '2-1-2-6-10',
         name: `띠장재 ${idx + 1}단 손료 & 설치 (${waleSpec})`,
-        spec: `${waleSpec} (양측 연장 ${2 * L_peri}m, EL -${sup.depth}m)`,
+        spec: `${waleSpec} (전체 벽체연장 ${L_wall}m, EL -${sup.depth}m)`,
         unit: 'ton',
-        formula: `양측연장(${2 * L_peri}m) x 열수(${numBeams}) x 단위중량(${singleBeamWeight.toFixed(1)}kg/m)`,
+        formula: `벽체연장(${L_wall}m) × 열수(${numBeams}) × 단위중량(${singleBeamWeight.toFixed(1)}kg/m) ÷ 1,000`,
         formulaDetail: `${idx + 1}단 띠장 6개월 손료 + 가설`,
         quantity: tierWeightTon,
         contractUnitCost: this.DEFAULT_UNIT_COSTS.WALE_RENTAL_INSTALL.contract,
@@ -381,7 +455,7 @@ export class DetailedCostEngine {
       });
     });
 
-    const numWaleJoints = Math.ceil((2 * L_peri * alt.supports.length) / 10);
+    const numWaleJoints = Math.ceil((L_wall * alt.supports.length) / 10);
     items.push({
       id: '2-1-2-6-20',
       category: 'WALE',
@@ -400,7 +474,7 @@ export class DetailedCostEngine {
       costBasis: this.DEFAULT_UNIT_COSTS.WALE_SPLICE_CORNER.basis
     });
 
-    const numHangers = Math.ceil((2 * L_peri * alt.supports.length) / S_h);
+    const numHangers = Math.ceil((L_wall * alt.supports.length) / S_h);
     items.push({
       id: '2-1-2-6-40',
       category: 'WALE',
@@ -419,7 +493,6 @@ export class DetailedCostEngine {
       costBasis: this.DEFAULT_UNIT_COSTS.BEAM_HANGER.basis
     });
 
-    // 띠장 해체 및 철거 공종 명시
     items.push({
       id: '2-1-2-6-12',
       category: 'WALE',
@@ -439,56 +512,64 @@ export class DetailedCostEngine {
     });
 
     // ==========================================
-    // 6. 버팀보 (Strut, 2-1-2-7)
+    // 6. 버팀보 (Strut, 2-1-2-7) - 종방향 굴착연장 L_long 기준 본수 산정
     // ==========================================
-    const struts = alt.supports.filter(s => s.type === 'STRUT');
+    const struts = alt.supports.filter(s => s.type === 'STRUT' || (s.type as any) === 'COMPOSITE_STRUT');
     let totalStrutCount = 0;
     let totalStrutWeightTon = 0;
 
     if (struts.length > 0) {
       struts.forEach((st, idx) => {
-        const numStrutsPerTier = Math.ceil(L_peri / (st.horizSpacing || 3.5));
+        const isComp = alt.type === 'COMPOSITE_STRUT' || (st.type as any) === 'COMPOSITE_STRUT' || (st.strutSpec && st.strutSpec.includes('사각'));
+        const strutSpacing = st.horizSpacing || (isComp ? 5.0 : 3.5);
+        // 종방향 연장 L_long을 수평간격으로 나눈 횡방향 가로지름 본수
+        const numStrutsPerTier = Math.ceil(L_long / strutSpacing);
         totalStrutCount += numStrutsPerTier;
-        const strutOpt = STRUT_DATABASE.find(sd => sd.spec === st.strutSpec) || STRUT_DATABASE[0];
+        const strutOpt = STRUT_DATABASE.find(sd => sd.spec === st.strutSpec) || (isComp ? STRUT_DATABASE[6] : STRUT_DATABASE[0]);
         const tierWeightTon = Number(((numStrutsPerTier * B * strutOpt.weight) / 1000.0).toFixed(2));
         totalStrutWeightTon += tierWeightTon;
+
+        const rentalCost = isComp ? this.DEFAULT_UNIT_COSTS.COMPOSITE_STRUT_RENTAL_INSTALL : this.DEFAULT_UNIT_COSTS.STRUT_RENTAL_INSTALL;
 
         items.push({
           id: `2-1-2-7-${idx + 1}`,
           category: 'STRUT',
           categoryName: '6. 버팀보 설치 및 철거 (2-1-2-7)',
           itemCode: '2-1-2-7-10',
-          name: `강관 버팀보(Strut) ${idx + 1}단 손료 & 설치`,
-          spec: `${st.specName} (@ ${st.horizSpacing}m, 굴착폭 ${B}m 가로지름)`,
+          name: isComp ? `합성사각강관(4-Box) 버팀보 ${idx + 1}단 손료 & 가설` : `강관 버팀보(Strut) ${idx + 1}단 손료 & 설치`,
+          spec: `${st.specName} (@ ${strutSpacing}m, 굴착폭 ${B}m 가로지름)`,
           unit: 'ton',
-          formula: `본수(${numStrutsPerTier}본) x 굴착폭(${B}m) x 단위중량(${strutOpt.weight}kg/m)`,
-          formulaDetail: `연장 ${L_peri}m / 간격 ${st.horizSpacing}m = ${numStrutsPerTier}본`,
+          formula: `본수(${numStrutsPerTier}본) × 굴착폭(${B}m) × 단위중량(${strutOpt.weight}kg/m) ÷ 1,000`,
+          formulaDetail: `종방향 ${L_long}m ÷ 간격 ${strutSpacing}m = ${numStrutsPerTier}본`,
           quantity: tierWeightTon,
-          contractUnitCost: this.DEFAULT_UNIT_COSTS.STRUT_RENTAL_INSTALL.contract,
-          executionUnitCost: this.DEFAULT_UNIT_COSTS.STRUT_RENTAL_INSTALL.execution,
-          contractAmount: Math.round(tierWeightTon * this.DEFAULT_UNIT_COSTS.STRUT_RENTAL_INSTALL.contract),
-          executionAmount: Math.round(tierWeightTon * this.DEFAULT_UNIT_COSTS.STRUT_RENTAL_INSTALL.execution),
-          costBasis: this.DEFAULT_UNIT_COSTS.STRUT_RENTAL_INSTALL.basis
+          contractUnitCost: rentalCost.contract,
+          executionUnitCost: rentalCost.execution,
+          contractAmount: Math.round(tierWeightTon * rentalCost.contract),
+          executionAmount: Math.round(tierWeightTon * rentalCost.execution),
+          costBasis: rentalCost.basis
         });
       });
 
-      // 스크류잭 (1000kN)
+      // 스크류잭 또는 합성사각강관 전용 2000kN 고용량 유압잭
+      const isCompAlt = alt.type === 'COMPOSITE_STRUT';
+      const jackCost = isCompAlt ? this.DEFAULT_UNIT_COSTS.COMPOSITE_STRUT_JACK : this.DEFAULT_UNIT_COSTS.SCREW_JACK;
+
       items.push({
         id: '2-1-2-7-40',
         category: 'STRUT',
         categoryName: '6. 버팀보 설치 및 철거 (2-1-2-7)',
         itemCode: '2-1-2-7-40',
-        name: '스크류잭 (1000kN) 설치 및 프리로드 재하',
-        spec: `유압잭 프리로드 가압 + 스크류잭 고정`,
+        name: isCompAlt ? '합성사각강관 전용 고용량(2000kN) 유압 프리로드잭 & 접합브래킷' : '스크류잭 (1000kN) 설치 및 프리로드 재하',
+        spec: isCompAlt ? '2000kN 유압 프리로드 가압 및 특수 고정브래킷' : `유압잭 프리로드 가압 + 스크류잭 고정`,
         unit: '개소',
         formula: `버팀보 총 본수 (${totalStrutCount}본)`,
         formulaDetail: `버팀보 단부마다 1개소`,
         quantity: totalStrutCount,
-        contractUnitCost: this.DEFAULT_UNIT_COSTS.SCREW_JACK.contract,
-        executionUnitCost: this.DEFAULT_UNIT_COSTS.SCREW_JACK.execution,
-        contractAmount: totalStrutCount * this.DEFAULT_UNIT_COSTS.SCREW_JACK.contract,
-        executionAmount: totalStrutCount * this.DEFAULT_UNIT_COSTS.SCREW_JACK.execution,
-        costBasis: this.DEFAULT_UNIT_COSTS.SCREW_JACK.basis
+        contractUnitCost: jackCost.contract,
+        executionUnitCost: jackCost.execution,
+        contractAmount: totalStrutCount * jackCost.contract,
+        executionAmount: totalStrutCount * jackCost.execution,
+        costBasis: jackCost.basis
       });
 
       // 화타쐐기 (K-1 Type)
@@ -511,33 +592,35 @@ export class DetailedCostEngine {
       });
 
       // 버팀보 해체 및 인양 반출
+      const dismantleCost = isCompAlt ? this.DEFAULT_UNIT_COSTS.COMPOSITE_STRUT_DISMANTLE : this.DEFAULT_UNIT_COSTS.STRUT_DISMANTLE;
       items.push({
         id: '2-1-2-7-15',
         category: 'STRUT',
         categoryName: '6. 버팀보 설치 및 철거 (2-1-2-7)',
         itemCode: '2-1-2-7-15',
-        name: '강관 버팀보(Strut) 순차 해체 및 크레인 인양',
+        name: isCompAlt ? '합성사각강관 볼트 분해 및 크레인 인양' : '강관 버팀보(Strut) 순차 해체 및 크레인 인양',
         spec: `본구조물 타설 강도 발현 후 단별 절단/인양 반출 (${Number(totalStrutWeightTon.toFixed(2))} ton)`,
         unit: 'ton',
         formula: `버팀보 총 중량 (${Number(totalStrutWeightTon.toFixed(2))} ton)`,
         formulaDetail: `구조물 축조 연계 해체 공종`,
         quantity: Number(totalStrutWeightTon.toFixed(2)),
-        contractUnitCost: this.DEFAULT_UNIT_COSTS.STRUT_DISMANTLE.contract,
-        executionUnitCost: this.DEFAULT_UNIT_COSTS.STRUT_DISMANTLE.execution,
-        contractAmount: Math.round(totalStrutWeightTon * this.DEFAULT_UNIT_COSTS.STRUT_DISMANTLE.contract),
-        executionAmount: Math.round(totalStrutWeightTon * this.DEFAULT_UNIT_COSTS.STRUT_DISMANTLE.execution),
-        costBasis: this.DEFAULT_UNIT_COSTS.STRUT_DISMANTLE.basis
+        contractUnitCost: dismantleCost.contract,
+        executionUnitCost: dismantleCost.execution,
+        contractAmount: Math.round(totalStrutWeightTon * dismantleCost.contract),
+        executionAmount: Math.round(totalStrutWeightTon * dismantleCost.execution),
+        costBasis: dismantleCost.basis
       });
     }
 
     // ==========================================
-    // 7. 어스앵커 (2-1-2-10)
+    // 7. 어스앵커 (2-1-2-10) - 양측 전체 벽체 L_wall 기준 본수 산정
     // ==========================================
     const anchors = alt.supports.filter(s => s.type === 'GROUND_ANCHOR');
     if (anchors.length > 0) {
       anchors.forEach((anc, idx) => {
-        const numAnchorsPerSide = Math.ceil(L_peri / (anc.horizSpacing || 2.0));
-        const totalAnchorsInTier = numAnchorsPerSide * 2; // 양측 벽체
+        const anchorSpacing = anc.horizSpacing || 2.0;
+        // 양측 전체 벽체 L_wall에 설치되는 앵커 총 본수
+        const totalAnchorsInTier = Math.ceil(L_wall / anchorSpacing);
         const singleLenM = (anc.freeLength || 6.0) + (anc.bondLength || 5.5);
         const totalDrillM = Number((totalAnchorsInTier * singleLenM).toFixed(1));
 
@@ -549,8 +632,8 @@ export class DetailedCostEngine {
           name: `어스앵커 ${idx + 1}단 천공 및 그라우팅`,
           spec: `D135mm 천공 + 시멘트 가압 주입 (${totalAnchorsInTier}공, L=${singleLenM.toFixed(1)}m)`,
           unit: 'm',
-          formula: `양측본수(${totalAnchorsInTier}공) x 길이(${singleLenM.toFixed(1)}m)`,
-          formulaDetail: `연장 ${L_peri}m / 간격 ${anc.horizSpacing}m x 2열`,
+          formula: `양측본수(${totalAnchorsInTier}공) × 길이(${singleLenM.toFixed(1)}m)`,
+          formulaDetail: `전체 벽체연장 ${L_wall}m ÷ 간격 ${anchorSpacing}m = ${totalAnchorsInTier}공`,
           quantity: totalDrillM,
           contractUnitCost: this.DEFAULT_UNIT_COSTS.ANCHOR_DRILL_GROUT.contract,
           executionUnitCost: this.DEFAULT_UNIT_COSTS.ANCHOR_DRILL_GROUT.execution,
@@ -577,25 +660,26 @@ export class DetailedCostEngine {
           costBasis: this.DEFAULT_UNIT_COSTS.ANCHOR_STRAND_INSTALL.basis
         });
 
+        // 🌟 인장시험, PC콘 조립 및 락오프 (공당 단가 적용으로 현실화)
         items.push({
           id: `2-1-2-10-50-${idx + 1}`,
           category: 'ANCHOR',
           categoryName: '7. 어스앵커 천공, 강선, 인장 (2-1-2-10)',
           itemCode: '2-1-2-10-50',
           name: `유압잭 인장시험, PC콘 조립 및 락오프(Lock-off)`,
-          spec: `설계축력 120% 인장시험 및 쐐기 정착`,
-          unit: 'm',
-          formula: `앵커 총 연장 (${totalDrillM} m)`,
-          formulaDetail: `인장시험 및 정착`,
-          quantity: totalDrillM,
+          spec: `설계축력 120% 인장시험 및 쐐기 정착 (공당)`,
+          unit: '공',
+          formula: `양측 앵커 본수 (${totalAnchorsInTier}공)`,
+          formulaDetail: `인장시험 및 정착 (공당 단가)`,
+          quantity: totalAnchorsInTier,
           contractUnitCost: this.DEFAULT_UNIT_COSTS.ANCHOR_TENSION_TEST.contract,
           executionUnitCost: this.DEFAULT_UNIT_COSTS.ANCHOR_TENSION_TEST.execution,
-          contractAmount: Math.round(totalDrillM * this.DEFAULT_UNIT_COSTS.ANCHOR_TENSION_TEST.contract),
-          executionAmount: Math.round(totalDrillM * this.DEFAULT_UNIT_COSTS.ANCHOR_TENSION_TEST.execution),
+          contractAmount: totalAnchorsInTier * this.DEFAULT_UNIT_COSTS.ANCHOR_TENSION_TEST.contract,
+          executionAmount: totalAnchorsInTier * this.DEFAULT_UNIT_COSTS.ANCHOR_TENSION_TEST.execution,
           costBasis: this.DEFAULT_UNIT_COSTS.ANCHOR_TENSION_TEST.basis
         });
 
-        // 고각 앵커 전용 특수 경사 지압 브래킷 (공당 80만원)
+        // 고각 앵커 전용 특수 경사 지압 브래킷 (공당 38만원으로 현실적 임대손료 적용)
         if ((anc.angle || 45) >= 40) {
           items.push({
             id: `2-1-2-10-SP-${idx + 1}`,
@@ -603,7 +687,7 @@ export class DetailedCostEngine {
             categoryName: '7. 어스앵커 천공, 강선, 인장 (2-1-2-10)',
             itemCode: '2-1-2-10-SP',
             name: `고각 앵커 ${idx + 1}단 특수 경사 지압 브래킷 & 띠장 거셋`,
-            spec: `경사각 ${anc.angle || 45}° 고각 지압 브래킷 (앵커당 800,000원)`,
+            spec: `경사각 ${anc.angle || 45}° 고각 지압 브래킷 (6개월 손료 380,000원/공)`,
             unit: '개소',
             formula: `양측 앵커 본수 (${totalAnchorsInTier}공)`,
             formulaDetail: `고각(${anc.angle || 45}°) 지압력 전달 특수 가공조립품`,
@@ -638,11 +722,11 @@ export class DetailedCostEngine {
     }
 
     // ==========================================
-    // 8. 복공판 및 주형보 (2-1-2-5)
+    // 8. 복공판 및 주형보 (2-1-2-5) - 종방향 굴착연장 L_long × 폭 B 기준
     // ==========================================
     if (inputs.deckingConfig?.useDecking) {
       const decking = inputs.deckingConfig;
-      const deckAreaM2 = Number((L_peri * B).toFixed(1));
+      const deckAreaM2 = Number((L_long * B).toFixed(1));
       items.push({
         id: '2-1-2-5-70',
         category: 'DECKING',
@@ -651,7 +735,7 @@ export class DetailedCostEngine {
         name: '복공판 (Deck Plate) 임대 및 설치',
         spec: `t=200mm 미끄럼방지 무늬강판 (${decking.trafficLoadType} 하중 지지)`,
         unit: '㎡',
-        formula: `가시설 연장(${L_peri}m) x 굴착폭(${B}m)`,
+        formula: `종방향연장(${L_long}m) × 굴착폭(${B}m)`,
         formulaDetail: `차량 통행용 복공 전면적 산출`,
         quantity: deckAreaM2,
         contractUnitCost: this.DEFAULT_UNIT_COSTS.DECK_PLATE.contract,
@@ -662,7 +746,7 @@ export class DetailedCostEngine {
       });
 
       const deckBeamSpacing = decking.deckBeamSpacing || 2.0;
-      const numDeckBeams = Math.ceil(L_peri / deckBeamSpacing);
+      const numDeckBeams = Math.ceil(L_long / deckBeamSpacing);
       const deckBeamOpt = DECK_BEAM_DATABASE.find(db => db.spec === decking.deckBeamSpec) || DECK_BEAM_DATABASE[0];
       const deckBeamWeightTon = Number(((numDeckBeams * B * deckBeamOpt.weight) / 1000.0).toFixed(2));
 
@@ -674,8 +758,8 @@ export class DetailedCostEngine {
         name: '복공 주형보(Deck Girder) 손료 & 거치',
         spec: `${decking.deckBeamSpec || 'H-400x400x13x21'} (@ ${deckBeamSpacing}m)`,
         unit: 'ton',
-        formula: `본수(${numDeckBeams}본) x 굴착폭(${B}m) x 단위중량(${deckBeamOpt.weight}kg/m)`,
-        formulaDetail: `연장 ${L_peri}m / 간격 ${deckBeamSpacing}m = ${numDeckBeams}본`,
+        formula: `본수(${numDeckBeams}본) × 굴착폭(${B}m) × 단위중량(${deckBeamOpt.weight}kg/m) ÷ 1,000`,
+        formulaDetail: `종방향 ${L_long}m ÷ 간격 ${deckBeamSpacing}m = ${numDeckBeams}본`,
         quantity: deckBeamWeightTon,
         contractUnitCost: this.DEFAULT_UNIT_COSTS.DECK_BEAM_RENTAL.contract,
         executionUnitCost: this.DEFAULT_UNIT_COSTS.DECK_BEAM_RENTAL.execution,
@@ -706,18 +790,16 @@ export class DetailedCostEngine {
     // ==========================================
     // 9. 보강재 및 중간말뚝 (2-1-2-8)
     // ==========================================
-    // ==========================================
-    // 9. 보강재 및 중간말뚝 (2-1-2-8)
-    // ==========================================
     const hasStrut = alt.type === 'ALL_ANCHOR' ? false : (alt.supports && alt.supports.some((s: any) => s.type === 'STRUT'));
-    // 버팀보 설치 시 굴착폭 B >= 10m이면 좌굴 방지를 위한 중간말뚝 및 수평/수직 가새 필수 설치 (지반공학/가설표준시방서)
-    const requiresKingPost = hasStrut && (B >= 10.0 || inputs.deckingConfig?.useDecking);
+    // 합성사각강관(대안 4)은 초고강성 폐합단면으로 무중간말뚝 단일지간 (중간말뚝 및 가새 전량 삭제 0원)
+    const isCompositeStrutAlt = alt.type === 'COMPOSITE_STRUT';
+    const requiresKingPost = hasStrut && !isCompositeStrutAlt && (B >= 10.0 || inputs.deckingConfig?.useDecking);
     
     if (requiresKingPost) {
       const decking = inputs.deckingConfig;
       const kingSpacing = decking?.kingPostSpacing || 3.5;
       const numKingPostRows = B >= 25.0 ? 2 : 1; // 굴착폭 25m 이상 시 2열 중간말뚝
-      const numKingPosts = Math.ceil(L_peri / kingSpacing) * numKingPostRows;
+      const numKingPosts = Math.ceil(L_long / kingSpacing) * numKingPostRows;
       const kingTotalLenM = decking?.kingPostTotalLength || (H + 4.5); // 근입장 포함
       const kingWeightKg = 94.0; // H-300x300x10x15 (94.0 kg/m)
       const kingWeightTon = Number(((numKingPosts * kingTotalLenM * kingWeightKg) / 1000.0).toFixed(2));
@@ -730,7 +812,7 @@ export class DetailedCostEngine {
         name: '중간말뚝(King Post) 암반소켓 천공 & 거치',
         spec: `H-300x300x10x15 (L=${kingTotalLenM.toFixed(1)}m, ${numKingPosts}본)`,
         unit: 'm',
-        formula: `본수(${numKingPosts}본) x 길이(${kingTotalLenM.toFixed(1)}m)`,
+        formula: `본수(${numKingPosts}본) × 길이(${kingTotalLenM.toFixed(1)}m)`,
         formulaDetail: `굴착폭 ${B}m 버팀보 좌굴길이 구속용 중간말뚝 천공 및 거치`,
         quantity: numKingPosts * kingTotalLenM,
         contractUnitCost: this.DEFAULT_UNIT_COSTS.KING_POST_SOCKET_DRILL.contract,
@@ -766,7 +848,7 @@ export class DetailedCostEngine {
         name: '중간말뚝-스트럿 완전 강결 브라켓 & 스티프너 보강',
         spec: `Lk=단간격(2.7m) 구속용 강결 브라켓`,
         unit: '개소',
-        formula: `중간말뚝 x 버팀보 단수 (${numKingPosts * struts.length}개소)`,
+        formula: `중간말뚝(${numKingPosts}본) × 버팀보(${struts.length}단) = ${numKingPosts * struts.length}개소`,
         formulaDetail: `좌굴 억제 강결 체결`,
         quantity: numKingPosts * struts.length,
         contractUnitCost: this.DEFAULT_UNIT_COSTS.KING_POST_RIGID_JOINT.contract,

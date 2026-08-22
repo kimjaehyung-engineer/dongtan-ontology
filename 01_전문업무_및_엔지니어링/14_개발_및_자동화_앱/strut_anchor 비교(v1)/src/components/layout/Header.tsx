@@ -194,6 +194,18 @@ export const Header: React.FC<HeaderProps> = ({
             <PieChart className="w-3.5 h-3.5" />
             <span>3. 경제성 및 공기·LCC 분석</span>
           </button>
+
+          <button
+            onClick={() => setActiveTab('schedule4d')}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-md text-xs font-bold transition-all ${
+              activeTab === 'schedule4d'
+                ? 'bg-blue-600 text-white shadow-xs border border-blue-500 ring-2 ring-blue-200'
+                : 'text-slate-700 hover:text-blue-700 hover:bg-slate-200/60'
+            }`}
+          >
+            <Calendar className="w-3.5 h-3.5" />
+            <span>4. 공기 산정 (개착 vs 구조물)</span>
+          </button>
         </div>
 
         {/* 우측 프로젝트 상태 표시 */}

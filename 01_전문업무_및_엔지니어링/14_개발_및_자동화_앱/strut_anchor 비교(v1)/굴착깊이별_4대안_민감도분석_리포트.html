@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>굴착깊이별(10m~50m) 4대 가시설 지지공법 민감도 및 VE 통계분석 리포트</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap');
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; }
+    .card-shadow { box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen p-4 md:p-8">
+  <div class="max-w-7xl mx-auto space-y-6">
+
+    <!-- 상단 헤더 배너 (프리미엄 로열블루 그라데이션) -->
+    <header class="bg-gradient-to-r from-slate-900 via-indigo-900 to-blue-900 text-white rounded-2xl p-6 md:p-8 shadow-xl flex flex-wrap justify-between items-center gap-6">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 bg-white/15 text-blue-200 border border-white/20 rounded-full text-xs font-extrabold tracking-wider uppercase backdrop-blur-sm">
+            <i class="fa-solid fa-chart-line mr-1 text-sky-400"></i> Parametric Sensitivity Analysis
+          </span>
+          <span class="px-3 py-1 bg-emerald-400 text-slate-950 rounded-full text-xs font-black shadow-sm">
+            H = 10m ~ 50m 전구간
+          </span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-black text-white tracking-tight">
+          굴착깊이에 따른 4대 가시설 지지공법 경제성·LCC·공기 민감도 통계분석
+        </h1>
+        <p class="text-sm text-slate-200/90 font-medium">
+          벽체연장 L=120m, 굴착폭 B=25m 표준 복합지반 조건 기준 탄소성 FEM 역학 및 공사비/일정 엔진 심층 시뮬레이션
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="window.print()" class="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold flex items-center gap-2 border border-white/20 shadow-sm transition backdrop-blur-sm">
+          <i class="fa-solid fa-print"></i> 보고서 인쇄 / PDF 저장
+        </button>
+      </div>
+    </header>
+
+    <!-- 4대안 핵심 요약 카드 (밝은 화이트 & 포인트 컬러) -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 card-shadow hover:border-amber-400 transition">
+        <div class="flex justify-between items-center text-xs font-bold text-slate-500">
+          <span>대안 1</span>
+          <span class="px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded text-[10px]">재래식 Strut</span>
+        </div>
+        <div class="text-lg font-black text-slate-900 mt-1.5">강관 + 중간말뚝</div>
+        <div class="text-xs text-slate-600 mt-3 space-y-1.5 pt-2 border-t border-slate-100">
+          <div class="flex items-center gap-1.5">• 3.5m 간격 배치</div>
+          <div class="flex items-center gap-1.5">• 중간말뚝 좌굴/간섭 과다</div>
+          <div class="text-rose-600 font-bold flex items-center gap-1.5">• 대심도 공기/LCC 최하위</div>
+        </div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 card-shadow hover:border-sky-400 transition">
+        <div class="flex justify-between items-center text-xs font-bold text-slate-500">
+          <span>대안 2</span>
+          <span class="px-2 py-0.5 bg-sky-50 text-sky-700 border border-sky-200 rounded text-[10px]">All-Anchor</span>
+        </div>
+        <div class="text-lg font-black text-slate-900 mt-1.5">55° 고각 어스앵커</div>
+        <div class="text-xs text-slate-600 mt-3 space-y-1.5 pt-2 border-t border-slate-100">
+          <div class="flex items-center gap-1.5">• 100% 개방 굴착공간</div>
+          <div class="flex items-center gap-1.5">• 저심도 빠른 공기</div>
+          <div class="text-amber-600 font-bold flex items-center gap-1.5">• 40m 이상 천공비 폭증</div>
+        </div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 card-shadow hover:border-indigo-400 transition">
+        <div class="flex justify-between items-center text-xs font-bold text-slate-500">
+          <span>대안 3</span>
+          <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded text-[10px]">Hybrid 복합</span>
+        </div>
+        <div class="text-lg font-black text-slate-900 mt-1.5">상부앵커 + 하부버팀보</div>
+        <div class="text-xs text-slate-600 mt-3 space-y-1.5 pt-2 border-t border-slate-100">
+          <div class="flex items-center gap-1.5">• 상부 작업성 + 하부 지지력</div>
+          <div class="flex items-center gap-1.5">• 중·대심도 안정적 2위</div>
+          <div class="text-slate-500 font-bold flex items-center gap-1.5">• 시공 인터페이스 관리 필요</div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-emerald-50/90 via-white to-teal-50/50 border-2 border-emerald-500 rounded-2xl p-5 card-shadow relative overflow-hidden">
+        <div class="flex justify-between items-center text-xs font-bold text-emerald-800">
+          <span>대안 4 (최적안)</span>
+          <span class="px-2 py-0.5 bg-emerald-600 text-white font-black rounded text-[10px] shadow-xs">👑 전구간 1위</span>
+        </div>
+        <div class="text-lg font-black text-emerald-950 mt-1.5">합성사각 4-Box</div>
+        <div class="text-xs text-emerald-900 mt-3 space-y-1.5 pt-2 border-t border-emerald-200/60">
+          <div class="flex items-center gap-1.5">• 5.0m 광폭 지간 (부재 50% 절감)</div>
+          <div class="flex items-center gap-1.5">• 중간말뚝 0원 + 최단 공기</div>
+          <div class="text-emerald-700 font-black flex items-center gap-1.5">• 10m~50m 전구간 압도적 VE 1위</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 인터랙티브 차트 그리드 (화이트 배경 & 부드러운 그리드) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- 1. 직접 공사비 추세 차트 -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 card-shadow space-y-3">
+        <div class="flex justify-between items-center">
+          <h3 class="text-sm md:text-base font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-coins text-amber-500"></i> 1. 굴착깊이별 직접 공사비 추세 (억원)
+          </h3>
+          <span class="text-xs text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md font-medium">VAT 별도 기준</span>
+        </div>
+        <div class="h-72">
+          <canvas id="costChart"></canvas>
+        </div>
+        <p class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200/70 leading-relaxed">
+          💡 <b class="text-emerald-700">합성사각강관(대안4)</b>은 무중간말뚝 및 5.0m 광폭화로 50m 대심도에서도 54.5억으로 가장 경제적이며, <b class="text-sky-700">All-Anchor(대안2)</b>는 40m 초과 시 천공장 누적으로 91.2억까지 급증합니다.
+        </p>
+      </div>
+
+      <!-- 2. LCC 생애주기비용 추세 차트 -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 card-shadow space-y-3">
+        <div class="flex justify-between items-center">
+          <h3 class="text-sm md:text-base font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-emerald-600"></i> 2. LCC 생애주기 총비용 추세 (억원)
+          </h3>
+          <span class="text-xs text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md font-medium">리스크/간접비 포함</span>
+        </div>
+        <div class="h-72">
+          <canvas id="lccChart"></canvas>
+        </div>
+        <p class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200/70 leading-relaxed">
+          💡 <b class="text-amber-700">재래식 버팀보(대안1)</b>는 대심도에서 중간말뚝 좌굴 및 가새 리스크 비용이 늘어나 LCC가 가파르게 상승합니다.
+        </p>
+      </div>
+
+      <!-- 3. 총 공기 (Schedule) 비교 차트 -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 card-shadow space-y-3">
+        <div class="flex justify-between items-center">
+          <h3 class="text-sm md:text-base font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-stopwatch text-indigo-600"></i> 3. 총 공사기간 비교 (개월)
+          </h3>
+          <span class="text-xs text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md font-medium">가설~굴착~해체</span>
+        </div>
+        <div class="h-72">
+          <canvas id="scheduleChart"></canvas>
+        </div>
+        <p class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200/70 leading-relaxed">
+          💡 <b class="text-emerald-700">대안4(합성사각)</b>와 <b class="text-sky-700">대안2(앵커)</b>가 중간말뚝 간섭 없는 고속 굴착으로 최단 공기를 달성하며, 대안1(재래식) 대비 50m 기준 <b>7.7개월(40%) 단축</b>됩니다.
+        </p>
+      </div>
+
+      <!-- 4. 종합 VE 점수 추세 차트 -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 card-shadow space-y-3">
+        <div class="flex justify-between items-center">
+          <h3 class="text-sm md:text-base font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-trophy text-amber-500"></i> 4. VE 가치공학 종합 점수 추세 (100점 만점)
+          </h3>
+          <span class="text-xs text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md font-medium">비용40+LCC20+공기25+안전15</span>
+        </div>
+        <div class="h-72">
+          <canvas id="scoreChart"></canvas>
+        </div>
+        <p class="text-xs text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200/70 leading-relaxed">
+          💡 <b class="text-emerald-700">대안 4(합성사각강관)</b>가 10m~50m 전 심도에서 95.0점 만점권으로 확고한 <b>1위(최적안)</b>를 유지합니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 심도별 정밀 데이터 테이블 (클린 화이트 & 가독성 극대화) -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 card-shadow space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-table text-indigo-600"></i> 굴착깊이별 4대안 시뮬레이션 정밀 데이터표
+        </h3>
+        <span class="text-xs bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full border border-indigo-200 font-bold">
+          단위: 억원 / 개월 / 점수
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+              <th class="p-3.5 font-bold">굴착깊이 (H)</th>
+              <th class="p-3.5 font-bold">지보단수</th>
+              <th class="p-3.5 text-amber-800 font-bold">대안 1: 재래식 Strut<br><span class="text-[10px] font-normal text-slate-500">(공사비 / LCC / 공기)</span></th>
+              <th class="p-3.5 text-sky-800 font-bold">대안 2: All-Anchor<br><span class="text-[10px] font-normal text-slate-500">(공사비 / LCC / 공기)</span></th>
+              <th class="p-3.5 text-indigo-800 font-bold">대안 3: Hybrid 복합<br><span class="text-[10px] font-normal text-slate-500">(공사비 / LCC / 공기)</span></th>
+              <th class="p-3.5 text-emerald-900 bg-emerald-100/60 font-black">대안 4: 합성사각강관 (1위)<br><span class="text-[10px] font-normal text-emerald-700">(공사비 / LCC / 공기)</span></th>
+              <th class="p-3.5 text-center font-bold">최적 추천안</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody" class="divide-y divide-slate-100 text-slate-700 font-mono">
+            <!-- JS 동적 생성 -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 엔지니어링 결정 가이드 (라이트 테마 카드) -->
+    <div class="bg-gradient-to-r from-blue-50 via-indigo-50/50 to-slate-50 border border-indigo-200 rounded-2xl p-6 card-shadow space-y-4">
+      <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+        <i class="fa-solid fa-compass-drafting text-indigo-600"></i> 심도 구간별 가시설 최적 지지공법 선정 엔지니어링 가이드
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="bg-white p-4.5 rounded-xl border border-slate-200 shadow-xs space-y-2">
+          <div class="font-bold text-sky-700 flex items-center gap-1.5 text-sm">
+            <i class="fa-solid fa-layer-group"></i> 저심도 구간 (H = 10m ~ 18m)
+          </div>
+          <p class="text-slate-600 leading-relaxed font-sans">
+            • <b>추천안</b>: <span class="text-emerald-700 font-bold">대안 4(합성사각)</span> 또는 <span class="text-indigo-700 font-bold">대안 3(Hybrid)</span><br>
+            • 부재 단수가 적어 공사비 차이는 2~3억 수준이나, 상부 작업공간 개방성이 굴착 속도와 기초공사 착공 시점을 1~2개월 앞당김.
+          </p>
+        </div>
+        <div class="bg-white p-4.5 rounded-xl border border-slate-200 shadow-xs space-y-2">
+          <div class="font-bold text-indigo-700 flex items-center gap-1.5 text-sm">
+            <i class="fa-solid fa-layer-group"></i> 중심도 구간 (H = 18m ~ 30m)
+          </div>
+          <p class="text-slate-600 leading-relaxed font-sans">
+            • <b>추천안</b>: <span class="text-emerald-700 font-bold">대안 4(합성사각 450형)</span><br>
+            • 재래식 버팀보(대안1)는 중간말뚝 좌굴 문제로 시공비가 가파르게 상승함. 앵커는 부지경계 침범 및 민원 리스크가 시작되므로 <b>무중간말뚝 합성사각강관이 최적</b>.
+          </p>
+        </div>
+        <div class="bg-white p-4.5 rounded-xl border border-slate-200 shadow-xs space-y-2">
+          <div class="font-bold text-amber-700 flex items-center gap-1.5 text-sm">
+            <i class="fa-solid fa-layer-group"></i> 대심도~초대심도 (H = 30m ~ 50m)
+          </div>
+          <p class="text-slate-600 leading-relaxed font-sans">
+            • <b>추천안</b>: <span class="text-emerald-700 font-bold">대안 4(합성사각 500형)</span><br>
+            • 40m 이상에서는 앵커 천공비(91억)와 재래식 가새비용(68억)이 감당 불가능해짐. <b>5.0m 광폭 합성사각강관(54.5억)이 안전성과 경제성을 독보적으로 충족</b>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const data = [
+      { H: 10, tiers: 4, cost: [12.39, 14.48, 13.24, 10.31], lcc: [13.48, 15.96, 14.42, 10.91], months: [5.4, 3.4, 4.3, 3.3], scores: [67.5, 69.6, 71.4, 95.0] },
+      { H: 15, tiers: 5, cost: [16.56, 19.75, 18.30, 13.91], lcc: [18.27, 21.95, 20.04, 14.75], months: [6.8, 4.2, 5.3, 4.1], scores: [68.3, 69.7, 70.7, 95.0] },
+      { H: 20, tiers: 7, cost: [25.10, 30.60, 28.00, 21.57], lcc: [27.94, 34.23, 30.77, 22.82], months: [8.6, 5.3, 6.7, 5.1], scores: [69.4, 69.6, 71.4, 95.0] },
+      { H: 25, tiers: 9, cost: [34.38, 39.96, 37.16, 27.21], lcc: [38.73, 45.13, 41.10, 28.91], months: [10.4, 6.4, 8.1, 6.2], scores: [66.1, 69.6, 70.1, 95.0] },
+      { H: 30, tiers: 11, cost: [41.59, 49.85, 45.69, 32.89], lcc: [47.55, 56.83, 50.94, 35.08], months: [12.2, 7.5, 9.5, 7.3], scores: [67.0, 69.7, 70.6, 95.0] },
+      { H: 35, tiers: 12, cost: [47.23, 57.48, 51.87, 37.48], lcc: [54.82, 66.18, 58.31, 40.14], months: [13.6, 8.3, 10.5, 8.1], scores: [67.4, 69.7, 71.4, 95.0] },
+      { H: 40, tiers: 14, cost: [54.41, 68.22, 60.76, 43.13], lcc: [64.09, 79.31, 68.87, 46.39], months: [15.4, 9.4, 11.9, 9.2], scores: [68.2, 69.8, 71.8, 95.0] },
+      { H: 45, tiers: 16, cost: [61.59, 79.47, 69.91, 48.78], lcc: [73.63, 93.29, 79.89, 52.70], months: [17.2, 10.5, 13.3, 10.3], scores: [68.8, 69.8, 72.0, 95.0] },
+      { H: 50, tiers: 18, cost: [68.80, 91.24, 79.33, 54.45], lcc: [83.46, 108.14, 91.41, 59.07], months: [19.0, 11.6, 14.7, 11.3], scores: [69.3, 69.7, 72.2, 95.0] }
+    ];
+
+    const labels = data.map(d => `${d.H}m`);
+
+    // 테이블 렌더링
+    const tbody = document.getElementById('tableBody');
+    data.forEach(d => {
+      const tr = document.createElement('tr');
+      tr.className = 'hover:bg-slate-50 transition border-b border-slate-100';
+      tr.innerHTML = `
+        <td class="p-3.5 font-bold text-slate-900">${d.H}m</td>
+        <td class="p-3.5 text-slate-500 font-medium">${d.tiers}단</td>
+        <td class="p-3.5 text-amber-700 font-semibold">${d.cost[0]}억 / ${d.lcc[0]}억 / ${d.months[0]}월</td>
+        <td class="p-3.5 text-sky-700 font-semibold">${d.cost[1]}억 / ${d.lcc[1]}억 / ${d.months[1]}월</td>
+        <td class="p-3.5 text-indigo-700 font-semibold">${d.cost[2]}억 / ${d.lcc[2]}억 / ${d.months[2]}월</td>
+        <td class="p-3.5 text-emerald-800 bg-emerald-50/80 font-black">${d.cost[3]}억 / ${d.lcc[3]}억 / ${d.months[3]}월</td>
+        <td class="p-3.5 text-center">
+          <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-lg text-[11px] font-bold shadow-2xs">
+            🥇 대안 4 (${d.scores[3]}점)
+          </span>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    const chartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#334155', font: { family: 'Pretendard', size: 11, weight: '600' } } },
+        tooltip: {
+          backgroundColor: 'rgba(15, 23, 42, 0.9)',
+          titleFont: { family: 'Pretendard', size: 12, weight: 'bold' },
+          bodyFont: { family: 'Pretendard', size: 11 },
+          padding: 10,
+          cornerRadius: 8
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(0, 0, 0, 0.05)' }, ticks: { color: '#64748b', font: { family: 'Pretendard', weight: '500' } } },
+        y: { grid: { color: 'rgba(0, 0, 0, 0.05)' }, ticks: { color: '#64748b', font: { family: 'Pretendard', weight: '500' } } }
+      }
+    };
+
+    // 1. 공사비 차트
+    new Chart(document.getElementById('costChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: '대안 1: 재래식 Strut', data: data.map(d => d.cost[0]), borderColor: '#d97706', backgroundColor: '#d97706', tension: 0.2, pointRadius: 4 },
+          { label: '대안 2: All-Anchor (55°)', data: data.map(d => d.cost[1]), borderColor: '#0284c7', backgroundColor: '#0284c7', tension: 0.2, pointRadius: 4 },
+          { label: '대안 3: Hybrid 복합', data: data.map(d => d.cost[2]), borderColor: '#6366f1', backgroundColor: '#6366f1', tension: 0.2, pointRadius: 4 },
+          { label: '대안 4: 합성사각강관 (1위)', data: data.map(d => d.cost[3]), borderColor: '#059669', backgroundColor: '#059669', borderWidth: 3.5, tension: 0.2, pointRadius: 5 }
+        ]
+      },
+      options: chartOptions
+    });
+
+    // 2. LCC 차트
+    new Chart(document.getElementById('lccChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: '대안 1: 재래식 Strut', data: data.map(d => d.lcc[0]), borderColor: '#d97706', backgroundColor: '#d97706', tension: 0.2, pointRadius: 4 },
+          { label: '대안 2: All-Anchor (55°)', data: data.map(d => d.lcc[1]), borderColor: '#0284c7', backgroundColor: '#0284c7', tension: 0.2, pointRadius: 4 },
+          { label: '대안 3: Hybrid 복합', data: data.map(d => d.lcc[2]), borderColor: '#6366f1', backgroundColor: '#6366f1', tension: 0.2, pointRadius: 4 },
+          { label: '대안 4: 합성사각강관 (1위)', data: data.map(d => d.lcc[3]), borderColor: '#059669', backgroundColor: '#059669', borderWidth: 3.5, tension: 0.2, pointRadius: 5 }
+        ]
+      },
+      options: chartOptions
+    });
+
+    // 3. 공기 차트
+    new Chart(document.getElementById('scheduleChart'), {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          { label: '대안 1: 재래식 Strut', data: data.map(d => d.months[0]), backgroundColor: 'rgba(217, 119, 6, 0.85)', borderRadius: 4 },
+          { label: '대안 2: All-Anchor (55°)', data: data.map(d => d.months[1]), backgroundColor: 'rgba(2, 132, 199, 0.85)', borderRadius: 4 },
+          { label: '대안 3: Hybrid 복합', data: data.map(d => d.months[2]), backgroundColor: 'rgba(99, 102, 241, 0.85)', borderRadius: 4 },
+          { label: '대안 4: 합성사각강관 (1위)', data: data.map(d => d.months[3]), backgroundColor: 'rgba(5, 150, 105, 0.95)', borderRadius: 4 }
+        ]
+      },
+      options: chartOptions
+    });
+
+    // 4. VE 점수 차트
+    new Chart(document.getElementById('scoreChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          { label: '대안 1: 재래식 Strut', data: data.map(d => d.scores[0]), borderColor: '#d97706', backgroundColor: '#d97706', borderDash: [4, 4], tension: 0.2 },
+          { label: '대안 2: All-Anchor (55°)', data: data.map(d => d.scores[1]), borderColor: '#0284c7', backgroundColor: '#0284c7', borderDash: [4, 4], tension: 0.2 },
+          { label: '대안 3: Hybrid 복합', data: data.map(d => d.scores[2]), borderColor: '#6366f1', backgroundColor: '#6366f1', borderDash: [4, 4], tension: 0.2 },
+          { label: '대안 4: 합성사각강관 (1위)', data: data.map(d => d.scores[3]), borderColor: '#059669', backgroundColor: '#059669', borderWidth: 3.5, tension: 0.2, pointRadius: 5 }
+        ]
+      },
+      options: chartOptions
+    });
+  </script>
+</body>
+</html>

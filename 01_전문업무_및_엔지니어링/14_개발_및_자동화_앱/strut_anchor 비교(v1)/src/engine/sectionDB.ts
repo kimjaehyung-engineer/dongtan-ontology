@@ -16,7 +16,10 @@ export const STRUT_DATABASE: StrutSectionProp[] = [
   { spec: '강관 Φ508.0x9.0t', type: 'PIPE', diameterOrH: 508.0, thickness: 9.0, weight: 110.8, A: 141.1, Ix: 44000, rx: 17.6, allowCompressCapacity: 1250 },
   { spec: 'H-350x350x12x19 (Strut)', type: 'H_BEAM', diameterOrH: 350, thickness: 19, weight: 137.0, A: 173.9, Ix: 40300, rx: 15.2, allowCompressCapacity: 1480 },
   { spec: '강관 Φ508.0x12.0t', type: 'PIPE', diameterOrH: 508.0, thickness: 12.0, weight: 146.8, A: 187.0, Ix: 57200, rx: 17.5, allowCompressCapacity: 1680 },
+  { spec: '합성사각 4-Box 400형', type: 'COMPOSITE_SQUARE', diameterOrH: 400.0, thickness: 9.0, weight: 108.0, A: 137.6, Ix: 42500, rx: 17.6, allowCompressCapacity: 2050 },
+  { spec: '합성사각 4-Box 450형', type: 'COMPOSITE_SQUARE', diameterOrH: 450.0, thickness: 12.0, weight: 125.0, A: 159.2, Ix: 62800, rx: 19.9, allowCompressCapacity: 2620 },
   { spec: '강관 Φ609.6x12.0t', type: 'PIPE', diameterOrH: 609.6, thickness: 12.0, weight: 176.8, A: 225.3, Ix: 101000, rx: 21.2, allowCompressCapacity: 2250 },
+  { spec: '합성사각 4-Box 500형', type: 'COMPOSITE_SQUARE', diameterOrH: 500.0, thickness: 14.0, weight: 145.0, A: 184.7, Ix: 88600, rx: 21.9, allowCompressCapacity: 3180 },
   { spec: '강관 Φ711.2x14.0t', type: 'PIPE', diameterOrH: 711.2, thickness: 14.0, weight: 240.7, A: 306.6, Ix: 187000, rx: 24.7, allowCompressCapacity: 3100 },
   { spec: '강관 Φ812.8x14.0t', type: 'PIPE', diameterOrH: 812.8, thickness: 14.0, weight: 275.8, A: 351.3, Ix: 280000, rx: 28.2, allowCompressCapacity: 3800 },
   { spec: '강관 Φ812.8x16.0t', type: 'PIPE', diameterOrH: 812.8, thickness: 16.0, weight: 314.4, A: 400.5, Ix: 318000, rx: 28.1, allowCompressCapacity: 4300 },
@@ -35,6 +38,8 @@ export const WALE_DATABASE: WaleSectionProp[] = [
   { spec: '2-H 300x300x10x15', hSpec: 'H-300x300x10x15', numBeams: 2, totalZx: 2720, totalIx: 40800, weight: 188.0 },
   { spec: '2-H 350x350x12x19', hSpec: 'H-350x350x12x19', numBeams: 2, totalZx: 4600, totalIx: 80600, weight: 274.0 },
   { spec: '2-H 400x400x13x21', hSpec: 'H-400x400x13x21', numBeams: 2, totalZx: 6660, totalIx: 133200, weight: 344.0 },
+  { spec: '2-H 400x400x13x21 (SM355)', hSpec: 'H-400x400x13x21', numBeams: 2, totalZx: 6660, totalIx: 133200, weight: 344.0 },
+  { spec: '2-H 428x407x20x35', hSpec: 'H-428x407x20x35', numBeams: 2, totalZx: 10600, totalIx: 212000, weight: 566.0 },
 ];
 
 // 4. 주형보(Deck Beam) 표준 단면 DB (교통하중 지지 거더)
@@ -45,10 +50,19 @@ export const DECK_BEAM_DATABASE = [
   { spec: 'H-300x300x10x15', H: 300, B: 300, weight: 94.0, Zx: 1360, Ix: 20400, allowBendingCapacity: 190 },
 ];
 
-// 5. 토류판 DB
+// 5. 토류판 DB (목재, 강재, 숏크리트)
 export const LAGGING_DATABASE = [
-  { name: '낙엽송 목재 토류판 (t=6.0cm)', thickness: 60, allowStress: 10.0 },
-  { name: '낙엽송 목재 토류판 (t=8.0cm)', thickness: 80, allowStress: 10.0 },
-  { name: '낙엽송 목재 토류판 (t=10.0cm)', thickness: 100, allowStress: 10.0 },
-  { name: '숏크리트 + 와이어메쉬 (t=15.0cm)', thickness: 150, allowStress: 15.0 },
+  // 목재 토류판 (낙엽송)
+  { name: '낙엽송 목재 토류판 (t=6.0cm)', thickness: 60, allowStress: 10.0, type: 'WOOD' },
+  { name: '낙엽송 목재 토류판 (t=8.0cm)', thickness: 80, allowStress: 10.0, type: 'WOOD' },
+  { name: '낙엽송 목재 토류판 (t=10.0cm)', thickness: 100, allowStress: 10.0, type: 'WOOD' },
+
+  // 강재 토류판 (Steel Lagging / 라이닝 플레이트)
+  { name: '강재 토류판 절곡형 (t=6.0mm, SS275)', thickness: 6, allowStress: 210.0, type: 'STEEL', weight: 47.1 },
+  { name: '강재 토류판 절곡형 (t=8.0mm, SS275)', thickness: 8, allowStress: 210.0, type: 'STEEL', weight: 62.8 },
+  { name: '강재 라이닝 플레이트 (t=10.0mm, SS275)', thickness: 10, allowStress: 210.0, type: 'STEEL', weight: 78.5 },
+  { name: '강재 토류판 절곡형 (t=8.0mm, 아연도금 방청)', thickness: 8, allowStress: 210.0, type: 'STEEL', weight: 64.5 },
+
+  // 숏크리트 라이닝
+  { name: '숏크리트 + 와이어메쉬 (t=15.0cm)', thickness: 150, allowStress: 15.0, type: 'SHOTCRETE' },
 ];

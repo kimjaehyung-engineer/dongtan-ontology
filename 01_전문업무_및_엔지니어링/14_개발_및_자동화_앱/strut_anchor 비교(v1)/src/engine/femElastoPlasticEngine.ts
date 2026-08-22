@@ -258,12 +258,13 @@ export class FEMElastoPlasticEngine {
         const waleSpan = sup.horizSpacing;
         const waleMoment = (totalHorizRxnPerM * Math.pow(waleSpan, 2)) / 10.0;
         const waleOpt = WALE_DATABASE.find(w => w.spec === sup.waleSpec) || WALE_DATABASE[0];
-        const allowWaleStress = waleOpt.spec.includes('SM355') ? 240.0 : 210.0; // 가시설 단기허용휨응력 (MPa)
+        const allowWaleStress = waleOpt.spec.includes('SM355') ? 265.0 : 210.0; // KDS 21 30 00 가시설 단기허용휨응력 (SS275: 210MPa, SM355: 265MPa)
         const waleStress = (waleMoment * 1e6) / (waleOpt.totalZx * 1e3); // MPa
         const waleStressRatio = Number((waleStress / allowWaleStress).toFixed(2));
 
         let allowCap = sup.allowableCapacity;
-        if (sup.type === 'STRUT') {
+        const isStrutLike = sup.type === 'STRUT' || (sup.type as any) === 'COMPOSITE_STRUT';
+        if (isStrutLike) {
           const stOpt = STRUT_DATABASE.find(st => st.spec === (sup.strutSpec || sup.specName));
           if (stOpt) allowCap = stOpt.allowCompressCapacity;
         }
@@ -395,7 +396,7 @@ export class AlternativeEvaluator {
     const { soils, wall, excavationDepth, excavationWidth, totalWallPerimeter } = inputs;
 
     // 대표 버팀보/띠장 사양
-    const defaultStrut = inputs.supports.find(s => s.type === 'STRUT') || inputs.supports[0];
+    const defaultStrut = inputs.supports.find(s => s.type === 'STRUT' || (s.type as any) === 'COMPOSITE_STRUT') || inputs.supports[0];
     const userStrutSpec = defaultStrut?.strutSpec || defaultStrut?.specName || '강관 Φ508.0x9.0t';
     const userStrutSpacing = defaultStrut?.horizSpacing || 3.5;
     const userWaleSpec = defaultStrut?.waleSpec || '2-H 300x300x10x15';
@@ -488,10 +489,33 @@ export class AlternativeEvaluator {
       };
     });
 
+    // 4. 대안 4: 합성사각강관 버팀보 (Composite Square Tube Strut, 4-Box 450형/500형, 사용자 지정 광폭 수평간격 연동)
+    const compStrutSpecName = userStrutSpec.includes('사각') ? userStrutSpec : '합성사각 4-Box 450형';
+    const compStrutOpt = STRUT_DATABASE.find(s => s.spec === compStrutSpecName) || STRUT_DATABASE[6];
+    const compStrutSpacing = userStrutSpacing || 5.0; // 사용자 변경 수평간격 (1.0m ~ 8.0m) 100% 실시간 연동
+
+    const compStrutSups: SupportStage[] = tierSpacings.map((depth, idx) => ({
+      id: `comp-strut-${idx}`,
+      stageIndex: idx + 1,
+      type: 'COMPOSITE_STRUT' as any,
+      depth,
+      angle: 0,
+      horizSpacing: compStrutSpacing, // 광폭 1.0m ~ 8.0m 동적 연동
+      preload: 120 + idx * 25,
+      springStiffness: 65000, // 고강성 합성단면 축강성
+      freeLength: 0,
+      bondLength: 0,
+      allowableCapacity: compStrutOpt.allowCompressCapacity,
+      specName: `${compStrutOpt.spec} (@${compStrutSpacing.toFixed(1)}m)`,
+      strutSpec: compStrutOpt.spec,
+      waleSpec: inputs.excavationDepth >= 25 ? '2-H 428x407x20x35' : '2-H 400x400x13x21 (SM355)' // 광폭 지지용 대형/고강도 보강 띠장
+    }));
+
     const alts: AlternativeSpec[] = [
       this.evaluateSingleAlt(1, '대안 1: 버팀보 (All-Strut) 공법', 'ALL_STRUT', `전단 ${userStrutSpec} 버팀보 (간격 ${userStrutSpacing}m) 및 띠장 ${userWaleSpec} 적용`, soils, wall, strutSups, inputs),
       this.evaluateSingleAlt(2, `대안 2: 고각 앵커 (All-Anchor ${userAnchorAngle}°) 공법`, 'ALL_ANCHOR', `전단 고각 어스앵커 (${userAnchorAngle}°) 로 부지경계 침범 방지 및 100% 개방 굴착`, soils, wall, anchorSups, inputs),
       this.evaluateSingleAlt(3, `대안 3: 복합공법 (상부 고각앵커 ${userAnchorAngle}° + 하부 스트러트)`, 'HYBRID', `상부 고각 앵커(${userAnchorAngle}°)로 작업공간 확보 및 하부 스트러트로 암반층 결합`, soils, wall, hybridSups, inputs),
+      this.evaluateSingleAlt(4, '대안 4: 합성사각강관 버팀보 공법', 'COMPOSITE_STRUT', '4-Box 450형 합성사각강관(@5.0m 광폭) 적용으로 중간말뚝 및 가새 전량 삭제(무중간말뚝 장지간)', soils, wall, compStrutSups, inputs),
     ];
 
     // 공기 산정 엔진(ConstructionScheduleEngine)과 100% 동기화
@@ -560,7 +584,7 @@ export class AlternativeEvaluator {
   private static evaluateSingleAlt(
     id: number,
     name: string,
-    type: 'ALL_STRUT' | 'ALL_ANCHOR' | 'HYBRID' | 'OPTIMIZED',
+    type: 'ALL_STRUT' | 'ALL_ANCHOR' | 'HYBRID' | 'OPTIMIZED' | 'COMPOSITE_STRUT',
     description: string,
     soils: SoilLayer[],
     wall: WallSection,
@@ -645,6 +669,11 @@ export class AlternativeEvaluator {
       boundaryRiskScore = 88;
       constructabilityScore = 88;
       periodDays = 46;
+    } else if (type === 'COMPOSITE_STRUT') {
+      workSpaceScore = 82;
+      boundaryRiskScore = 100;
+      constructabilityScore = 90;
+      periodDays = 40;
     } else {
       workSpaceScore = 88;
       boundaryRiskScore = 90;
@@ -702,7 +731,7 @@ export class AlternativeEvaluator {
     inputs?: ProjectInputs,
     id: number = 1,
     name: string = '대안',
-    type: 'ALL_STRUT' | 'ALL_ANCHOR' | 'HYBRID' | 'OPTIMIZED' = 'ALL_STRUT'
+    type: 'ALL_STRUT' | 'ALL_ANCHOR' | 'HYBRID' | 'OPTIMIZED' | 'COMPOSITE_STRUT' = 'ALL_STRUT'
   ): { costBreakdown: CostItem[]; totalCostWon: number; costPerM: number } {
     // DetailedCostEngine을 단일 진실 공급원(Single Source of Truth)으로 사용하여
     // 메인 화면, 비교 매트릭스, 차트, A4 기술보고서, 상세내역서 모달 등 모든 화면에서 100% 동일한 금액 보장
