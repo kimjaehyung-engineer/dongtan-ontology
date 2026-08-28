@@ -1,8 +1,14 @@
 import json
+from importlib import import_module
 import sys
-import os
-import pandas as pd
-from neo4j import GraphDatabase
+from pathlib import Path
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+runtime = import_module("dongtan_runtime")
 
 # ==========================================
 # 🌌 [DONGTAN TRAM] CLOUD GRAPH AGENT
@@ -10,38 +16,30 @@ from neo4j import GraphDatabase
 # 특징: 
 # 1. Memgraph Cloud(원격)와 직접 통신
 # 2. 로컬 데이터를 클라우드로 업로드 (--upload)
-# 3. 클라우드 데이터를 웹 앱(Ontology App)으로 동기화
+# 3. 클라우드 데이터를 재사용 가능한 JSON 파일로 내보내기
 # 4. 클라우드 서버에 Cypher 쿼리 직접 실행
 # ==========================================
 
-# 1. Memgraph Cloud 접속 정보
-URI = "bolt+ssc://3.70.13.61:7687"  # Memgraph Cloud (make_sheets_txt.py 기준)
-USER = "skjh0717@gmail.com"
-PASSWORD = "ssmg25rk$12#"
-
-# 2. 결과 저장 경로 (웹 앱 시각화용)
-# 이 경로를 업데이트하면 localhost:3000 에서 실행 중인 앱이 클라우드 데이터를 표시합니다.
-OUTPUT_PATH = r"c:\Users\sskjh\antigravity\04_자기계발_및_창작\mindmap-app\public\ontology.json"
-
-# 3. 로컬 데이터 소스 (업로드용)
-NODES_CSV = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\00_원본_데이터\rfp_nodes.csv"
-RELS_CSV = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\00_원본_데이터\rfp_relationships.csv"
-
 def run_cloud_agent(command=None, query=None):
-    print(f"--- [Cloud] Connecting to Memgraph Cloud ({URI}) ---")
-    driver = GraphDatabase.driver(URI, auth=(USER, PASSWORD))
+    config = runtime.load_cloud_database_config()
+    paths = runtime.load_project_paths()
+    pd = import_module("pandas")
+    GraphDatabase = import_module("neo4j").GraphDatabase
+
+    print(f"--- [Cloud] Connecting to Memgraph Cloud ({config.uri}) ---")
+    driver = GraphDatabase.driver(config.uri, **config.driver_kwargs())
     
     try:
         with driver.session() as session:
             # [기능 1] 로컬 데이터를 클라우드로 강제 업로드
             if command == "upload":
                 print(f"Action: Uploading local CSVs to Cloud...")
-                if not os.path.exists(NODES_CSV) or not os.path.exists(RELS_CSV):
-                    print(f"Error: CSV files not found at {NODES_CSV}")
+                if not paths.nodes_csv.exists() or not paths.relationships_csv.exists():
+                    print(f"Error: CSV files not found at {paths.nodes_csv}")
                     return
 
-                nodes_df = pd.read_csv(NODES_CSV)
-                rels_df = pd.read_csv(RELS_CSV)
+                nodes_df = pd.read_csv(paths.nodes_csv)
+                rels_df = pd.read_csv(paths.relationships_csv)
                 
                 print("Cleaning existing data in Cloud...")
                 session.run("MATCH (n) DETACH DELETE n")
@@ -71,8 +69,8 @@ def run_cloud_agent(command=None, query=None):
                 else:
                     print("Query executed (no records returned).")
 
-            # [기능 3] 클라우드 데이터를 웹 앱용 JSON으로 동기화 (기본 동작)
-            print("Action: Syncing Cloud Graph to Web Visualization App...")
+            # [기능 3] 클라우드 데이터를 JSON으로 내보내기 (기본 동작)
+            print(f"Action: Exporting Cloud Graph to {paths.ontology_output}...")
             result = session.run("""
                 MATCH (s)-[p]->(o)
                 RETURN 
@@ -89,11 +87,11 @@ def run_cloud_agent(command=None, query=None):
                     "object": record["object"]
                 })
 
-            os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
-            with open(OUTPUT_PATH, 'w', encoding='utf-8') as f:
+            paths.ontology_output.parent.mkdir(parents=True, exist_ok=True)
+            with paths.ontology_output.open('w', encoding='utf-8') as f:
                 json.dump(ontology_data, f, ensure_ascii=False, indent=2)
             
-            print(f"Successfully updated '{os.path.basename(OUTPUT_PATH)}' with {len(ontology_data)} cloud relationships.")
+            print(f"Successfully updated '{paths.ontology_output.name}' with {len(ontology_data)} cloud relationships.")
 
     except Exception as e:
         print(f"Cloud Agent Error: {e}")
@@ -101,7 +99,7 @@ def run_cloud_agent(command=None, query=None):
         driver.close()
         print("--- [Cloud] Connection Closed ---")
 
-if __name__ == "__main__":
+def main():
     # 사용법 안내
     if len(sys.argv) > 1:
         arg = sys.argv[1]
@@ -109,11 +107,19 @@ if __name__ == "__main__":
             run_cloud_agent(command="upload")
         elif arg == "--help" or arg == "-h":
             print("Usage:")
-            print("  python cloud_graph_agent.py           # Sync Cloud -> Web App")
+            print("  python cloud_graph_agent.py           # Export Cloud Graph to JSON")
             print("  python cloud_graph_agent.py --upload  # Local CSV -> Cloud")
             print("  python cloud_graph_agent.py \"MATCH (n) RETURN count(n)\" # Run Query on Cloud")
         else:
             run_cloud_agent(query=" ".join(sys.argv[1:]))
     else:
-        # 인자 없으면 기본적으로 클라우드 데이터를 가져와서 웹 앱 업데이트
+        # 인자 없으면 기본적으로 클라우드 데이터를 JSON으로 내보냅니다.
         run_cloud_agent()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except runtime.ConfigurationError as error:
+        print(f"Configuration error: {error}", file=sys.stderr)
+        raise SystemExit(2) from error

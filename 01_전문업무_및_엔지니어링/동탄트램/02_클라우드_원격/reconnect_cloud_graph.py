@@ -1,18 +1,21 @@
-import pandas as pd
-from neo4j import GraphDatabase
+from importlib import import_module
+from pathlib import Path
+import sys
 
-# 클라우드 접속 정보
-URI = "bolt+ssc://3.70.13.61:7687"
-USER = "skjh0717@gmail.com"
-PASSWORD = "ssmg25rk$12#"
 
-# 로컬 파일 경로
-NODES_CSV = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\00_원본_데이터\rfp_nodes.csv"
-RELS_CSV = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\00_원본_데이터\rfp_relationships.csv"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+runtime = import_module("dongtan_runtime")
 
 def reconnect_graph():
+    config = runtime.load_cloud_database_config()
+    paths = runtime.load_project_paths()
+    pd = import_module("pandas")
+    GraphDatabase = import_module("neo4j").GraphDatabase
     print("--- [Cloud] Starting Knowledge Graph Reconnection ---")
-    driver = GraphDatabase.driver(URI, auth=(USER, PASSWORD))
+    driver = GraphDatabase.driver(config.uri, **config.driver_kwargs())
     
     try:
         with driver.session() as session:
@@ -21,8 +24,8 @@ def reconnect_graph():
             session.run("MATCH (n) DETACH DELETE n")
 
             # 2. 데이터 로드 및 정규화
-            nodes_df = pd.read_csv(NODES_CSV)
-            rels_df = pd.read_csv(RELS_CSV)
+            nodes_df = pd.read_csv(paths.nodes_csv)
+            rels_df = pd.read_csv(paths.relationships_csv)
             
             # ID 대문자화 및 공백 제거로 매칭률 극대화
             nodes_df['id'] = nodes_df['id'].str.strip().str.upper()

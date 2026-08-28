@@ -1,13 +1,18 @@
-import os
-from neo4j import GraphDatabase
+from importlib import import_module
+from pathlib import Path
+import sys
 
-# Memgraph Connection
-URI = "bolt+ssc://3.70.13.61:7687"
-USER = "skjh0717@gmail.com"
-PASSWORD = "ssmg25rk$12#"
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+runtime = import_module("dongtan_runtime")
 
 def export_for_google_sheets():
-    driver = GraphDatabase.driver(URI, auth=(USER, PASSWORD))
+    config = runtime.load_cloud_database_config()
+    GraphDatabase = import_module("neo4j").GraphDatabase
+    driver = GraphDatabase.driver(config.uri, **config.driver_kwargs())
     try:
         with driver.session() as session:
             query = "MATCH (n) RETURN n.name as Name, labels(n)[0] as Category, properties(n) as Details"

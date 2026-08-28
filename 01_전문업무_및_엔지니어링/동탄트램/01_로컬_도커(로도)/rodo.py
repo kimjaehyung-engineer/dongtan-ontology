@@ -1,7 +1,14 @@
 import json
+from importlib import import_module
 import sys
-import os
-from neo4j import GraphDatabase
+from pathlib import Path
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+runtime = import_module("dongtan_runtime")
 
 # ==========================================
 # 🤖 [RODO] LOCAL DOCKER GRAPH AGENT
@@ -13,17 +20,7 @@ from neo4j import GraphDatabase
 # 3. 로컬 서버에 Cypher 쿼리 직접 실행
 # ==========================================
 
-# 1. 로컬 접속 정보
-URI = "bolt://localhost:7687"
-USER = ""
-PASSWORD = ""
-
-# 2. 결과 저장 경로 (웹 앱 시각화용 - 내부적으로만 유지)
-OUTPUT_PATH = r"c:\Users\sskjh\antigravity\04_자기계발_및_창작\mindmap-app\public\ontology.json"
-
-# 3. 데이터 소스 경로
-NODES_CSV = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\00_원본_데이터\rfp_nodes.csv"
-RELS_CSV = r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\동탄트램\00_원본_데이터\rfp_relationships.csv"
+SCRIPT_DIR = Path(__file__).resolve().parent
 
 def rodo_reconnect(session):
     """고립된 노드들을 찾아 지능적으로 연결하는 로도의 특수 기능"""
@@ -60,8 +57,11 @@ def rodo_reconnect(session):
     print("RODO: Reconnection completed!")
 
 def rodo_action(command=None, query=None):
+    GraphDatabase = import_module("neo4j").GraphDatabase
+
+    config = runtime.load_local_database_config()
     print(f"--- [RODO] Connecting to Local Docker Memgraph ---")
-    driver = GraphDatabase.driver(URI, auth=(USER, PASSWORD))
+    driver = GraphDatabase.driver(config.uri, **config.driver_kwargs())
     
     try:
         with driver.session() as session:
@@ -96,9 +96,11 @@ def rodo_action(command=None, query=None):
 
 # UTF-8 출력 강제 (윈도우 콘솔 한글 깨짐 방지)
 try:
-    sys.stdout.reconfigure(encoding='utf-8')
+    reconfigure_stdout = getattr(sys.stdout, "reconfigure")
 except AttributeError:
-    pass
+    reconfigure_stdout = None
+if reconfigure_stdout is not None:
+    reconfigure_stdout(encoding="utf-8")
 
 def run_menu():
     while True:
@@ -117,15 +119,15 @@ def run_menu():
             kw = input("\n🔎 검색할 키워드 또는 발생 위치(예: 오산천교, 301): ").strip()
             if kw:
                 print("-" * 70)
-                os.system(f"python rodo_view_v2.py 위치 {kw}")
+                runtime.run_python_script(SCRIPT_DIR, "rodo_view_v2.py", "위치", kw)
                 print("-" * 70)
         elif choice == '2':
             print("-" * 70)
-            os.system("python rodo_export_excel.py")
+            runtime.run_python_script(SCRIPT_DIR, "rodo_export_excel.py")
             print("-" * 70)
         elif choice == '3':
             print("-" * 70)
-            os.system("python rodo_import_v2.py")
+            runtime.run_python_script(SCRIPT_DIR, "rodo_import_v2.py")
             print("-" * 70)
         elif choice == '4':
             print("-" * 70)
