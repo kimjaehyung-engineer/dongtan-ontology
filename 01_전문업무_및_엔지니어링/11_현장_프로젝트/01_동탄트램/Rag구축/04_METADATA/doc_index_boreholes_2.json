@@ -1,0 +1,602 @@
+{
+  "document_name": "기본설계 시추주상도(2공구)_27공.pdf",
+  "total_pages": 30,
+  "total_boreholes": 27,
+  "description": "동탄 도시철도(트램) 기본설계 2공구 본선(DT-1~27, 총 27공) 시추주상도 (CAD 벡터 선화)",
+  "sections": [
+    {
+      "section_id": "DT-1",
+      "title": "DT-1 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-1"
+      ],
+      "keywords": [
+        "DT-1",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 1,
+      "end_page": 2,
+      "elevation_m": 32.82,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-2",
+      "title": "DT-2 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-2"
+      ],
+      "keywords": [
+        "DT-2",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 3,
+      "end_page": 3,
+      "elevation_m": 38.87,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-3",
+      "title": "DT-3 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-3"
+      ],
+      "keywords": [
+        "DT-3",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 4,
+      "end_page": 4,
+      "elevation_m": 42.78,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-4",
+      "title": "DT-4 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-4"
+      ],
+      "keywords": [
+        "DT-4",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 5,
+      "end_page": 5,
+      "elevation_m": 41.6,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-5",
+      "title": "DT-5 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-5"
+      ],
+      "keywords": [
+        "DT-5",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 6,
+      "end_page": 6,
+      "elevation_m": 47.96,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-6",
+      "title": "DT-6 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-6"
+      ],
+      "keywords": [
+        "DT-6",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 7,
+      "end_page": 7,
+      "elevation_m": 61.69,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-7",
+      "title": "DT-7 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-7"
+      ],
+      "keywords": [
+        "DT-7",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 8,
+      "end_page": 8,
+      "elevation_m": 53.58,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-8",
+      "title": "DT-8 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-8"
+      ],
+      "keywords": [
+        "DT-8",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 9,
+      "end_page": 10,
+      "elevation_m": 39.17,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-9",
+      "title": "DT-9 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-9"
+      ],
+      "keywords": [
+        "DT-9",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 11,
+      "end_page": 12,
+      "elevation_m": 42.4,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-10",
+      "title": "DT-10 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-10"
+      ],
+      "keywords": [
+        "DT-10",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 13,
+      "end_page": 13,
+      "elevation_m": 38.51,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-11",
+      "title": "DT-11 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-11"
+      ],
+      "keywords": [
+        "DT-11",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 14,
+      "end_page": 14,
+      "elevation_m": 48.73,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-12",
+      "title": "DT-12 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-12"
+      ],
+      "keywords": [
+        "DT-12",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 15,
+      "end_page": 15,
+      "elevation_m": 48.81,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-13",
+      "title": "DT-13 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-13"
+      ],
+      "keywords": [
+        "DT-13",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 16,
+      "end_page": 16,
+      "elevation_m": 45.35,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-14",
+      "title": "DT-14 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-14"
+      ],
+      "keywords": [
+        "DT-14",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 17,
+      "end_page": 17,
+      "elevation_m": 36.47,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-15",
+      "title": "DT-15 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-15"
+      ],
+      "keywords": [
+        "DT-15",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 18,
+      "end_page": 18,
+      "elevation_m": 34.38,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-16",
+      "title": "DT-16 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-16"
+      ],
+      "keywords": [
+        "DT-16",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 19,
+      "end_page": 19,
+      "elevation_m": 45.34,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-17",
+      "title": "DT-17 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-17"
+      ],
+      "keywords": [
+        "DT-17",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 20,
+      "end_page": 20,
+      "elevation_m": 61.8,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-18",
+      "title": "DT-18 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-18"
+      ],
+      "keywords": [
+        "DT-18",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 21,
+      "end_page": 21,
+      "elevation_m": 64.35,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-19",
+      "title": "DT-19 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-19"
+      ],
+      "keywords": [
+        "DT-19",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 22,
+      "end_page": 22,
+      "elevation_m": 52.79,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-20",
+      "title": "DT-20 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-20"
+      ],
+      "keywords": [
+        "DT-20",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 23,
+      "end_page": 23,
+      "elevation_m": 50.12,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-21",
+      "title": "DT-21 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-21"
+      ],
+      "keywords": [
+        "DT-21",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 24,
+      "end_page": 24,
+      "elevation_m": 44.1,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-22",
+      "title": "DT-22 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-22"
+      ],
+      "keywords": [
+        "DT-22",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 25,
+      "end_page": 25,
+      "elevation_m": 25.64,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-23",
+      "title": "DT-23 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-23"
+      ],
+      "keywords": [
+        "DT-23",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 26,
+      "end_page": 26,
+      "elevation_m": 24.24,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-24",
+      "title": "DT-24 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-24"
+      ],
+      "keywords": [
+        "DT-24",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 27,
+      "end_page": 27,
+      "elevation_m": 23.78,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-25",
+      "title": "DT-25 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-25"
+      ],
+      "keywords": [
+        "DT-25",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 28,
+      "end_page": 28,
+      "elevation_m": 20.39,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-26",
+      "title": "DT-26 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-26"
+      ],
+      "keywords": [
+        "DT-26",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 29,
+      "end_page": 29,
+      "elevation_m": 19.06,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "DT-27",
+      "title": "DT-27 시추주상도 (2공구 본선)",
+      "facility": [
+        "2공구 본선",
+        "DT-27"
+      ],
+      "keywords": [
+        "DT-27",
+        "시추주상도",
+        "2공구",
+        "DT",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 30,
+      "end_page": 30,
+      "elevation_m": 17.04,
+      "content_type": "BOREHOLE_LOG"
+    }
+  ]
+}

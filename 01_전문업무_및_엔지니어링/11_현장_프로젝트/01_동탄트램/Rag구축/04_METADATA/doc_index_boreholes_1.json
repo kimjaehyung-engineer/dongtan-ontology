@@ -1,0 +1,998 @@
+{
+  "document_name": "기본설계 시추주상도(1공구)_45공.pdf",
+  "total_pages": 54,
+  "total_boreholes": 45,
+  "description": "동탄 도시철도(트램) 기본설계 1공구 본선(NH-1~36, 36공) 및 차량기지 부지(GB-1~9, 9공) 총 45개 시추주상도",
+  "sections": [
+    {
+      "section_id": "NH-1",
+      "title": "NH-1 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-1"
+      ],
+      "keywords": [
+        "NH-1",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 1,
+      "end_page": 2,
+      "elevation_m": 21.37,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-2",
+      "title": "NH-2 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-2"
+      ],
+      "keywords": [
+        "NH-2",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 3,
+      "end_page": 3,
+      "elevation_m": 20.53,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-3",
+      "title": "NH-3 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-3"
+      ],
+      "keywords": [
+        "NH-3",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 4,
+      "end_page": 4,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-4",
+      "title": "NH-4 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-4"
+      ],
+      "keywords": [
+        "NH-4",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 5,
+      "end_page": 5,
+      "elevation_m": 26.96,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-5",
+      "title": "NH-5 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-5"
+      ],
+      "keywords": [
+        "NH-5",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 6,
+      "end_page": 6,
+      "elevation_m": 29.5,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-6",
+      "title": "NH-6 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-6"
+      ],
+      "keywords": [
+        "NH-6",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 7,
+      "end_page": 7,
+      "elevation_m": 31.3,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-7",
+      "title": "NH-7 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-7"
+      ],
+      "keywords": [
+        "NH-7",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 8,
+      "end_page": 8,
+      "elevation_m": 36.5,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-8",
+      "title": "NH-8 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-8"
+      ],
+      "keywords": [
+        "NH-8",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 9,
+      "end_page": 9,
+      "elevation_m": 54.26,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-9",
+      "title": "NH-9 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-9"
+      ],
+      "keywords": [
+        "NH-9",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 10,
+      "end_page": 10,
+      "elevation_m": 49.27,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-10",
+      "title": "NH-10 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-10"
+      ],
+      "keywords": [
+        "NH-10",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 11,
+      "end_page": 11,
+      "elevation_m": 46.25,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-11",
+      "title": "NH-11 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-11"
+      ],
+      "keywords": [
+        "NH-11",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 12,
+      "end_page": 12,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-12",
+      "title": "NH-12 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-12"
+      ],
+      "keywords": [
+        "NH-12",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 13,
+      "end_page": 13,
+      "elevation_m": 42.7,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-13",
+      "title": "NH-13 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-13"
+      ],
+      "keywords": [
+        "NH-13",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 14,
+      "end_page": 14,
+      "elevation_m": 35.07,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-14",
+      "title": "NH-14 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-14"
+      ],
+      "keywords": [
+        "NH-14",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 15,
+      "end_page": 16,
+      "elevation_m": 45.92,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-15",
+      "title": "NH-15 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-15"
+      ],
+      "keywords": [
+        "NH-15",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 17,
+      "end_page": 17,
+      "elevation_m": 52.44,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-16",
+      "title": "NH-16 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-16"
+      ],
+      "keywords": [
+        "NH-16",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 18,
+      "end_page": 18,
+      "elevation_m": 48.19,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-17",
+      "title": "NH-17 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-17"
+      ],
+      "keywords": [
+        "NH-17",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 19,
+      "end_page": 19,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-18",
+      "title": "NH-18 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-18"
+      ],
+      "keywords": [
+        "NH-18",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 20,
+      "end_page": 20,
+      "elevation_m": 52.86,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-19",
+      "title": "NH-19 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-19"
+      ],
+      "keywords": [
+        "NH-19",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 21,
+      "end_page": 21,
+      "elevation_m": 64.48,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-20",
+      "title": "NH-20 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-20"
+      ],
+      "keywords": [
+        "NH-20",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 22,
+      "end_page": 22,
+      "elevation_m": 62.38,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-21",
+      "title": "NH-21 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-21"
+      ],
+      "keywords": [
+        "NH-21",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 23,
+      "end_page": 23,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-22",
+      "title": "NH-22 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-22"
+      ],
+      "keywords": [
+        "NH-22",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 24,
+      "end_page": 24,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-23",
+      "title": "NH-23 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-23"
+      ],
+      "keywords": [
+        "NH-23",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 25,
+      "end_page": 25,
+      "elevation_m": 90.56,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-24",
+      "title": "NH-24 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-24"
+      ],
+      "keywords": [
+        "NH-24",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 26,
+      "end_page": 27,
+      "elevation_m": 78.48,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-25",
+      "title": "NH-25 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-25"
+      ],
+      "keywords": [
+        "NH-25",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 28,
+      "end_page": 28,
+      "elevation_m": 59.23,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-26",
+      "title": "NH-26 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-26"
+      ],
+      "keywords": [
+        "NH-26",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 29,
+      "end_page": 29,
+      "elevation_m": 55.66,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-27",
+      "title": "NH-27 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-27"
+      ],
+      "keywords": [
+        "NH-27",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 30,
+      "end_page": 30,
+      "elevation_m": 77.22,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-28",
+      "title": "NH-28 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-28"
+      ],
+      "keywords": [
+        "NH-28",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 31,
+      "end_page": 31,
+      "elevation_m": 63.45,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-29",
+      "title": "NH-29 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-29"
+      ],
+      "keywords": [
+        "NH-29",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 32,
+      "end_page": 32,
+      "elevation_m": 76.68,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-30",
+      "title": "NH-30 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-30"
+      ],
+      "keywords": [
+        "NH-30",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 33,
+      "end_page": 33,
+      "elevation_m": 63.17,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-31",
+      "title": "NH-31 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-31"
+      ],
+      "keywords": [
+        "NH-31",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 34,
+      "end_page": 34,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-32",
+      "title": "NH-32 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-32"
+      ],
+      "keywords": [
+        "NH-32",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 35,
+      "end_page": 35,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-33",
+      "title": "NH-33 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-33"
+      ],
+      "keywords": [
+        "NH-33",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 36,
+      "end_page": 36,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-34",
+      "title": "NH-34 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-34"
+      ],
+      "keywords": [
+        "NH-34",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 37,
+      "end_page": 37,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-35",
+      "title": "NH-35 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-35"
+      ],
+      "keywords": [
+        "NH-35",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 38,
+      "end_page": 38,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "NH-36",
+      "title": "NH-36 시추주상도 (1공구 본선)",
+      "facility": [
+        "1공구 본선",
+        "NH-36"
+      ],
+      "keywords": [
+        "NH-36",
+        "시추주상도",
+        "1공구",
+        "1공구 본선",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 39,
+      "end_page": 39,
+      "elevation_m": null,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "GB-1",
+      "title": "GB-1 시추주상도 (차량기지)",
+      "facility": [
+        "차량기지",
+        "GB-1"
+      ],
+      "keywords": [
+        "GB-1",
+        "시추주상도",
+        "1공구",
+        "차량기지",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 40,
+      "end_page": 41,
+      "elevation_m": 49.05,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "GB-2",
+      "title": "GB-2 시추주상도 (차량기지)",
+      "facility": [
+        "차량기지",
+        "GB-2"
+      ],
+      "keywords": [
+        "GB-2",
+        "시추주상도",
+        "1공구",
+        "차량기지",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 42,
+      "end_page": 42,
+      "elevation_m": 50.6,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "GB-3",
+      "title": "GB-3 시추주상도 (차량기지)",
+      "facility": [
+        "차량기지",
+        "GB-3"
+      ],
+      "keywords": [
+        "GB-3",
+        "시추주상도",
+        "1공구",
+        "차량기지",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 43,
+      "end_page": 43,
+      "elevation_m": 50.63,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "GB-4",
+      "title": "GB-4 시추주상도 (차량기지)",
+      "facility": [
+        "차량기지",
+        "GB-4"
+      ],
+      "keywords": [
+        "GB-4",
+        "시추주상도",
+        "1공구",
+        "차량기지",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 44,
+      "end_page": 45,
+      "elevation_m": 57.63,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "GB-5",
+      "title": "GB-5 시추주상도 (차량기지)",
+      "facility": [
+        "차량기지",
+        "GB-5"
+      ],
+      "keywords": [
+        "GB-5",
+        "시추주상도",
+        "1공구",
+        "차량기지",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 46,
+      "end_page": 47,
+      "elevation_m": 56.45,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "GB-6",
+      "title": "GB-6 시추주상도 (차량기지)",
+      "facility": [
+        "차량기지",
+        "GB-6"
+      ],
+      "keywords": [
+        "GB-6",
+        "시추주상도",
+        "1공구",
+        "차량기지",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 48,
+      "end_page": 49,
+      "elevation_m": 54.83,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "GB-7",
+      "title": "GB-7 시추주상도 (차량기지)",
+      "facility": [
+        "차량기지",
+        "GB-7"
+      ],
+      "keywords": [
+        "GB-7",
+        "시추주상도",
+        "1공구",
+        "차량기지",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 50,
+      "end_page": 51,
+      "elevation_m": 54.74,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "GB-8",
+      "title": "GB-8 시추주상도 (차량기지)",
+      "facility": [
+        "차량기지",
+        "GB-8"
+      ],
+      "keywords": [
+        "GB-8",
+        "시추주상도",
+        "1공구",
+        "차량기지",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 52,
+      "end_page": 52,
+      "elevation_m": 61.45,
+      "content_type": "BOREHOLE_LOG"
+    },
+    {
+      "section_id": "GB-9",
+      "title": "GB-9 시추주상도 (차량기지)",
+      "facility": [
+        "차량기지",
+        "GB-9"
+      ],
+      "keywords": [
+        "GB-9",
+        "시추주상도",
+        "1공구",
+        "차량기지",
+        "N치",
+        "지반표고",
+        "지하수위",
+        "지층"
+      ],
+      "start_page": 53,
+      "end_page": 54,
+      "elevation_m": 68.61,
+      "content_type": "BOREHOLE_LOG"
+    }
+  ]
+}

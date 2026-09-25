@@ -1,0 +1,52 @@
+{
+  "": "http://json-schema.org/draft-07/schema#",
+  "title": "DongtanTramGeotechnicalMetadataSchema",
+  "type": "object",
+  "properties": {
+    "doc_id": {
+      "type": "string"
+    },
+    "project_stage": {
+      "type": "string",
+      "enum": [
+        "기본계획",
+        "기술제안",
+        "실시설계",
+        "공통기준"
+      ]
+    },
+    "category": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "chainage": {
+      "type": "object",
+      "properties": {
+        "start_sta": {
+          "type": "string"
+        },
+        "end_sta": {
+          "type": "string"
+        }
+      }
+    },
+    "geotechnical_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "doc_id",
+    "project_stage",
+    "category",
+    "title"
+  ]
+}

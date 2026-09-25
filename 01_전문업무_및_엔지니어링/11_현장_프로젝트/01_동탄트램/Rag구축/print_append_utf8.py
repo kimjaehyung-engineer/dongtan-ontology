@@ -1,0 +1,7 @@
+import sys
+sys.stdout.reconfigure(encoding="utf-8")
+
+with open(r"c:\Users\sskjh\antigravity\01_전문업무_및_엔지니어링\11_현장_프로젝트\01_동탄트램\Rag구축\extracted.js", "r", encoding="utf-8") as f:
+    js = f.read()
+
+print(js[12100:14300])

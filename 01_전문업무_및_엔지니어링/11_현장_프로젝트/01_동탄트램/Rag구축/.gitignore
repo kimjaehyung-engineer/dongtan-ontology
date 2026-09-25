@@ -1,0 +1,20 @@
+# Large source document binaries (>100MB exceeds GitHub hard limit)
+01_SOURCE_DOCUMENTS/
+90_ARCHIVE/
+*.pdf
+*.dwg
+*.zip
+*.7z
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+server.log
+
+# Secret keys and local caches
+.env
+*.env
+_gemini_files_cache.json
+.playwright-mcp/

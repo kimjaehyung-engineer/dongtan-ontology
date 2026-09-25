@@ -1,0 +1,170 @@
+1831:     if (btnZone && btnField) {
+1832:       if (mode === 'zone') {
+1833:         btnZone.style.background = '#2563eb';
+1834:         btnZone.style.color = '#ffffff';
+1835:         btnZone.style.fontWeight = '600';
+1836:         btnField.style.background = 'transparent';
+1837:         btnField.style.color = 'var(--text-muted, #64748b)';
+1838:         btnField.style.fontWeight = '500';
+1839:       } else {
+1840:         btnField.style.background = '#2563eb';
+1841:         btnField.style.color = '#ffffff';
+1842:         btnField.style.fontWeight = '600';
+1843:         btnZone.style.background = 'transparent';
+1844:         btnZone.style.color = 'var(--text-muted, #64748b)';
+1845:         btnZone.style.fontWeight = '500';
+1846:       }
+1847:     }
+1848:     renderDocTree();
+1849:   }
+1850: 
+1851:   function classifyDoc(docName) {
+1852:     let zone = '05. 기타 및 일반';
+1853:     let field = '기타 · 일반';
+1854: 
+1855:     // Zone
+1856:     if (docName.includes('1공구') || docName.startsWith('NH')) {
+1857:       zone = '01. 1공구 본선';
+1858:     } else if (docName.includes('2공구') || docName.startsWith('DT')) {
+1859:       zone = '02. 2공구 본선';
+1860:     } else if (docName.includes('차량기지') || docName.startsWith('GB') || docName.startsWith('NGB')) {
+1861:       zone = '03. 차량기지';
+1862:     } else if (docName.includes('제안') || docName.includes('증빙') || docName.includes('#3편')) {
+1863:       zone = '04. 기술제안 및 특화';
+1864:     } else if (docName.includes('입찰') || docName.includes('안내서') || docName.includes('과업') || docName.includes('공정표') || docName.includes('총괄')) {
+1865:       zone = '00. 총괄 및 입찰·계약';
+1866:     }
+1867: 
+1868:     // Field
+1869:     if (docName.includes('토질') || docName.includes('지반') || docName.includes('시추') || docName.includes('기초') || docName.includes('비탈면') || docName.includes('가시설') || docName.includes('사면')) {
+1870:       field = '토목 · 지반';
+1871:     } else if (docName.includes('궤도') || docName.includes('분기기') || docName.includes('레일')) {
+1872:       field = '궤도 · 철도';
+1873:     } else if (docName.includes('건축') || docName.includes('정거장') || docName.includes('환승') || docName.includes('검수고') || docName.includes('관리동')) {
+1874:       field = '건축 · 정거장';
+1875:     } else if (docName.includes('신호') || docName.includes('전기') || docName.includes('통신') || docName.includes('전차선') || docName.includes('시스템')) {
+1876:       field = '시스템 (신호/전기/통신)';
+1877:     } else if (docName.includes('입찰') || docName.includes('계약') || docName.includes('총괄')) {
+1878:       field = '총괄 · 계약';
+1879:     }
+1880: 
+1881:     return { zone, field };
+1882:   }
+1883: 
+1884:   async function fetchDocs() {
+1885:     try {
+1886:       const res = await fetch('/api/documents');
+1887:       const docs = await res.json();
+1888:       window.cachedDocs = docs;
+1889:       renderDocTree();
+1890:     } catch(e) {
+1891:       console.error(e);
+1892:     }
+1893:   }
+1894: 
+1895:   function renderDocTree() {
+1896:     const listEl = document.getElementById('docList');
+1897:     if (!listEl) return;
+1898:     listEl.innerHTML = '';
+1899:     const docs = window.cachedDocs || [];
+1900: 
+1901:     const badge = document.getElementById('docCountBadge');
+1902:     if (badge) {
+1903:       badge.innerText = `총 ${docs.length}권 탑재`;
+1904:     }
+1905: 
+1906:     if (docs.length === 0) {
+1907:       listEl.innerHTML = '<div style="font-size:12px; color:var(--text-muted); padding:8px;">등록된 문서가 없습니다.</div>';
+1908:       return;
+1909:     }
+1910: 
+1911:     if (currentDocTreeViewMode === 'zone') {
+1912:       // 1. 공구별 트리
+1913:       const zoneOrder = [
+1914:         '00. 총괄 및 입찰·계약',
+1915:         '01. 1공구 본선',
+1916:         '02. 2공구 본선',
+1917:         '03. 차량기지',
+1918:         '04. 기술제안 및 특화',
+1919:         '05. 기타 및 일반'
+1920:       ];
+1921: 
+1922:       const tree = {};
+1923:       zoneOrder.forEach(z => { tree[z] = {}; });
+1924: 
+1925:       docs.forEach(doc => {
+1926:         const { zone, field } = classifyDoc(doc.name);
+1927:         if (!tree[zone]) tree[zone] = {};
+1928:         if (!tree[zone][field]) tree[zone][field] = [];
+1929:         tree[zone][field].push(doc);
+1930:       });
+1931: 
+1932:       zoneOrder.forEach(zoneName => {
+1933:         const fields = tree[zoneName] || {};
+1934:         let zoneDocCount = 0;
+1935:         Object.values(fields).forEach(arr => { zoneDocCount += arr.length; });
+1936: 
+1937:         // Skip empty folders if 0 documents (except if total docs is small, show populated ones)
+1938:         if (zoneDocCount === 0 && zoneName === '05. 기타 및 일반') return;
+1939: 
+1940:         const folderEl = document.createElement('div');
+1941:         folderEl.className = 'tree-folder' + (zoneDocCount > 0 ? ' open' : '');
+1942: 
+1943:         folderEl.innerHTML = `
+1944:           <div class="folder-header" onclick="this.parentElement.classList.toggle('open')">
+1945:             <span class="folder-arrow">▶</span>
+1946:             <span class="folder-icon">📁</span>
+1947:             <span class="folder-title" title="${zoneName}">${zoneName}</span>
+1948:             <span class="folder-badge">${zoneDocCount}</span>
+1949:           </div>
+1950:           <div class="folder-content"></div>
+1951:         `;
+1952: 
+1953:         const contentEl = folderEl.querySelector('.folder-content');
+1954: 
+1955:         if (zoneDocCount === 0) {
+1956:           contentEl.innerHTML = '<div style="font-size:11px; color:var(--text-muted); padding:4px 8px;">문서 없음</div>';
+1957:         } else {
+1958:           Object.keys(fields).forEach(fieldName => {
+1959:             const docList = fields[fieldName];
+1960:             if (!docList || docList.length === 0) return;
+1961: 
+1962:             const subEl = document.createElement('div');
+1963:             subEl.className = 'tree-subfolder';
+1964:             subEl.innerHTML = `
+1965:               <div class="subfolder-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display==='none'?'flex':'none'">
+1966:                 <span>📂</span>
+1967:                 <span style="flex:1;">${fieldName}</span>
+1968:                 <span style="font-size:10px; opacity:0.7;">(${docList.length})</span>
+1969:               </div>
+1970:               <div class="subfolder-items" style="display:flex; flex-direction:column; gap:3px;"></div>
+1971:             `;
+1972: 
+1973:             const itemsContainer = subEl.querySelector('.subfolder-items');
+1974:             docList.forEach(doc => {
+1975:               itemsContainer.appendChild(createDocItemEl(doc));
+1976:             });
+1977:             contentEl.appendChild(subEl);
+1978:           });
+1979:         }
+1980:         listEl.appendChild(folderEl);
+1981:       });
+1982: 
+1983:     } else {
+1984:       // 2. 분야별 트리
+1985:       const fieldOrder = [
+1986:         '총괄 · 계약',
+1987:         '토목 · 지반',
+1988:         '궤도 · 철도',
+1989:         '건축 · 정거장',
+1990:         '시스템 (신호/전기/통신)',
+1991:         '기타 · 일반'
+1992:       ];
+1993: 
+1994:       const tree = {};
+1995:       fieldOrder.forEach(f => { tree[f] = {}; });
+1996: 
+1997:       docs.forEach(doc => {
+1998:         const { zone, field } = classifyDoc(doc.name);
+1999:         if (!tree[field]) tree[field] = {};
+2000:         if (!tree[field][zone]) tree[field][zone] = [];
