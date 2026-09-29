@@ -134,6 +134,8 @@ def build_master_graph(section=None, risk_only=False):
         is_sec2 = hole.startswith("DT")
 
         # 필터링 조건
+        if section == "proposals":
+            continue
         if section == "1" and not (is_sec1 or is_depot):
             continue
         if section == "depot" and not (is_depot or is_prop_depot):
@@ -224,6 +226,9 @@ def build_master_graph(section=None, risk_only=False):
             k_nodes = cur_k.execute("SELECT id, label, type, description, group_name, facility, doc_name, page, properties FROM knowledge_nodes").fetchall()
             for kn in k_nodes:
                 k_fac = kn["facility"] or ""
+                k_type = kn["type"] or ""
+                if section == "geotech" and "PROPOSAL" in k_type:
+                    continue
                 if section == "1" and "1공구" not in k_fac and "공통" not in k_fac:
                     continue
                 if section == "2" and "2공구" not in k_fac and "공통" not in k_fac:

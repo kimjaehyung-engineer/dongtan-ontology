@@ -1204,7 +1204,8 @@
           document.getElementById('nodeDetailBox').style.display = 'block';
           document.getElementById('nodeDetailLabel').innerText = `[${nodeData.rawType}] ${nodeData.label}`;
           
-          let descHtml = (nodeData.rawDesc || ('ID: ' + nodeData.id)).split(String.fromCharCode(10)).join('<br>');
+          let descHtml = (nodeData.rawDesc || `ID: ${nodeData.id}`).split('
+').join('<br>');
           
           if (raw.type === 'PROPOSAL_DOMAIN') {
             const extraProps = raw.extra || {};

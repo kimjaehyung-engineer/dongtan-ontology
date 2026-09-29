@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-29",
+  "daily_queries": 2,
+  "daily_prompt_tokens": 4998,
+  "daily_candidate_tokens": 619,
+  "daily_cached_tokens": 500,
+  "daily_total_tokens": 5617,
+  "daily_cost_usd": 0.000533,
+  "daily_cost_krw": 0.74,
+  "free_tier_status": "SAFE",
+  "last_error": "",
+  "history": [
+    {
+      "timestamp": "05:19:27",
+      "model": "gemma-4-26b-a4b-it",
+      "prompt_tokens": 3998,
+      "candidate_tokens": 419,
+      "total_tokens": 4417,
+      "cost_usd": 0.000426,
+      "cost_krw": 0.59,
+      "status": "OK",
+      "error_code": null
+    },
+    {
+      "timestamp": "05:15:51",
+      "model": "gemini-3.6-flash",
+      "prompt_tokens": 1000,
+      "candidate_tokens": 200,
+      "total_tokens": 1200,
+      "cost_usd": 0.000107,
+      "cost_krw": 0.15,
+      "status": "OK",
+      "error_code": null
+    }
+  ]
+}

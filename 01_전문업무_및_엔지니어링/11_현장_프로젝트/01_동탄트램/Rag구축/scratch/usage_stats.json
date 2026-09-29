@@ -1,0 +1,25 @@
+{
+  "date": "2026-09-29",
+  "daily_queries": 1,
+  "daily_prompt_tokens": 15000,
+  "daily_candidate_tokens": 850,
+  "daily_cached_tokens": 0,
+  "daily_total_tokens": 15850,
+  "daily_cost_usd": 0.00138,
+  "daily_cost_krw": 1.9,
+  "free_tier_status": "SAFE",
+  "last_error": "",
+  "history": [
+    {
+      "timestamp": "05:08:30",
+      "model": "gemini-3.6-flash",
+      "prompt_tokens": 15000,
+      "candidate_tokens": 850,
+      "total_tokens": 15850,
+      "cost_usd": 0.00138,
+      "cost_krw": 1.9,
+      "status": "OK",
+      "error_code": null
+    }
+  ]
+}

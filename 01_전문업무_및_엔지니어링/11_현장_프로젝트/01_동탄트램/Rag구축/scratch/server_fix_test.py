@@ -9,7 +9,6 @@ import re
 from pathlib import Path
 from http.server import HTTPServer, BaseHTTPRequestHandler, ThreadingHTTPServer
 import socket
-import usage_cost_tracker
 
 PORT = 8080
 DOCS_DIR = Path(__file__).parent / "documents"
@@ -299,8 +298,8 @@ def get_smart_pdf_payload(file_path, query=""):
         with open(file_path, "rb") as f:
             return f.read(), "", False
 
-    if file_size_mb > 5.0 and not (doc_meta and doc_meta.get("sections")):
-        # 5MB 초과 대형 스캔 문서는 15쪽으로 자르지 않고 Google File API 통업로드로 처리
+    if file_size_mb > 20.0 and not (doc_meta and doc_meta.get("sections")):
+        # 20MB 초과 대형 스캔 문서는 15쪽으로 자르지 않고 Google File API 통업로드로 처리
         return None, f"[Google File API 롱컨텍스트] {file_path.name} 전체({round(file_size_mb, 1)}MB) 전수 탐색 모드", False
 
     sections = doc_meta.get("sections", [])
@@ -437,9 +436,9 @@ def get_smart_pdf_payload(file_path, query=""):
     sorted_pages = sorted(list(target_pages))
     sliced_bytes = slice_pdf_pages(file_path, sorted_pages)
 
-    # 1.5MB 초과 시 REST API 인라인 base64 전송 시 503(High Demand/용량초과) 에러가 발생하므로 Google File API 모드로 직결 전환!
-    if len(sliced_bytes) > 1.5 * 1024 * 1024:
-        info_str = f"[Google File API 롱컨텍스트] {', '.join(matched_sections[:6])} 등 총 {len(sorted_pages)}p({round(len(sliced_bytes)/(1024*1024), 1)}MB) 전수 탐색 모드"
+    # 18MB 초과 시 페이지를 강제로 5장으로 줄이지 않고, Google File API 롱컨텍스트 모드로 직결 전환!
+    if len(sliced_bytes) > 18 * 1024 * 1024:
+        info_str = f"[Google File API 롱컨텍스트] {', '.join(matched_sections[:6])} 전체({len(sorted_pages)}p, 18MB 초과)를 자르지 않고 Google 멀티모달 통업로드로 분석합니다."
         return None, info_str, False
 
     info_str = f"[색인 전수 추출] {', '.join(matched_sections[:8])} 등 총 {len(sorted_pages)}페이지 전체를 메모리에서 추출하여 분석합니다."
@@ -536,275 +535,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       overflow: hidden;
       transition: background 0.2s, color 0.2s;
     }
-
-    /* === Gemini API Usage & Cost Monitor Styles === */
-    .usage-monitor-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-main);
-      cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-    .usage-monitor-btn:hover {
-      border-color: var(--accent);
-      background: var(--bg-input);
-      transform: translateY(-1px);
-      box-shadow: 0 3px 8px rgba(37, 99, 235, 0.15);
-    }
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-      flex-shrink: 0;
-    }
-    .status-dot.green {
-      background: #10b981;
-      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
-      animation: pulse-green 2s infinite;
-    }
-    .status-dot.yellow {
-      background: #f59e0b;
-      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
-      animation: pulse-yellow 1.5s infinite;
-    }
-    .status-dot.red {
-      background: #ef4444;
-      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
-      animation: pulse-red 1s infinite;
-    }
-    @keyframes pulse-green {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(1.15); }
-    }
-    @keyframes pulse-yellow {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-    @keyframes pulse-red {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.2); }
-    }
-    .usage-cost-pill {
-      background: #ecfdf5;
-      color: #047857;
-      padding: 1px 6px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 700;
-      border: 1px solid #a7f3d0;
-    }
-    [data-theme="dark"] .usage-cost-pill {
-      background: #064e3b;
-      color: #6ee7b7;
-      border-color: #047857;
-    }
-    .usage-counter-tag {
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    /* Modal Overlay & Dialog */
-    .usage-modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(6px);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      animation: fadeIn 0.2s ease;
-    }
-    .usage-modal-dialog {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 680px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      color: var(--text-main);
-      display: flex;
-      flex-direction: column;
-    }
-    .usage-modal-header {
-      padding: 18px 24px;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .usage-modal-header h2 {
-      font-size: 17px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--heading-color);
-    }
-    .usage-modal-close {
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      color: var(--text-muted);
-      padding: 4px 8px;
-      border-radius: 6px;
-      line-height: 1;
-    }
-    .usage-modal-close:hover {
-      background: var(--border-color);
-      color: var(--text-main);
-    }
-    .usage-modal-body {
-      padding: 20px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .stat-card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-    }
-    .stat-card {
-      background: var(--bg-input);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .stat-card-title {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-    .stat-card-value {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--heading-color);
-    }
-    .stat-card-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-    .quota-progress-container {
-      background: var(--bg-input);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 16px;
-    }
-    .progress-bar-bg {
-      height: 10px;
-      background: var(--border-color);
-      border-radius: 5px;
-      overflow: hidden;
-      margin: 10px 0 6px 0;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 5px;
-      transition: width 0.4s ease, background 0.4s ease;
-    }
-    .info-callout {
-      background: rgba(37, 99, 235, 0.06);
-      border: 1px solid rgba(37, 99, 235, 0.2);
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 12.5px;
-      line-height: 1.6;
-      color: var(--text-main);
-    }
-    [data-theme="dark"] .info-callout {
-      background: rgba(59, 130, 246, 0.1);
-      border-color: rgba(59, 130, 246, 0.25);
-    }
-    .pricing-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-      margin-top: 8px;
-    }
-    .pricing-table th, .pricing-table td {
-      padding: 8px 10px;
-      border: 1px solid var(--border-color);
-      text-align: left;
-    }
-    .pricing-table th {
-      background: var(--table-header-bg);
-      color: var(--table-header-text);
-      font-weight: 600;
-    }
-    .usage-modal-footer {
-      padding: 14px 24px;
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--bg-input);
-      border-radius: 0 0 16px 16px;
-    }
-
-    /* Message Usage Footer */
-    .msg-usage-bar {
-      margin-top: 10px;
-      padding-top: 8px;
-      border-top: 1px dashed var(--border-color);
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-    .msg-usage-chip {
-      background: var(--bg-input);
-      border: 1px solid var(--border-color);
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-weight: 500;
-    }
-    .msg-cost-chip {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      color: #1d4ed8;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: 700;
-    }
-    [data-theme="dark"] .msg-cost-chip {
-      background: #1e3a8a;
-      border-color: #3b82f6;
-      color: #93c5fd;
-    }
-    .quota-warning-banner {
-      background: #fef2f2;
-      border: 1.5px solid #ef4444;
-      border-radius: 8px;
-      padding: 12px 14px;
-      color: #991b1b;
-      margin: 8px 0;
-    }
-    [data-theme="dark"] .quota-warning-banner {
-      background: #450a0a;
-      border-color: #dc2626;
-      color: #fca5a5;
-    }
-
     /* Sidebar */
     #sidebar {
       width: 320px;
@@ -2097,7 +1827,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         </div>
       </div>
       <div style="display: flex; gap: 4px;">
-        <button class="upload-btn" onclick="openRootInExplorer()" style="flex: 1; padding: 8px; font-size: 11px; background: #f8fafc; color: #2563eb; border: 1.5px solid #bfdbfe; font-weight: 600; border-radius: 8px; cursor: pointer;" title="윈도우 탐색기로 상위 폴더 열기">
+        <button class="upload-btn" onclick="openRootInExplorer(event)" style="flex: 1; padding: 8px; font-size: 11px; background: #f8fafc; color: #2563eb; border: 1.5px solid #bfdbfe; font-weight: 600; border-radius: 8px; cursor: pointer;" title="윈도우 탐색기로 상위 폴더 열기">
           📂 윈도우 탐색기 열기
         </button>
         <button onclick="fetchDocs()" style="padding: 8px 12px; font-size: 11px; background: #eff6ff; color: #1d4ed8; border: 1.5px solid #bfdbfe; border-radius: 8px; cursor: pointer; font-weight: 600;" title="폴더 변경사항 즉시 동기화">
@@ -2122,14 +1852,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         <button class="tab-btn" onclick="switchTab('graph')">🌐 지반·공종 지식 그래프 (GraphRAG MVP)</button>
       </div>
       <div style="display: flex; align-items: center; gap: 12px;">
-        <!-- Live Gemini API Quota & Cost Monitor Button -->
-        <button id="usageMonitorBtn" class="usage-monitor-btn" onclick="openUsageModal()" title="Gemini API 무료티어 한도 및 예상 비용 실시간 대시보드">
-          <span id="usageDot" class="status-dot green"></span>
-          <span id="usageTitle">무료티어</span>
-          <span id="usageCounter" class="usage-counter-tag">0/20회</span>
-          <span id="usageCost" class="usage-cost-pill">₩0</span>
-        </button>
-
         <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" title="화면 밝기 전환">
           🌙 다크 모드로 전환
         </button>
@@ -2238,20 +1960,14 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <div id="graphTab" class="tab-content">
       <div class="graph-container">
         <div class="graph-canvas-area">
-          <div class="graph-toolbar" style="display:flex; flex-wrap:wrap; gap:6px; align-items:center;">
-            <span style="font-size: 12px; font-weight: 700; color: var(--text-main); margin-right: 2px;">👁️ 관점:</span>
-            <button class="filter-chip active" onclick="applyGraphFilter('all', false, this)">🌐 전체 통합</button>
-            <button class="filter-chip" onclick="applyGraphFilter('geotech', false, this)">⛏️ 지반·시추공 중심 (77공)</button>
-            <button class="filter-chip" onclick="applyGraphFilter('proposals', false, this)">📋 9대 기술제안 & 인터페이스</button>
-
-            <span style="font-size: 12px; font-weight: 700; color: var(--text-main); margin-left: 10px; margin-right: 2px;">📍 구간:</span>
-            <button class="filter-chip" onclick="applyGraphFilter('depot', false, this)">차량기지</button>
-            <button class="filter-chip" onclick="applyGraphFilter('1', false, this)">1공구(NH)</button>
-            <button class="filter-chip" onclick="applyGraphFilter('2', false, this)">2공구(DT)</button>
-            <button class="filter-chip filter-chip-risk" onclick="applyGraphFilter('all', true, this)">⚠️ 연약층(28공)</button>
-
-            <div style="flex:1;"></div>
-            <button id="freezePhysicsBtn" class="filter-chip active" onclick="togglePhysics(this)" style="font-weight:700; border-color:var(--primary); background:var(--primary); color:#fff;">⏹️ 물리 고정됨 (흔들림 멈춤)</button>
+          <div class="graph-toolbar">
+            <span style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-right: 4px;">구간 필터:</span>
+            <button class="filter-chip active" onclick="applyGraphFilter('all', false, this)">전체 현장 (77공)</button>
+            <button class="filter-chip" onclick="applyGraphFilter('depot', false, this)">차량기지 전체 (GB+NGB)</button>
+            <button class="filter-chip" onclick="applyGraphFilter('prop', false, this)">제안설계 기지 (NGB)</button>
+            <button class="filter-chip" onclick="applyGraphFilter('1', false, this)">1공구 본선 (NH)</button>
+            <button class="filter-chip" onclick="applyGraphFilter('2', false, this)">2공구 본선 (DT)</button>
+            <button class="filter-chip filter-chip-risk" onclick="applyGraphFilter('all', true, this)">⚠️ 연약층 위험구간 (28공)</button>
           </div>
           <div id="graphLoadingOverlay" class="graph-loading" style="display:none;">
             <div class="loading-spinner" style="width:28px; height:28px; border-width:3px;"></div>
@@ -2418,7 +2134,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
   async function changeRootFolder() {
     const currentPath = window.docsRootPath || '';
-    const newPath = prompt("참조할 상위 폴더(루트 경로)를 입력하세요 (하위 모든 폴더/문서 자동 연동):", currentPath);
+    const newPath = prompt("참조할 상위 폴더(루트 경로)를 입력하세요:
+(해당 폴더 아래의 모든 하위 폴더와 파일이 계층 구조 그대로 자동 연동됩니다)", currentPath);
     if (!newPath || !newPath.trim() || newPath.trim() === currentPath) return;
 
     try {
@@ -2429,7 +2146,10 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       });
       const data = await res.json();
       if (data.status === 'ok') {
-        alert("상위 폴더가 설정되었습니다: " + data.docs_root_path);
+        alert("상위 폴더가 설정되었습니다:
+" + data.docs_root_path + "
+
+하위 모든 폴더 및 문서를 다시 스캔합니다.");
         await fetchDocs();
       } else {
         alert("폴더 설정 실패: " + (data.error || '폴더가 존재하지 않거나 접근할 수 없습니다.'));
@@ -2440,7 +2160,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   }
 
   async function openRootInExplorer(event) {
-    const btn = (event && event.currentTarget) ? event.currentTarget : document.querySelector('button[onclick*="openRootInExplorer"]');
+    const btn = event && event.currentTarget ? event.currentTarget : null;
     const oldHtml = btn ? btn.innerHTML : '';
     if (btn) btn.innerHTML = '📂 탐색기 여는 중...';
     try {
@@ -3175,31 +2895,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
         const data = await res.json();
         if (data.error) {
-          const isQuota = data.error.includes("429") || data.error.includes("quota") || data.error.includes("Quota") || data.error.includes("RESOURCE_EXHAUSTED");
-          if (isQuota) {
-            if (botMsgDiv) {
-              botMsgDiv.innerHTML = `
-                <div class="quota-warning-banner">
-                  <div style="font-weight:700; font-size:13.5px; margin-bottom:5px;">⚠️ [Google Gemini API] 무료 티어 일일 한도(20회)에 도달했습니다.</div>
-                  <div style="font-size:12px; line-height:1.5; margin-bottom:10px;">
-                    Google AI Studio 무료 티어 일일 쿼터가 소진되었습니다. 구글 클라우드 결제 계정(유료 종량제)을 연동하시면 제한 없이 초고속으로 계속 이용하실 수 있습니다.<br>
-                    <strong>💡 Gemini Flash 요금은 1회 질의당 약 1.5 ~ 2원 수준으로 매우 저렴합니다.</strong>
-                  </div>
-                  <div style="display:flex; gap:8px;">
-                    <button onclick="openUsageModal()" style="padding:6px 12px; background:#2563eb; color:#fff; border:none; border-radius:6px; font-weight:600; font-size:12px; cursor:pointer;">
-                      💰 예상 비용 및 한도 대시보드 열기
-                    </button>
-                    <a href="https://aistudio.google.com/" target="_blank" style="padding:6px 12px; background:var(--bg-card); color:var(--text-main); border:1px solid var(--border-color); border-radius:6px; font-size:12px; text-decoration:none; display:inline-flex; align-items:center;">
-                      Google AI Studio 결제 설정 ➔
-                    </a>
-                  </div>
-                </div>
-              `;
-            }
-            fetchUsageStats();
-          } else {
-            if (botMsgDiv) botMsgDiv.innerHTML = `<span style="color:#ef4444;">⚠️ 오류: ${data.error}</span>`;
-          }
+          if (botMsgDiv) botMsgDiv.innerHTML = `<span style="color:#ef4444;">⚠️ 오류: ${data.error}</span>`;
         } else {
           let parsedHtml = marked.parse(data.reply);
           parsedHtml = linkifyPageNumbers(parsedHtml);
@@ -3217,37 +2913,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
           };
 
           const traceHtml = buildTraceHtml(traceData);
-          
-          let usageBarHtml = '';
-          if (data.usage && data.usage.query) {
-            const uq = data.usage.query;
-            const ud = data.usage.daily || {};
-            const ptStr = (uq.prompt_tokens || 0).toLocaleString();
-            const ctStr = (uq.candidate_tokens || 0).toLocaleString();
-            const totStr = (uq.total_tokens || 0).toLocaleString();
-            const costKrw = (uq.cost_krw || 0).toFixed(1);
-            const costUsd = (uq.cost_usd || 0).toFixed(4);
-            const tierStatus = ud.free_tier_status || 'SAFE';
-            const tierBadge = tierStatus === 'SAFE' ? '<span style="color:#059669; font-weight:700;">🟢 무료티어 적용 (0원)</span>'
-                            : tierStatus === 'WARNING' ? '<span style="color:#d97706; font-weight:700;">🟡 무료한도 근접</span>'
-                            : '<span style="color:#dc2626; font-weight:700;">🔴 한도초과(유료필요)</span>';
-
-            usageBarHtml = `
-              <div class="msg-usage-bar">
-                <span class="msg-usage-chip">⚡ 토큰: 입력 ${ptStr}p / 출력 ${ctStr}p (총 ${totStr})</span>
-                <span class="msg-cost-chip">💰 유료전환 시 회당 비용: ₩${costKrw} ($${costUsd})</span>
-                <span>${tierBadge}</span>
-                <span style="cursor:pointer; color:var(--accent); text-decoration:underline; margin-left:auto;" onclick="openUsageModal()">
-                  📊 누적 예상: ₩${(ud.cost_krw || 0).toFixed(1)} (${ud.queries || 0}/${ud.limit || 20}회)
-                </span>
-              </div>
-            `;
-            // Update top-nav badge immediately
-            updateUsageUI(ud);
-          }
-
           if (botMsgDiv) {
-            botMsgDiv.innerHTML = traceHtml + parsedHtml + usageBarHtml;
+            botMsgDiv.innerHTML = traceHtml + parsedHtml;
           }
 
           // 자동 탐색된 출처 문서와 우측 뷰어 실시간 연동 (맞춤 근거 섹션 전달)
@@ -3337,34 +3004,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       }
     }
 
-    function togglePhysics(btn) {
-      if (!network) return;
-      const isEnabled = network.physics.physicsEnabled;
-      if (isEnabled) {
-        network.setOptions({ physics: { enabled: false } });
-        if (btn) {
-          btn.innerHTML = '⏹️ 물리 고정됨 (흔들림 멈춤)';
-          btn.style.background = 'var(--primary)';
-          btn.style.color = '#fff';
-        }
-      } else {
-        network.setOptions({ physics: { enabled: true } });
-        if (btn) {
-          btn.innerHTML = '▶️ 물리 재배치 중...';
-          btn.style.background = 'var(--accent-orange, #ea580c)';
-          btn.style.color = '#fff';
-        }
-        setTimeout(() => {
-          network.setOptions({ physics: { enabled: false } });
-          if (btn) {
-            btn.innerHTML = '⏹️ 물리 고정됨 (흔들림 멈춤)';
-            btn.style.background = 'var(--primary)';
-            btn.style.color = '#fff';
-          }
-        }, 2500);
-      }
-    }
-
     function applyGraphFilter(section, riskOnly, btn) {
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       if (btn) btn.classList.add('active');
@@ -3447,52 +3086,26 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       const container = document.getElementById('networkCanvas');
 
       const colorMap = {
-        'BORING': { background: '#ea580c', border: '#c2410c' },
+        'BORING': { background: '#f97316', border: '#ea580c' },
         'STRATUM': { background: '#a16207', border: '#854d0e' },
         'PARAMETER': { background: '#06b6d4', border: '#0891b2' },
-        'DESIGN_ELEMENT': { background: '#2563eb', border: '#1d4ed8' },
+        'DESIGN_ELEMENT': { background: '#3b82f6', border: '#2563eb' },
         'EQUIPMENT': { background: '#8b5cf6', border: '#7c3aed' },
-        'PROPOSAL_HUB': { background: '#7c3aed', border: '#5b21b6' },
-        'PROPOSAL_DOMAIN': { background: '#059669', border: '#047857' },
-        'SPEC': { background: '#4f46e5', border: '#3730a3' },
-        'BOQ': { background: '#0284c7', border: '#0369a1' },
-        'RISK': { background: '#ef4444', border: '#dc2626' },
         'DEFAULT': { background: '#64748b', border: '#475569' }
       };
 
       const nodes = new vis.DataSet(rawNodes.map(n => {
         const col = colorMap[n.type] || colorMap['DEFAULT'];
-        let nodeShape = 'dot';
-        let nodeSize = 14;
-        let fontConf = { color: '#fff', size: 12, face: 'Noto Sans KR' };
-
-        if (n.type === 'PROPOSAL_DOMAIN') {
-          nodeShape = 'box';
-          nodeSize = 22;
-          fontConf = { color: '#fff', size: 12, face: 'Noto Sans KR', bold: true };
-        } else if (n.type === 'PROPOSAL_HUB') {
-          nodeShape = 'diamond';
-          nodeSize = 26;
-          fontConf = { color: '#fff', size: 13, face: 'Noto Sans KR', bold: true };
-        } else if (n.type === 'DESIGN_ELEMENT') {
-          nodeShape = 'ellipse';
-          nodeSize = 20;
-        } else if (n.type === 'BORING') {
-          nodeShape = 'dot';
-          nodeSize = 10;
-        }
-
         return {
           id: n.id,
           label: n.label,
           title: n.description || n.label,
           color: { background: col.background, border: col.border, highlight: { background: '#fff', border: col.border } },
-          font: fontConf,
-          shape: nodeShape,
-          size: nodeSize,
+          font: { color: '#fff', size: 12, face: 'Noto Sans KR' },
+          shape: n.type === 'BORING' ? 'box' : (n.type === 'PARAMETER' ? 'ellipse' : 'dot'),
+          size: n.type === 'DESIGN_ELEMENT' ? 24 : 18,
           rawType: n.type,
-          rawDesc: n.description || '',
-          extra: n.extra || {}
+          rawDesc: n.description || ''
         };
       }));
 
@@ -3521,42 +3134,15 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       const data = { nodes: nodes, edges: edges };
       const options = {
         physics: {
-          enabled: true,
-          solver: 'barnesHut',
-          barnesHut: {
-            gravitationalConstant: -2400,
-            centralGravity: 0.25,
-            springLength: 90,
-            springConstant: 0.04,
-            damping: 0.25,
-            avoidOverlap: 0.35
-          },
-          stabilization: {
-            enabled: true,
-            iterations: 130,
-            updateInterval: 25,
-            fit: true
-          },
-          maxVelocity: 25,
-          minVelocity: 0.5
+          stabilization: true,
+          barnesHut: { gravitationalConstant: -3000, springLength: 120 }
         },
-        interaction: { hover: true, tooltipDelay: 100, dragNodes: true }
+        interaction: { hover: true, tooltipDelay: 100 }
       };
 
       if (network) network.destroy();
       network = new vis.Network(container, data, options);
       window.masterGraphDataSets = { nodes, edges };
-
-      // [물리 안정화 완료 시 즉각 고정: 흔들림/진동 100% 차단]
-      network.once("stabilizationIterationsDone", function () {
-        network.setOptions({ physics: { enabled: false } });
-        const fBtn = document.getElementById('freezePhysicsBtn');
-        if (fBtn) {
-          fBtn.innerHTML = '⏹️ 물리 고정됨 (흔들림 멈춤)';
-          fBtn.style.background = 'var(--primary)';
-          fBtn.style.color = '#fff';
-        }
-      });
 
       network.on("click", function (params) {
         if (params.nodes.length > 0) {
@@ -3566,30 +3152,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
           document.getElementById('nodeDetailBox').style.display = 'block';
           document.getElementById('nodeDetailLabel').innerText = `[${nodeData.rawType}] ${nodeData.label}`;
           
-          let descHtml = (nodeData.rawDesc || ('ID: ' + nodeData.id)).split(String.fromCharCode(10)).join('<br>');
+          let descHtml = (nodeData.rawDesc || `ID: ${nodeData.id}`).split('\\n').join('<br>');
           
-          if (raw.type === 'PROPOSAL_DOMAIN') {
-            const extraProps = raw.extra || {};
-            const items = extraProps.items || [];
-            if (items.length > 0) {
-              descHtml += `<div style="margin-top:14px; border-top:1px solid var(--border-color); padding-top:10px;">
-                <div style="font-weight:700; font-size:13px; margin-bottom:8px; color:var(--text-main);">📑 세부 제안과제 목록 (${items.length}건):</div>
-                <div style="max-height:240px; overflow-y:auto; border:1px solid var(--border-color); border-radius:6px; background:var(--bg-card, #f8fafc);">
-                  <table style="width:100%; border-collapse:collapse; font-size:11px;">
-                    <tbody>`;
-              items.forEach((item, idx) => {
-                descHtml += `
-                  <tr style="border-bottom:1px solid var(--border-subtle); padding:6px;">
-                    <td style="padding:6px; font-weight:700; color:var(--primary); white-space:nowrap;">${item.task_id || ('과제' + (idx+1))}</td>
-                    <td style="padding:6px; line-height:1.4;">${item.title || ''}</td>
-                    <td style="padding:6px; text-align:right; white-space:nowrap;">
-                      <button class="borehole-jump-btn" style="padding:2px 8px; font-size:10px; margin:0;" onclick="openBoreholePdf('${extraProps.doc_name}', ${item.start_page})">p.${item.start_page} 열기</button>
-                    </td>
-                  </tr>`;
-              });
-              descHtml += `</tbody></table></div></div>`;
-            }
-          } else if (raw.type === 'BORING' && raw.doc_name && raw.page) {
+          if (raw.type === 'BORING' && raw.doc_name && raw.page) {
             descHtml += `<div style="margin-top:10px;">
               <button class="borehole-jump-btn" onclick="openBoreholePdf('${raw.doc_name}', ${raw.page})">
                 📄 원본 주상도 열기 (p.${raw.page})
@@ -3610,157 +3175,6 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       });
     }
   </script>
-
-  <!-- Gemini API Quota & Cost Dashboard Modal -->
-  <div id="usageModal" class="usage-modal-overlay" style="display: none;" onclick="handleModalOverlayClick(event)">
-    <div class="usage-modal-dialog">
-      <div class="usage-modal-header">
-        <h2>📊 Google Gemini API 사용량 및 예상 비용 대시보드</h2>
-        <button class="usage-modal-close" onclick="closeUsageModal()" title="닫기">✕</button>
-      </div>
-      <div class="usage-modal-body">
-        
-        <!-- Status Callout -->
-        <div id="quotaStatusCallout" class="info-callout" style="display: flex; align-items: center; justify-content: space-between;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span id="modalStatusDot" class="status-dot green" style="width: 12px; height: 12px;"></span>
-            <div>
-              <strong id="modalStatusTitle" style="font-size: 14px;">무료 티어 정상 작동 중 (과금 0원)</strong>
-              <div id="modalStatusDesc" style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">
-                Google AI Studio 무료 티어 한도 내에서 100% 무료로 동작하며, 사용자 결제 승인 없이 자동 과금되지 않습니다.
-              </div>
-            </div>
-          </div>
-          <span id="modalRemainingBadge" style="font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; background: rgba(16,185,129,0.15); color: #059669; flex-shrink: 0;">
-            잔여 20회
-          </span>
-        </div>
-
-        <!-- Free Tier Quota Progress -->
-        <div class="quota-progress-container">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 13px; font-weight: 600;">오늘 무료 티어 일일 쿼터 현황</span>
-            <span id="modalQuotaText" style="font-size: 12.5px; font-weight: 700;">0 / 20 회 (0%)</span>
-          </div>
-          <div class="progress-bar-bg">
-            <div id="modalProgressBar" class="progress-bar-fill" style="width: 0%; background: #10b981;"></div>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);">
-            <span>• 분당 호출 한도(RPM): <b>15회 / 분</b></span>
-            <span>• 일일 무료 호출(RPD): <b>20회 / 일</b> (초과 시 429 일시정지)</span>
-          </div>
-        </div>
-
-        <!-- Expected Cost Stats (Pay-As-You-Go Simulation) -->
-        <div>
-          <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-            <span>💰 유료 전환 시 예상 청구 금액 (Pay-As-You-Go 시뮬레이션)</span>
-            <span style="font-size: 11px; font-weight: normal; color: var(--text-muted);">(사용량 급증으로 유료 전환 시 과금액)</span>
-          </div>
-          <div class="stat-card-grid">
-            <div class="stat-card">
-              <span class="stat-card-title">오늘 총 예상 비용</span>
-              <span id="modalDailyCostKrw" class="stat-card-value" style="color: #2563eb;">₩0.0</span>
-              <span id="modalDailyCostUsd" class="stat-card-sub">$0.0000 (환율 1,380원)</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-card-title">오늘 누적 토큰</span>
-              <span id="modalDailyTokens" class="stat-card-value">0 토큰</span>
-              <span id="modalTokenDetail" class="stat-card-sub">입력 0 / 출력 0</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-card-title">1회 질의당 평균 비용</span>
-              <span id="modalAvgCost" class="stat-card-value" style="color: #059669;">약 1.8원</span>
-              <span class="stat-card-sub">수백 페이지 대조 기준</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Scenarios -->
-        <div style="background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px 16px;">
-          <div style="font-size: 12.5px; font-weight: 700; margin-bottom: 6px;">💡 사용량 시나리오별 예상 지출 (유료 결제 시)</div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; font-size: 11.5px;">
-            <div style="padding: 6px 10px; background: var(--bg-card); border-radius: 6px; border: 1px solid var(--border-color);">
-              <div>• <b>50회</b> 질의:</div>
-              <div style="font-weight: 700; color: #2563eb; margin-top: 2px;">약 90원 ($0.065)</div>
-            </div>
-            <div style="padding: 6px 10px; background: var(--bg-card); border-radius: 6px; border: 1px solid var(--border-color);">
-              <div>• <b>100회</b> 질의:</div>
-              <div style="font-weight: 700; color: #2563eb; margin-top: 2px;">약 180원 ($0.13)</div>
-            </div>
-            <div style="padding: 6px 10px; background: var(--bg-card); border-radius: 6px; border: 1px solid var(--border-color);">
-              <div>• <b>500회</b> 질의:</div>
-              <div style="font-weight: 700; color: #2563eb; margin-top: 2px;">약 900원 ($0.65)</div>
-            </div>
-            <div style="padding: 6px 10px; background: var(--bg-card); border-radius: 6px; border: 1px solid var(--border-color);">
-              <div>• <b>1,000회</b> 질의:</div>
-              <div style="font-weight: 700; color: #059669; margin-top: 2px;">약 1,800원 ($1.30)</div>
-            </div>
-          </div>
-          <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
-            ※ Gemini Flash는 전 세계 최저가 수준(100만 토큰당 약 100원)으로, 하루 1,000번 질문하더라도 커피 한 잔 값(수천 원)보다 저렴하므로 안심하고 유료 결제를 연결하셔도 됩니다.
-          </div>
-        </div>
-
-        <!-- Official Pricing Table -->
-        <div>
-          <div style="font-size: 12.5px; font-weight: 700; margin-bottom: 4px;">🏷️ 구글 공식 요금 기준표 (Gemini 2.5 / 3.6 Flash)</div>
-          <table class="pricing-table">
-            <thead>
-              <tr>
-                <th>항목</th>
-                <th>100만 토큰당 단가 (USD)</th>
-                <th>원화 환산 (1,380원/$)</th>
-                <th>특징 / 설명</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><b>입력 프롬프트</b></td>
-                <td>$0.075 / 1M</td>
-                <td>약 103.5원</td>
-                <td>사용자 질문 및 참조 PDF 원문</td>
-              </tr>
-              <tr>
-                <td><b>캐시된 컨텍스트</b></td>
-                <td>$0.01875 / 1M</td>
-                <td>약 25.9원</td>
-                <td>Google File API 캐시 적용 시 <b>75% 할인</b></td>
-              </tr>
-              <tr>
-                <td><b>출력 답변</b></td>
-                <td>$0.300 / 1M</td>
-                <td>약 414.0원</td>
-                <td>AI가 작성한 기술 분석 답변</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Safety Assurance -->
-        <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.6; border-left: 3px solid #2563eb; padding-left: 10px;">
-          • <strong>과금 폭탄 방지 안심 가이드:</strong> 무료 티어 키는 20회 초과 시 429 오류만 발생할 뿐 절대 자동 결제되지 않습니다.<br>
-          • <strong>사용량 급증 대비 팁:</strong> Google Cloud 결제 콘솔에서 <strong>'월 5,000원 또는 10,000원 예산 알림(Budget Alert)'</strong>을 설정해 두시면 예기치 못한 비용 발생을 100% 원천 차단할 수 있습니다.
-        </div>
-
-      </div>
-      <div class="usage-modal-footer">
-        <div style="display: flex; gap: 8px;">
-          <a href="https://aistudio.google.com/" target="_blank" style="text-decoration: none; font-size: 12px; color: var(--accent); font-weight: 600;">
-            🔗 AI Studio 콘솔 ➔
-          </a>
-          <span style="color: var(--border-color);">|</span>
-          <a href="https://console.cloud.google.com/billing" target="_blank" style="text-decoration: none; font-size: 12px; color: var(--accent); font-weight: 600;">
-            💳 Google Cloud 결제 콘솔 ➔
-          </a>
-        </div>
-        <button onclick="closeUsageModal()" style="padding: 6px 16px; background: var(--accent); color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">
-          확인
-        </button>
-      </div>
-    </div>
-  </div>
-
 </body>
 </html>
 """
@@ -3772,13 +3186,6 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.end_headers()
             self.wfile.write(HTML_TEMPLATE.encode("utf-8"))
-        elif self.path == "/api/usage" or self.path.startswith("/api/usage"):
-            try:
-                tracker = usage_cost_tracker.get_tracker()
-                self.respond_json(tracker.get_summary())
-            except Exception as e:
-                self.respond_json({"error": str(e)}, 500)
-
         elif self.path.startswith("/api/documents"):
             root = get_configured_docs_root()
             tree_data = scan_folder_tree(root)
@@ -3910,6 +3317,74 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
             except Exception as e:
                 self.respond_json({"error": str(e)}, 500)
 
+        elif self.path == "/api/upload":
+            content_type = self.headers.get('Content-Type', '')
+            if 'multipart/form-data' in content_type:
+                boundary = content_type.split('boundary=')[1].encode()
+                content_len = int(self.headers.get('Content-Length', 0))
+                raw_data = self.rfile.read(content_len)
+                parts = raw_data.split(b'--' + boundary)
+                for part in parts:
+                    if b'filename="' in part:
+                        headers, file_data = part.split(b'\r\n\r\n', 1)
+                        file_data = file_data.rsplit(b'\r\n', 1)[0]
+                        filename = headers.split(b'filename="')[1].split(b'"')[0].decode('utf-8', errors='ignore')
+                        if filename.lower().endswith(('.pdf', '.xlsx', '.csv')):
+                            save_path = DOCS_DIR / filename
+                            with open(save_path, "wb") as out_f:
+                                out_f.write(file_data)
+                            
+                            # 자동 온톨로지 지식망 확장 파이프라인 가동
+                            ingest_data = {}
+                            try:
+                                import knowledge_ingestion
+                                ingest_data = knowledge_ingestion.ingest_file(save_path, api_key=load_env_api_key())
+                            except Exception as e:
+                                print(f"[KnowledgeIngestion] Error: {e}")
+                                ingest_data = {"status": "partial", "message": str(e)}
+
+                            # 24시간 자율 감시 에이전트 백그라운드 즉시 스캔
+                            try:
+                                import threading
+                                import proactive_monitor
+                                threading.Thread(target=proactive_monitor.run_full_scan, daemon=True).start()
+                            except Exception as em:
+                                print(f"[ProactiveMonitor Trigger Error]: {em}")
+
+                            self.respond_json({"status": "uploaded", "filename": filename, "ingest": ingest_data})
+            else:
+                self.send_response(400)
+                self.end_headers()
+
+        elif self.path == "/api/delete":
+            content_len = int(self.headers.get("Content-Length", 0))
+            payload = json.loads(self.rfile.read(content_len).decode("utf-8"))
+            doc_name = payload.get("document")
+            if not doc_name:
+                self.respond_json({"error": "문서명이 지정되지 않았습니다."}, 400)
+                return
+
+            file_path = DOCS_DIR / doc_name
+            if file_path.exists():
+                try:
+                    file_path.unlink()
+                    meta_file = DOCS_DIR / "_metadata_index.json"
+                    if meta_file.exists():
+                        try:
+                            with open(meta_file, "r", encoding="utf-8") as f:
+                                meta_data = json.load(f)
+                            if doc_name in meta_data:
+                                del meta_data[doc_name]
+                                with open(meta_file, "w", encoding="utf-8") as f:
+                                    json.dump(meta_data, f, ensure_ascii=False, indent=2)
+                        except Exception:
+                            pass
+                    self.respond_json({"status": "deleted", "message": f"{doc_name} 삭제 완료"})
+                except Exception as e:
+                    self.respond_json({"error": f"파일 삭제 실패: {str(e)}"}, 500)
+            else:
+                self.respond_json({"error": "해당 문서가 존재하지 않습니다."}, 404)
+
         elif self.path == "/api/chat":
             content_len = int(self.headers.get("Content-Length", 0))
             payload = json.loads(self.rfile.read(content_len).decode("utf-8"))
@@ -3931,14 +3406,6 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                     sql_res = sql_query_engine.generate_and_execute_sql(query)
                     if sql_res and sql_res.get("reply"):
                         print(f" -> [SQL Route Success] Returning {len(sql_res['reply'])} chars")
-                        try:
-                            tracker = usage_cost_tracker.get_tracker()
-                            sql_res["usage"] = tracker.record_usage(
-                                prompt_tokens=0, candidate_tokens=0, cached_tokens=0,
-                                model="Text-to-SQL (Local DB)", status="FREE_LOCAL_SQL"
-                            )
-                        except Exception as ue:
-                            print(f"[Usage Track Error]: {ue}")
                         # SQL 대상 시추공 하이라이트 노드 구성
                         sql_h_nodes = []
                         if "hole_no" in sql_res:
@@ -4015,20 +3482,8 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                         doc_bonus = 0
                         if any(k in query_lower for k in ["보링", "시추", "주상도", "n치", "n<", "n<=", "n=", "연약", "spt", "관입"]):
                             if "주상도" in dn: doc_bonus += 40
-                                                # [신규 9대 전문 기술제안서 정밀 도메인 라우팅 가중치]
-                        if any(k in query_lower for k in ["신호", "cbtc", "atp", "ato", "차상", "지상신호"]) and "신호" in dn: doc_bonus += 80
-                        if any(k in query_lower for k in ["전기", "급전", "충전", "수변전", "전차선"]) and "전기" in dn: doc_bonus += 80
-                        if "변전소" in query_lower and any(d in dn for d in ["전기", "건축", "토질 및 기초", "토목구조", "철도"]): doc_bonus += 40
-                        if any(k in query_lower for k in ["철도", "궤도", "레일", "분기기", "선형", "무도상"]) and "철도" in dn: doc_bonus += 80
-                        if any(k in query_lower for k in ["건축", "캐노피", "디자인", "체험시설", "정거장배치"]) and "건축" in dn: doc_bonus += 80
-                        if any(k in query_lower for k in ["토목구조", "u타입", "지하차도", "기존구조물"]) and "토목구조" in dn: doc_bonus += 80
-                        if any(k in query_lower for k in ["토목시공", "공기단축", "품질관리", "스마트건설"]) and "토목시공" in dn: doc_bonus += 80
-                        if any(k in query_lower for k in ["통신", "lte-r", "영상감시", "cctv", "afc", "mis"]) and "통신" in dn: doc_bonus += 80
-                        if any(k in query_lower for k in ["기계", "소방", "검수설비", "공조", "소화"]) and "기계" in dn: doc_bonus += 80
-                        if any(k in query_lower for k in ["토질", "기초", "지반조사", "비탈면", "가시설"]) and ("토질 및 기초" in dn or "기본설계 기술제안_ 토질" in dn): doc_bonus += 50
-                        if "기술제안" in query_lower and "기본설계 기술제안" in dn: doc_bonus += 25
                         if "입찰안내서" in query_lower and "입찰안내서" in dn: doc_bonus += 60
-                        if ("4편" in query_lower or ("기술제안" in query_lower and not any(f in query_lower for f in ["신호", "전기", "철도", "궤도", "통신", "건축", "기계", "구조", "시공"]))) and "4편" in dn: doc_bonus += 30
+                        if ("기술제안" in query_lower or "4편" in query_lower) and "4편" in dn: doc_bonus += 30
                         if "본선" in query_lower and "본선" in dn: doc_bonus += 15
                         if ("차량기지" in query_lower or "기지" in query_lower) and "차량기지" in dn: doc_bonus += 15
                         if ("3편" in query_lower or "증빙" in query_lower or "기준" in query_lower) and "3편" in dn: doc_bonus += 10
@@ -4087,53 +3542,7 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                                 scored_sections.append((sc, dn, fp, s))
                     
                     scored_sections.sort(key=lambda x: x[0], reverse=True)
-                    
-                    # [다중 공종 복합 융합 RAG] 후보 공종 문서 자동 판별
-                    is_interdisciplinary = any(k in query_lower for k in [
-                        "변전소", "정거장", "301", "114", "107", "201", "차량기지", "기지",
-                        "환승", "전체", "종합", "공종", "인터페이스", "비교"
-                    ]) or ("제안" in query_lower and not any(k in query_lower for k in ["전기만", "건축만", "토질만", "구조만", "통신만"]))
-
-                    def get_domain_key(name):
-                        if "전기" in name: return "전기"
-                        if "건축" in name: return "건축"
-                        if "토질" in name: return "토질 및 기초"
-                        if "토목구조" in name: return "토목구조"
-                        if "토목시공" in name: return "토목시공"
-                        if "철도" in name or "궤도" in name: return "철도·궤도"
-                        if "신호" in name: return "신호"
-                        if "통신" in name: return "통신"
-                        if "기계" in name: return "기계설비"
-                        return name
-
-                    # 동일 공종 중복 배제: 도메인별 최고득점 문서 1개씩 선발
-                    domain_groups = {}
-                    for sc, dn, fp, s in scored_sections:
-                        dom = get_domain_key(dn)
-                        if dom not in domain_groups:
-                            domain_groups[dom] = {"max_score": sc, "doc_name": dn, "file_path": fp, "sections": []}
-                        domain_groups[dom]["sections"].append((sc, s))
-                        if sc > domain_groups[dom]["max_score"]:
-                            domain_groups[dom]["max_score"] = sc
-                            domain_groups[dom]["doc_name"] = dn
-                            domain_groups[dom]["file_path"] = fp
-
-                    sorted_domains = sorted(domain_groups.items(), key=lambda x: x[1]["max_score"], reverse=True)
-                    
-                    use_multi_doc_fusion = False
-                    candidate_docs = []
-                    if scored_sections and is_interdisciplinary:
-                        top_sc = scored_sections[0][0]
-                        min_sc = max(35, int(top_sc * 0.35))
-                        for dom, ddata in sorted_domains:
-                            if ddata["max_score"] >= min_sc and ddata["file_path"].exists():
-                                candidate_docs.append((ddata["doc_name"], ddata["file_path"], ddata["sections"]))
-                                if len(candidate_docs) >= 4:
-                                    break
-                        if len(candidate_docs) >= 2:
-                            use_multi_doc_fusion = True
-
-                    if not use_multi_doc_fusion and scored_sections:
+                    if scored_sections:
                         top_sc, target_doc_name, target_file_path, top_sec = scored_sections[0]
                         target_start_page = top_sec.get("start_page", 1)
                         matched_section_titles = [f"{s.get('title', '')} (p.{s.get('start_page', 1)}~{s.get('end_page', 1)})" for sc, dn, fp, s in scored_sections if dn == target_doc_name][:4]
@@ -4166,190 +3575,14 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                         self.respond_json({"error": "지정된 상위 폴더에 분석할 PDF 문서가 없습니다."}, 404)
                         return
 
-            # [다중 공종 복합 융합 RAG 모드 가동]
-            if use_multi_doc_fusion and candidate_docs:
-                try:
-                    writer = pypdf.PdfWriter()
-                    slice_bullet_list = []
-                    all_matched_titles = []
-                    all_active_sections = []
-                    total_pages_count = 0
-                    doc_short_names = []
-
-                    domain_badges = {
-                        "전기": "⚡", "건축": "🏛️", "토질": "🏗️", "토목구조": "🌉", "구조": "🌉",
-                        "시공": "🚜", "신호": "🚦", "통신": "📡", "철도": "🛤️", "궤도": "🛤️", "기계": "⚙️"
-                    }
-
-                    for dn, fp, d_secs in candidate_docs:
-                        d_secs.sort(key=lambda x: x[0], reverse=True)
-                        badge = "📄"
-                        short_name = dn.replace("기본설계 기술제안_", "").replace(".pdf", "").strip()
-                        for k, b in domain_badges.items():
-                            if k in dn:
-                                badge = b
-                                break
-                        doc_short_names.append(short_name)
-
-                        reader = pypdf.PdfReader(str(fp))
-                        num_pages = len(reader.pages)
-                        doc_page_set = set()
-                        for sc, s in d_secs[:2]:
-                            sp = max(0, s.get("start_page", 1) - 1)
-                            ep = min(num_pages, s.get("end_page", 1))
-                            if ep - sp > 5:
-                                ep = sp + 5
-                            if len(doc_page_set) + (ep - sp) <= 5 or not doc_page_set:
-                                actual_ep = min(ep, sp + (5 - len(doc_page_set))) if len(doc_page_set) > 0 else min(ep, sp + 5)
-                                for p in range(sp, actual_ep):
-                                    doc_page_set.add(p)
-                                all_matched_titles.append(f"[{short_name}] {s.get('title', '')} (p.{sp+1}~{actual_ep})")
-                                all_active_sections.append({
-                                    "title": f"[{short_name}] {s.get('title', '')}",
-                                    "start_page": sp + 1,
-                                    "end_page": actual_ep,
-                                    "section_id": s.get("section_id", "")
-                                })
-
-                        sorted_p = sorted(list(doc_page_set))
-                        if sorted_p:
-                            for p in sorted_p:
-                                writer.add_page(reader.pages[p])
-                            p_range_str = f"p.{sorted_p[0]+1}~{sorted_p[-1]+1}" if len(sorted_p) > 1 else f"p.{sorted_p[0]+1}"
-                            slice_bullet_list.append({
-                                "badge": badge,
-                                "name": dn,
-                                "short": short_name,
-                                "pages": p_range_str
-                            })
-                            total_pages_count += len(sorted_p)
-
-                    out = io.BytesIO()
-                    writer.write(out)
-                    fusion_bytes = out.getvalue()
-                    fusion_b64 = base64.b64encode(fusion_bytes).decode("utf-8")
-
-                    source_notice = (
-                        f"> 🌐 **[다중 공종 복합 융합 탐색]** 질문과 관련된 **{len(candidate_docs)}개 전문 공종 기술제안서**를 교차 발췌하여 다학제 융합 분석을 수행했습니다.\n"
-                        + "\n".join([f"> - {info['badge']} **`{info['name']}`** ({info['pages']})" for info in slice_bullet_list])
-                        + "\n\n"
-                    )
-                    slice_info_str = "\n".join([f"- [{info['short']}]: {info['name']} ({info['pages']})" for info in slice_bullet_list])
-
-                    system_prompt = (
-                        "당신은 철도/토목/건축/전기 복합 융합 엔지니어링 수석 기술감리원 AI입니다.\n"
-                        "제공된 PDF 문서는 질문과 관련된 여러 전문 공종(전기, 건축, 토질 및 기초, 토목구조 등)의 핵심 기술제안서를 교차 발췌한 통합 문서입니다.\n\n"
-                        f"[발췌된 공종별 출처 정보]\n"
-                        f"{slice_info_str}\n\n"
-                        "[핵심 답변 작성 규칙]\n"
-                        "1. [공종별 융합 비교 표(Table) 최우선 제시]:\n"
-                        "   - 맨 위에 공종별 핵심 제안을 비교하는 마크다운 표를 먼저 제시하세요.\n"
-                        "   - 열 구성: | 공종 | 핵심 제안 내용 | 개선 효과 / 주요 수치 (면적/공사비/안정성) | 근거 출처 및 원본 페이지 |\n"
-                        "2. [공종별 상세 핵심 기술제안 심층 서술]:\n"
-                        "   - 표 아래에 공종별 헤더(예: ### 1. ⚡ [전기분야], ### 2. 🏛️ [건축분야], ### 3. 🏗️ [토질 및 기초분야], ### 4. 🌉 [토목구조분야] 등)로 나누어,\n"
-                        "   - 각 공종 제안서에 명시된 구체적 수치(면적 축소 ㎡, 공사비 절감액, 내진/기초 해석 결과, 장비 사양, 편의시설 등)를 100% 팩트 기반으로 상세히 설명하세요.\n"
-                        "   - 각 항목마다 근거 원본 페이지 번호(예: 전기 p.6, 건축 p.17, 토질 p.6 등)를 반드시 명시하세요.\n"
-                        "3. [공종간 인터페이스 및 시너지 종합]:\n"
-                        "   - 마지막에 여러 공종이 어떻게 상호 유기적으로 연계(시너지 및 간섭 방지)되는지 3~4개 항목으로 요약하세요."
-                    )
-
-                    models_to_try = [
-                        "gemini-3.6-flash",
-                        "gemini-3.5-flash-lite",
-                        "gemini-3.8-flash",
-                        "gemma-4-26b-a4b-it",
-                            "gemini-flash-latest"
-                    ]
-                    text = ""
-                    last_error = ""
-                    for model_name in models_to_try:
-                        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-                        req_body = {
-                            "systemInstruction": {"parts": [{"text": system_prompt}]},
-                            "contents": [{
-                                "role": "user",
-                                "parts": [
-                                    {"inline_data": {"mime_type": "application/pdf", "data": fusion_b64}},
-                                    {"text": query}
-                                ]
-                            }],
-                            "generationConfig": {"temperature": 0.2}
-                        }
-                        try:
-                            req = urllib.request.Request(
-                                url,
-                                data=json.dumps(req_body).encode("utf-8"),
-                                headers={"Content-Type": "application/json"}
-                            )
-                            with urllib.request.urlopen(req, timeout=90) as resp:
-                                resp_data = json.loads(resp.read().decode("utf-8"))
-                                text = resp_data["candidates"][0]["content"]["parts"][0]["text"]
-                                break
-                        except Exception as m_err:
-                            last_error = str(m_err)
-                            time.sleep(1.0)
-                            continue
-
-                    if text:
-                        holes_str = ", ".join(list(matched_graph_holes)[:4]) if matched_graph_holes else "전체 구간"
-                        intel_summary = graph_intel.get("summary", "공간/공종 허브 매핑")
-                        rag_h_nodes = [f"bh_{h}" for h in matched_graph_holes]
-                        for sn in doc_short_names:
-                            rag_h_nodes.append(f"hub_prop_{sn}")
-
-                        rag_trace = {
-                            "query": query,
-                            "highlight_nodes": list(set(rag_h_nodes)),
-                            "steps": [
-                                {"step": 1, "icon": "🧠", "title": "질문 의도 분석 및 복합 공종 라우팅", "badge": "다학제 융합 의도 파악", "detail": f"질문 분석 완료: '{query}' ➔ 다중 공종({', '.join(doc_short_names)}) 복합 제안 탐색 모드 가동"},
-                                {"step": 2, "icon": "🌐", "title": "지식 그래프(Graph) 선제 탐색 ➔ 색인 피드백", "badge": "지식망 ➔ 색인 가중치 전달", "detail": f"지식그래프 탐색 완료: [{intel_summary}] 경로 검출 (타겟 시추공: {holes_str}) ➔ 색인 엔진 가중치 전달"},
-                                {"step": 3, "icon": "📂", "title": "다중 기술문서 교차 슬라이싱 & 메모리 병합", "badge": f"{len(candidate_docs)}개 공종 {total_pages_count}쪽 병합", "detail": f"각 공종별 핵심 제안 섹션({', '.join(doc_short_names)}) 정밀 발췌 및 실시간 병합 완료"},
-                                {"step": 4, "icon": "🤖", "title": "Gemini 100만 컨텍스트 두뇌 심층 추론 & 다학제 융합 분석", "badge": "공종별 비교표 & 시너지 도출 완료", "detail": "수백 페이지 전체 원문과 도표를 대조하여 100% 팩트 기반 기술 답변 및 공종간 인터페이스 분석 생성"}
-                            ]
-                        }
-
-                        meta = resp_data.get("usageMetadata", {}) if "resp_data" in locals() and isinstance(resp_data, dict) else {}
-                        pt = meta.get("promptTokenCount", 0)
-                        ct = meta.get("candidatesTokenCount", 0)
-                        try:
-                            tracker = usage_cost_tracker.get_tracker()
-                            u_info = tracker.record_usage(prompt_tokens=pt, candidate_tokens=ct, cached_tokens=0, model=model_name, status="OK")
-                        except Exception:
-                            u_info = None
-
-                        resp_data = {
-                            "reply": source_notice + text,
-                            "source_document": f"다중 공종 복합 제안 ({', '.join(doc_short_names)})",
-                            "source_page": 1,
-                            "matched_sections": all_matched_titles[:6],
-                            "active_sections": all_active_sections[:10],
-                            "trace": rag_trace,
-                            "usage": u_info
-                        }
-                        self.respond_json(resp_data)
-                        return
-                except Exception as fusion_err:
-                    print(f" -> [Multi-Doc Fusion Error]: {fusion_err}")
-
             try:
                 pdf_bytes, info_msg, is_meta_only = get_smart_pdf_payload(target_file_path, query)
                 if is_meta_only:
-                    try:
-                        u_info = usage_cost_tracker.get_tracker().record_usage(
-                            prompt_tokens=0,
-                            candidate_tokens=0,
-                            cached_tokens=0,
-                            model="local-metadata",
-                            status="LOCAL_CACHE"
-                        )
-                    except Exception:
-                        u_info = None
                     self.respond_json({
                         "reply": info_msg,
                         "source_document": target_doc_name,
                         "source_page": target_start_page,
-                        "matched_sections": matched_section_titles,
-                        "usage": u_info
+                        "matched_sections": matched_section_titles
                     })
                     return
                 # 20MB 초과 대형 파일(또는 None)인 경우 Google File API Long-Context 모드 가동
@@ -4377,7 +3610,6 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                             "gemini-3.6-flash",
                             "gemini-3.5-flash-lite",
                             "gemini-3.8-flash",
-                            "gemma-4-26b-a4b-it",
                             "gemini-flash-latest"
                         ]
                         text = ""
@@ -4427,24 +3659,12 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                                 {"step": 4, "icon": "🤖", "title": "Gemini 100만 컨텍스트 두뇌 심층 추론 & 팩트 검증", "badge": "답변 합성 완료", "detail": f"수백 페이지 전체 원문과 도표를 대조하여 100% 팩트 기반 기술 답변 및 원본 페이지 링크 생성"}
                             ]
                         }
-                        try:
-                            meta = getattr(resp, "usage_metadata", None) if "resp" in locals() else None
-                            pt = int(getattr(meta, "prompt_token_count", 0) or 0) if meta else 0
-                            ct = int(getattr(meta, "candidates_token_count", 0) or 0) if meta else 0
-                            cached = int(getattr(meta, "cached_content_token_count", 0) or 0) if meta else 0
-                            tracker = usage_cost_tracker.get_tracker()
-                            u_info = tracker.record_usage(prompt_tokens=pt, candidate_tokens=ct, cached_tokens=cached, model=m_name, status="OK")
-                        except Exception as ue:
-                            print(f"[Usage Track Error]: {ue}", flush=True)
-                            u_info = None
-
                         self.respond_json({
                             "reply": text,
                             "source_document": target_doc_name,
                             "source_page": target_start_page or 1,
                             "matched_sections": matched_section_titles,
-                            "trace": rag_trace,
-                            "usage": u_info
+                            "trace": rag_trace
                         })
                         return
                     except Exception as file_api_err:
@@ -4453,27 +3673,10 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
 
                 pdf_b64 = base64.b64encode(pdf_bytes).decode("utf-8")
 
-                system_prompt = (
-                    "당신은 토목/건축/기계 엔지니어링 현장 기술 시방서 및 설계보고서 전문 감리원/수석 엔지니어 AI입니다.\n"
-                    "제공된 PDF 문서는 전체 원본 문서에서 질문과 관련된 핵심 섹션을 정밀 추출한 발췌본입니다.\n"
-                    f"[문서 발췌 정보 & 도메인 지식]\n"
-                    f"- 추출된 원본 범위: {info_msg}\n"
-                    "- 시추공 약어 기준: GB = 차량기지 시추공, NH = 1공구 본선 시추공, DT = 2공구 본선 시추공.\n"
-                    "- 주상도 서식에 '차량기지'라는 한글 단어 대신 공번 'GB'로 표기되어 있으므로 GB 공번을 차량기지 조사 결과로 정확히 인식하여 분석하세요.\n"
-                    "- 답변 시 발췌본 내부의 임의 페이지가 아닌, 위 [추출된 원본 범위]에 기재된 '원본 페이지 번호(예: p.40, p.44 등)'를 기준으로 인용하여 명시하세요.\n"
-                    "[핵심 답변 규칙 (가독성 & 속도 최적화)]\n"
-                    "1. [정확한 원본 페이지 번호 명시]: 모든 주요 사실과 조항마다 수록된 '정확한 원본 페이지 번호(예: p.87, p.142 등)'를 반드시 명시하세요.\n"
-                    "2. [핵심 요약 표(Table) 우선 제시]: 장황한 줄글 대신, 핵심 내용(항목, 주요 조항/리스크 내용, 근거 페이지, 실무 대응방안)을 마크다운 표로 먼저 일목요연하게 정리하세요.\n"
-                    "3. [두괄식 글머리 기호 서술]: 표 아래에 주요 핵심 포인트를 3~5개 항목의 간결한 글머리 기호(Bullet points)로 요약하세요. 불필요하게 긴 서술은 지양하고 핵심만 압축하세요.\n"
-                    "4. [팩트 기반]: 추측하지 말고 문서에 명시된 사실만을 정확히 인용하세요."
-                )
-
                 models_to_try = [
                     "gemini-3.6-flash",
                     "gemini-3.5-flash-lite",
-                    "gemini-3.8-flash",
-                    "gemma-4-26b-a4b-it",
-                            "gemini-flash-latest"
+                    "gemini-flash-latest"
                 ]
                 last_error = ""
                 text = ""
@@ -4482,7 +3685,22 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
                     req_body = {
                         "systemInstruction": {
-                            "parts": [{"text": system_prompt}]
+                            "parts": [{
+                                "text": (
+                                    "당신은 토목/건축/기계 엔지니어링 현장 기술 시방서 및 설계보고서 전문 감리원/수석 엔지니어 AI입니다.\n"
+                                    "제공된 PDF 문서는 전체 원본 문서에서 질문과 관련된 핵심 섹션을 정밀 추출한 발췌본입니다.\n"
+                                    f"[문서 발췌 정보 & 도메인 지식]\n"
+                                    f"- 추출된 원본 범위: {info_msg}\n"
+                                    "- 시추공 약어 기준: GB = 차량기지 시추공, NH = 1공구 본선 시추공, DT = 2공구 본선 시추공.\n"
+                                    "- 주상도 서식에 '차량기지'라는 한글 단어 대신 공번 'GB'로 표기되어 있으므로 GB 공번을 차량기지 조사 결과로 정확히 인식하여 분석하세요.\n"
+                                    "- 답변 시 발췌본 내부의 임의 페이지가 아닌, 위 [추출된 원본 범위]에 기재된 '원본 페이지 번호(예: p.40, p.44 등)'를 기준으로 인용하여 명시하세요.\n"
+                                    "[핵심 답변 규칙 (가독성 & 속도 최적화)]\n"
+                                    "1. [정확한 원본 페이지 번호 명시]: 모든 주요 사실과 조항마다 수록된 '정확한 원본 페이지 번호(예: p.87, p.142 등)'를 반드시 명시하세요.\n"
+                                    "2. [핵심 요약 표(Table) 우선 제시]: 장황한 줄글 대신, 핵심 내용(항목, 주요 조항/리스크 내용, 근거 페이지, 실무 대응방안)을 마크다운 표로 먼저 일목요연하게 정리하세요.\n"
+                                    "3. [두괄식 글머리 기호 서술]: 표 아래에 주요 핵심 포인트를 3~5개 항목의 간결한 글머리 기호(Bullet points)로 요약하세요. 불필요하게 긴 서술은 지양하고 핵심만 압축하세요.\n"
+                                    "4. [팩트 기반]: 추측하지 말고 문서에 명시된 사실만을 정확히 인용하세요."
+                                )
+                            }]
                         },
                         "contents": [
                             {
@@ -4529,35 +3747,6 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                         time.sleep(0.5)
                         continue
 
-                if not text:
-                    # [Resilience Guard] 인라인 base64 전송 실패(503/용량초과 등) 시 즉시 100만 컨텍스트 Google File API로 자동 폴백
-                    print(f" -> [Inline Base64 Fallback Triggered] Error was: {last_error}")
-                    try:
-                        from google import genai
-                        import gemini_file_manager
-                        client = genai.Client(api_key=api_key)
-                        file_ref = gemini_file_manager.get_or_upload_file(client, target_file_path)
-                        for fb_m in ["gemini-3.6-flash", "gemini-3.5-flash-lite", "gemini-3.8-flash", "gemma-4-26b-a4b-it", "gemini-flash-latest"]:
-                            try:
-                                resp = client.models.generate_content(
-                                    model=fb_m,
-                                    contents=[file_ref, query],
-                                    config=genai.types.GenerateContentConfig(
-                                        system_instruction=system_prompt,
-                                        temperature=0.1
-                                    )
-                                )
-                                if resp and resp.text:
-                                    text = resp.text.strip()
-                                    source_notice = (
-                                        f"> 🚀 **[Google File API 무중단 전환]** API 일시 부하(503)를 자동 극복하고 Google File API 100만 컨텍스트 모드로 답변을 안전하게 합성했습니다.\n\n"
-                                    )
-                                    break
-                            except Exception as fb_err:
-                                last_error = f"[{fb_m}] {str(fb_err)}"
-                    except Exception as fb_outer:
-                        last_error = f"[File API Fallback Failed] {str(fb_outer)}"
-
                 if text:
                     matched_section_objs = [
                         {
@@ -4569,34 +3758,12 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                         for sc, dn, fp, s in scored_sections if dn == target_doc_name
                     ][:10]
 
-                    try:
-                        tracker = usage_cost_tracker.get_tracker()
-                        if "resp" in locals() and hasattr(resp, "usage_metadata"):
-                            meta = resp.usage_metadata
-                            pt = getattr(meta, "prompt_token_count", 0)
-                            ct = getattr(meta, "candidates_token_count", 0)
-                            cached = getattr(meta, "cached_content_token_count", 0)
-                            u_m_name = fb_m if "fb_m" in locals() else "gemini"
-                        elif "resp_data" in locals() and isinstance(resp_data, dict):
-                            meta = resp_data.get("usageMetadata", {})
-                            pt = meta.get("promptTokenCount", 0)
-                            ct = meta.get("candidatesTokenCount", 0)
-                            cached = 0
-                            u_m_name = model_name if "model_name" in locals() else "gemini"
-                        else:
-                            pt, ct, cached, u_m_name = 0, 0, 0, "gemini"
-                        u_info = tracker.record_usage(prompt_tokens=pt, candidate_tokens=ct, cached_tokens=cached, model=u_m_name, status="OK")
-                    except Exception as ue:
-                        print(f"[Usage Track Error]: {ue}")
-                        u_info = None
-
                     resp_data = {
                         "reply": source_notice + text,
                         "source_document": target_doc_name,
                         "source_page": target_start_page,
                         "matched_sections": matched_section_titles,
-                        "active_sections": matched_section_objs,
-                        "usage": u_info
+                        "active_sections": matched_section_objs
                     }
                     self.respond_json(resp_data)
                 else:
@@ -4604,11 +3771,6 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
 
             except urllib.error.HTTPError as e:
                 err_msg = e.read().decode("utf-8", errors="ignore")
-                try:
-                    if e.code == 429:
-                        usage_cost_tracker.get_tracker().mark_quota_exceeded("gemini", err_msg)
-                except Exception:
-                    pass
                 self.respond_json({"error": f"Google Gemini API 에러 ({e.code}): {err_msg}"}, 500)
             except Exception as e:
                 self.respond_json({"error": str(e)}, 500)
@@ -4659,7 +3821,6 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                             "gemini-3.6-flash",
                             "gemini-3.5-flash-lite",
                             "gemini-3.8-flash",
-                            "gemma-4-26b-a4b-it",
                             "gemini-flash-latest"
                         ]
                         text = ""
@@ -4707,23 +3868,12 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                                 {"step": 4, "icon": "🤖", "title": "Gemini 100만 컨텍스트 두뇌 심층 추론 & 팩트 검증", "badge": "답변 합성 완료", "detail": f"수백 페이지 전체 원문과 도표를 대조하여 100% 팩트 기반 기술 답변 및 원본 페이지 링크 생성"}
                             ]
                         }
-                        try:
-                            meta = getattr(resp, "usage_metadata", None) if "resp" in locals() else None
-                            pt = int(getattr(meta, "prompt_token_count", 0) or 0) if meta else 0
-                            ct = int(getattr(meta, "candidates_token_count", 0) or 0) if meta else 0
-                            cached = int(getattr(meta, "cached_content_token_count", 0) or 0) if meta else 0
-                            tracker = usage_cost_tracker.get_tracker()
-                            u_info = tracker.record_usage(prompt_tokens=pt, candidate_tokens=ct, cached_tokens=cached, model=m_name if "m_name" in locals() else "gemini", status="OK")
-                        except Exception as ue:
-                            print(f"[Usage Track Error 2]: {ue}", flush=True)
-                            u_info = None
                         self.respond_json({
                             "reply": text,
                             "source_document": target_doc_name,
                             "source_page": target_start_page or 1,
                             "matched_sections": matched_section_titles,
-                            "trace": rag_trace,
-                            "usage": u_info
+                            "trace": rag_trace
                         })
                         return
                     except Exception as file_api_err:
@@ -4766,8 +3916,7 @@ class SiteRAGHandler(BaseHTTPRequestHandler):
                     "gemini-flash-lite-latest",
                     "gemini-3.5-flash-lite",
                     "gemini-3.1-flash-lite",
-                    "gemma-4-26b-a4b-it",
-                            "gemini-flash-latest"
+                    "gemini-flash-latest"
                 ]
                 raw_text = ""
                 last_error = ""

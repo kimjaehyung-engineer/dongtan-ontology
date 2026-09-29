@@ -92,6 +92,52 @@ def generate_and_execute_sql(query):
         conn.close()
         return format_groundwater_results(rows, target_gw)
 
+    # Pattern 4: Borehole count & quantity (e.g. 1공구 시추공 수, 시추공 수량, 보링공 몇 개, 개소)
+    is_count_query = (
+        re.search(r'(?:시추공|보링공|시추|보링|공번|조사공|구멍)?\s*(?:수|개수|수량|총\s*수|현황|통계|몇\s*개|몇개)', q_lower) is not None
+        or any(k in q_lower for k in ["수량", "개수", "몇 개", "몇개", "총공", "공수", "개소", "총수량", "시추공 수", "보링공 수", "공 수", "몇개소", "얼마나"])
+    ) and any(k in q_lower for k in ["시추", "보링", "공", "공구", "기지", "지반"])
+    if is_count_query:
+        if "1공구" in q_lower or "nh" in q_lower:
+            sql = "SELECT hole_no, facility, page_start, doc_name FROM boreholes WHERE facility LIKE '%1공구%'"
+            target_name = "1공구 본선"
+        elif "2공구" in q_lower or "dt" in q_lower:
+            sql = "SELECT hole_no, facility, page_start, doc_name FROM boreholes WHERE facility LIKE '%2공구%'"
+            target_name = "2공구 본선"
+        elif "차량기지" in q_lower or "기지" in q_lower or "gb" in q_lower:
+            sql = "SELECT hole_no, facility, page_start, doc_name FROM boreholes WHERE facility LIKE '%기지%'"
+            target_name = "차량기지"
+        else:
+            sql = "SELECT hole_no, facility, page_start, doc_name FROM boreholes"
+            target_name = "동탄트램 전 구간"
+
+        cursor.execute(sql)
+        rows = cursor.fetchall()
+        conn.close()
+        
+        count = len(rows)
+        sample_holes = [r["hole_no"] for r in rows[:8]]
+        sample_str = ", ".join(sample_holes)
+        if count > 8:
+            sample_str += f" 외 {count - 8}개소"
+        doc_sample = rows[0]["doc_name"] if rows else "기본설계 시추주상도"
+        page_sample = rows[0]["page_start"] if rows else 1
+
+        reply = (
+            f"📌 [동탄천재 현장 데이터 조회]\n"
+            f"**{target_name} 지반조사 보링공 총 수량은 {count}개소**입니다.\n\n"
+            f"• 주요 시추공번: {sample_str}\n"
+            f"• 근거 문서: {doc_sample} (p.{page_sample} 외)\n\n"
+            f"💡 상세 주상도와 지반단면은 현장 RAG 뷰어에서 확인 가능합니다."
+        )
+        return {
+            "reply": reply,
+            "matched_pages": [r["page_start"] for r in rows if r["page_start"]],
+            "source_document": doc_sample,
+            "source_page": page_sample,
+            "active_sections": [target_name]
+        }
+
     conn.close()
     return None
 

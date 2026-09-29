@@ -24,3 +24,9 @@ __pycache__/
 server.log
 .playwright-mcp/
 *.bak*
+
+# Independent Projects
+08.AI Agents/
+
+cloudflared.exe
+*.exe

@@ -975,34 +975,6 @@
       }
     }
 
-    function togglePhysics(btn) {
-      if (!network) return;
-      const isEnabled = network.physics.physicsEnabled;
-      if (isEnabled) {
-        network.setOptions({ physics: { enabled: false } });
-        if (btn) {
-          btn.innerHTML = '⏹️ 물리 고정됨 (흔들림 멈춤)';
-          btn.style.background = 'var(--primary)';
-          btn.style.color = '#fff';
-        }
-      } else {
-        network.setOptions({ physics: { enabled: true } });
-        if (btn) {
-          btn.innerHTML = '▶️ 물리 재배치 중...';
-          btn.style.background = 'var(--accent-orange, #ea580c)';
-          btn.style.color = '#fff';
-        }
-        setTimeout(() => {
-          network.setOptions({ physics: { enabled: false } });
-          if (btn) {
-            btn.innerHTML = '⏹️ 물리 고정됨 (흔들림 멈춤)';
-            btn.style.background = 'var(--primary)';
-            btn.style.color = '#fff';
-          }
-        }, 2500);
-      }
-    }
-
     function applyGraphFilter(section, riskOnly, btn) {
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       if (btn) btn.classList.add('active');
@@ -1085,52 +1057,26 @@
       const container = document.getElementById('networkCanvas');
 
       const colorMap = {
-        'BORING': { background: '#ea580c', border: '#c2410c' },
+        'BORING': { background: '#f97316', border: '#ea580c' },
         'STRATUM': { background: '#a16207', border: '#854d0e' },
         'PARAMETER': { background: '#06b6d4', border: '#0891b2' },
-        'DESIGN_ELEMENT': { background: '#2563eb', border: '#1d4ed8' },
+        'DESIGN_ELEMENT': { background: '#3b82f6', border: '#2563eb' },
         'EQUIPMENT': { background: '#8b5cf6', border: '#7c3aed' },
-        'PROPOSAL_HUB': { background: '#7c3aed', border: '#5b21b6' },
-        'PROPOSAL_DOMAIN': { background: '#059669', border: '#047857' },
-        'SPEC': { background: '#4f46e5', border: '#3730a3' },
-        'BOQ': { background: '#0284c7', border: '#0369a1' },
-        'RISK': { background: '#ef4444', border: '#dc2626' },
         'DEFAULT': { background: '#64748b', border: '#475569' }
       };
 
       const nodes = new vis.DataSet(rawNodes.map(n => {
         const col = colorMap[n.type] || colorMap['DEFAULT'];
-        let nodeShape = 'dot';
-        let nodeSize = 14;
-        let fontConf = { color: '#fff', size: 12, face: 'Noto Sans KR' };
-
-        if (n.type === 'PROPOSAL_DOMAIN') {
-          nodeShape = 'box';
-          nodeSize = 22;
-          fontConf = { color: '#fff', size: 12, face: 'Noto Sans KR', bold: true };
-        } else if (n.type === 'PROPOSAL_HUB') {
-          nodeShape = 'diamond';
-          nodeSize = 26;
-          fontConf = { color: '#fff', size: 13, face: 'Noto Sans KR', bold: true };
-        } else if (n.type === 'DESIGN_ELEMENT') {
-          nodeShape = 'ellipse';
-          nodeSize = 20;
-        } else if (n.type === 'BORING') {
-          nodeShape = 'dot';
-          nodeSize = 10;
-        }
-
         return {
           id: n.id,
           label: n.label,
           title: n.description || n.label,
           color: { background: col.background, border: col.border, highlight: { background: '#fff', border: col.border } },
-          font: fontConf,
-          shape: nodeShape,
-          size: nodeSize,
+          font: { color: '#fff', size: 12, face: 'Noto Sans KR' },
+          shape: n.type === 'BORING' ? 'box' : (n.type === 'PARAMETER' ? 'ellipse' : 'dot'),
+          size: n.type === 'DESIGN_ELEMENT' ? 24 : 18,
           rawType: n.type,
-          rawDesc: n.description || '',
-          extra: n.extra || {}
+          rawDesc: n.description || ''
         };
       }));
 
@@ -1159,42 +1105,15 @@
       const data = { nodes: nodes, edges: edges };
       const options = {
         physics: {
-          enabled: true,
-          solver: 'barnesHut',
-          barnesHut: {
-            gravitationalConstant: -2400,
-            centralGravity: 0.25,
-            springLength: 90,
-            springConstant: 0.04,
-            damping: 0.25,
-            avoidOverlap: 0.35
-          },
-          stabilization: {
-            enabled: true,
-            iterations: 130,
-            updateInterval: 25,
-            fit: true
-          },
-          maxVelocity: 25,
-          minVelocity: 0.5
+          stabilization: true,
+          barnesHut: { gravitationalConstant: -3000, springLength: 120 }
         },
-        interaction: { hover: true, tooltipDelay: 100, dragNodes: true }
+        interaction: { hover: true, tooltipDelay: 100 }
       };
 
       if (network) network.destroy();
       network = new vis.Network(container, data, options);
       window.masterGraphDataSets = { nodes, edges };
-
-      // [물리 안정화 완료 시 즉각 고정: 흔들림/진동 100% 차단]
-      network.once("stabilizationIterationsDone", function () {
-        network.setOptions({ physics: { enabled: false } });
-        const fBtn = document.getElementById('freezePhysicsBtn');
-        if (fBtn) {
-          fBtn.innerHTML = '⏹️ 물리 고정됨 (흔들림 멈춤)';
-          fBtn.style.background = 'var(--primary)';
-          fBtn.style.color = '#fff';
-        }
-      });
 
       network.on("click", function (params) {
         if (params.nodes.length > 0) {
@@ -1204,30 +1123,9 @@
           document.getElementById('nodeDetailBox').style.display = 'block';
           document.getElementById('nodeDetailLabel').innerText = `[${nodeData.rawType}] ${nodeData.label}`;
           
-          let descHtml = (nodeData.rawDesc || ('ID: ' + nodeData.id)).split(String.fromCharCode(10)).join('<br>');
+          let descHtml = (nodeData.rawDesc || `ID: ${nodeData.id}`).split('\n').join('<br>');
           
-          if (raw.type === 'PROPOSAL_DOMAIN') {
-            const extraProps = raw.extra || {};
-            const items = extraProps.items || [];
-            if (items.length > 0) {
-              descHtml += `<div style="margin-top:14px; border-top:1px solid var(--border-color); padding-top:10px;">
-                <div style="font-weight:700; font-size:13px; margin-bottom:8px; color:var(--text-main);">📑 세부 제안과제 목록 (${items.length}건):</div>
-                <div style="max-height:240px; overflow-y:auto; border:1px solid var(--border-color); border-radius:6px; background:var(--bg-card, #f8fafc);">
-                  <table style="width:100%; border-collapse:collapse; font-size:11px;">
-                    <tbody>`;
-              items.forEach((item, idx) => {
-                descHtml += `
-                  <tr style="border-bottom:1px solid var(--border-subtle); padding:6px;">
-                    <td style="padding:6px; font-weight:700; color:var(--primary); white-space:nowrap;">${item.task_id || ('과제' + (idx+1))}</td>
-                    <td style="padding:6px; line-height:1.4;">${item.title || ''}</td>
-                    <td style="padding:6px; text-align:right; white-space:nowrap;">
-                      <button class="borehole-jump-btn" style="padding:2px 8px; font-size:10px; margin:0;" onclick="openBoreholePdf('${extraProps.doc_name}', ${item.start_page})">p.${item.start_page} 열기</button>
-                    </td>
-                  </tr>`;
-              });
-              descHtml += `</tbody></table></div></div>`;
-            }
-          } else if (raw.type === 'BORING' && raw.doc_name && raw.page) {
+          if (raw.type === 'BORING' && raw.doc_name && raw.page) {
             descHtml += `<div style="margin-top:10px;">
               <button class="borehole-jump-btn" onclick="openBoreholePdf('${raw.doc_name}', ${raw.page})">
                 📄 원본 주상도 열기 (p.${raw.page})
